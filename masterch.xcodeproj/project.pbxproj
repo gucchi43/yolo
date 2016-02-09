@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3289D2341C6A1C3000B4C65A /* SubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */; };
+		3289D2361C6A1C5300B4C65A /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */; };
+		3289D2381C6A1C6000B4C65A /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2371C6A1C6000B4C65A /* LogViewController.swift */; };
+		3289D23A1C6A1C6F00B4C65A /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2391C6A1C6F00B4C65A /* AccountViewController.swift */; };
+		3289D23C1C6A1C8000B4C65A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */; };
+		3289D23E1C6A1CA300B4C65A /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D23D1C6A1CA300B4C65A /* NotificationViewController.swift */; };
 		32C0A33E1C5DF8ED009657B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */; };
 		32C0A3401C5DF8ED009657B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A33F1C5DF8ED009657B9 /* ViewController.swift */; };
 		32C0A3431C5DF8ED009657B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32C0A3411C5DF8ED009657B9 /* Main.storyboard */; };
@@ -34,6 +40,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitViewController.swift; sourceTree = "<group>"; };
+		3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
+		3289D2371C6A1C6000B4C65A /* LogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
+		3289D2391C6A1C6F00B4C65A /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		3289D23D1C6A1CA300B4C65A /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		32C0A33A1C5DF8ED009657B9 /* masterch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = masterch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		32C0A33F1C5DF8ED009657B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +111,12 @@
 			children = (
 				32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */,
 				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
+				3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */,
+				3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */,
+				3289D2371C6A1C6000B4C65A /* LogViewController.swift */,
+				3289D2391C6A1C6F00B4C65A /* AccountViewController.swift */,
+				3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */,
+				3289D23D1C6A1CA300B4C65A /* NotificationViewController.swift */,
 				32C0A3411C5DF8ED009657B9 /* Main.storyboard */,
 				32C0A3441C5DF8ED009657B9 /* Assets.xcassets */,
 				32C0A3461C5DF8ED009657B9 /* LaunchScreen.storyboard */,
@@ -257,6 +275,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				32C0A3401C5DF8ED009657B9 /* ViewController.swift in Sources */,
+				3289D23C1C6A1C8000B4C65A /* SearchViewController.swift in Sources */,
+				3289D23E1C6A1CA300B4C65A /* NotificationViewController.swift in Sources */,
+				3289D2381C6A1C6000B4C65A /* LogViewController.swift in Sources */,
+				3289D23A1C6A1C6F00B4C65A /* AccountViewController.swift in Sources */,
+				3289D2361C6A1C5300B4C65A /* TimeLineViewController.swift in Sources */,
+				3289D2341C6A1C3000B4C65A /* SubmitViewController.swift in Sources */,
 				32C0A33E1C5DF8ED009657B9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -482,6 +506,7 @@
 				32C0A3641C5DF8EE009657B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		32C0A3651C5DF8EE009657B9 /* Build configuration list for PBXNativeTarget "masterchTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +515,7 @@
 				32C0A3671C5DF8EE009657B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		32C0A3681C5DF8EE009657B9 /* Build configuration list for PBXNativeTarget "masterchUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +524,7 @@
 				32C0A36A1C5DF8EE009657B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
