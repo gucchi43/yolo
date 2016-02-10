@@ -118,13 +118,12 @@
                                 <state key="normal" title="today"/>
                                 <connections>
                                     <action selector="toTodayMonthView" destination="nBa-s9-ETM" eventType="touchUpInside" id="nHg-iN-YIn"/>
-                                    <action selector="todayMonthView" destination="nBa-s9-ETM" eventType="touchUpInside" id="dE0-Lv-t5b"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="january" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yD3-Se-jv2">
                                 <rect key="frame" x="272" y="71" width="56" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQd-q8-DHZ" customClass="CVCalendarMenuView" customModule="CVCalendar">
@@ -136,21 +135,20 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMD-II-iDu" customClass="CVCalendarView" customModule="CVCalendar">
                                 <rect key="frame" x="0.0" y="133" width="600" height="365"/>
-                                <color key="backgroundColor" red="0.18202932569999999" green="0.7097251108" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="calendarAppearanceDelegate" destination="nBa-s9-ETM" id="cFY-IP-NZF"/>
                                     <outlet property="calendarDelegate" destination="nBa-s9-ETM" id="Sow-p4-wZx"/>
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OgQ-wM-ZOD">
-                                <rect key="frame" x="212" y="67" width="30" height="30"/>
+                                <rect key="frame" x="125" y="67" width="30" height="30"/>
                                 <state key="normal" title="&lt;"/>
                                 <connections>
                                     <action selector="loadPrevious:" destination="nBa-s9-ETM" eventType="touchUpInside" id="oOd-2k-vEY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VdD-hY-GmY">
-                                <rect key="frame" x="358" y="64" width="30" height="30"/>
+                                <rect key="frame" x="491" y="64" width="30" height="30"/>
                                 <state key="normal" title="&gt;"/>
                                 <connections>
                                     <action selector="loadNext:" destination="nBa-s9-ETM" eventType="touchUpInside" id="Qm7-PA-Pt7"/>
@@ -170,6 +168,7 @@
                             <constraint firstItem="Lfr-Di-hAf" firstAttribute="top" secondItem="Dnd-sc-AwN" secondAttribute="bottom" id="TJp-tB-ze2"/>
                             <constraint firstItem="VdD-hY-GmY" firstAttribute="leading" secondItem="yD3-Se-jv2" secondAttribute="trailing" constant="62" id="Vij-VA-myE"/>
                             <constraint firstItem="DMD-II-iDu" firstAttribute="top" secondItem="CQd-q8-DHZ" secondAttribute="bottom" id="Wal-Pj-mtV"/>
+                            <constraint firstItem="OgQ-wM-ZOD" firstAttribute="leading" secondItem="eY0-6k-Fzt" secondAttribute="trailing" constant="10" id="YII-mW-uot"/>
                             <constraint firstItem="CQd-q8-DHZ" firstAttribute="top" secondItem="yD3-Se-jv2" secondAttribute="bottom" constant="8" symbolic="YES" id="ZP5-EZ-pF3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CQd-q8-DHZ" secondAttribute="trailing" constant="-20" id="baR-40-NEK"/>
                             <constraint firstItem="VdD-hY-GmY" firstAttribute="baseline" secondItem="Lfr-Di-hAf" secondAttribute="baseline" id="bbH-Vk-tcj"/>
@@ -179,14 +178,17 @@
                             <constraint firstItem="eY0-6k-Fzt" firstAttribute="leading" secondItem="9gI-9N-sj7" secondAttribute="trailing" constant="20" id="sWL-ba-69Q"/>
                             <constraint firstItem="DMD-II-iDu" firstAttribute="top" secondItem="lcE-Gj-xO4" secondAttribute="top" constant="133" id="spA-sS-Yau"/>
                             <constraint firstItem="yD3-Se-jv2" firstAttribute="baseline" secondItem="OgQ-wM-ZOD" secondAttribute="baseline" id="tIa-xU-YZq"/>
+                            <constraint firstItem="Lfr-Di-hAf" firstAttribute="leading" secondItem="VdD-hY-GmY" secondAttribute="trailing" constant="10" id="yjL-i5-ddf"/>
                             <constraint firstItem="DMD-II-iDu" firstAttribute="centerX" secondItem="yD3-Se-jv2" secondAttribute="centerX" id="z4t-Jy-ZjT"/>
                             <constraint firstItem="yD3-Se-jv2" firstAttribute="leading" secondItem="OgQ-wM-ZOD" secondAttribute="trailing" constant="52" id="zFX-VY-4fn"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="0bZ-Gx-ESJ"/>
                                 <exclude reference="0fQ-ZK-2ZW"/>
                                 <exclude reference="zFX-VY-4fn"/>
                                 <exclude reference="Vij-VA-myE"/>
+                                <exclude reference="oij-DP-aBY"/>
                             </mask>
                         </variation>
                     </view>
@@ -469,6 +471,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Rhb-CV-hVw"/>
+        <segue reference="uUR-uq-48O"/>
     </inferredMetricsTieBreakers>
 </document>

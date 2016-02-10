@@ -15,7 +15,6 @@ class LogViewController: UIViewController {
     @IBOutlet weak var menuView: CVCalendarMenuView!
     @IBOutlet weak var monthLabel: UILabel!
     
-    var shouldShowDaysOut = true
     var animationFinished = true
     var selectedDay:DayView!
     
@@ -44,10 +43,6 @@ class LogViewController: UIViewController {
     @IBAction func unwindToTop(segue: UIStoryboardSegue) {
         print("back to LogView")
     }
-    
-//    @IBAction func refreshMonth(sender: AnyObject) {
-//        calendarView.contentController.refreshPresentedMonth()
-//    }
 
 }
 
@@ -67,9 +62,6 @@ extension LogViewController: CVCalendarViewDelegate, CVCalendarMenuViewDelegate 
     
     // MARK: Optional methods
     
-    func shouldShowWeekdaysOut() -> Bool {
-        return shouldShowDaysOut
-    }
     
     func shouldAnimateResizing() -> Bool {
         return true // Default value is true
@@ -253,15 +245,6 @@ extension LogViewController: CVCalendarViewAppearanceDelegate {
 // MARK: - IB Actions
 
 extension LogViewController {
-    @IBAction func switchChanged(sender: UISwitch) {
-        if sender.on {
-            calendarView.changeDaysOutShowingState(false)
-            shouldShowDaysOut = true
-        } else {
-            calendarView.changeDaysOutShowingState(true)
-            shouldShowDaysOut = false
-        }
-    }
     
     @IBAction func toTodayMonthView() {
         calendarView.toggleCurrentDayView()
@@ -321,7 +304,3 @@ extension LogViewController {
     }
     
 }
-
-
-
-

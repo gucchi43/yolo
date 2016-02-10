@@ -8,6 +8,7 @@
 
 import UIKit
 import QBImagePickerController
+import NCMB
 
 class SubmitViewController: UIViewController, UITextViewDelegate, QBImagePickerControllerDelegate {
     
