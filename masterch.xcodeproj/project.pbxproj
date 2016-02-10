@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04C30AC7AA0379F36F5D1476 /* Pods_masterch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7F15D8BFB9CDF22DB0B9DB /* Pods_masterch.framework */; };
 		3289D2341C6A1C3000B4C65A /* SubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */; };
 		3289D2361C6A1C5300B4C65A /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */; };
 		3289D2381C6A1C6000B4C65A /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2371C6A1C6000B4C65A /* LogViewController.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E2256B3CACDF72DCE92C372 /* Pods-masterch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.release.xcconfig"; sourceTree = "<group>"; };
 		3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitViewController.swift; sourceTree = "<group>"; };
 		3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
 		3289D2371C6A1C6000B4C65A /* LogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,8 @@
 		32C0A3591C5DF8EE009657B9 /* masterchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = masterchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		32C0A35D1C5DF8EE009657B9 /* masterchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = masterchUITests.swift; sourceTree = "<group>"; };
 		32C0A35F1C5DF8EE009657B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C7F15D8BFB9CDF22DB0B9DB /* Pods_masterch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_masterch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F76BDC2E9259F164E8FD9459 /* Pods-masterch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C30AC7AA0379F36F5D1476 /* Pods_masterch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +98,8 @@
 				32C0A3511C5DF8EE009657B9 /* masterchTests */,
 				32C0A35C1C5DF8EE009657B9 /* masterchUITests */,
 				32C0A33B1C5DF8ED009657B9 /* Products */,
+				CEC453628D657FC50EE0CF04 /* Pods */,
+				4CD99FA0BD808F20067713BE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,12 +118,12 @@
 			children = (
 				32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */,
 				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
-				3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */,
 				3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */,
-				3289D2371C6A1C6000B4C65A /* LogViewController.swift */,
-				3289D2391C6A1C6F00B4C65A /* AccountViewController.swift */,
 				3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */,
+				3289D2371C6A1C6000B4C65A /* LogViewController.swift */,
 				3289D23D1C6A1CA300B4C65A /* NotificationViewController.swift */,
+				3289D2391C6A1C6F00B4C65A /* AccountViewController.swift */,
+				3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */,
 				32C0A3411C5DF8ED009657B9 /* Main.storyboard */,
 				32C0A3441C5DF8ED009657B9 /* Assets.xcassets */,
 				32C0A3461C5DF8ED009657B9 /* LaunchScreen.storyboard */,
@@ -143,6 +150,23 @@
 			path = masterchUITests;
 			sourceTree = "<group>";
 		};
+		4CD99FA0BD808F20067713BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C7F15D8BFB9CDF22DB0B9DB /* Pods_masterch.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CEC453628D657FC50EE0CF04 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F76BDC2E9259F164E8FD9459 /* Pods-masterch.debug.xcconfig */,
+				0E2256B3CACDF72DCE92C372 /* Pods-masterch.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,9 +174,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32C0A3621C5DF8EE009657B9 /* Build configuration list for PBXNativeTarget "masterch" */;
 			buildPhases = (
+				9C17DB9D33887B2FD0DABE99 /* Check Pods Manifest.lock */,
 				32C0A3361C5DF8ED009657B9 /* Sources */,
 				32C0A3371C5DF8ED009657B9 /* Frameworks */,
 				32C0A3381C5DF8ED009657B9 /* Resources */,
+				B49F91C228D071AEFCBE6C62 /* Embed Pods Frameworks */,
+				5C19120892236B4637B6D5C2 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -268,6 +295,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5C19120892236B4637B6D5C2 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-masterch/Pods-masterch-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C17DB9D33887B2FD0DABE99 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B49F91C228D071AEFCBE6C62 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-masterch/Pods-masterch-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		32C0A3361C5DF8ED009657B9 /* Sources */ = {
@@ -419,6 +494,7 @@
 		};
 		32C0A3631C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F76BDC2E9259F164E8FD9459 /* Pods-masterch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = masterch/Info.plist;
@@ -430,6 +506,7 @@
 		};
 		32C0A3641C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E2256B3CACDF72DCE92C372 /* Pods-masterch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = masterch/Info.plist;

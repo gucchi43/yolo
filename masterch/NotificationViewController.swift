@@ -20,6 +20,8 @@ class NotificationViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    @IBAction func unwindToTop(segue: UIStoryboardSegue) {
+        print("back to NotificationView")
+    }
     
 }
