@@ -7,15 +7,15 @@
 //
 
 import UIKit
-import QBImagePickerController
+//import QBImagePickerController
 import NCMB
 
-class SubmitViewController: UIViewController, UITextViewDelegate, QBImagePickerControllerDelegate {
+class SubmitViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet var postTextView: UITextView!
     @IBOutlet var postTextViewHeight: NSLayoutConstraint!
 
-    var imagePickerController: QBImagePickerController = QBImagePickerController()
+//    var imagePickerController: QBImagePickerController = QBImagePickerController()
     
     
     let notificationCenter = NSNotificationCenter.defaultCenter()
@@ -98,15 +98,15 @@ class SubmitViewController: UIViewController, UITextViewDelegate, QBImagePickerC
     }
     // 入力の変更が行わたときの処理
     func textViewDidChange(textView: UITextView) {
-        let maxHeight: Float = 80.0  // 入力フィールドの最大サイズ
-        if postTextView.frame.size.height.native < maxHeight {
-            let size:CGSize = postTextView.sizeThatFits(postTextView.frame.size)
-            postTextViewHeight.constant = size.height
-        }
+//        let maxHeight: Float = 80.0  // 入力フィールドの最大サイズ
+//        if postTextView.frame.size.height.native < maxHeight {
+//            let size:CGSize = postTextView.sizeThatFits(postTextView.frame.size)
+//            postTextViewHeight.constant = size.height
+//        }
     }
     //　カメラボタンをプッシュ
     @IBAction func changePhoto(sender: UIButton) {
-        self.presentViewController(self.imagePickerController, animated: true, completion: nil)
+//        self.presentViewController(self.imagePickerController, animated: true, completion: nil)
         print("カメラボタン押した")
     }
     

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="crh-pw-A6b">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="crh-pw-A6b">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -20,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="84"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fRe-k3-1RX" id="HKm-HE-M7x">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="83.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -104,9 +105,9 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="january" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yD3-Se-jv2">
-                                <rect key="frame" x="272" y="71" width="56" height="21"/>
+                                <rect key="frame" x="272" y="71.5" width="56" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQd-q8-DHZ" customClass="CVCalendarMenuView" customModule="CVCalendar">
@@ -117,7 +118,11 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMD-II-iDu" customClass="CVCalendarView" customModule="CVCalendar">
-                                <rect key="frame" x="0.0" y="133" width="600" height="365"/>
+                                <rect key="frame" x="0.0" y="133" width="600" height="600"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="DMD-II-iDu" secondAttribute="height" multiplier="1:1" id="lpV-eg-H5M"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="calendarAppearanceDelegate" destination="nBa-s9-ETM" id="cFY-IP-NZF"/>
                                     <outlet property="calendarDelegate" destination="nBa-s9-ETM" id="Sow-p4-wZx"/>
@@ -138,10 +143,9 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="Lfr-Di-hAf" secondAttribute="trailing" constant="10" id="0Ju-QY-K5R"/>
-                            <constraint firstItem="yD3-Se-jv2" firstAttribute="leading" secondItem="OgQ-wM-ZOD" secondAttribute="trailing" constant="30" id="0bZ-Gx-ESJ"/>
-                            <constraint firstItem="yD3-Se-jv2" firstAttribute="leading" secondItem="OgQ-wM-ZOD" secondAttribute="trailing" constant="52" id="0fQ-ZK-2ZW"/>
                             <constraint firstItem="0KA-E5-sh5" firstAttribute="top" secondItem="DMD-II-iDu" secondAttribute="bottom" constant="53" id="0jW-4W-u6y"/>
                             <constraint firstItem="Lfr-Di-hAf" firstAttribute="baseline" secondItem="9gI-9N-sj7" secondAttribute="baseline" id="0sL-DF-FSQ"/>
                             <constraint firstItem="CQd-q8-DHZ" firstAttribute="top" secondItem="Dnd-sc-AwN" secondAttribute="bottom" constant="36" id="2W0-SO-GOo"/>
@@ -149,7 +153,6 @@
                             <constraint firstItem="DMD-II-iDu" firstAttribute="leading" secondItem="lcE-Gj-xO4" secondAttribute="leadingMargin" constant="-20" id="I6A-7x-as7"/>
                             <constraint firstItem="Lfr-Di-hAf" firstAttribute="baseline" secondItem="eY0-6k-Fzt" secondAttribute="baseline" id="Mgn-N1-iDW"/>
                             <constraint firstItem="Lfr-Di-hAf" firstAttribute="top" secondItem="Dnd-sc-AwN" secondAttribute="bottom" id="TJp-tB-ze2"/>
-                            <constraint firstItem="VdD-hY-GmY" firstAttribute="leading" secondItem="yD3-Se-jv2" secondAttribute="trailing" constant="62" id="Vij-VA-myE"/>
                             <constraint firstItem="DMD-II-iDu" firstAttribute="top" secondItem="CQd-q8-DHZ" secondAttribute="bottom" id="Wal-Pj-mtV"/>
                             <constraint firstItem="OgQ-wM-ZOD" firstAttribute="leading" secondItem="eY0-6k-Fzt" secondAttribute="trailing" constant="10" id="YII-mW-uot"/>
                             <constraint firstItem="CQd-q8-DHZ" firstAttribute="top" secondItem="yD3-Se-jv2" secondAttribute="bottom" constant="8" symbolic="YES" id="ZP5-EZ-pF3"/>
@@ -157,21 +160,15 @@
                             <constraint firstItem="VdD-hY-GmY" firstAttribute="baseline" secondItem="Lfr-Di-hAf" secondAttribute="baseline" id="bbH-Vk-tcj"/>
                             <constraint firstItem="eY0-6k-Fzt" firstAttribute="leading" secondItem="lcE-Gj-xO4" secondAttribute="leading" constant="71" id="k9C-QT-C1M"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DMD-II-iDu" secondAttribute="trailing" constant="-20" id="lM6-zu-wvs"/>
-                            <constraint firstItem="VdD-hY-GmY" firstAttribute="leading" secondItem="yD3-Se-jv2" secondAttribute="trailing" constant="30" id="oij-DP-aBY"/>
                             <constraint firstItem="eY0-6k-Fzt" firstAttribute="leading" secondItem="9gI-9N-sj7" secondAttribute="trailing" constant="20" id="sWL-ba-69Q"/>
                             <constraint firstItem="DMD-II-iDu" firstAttribute="top" secondItem="lcE-Gj-xO4" secondAttribute="top" constant="133" id="spA-sS-Yau"/>
                             <constraint firstItem="yD3-Se-jv2" firstAttribute="baseline" secondItem="OgQ-wM-ZOD" secondAttribute="baseline" id="tIa-xU-YZq"/>
                             <constraint firstItem="Lfr-Di-hAf" firstAttribute="leading" secondItem="VdD-hY-GmY" secondAttribute="trailing" constant="10" id="yjL-i5-ddf"/>
                             <constraint firstItem="DMD-II-iDu" firstAttribute="centerX" secondItem="yD3-Se-jv2" secondAttribute="centerX" id="z4t-Jy-ZjT"/>
-                            <constraint firstItem="yD3-Se-jv2" firstAttribute="leading" secondItem="OgQ-wM-ZOD" secondAttribute="trailing" constant="52" id="zFX-VY-4fn"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="0bZ-Gx-ESJ"/>
-                                <exclude reference="0fQ-ZK-2ZW"/>
-                                <exclude reference="zFX-VY-4fn"/>
-                                <exclude reference="Vij-VA-myE"/>
-                                <exclude reference="oij-DP-aBY"/>
+                                <exclude reference="0jW-4W-u6y"/>
                             </mask>
                         </variation>
                     </view>
@@ -454,6 +451,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="c6M-eA-nIf"/>
+        <segue reference="uUR-uq-48O"/>
     </inferredMetricsTieBreakers>
 </document>
