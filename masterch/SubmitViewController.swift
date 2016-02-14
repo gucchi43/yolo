@@ -115,11 +115,25 @@ class SubmitViewController: UIViewController, UITextViewDelegate, QBImagePickerC
     }
     
     // 投稿ボタンプッシュ
-    @IBAction func sendButtonTap(sender: UIButton) {
+    @IBAction func postButtonTap(sender: UIButton) {
         print("投稿ボタン押した")
+        
+        self.addPost(postTextView.text)
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    
+    // 投稿機能メソッド
+    func addPost(postText: String) {
+        
+        let postObject = NCMBObject(className: "Post")
+        
+        postObject.setObject(postText,forKey:"text")
+        print(postText)
 
+        postObject.saveInBackgroundWithBlock({(error) in
+            if error != nil {print("Save error : ",error)}
+        })
+    }
     
 }

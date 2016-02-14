@@ -323,7 +323,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="投稿"/>
                                             <connections>
-                                                <action selector="sendButtonTap:" destination="0ZQ-B6-RFa" eventType="touchUpInside" id="Vmv-hs-aAv"/>
+                                                <action selector="postButtonTap:" destination="0ZQ-B6-RFa" eventType="touchUpInside" id="vMk-fH-Jkq"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
