@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		04C30AC7AA0379F36F5D1476 /* Pods_masterch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7F15D8BFB9CDF22DB0B9DB /* Pods_masterch.framework */; };
+		3219A2371C70468900D1A6AF /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3219A2351C70468900D1A6AF /* CustomTableViewCell.swift */; };
+		3219A2381C70468900D1A6AF /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3219A2361C70468900D1A6AF /* CustomTableViewCell.xib */; };
 		3289D2341C6A1C3000B4C65A /* SubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */; };
 		3289D2361C6A1C5300B4C65A /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */; };
 		3289D2381C6A1C6000B4C65A /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2371C6A1C6000B4C65A /* LogViewController.swift */; };
@@ -42,6 +44,8 @@
 
 /* Begin PBXFileReference section */
 		0E2256B3CACDF72DCE92C372 /* Pods-masterch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.release.xcconfig"; sourceTree = "<group>"; };
+		3219A2351C70468900D1A6AF /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		3219A2361C70468900D1A6AF /* CustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 		3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitViewController.swift; sourceTree = "<group>"; };
 		3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
 		3289D2371C6A1C6000B4C65A /* LogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +134,8 @@
 				32C0A3461C5DF8ED009657B9 /* LaunchScreen.storyboard */,
 				32C0A3491C5DF8ED009657B9 /* Info.plist */,
 				3289D2791C6BA1B300B4C65A /* masterch-Bridging-Header.h */,
+				3219A2351C70468900D1A6AF /* CustomTableViewCell.swift */,
+				3219A2361C70468900D1A6AF /* CustomTableViewCell.xib */,
 			);
 			path = masterch;
 			sourceTree = "<group>";
@@ -278,6 +284,7 @@
 			files = (
 				32C0A3481C5DF8ED009657B9 /* LaunchScreen.storyboard in Resources */,
 				32C0A3451C5DF8ED009657B9 /* Assets.xcassets in Resources */,
+				3219A2381C70468900D1A6AF /* CustomTableViewCell.xib in Resources */,
 				32C0A3431C5DF8ED009657B9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3219A2371C70468900D1A6AF /* CustomTableViewCell.swift in Sources */,
 				32C0A3401C5DF8ED009657B9 /* ViewController.swift in Sources */,
 				3289D23C1C6A1C8000B4C65A /* SearchViewController.swift in Sources */,
 				3289D23E1C6A1CA300B4C65A /* NotificationViewController.swift in Sources */,
@@ -501,6 +509,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = masterch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yamanakafumiya.masterch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -517,6 +526,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = masterch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yamanakafumiya.masterch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
