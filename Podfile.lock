@@ -1,0 +1,24 @@
+PODS:
+  - CVCalendar (1.2.8)
+  - NCMB (2.2.5)
+
+DEPENDENCIES:
+  - CVCalendar (~> 1.2.8)
+  - NCMB (from `https://github.com/NIFTYCloud-mbaas/ncmb_ios.git`)
+
+EXTERNAL SOURCES:
+  NCMB:
+    :git: https://github.com/NIFTYCloud-mbaas/ncmb_ios.git
+
+CHECKOUT OPTIONS:
+  NCMB:
+    :commit: e54a0f37cd98d642299acb9559c7f3bbbd44fd4a
+    :git: https://github.com/NIFTYCloud-mbaas/ncmb_ios.git
+
+SPEC CHECKSUMS:
+  CVCalendar: b7eda65b57b7ca6efae7c3d123a163882b3a3595
+  NCMB: 22f8938d950df3e7c89a3afc7e4007b8b9d5c773
+
+PODFILE CHECKSUM: 8915fed9c45bf9618258de7b61cd4c9416c55288
+
+COCOAPODS: 1.0.0.beta.3
