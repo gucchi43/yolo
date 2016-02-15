@@ -35,6 +35,7 @@
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="postImageView" destination="mb4-mP-jmC" id="Ztv-F1-IUB"/>
                 <outlet property="postTextLabel" destination="c0s-fH-X6K" id="5hz-gq-lKI"/>
             </connections>
             <point key="canvasLocation" x="258" y="278"/>
