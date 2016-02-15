@@ -42,13 +42,15 @@ class TimeLineTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
+    
 //    cellの数
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count
     }
+    
 //    選択した時のメソッド
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print(" セルの選択")
+        print("セルの選択")
         
     }
 //    cellの設定メソッド
@@ -60,8 +62,24 @@ class TimeLineTableViewController: UITableViewController {
         
 //        textLabelには(key: "text")の値を入れる
         cell.postTextLabel.text = postData.objectForKey("text") as? String
+        
+//        画像データの取得
+        if postData.objectForKey("image1") != nil { // 複数投稿の時にはどうにかしたいコード(if文)
+            let fileName: String = (postData.objectForKey("image1") as? String)!
+            let fileData = NCMBFile.fileWithName(fileName, data: nil) as! NCMBFile
 
+            fileData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+                if error != nil {
+                    print("写真の取得失敗: \(error)")
+                } else {
+                    cell.postImageView.image = UIImage(data: imageData!)
+                }
+            }
+        }
+
+//        TableView にある特定の Cell を選択不可にする
         cell.selectionStyle = UITableViewCellSelectionStyle.None
+//        TableView にある特定の Cell のアクセサリーをつけない
         cell.accessoryType = UITableViewCellAccessoryType.None
         
         return cell
@@ -74,7 +92,7 @@ class TimeLineTableViewController: UITableViewController {
     
 //    postDataの取得メソッド
     func getPostData() {
-
+//        query作成
         let postQuery: NCMBQuery = NCMBQuery(className: "Post")
         postQuery.orderByDescending("createDate") // cellの並べ方
         postQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
@@ -85,13 +103,11 @@ class TimeLineTableViewController: UITableViewController {
                     
                     //テーブルビューをリロードする
                     self.postTableView.reloadData()
-                    
                 }
             } else {
                 print(error.localizedDescription)
             }
         })
-        
     }
     
 }

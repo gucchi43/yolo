@@ -7,19 +7,19 @@
 //
 
 import UIKit
-//import QBImagePickerController
 import NCMB
 
-class SubmitViewController: UIViewController, UITextViewDelegate {
+class SubmitViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet var postTextView: UITextView!
     @IBOutlet var postTextViewHeight: NSLayoutConstraint!
-
-//    var imagePickerController: QBImagePickerController = QBImagePickerController()
-    
     
     let notificationCenter = NSNotificationCenter.defaultCenter()
     var isObserving = false
+    
+    @IBOutlet var submitPostImageView: UIImageView!
+ 
+    var postImage1: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +30,10 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         
     }
     
-    // Viewが画面に表示される度に呼ばれるメソッド
+//     Viewが画面に表示される度に呼ばれるメソッド
     override func viewWillAppear(animated: Bool) {
         if !isObserving {
-            // NSNotificationCenterへの登録処理
+//             NSNotificationCenterへの登録処理
             let notificationCenter = NSNotificationCenter.defaultCenter()
             notificationCenter.addObserver(self, selector: "showKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
             notificationCenter.addObserver(self, selector: "hideKeyboard:", name: UIKeyboardWillHideNotification, object: nil)
@@ -41,11 +41,11 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    // Viewが非表示になるたびに呼び出されるメソッド
+//     Viewが非表示になるたびに呼び出されるメソッド
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         if isObserving {
-            // NSNotificationCenterの解除処理
+//             NSNotificationCenterの解除処理
             let notificationCenter = NSNotificationCenter.defaultCenter()
             notificationCenter.removeObserver(self)
             notificationCenter.removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
@@ -64,22 +64,22 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         postTextView.resignFirstResponder()
     }
     
-    //キーボードのreturnが押された際にキーボードを閉じる処理
+//    キーボードのreturnが押された際にキーボードを閉じる処理
     func textViewShouldReturn(textView: UITextView) -> Bool {
         postTextView.resignFirstResponder()
         self.textViewDidChange(postTextView)
-        // itemMemo.resignFirstResponder()
+//         itemMemo.resignFirstResponder() <- これ何か後で調べる
         return true
     }
     
-    //textViewを編集する際に行われる処理
+//    textViewを編集する際に行われる処理
     func textViewShouldBeginEditing(textView: UITextView) -> Bool {
         return true
     }
     
-    //キーボードが表示された時
+//    キーボードが表示された時
     func showKeyboard(notification: NSNotification) {
-        // キーボード表示時の動作をここに記述する
+//         キーボード表示時の動作をここに記述する
         let rect = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
         let duration:NSTimeInterval = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey]as! Double
         UIView.animateWithDuration(duration, animations: {
@@ -88,52 +88,115 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
             },
             completion:nil)
     }
+    
     func hideKeyboard(notification: NSNotification) {
-        // キーボード消滅時の動作をここに記述する
+//         キーボード消滅時の動作をここに記述する
         let duration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as! Double)
         UIView.animateWithDuration(duration, animations:{
             self.view.transform = CGAffineTransformIdentity
             },
             completion:nil)
     }
-    // 入力の変更が行わたときの処理
+    
+    
+//     入力の変更が行わたときの処理
     func textViewDidChange(textView: UITextView) {
-//        let maxHeight: Float = 80.0  // 入力フィールドの最大サイズ
-//        if postTextView.frame.size.height.native < maxHeight {
-//            let size:CGSize = postTextView.sizeThatFits(postTextView.frame.size)
-//            postTextViewHeight.constant = size.height
-//        }
+        let maxHeight: Float = 80.0  // 入力フィールドの最大サイズ
+        if postTextView.frame.size.height.native < maxHeight {
+            let size:CGSize = postTextView.sizeThatFits(postTextView.frame.size)
+            postTextViewHeight.constant = size.height
+        }
     }
+    
+//     投稿ボタンプッシュ
+    @IBAction func postButtonTap(sender: UIButton) {
+        print("投稿ボタン押した")
+        
+        self.addPost()
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+//     投稿機能メソッド
+    func addPost() {
+//        保存対象の画像ファイルを作成する
+        
+        print(self.postImage1)
+        let imageData = UIImagePNGRepresentation(self.postImage1)! as NSData
+        let imageFile: NCMBFile = NCMBFile.fileWithData(imageData) as! NCMBFile
+//        object作成
+        let postObject = NCMBObject(className: "Post")
+        
+        postObject.setObject(self.postTextView.text, forKey: "text")
+        postObject.setObject(imageFile.name, forKey: "image1")
+        
+//        ファイルはバックグラウンド実行をする
+        imageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
+            if error == nil {
+                print("画像データ保存完了: \(imageFile.name)")
+            } else {
+                print("アップロード中にエラーが発生しました: \(error)")
+            }
+            }, progressBlock: { (percentDone: Int32) -> Void in
+//                 進捗状況を取得します。保存完了まで何度も呼ばれます
+                print("進捗状況: \(percentDone)% アップロード済み")
+        })
+        
+        postObject.saveInBackgroundWithBlock({(error) in
+            if error != nil {print("Save error : ",error)}
+        })
+    }
+    
     //　カメラボタンをプッシュ
     @IBAction func changePhoto(sender: UIButton) {
 //        self.presentViewController(self.imagePickerController, animated: true, completion: nil)
         print("カメラボタン押した")
+        
+        if !UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+            UIAlertView(title: "警告", message: "Photoライブラリにアクセス出来ません", delegate: nil, cancelButtonTitle: "OK").show()
+        } else {
+            // アルバムから写真を取得
+            self.pickImageFromLibrary()
+        }
+    }
+    
+    // ライブラリから写真を選択する
+    func pickImageFromLibrary() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+//            インスタンス生成
+            let imagePickerController = UIImagePickerController()
+//            フォトライブラリから選択
+            imagePickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+//            編集OFFに設定, trueにすると写真選択時、写真編集画面に移る
+            imagePickerController.allowsEditing = false
+//            デリゲート設定
+            imagePickerController.delegate = self
+//            選択画面起動
+            self.presentViewController(imagePickerController,animated:true ,completion:nil)
+        }
+    }
+    
+    //　写真を選択した時に呼ばれるメソッド
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if info[UIImagePickerControllerOriginalImage] != nil {
+            let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+            self.postImage1 = image
+            self.submitPostImageView.image = image
+        }
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //    画像選択がキャンセルされた時に呼ばれる.
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        // モーダルビューを閉じる
+        self.dismissViewControllerAnimated(true, completion: nil)
+        print("カメラキャンセル")
     }
     
     @IBAction func setRange(sender: UIButton) {
         print("公開範囲押した")
     }
     
-    // 投稿ボタンプッシュ
-    @IBAction func postButtonTap(sender: UIButton) {
-        print("投稿ボタン押した")
-        
-        self.addPost(postTextView.text)
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
     
-    // 投稿機能メソッド
-    func addPost(postText: String) {
-        
-        let postObject = NCMBObject(className: "Post")
-        
-        postObject.setObject(postText,forKey:"text")
-        print(postText)
-
-        postObject.saveInBackgroundWithBlock({(error) in
-            if error != nil {print("Save error : ",error)}
-        })
-    }
     
 }

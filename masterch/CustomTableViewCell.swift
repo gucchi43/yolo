@@ -11,6 +11,7 @@ import UIKit
 class CustomTableViewCell: UITableViewCell {
     
     @IBOutlet var postTextLabel: UILabel!
+    @IBOutlet var postImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
