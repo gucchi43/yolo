@@ -94,7 +94,7 @@ class TimeLineTableViewController: UITableViewController {
     func getPostData() {
 //        query作成
         let postQuery: NCMBQuery = NCMBQuery(className: "Post")
-        postQuery.orderByDescending("createDate") // cellの並べ方
+        postQuery.orderByDescending("postDate") // cellの並べ方
         postQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
             
             if error == nil {

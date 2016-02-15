@@ -18,8 +18,10 @@ class SubmitViewController: UIViewController, UITextViewDelegate, UIImagePickerC
     var isObserving = false
     
     @IBOutlet var submitPostImageView: UIImageView!
- 
-    var postImage1: UIImage!
+    var postImage1: UIImage? = nil
+    
+    @IBOutlet var postDateTextField: UITextField!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,17 @@ class SubmitViewController: UIViewController, UITextViewDelegate, UIImagePickerC
         
         self.postTextView.delegate = self
         
+//        テキストフィールドにDatePickerを表示する
+        let postDatePicker = UIDatePicker()
+        postDateTextField.inputView = postDatePicker
+//        日本の日付表示形式にする
+        postDatePicker.timeZone = NSTimeZone.localTimeZone()
+        
+//        UIDatePickerにイベントを設定。
+        postDatePicker.addTarget(self, action: "onDidChangeDate:", forControlEvents: .ValueChanged)
+        
+//        NSDate()で現在時刻をあらかじめ表示する。
+        setDate(NSDate())
     }
     
 //     Viewが画面に表示される度に呼ばれるメソッド
@@ -111,7 +124,6 @@ class SubmitViewController: UIViewController, UITextViewDelegate, UIImagePickerC
 //     投稿ボタンプッシュ
     @IBAction func postButtonTap(sender: UIButton) {
         print("投稿ボタン押した")
-        
         self.addPost()
         
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -119,28 +131,33 @@ class SubmitViewController: UIViewController, UITextViewDelegate, UIImagePickerC
     
 //     投稿機能メソッド
     func addPost() {
-//        保存対象の画像ファイルを作成する
-        
-        print(self.postImage1)
-        let imageData = UIImagePNGRepresentation(self.postImage1)! as NSData
-        let imageFile: NCMBFile = NCMBFile.fileWithData(imageData) as! NCMBFile
 //        object作成
         let postObject = NCMBObject(className: "Post")
         
         postObject.setObject(self.postTextView.text, forKey: "text")
-        postObject.setObject(imageFile.name, forKey: "image1")
         
-//        ファイルはバックグラウンド実行をする
-        imageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
-            if error == nil {
-                print("画像データ保存完了: \(imageFile.name)")
-            } else {
-                print("アップロード中にエラーが発生しました: \(error)")
-            }
-            }, progressBlock: { (percentDone: Int32) -> Void in
-//                 進捗状況を取得します。保存完了まで何度も呼ばれます
-                print("進捗状況: \(percentDone)% アップロード済み")
-        })
+//        保存対象の画像ファイルを作成する
+        if postImage1 != nil {
+            let imageData = UIImagePNGRepresentation(self.postImage1!)! as NSData
+            let imageFile: NCMBFile = NCMBFile.fileWithData(imageData) as! NCMBFile
+
+            postObject.setObject(imageFile.name, forKey: "image1")
+            
+//            ファイルはバックグラウンド実行をする
+            imageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
+                if error == nil {
+                    print("画像データ保存完了: \(imageFile.name)")
+                } else {
+                    print("アップロード中にエラーが発生しました: \(error)")
+                }
+                }, progressBlock: { (percentDone: Int32) -> Void in
+//                    進捗状況を取得します。保存完了まで何度も呼ばれます
+                    print("進捗状況: \(percentDone)% アップロード済み")
+            })
+            
+        }
+        
+        postObject.setObject(postDateTextField.text, forKey: "postDate")
         
         postObject.saveInBackgroundWithBlock({(error) in
             if error != nil {print("Save error : ",error)}
@@ -148,7 +165,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate, UIImagePickerC
     }
     
     //　カメラボタンをプッシュ
-    @IBAction func changePhoto(sender: UIButton) {
+    @IBAction func setPhoto(sender: UIButton) {
 //        self.presentViewController(self.imagePickerController, animated: true, completion: nil)
         print("カメラボタン押した")
         
@@ -194,7 +211,21 @@ class SubmitViewController: UIViewController, UITextViewDelegate, UIImagePickerC
     }
     
     @IBAction func setRange(sender: UIButton) {
-        print("公開範囲押した")
+        print("公開範囲を押した")
+    }
+
+//    postDatePickerが選ばれた際に呼ばれる.
+    func onDidChangeDate(sender: UIDatePicker) {
+        setDate(sender.date)
+    }
+//    postDateのための共通のメソッド
+    func setDate(date: NSDate) {
+//        フォーマットを生成.
+        let postDateFormatter: NSDateFormatter = NSDateFormatter()
+        postDateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
+//        日付をフォーマットに則って取得.
+        let postSelectedDate: NSString = postDateFormatter.stringFromDate(date)
+        postDateTextField.text = postSelectedDate as String
     }
     
     
