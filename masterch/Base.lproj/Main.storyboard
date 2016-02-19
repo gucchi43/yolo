@@ -24,6 +24,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="8gS-zw-Hnu" kind="show" identifier="toPostDetailViewController" id="mGw-cz-7hF"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -45,6 +48,98 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wLU-Ln-niM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1208" y="-216"/>
+        </scene>
+        <!--Post Detail View Controller-->
+        <scene sceneID="8Mb-ha-Z9D">
+            <objects>
+                <viewController id="8gS-zw-Hnu" customClass="PostDetailViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FCK-fG-a5i"/>
+                        <viewControllerLayoutGuide type="bottom" id="WYa-8N-agz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="k91-kd-XB5">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="chm-5E-SWm">
+                                <rect key="frame" x="20" y="74" width="560" height="352"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ohM-93-FpK">
+                                        <rect key="frame" x="450" y="201" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="jEO-CK-2Fa"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="てきすと" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCM-Nm-mT4">
+                                        <rect key="frame" x="10" y="76" width="540" height="117"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="803-Yt-i6R">
+                                        <rect key="frame" x="461" y="306" width="45" height="30"/>
+                                        <state key="normal" title="いいね"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="滝口ひかり" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Cd-Sm-BIE">
+                                        <rect key="frame" x="76" y="27" width="85" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="takigutihikari.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="5J6-jz-q8W">
+                                        <rect key="frame" x="8" y="8" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="CWJ-WB-mDq"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bme-ZE-4FN">
+                                        <rect key="frame" x="60" y="306" width="60" height="30"/>
+                                        <state key="normal" title="コメント"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.51853310760000004" green="1" blue="0.62442880379999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="ohM-93-FpK" firstAttribute="top" secondItem="chm-5E-SWm" secondAttribute="top" constant="201" id="93v-el-7OK"/>
+                                    <constraint firstAttribute="bottom" secondItem="803-Yt-i6R" secondAttribute="bottom" constant="16" id="C3t-so-J25"/>
+                                    <constraint firstItem="5J6-jz-q8W" firstAttribute="top" secondItem="chm-5E-SWm" secondAttribute="top" constant="8" id="Eji-uw-FQT"/>
+                                    <constraint firstItem="7Cd-Sm-BIE" firstAttribute="leading" secondItem="5J6-jz-q8W" secondAttribute="trailing" constant="8" id="MpR-34-Grb"/>
+                                    <constraint firstItem="KCM-Nm-mT4" firstAttribute="top" secondItem="chm-5E-SWm" secondAttribute="top" constant="76" id="P1Y-5T-NnP"/>
+                                    <constraint firstItem="KCM-Nm-mT4" firstAttribute="leading" secondItem="chm-5E-SWm" secondAttribute="leading" constant="10" id="Rzx-Tb-CFv"/>
+                                    <constraint firstAttribute="trailing" secondItem="ohM-93-FpK" secondAttribute="trailing" constant="10" id="XjL-NC-it2"/>
+                                    <constraint firstItem="803-Yt-i6R" firstAttribute="top" secondItem="ohM-93-FpK" secondAttribute="bottom" constant="5" id="YC9-Eo-GFa"/>
+                                    <constraint firstAttribute="trailing" secondItem="803-Yt-i6R" secondAttribute="trailing" constant="54" id="YD7-Gg-Mft"/>
+                                    <constraint firstItem="5J6-jz-q8W" firstAttribute="leading" secondItem="chm-5E-SWm" secondAttribute="leading" constant="8" id="YEM-kh-y4F"/>
+                                    <constraint firstItem="5J6-jz-q8W" firstAttribute="centerY" secondItem="7Cd-Sm-BIE" secondAttribute="centerY" id="YLM-YI-sh7"/>
+                                    <constraint firstItem="bme-ZE-4FN" firstAttribute="leading" secondItem="chm-5E-SWm" secondAttribute="leading" constant="60" id="dXS-ol-gBH"/>
+                                    <constraint firstItem="803-Yt-i6R" firstAttribute="baseline" secondItem="bme-ZE-4FN" secondAttribute="baseline" id="lB5-Bc-L2j"/>
+                                    <constraint firstItem="KCM-Nm-mT4" firstAttribute="top" secondItem="5J6-jz-q8W" secondAttribute="bottom" constant="8" symbolic="YES" id="z1m-2E-ixG"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="chm-5E-SWm" firstAttribute="centerX" secondItem="k91-kd-XB5" secondAttribute="centerX" id="13x-Zm-QqF"/>
+                            <constraint firstItem="chm-5E-SWm" firstAttribute="trailing" secondItem="k91-kd-XB5" secondAttribute="trailingMargin" id="17w-D0-0lF"/>
+                            <constraint firstItem="chm-5E-SWm" firstAttribute="top" secondItem="FCK-fG-a5i" secondAttribute="bottom" constant="10" id="HPU-uh-piO"/>
+                            <constraint firstItem="WYa-8N-agz" firstAttribute="top" secondItem="chm-5E-SWm" secondAttribute="bottom" constant="125" id="ahN-Tw-2Jq"/>
+                            <constraint firstItem="chm-5E-SWm" firstAttribute="leading" secondItem="k91-kd-XB5" secondAttribute="leadingMargin" id="tf4-KY-kky"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="anw-h1-Qnn">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="1bP-Z1-MyG">
+                            <connections>
+                                <action selector="tapCancelButton:" destination="8gS-zw-Hnu" id="FD7-pm-P9S"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="postImageView" destination="ohM-93-FpK" id="N4q-0m-bpU"/>
+                        <outlet property="postTextLabel" destination="KCM-Nm-mT4" id="O3X-MT-gfR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8sn-8y-sXw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1852" y="-219"/>
         </scene>
         <!--検索-->
         <scene sceneID="7XX-kn-G2Y">
@@ -479,7 +574,10 @@
             <point key="canvasLocation" x="542" y="2502"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="takigutihikari.jpg" width="561" height="567"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uUR-uq-48O"/>
+        <segue reference="c6M-eA-nIf"/>
     </inferredMetricsTieBreakers>
 </document>
