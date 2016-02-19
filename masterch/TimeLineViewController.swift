@@ -16,6 +16,14 @@ class TimeLineTableViewController: UITableViewController {
 //    tableViewの作成
     @IBOutlet var postTableView: UITableView!
     
+    var postData: AnyObject!
+    
+    var postImageName: String!
+    var postImageData: NCMBFile!
+    
+    var selectedPostImage: UIImage!
+    var selectedPostText: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -28,6 +36,7 @@ class TimeLineTableViewController: UITableViewController {
         self.postTableView.registerNib(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "postTableViewCell")
         
         self.getPostData()
+        self.postTableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,6 +47,9 @@ class TimeLineTableViewController: UITableViewController {
     @IBAction func unwindToTop(segue: UIStoryboardSegue) {
         print("back to TimeLineView")
     }
+    
+    
+    
 //    tableviewのセクションの数
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -48,27 +60,22 @@ class TimeLineTableViewController: UITableViewController {
         return postArray.count
     }
     
-//    選択した時のメソッド
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("セルの選択")
-        
-    }
 //    cellの設定メソッド
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("postTableViewCell", forIndexPath: indexPath) as! CustomTableViewCell
         
 //        各値をセルに入れる
-        let postData: AnyObject = self.postArray[indexPath.row]
+        postData = self.postArray[indexPath.row]
         
 //        textLabelには(key: "text")の値を入れる
         cell.postTextLabel.text = postData.objectForKey("text") as? String
         
 //        画像データの取得
         if postData.objectForKey("image1") != nil { // 複数投稿の時にはどうにかしたいコード(if文)
-            let fileName: String = (postData.objectForKey("image1") as? String)!
-            let fileData = NCMBFile.fileWithName(fileName, data: nil) as! NCMBFile
+            postImageName = (postData.objectForKey("image1") as? String)!
+            postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
 
-            fileData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+            postImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
                 if error != nil {
                     print("写真の取得失敗: \(error)")
                 } else {
@@ -78,13 +85,54 @@ class TimeLineTableViewController: UITableViewController {
         }
 
 //        TableView にある特定の Cell を選択不可にする
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+//        cell.selectionStyle = UITableViewCellSelectionStyle.None
 //        TableView にある特定の Cell のアクセサリーをつけない
         cell.accessoryType = UITableViewCellAccessoryType.None
         
         return cell
         
     }
+    
+//        選択した時のメソッド
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("セルの選択: \(indexPath.row)")
+//        各値をセルに入れる
+        postData = self.postArray[indexPath.row]
+        
+        self.selectedPostText = postData.objectForKey("text") as? String
+
+//        画像データの取得
+        if postData.objectForKey("image1") != nil { // 複数投稿の時にはどうにかしたいコード(if文)
+            postImageName = (postData.objectForKey("image1") as? String)!
+            postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
+            
+            postImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+                if error != nil {
+                    print("写真の取得失敗: \(error)")
+                } else {
+                    self.selectedPostImage = UIImage(data: imageData!)
+                }
+            }
+        }
+        
+//         SubViewController へ遷移するために Segue を呼び出す
+
+        performSegueWithIdentifier("toPostDetailViewController", sender: nil)
+        
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toPostDetailViewController" {
+            let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
+
+            postDetailVC.text = selectedPostText
+            postDetailVC.postImage = selectedPostImage
+            
+            
+        }
+    }
+    
 //    timeLineの更新メソッド
     func updatePost() {
         

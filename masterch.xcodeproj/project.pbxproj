@@ -23,6 +23,8 @@
 		32C0A3481C5DF8ED009657B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32C0A3461C5DF8ED009657B9 /* LaunchScreen.storyboard */; };
 		32C0A3531C5DF8EE009657B9 /* masterchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A3521C5DF8EE009657B9 /* masterchTests.swift */; };
 		32C0A35E1C5DF8EE009657B9 /* masterchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A35D1C5DF8EE009657B9 /* masterchUITests.swift */; };
+		32E6CF751C76DD4F00904B74 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */; };
+		32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32E6CF761C76F4F500904B74 /* takigutihikari.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		32C0A3591C5DF8EE009657B9 /* masterchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = masterchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		32C0A35D1C5DF8EE009657B9 /* masterchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = masterchUITests.swift; sourceTree = "<group>"; };
 		32C0A35F1C5DF8EE009657B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
+		32E6CF761C76F4F500904B74 /* takigutihikari.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = takigutihikari.jpg; sourceTree = "<group>"; };
 		4C7F15D8BFB9CDF22DB0B9DB /* Pods_masterch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_masterch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F76BDC2E9259F164E8FD9459 /* Pods-masterch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,6 +125,7 @@
 		32C0A33C1C5DF8ED009657B9 /* masterch */ = {
 			isa = PBXGroup;
 			children = (
+				32E6CF761C76F4F500904B74 /* takigutihikari.jpg */,
 				32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */,
 				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
 				3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */,
@@ -129,6 +134,7 @@
 				3289D23D1C6A1CA300B4C65A /* NotificationViewController.swift */,
 				3289D2391C6A1C6F00B4C65A /* AccountViewController.swift */,
 				3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */,
+				32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */,
 				32C0A3411C5DF8ED009657B9 /* Main.storyboard */,
 				32C0A3441C5DF8ED009657B9 /* Assets.xcassets */,
 				32C0A3461C5DF8ED009657B9 /* LaunchScreen.storyboard */,
@@ -283,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32C0A3481C5DF8ED009657B9 /* LaunchScreen.storyboard in Resources */,
+				32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */,
 				32C0A3451C5DF8ED009657B9 /* Assets.xcassets in Resources */,
 				3219A2381C70468900D1A6AF /* CustomTableViewCell.xib in Resources */,
 				32C0A3431C5DF8ED009657B9 /* Main.storyboard in Resources */,
@@ -366,6 +373,7 @@
 				3289D23A1C6A1C6F00B4C65A /* AccountViewController.swift in Sources */,
 				3289D2361C6A1C5300B4C65A /* TimeLineViewController.swift in Sources */,
 				3289D2341C6A1C3000B4C65A /* SubmitViewController.swift in Sources */,
+				32E6CF751C76DD4F00904B74 /* PostDetailViewController.swift in Sources */,
 				32C0A33E1C5DF8ED009657B9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
