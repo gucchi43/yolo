@@ -25,10 +25,10 @@
 		32C0A35E1C5DF8EE009657B9 /* masterchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A35D1C5DF8EE009657B9 /* masterchUITests.swift */; };
 		32E6CF751C76DD4F00904B74 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */; };
 		32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32E6CF761C76F4F500904B74 /* takigutihikari.jpg */; };
-		ED292C281C7AE30200953A19 /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED292C231C7AE30200953A19 /* CalendarDayView.swift */; };
-		ED292C291C7AE30200953A19 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED292C241C7AE30200953A19 /* CalendarManager.swift */; };
-		ED292C2A1C7AE30200953A19 /* CalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED292C251C7AE30200953A19 /* CalendarMonthView.swift */; };
-		ED292C2B1C7AE30200953A19 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED292C261C7AE30200953A19 /* CalendarView.swift */; };
+		ED23B7A21C7B475B009AEDA5 /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B79E1C7B475B009AEDA5 /* CalendarDayView.swift */; };
+		ED23B7A31C7B475B009AEDA5 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */; };
+		ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */; };
+		ED23B7A51C7B475B009AEDA5 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,10 +75,10 @@
 		32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		32E6CF761C76F4F500904B74 /* takigutihikari.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = takigutihikari.jpg; sourceTree = "<group>"; };
 		4C7F15D8BFB9CDF22DB0B9DB /* Pods_masterch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_masterch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED292C231C7AE30200953A19 /* CalendarDayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
-		ED292C241C7AE30200953A19 /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
-		ED292C251C7AE30200953A19 /* CalendarMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonthView.swift; sourceTree = "<group>"; };
-		ED292C261C7AE30200953A19 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		ED23B79E1C7B475B009AEDA5 /* CalendarDayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
+		ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
+		ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonthView.swift; sourceTree = "<group>"; };
+		ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		F76BDC2E9259F164E8FD9459 /* Pods-masterch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,7 +150,7 @@
 				3289D2791C6BA1B300B4C65A /* masterch-Bridging-Header.h */,
 				3219A2351C70468900D1A6AF /* CustomTableViewCell.swift */,
 				3219A2361C70468900D1A6AF /* CustomTableViewCell.xib */,
-				ED292C271C7AE30200953A19 /* Calendar */,
+				ED23B79D1C7B475B009AEDA5 /* Calendar */,
 			);
 			path = masterch;
 			sourceTree = "<group>";
@@ -190,17 +190,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		ED292C271C7AE30200953A19 /* Calendar */ = {
+		ED23B79D1C7B475B009AEDA5 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				ED292C231C7AE30200953A19 /* CalendarDayView.swift */,
-				ED292C241C7AE30200953A19 /* CalendarManager.swift */,
-				ED292C251C7AE30200953A19 /* CalendarMonthView.swift */,
-				ED292C261C7AE30200953A19 /* CalendarView.swift */,
+				ED23B79E1C7B475B009AEDA5 /* CalendarDayView.swift */,
+				ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */,
+				ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */,
+				ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */,
 			);
-			name = Calendar;
-			path = ../CrossCalendarSample/CrossCalendarSample/Calendar;
-			sourceTree = SOURCE_ROOT;
+			path = Calendar;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -395,12 +394,12 @@
 				3289D23A1C6A1C6F00B4C65A /* AccountViewController.swift in Sources */,
 				3289D2361C6A1C5300B4C65A /* TimeLineViewController.swift in Sources */,
 				3289D2341C6A1C3000B4C65A /* SubmitViewController.swift in Sources */,
-				ED292C2B1C7AE30200953A19 /* CalendarView.swift in Sources */,
+				ED23B7A51C7B475B009AEDA5 /* CalendarView.swift in Sources */,
 				32E6CF751C76DD4F00904B74 /* PostDetailViewController.swift in Sources */,
-				ED292C291C7AE30200953A19 /* CalendarManager.swift in Sources */,
+				ED23B7A31C7B475B009AEDA5 /* CalendarManager.swift in Sources */,
 				32C0A33E1C5DF8ED009657B9 /* AppDelegate.swift in Sources */,
-				ED292C281C7AE30200953A19 /* CalendarDayView.swift in Sources */,
-				ED292C2A1C7AE30200953A19 /* CalendarMonthView.swift in Sources */,
+				ED23B7A21C7B475B009AEDA5 /* CalendarDayView.swift in Sources */,
+				ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
