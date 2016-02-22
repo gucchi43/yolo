@@ -115,10 +115,10 @@ class SubmitViewController: UIViewController, UITextViewDelegate, UIImagePickerC
 //     入力の変更が行わたときの処理
     func textViewDidChange(textView: UITextView) {
         let maxHeight: Float = 80.0  // 入力フィールドの最大サイズ
-        if postTextView.frame.size.height.native < maxHeight {
-            let size:CGSize = postTextView.sizeThatFits(postTextView.frame.size)
-            postTextViewHeight.constant = size.height
-        }
+//        if postTextView.frame.size.height.native < maxHeight {
+//            let size:CGSize = postTextView.sizeThatFits(postTextView.frame.size)
+//            postTextViewHeight.constant = size.height
+//        }
     }
     
 //     投稿ボタンプッシュ

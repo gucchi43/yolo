@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:../CrossCalendarSample/CrossCalendarSample/Calendar"
+      name = "Calendar">
+      <FileRef
+         location = "group:CalendarDayView.swift">
+      </FileRef>
+      <FileRef
+         location = "group:CalendarManager.swift">
+      </FileRef>
+      <FileRef
+         location = "group:CalendarMonthView.swift">
+      </FileRef>
+      <FileRef
+         location = "group:CalendarView.swift">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:masterch.xcodeproj">
    </FileRef>
