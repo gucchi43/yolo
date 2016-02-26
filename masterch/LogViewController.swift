@@ -7,18 +7,17 @@
 //
 
 import UIKit
-import CVCalendar
 
 class LogViewController: UIViewController {
     
     @IBOutlet weak var calendarBaseView: UIView!
     var calendarView: CalendarView?
 
-    @IBOutlet weak var menuView: CVCalendarMenuView!
+    @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var monthLabel: UILabel!
     
     var animationFinished = true
-    var selectedDay:DayView!
+
     
     
     
@@ -27,7 +26,7 @@ class LogViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         print("LogViewController")
         
-        monthLabel.text = CVDate(date: NSDate()).globalDescription
+        monthLabel.text = "2016年2月"
     }
     
     override func didReceiveMemoryWarning() {
