@@ -20,36 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         NCMB.setApplicationKey(applicationkey, clientKey: clientkey)
         
-        let query: NCMBQuery = NCMBQuery(className: "TestClass")
-        query.whereKey("message", equalTo: "Hello, NCMB!")
-        query.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
-            
-            if error == nil {
-                
-                if objects.count > 0 {
-                    let msg: AnyObject? = objects[0].objectForKey("message")
-                    let msgStr: String = msg as! String
-                    print("success find data. \(msgStr)")
-                } else {
-                    var saveError : NSError? = nil
-                    let obj : NCMBObject = NCMBObject(className: "TestClass")
-                    obj.setObject("Hello, NCMB!", forKey: "message")
-                    obj.save(&saveError)
-                    
-                    if saveError == nil {
-                        print("success save data.")
-                    } else {
-                        print("failure save data. \(saveError)")
-                    }
-                }
-                
-            } else {
-                print(error.localizedDescription)
-            }
-        })
-        
-        
-        
         return true
     }
 

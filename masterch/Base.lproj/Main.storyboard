@@ -166,7 +166,7 @@
             </objects>
             <point key="canvasLocation" x="1208" y="486"/>
         </scene>
-        <!--Menu View Delegate-->
+        <!--ログ-->
         <scene sceneID="CVY-pb-UxH">
             <objects>
                 <viewController id="nBa-s9-ETM" customClass="LogViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
@@ -263,9 +263,6 @@
                                     <constraint firstAttribute="bottom" secondItem="eBQ-Hk-7Ku" secondAttribute="bottom" constant="2" id="pjh-Li-6a2"/>
                                     <constraint firstAttribute="trailing" secondItem="eBQ-Hk-7Ku" secondAttribute="trailing" constant="25" id="y42-gu-SXy"/>
                                 </constraints>
-                                <connections>
-                                    <outlet property="menuViewDelegate" destination="nBa-s9-ETM" id="dad-lZ-Mae"/>
-                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMD-II-iDu" userLabel="calendar Base View">
                                 <rect key="frame" x="0.0" y="133" width="600" height="600"/>
