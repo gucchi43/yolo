@@ -18,17 +18,27 @@ class CalendarDayView: UIView {
         let dayWidth = Int((UIScreen.mainScreen().bounds.size.width) / 7)
         let dayHeight = 30
         
-        let dayLabel = UILabel(frame: CGRect(x: 0, y: 0, width: dayWidth, height: dayHeight))
-        dayLabel.textAlignment = NSTextAlignment.Center
-        dayLabel.text = String(format:"%02d", day)
+        let dayButton = UIButton(frame: CGRect(x: 0, y: 0, width: dayWidth, height: dayHeight))
+        dayButton.titleLabel?.textAlignment = NSTextAlignment.Center
+        dayButton.setTitle(String(format: "%02d", day), forState: UIControlState.Normal)
+        dayButton.addTarget(self, action: "onTapCalendarDayButton:", forControlEvents: .TouchUpInside)
+
         if weekday == 1 {
             //日曜日は赤
-            dayLabel.textColor = UIColor.redColor()
+            dayButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
         } else if weekday == 7 {
             //土曜日は青
-            dayLabel.textColor = UIColor.blueColor()
+            dayButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+        } else {
+            dayButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         }
-        
-        self.addSubview(dayLabel)
+
+        self.addSubview(dayButton)
+    }
+
+    func onTapCalendarDayButton(sender: UIButton) {
+        print("onTapCalendarDayButton:")
+        print("押した日付: \(sender.currentTitle)")
+        sender.setTitleColor(UIColor.greenColor(), forState: .Normal)
     }
 }
