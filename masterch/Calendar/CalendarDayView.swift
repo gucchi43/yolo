@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftDate
 
 class CalendarDayView: UIView {
     required init?(coder aDecoder: NSCoder) {
@@ -15,13 +16,15 @@ class CalendarDayView: UIView {
     
     init(frame: CGRect, year: Int, month: Int, day: Int, weekday: Int) {
         super.init(frame: frame)
-        let dayWidth = Int((UIScreen.mainScreen().bounds.size.width) / 7)
-        let dayHeight = 30
+        let w = Int((UIScreen.mainScreen().bounds.size.width) / 7)
+        let h = 30
         
-        let dayButton = UIButton(frame: CGRect(x: 0, y: 0, width: dayWidth, height: dayHeight))
+        let dayButton = UIButton(frame: CGRect(x: 0, y: 0, width: w, height: h))
         dayButton.titleLabel?.textAlignment = NSTextAlignment.Center
         dayButton.setTitle(String(format: "%02d", day), forState: UIControlState.Normal)
+        dayButton.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         dayButton.addTarget(self, action: "onTapCalendarDayButton:", forControlEvents: .TouchUpInside)
+        let nowday = NSDate().day
 
         if weekday == 1 {
             //日曜日は赤
@@ -29,8 +32,12 @@ class CalendarDayView: UIView {
         } else if weekday == 7 {
             //土曜日は青
             dayButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
-        } else {
+        } else if day == nowday{
+            //今日は黒（※今は同じ日にち全部に反映されている）
             dayButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        } else {
+            //普通はグレー
+            dayButton.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         }
 
         self.addSubview(dayButton)
