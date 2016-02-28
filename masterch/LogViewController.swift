@@ -17,15 +17,12 @@ class LogViewController: UIViewController {
     
     
     var calendarView: CalendarView?
-//    var calendarAnotherView: CalendarAnotherView?
+    var calendarAnotherView: CalendarAnotherView?
 
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var monthLabel: UILabel!
     
     var animationFinished = true
-
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +40,7 @@ class LogViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         if calendarView == nil {
             calendarView = CalendarView(frame: calendarBaseView.bounds)
+            calendarAnotherView = CalendarAnotherView(frame: calendarWeekView.bounds)
             if let calendarView = calendarView {
                 calendarBaseView.addSubview(calendarView)
             }
@@ -55,11 +53,13 @@ class LogViewController: UIViewController {
     @IBOutlet weak var monthConstraint: NSLayoutConstraint!
     
     @IBAction func toggle(sender: AnyObject) {
-//        if let calendarView = calendarAnotherView {
-//            calendarWeekView.addSubview(calendarView)
-//        }
+
         print("toggle", toggleWeek)
         toggleWeek = !toggleWeek
+        if let calendarView = calendarAnotherView {
+            calendarWeekView.addSubview(calendarView)
+            print("どうなってるのかな？")
+        }
         monthConstraint.priority = toggleWeek ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh
         weekConstraint.priority = toggleWeek ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow
         UIView.animateWithDuration(0.5) { () -> Void in
