@@ -10,8 +10,14 @@ import UIKit
 
 class LogViewController: UIViewController {
     
+    var toggleWeek: Bool = false
+    
     @IBOutlet weak var calendarBaseView: UIView!
+    @IBOutlet weak var calendarWeekView: UIView!
+    
+    
     var calendarView: CalendarView?
+//    var calendarAnotherView: CalendarAnotherView?
 
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var monthLabel: UILabel!
@@ -41,6 +47,28 @@ class LogViewController: UIViewController {
                 calendarBaseView.addSubview(calendarView)
             }
         }
+    }
+    
+    
+    
+    @IBOutlet weak var weekConstraint: NSLayoutConstraint!
+    @IBOutlet weak var monthConstraint: NSLayoutConstraint!
+    
+    @IBAction func toggle(sender: AnyObject) {
+//        if let calendarView = calendarAnotherView {
+//            calendarWeekView.addSubview(calendarView)
+//        }
+        print("toggle", toggleWeek)
+        toggleWeek = !toggleWeek
+        monthConstraint.priority = toggleWeek ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh
+        weekConstraint.priority = toggleWeek ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow
+        UIView.animateWithDuration(0.5) { () -> Void in
+            self.calendarBaseView.alpha = self.toggleWeek ? 0.0 : 1.0
+            self.view.layoutIfNeeded()
+        }
+        
+        
+        
     }
     
     @IBAction func unwindToTop(segue: UIStoryboardSegue) {
