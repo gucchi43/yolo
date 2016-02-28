@@ -11,21 +11,32 @@ import UIKit
 class CalendarManager: NSObject {
     
     static let sharedInstance: CalendarManager = CalendarManager()
+    static var todayDate = NSDate()
+    static var selectedDate: NSDate!
     
     var currentYear = 0
     var currentMonth = 0
     var currentDay = 0
+    var currentWeek = 0
     
+    //今日の、「年」「月」「日にちをとる」
+    //今日の"yyyy/MM/dd"とって、要素ごとに分割
     func setCurrentDate() {
         let dateFormatter:NSDateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "yyyy/MM/dd";
         let dateString:String = dateFormatter.stringFromDate(NSDate());
         var dates:[String] = dateString.componentsSeparatedByString("/")
+        let today = NSDate()
+        print("今日", NSDate())
+        CalendarManager.selectedDate = CalendarManager.todayDate
+        
         currentYear  = Int(dates[0])!
         currentMonth = Int(dates[1])!
+        currentWeek = today.firstDayOfWeek()!
+        currentDay = Int(dates[2])!
     }
     
-    //第何週の取得
+    //曜日の取得
     class func getWeekDay(year:Int, month:Int, day:Int) -> Int {
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "yyyy/MM/dd";
@@ -59,7 +70,7 @@ class CalendarManager: NSObject {
         return 0
     }
     
-    //曜日の取得
+    //第何週の取得
     class func getWeek(year: Int, month: Int, day: Int) -> Int {
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "yyyy/MM/dd";
