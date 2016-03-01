@@ -190,13 +190,13 @@
 		ED23B79D1C7B475B009AEDA5 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */,
+				ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */,
+				ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */,
 				EDA4DC711C82F190005FE126 /* CalendarAnotherView.swift */,
 				ED23B79E1C7B475B009AEDA5 /* CalendarDayView.swift */,
 				EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */,
-				ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */,
+				EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */,
 				ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */,
-				ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";

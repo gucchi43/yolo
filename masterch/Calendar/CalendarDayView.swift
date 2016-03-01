@@ -35,6 +35,13 @@ class CalendarDayView: UIView {
         } else if day == nowday{
             //今日は黒（※今は同じ日にち全部に反映されている）
             dayButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+//        } else if day < nowday{
+//            //過去はオレンジ（※今は同じ日にち全部に反映されている）
+//            dayButton.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
+//        } else if day > nowday{
+//            //未来は水色（※今は同じ日にち全部に反映されている）
+//            dayButton.setTitleColor(UIColor.cyanColor(), forState: UIControlState.Normal)
+//    
         } else {
             //普通はグレー
             dayButton.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)

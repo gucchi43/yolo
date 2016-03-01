@@ -10,6 +10,8 @@ import UIKit
 import SwiftDate
 
 class CalendarWeekView: UIView{
+    var selectedDay: UIButton?
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -36,7 +38,16 @@ class CalendarWeekView: UIView{
             let frame = CGRect(origin: CGPoint(x: x, y: 0), size: daySize)
             let dayView = CalendarSwiftDateView(frame: frame, date: date + i.days)
             self.addSubview(dayView)
+            }
         }
+    
+    func onTapCalendarDayButton(sender: UIButton) {
+        sender.selected = true
+        if let selectedDay = selectedDay {
+            selectedDay.selected = false
+        }
+        selectedDay = sender
     }
 }
+
 
