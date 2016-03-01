@@ -70,21 +70,21 @@ class CalendarAnotherView : UIView, UIScrollViewDelegate {
     }
     
     func showNextWeekView (){
-        CalendarManager.selectedDate = CalendarManager.selectedDate + 7.days
+        CalendarManager.currentDate = CalendarManager.currentDate + 7.days
         resetWeekView()
         self.resetContentOffSet(horizontalScrollView)
     }
     
     func showPrevWeekView () {
-        CalendarManager.selectedDate = CalendarManager.selectedDate - 7.days
+        CalendarManager.currentDate = CalendarManager.currentDate - 7.days
         resetWeekView()
         self.resetContentOffSet(horizontalScrollView)
     }
     
     func resetWeekView() {
-        currentWeekView.setUpDays(CalendarManager.selectedDate)
-        prevWeekView.setUpDays(CalendarManager.selectedDate - 7.days)
-        nextWeekView.setUpDays(CalendarManager.selectedDate + 7.days)
+        currentWeekView.setUpDays(CalendarManager.currentDate)
+        prevWeekView.setUpDays(CalendarManager.currentDate - 7.days)
+        nextWeekView.setUpDays(CalendarManager.currentDate + 7.days)
     }
     
     

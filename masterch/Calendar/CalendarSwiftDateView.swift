@@ -9,8 +9,14 @@
 import UIKit
 import SwiftDate
 
+protocol WeekCalendarDateViewDelegate {
+    func updateDayViewSelectedStatus()
+}
+
 class CalendarSwiftDateView: UIView{
-    var selectedDay: UIButton?
+    var date: NSDate!
+    var delegate: WeekCalendarDateViewDelegate!
+    var dayButton: UIButton!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -19,20 +25,21 @@ class CalendarSwiftDateView: UIView{
     init(frame: CGRect, date: NSDate)  {
         super.init(frame: frame)
         
+        self.date = date
+        
         let w = Int((UIScreen.mainScreen().bounds.size.width) / 7)
         let h = 30
         
-        var todayNSdate = date
-        
-        let dayButton = UIButton(frame: CGRect(x: 0, y: 0, width: w, height: h))
+        dayButton = UIButton(frame: CGRect(x: 0, y: 0, width: w, height: h))
         dayButton.titleLabel?.textAlignment = NSTextAlignment.Center
         dayButton.setTitle(String(format: "%02d", date.day), forState: UIControlState.Normal)
         dayButton.setTitleColor(UIColor.greenColor(), forState: .Selected)
         dayButton.addTarget(self, action: "onTapCalendarDayButton:", forControlEvents: .TouchUpInside)
-        let nowday = NSDate().day
+        if date == CalendarManager.selectedDate {
+            dayButton.selected = true
+        }
         
         print("day", date.day, "weekday", date.weekday)
-        
         
         if date == NSDate(){
             //今日は黒（※今は同じ日にち全部に反映されている）
@@ -57,6 +64,11 @@ class CalendarSwiftDateView: UIView{
         }
         
         self.addSubview(dayButton)
+    }
+    
+    func onTapCalendarDayButton(sender: UIButton) {
+        CalendarManager.selectedDate = date
+        delegate.updateDayViewSelectedStatus()
     }
 }
 

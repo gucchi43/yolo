@@ -12,6 +12,7 @@ class CalendarManager: NSObject {
     
     static let sharedInstance: CalendarManager = CalendarManager()
     static var todayDate = NSDate()
+    static var currentDate: NSDate!
     static var selectedDate: NSDate!
     
     var currentYear = 0
@@ -29,6 +30,7 @@ class CalendarManager: NSObject {
         let today = NSDate()
         print("今日", NSDate())
         CalendarManager.selectedDate = CalendarManager.todayDate
+        CalendarManager.currentDate = CalendarManager.todayDate
         
         currentYear  = Int(dates[0])!
         currentMonth = Int(dates[1])!

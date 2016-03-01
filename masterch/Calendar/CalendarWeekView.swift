@@ -9,7 +9,7 @@
 import UIKit
 import SwiftDate
 
-class CalendarWeekView: UIView{
+class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
     var selectedDay: UIButton?
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,6 +37,7 @@ class CalendarWeekView: UIView{
             let x = i * Int(daySize.width)
             let frame = CGRect(origin: CGPoint(x: x, y: 0), size: daySize)
             let dayView = CalendarSwiftDateView(frame: frame, date: date + i.days)
+            dayView.delegate = self
             self.addSubview(dayView)
             }
         }
@@ -47,6 +48,20 @@ class CalendarWeekView: UIView{
             selectedDay.selected = false
         }
         selectedDay = sender
+    }
+    
+    func updateDayViewSelectedStatus() {
+        let subViews:[UIView] = self.subviews as [UIView]
+        for view in subViews {
+            if view.isKindOfClass(CalendarSwiftDateView) {
+                let dateView = view as! CalendarSwiftDateView
+                if dateView.date == CalendarManager.selectedDate {
+                    dateView.dayButton.selected = true
+                } else {
+                    dateView.dayButton.selected = false
+                }
+            }
+        }
     }
 }
 
