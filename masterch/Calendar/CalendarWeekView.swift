@@ -42,23 +42,29 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
             }
         }
     
-    func onTapCalendarDayButton(sender: UIButton) {
-        sender.selected = true
-        if let selectedDay = selectedDay {
-            selectedDay.selected = false
-        }
-        selectedDay = sender
-    }
+//    func onTapCalendarDayButton(sender: UIButton) {
+//        sender.selected = true
+//        if let selectedDay = selectedDay {
+//            selectedDay.selected = false
+//        }
+//        selectedDay = sender
+//    }
     
+    //日にち押すと
     func updateDayViewSelectedStatus() {
         let subViews:[UIView] = self.subviews as [UIView]
         for view in subViews {
             if view.isKindOfClass(CalendarSwiftDateView) {
                 let dateView = view as! CalendarSwiftDateView
                 if dateView.date == CalendarManager.selectedDate {
-                    dateView.dayButton.selected = true
+                    dateView.dayButton.backgroundColor = UIColor.yellowColor()
+//                    dateView.dayButton.selected = true
+                    print("true")
+                    print(dateView.date)
                 } else {
-                    dateView.dayButton.selected = false
+                    dateView.dayButton.backgroundColor = UIColor.clearColor()
+//                    dateView.dayButton.selected = false
+                    print("false")
                 }
             }
         }

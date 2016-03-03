@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftDate
 
 class CalendarManager: NSObject {
     
@@ -20,22 +21,51 @@ class CalendarManager: NSObject {
     var currentDay = 0
     var currentWeek = 0
     
+    
     //今日の、「年」「月」「日にちをとる」
     //今日の"yyyy/MM/dd"とって、要素ごとに分割
     func setCurrentDate() {
+        print("setCurrentDate 呼び出し")
         let dateFormatter:NSDateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "yyyy/MM/dd";
         let dateString:String = dateFormatter.stringFromDate(NSDate());
         var dates:[String] = dateString.componentsSeparatedByString("/")
         let today = NSDate()
         print("今日", NSDate())
-        CalendarManager.selectedDate = CalendarManager.todayDate
-        CalendarManager.currentDate = CalendarManager.todayDate
+        CalendarManager.selectedDate = today
         
         currentYear  = Int(dates[0])!
         currentMonth = Int(dates[1])!
         currentWeek = today.firstDayOfWeek()!
         currentDay = Int(dates[2])!
+
+        print(today.weekday)
+        switch today.weekday{
+        case 1:
+            CalendarManager.currentDate = today
+            print("日曜")
+        case 2:
+            CalendarManager.currentDate = today - 1.days
+            print("月曜")
+        case 3:
+            CalendarManager.currentDate = today - 2.days
+            print("火曜")
+        case 4:
+            CalendarManager.currentDate = today - 3.days
+            print("水曜")
+        case 5:
+            CalendarManager.currentDate = today - 4.days
+            print("木曜")
+        case 6:
+            CalendarManager.currentDate = today - 5.days
+            print("金曜")
+        case 7:
+            CalendarManager.currentDate = today - 6.days
+            print("土曜")
+        default:
+            print("これはあかんで")
+        }
+        print(CalendarManager.currentDate)
     }
     
     //曜日の取得

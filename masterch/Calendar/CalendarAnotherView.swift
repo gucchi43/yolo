@@ -38,11 +38,11 @@ class CalendarAnotherView : UIView, UIScrollViewDelegate {
         
         
         // horizontalにaddする
-        currentWeekView = CalendarWeekView(frame: CGRect(origin:CGPoint (x: CGRectGetWidth(frame), y: 0), size: frame.size), date: CalendarManager.todayDate)
+        currentWeekView = CalendarWeekView(frame: CGRect(origin:CGPoint (x: CGRectGetWidth(frame), y: 0), size: frame.size), date: CalendarManager.currentDate)
         
-        prevWeekView = CalendarWeekView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size), date: CalendarManager.todayDate - 7.days)
+        prevWeekView = CalendarWeekView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size), date: CalendarManager.currentDate - 7.days)
         
-        nextWeekView = CalendarWeekView(frame: CGRect(origin: CGPoint(x: CGRectGetWidth(frame) * 2, y: 0), size: frame.size),  date: CalendarManager.todayDate + 7.days)
+        nextWeekView = CalendarWeekView(frame: CGRect(origin: CGPoint(x: CGRectGetWidth(frame) * 2, y: 0), size: frame.size),  date: CalendarManager.currentDate + 7.days)
         
         self.addSubview(horizontalScrollView)
         
