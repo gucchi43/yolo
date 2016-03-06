@@ -31,18 +31,17 @@ class CalendarAnotherView : UIView, UIScrollViewDelegate {
         print("commonInit")
         
         print(self.frame)
-        CalendarManager.sharedInstance.setCurrentDate()
         horizontalScrollView = UIScrollView(frame: frame)
         
         horizontalScrollView.delegate = self
         
         
         // horizontalにaddする
-        currentWeekView = CalendarWeekView(frame: CGRect(origin:CGPoint (x: CGRectGetWidth(frame), y: 0), size: frame.size), date: CalendarManager.currentDate)
+        currentWeekView = CalendarWeekView(frame: CGRect(origin:CGPoint (x: CGRectGetWidth(frame), y: 0), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days)
         
-        prevWeekView = CalendarWeekView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size), date: CalendarManager.currentDate - 7.days)
+        prevWeekView = CalendarWeekView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days - 7.days)
         
-        nextWeekView = CalendarWeekView(frame: CGRect(origin: CGPoint(x: CGRectGetWidth(frame) * 2, y: 0), size: frame.size),  date: CalendarManager.currentDate + 7.days)
+        nextWeekView = CalendarWeekView(frame: CGRect(origin: CGPoint(x: CGRectGetWidth(frame) * 2, y: 0), size: frame.size),  date: CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days + 7.days)
         
         self.addSubview(horizontalScrollView)
         
@@ -82,9 +81,9 @@ class CalendarAnotherView : UIView, UIScrollViewDelegate {
     }
     
     func resetWeekView() {
-        currentWeekView.setUpDays(CalendarManager.currentDate)
-        prevWeekView.setUpDays(CalendarManager.currentDate - 7.days)
-        nextWeekView.setUpDays(CalendarManager.currentDate + 7.days)
+        currentWeekView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days)
+        prevWeekView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days - 7.days)
+        nextWeekView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days + 7.days)
     }
     
     

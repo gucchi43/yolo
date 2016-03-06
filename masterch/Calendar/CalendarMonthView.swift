@@ -7,44 +7,59 @@
 //
 
 import UIKit
+import SwiftDate
 
-class CalendarMonthView: UIView {
+class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
+    var selectedButton: UIButton!
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect, year: Int, month: Int) {
+    init(frame: CGRect, date: NSDate) {
         super.init(frame:frame)
-        setUpDays(year,month:month)
+        setUpDays(date)
     }
-
-    func setUpDays(year:Int, month:Int){
+    
+    func setUpDays(date: NSDate) {
         // 既にセットされてるdayViewの削除
         let subViews:[UIView] = self.subviews as [UIView]
         for view in subViews {
-            if view.isKindOfClass(CalendarDayView) {
+            if view.isKindOfClass(CalendarSwiftDateView) {
                 view.removeFromSuperview()
             }
         }
-        
-        let day = CalendarManager.getLastDay(year, month:month);
         let daySize = CGSize(width: Int(frame.size.width / 7.0), height: Int(frame.size.width / 7.0))
+        let lastDay = date.monthDays
         
-        //初日の曜日を取得
-        var weekday = CalendarManager.getWeekDay(year, month: month, day: 1)
-        
-        // dayViewをaddする
-        for var i = 0; i < day; i++ {
-            let week = CalendarManager.getWeek(year, month: month, day: i + 1)
-            let x = (weekday - 1) * Int(daySize.width)
-            let y = (week - 1) * Int(daySize.height)
-            let frame = CGRect(origin: CGPoint(x: x, y: y), size: daySize)
+        for var i = 0; i < lastDay; i++ {
+            let mDate = date + i.days
+            let week = mDate.weekOfMonth  // 何週目か
+            let x = (mDate.weekday - 1) * Int(daySize.width)  // 曜日ごとにxの位置をずらす
+            let y = (week - 1) * Int(daySize.height)  // 週毎にyの位置をずらす
+            let frame = CGRect(origin: CGPoint(x: x, y: y), size: daySize)  // frameの確定
             
-            let dayView = CalendarDayView(frame: frame, year: year, month: month, day: i + 1, weekday: weekday)
+            let dayView = CalendarSwiftDateView(frame: frame, date: mDate)
+            dayView.delegate = self
             self.addSubview(dayView)
-            weekday++
-            if weekday > 7 {
-                weekday = 1
+        }
+    }
+    
+    func updateDayViewSelectedStatus() {
+        let subViews:[UIView] = self.subviews as [UIView]
+        for view in subViews {
+            if view.isKindOfClass(CalendarSwiftDateView) {
+                let dateView = view as! CalendarSwiftDateView
+                if dateView.date == CalendarManager.currentDate {
+                    dateView.dayButton.backgroundColor = UIColor.yellowColor()
+//                    dateView.dayButton.selected = true
+                    print("true")
+                    print(dateView.date)
+                } else {
+                    dateView.dayButton.backgroundColor = UIColor.clearColor()
+//                    dateView.dayButton.selected = false
+                    print("false")
+                }
             }
         }
     }
