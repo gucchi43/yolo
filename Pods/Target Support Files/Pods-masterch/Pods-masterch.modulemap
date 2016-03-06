@@ -1,6 +1,0 @@
-framework module Pods_masterch {
-  umbrella header "Pods-masterch-umbrella.h"
-
-  export *
-  module * { export * }
-}
