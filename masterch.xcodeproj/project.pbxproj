@@ -25,7 +25,6 @@
 		32E6CF751C76DD4F00904B74 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */; };
 		32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32E6CF761C76F4F500904B74 /* takigutihikari.jpg */; };
 		AD6F40F28A709E327E95142D /* Pods_masterch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76281F39C878873917C0BDA /* Pods_masterch.framework */; };
-		ED23B7A21C7B475B009AEDA5 /* CalendarDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B79E1C7B475B009AEDA5 /* CalendarDayView.swift */; };
 		ED23B7A31C7B475B009AEDA5 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */; };
 		ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */; };
 		ED23B7A51C7B475B009AEDA5 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */; };
@@ -78,7 +77,6 @@
 		32E6CF761C76F4F500904B74 /* takigutihikari.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = takigutihikari.jpg; sourceTree = "<group>"; };
 		A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.release.xcconfig"; sourceTree = "<group>"; };
 		A76281F39C878873917C0BDA /* Pods_masterch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_masterch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED23B79E1C7B475B009AEDA5 /* CalendarDayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDayView.swift; sourceTree = "<group>"; };
 		ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonthView.swift; sourceTree = "<group>"; };
 		ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 				ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */,
 				ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */,
 				EDA4DC711C82F190005FE126 /* CalendarAnotherView.swift */,
-				ED23B79E1C7B475B009AEDA5 /* CalendarDayView.swift */,
 				EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */,
 				EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */,
 				ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */,
@@ -410,7 +407,6 @@
 				32E6CF751C76DD4F00904B74 /* PostDetailViewController.swift in Sources */,
 				ED23B7A31C7B475B009AEDA5 /* CalendarManager.swift in Sources */,
 				32C0A33E1C5DF8ED009657B9 /* AppDelegate.swift in Sources */,
-				ED23B7A21C7B475B009AEDA5 /* CalendarDayView.swift in Sources */,
 				ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

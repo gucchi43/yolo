@@ -39,8 +39,8 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
             let dayView = CalendarSwiftDateView(frame: frame, date: date + i.days)
             dayView.delegate = self
             self.addSubview(dayView)
-            }
         }
+    }
     
 //    func onTapCalendarDayButton(sender: UIButton) {
 //        sender.selected = true
@@ -56,7 +56,7 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
         for view in subViews {
             if view.isKindOfClass(CalendarSwiftDateView) {
                 let dateView = view as! CalendarSwiftDateView
-                if dateView.date == CalendarManager.selectedDate {
+                if dateView.date == CalendarManager.currentDate {
                     dateView.dayButton.backgroundColor = UIColor.yellowColor()
 //                    dateView.dayButton.selected = true
                     print("true")

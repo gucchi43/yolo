@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftDate
 
 class CalendarView: UIView, UIScrollViewDelegate {
     var horizontalScrollView: UIScrollView!
@@ -31,7 +32,7 @@ class CalendarView: UIView, UIScrollViewDelegate {
     
     func commonInit() {
         print(self.frame)
-        CalendarManager.sharedInstance.setCurrentDate()
+        CalendarManager.setCurrentDate()
         horizontalScrollView = UIScrollView(frame: frame)
         verticalScrollView = UIScrollView(frame: CGRect(origin: CGPoint(x: CGRectGetWidth(frame), y: 0), size: frame.size))
         
@@ -41,18 +42,14 @@ class CalendarView: UIView, UIScrollViewDelegate {
         // horizontalにaddする
         
         //翌月
-        var ret = CalendarManager.getPrevYearAndMonth()
-        prevMonthView = CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size), year: ret.year, month: ret.month)
-        ret = CalendarManager.getNextYearAndMonth()
-        nextMonthView = CalendarMonthView(frame: CGRect(origin: CGPoint(x: CGRectGetWidth(frame) * 2, y: 0), size: frame.size), year: ret.year, month: ret.month)
+        prevMonthView = CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days - 1.months)
+        nextMonthView = CalendarMonthView(frame: CGRect(origin: CGPoint(x: CGRectGetWidth(frame) * 2, y: 0), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days + 1.months)
         
         // verticalにaddするviews
         
-        ret = CalendarManager.getLastYear()
-        lastYearMonthView = CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size), year: ret.year, month: ret.month)
-        currentMonthView  = CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: CGRectGetHeight(frame)), size: frame.size), year: CalendarManager.sharedInstance.currentYear, month: CalendarManager.sharedInstance.currentMonth)
-        ret = CalendarManager.getNextYear()
-        nextYearMonthView = CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: CGRectGetHeight(frame) * 2), size: frame.size), year: ret.year, month: ret.month)
+        lastYearMonthView = CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days - 1.years)
+        currentMonthView  = CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: CGRectGetHeight(frame)), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days)
+        nextYearMonthView = CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: CGRectGetHeight(frame) * 2), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days + 1.years)
         
         self.addSubview(horizontalScrollView)
         
@@ -99,61 +96,36 @@ class CalendarView: UIView, UIScrollViewDelegate {
     }
     
     func showNextMonthView (){
-        CalendarManager.sharedInstance.currentMonth++;
-        if( CalendarManager.sharedInstance.currentMonth > 12 ){
-            CalendarManager.sharedInstance.currentMonth = 1;
-            CalendarManager.sharedInstance.currentYear++;
-        }
-        
+        CalendarManager.currentDate = CalendarManager.currentDate + 1.months
         resetMonthView()
         self.resetContentOffSet(horizontalScrollView)
     }
     
     func showPrevMonthView () {
-        CalendarManager.sharedInstance.currentMonth--
-        if( CalendarManager.sharedInstance.currentMonth == 0 ){
-            CalendarManager.sharedInstance.currentMonth = 12
-            CalendarManager.sharedInstance.currentYear--
-        }
-
+        CalendarManager.currentDate = CalendarManager.currentDate - 1.months
         resetMonthView()
         self.resetContentOffSet(horizontalScrollView)
     }
     
-    func resetMonthView() {
-        currentMonthView.setUpDays(CalendarManager.sharedInstance.currentYear, month: CalendarManager.sharedInstance.currentMonth)
-        var ret = CalendarManager.getPrevYearAndMonth()
-        prevMonthView.setUpDays(ret.year, month: ret.month)
-        ret = CalendarManager.getNextYearAndMonth()
-        nextMonthView.setUpDays(ret.year, month:ret.month)
-    }
-    
     func showNextYearView (){
-        CalendarManager.sharedInstance.currentYear++
-        let tmpView = currentMonthView
-        currentMonthView = nextYearMonthView
-        nextYearMonthView = lastYearMonthView
-        lastYearMonthView = tmpView
-        
-        let ret = CalendarManager.getNextYear()
-        nextYearMonthView.setUpDays(ret.year, month:ret.month)
-        
+        CalendarManager.currentDate = CalendarManager.currentDate + 1.years
+        resetMonthView()
         self.resetContentOffSet(verticalScrollView)
     }
     
     func showPrevYearView () {
-        CalendarManager.sharedInstance.currentYear--
-        let tmpView = currentMonthView
-        currentMonthView = lastYearMonthView
-        lastYearMonthView    = nextYearMonthView
-        nextYearMonthView    = tmpView
-        let ret = CalendarManager.getLastYear()
-        lastYearMonthView.setUpDays(ret.year, month:ret.month)
-        
-        //position調整
+        CalendarManager.currentDate = CalendarManager.currentDate - 1.years
+        resetMonthView()
         self.resetContentOffSet(verticalScrollView)
     }
     
+    func resetMonthView() {
+        currentMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days)
+        prevMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days - 1.months)
+        nextMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days + 1.months)
+        nextYearMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days + 1.years)
+        lastYearMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days - 1.years)
+    }
     
     func resetContentOffSet (scrollView: UIScrollView) {
         lastYearMonthView.frame = CGRect(origin: CGPointZero, size: frame.size)

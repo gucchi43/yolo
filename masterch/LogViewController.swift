@@ -53,22 +53,25 @@ class LogViewController: UIViewController {
     @IBOutlet weak var monthConstraint: NSLayoutConstraint!
     
     @IBAction func toggle(sender: AnyObject) {
-
         print("toggle", toggleWeek)
         toggleWeek = !toggleWeek
         if let calendarView = calendarAnotherView {
             calendarWeekView.addSubview(calendarView)
             print("どうなってるのかな？")
         }
+        
+        if toggleWeek {
+            calendarAnotherView?.resetWeekView()
+        } else {
+            calendarView?.resetMonthView()
+        }
+        
         monthConstraint.priority = toggleWeek ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh
         weekConstraint.priority = toggleWeek ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow
         UIView.animateWithDuration(0.5) { () -> Void in
             self.calendarBaseView.alpha = self.toggleWeek ? 0.0 : 1.0
             self.view.layoutIfNeeded()
         }
-        
-        
-        
     }
     
     @IBAction func unwindToTop(segue: UIStoryboardSegue) {

@@ -15,7 +15,7 @@ protocol WeekCalendarDateViewDelegate {
 
 class CalendarSwiftDateView: UIView{
     var date: NSDate!
-    var delegate: WeekCalendarDateViewDelegate!
+    var delegate: WeekCalendarDateViewDelegate?
     var dayButton: UIButton!
     var selectedButton: UIButton!
     
@@ -25,7 +25,7 @@ class CalendarSwiftDateView: UIView{
     
     init(frame: CGRect, date: NSDate)  {
         super.init(frame: frame)
-        
+        print("ここにきてるdateは？→", date)
         self.date = date
         
         let w = Int((UIScreen.mainScreen().bounds.size.width) / 7)
@@ -39,7 +39,7 @@ class CalendarSwiftDateView: UIView{
 
         print("day", date.day, "weekday", date.weekday)
 
-        if date == CalendarManager.selectedDate {
+        if date == CalendarManager.currentDate {
             //            dayButton.selected = true
             dayButton.backgroundColor = UIColor.yellowColor()
             print(date)
@@ -71,8 +71,10 @@ class CalendarSwiftDateView: UIView{
     }
     
     func onTapCalendarDayButton(sender: UIButton) {
-        CalendarManager.selectedDate = date
-        delegate.updateDayViewSelectedStatus()
+        CalendarManager.currentDate = date
+        if let delegate = delegate {
+            delegate.updateDayViewSelectedStatus()
+        }
     }
 }
 
