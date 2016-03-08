@@ -24,10 +24,12 @@
 		32C0A35E1C5DF8EE009657B9 /* masterchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A35D1C5DF8EE009657B9 /* masterchUITests.swift */; };
 		32E6CF751C76DD4F00904B74 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */; };
 		32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32E6CF761C76F4F500904B74 /* takigutihikari.jpg */; };
-		AD6F40F28A709E327E95142D /* Pods_masterch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76281F39C878873917C0BDA /* Pods_masterch.framework */; };
+		601BB42FCFA1210C68AF77BC /* libPods-masterch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B11234308A770FE089492BA /* libPods-masterch.a */; };
 		ED23B7A31C7B475B009AEDA5 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */; };
 		ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */; };
 		ED23B7A51C7B475B009AEDA5 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */; };
+		ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; };
+		ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EDA4DC6E1C82F0FB005FE126 /* CalendarSwiftDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */; };
 		EDA4DC701C82F163005FE126 /* CalendarWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */; };
 		EDA4DC721C82F190005FE126 /* CalendarAnotherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC711C82F190005FE126 /* CalendarAnotherView.swift */; };
@@ -49,6 +51,19 @@
 			remoteInfo = masterch;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ED779B0B1C8ED0D300C3027C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3219A2351C70468900D1A6AF /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
@@ -75,11 +90,12 @@
 		32C0A35F1C5DF8EE009657B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		32E6CF761C76F4F500904B74 /* takigutihikari.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = takigutihikari.jpg; sourceTree = "<group>"; };
+		7B11234308A770FE089492BA /* libPods-masterch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-masterch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.release.xcconfig"; sourceTree = "<group>"; };
-		A76281F39C878873917C0BDA /* Pods_masterch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_masterch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonthView.swift; sourceTree = "<group>"; };
 		ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		ED779B091C8DCB9100C3027C /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSwiftDateView.swift; sourceTree = "<group>"; };
 		EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarWeekView.swift; sourceTree = "<group>"; };
 		EDA4DC711C82F190005FE126 /* CalendarAnotherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarAnotherView.swift; sourceTree = "<group>"; };
@@ -91,7 +107,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD6F40F28A709E327E95142D /* Pods_masterch.framework in Frameworks */,
+				ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */,
+				601BB42FCFA1210C68AF77BC /* libPods-masterch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,7 +197,8 @@
 		B831727C3E3CF2E5ED6388D9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A76281F39C878873917C0BDA /* Pods_masterch.framework */,
+				ED779B091C8DCB9100C3027C /* SwiftDate.framework */,
+				7B11234308A770FE089492BA /* libPods-masterch.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -220,6 +238,7 @@
 				32C0A3381C5DF8ED009657B9 /* Resources */,
 				3EE37A199A3B2D9825FBB2BB /* Embed Pods Frameworks */,
 				A3F8B8AA11E60F8E98DA9E6E /* Copy Pods Resources */,
+				ED779B0B1C8ED0D300C3027C /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -372,7 +391,7 @@
 		};
 		A3F8B8AA11E60F8E98DA9E6E /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -464,6 +483,7 @@
 /* Begin XCBuildConfiguration section */
 		32C0A3601C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6D4255F5239202418C56407 /* Pods-masterch.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -551,6 +571,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = masterch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -571,6 +595,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = masterch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -583,6 +611,7 @@
 		};
 		32C0A3661C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6D4255F5239202418C56407 /* Pods-masterch.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = masterchTests/Info.plist;
@@ -607,6 +636,7 @@
 		};
 		32C0A3691C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6D4255F5239202418C56407 /* Pods-masterch.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = masterchUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
