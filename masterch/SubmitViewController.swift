@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import NCMB
+import NCMB
 
 class SubmitViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     

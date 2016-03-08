@@ -528,6 +528,7 @@
 		};
 		32C0A3611C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -624,6 +625,7 @@
 		};
 		32C0A3671C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = masterchTests/Info.plist;
@@ -649,6 +651,7 @@
 		};
 		32C0A36A1C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = masterchUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
