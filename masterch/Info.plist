@@ -37,19 +37,19 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 
-	<key>CFBundleURLTypes</key>
+<key>CFBundleURLTypes</key>
 <array>
   <dict>
   <key>CFBundleURLSchemes</key>
   <array>
-    <string>fb553650161470863</string>
+    <string>fb1258851877475528</string>
   </array>
   </dict>
 </array>
 <key>FacebookAppID</key>
-<string>553650161470863</string>
+<string>1258851877475528</string>
 <key>FacebookDisplayName</key>
-<string>tastnifty</string>
+<string>masterch</string>
 
 <key>NSAppTransportSecurity</key>
 <dict>
@@ -86,6 +86,7 @@
   <string>fbauth2</string>
   <string>fbshareextension</string>
 </array>
+
 
 </dict>
 </plist>
