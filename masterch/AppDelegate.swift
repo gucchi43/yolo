@@ -8,6 +8,9 @@
 
 import UIKit
 //import NCMB
+import Fabric
+import TwitterKit
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,11 +24,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //********** SDKの初期化 **********
         NCMB.setApplicationKey(applicationkey, clientKey: clientkey)
         
+        NCMBTwitterUtils.initializeWithConsumerKey("BC5FOGIUpi7cPUnuG9JUgtnwD", consumerSecret: "1GBwujSqH10INkqiaPfhO6IyncFc30CrwT8TNHUChgm1zV0dXq")
+        
+        
         /** 追加② **/
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+
         
-//        return true
     }
+    
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

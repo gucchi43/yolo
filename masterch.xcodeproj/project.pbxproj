@@ -242,6 +242,7 @@
 				3EE37A199A3B2D9825FBB2BB /* Embed Pods Frameworks */,
 				A3F8B8AA11E60F8E98DA9E6E /* Copy Pods Resources */,
 				ED779B0B1C8ED0D300C3027C /* CopyFiles */,
+				ED8FE1CB1C8FE62200CFD685 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -406,6 +407,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-masterch/Pods-masterch-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		ED8FE1CB1C8FE62200CFD685 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" ec62d35d0015bc60b374384a4991ee3316538e74 aa24872d7a2760b27c0cdd2434421b127640c6c7490b706db95f3d8178ef4cdf";
 		};
 /* End PBXShellScriptBuildPhase section */
 

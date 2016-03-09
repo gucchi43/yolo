@@ -7,4 +7,8 @@ target 'masterch' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
 
+  pod 'Fabric'
+  pod 'TwitterKit'
+  pod 'TwitterCore'
+
 end

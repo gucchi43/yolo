@@ -528,17 +528,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDU-56-fdD">
-                                <rect key="frame" x="277" y="285" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="235" y="100" width="131" height="30"/>
+                                <state key="normal" title="Facebook ログイン"/>
                                 <connections>
                                     <action selector="fbSignUpBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="gyb-E4-Psa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXh-40-nVZ">
+                                <rect key="frame" x="244" y="230" width="112" height="30"/>
+                                <state key="normal" title="Twitter ログイン"/>
+                                <connections>
+                                    <action selector="twSignUpBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="tNq-dF-CBi"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="aDU-56-fdD" firstAttribute="centerY" secondItem="ROx-NO-idw" secondAttribute="centerY" id="Hoc-LB-jwQ"/>
-                            <constraint firstItem="aDU-56-fdD" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="Wz7-gh-5r3"/>
+                            <constraint firstItem="aDU-56-fdD" firstAttribute="top" secondItem="ROx-NO-idw" secondAttribute="topMargin" constant="100" id="3eP-44-Czd"/>
+                            <constraint firstItem="nXh-40-nVZ" firstAttribute="top" secondItem="aDU-56-fdD" secondAttribute="bottom" constant="100" id="IIr-Uk-mGh"/>
+                            <constraint firstItem="nXh-40-nVZ" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="bWk-Ob-mOm"/>
+                            <constraint firstItem="aDU-56-fdD" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="j35-mI-TKe"/>
                         </constraints>
                     </view>
                     <connections>
@@ -547,7 +556,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jqx-SR-M5T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1496" y="1185"/>
+            <point key="canvasLocation" x="-1498" y="1121"/>
         </scene>
         <!--タイムライン-->
         <scene sceneID="aAk-GS-Ckk">
@@ -649,6 +658,6 @@
         <image name="takigutihikari.jpg" width="561" height="567"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uUR-uq-48O"/>
+        <segue reference="c6M-eA-nIf"/>
     </inferredMetricsTieBreakers>
 </document>
