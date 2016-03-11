@@ -30,6 +30,10 @@
 		ED23B7A51C7B475B009AEDA5 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */; };
 		ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; };
 		ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB1491C9365250028C986 /* fb_login_big.png */; };
+		ED7DB14F1C9365250028C986 /* fb_login_small.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB14A1C9365250028C986 /* fb_login_small.png */; };
+		ED7DB1501C9365250028C986 /* tw_login_big.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB14B1C9365250028C986 /* tw_login_big.png */; };
+		ED7DB1511C9365250028C986 /* tw_login_small.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB14C1C9365250028C986 /* tw_login_small.png */; };
 		ED8322D41C8EFDF700122BA2 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */; };
 		EDA4DC6E1C82F0FB005FE126 /* CalendarSwiftDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */; };
 		EDA4DC701C82F163005FE126 /* CalendarWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */; };
@@ -97,6 +101,10 @@
 		ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonthView.swift; sourceTree = "<group>"; };
 		ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		ED779B091C8DCB9100C3027C /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
+		ED7DB1491C9365250028C986 /* fb_login_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_big.png; sourceTree = "<group>"; };
+		ED7DB14A1C9365250028C986 /* fb_login_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_small.png; sourceTree = "<group>"; };
+		ED7DB14B1C9365250028C986 /* tw_login_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tw_login_big.png; sourceTree = "<group>"; };
+		ED7DB14C1C9365250028C986 /* tw_login_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tw_login_small.png; sourceTree = "<group>"; };
 		ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSwiftDateView.swift; sourceTree = "<group>"; };
 		EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarWeekView.swift; sourceTree = "<group>"; };
@@ -174,6 +182,7 @@
 				3289D2791C6BA1B300B4C65A /* masterch-Bridging-Header.h */,
 				3219A2351C70468900D1A6AF /* CustomTableViewCell.swift */,
 				3219A2361C70468900D1A6AF /* CustomTableViewCell.xib */,
+				ED7DB14D1C9365250028C986 /* Images */,
 				ED23B79D1C7B475B009AEDA5 /* Calendar */,
 			);
 			path = masterch;
@@ -217,6 +226,17 @@
 				ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		ED7DB14D1C9365250028C986 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				ED7DB1491C9365250028C986 /* fb_login_big.png */,
+				ED7DB14A1C9365250028C986 /* fb_login_small.png */,
+				ED7DB14B1C9365250028C986 /* tw_login_big.png */,
+				ED7DB14C1C9365250028C986 /* tw_login_small.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		FE1808372DF768E3B1D58A04 /* Pods */ = {
@@ -342,7 +362,11 @@
 				32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */,
 				32C0A3451C5DF8ED009657B9 /* Assets.xcassets in Resources */,
 				3219A2381C70468900D1A6AF /* CustomTableViewCell.xib in Resources */,
+				ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */,
+				ED7DB14F1C9365250028C986 /* fb_login_small.png in Resources */,
+				ED7DB1511C9365250028C986 /* tw_login_small.png in Resources */,
 				32C0A3431C5DF8ED009657B9 /* Main.storyboard in Resources */,
+				ED7DB1501C9365250028C986 /* tw_login_big.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

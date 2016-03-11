@@ -527,27 +527,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDU-56-fdD">
-                                <rect key="frame" x="235" y="100" width="131" height="30"/>
-                                <state key="normal" title="Facebook ログイン"/>
-                                <connections>
-                                    <action selector="fbSignUpBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="gyb-E4-Psa"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXh-40-nVZ">
-                                <rect key="frame" x="244" y="230" width="112" height="30"/>
-                                <state key="normal" title="Twitter ログイン"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXh-40-nVZ">
+                                <rect key="frame" x="169" y="292" width="261" height="58"/>
+                                <state key="normal" image="tw_login_small.png"/>
                                 <connections>
                                     <action selector="twSignUpBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="tNq-dF-CBi"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Masterch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0C-hg-vBj">
+                                <rect key="frame" x="238" y="148" width="124" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDU-56-fdD">
+                                <rect key="frame" x="169" y="214" width="261" height="58"/>
+                                <state key="normal" image="fb_login_small.png"/>
+                                <connections>
+                                    <action selector="fbSignUpBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="gyb-E4-Psa"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="aDU-56-fdD" firstAttribute="top" secondItem="ROx-NO-idw" secondAttribute="topMargin" constant="100" id="3eP-44-Czd"/>
-                            <constraint firstItem="nXh-40-nVZ" firstAttribute="top" secondItem="aDU-56-fdD" secondAttribute="bottom" constant="100" id="IIr-Uk-mGh"/>
-                            <constraint firstItem="nXh-40-nVZ" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="bWk-Ob-mOm"/>
-                            <constraint firstItem="aDU-56-fdD" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="j35-mI-TKe"/>
+                            <constraint firstItem="x5R-Yi-2ih" firstAttribute="top" secondItem="nXh-40-nVZ" secondAttribute="bottom" constant="250" id="Z8h-3P-Paf"/>
+                            <constraint firstItem="a0C-hg-vBj" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="hSr-Xy-FSF"/>
+                            <constraint firstItem="aDU-56-fdD" firstAttribute="top" secondItem="a0C-hg-vBj" secondAttribute="bottom" constant="30" id="jVd-bj-G7O"/>
+                            <constraint firstItem="nXh-40-nVZ" firstAttribute="top" secondItem="aDU-56-fdD" secondAttribute="bottom" constant="20" id="k30-pc-vcu"/>
+                            <constraint firstItem="nXh-40-nVZ" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="qac-hC-iQL"/>
+                            <constraint firstItem="aDU-56-fdD" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="tgf-B6-kBd"/>
                         </constraints>
                     </view>
                     <connections>
@@ -655,7 +663,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="fb_login_small.png" width="261" height="58"/>
         <image name="takigutihikari.jpg" width="561" height="567"/>
+        <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="c6M-eA-nIf"/>
