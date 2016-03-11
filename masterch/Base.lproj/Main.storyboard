@@ -10,7 +10,7 @@
         <!--タイムライン-->
         <scene sceneID="Ln1-HH-GJn">
             <objects>
-                <tableViewController id="LnM-Zi-r3t" customClass="TimeLineTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Main" id="LnM-Zi-r3t" customClass="TimeLineTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="84" sectionHeaderHeight="28" sectionFooterHeight="28" id="DFb-mv-nfW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -518,7 +518,7 @@
         <!--Sign Up View Controller-->
         <scene sceneID="Bhx-nN-Wcu">
             <objects>
-                <viewController id="gvJ-cY-zuT" customClass="SignUpViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Signin" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gvJ-cY-zuT" customClass="SignUpViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GVs-fE-sp6"/>
                         <viewControllerLayoutGuide type="bottom" id="x5R-Yi-2ih"/>

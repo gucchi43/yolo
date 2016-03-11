@@ -8,8 +8,8 @@
 
 import UIKit
 //import NCMB
-import Fabric
-import TwitterKit
+//import Fabric
+//import TwitterKit
 
 
 @UIApplicationMain
@@ -26,11 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NCMBTwitterUtils.initializeWithConsumerKey("BC5FOGIUpi7cPUnuG9JUgtnwD", consumerSecret: "1GBwujSqH10INkqiaPfhO6IyncFc30CrwT8TNHUChgm1zV0dXq")
         
-        
-        /** 追加② **/
+        /** Facebook連携 **/
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-
-        
     }
     
 
