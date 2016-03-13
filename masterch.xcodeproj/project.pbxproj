@@ -24,7 +24,7 @@
 		32C0A35E1C5DF8EE009657B9 /* masterchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A35D1C5DF8EE009657B9 /* masterchUITests.swift */; };
 		32E6CF751C76DD4F00904B74 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */; };
 		32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32E6CF761C76F4F500904B74 /* takigutihikari.jpg */; };
-		601BB42FCFA1210C68AF77BC /* libPods-masterch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B11234308A770FE089492BA /* libPods-masterch.a */; };
+		3DE5BDC5DC22063F6BBBE06C /* libPods-masterch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6710425171B174F17B3734 /* libPods-masterch.a */; };
 		ED23B7A31C7B475B009AEDA5 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */; };
 		ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */; };
 		ED23B7A51C7B475B009AEDA5 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */; };
@@ -95,8 +95,7 @@
 		32C0A35F1C5DF8EE009657B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		32E6CF761C76F4F500904B74 /* takigutihikari.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = takigutihikari.jpg; sourceTree = "<group>"; };
-		7B11234308A770FE089492BA /* libPods-masterch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-masterch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.release.xcconfig"; sourceTree = "<group>"; };
+		AA6710425171B174F17B3734 /* libPods-masterch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-masterch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonthView.swift; sourceTree = "<group>"; };
 		ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
@@ -109,7 +108,8 @@
 		EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSwiftDateView.swift; sourceTree = "<group>"; };
 		EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarWeekView.swift; sourceTree = "<group>"; };
 		EDA4DC711C82F190005FE126 /* CalendarAnotherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarAnotherView.swift; sourceTree = "<group>"; };
-		F6D4255F5239202418C56407 /* Pods-masterch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.debug.xcconfig"; sourceTree = "<group>"; };
+		F2011EB0AC35898DBEA8FD95 /* Pods-masterch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.release.xcconfig"; sourceTree = "<group>"; };
+		FAEFA590D5AF150641D1A08F /* Pods-masterch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +118,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */,
-				601BB42FCFA1210C68AF77BC /* libPods-masterch.a in Frameworks */,
+				3DE5BDC5DC22063F6BBBE06C /* libPods-masterch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +139,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11EC34571A810140C6E33FFA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FAEFA590D5AF150641D1A08F /* Pods-masterch.debug.xcconfig */,
+				F2011EB0AC35898DBEA8FD95 /* Pods-masterch.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		32C0A3311C5DF8ED009657B9 = {
 			isa = PBXGroup;
 			children = (
@@ -146,8 +155,8 @@
 				32C0A3511C5DF8EE009657B9 /* masterchTests */,
 				32C0A35C1C5DF8EE009657B9 /* masterchUITests */,
 				32C0A33B1C5DF8ED009657B9 /* Products */,
-				FE1808372DF768E3B1D58A04 /* Pods */,
 				B831727C3E3CF2E5ED6388D9 /* Frameworks */,
+				11EC34571A810140C6E33FFA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -210,7 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				ED779B091C8DCB9100C3027C /* SwiftDate.framework */,
-				7B11234308A770FE089492BA /* libPods-masterch.a */,
+				AA6710425171B174F17B3734 /* libPods-masterch.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -239,15 +248,6 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
-		FE1808372DF768E3B1D58A04 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F6D4255F5239202418C56407 /* Pods-masterch.debug.xcconfig */,
-				A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -255,14 +255,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32C0A3621C5DF8EE009657B9 /* Build configuration list for PBXNativeTarget "masterch" */;
 			buildPhases = (
-				56532AED0B3755F174CB412A /* Check Pods Manifest.lock */,
+				8A566DE260D41DF180B93678 /* Check Pods Manifest.lock */,
 				32C0A3361C5DF8ED009657B9 /* Sources */,
 				32C0A3371C5DF8ED009657B9 /* Frameworks */,
 				32C0A3381C5DF8ED009657B9 /* Resources */,
-				3EE37A199A3B2D9825FBB2BB /* Embed Pods Frameworks */,
-				A3F8B8AA11E60F8E98DA9E6E /* Copy Pods Resources */,
 				ED779B0B1C8ED0D300C3027C /* CopyFiles */,
 				ED8FE1CB1C8FE62200CFD685 /* ShellScript */,
+				58AF20992B63ACCF6D045CBE /* Embed Pods Frameworks */,
+				5A9514ED547ACB3EBBAF69D7 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -387,7 +387,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3EE37A199A3B2D9825FBB2BB /* Embed Pods Frameworks */ = {
+		58AF20992B63ACCF6D045CBE /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -402,7 +402,22 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-masterch/Pods-masterch-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		56532AED0B3755F174CB412A /* Check Pods Manifest.lock */ = {
+		5A9514ED547ACB3EBBAF69D7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-masterch/Pods-masterch-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8A566DE260D41DF180B93678 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -415,21 +430,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		A3F8B8AA11E60F8E98DA9E6E /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-masterch/Pods-masterch-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ED8FE1CB1C8FE62200CFD685 /* ShellScript */ = {
@@ -525,7 +525,6 @@
 /* Begin XCBuildConfiguration section */
 		32C0A3601C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6D4255F5239202418C56407 /* Pods-masterch.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -570,7 +569,6 @@
 		};
 		32C0A3611C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -608,7 +606,7 @@
 		};
 		32C0A3631C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6D4255F5239202418C56407 /* Pods-masterch.debug.xcconfig */;
+			baseConfigurationReference = FAEFA590D5AF150641D1A08F /* Pods-masterch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -632,7 +630,7 @@
 		};
 		32C0A3641C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */;
+			baseConfigurationReference = F2011EB0AC35898DBEA8FD95 /* Pods-masterch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -654,7 +652,6 @@
 		};
 		32C0A3661C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6D4255F5239202418C56407 /* Pods-masterch.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = masterchTests/Info.plist;
@@ -667,7 +664,6 @@
 		};
 		32C0A3671C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = masterchTests/Info.plist;
@@ -680,7 +676,6 @@
 		};
 		32C0A3691C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6D4255F5239202418C56407 /* Pods-masterch.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = masterchUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -693,7 +688,6 @@
 		};
 		32C0A36A1C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = masterchUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
