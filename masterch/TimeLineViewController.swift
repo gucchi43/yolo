@@ -35,6 +35,11 @@ class TimeLineTableViewController: UITableViewController {
         
         self.postTableView.registerNib(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "postTableViewCell")
         
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: Selector("pullToRefresh"), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl = refreshControl
+        
+        
         self.getPostData()
         self.postTableView.reloadData()
     }
@@ -134,8 +139,10 @@ class TimeLineTableViewController: UITableViewController {
     }
     
 //    timeLineの更新メソッド
-    func updatePost() {
-        
+    func pullToRefresh() {
+        self.getPostData()
+        self.postTableView.reloadData()
+        self.refreshControl?.endRefreshing()
     }
     
 //    postDataの取得メソッド
