@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="crh-pw-A6b">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gvJ-cY-zuT">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -10,7 +10,7 @@
         <!--タイムライン-->
         <scene sceneID="Ln1-HH-GJn">
             <objects>
-                <tableViewController id="LnM-Zi-r3t" customClass="TimeLineTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Main" id="LnM-Zi-r3t" customClass="TimeLineTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="84" sectionHeaderHeight="28" sectionFooterHeight="28" id="DFb-mv-nfW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -220,31 +220,31 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="月" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GS9-mC-dJD">
                                                 <rect key="frame" x="89.5" y="4" width="14" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="火" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FVF-Y3-bGG">
                                                 <rect key="frame" x="178.5" y="4" width="14" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="水" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6XF-tc-57W">
                                                 <rect key="frame" x="268" y="4" width="14" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="木" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pih-C0-xIB">
                                                 <rect key="frame" x="357.5" y="4" width="14" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="金" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJy-6S-9SM">
                                                 <rect key="frame" x="446.5" y="4" width="14" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="土" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DyM-Jh-CN9">
@@ -513,7 +513,58 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ke4-eq-fQv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-296" y="1169"/>
+            <point key="canvasLocation" x="-476" y="1177"/>
+        </scene>
+        <!--Sign Up View Controller-->
+        <scene sceneID="Bhx-nN-Wcu">
+            <objects>
+                <viewController storyboardIdentifier="Signin" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gvJ-cY-zuT" customClass="SignUpViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GVs-fE-sp6"/>
+                        <viewControllerLayoutGuide type="bottom" id="x5R-Yi-2ih"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ROx-NO-idw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXh-40-nVZ">
+                                <rect key="frame" x="169" y="292" width="261" height="58"/>
+                                <state key="normal" image="tw_login_small.png"/>
+                                <connections>
+                                    <action selector="twSignUpBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="tNq-dF-CBi"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Masterch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0C-hg-vBj">
+                                <rect key="frame" x="238" y="148" width="124" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDU-56-fdD">
+                                <rect key="frame" x="169" y="214" width="261" height="58"/>
+                                <state key="normal" image="fb_login_small.png"/>
+                                <connections>
+                                    <action selector="fbSignUpBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="gyb-E4-Psa"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="x5R-Yi-2ih" firstAttribute="top" secondItem="nXh-40-nVZ" secondAttribute="bottom" constant="250" id="Z8h-3P-Paf"/>
+                            <constraint firstItem="a0C-hg-vBj" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="hSr-Xy-FSF"/>
+                            <constraint firstItem="aDU-56-fdD" firstAttribute="top" secondItem="a0C-hg-vBj" secondAttribute="bottom" constant="30" id="jVd-bj-G7O"/>
+                            <constraint firstItem="nXh-40-nVZ" firstAttribute="top" secondItem="aDU-56-fdD" secondAttribute="bottom" constant="20" id="k30-pc-vcu"/>
+                            <constraint firstItem="nXh-40-nVZ" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="qac-hC-iQL"/>
+                            <constraint firstItem="aDU-56-fdD" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="tgf-B6-kBd"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="crh-pw-A6b" kind="presentation" identifier="signUpedSegue" id="L8J-Kv-eM2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jqx-SR-M5T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1498" y="1121"/>
         </scene>
         <!--タイムライン-->
         <scene sceneID="aAk-GS-Ckk">
@@ -612,9 +663,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="fb_login_small.png" width="261" height="58"/>
         <image name="takigutihikari.jpg" width="561" height="567"/>
+        <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uUR-uq-48O"/>
+        <segue reference="c6M-eA-nIf"/>
     </inferredMetricsTieBreakers>
 </document>

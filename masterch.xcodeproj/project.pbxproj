@@ -24,10 +24,17 @@
 		32C0A35E1C5DF8EE009657B9 /* masterchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A35D1C5DF8EE009657B9 /* masterchUITests.swift */; };
 		32E6CF751C76DD4F00904B74 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */; };
 		32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32E6CF761C76F4F500904B74 /* takigutihikari.jpg */; };
-		AD6F40F28A709E327E95142D /* Pods_masterch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76281F39C878873917C0BDA /* Pods_masterch.framework */; };
+		601BB42FCFA1210C68AF77BC /* libPods-masterch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B11234308A770FE089492BA /* libPods-masterch.a */; };
 		ED23B7A31C7B475B009AEDA5 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */; };
 		ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */; };
 		ED23B7A51C7B475B009AEDA5 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */; };
+		ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; };
+		ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB1491C9365250028C986 /* fb_login_big.png */; };
+		ED7DB14F1C9365250028C986 /* fb_login_small.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB14A1C9365250028C986 /* fb_login_small.png */; };
+		ED7DB1501C9365250028C986 /* tw_login_big.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB14B1C9365250028C986 /* tw_login_big.png */; };
+		ED7DB1511C9365250028C986 /* tw_login_small.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB14C1C9365250028C986 /* tw_login_small.png */; };
+		ED8322D41C8EFDF700122BA2 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */; };
 		EDA4DC6E1C82F0FB005FE126 /* CalendarSwiftDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */; };
 		EDA4DC701C82F163005FE126 /* CalendarWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */; };
 		EDA4DC721C82F190005FE126 /* CalendarAnotherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC711C82F190005FE126 /* CalendarAnotherView.swift */; };
@@ -49,6 +56,19 @@
 			remoteInfo = masterch;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ED779B0B1C8ED0D300C3027C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3219A2351C70468900D1A6AF /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
@@ -75,11 +95,17 @@
 		32C0A35F1C5DF8EE009657B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		32E6CF761C76F4F500904B74 /* takigutihikari.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = takigutihikari.jpg; sourceTree = "<group>"; };
+		7B11234308A770FE089492BA /* libPods-masterch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-masterch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.release.xcconfig"; sourceTree = "<group>"; };
-		A76281F39C878873917C0BDA /* Pods_masterch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_masterch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonthView.swift; sourceTree = "<group>"; };
 		ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		ED779B091C8DCB9100C3027C /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
+		ED7DB1491C9365250028C986 /* fb_login_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_big.png; sourceTree = "<group>"; };
+		ED7DB14A1C9365250028C986 /* fb_login_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_small.png; sourceTree = "<group>"; };
+		ED7DB14B1C9365250028C986 /* tw_login_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tw_login_big.png; sourceTree = "<group>"; };
+		ED7DB14C1C9365250028C986 /* tw_login_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tw_login_small.png; sourceTree = "<group>"; };
+		ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSwiftDateView.swift; sourceTree = "<group>"; };
 		EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarWeekView.swift; sourceTree = "<group>"; };
 		EDA4DC711C82F190005FE126 /* CalendarAnotherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarAnotherView.swift; sourceTree = "<group>"; };
@@ -91,7 +117,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD6F40F28A709E327E95142D /* Pods_masterch.framework in Frameworks */,
+				ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */,
+				601BB42FCFA1210C68AF77BC /* libPods-masterch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,12 +175,14 @@
 				3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */,
 				32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */,
 				32C0A3411C5DF8ED009657B9 /* Main.storyboard */,
+				ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */,
 				32C0A3441C5DF8ED009657B9 /* Assets.xcassets */,
 				32C0A3461C5DF8ED009657B9 /* LaunchScreen.storyboard */,
 				32C0A3491C5DF8ED009657B9 /* Info.plist */,
 				3289D2791C6BA1B300B4C65A /* masterch-Bridging-Header.h */,
 				3219A2351C70468900D1A6AF /* CustomTableViewCell.swift */,
 				3219A2361C70468900D1A6AF /* CustomTableViewCell.xib */,
+				ED7DB14D1C9365250028C986 /* Images */,
 				ED23B79D1C7B475B009AEDA5 /* Calendar */,
 			);
 			path = masterch;
@@ -180,7 +209,8 @@
 		B831727C3E3CF2E5ED6388D9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A76281F39C878873917C0BDA /* Pods_masterch.framework */,
+				ED779B091C8DCB9100C3027C /* SwiftDate.framework */,
+				7B11234308A770FE089492BA /* libPods-masterch.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -196,6 +226,17 @@
 				ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		ED7DB14D1C9365250028C986 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				ED7DB1491C9365250028C986 /* fb_login_big.png */,
+				ED7DB14A1C9365250028C986 /* fb_login_small.png */,
+				ED7DB14B1C9365250028C986 /* tw_login_big.png */,
+				ED7DB14C1C9365250028C986 /* tw_login_small.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		FE1808372DF768E3B1D58A04 /* Pods */ = {
@@ -220,6 +261,8 @@
 				32C0A3381C5DF8ED009657B9 /* Resources */,
 				3EE37A199A3B2D9825FBB2BB /* Embed Pods Frameworks */,
 				A3F8B8AA11E60F8E98DA9E6E /* Copy Pods Resources */,
+				ED779B0B1C8ED0D300C3027C /* CopyFiles */,
+				ED8FE1CB1C8FE62200CFD685 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -319,7 +362,11 @@
 				32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */,
 				32C0A3451C5DF8ED009657B9 /* Assets.xcassets in Resources */,
 				3219A2381C70468900D1A6AF /* CustomTableViewCell.xib in Resources */,
+				ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */,
+				ED7DB14F1C9365250028C986 /* fb_login_small.png in Resources */,
+				ED7DB1511C9365250028C986 /* tw_login_small.png in Resources */,
 				32C0A3431C5DF8ED009657B9 /* Main.storyboard in Resources */,
+				ED7DB1501C9365250028C986 /* tw_login_big.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,7 +419,7 @@
 		};
 		A3F8B8AA11E60F8E98DA9E6E /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -384,6 +431,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-masterch/Pods-masterch-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		ED8FE1CB1C8FE62200CFD685 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" ec62d35d0015bc60b374384a4991ee3316538e74 aa24872d7a2760b27c0cdd2434421b127640c6c7490b706db95f3d8178ef4cdf";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -397,6 +457,7 @@
 				EDA4DC6E1C82F0FB005FE126 /* CalendarSwiftDateView.swift in Sources */,
 				EDA4DC701C82F163005FE126 /* CalendarWeekView.swift in Sources */,
 				32C0A3401C5DF8ED009657B9 /* ViewController.swift in Sources */,
+				ED8322D41C8EFDF700122BA2 /* SignUpViewController.swift in Sources */,
 				3289D23C1C6A1C8000B4C65A /* SearchViewController.swift in Sources */,
 				3289D23E1C6A1CA300B4C65A /* NotificationViewController.swift in Sources */,
 				3289D2381C6A1C6000B4C65A /* LogViewController.swift in Sources */,
@@ -464,6 +525,7 @@
 /* Begin XCBuildConfiguration section */
 		32C0A3601C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6D4255F5239202418C56407 /* Pods-masterch.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -508,6 +570,7 @@
 		};
 		32C0A3611C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -551,6 +614,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = masterch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -571,6 +638,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = masterch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -583,6 +654,7 @@
 		};
 		32C0A3661C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6D4255F5239202418C56407 /* Pods-masterch.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = masterchTests/Info.plist;
@@ -595,6 +667,7 @@
 		};
 		32C0A3671C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = masterchTests/Info.plist;
@@ -607,6 +680,7 @@
 		};
 		32C0A3691C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6D4255F5239202418C56407 /* Pods-masterch.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = masterchUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -619,6 +693,7 @@
 		};
 		32C0A36A1C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A44DCBE5B0D3B6FAFCE3FDF2 /* Pods-masterch.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = masterchUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

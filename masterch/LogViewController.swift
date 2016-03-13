@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class LogViewController: UIViewController {
     
     var toggleWeek: Bool = false
