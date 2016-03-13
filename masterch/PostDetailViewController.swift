@@ -12,7 +12,8 @@ class PostDetailViewController: UIViewController {
     
     @IBOutlet var postTextLabel: UILabel!
     @IBOutlet var postImageView: UIImageView!
-    var text: String!
+    var postDateText: String!
+    var postText: String!
     var postImage: UIImage!
     
     @IBAction func tapCancelButton(sender: UIBarButtonItem) {
@@ -23,7 +24,7 @@ class PostDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        postTextLabel.text = text
+        postTextLabel.text = postText
         postImageView.image = postImage
         
         // 画像のアスペクト比を維持しUIImageViewサイズに収まるように表示
