@@ -18,13 +18,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let applicationkey = "d49ceb9e63bd3cf555c8aa7c339ea105b71fa00ed1e6517dec8172beef10c553"
     let clientkey = "ba1432ddcd33638afa4075ab527183c5e0a056e6a0441342be264dc8dd50fdd6"
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
         // Override point for customization after application launch.
         //********** SDKの初期化 **********
         NCMB.setApplicationKey(applicationkey, clientKey: clientkey)
         
         NCMBTwitterUtils.initializeWithConsumerKey("BC5FOGIUpi7cPUnuG9JUgtnwD", consumerSecret: "1GBwujSqH10INkqiaPfhO6IyncFc30CrwT8TNHUChgm1zV0dXq")
+        
+        let storyboard:UIStoryboard =  UIStoryboard(name: "Main",bundle:nil)
+        var viewController:UIViewController
+        
+        
+        //表示するビューコントローラーを指定
+        if NCMBUser.currentUser() != nil {
+            print("appDelegate by ログイン済み")
+            print("ユーザー情報: \(NCMBUser.currentUser())")
+            viewController = storyboard.instantiateViewControllerWithIdentifier("firstViewController") as UIViewController
+            window?.rootViewController = viewController
+            if let tabvc = self.window!.rootViewController as? UITabBarController  {
+                tabvc.selectedIndex = 2 // 0 が一番左のタブ
+            }
+        } else {
+            print("appDelegate by ログインしてない")
+            viewController = storyboard.instantiateViewControllerWithIdentifier("secondViewController") as UIViewController
+            window?.rootViewController = viewController
+        }
+//        return true
         
         /** Facebook連携 **/
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)

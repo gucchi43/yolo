@@ -96,16 +96,6 @@ class SignUpViewController: UIViewController {
 //        
 //    }
     
-    override func viewDidAppear(animated: Bool) {
-        print("viewWillAppear")
-        if NCMBUser.currentUser() != nil{
-            self.performSegueWithIdentifier("signUpedSegue", sender: self)
-            print("SNSログイン済み \(NCMBUser.currentUser())")
-        }
-    }
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
