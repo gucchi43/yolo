@@ -10,7 +10,7 @@
         <!--タイムライン-->
         <scene sceneID="Ln1-HH-GJn">
             <objects>
-                <tableViewController storyboardIdentifier="main" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LnM-Zi-r3t" customClass="TimeLineTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="LnM-Zi-r3t" customClass="TimeLineTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="84" sectionHeaderHeight="28" sectionFooterHeight="28" id="DFb-mv-nfW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -668,6 +668,6 @@
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uUR-uq-48O"/>
+        <segue reference="c6M-eA-nIf"/>
     </inferredMetricsTieBreakers>
 </document>

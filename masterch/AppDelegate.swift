@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //表示するビューコントローラーを指定
         if NCMBUser.currentUser() != nil {
             print("appDelegate by ログイン済み")
+            print("ユーザー情報: \(NCMBUser.currentUser())")
             viewController = storyboard.instantiateViewControllerWithIdentifier("firstViewController") as UIViewController
             window?.rootViewController = viewController
             if let tabvc = self.window!.rootViewController as? UITabBarController  {
