@@ -10,8 +10,13 @@ import UIKit
 
 class CustomTableViewCell: UITableViewCell {
     
+    @IBOutlet var userProfileImageView: UIImageView!
+    @IBOutlet var userNameLabel: UILabel!
+    
+    @IBOutlet var postDateLabel: UILabel!
     @IBOutlet var postTextLabel: UILabel!
     @IBOutlet var postImageView: UIImageView!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
