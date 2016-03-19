@@ -71,6 +71,7 @@
                                             <state key="normal" title="投稿"/>
                                             <connections>
                                                 <action selector="postButtonTap:" destination="c8c-V5-aA3" eventType="touchUpInside" id="QFE-l4-aYy"/>
+                                                <segue destination="Q39-f1-9uN" kind="unwind" unwindAction="unwindToTop:" id="txf-aX-AMS"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>

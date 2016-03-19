@@ -126,7 +126,9 @@ class SubmitViewController: UIViewController, UITextViewDelegate, UIImagePickerC
         print("投稿ボタン押した")
         self.addPost()
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+//        self.dismissViewControllerAnimated(true, completion: nil)
+//        上の方法で今戻れないから、ひとまずstoryboardからunwindSegueで戻るように実装している。
+        
     }
     
 //     投稿機能メソッド
