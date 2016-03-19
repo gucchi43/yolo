@@ -5,6 +5,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
+        <!--Submit-->
+        <scene sceneID="yop-KY-ycB">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Submit" id="YW9-Co-wLb" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U5U-xy-XIh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1581" y="1584"/>
+        </scene>
         <!--検索-->
         <scene sceneID="w9N-TN-cOK">
             <objects>
@@ -19,17 +27,21 @@
                         <color key="backgroundColor" red="1" green="0.071136035730000005" blue="0.1044621134" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="検索" id="cj9-qe-8UG">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="HeC-LR-HgO"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="HeC-LR-HgO">
+                            <connections>
+                                <segue destination="YW9-Co-wLb" kind="show" id="GFb-WO-xLh"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="peK-73-kNO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1208" y="486"/>
+            <point key="canvasLocation" x="1576" y="494"/>
         </scene>
         <!--検索-->
         <scene sceneID="ZzT-P1-Ax9">
             <objects>
-                <navigationController storyboardIdentifier="TabSearch" automaticallyAdjustsScrollViewInsets="NO" id="vnO-Ry-kCf" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Search" automaticallyAdjustsScrollViewInsets="NO" id="vnO-Ry-kCf" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="検索" id="DRh-jO-88a"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LTR-u0-YxE">

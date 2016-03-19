@@ -19,17 +19,29 @@
                         <color key="backgroundColor" red="0.9457121986" green="0.28938320709999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="通知" id="5g0-6Q-JRt">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="pcF-af-ulJ"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="pcF-af-ulJ">
+                            <connections>
+                                <segue destination="zEI-mb-efy" kind="show" id="a1j-gd-HJi"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gap-Qg-d6R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="792" y="-1499"/>
         </scene>
+        <!--Submit-->
+        <scene sceneID="9fT-9z-Lvc">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Submit" id="zEI-mb-efy" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KMk-uw-dDA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="792" y="-1015"/>
+        </scene>
         <!--通知-->
         <scene sceneID="07H-30-kZ0">
             <objects>
-                <navigationController storyboardIdentifier="TabNotification" automaticallyAdjustsScrollViewInsets="NO" id="LaQ-dV-R2A" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Notification" automaticallyAdjustsScrollViewInsets="NO" id="LaQ-dV-R2A" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="通知" id="ijT-fj-HJ0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Le9-ox-MIt">

@@ -143,7 +143,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="ログ" id="Efw-Us-mcx">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="nX5-CA-M3Q"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="nX5-CA-M3Q">
+                            <connections>
+                                <segue destination="r7X-aC-6JR" kind="show" id="ypQ-t5-ztA"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="calendarBaseView" destination="2PW-2V-byW" id="F5S-zK-ELl"/>
@@ -158,10 +162,18 @@
             </objects>
             <point key="canvasLocation" x="-296" y="673"/>
         </scene>
+        <!--Submit-->
+        <scene sceneID="gEy-ZW-ThF">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Submit" id="r7X-aC-6JR" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="otE-uK-M07" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-296" y="1910"/>
+        </scene>
         <!--ログ-->
         <scene sceneID="ORA-vr-x22">
             <objects>
-                <navigationController storyboardIdentifier="TabLog" automaticallyAdjustsScrollViewInsets="NO" id="QJZ-Br-eeV" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Log" automaticallyAdjustsScrollViewInsets="NO" id="QJZ-Br-eeV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="ログ" id="Dgp-Bp-UTR"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YYb-tB-q7j">

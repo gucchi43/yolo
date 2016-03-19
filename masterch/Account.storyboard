@@ -19,17 +19,29 @@
                         <color key="backgroundColor" red="0.3512563528" green="1" blue="0.43419941779999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="アカウント" id="841-ZB-Lth">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="9XV-8G-zyi"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="9XV-8G-zyi">
+                            <connections>
+                                <segue destination="c9d-ll-Bc7" kind="show" id="d7U-cz-cqx"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hoD-De-F3E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="88" y="422"/>
         </scene>
+        <!--Submit-->
+        <scene sceneID="hDV-Nk-Zxl">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Submit" id="c9d-ll-Bc7" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ga8-3j-v6s" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="88" y="965"/>
+        </scene>
         <!--アカウント-->
         <scene sceneID="rgb-Qn-47p">
             <objects>
-                <navigationController storyboardIdentifier="TabAccount" automaticallyAdjustsScrollViewInsets="NO" id="wuv-Wr-XSh" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Account" automaticallyAdjustsScrollViewInsets="NO" id="wuv-Wr-XSh" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="アカウント" id="emU-TY-VlA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="68v-yl-ptu">
