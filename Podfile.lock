@@ -6,9 +6,9 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.6.0)
   - Fabric (1.6.7)
-  - FBSDKCoreKit (4.10.0):
+  - FBSDKCoreKit (4.10.1):
     - Bolts (~> 1.5)
-  - FBSDKLoginKit (4.10.0):
+  - FBSDKLoginKit (4.10.1):
     - FBSDKCoreKit
   - NCMB (2.3.0)
   - TwitterCore (1.15.3):
@@ -36,8 +36,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Bolts: f52a250053bb517ca874523c3913776359ab3def
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
-  FBSDKCoreKit: 13bec8373fb3af94d44daf2aa1e0958687897fbd
-  FBSDKLoginKit: d3d4a2e9d31954deb00bfea964167a05ca1ea976
+  FBSDKCoreKit: d2aaed5e9ab7d8d6301c533376a1fbff1cf3deb5
+  FBSDKLoginKit: 699ff169080e3072de4b9b0faca90bf23dc36deb
   NCMB: a153b3f99d7b3d530eba60dba065487c63962e2d
   TwitterCore: cce24b3c798993ccde72787ea79ea9a478b284e4
   TwitterKit: 43600f2d2848c227739efea5b2939585e69339c3

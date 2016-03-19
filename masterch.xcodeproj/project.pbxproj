@@ -28,6 +28,12 @@
 		ED23B7A31C7B475B009AEDA5 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */; };
 		ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */; };
 		ED23B7A51C7B475B009AEDA5 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */; };
+		ED3644561C9D657600C6676C /* TimeLine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED3644551C9D657600C6676C /* TimeLine.storyboard */; };
+		ED3644581C9D658A00C6676C /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED3644571C9D658A00C6676C /* Search.storyboard */; };
+		ED36445A1C9D659A00C6676C /* Log.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED3644591C9D659A00C6676C /* Log.storyboard */; };
+		ED36445C1C9D65AA00C6676C /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445B1C9D65AA00C6676C /* Account.storyboard */; };
+		ED36445E1C9D65C000C6676C /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445D1C9D65C000C6676C /* Notification.storyboard */; };
+		ED3644601C9D6DBA00C6676C /* Submit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445F1C9D6DBA00C6676C /* Submit.storyboard */; };
 		ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; };
 		ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB1491C9365250028C986 /* fb_login_big.png */; };
@@ -77,8 +83,8 @@
 		3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
 		3289D2371C6A1C6000B4C65A /* LogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		3289D2391C6A1C6F00B4C65A /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
-		3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		3289D23D1C6A1CA300B4C65A /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = masterch/SearchViewController.swift; sourceTree = "<group>"; };
+		3289D23D1C6A1CA300B4C65A /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationViewController.swift; path = masterch/NotificationViewController.swift; sourceTree = "<group>"; };
 		3289D2791C6BA1B300B4C65A /* masterch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "masterch-Bridging-Header.h"; sourceTree = "<group>"; };
 		32C0A33A1C5DF8ED009657B9 /* masterch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = masterch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +105,12 @@
 		ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonthView.swift; sourceTree = "<group>"; };
 		ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		ED3644551C9D657600C6676C /* TimeLine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TimeLine.storyboard; sourceTree = "<group>"; };
+		ED3644571C9D658A00C6676C /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = masterch/Search.storyboard; sourceTree = "<group>"; };
+		ED3644591C9D659A00C6676C /* Log.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Log.storyboard; sourceTree = "<group>"; };
+		ED36445B1C9D65AA00C6676C /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
+		ED36445D1C9D65C000C6676C /* Notification.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Notification.storyboard; path = masterch/Notification.storyboard; sourceTree = "<group>"; };
+		ED36445F1C9D6DBA00C6676C /* Submit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Submit.storyboard; sourceTree = "<group>"; };
 		ED779B091C8DCB9100C3027C /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		ED7DB1491C9365250028C986 /* fb_login_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_big.png; sourceTree = "<group>"; };
 		ED7DB14A1C9365250028C986 /* fb_login_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_small.png; sourceTree = "<group>"; };
@@ -175,24 +187,21 @@
 			children = (
 				32E6CF761C76F4F500904B74 /* takigutihikari.jpg */,
 				32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */,
-				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
-				3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */,
-				3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */,
-				3289D2371C6A1C6000B4C65A /* LogViewController.swift */,
-				3289D23D1C6A1CA300B4C65A /* NotificationViewController.swift */,
-				3289D2391C6A1C6F00B4C65A /* AccountViewController.swift */,
-				3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */,
-				32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */,
 				32C0A3411C5DF8ED009657B9 /* Main.storyboard */,
+				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
 				ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */,
+				ED3644611C9D72F700C6676C /* TimeLine */,
+				ED3644621C9D740000C6676C /* Account */,
+				ED3644631C9D741500C6676C /* Log */,
+				ED3644641C9D744100C6676C /* Notification */,
+				ED3644651C9D748F00C6676C /* Search */,
+				ED3644661C9D74CB00C6676C /* Submit */,
+				ED23B79D1C7B475B009AEDA5 /* Calendar */,
 				32C0A3441C5DF8ED009657B9 /* Assets.xcassets */,
 				32C0A3461C5DF8ED009657B9 /* LaunchScreen.storyboard */,
-				32C0A3491C5DF8ED009657B9 /* Info.plist */,
 				3289D2791C6BA1B300B4C65A /* masterch-Bridging-Header.h */,
-				3219A2351C70468900D1A6AF /* CustomTableViewCell.swift */,
-				3219A2361C70468900D1A6AF /* CustomTableViewCell.xib */,
+				32C0A3491C5DF8ED009657B9 /* Info.plist */,
 				ED7DB14D1C9365250028C986 /* Images */,
-				ED23B79D1C7B475B009AEDA5 /* Calendar */,
 			);
 			path = masterch;
 			sourceTree = "<group>";
@@ -235,6 +244,65 @@
 				ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		ED3644611C9D72F700C6676C /* TimeLine */ = {
+			isa = PBXGroup;
+			children = (
+				32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */,
+				3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */,
+				3219A2351C70468900D1A6AF /* CustomTableViewCell.swift */,
+				ED3644551C9D657600C6676C /* TimeLine.storyboard */,
+				3219A2361C70468900D1A6AF /* CustomTableViewCell.xib */,
+			);
+			name = TimeLine;
+			sourceTree = "<group>";
+		};
+		ED3644621C9D740000C6676C /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				3289D2391C6A1C6F00B4C65A /* AccountViewController.swift */,
+				ED36445B1C9D65AA00C6676C /* Account.storyboard */,
+			);
+			name = Account;
+			sourceTree = "<group>";
+		};
+		ED3644631C9D741500C6676C /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				ED3644591C9D659A00C6676C /* Log.storyboard */,
+				3289D2371C6A1C6000B4C65A /* LogViewController.swift */,
+			);
+			name = Log;
+			sourceTree = "<group>";
+		};
+		ED3644641C9D744100C6676C /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				3289D23D1C6A1CA300B4C65A /* NotificationViewController.swift */,
+				ED36445D1C9D65C000C6676C /* Notification.storyboard */,
+			);
+			name = Notification;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		ED3644651C9D748F00C6676C /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */,
+				ED3644571C9D658A00C6676C /* Search.storyboard */,
+			);
+			name = Search;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		ED3644661C9D74CB00C6676C /* Submit */ = {
+			isa = PBXGroup;
+			children = (
+				3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */,
+				ED36445F1C9D6DBA00C6676C /* Submit.storyboard */,
+			);
+			name = Submit;
 			sourceTree = "<group>";
 		};
 		ED7DB14D1C9365250028C986 /* Images */ = {
@@ -359,14 +427,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				32C0A3481C5DF8ED009657B9 /* LaunchScreen.storyboard in Resources */,
+				ED3644561C9D657600C6676C /* TimeLine.storyboard in Resources */,
 				32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */,
+				ED3644601C9D6DBA00C6676C /* Submit.storyboard in Resources */,
 				32C0A3451C5DF8ED009657B9 /* Assets.xcassets in Resources */,
 				3219A2381C70468900D1A6AF /* CustomTableViewCell.xib in Resources */,
 				ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */,
 				ED7DB14F1C9365250028C986 /* fb_login_small.png in Resources */,
+				ED3644581C9D658A00C6676C /* Search.storyboard in Resources */,
 				ED7DB1511C9365250028C986 /* tw_login_small.png in Resources */,
 				32C0A3431C5DF8ED009657B9 /* Main.storyboard in Resources */,
+				ED36445C1C9D65AA00C6676C /* Account.storyboard in Resources */,
 				ED7DB1501C9365250028C986 /* tw_login_big.png in Resources */,
+				ED36445A1C9D659A00C6676C /* Log.storyboard in Resources */,
+				ED36445E1C9D65C000C6676C /* Notification.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

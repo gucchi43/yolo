@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4nF-Nd-mXF">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--タイムライン-->
+        <scene sceneID="1Um-WB-Ijh">
+            <objects>
+                <tableViewController id="lGI-zp-6eX" customClass="TimeLineTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="84" sectionHeaderHeight="28" sectionFooterHeight="28" id="IuW-aA-4aS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" red="0.18202932569999999" green="0.7097251108" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="postTableViewCell" id="7aF-k1-IWv">
+                                <rect key="frame" x="0.0" y="92" width="600" height="84"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7aF-k1-IWv" id="N1z-M7-hyA">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="83.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="jqR-bt-Mus" kind="show" identifier="toPostDetailViewController" id="85Y-b0-KHE">
+                                        <nil key="action"/>
+                                    </segue>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="lGI-zp-6eX" id="HQB-XB-tLS"/>
+                            <outlet property="delegate" destination="lGI-zp-6eX" id="4tB-K1-GYw"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="タイムライン" id="Bx2-Bs-is5">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="wLb-ZO-uoL">
+                            <connections>
+                                <segue destination="0Ko-1k-urb" kind="show" id="iYf-g7-vFf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="postTableView" destination="IuW-aA-4aS" id="3pi-wQ-NTM"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="deC-G1-D3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1208" y="-216"/>
+        </scene>
+        <!--Submit-->
+        <scene sceneID="i6C-mb-Fc2">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Submit" id="0Ko-1k-urb" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R26-kS-GIn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1208" y="599"/>
+        </scene>
+        <!--Post Detail View Controller-->
+        <scene sceneID="YKf-eo-C9f">
+            <objects>
+                <viewController id="jqR-bt-Mus" customClass="PostDetailViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="peU-p8-azM"/>
+                        <viewControllerLayoutGuide type="bottom" id="HpJ-uT-Ezp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uCf-f6-q3M">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XqJ-a4-Aqo">
+                                <rect key="frame" x="20" y="74" width="560" height="352"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MgY-wg-dI5">
+                                        <rect key="frame" x="450" y="201" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="bLS-oA-xyn"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="てきすと" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81l-yK-q2c">
+                                        <rect key="frame" x="10" y="76" width="540" height="117"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SX4-la-4qq">
+                                        <rect key="frame" x="461" y="306" width="45" height="30"/>
+                                        <state key="normal" title="いいね"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="滝口ひかり" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3Q-Gm-NQq">
+                                        <rect key="frame" x="76" y="27" width="85" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="takigutihikari.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="u2x-dF-IcD">
+                                        <rect key="frame" x="8" y="8" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="B0n-72-xsu"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RCZ-hV-2Qy">
+                                        <rect key="frame" x="60" y="306" width="60" height="30"/>
+                                        <state key="normal" title="コメント"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.51853310760000004" green="1" blue="0.62442880379999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="81l-yK-q2c" firstAttribute="top" secondItem="XqJ-a4-Aqo" secondAttribute="top" constant="76" id="3ml-0T-R6O"/>
+                                    <constraint firstItem="u2x-dF-IcD" firstAttribute="leading" secondItem="XqJ-a4-Aqo" secondAttribute="leading" constant="8" id="EpG-lm-fEU"/>
+                                    <constraint firstItem="u2x-dF-IcD" firstAttribute="centerY" secondItem="X3Q-Gm-NQq" secondAttribute="centerY" id="IaH-J0-Uqj"/>
+                                    <constraint firstItem="SX4-la-4qq" firstAttribute="top" secondItem="MgY-wg-dI5" secondAttribute="bottom" constant="5" id="LNe-Na-qea"/>
+                                    <constraint firstItem="u2x-dF-IcD" firstAttribute="top" secondItem="XqJ-a4-Aqo" secondAttribute="top" constant="8" id="MOg-Ta-A5d"/>
+                                    <constraint firstItem="X3Q-Gm-NQq" firstAttribute="leading" secondItem="u2x-dF-IcD" secondAttribute="trailing" constant="8" id="VBn-OT-U1m"/>
+                                    <constraint firstAttribute="trailing" secondItem="MgY-wg-dI5" secondAttribute="trailing" constant="10" id="Zb3-VM-42W"/>
+                                    <constraint firstAttribute="bottom" secondItem="SX4-la-4qq" secondAttribute="bottom" constant="16" id="Zyo-zZ-F4u"/>
+                                    <constraint firstItem="MgY-wg-dI5" firstAttribute="top" secondItem="XqJ-a4-Aqo" secondAttribute="top" constant="201" id="avG-Zb-Ohg"/>
+                                    <constraint firstItem="SX4-la-4qq" firstAttribute="baseline" secondItem="RCZ-hV-2Qy" secondAttribute="baseline" id="bIY-99-sqN"/>
+                                    <constraint firstItem="RCZ-hV-2Qy" firstAttribute="leading" secondItem="XqJ-a4-Aqo" secondAttribute="leading" constant="60" id="bKD-cF-6Mh"/>
+                                    <constraint firstItem="81l-yK-q2c" firstAttribute="leading" secondItem="XqJ-a4-Aqo" secondAttribute="leading" constant="10" id="iMY-nm-GdT"/>
+                                    <constraint firstItem="81l-yK-q2c" firstAttribute="top" secondItem="u2x-dF-IcD" secondAttribute="bottom" constant="8" symbolic="YES" id="qIb-Cq-3dg"/>
+                                    <constraint firstAttribute="trailing" secondItem="SX4-la-4qq" secondAttribute="trailing" constant="54" id="vYf-N5-Y3s"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="XqJ-a4-Aqo" firstAttribute="leading" secondItem="uCf-f6-q3M" secondAttribute="leadingMargin" id="8ke-o3-yzT"/>
+                            <constraint firstItem="XqJ-a4-Aqo" firstAttribute="centerX" secondItem="uCf-f6-q3M" secondAttribute="centerX" id="J90-32-c9J"/>
+                            <constraint firstItem="HpJ-uT-Ezp" firstAttribute="top" secondItem="XqJ-a4-Aqo" secondAttribute="bottom" constant="125" id="PHR-sI-aeT"/>
+                            <constraint firstItem="XqJ-a4-Aqo" firstAttribute="trailing" secondItem="uCf-f6-q3M" secondAttribute="trailingMargin" id="gNF-rL-ptH"/>
+                            <constraint firstItem="XqJ-a4-Aqo" firstAttribute="top" secondItem="peU-p8-azM" secondAttribute="bottom" constant="10" id="jwG-8C-Wfr"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="DQt-rB-QaQ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="DEU-Ok-AEv">
+                            <connections>
+                                <action selector="tapCancelButton:" destination="jqR-bt-Mus" id="xx9-r1-NmG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="postImageView" destination="MgY-wg-dI5" id="zVH-N3-16O"/>
+                        <outlet property="postTextLabel" destination="81l-yK-q2c" id="i9S-yZ-OE7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="25L-lP-CgE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1852" y="-219"/>
+        </scene>
+        <!--タイムライン-->
+        <scene sceneID="kgO-vc-4mT">
+            <objects>
+                <navigationController storyboardIdentifier="TimeLine" automaticallyAdjustsScrollViewInsets="NO" id="4nF-Nd-mXF" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="タイムライン" id="aiS-GI-mwq"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2t2-6e-NpE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="lGI-zp-6eX" kind="relationship" relationship="rootViewController" id="lYV-p5-APg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="od3-mf-Yh5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="478" y="-211"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="takigutihikari.jpg" width="561" height="567"/>
+    </resources>
+</document>
