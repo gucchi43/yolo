@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QJZ-Br-eeV">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -161,7 +161,7 @@
         <!--ログ-->
         <scene sceneID="ORA-vr-x22">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QJZ-Br-eeV" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TabLog" automaticallyAdjustsScrollViewInsets="NO" id="QJZ-Br-eeV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="ログ" id="Dgp-Bp-UTR"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YYb-tB-q7j">
@@ -175,7 +175,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hJ6-qE-vmz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-962" y="673"/>
+            <point key="canvasLocation" x="-1210" y="673"/>
         </scene>
     </scenes>
 </document>

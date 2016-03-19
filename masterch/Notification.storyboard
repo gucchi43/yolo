@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LaQ-dV-R2A">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -24,12 +24,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gap-Qg-d6R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1208" y="1829"/>
+            <point key="canvasLocation" x="792" y="-1499"/>
         </scene>
         <!--通知-->
         <scene sceneID="07H-30-kZ0">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LaQ-dV-R2A" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TabNotification" automaticallyAdjustsScrollViewInsets="NO" id="LaQ-dV-R2A" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="通知" id="ijT-fj-HJ0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Le9-ox-MIt">
@@ -43,7 +43,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ql-j4-zPM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="542" y="1829"/>
+            <point key="canvasLocation" x="-338" y="-1539"/>
         </scene>
     </scenes>
 </document>
