@@ -35,14 +35,14 @@ class AccountViewController: UIViewController {
         switch sender.selectedSegmentIndex{
         case 0:
             //valueChanged: 0の時の実装（containerProfileView表示）
-            print("case = 0")
+            print("case = 0(プロフィール)")
             UIView.animateWithDuration(0.1, animations: {
                 self.containerSnsView.alpha = 0
                 self.containerProfileView.alpha = 1
             })
         case 1:
             //valueChanged: 1の時の実装（containerSnsView表示）
-            print("case = 1")
+            print("case = 1(連携SNS)")
             UIView.animateWithDuration(0.1, animations: {
                 self.containerSnsView.alpha = 1
                 self.containerProfileView.alpha = 0
