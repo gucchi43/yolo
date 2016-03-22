@@ -15,11 +15,11 @@
                         <viewControllerLayoutGuide type="bottom" id="VPW-T8-atU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0MU-Ax-SBF">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FQx-6S-hf5">
-                                <rect key="frame" x="0.0" y="240" width="600" height="360"/>
+                                <rect key="frame" x="0.0" y="487" width="414" height="248.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="FQx-6S-hf5" secondAttribute="height" multiplier="5:3" id="yci-YK-Q81"/>
                                 </constraints>
@@ -28,7 +28,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5c7-5d-Duw">
-                                <rect key="frame" x="0.0" y="240" width="600" height="360"/>
+                                <rect key="frame" x="0.0" y="487" width="414" height="248.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="5c7-5d-Duw" secondAttribute="height" multiplier="5:3" id="OIR-KZ-sHb"/>
                                 </constraints>
@@ -37,7 +37,7 @@
                                 </connections>
                             </containerView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7ar-vc-jce">
-                                <rect key="frame" x="208" y="207" width="185" height="29"/>
+                                <rect key="frame" x="115" y="454" width="185" height="29"/>
                                 <segments>
                                     <segment title="プロフィール"/>
                                     <segment title="連携SNS"/>
@@ -46,6 +46,19 @@
                                     <action selector="didValueChanged:" destination="ghQ-yp-AG1" eventType="valueChanged" id="1vg-Vs-Hmt"/>
                                 </connections>
                             </segmentedControl>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="74b-xo-zhR">
+                                <rect key="frame" x="157" y="94" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="I8V-zr-vfJ"/>
+                                    <constraint firstAttribute="width" secondItem="74b-xo-zhR" secondAttribute="height" multiplier="1:1" id="nYl-wp-8Hf"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ユーザー名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pO5-t8-8n7">
+                                <rect key="frame" x="164.5" y="209" width="85" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.3512563528" green="1" blue="0.43419941779999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -53,6 +66,10 @@
                             <constraint firstItem="5c7-5d-Duw" firstAttribute="top" secondItem="7ar-vc-jce" secondAttribute="bottom" constant="5" id="1Xs-8Z-1IR"/>
                             <constraint firstItem="VPW-T8-atU" firstAttribute="top" secondItem="FQx-6S-hf5" secondAttribute="bottom" id="HPI-UG-tPD"/>
                             <constraint firstItem="FQx-6S-hf5" firstAttribute="leading" secondItem="0MU-Ax-SBF" secondAttribute="leading" id="Jqe-TM-eH6"/>
+                            <constraint firstItem="pO5-t8-8n7" firstAttribute="centerX" secondItem="0MU-Ax-SBF" secondAttribute="centerX" id="MCB-ek-IoH"/>
+                            <constraint firstItem="pO5-t8-8n7" firstAttribute="top" secondItem="74b-xo-zhR" secondAttribute="bottom" constant="15" id="N7R-uS-r1i"/>
+                            <constraint firstItem="74b-xo-zhR" firstAttribute="centerX" secondItem="0MU-Ax-SBF" secondAttribute="centerX" id="OsS-Y0-O3P"/>
+                            <constraint firstItem="74b-xo-zhR" firstAttribute="top" secondItem="HfS-c3-fxQ" secondAttribute="bottom" constant="30" id="Rr2-mr-ON1"/>
                             <constraint firstAttribute="trailing" secondItem="5c7-5d-Duw" secondAttribute="trailing" id="myj-c1-7Oj"/>
                             <constraint firstItem="7ar-vc-jce" firstAttribute="centerX" secondItem="0MU-Ax-SBF" secondAttribute="centerX" id="rQq-9c-IHw"/>
                             <constraint firstAttribute="trailing" secondItem="FQx-6S-hf5" secondAttribute="trailing" id="vCJ-zP-TGZ"/>
@@ -66,10 +83,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="containerProfileView" destination="5c7-5d-Duw" id="PxZ-L7-3Z3"/>
                         <outlet property="containerSnsView" destination="FQx-6S-hf5" id="0OZ-cw-50c"/>
                         <outlet property="segmentedController" destination="7ar-vc-jce" id="6dE-wl-8xA"/>
+                        <outlet property="userProfileImage" destination="74b-xo-zhR" id="ERF-0H-svX"/>
+                        <outlet property="userProfileName" destination="pO5-t8-8n7" id="KJQ-VC-Uny"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hoD-De-F3E" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -107,14 +127,18 @@
         <scene sceneID="NGb-3y-5fd">
             <objects>
                 <viewController id="eIc-kM-1zP" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3vD-gg-eNk"/>
+                        <viewControllerLayoutGuide type="bottom" id="0yF-DY-qt0"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Vye-Lq-4TS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="360"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="248.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="連携SNS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAg-Rh-yev">
-                                <rect key="frame" x="266.5" y="170" width="67.5" height="20.5"/>
+                                <rect key="frame" x="173" y="114" width="67.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -133,14 +157,18 @@
         <scene sceneID="41u-kt-LHa">
             <objects>
                 <viewController id="RHy-xe-qfn" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="L5g-Ei-bqx"/>
+                        <viewControllerLayoutGuide type="bottom" id="YGJ-Ai-0ya"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vzo-gk-UfS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="360"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="248.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="プロフィール" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3j-oM-Px2">
-                                <rect key="frame" x="249" y="169.5" width="102" height="20.5"/>
+                                <rect key="frame" x="156" y="114" width="102" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -156,4 +184,7 @@
             <point key="canvasLocation" x="971" y="166"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="noprofile.png" width="500" height="500"/>
+    </resources>
 </document>

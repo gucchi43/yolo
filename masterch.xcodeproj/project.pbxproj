@@ -34,6 +34,7 @@
 		ED36445C1C9D65AA00C6676C /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445B1C9D65AA00C6676C /* Account.storyboard */; };
 		ED36445E1C9D65C000C6676C /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445D1C9D65C000C6676C /* Notification.storyboard */; };
 		ED3644601C9D6DBA00C6676C /* Submit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445F1C9D6DBA00C6676C /* Submit.storyboard */; };
+		ED6C05831CA14719005D46F4 /* noprofile.png in Resources */ = {isa = PBXBuildFile; fileRef = ED6C05821CA14719005D46F4 /* noprofile.png */; };
 		ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; };
 		ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB1491C9365250028C986 /* fb_login_big.png */; };
@@ -113,6 +114,7 @@
 		ED36445B1C9D65AA00C6676C /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
 		ED36445D1C9D65C000C6676C /* Notification.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Notification.storyboard; path = masterch/Notification.storyboard; sourceTree = "<group>"; };
 		ED36445F1C9D6DBA00C6676C /* Submit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Submit.storyboard; sourceTree = "<group>"; };
+		ED6C05821CA14719005D46F4 /* noprofile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noprofile.png; path = ../noprofile.png; sourceTree = "<group>"; };
 		ED779B091C8DCB9100C3027C /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		ED7DB1491C9365250028C986 /* fb_login_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_big.png; sourceTree = "<group>"; };
 		ED7DB14A1C9365250028C986 /* fb_login_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_small.png; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 		ED7DB14D1C9365250028C986 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				ED6C05821CA14719005D46F4 /* noprofile.png */,
 				ED7DB1491C9365250028C986 /* fb_login_big.png */,
 				ED7DB14A1C9365250028C986 /* fb_login_small.png */,
 				ED7DB14B1C9365250028C986 /* tw_login_big.png */,
@@ -446,6 +449,7 @@
 				ED36445C1C9D65AA00C6676C /* Account.storyboard in Resources */,
 				ED7DB1501C9365250028C986 /* tw_login_big.png in Resources */,
 				ED36445A1C9D659A00C6676C /* Log.storyboard in Resources */,
+				ED6C05831CA14719005D46F4 /* noprofile.png in Resources */,
 				ED36445E1C9D65C000C6676C /* Notification.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
