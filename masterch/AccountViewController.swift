@@ -10,18 +10,21 @@ import UIKit
 
 class AccountViewController: UIViewController {
     
-    @IBOutlet weak var segmentedController: UISegmentedControl!
-    
-    @IBOutlet weak var containerSnsView: UIView!
+    @IBOutlet weak var userProfileImage: UIImageView!
+    @IBOutlet weak var userProfileName: UILabel!
 
+    @IBOutlet weak var segmentedController: UISegmentedControl!
+    @IBOutlet weak var containerSnsView: UIView!
     @IBOutlet weak var containerProfileView: UIView!
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("AccountViewController")
+        
+//        userProfileImageの形を整える
+        self.userProfileImage.layer.cornerRadius = 30
+        self.userProfileImage.layer.masksToBounds = true
     }
     
     override func didReceiveMemoryWarning() {
