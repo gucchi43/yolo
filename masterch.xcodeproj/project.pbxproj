@@ -269,8 +269,8 @@
 			children = (
 				3289D2391C6A1C6F00B4C65A /* AccountViewController.swift */,
 				ED36445B1C9D65AA00C6676C /* Account.storyboard */,
-				EDEF991B1C9EC11F00B6D69D /* ContainerSnsViewController.swift */,
 				EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */,
+				EDEF991B1C9EC11F00B6D69D /* ContainerSnsViewController.swift */,
 			);
 			name = Account;
 			sourceTree = "<group>";
