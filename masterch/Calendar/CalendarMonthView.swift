@@ -53,12 +53,12 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
                 if dateView.date == CalendarManager.currentDate {
                     dateView.dayButton.backgroundColor = UIColor.yellowColor()
 //                    dateView.dayButton.selected = true
-                    print("true")
+//                    print("true")
                     print(dateView.date)
                 } else {
                     dateView.dayButton.backgroundColor = UIColor.clearColor()
 //                    dateView.dayButton.selected = false
-                    print("false")
+//                    print("false")
                 }
             }
         }
