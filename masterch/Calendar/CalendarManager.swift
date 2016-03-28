@@ -23,4 +23,24 @@ class CalendarManager: NSObject {
 
         print(today.weekday)
     }
+    
+    class func FilterDateStart() -> NSDate {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        
+        let formatDate = formatter.dateFromString(String(CalendarManager.currentDate.year) + "/" +
+            String(CalendarManager.currentDate.month) + "/" +
+            String(CalendarManager.currentDate.day) + " 00:00:00")
+        return formatDate!
+    }
+    
+    class func FilterDateEnd() -> NSDate {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        
+        let formatDate = formatter.dateFromString(String(CalendarManager.currentDate.year) + "/" +
+            String(CalendarManager.currentDate.month) + "/" +
+            String(CalendarManager.currentDate.day) + " 23:59:59")
+        return formatDate!
+    }
 }

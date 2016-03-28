@@ -35,10 +35,21 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("LogViewController")
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didSelectDayView:", name: "didSelectDayView", object: nil)
+        
         tableView.estimatedRowHeight = 370
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.registerNib(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "postTableViewCell")
         monthLabel.text = "2016年2月"
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    //関数で受け取った時のアクションを定義
+    func didSelectDayView(notification: NSNotification) {
         loadItems()
     }
     
@@ -54,20 +65,25 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             if let calendarView = calendarView {
                 calendarBaseView.addSubview(calendarView)
             }
+            loadItems()
         }
     }
     
     func loadItems() {
         let query: NCMBQuery = NCMBQuery(className: "Post")
         query.orderByDescending("postDate") // cellの並べ方
+        query.whereKey("createDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+        query.whereKey("createDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
         query.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
             if let error = error {
                 print(error.localizedDescription)
             } else {
                 if objects.count > 0 {
                     self.items = objects
-                    self.tableView.reloadData()
+                } else {
+                    self.items = []
                 }
+                self.tableView.reloadData()
             }
         })
     }
@@ -168,6 +184,5 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     @IBAction func unwindToTop(segue: UIStoryboardSegue) {
         print("back to LogView")
     }
-
 }
 

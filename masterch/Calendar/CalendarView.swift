@@ -19,7 +19,6 @@ class CalendarView: UIView, UIScrollViewDelegate {
     var lastYearMonthView: CalendarMonthView!
     var nextYearMonthView: CalendarMonthView!
     
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
@@ -125,6 +124,9 @@ class CalendarView: UIView, UIScrollViewDelegate {
         nextMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days + 1.months)
         nextYearMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days + 1.years)
         lastYearMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days - 1.years)
+        
+        let n = NSNotification(name: "didSelectDayView", object: self, userInfo: nil)
+        NSNotificationCenter.defaultCenter().postNotification(n)
     }
     
     func resetContentOffSet (scrollView: UIScrollView) {
