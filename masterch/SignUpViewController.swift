@@ -56,22 +56,8 @@ class SignUpViewController: UIViewController {
     @IBAction func twSignUpBtn(sender: AnyObject) {
         print("Twitterログインボタン押した")
         NCMBTwitterUtils.logInWithBlock { (user: NCMBUser!, error: NSError!) -> Void in
-            if let u = user {
-                if u.isNew {
+            if let user = user {
                     print("Twitterで登録成功")
-                    print("会員登録後の処理")
-                    
-                    //ユーザー名を設定
-                    let name = NCMBTwitterUtils.twitter().screenName
-                    print("name: \(name)")
-                    user.userName = name
-                    
-                    // ACLを本人のみに設定
-                    let acl = NCMBACL(user: NCMBUser.currentUser())
-                    
-                    user.ACL = acl
-                } else {
-                    
                     //ユーザー名を設定
                     let name = NCMBTwitterUtils.twitter().screenName
                     print("name: \(name)")
@@ -83,17 +69,14 @@ class SignUpViewController: UIViewController {
                     user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                         if error == nil {
                             print("saveInBackgroundWithBlock通った")
-                            print("Twitterでログイン成功: \(u)")
                             self.performSegueWithIdentifier("signUpedSegue", sender: self)
-                            //                    self.performSegueWithIdentifier("unwindFromLogin", sender: self)
                         } else {
                             print("saveInBackgroundWithBlockエラー: \(error)")
                         }
                         self.performSegueWithIdentifier("signUpedSegue", sender: self)
                         //                        self.performSegueWithIdentifier("unwindFromLogin", sender: self)
                     })
-                }
-            } else {
+                }else {
                 print("Error: \(error)")
                 if error == nil {
                     print("Twitterログインがキャンセルされた")
