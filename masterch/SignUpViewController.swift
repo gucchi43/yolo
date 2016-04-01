@@ -60,9 +60,24 @@ class SignUpViewController: UIViewController {
                 if u.isNew {
                     print("Twitterで登録成功")
                     print("会員登録後の処理")
+                    
+//                    いつかプロフィール写真とるためにひとまず
+                    //userID(userNumber)とTWTRAPIClient(cliant)をゲット
+//                    let userNumber = NCMBTwitterUtils.twitter().userId
+//                    let cliant = TWTRAPIClient(userID: userNumber)
+//                    print("userNumber \(userNumber)")
+//                    print("cliant \(cliant)")
+//                    
+                    
+                    //DBの"userName"にtwitterのアカウント名を入れる
+                    let name = NCMBTwitterUtils.twitter().screenName
+                    print("name: \(name)")
+                    user.setObject(name, forKey: "userName")
+                    
                     // ACLを本人のみに設定
                     let acl = NCMBACL(user: NCMBUser.currentUser())
                     user.ACL = acl
+                    
                     user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                         if error == nil {
                             print("ACLの保存成功")
@@ -74,6 +89,9 @@ class SignUpViewController: UIViewController {
                     })
                 } else {
                     print("Twitterでログイン成功: \(u)")
+                    let name = NCMBTwitterUtils.twitter().screenName
+                    print("name: \(name)")
+                    user.setObject(name, forKey: "userName")
                     self.performSegueWithIdentifier("signUpedSegue", sender: self)
 //                    self.performSegueWithIdentifier("unwindFromLogin", sender: self)
                 }
@@ -88,13 +106,13 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    @IBAction func relogin(segue :UIStoryboardSegue) {
+        print("ログイン画面に戻ってくる")
+        print("ログアウト前: \(NCMBUser.currentUser())")
+        NCMBUser.logOut()
+        print("ログアウト後: \(NCMBUser.currentUser())")
+    }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if (segue.identifier == "signUpedSegue"){
-//            let viewController = segue.destinationViewController as! LogViewController
-//        }
-//        
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

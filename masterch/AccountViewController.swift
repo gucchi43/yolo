@@ -32,6 +32,13 @@ class AccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+//    @IBAction func logautBtn(sender: AnyObject) {
+//        print("ログイン前ユーザー情報:\(NCMBUser.currentUser())")
+//        NCMBUser.logOut()
+//        print("ログアウト後ユーザー情報:\(NCMBUser.currentUser())")
+//    }
+    
+    
     
     @IBAction func didValueChanged(sender: AnyObject) {
         
