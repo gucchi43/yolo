@@ -32,6 +32,13 @@ class AccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+//    @IBAction func logautBtn(sender: AnyObject) {
+//        print("ログイン前ユーザー情報:\(NCMBUser.currentUser())")
+//        NCMBUser.logOut()
+//        print("ログアウト後ユーザー情報:\(NCMBUser.currentUser())")
+//    }
+    
+    
     
     @IBAction func didValueChanged(sender: AnyObject) {
         
@@ -53,6 +60,16 @@ class AccountViewController: UIViewController {
         default:
             print("segmentedControllerd: 原因不明のエラー")
         }
+    }
+    @IBAction func logOutBtn(sender: AnyObject) {
+        print("ログイン画面に戻る")
+        print("ログアウト前: \(NCMBUser.currentUser())")
+        NCMBUser.logOut()
+        print("ログアウト後: \(NCMBUser.currentUser())")
+    }
+    
+    @IBAction func userInfoBtn(sender: AnyObject) {
+        print("ユーザー情報: \(NCMBUser.currentUser())")
     }
     
     @IBAction func unwindToTop(segue: UIStoryboardSegue) {
