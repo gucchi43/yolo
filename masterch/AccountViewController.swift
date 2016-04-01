@@ -61,6 +61,16 @@ class AccountViewController: UIViewController {
             print("segmentedControllerd: 原因不明のエラー")
         }
     }
+    @IBAction func logOutBtn(sender: AnyObject) {
+        print("ログイン画面に戻る")
+        print("ログアウト前: \(NCMBUser.currentUser())")
+        NCMBUser.logOut()
+        print("ログアウト後: \(NCMBUser.currentUser())")
+    }
+    
+    @IBAction func userInfoBtn(sender: AnyObject) {
+        print("ユーザー情報: \(NCMBUser.currentUser())")
+    }
     
     @IBAction func unwindToTop(segue: UIStoryboardSegue) {
         print("back to AccountView")

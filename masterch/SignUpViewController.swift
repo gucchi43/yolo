@@ -61,39 +61,37 @@ class SignUpViewController: UIViewController {
                     print("Twitterで登録成功")
                     print("会員登録後の処理")
                     
-//                    いつかプロフィール写真とるためにひとまず
-                    //userID(userNumber)とTWTRAPIClient(cliant)をゲット
-//                    let userNumber = NCMBTwitterUtils.twitter().userId
-//                    let cliant = TWTRAPIClient(userID: userNumber)
-//                    print("userNumber \(userNumber)")
-//                    print("cliant \(cliant)")
-//                    
-                    
-                    //DBの"userName"にtwitterのアカウント名を入れる
+                    //ユーザー名を設定
                     let name = NCMBTwitterUtils.twitter().screenName
                     print("name: \(name)")
-                    user.setObject(name, forKey: "userName")
+                    user.userName = name
+                    
+                    // ACLを本人のみに設定
+                    let acl = NCMBACL(user: NCMBUser.currentUser())
+                    
+                    user.ACL = acl
+                } else {
+                    
+                    //ユーザー名を設定
+                    let name = NCMBTwitterUtils.twitter().screenName
+                    print("name: \(name)")
+                    user.userName = name
                     
                     // ACLを本人のみに設定
                     let acl = NCMBACL(user: NCMBUser.currentUser())
                     user.ACL = acl
-                    
                     user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                         if error == nil {
-                            print("ACLの保存成功")
+                            print("saveInBackgroundWithBlock通った")
+                            print("Twitterでログイン成功: \(u)")
+                            self.performSegueWithIdentifier("signUpedSegue", sender: self)
+                            //                    self.performSegueWithIdentifier("unwindFromLogin", sender: self)
                         } else {
-                            print("ACL設定の保存失敗: \(error)")
+                            print("saveInBackgroundWithBlockエラー: \(error)")
                         }
                         self.performSegueWithIdentifier("signUpedSegue", sender: self)
-//                        self.performSegueWithIdentifier("unwindFromLogin", sender: self)
+                        //                        self.performSegueWithIdentifier("unwindFromLogin", sender: self)
                     })
-                } else {
-                    print("Twitterでログイン成功: \(u)")
-                    let name = NCMBTwitterUtils.twitter().screenName
-                    print("name: \(name)")
-                    user.setObject(name, forKey: "userName")
-                    self.performSegueWithIdentifier("signUpedSegue", sender: self)
-//                    self.performSegueWithIdentifier("unwindFromLogin", sender: self)
                 }
             } else {
                 print("Error: \(error)")
@@ -106,12 +104,8 @@ class SignUpViewController: UIViewController {
         }
     }
     
-    @IBAction func relogin(segue :UIStoryboardSegue) {
-        print("ログイン画面に戻ってくる")
-        print("ログアウト前: \(NCMBUser.currentUser())")
-        NCMBUser.logOut()
-        print("ログアウト後: \(NCMBUser.currentUser())")
-    }
+
+
     
     
     override func viewDidLoad() {

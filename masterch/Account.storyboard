@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FQx-6S-hf5">
-                                <rect key="frame" x="0.0" y="487" width="414" height="248.5"/>
+                                <rect key="frame" x="0.0" y="487" width="414" height="249"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="FQx-6S-hf5" secondAttribute="height" multiplier="5:3" id="yci-YK-Q81"/>
                                 </constraints>
@@ -29,7 +29,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5c7-5d-Duw">
-                                <rect key="frame" x="0.0" y="487" width="414" height="248.5"/>
+                                <rect key="frame" x="0.0" y="487" width="414" height="249"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="5c7-5d-Duw" secondAttribute="height" multiplier="5:3" id="OIR-KZ-sHb"/>
                                 </constraints>
@@ -55,7 +55,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ユーザー名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pO5-t8-8n7">
-                                <rect key="frame" x="164" y="209" width="85" height="20.5"/>
+                                <rect key="frame" x="164" y="209" width="85" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -64,7 +64,15 @@
                                 <rect key="frame" x="314" y="79" width="75" height="30"/>
                                 <state key="normal" title="ログアウト"/>
                                 <connections>
-                                    <segue destination="5Zu-vi-0QO" kind="unwind" unwindAction="relogin:" id="DH8-Ic-NO1"/>
+                                    <action selector="logOutBtn:" destination="ghQ-yp-AG1" eventType="touchUpInside" id="R7X-iz-I4W"/>
+                                    <segue destination="t6h-UR-gjx" kind="presentation" id="RPw-od-GfG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eo1-aq-DHG">
+                                <rect key="frame" x="314" y="117" width="90" height="30"/>
+                                <state key="normal" title="ユーザー情報"/>
+                                <connections>
+                                    <action selector="userInfoBtn:" destination="ghQ-yp-AG1" eventType="touchUpInside" id="R34-pg-oYH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -75,11 +83,13 @@
                             <constraint firstItem="ZRj-zi-c0P" firstAttribute="top" secondItem="HfS-c3-fxQ" secondAttribute="bottom" constant="15" id="6cQ-Cf-k5e"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZRj-zi-c0P" secondAttribute="trailing" constant="5" id="B93-jM-K4m"/>
                             <constraint firstItem="VPW-T8-atU" firstAttribute="top" secondItem="FQx-6S-hf5" secondAttribute="bottom" id="HPI-UG-tPD"/>
+                            <constraint firstItem="Eo1-aq-DHG" firstAttribute="top" secondItem="ZRj-zi-c0P" secondAttribute="bottom" constant="8" symbolic="YES" id="Ijb-Lq-q9E"/>
                             <constraint firstItem="FQx-6S-hf5" firstAttribute="leading" secondItem="0MU-Ax-SBF" secondAttribute="leading" id="Jqe-TM-eH6"/>
                             <constraint firstItem="pO5-t8-8n7" firstAttribute="centerX" secondItem="0MU-Ax-SBF" secondAttribute="centerX" id="MCB-ek-IoH"/>
                             <constraint firstItem="pO5-t8-8n7" firstAttribute="top" secondItem="74b-xo-zhR" secondAttribute="bottom" constant="15" id="N7R-uS-r1i"/>
                             <constraint firstItem="74b-xo-zhR" firstAttribute="centerX" secondItem="0MU-Ax-SBF" secondAttribute="centerX" id="OsS-Y0-O3P"/>
                             <constraint firstItem="74b-xo-zhR" firstAttribute="top" secondItem="HfS-c3-fxQ" secondAttribute="bottom" constant="30" id="Rr2-mr-ON1"/>
+                            <constraint firstItem="Eo1-aq-DHG" firstAttribute="leading" secondItem="ZRj-zi-c0P" secondAttribute="leading" id="Ydl-Mf-eji"/>
                             <constraint firstAttribute="trailing" secondItem="5c7-5d-Duw" secondAttribute="trailing" id="myj-c1-7Oj"/>
                             <constraint firstItem="7ar-vc-jce" firstAttribute="centerX" secondItem="0MU-Ax-SBF" secondAttribute="centerX" id="rQq-9c-IHw"/>
                             <constraint firstAttribute="trailing" secondItem="FQx-6S-hf5" secondAttribute="trailing" id="vCJ-zP-TGZ"/>
@@ -103,7 +113,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hoD-De-F3E" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="5Zu-vi-0QO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="88" y="422"/>
         </scene>
@@ -143,12 +152,13 @@
                         <viewControllerLayoutGuide type="bottom" id="0yF-DY-qt0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Vye-Lq-4TS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="248.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="249"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Bqc-yd-juU">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="248.5"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Bqc-yd-juU">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="249"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="addSnsCell" id="AdU-pj-5Zl">
                                         <rect key="frame" x="0.0" y="49.5" width="414" height="44"/>
@@ -174,7 +184,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DDDB59DB-2705-468E-9CDC-906D3F587052" translatesAutoresizingMaskIntoConstraints="NO" id="WmN-F4-JGb">
+                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="305823D7-3845-4FA2-999D-F11B5EBDB2DF" translatesAutoresizingMaskIntoConstraints="NO" id="WmN-F4-JGb">
                                                     <rect key="frame" x="10" y="5" width="33.5" height="33.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="WmN-F4-JGb" secondAttribute="height" multiplier="1:1" id="uG3-FS-gGi"/>
@@ -228,6 +238,14 @@
             </objects>
             <point key="canvasLocation" x="971" y="634"/>
         </scene>
+        <!--Main-->
+        <scene sceneID="VfL-jw-TX9">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" id="t6h-UR-gjx" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6iZ-bB-1Mh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="526" y="14"/>
+        </scene>
         <!--Container Profile View Controller-->
         <scene sceneID="41u-kt-LHa">
             <objects>
@@ -237,7 +255,7 @@
                         <viewControllerLayoutGuide type="bottom" id="YGJ-Ai-0ya"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vzo-gk-UfS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="248.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="249"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="プロフィール" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3j-oM-Px2">
@@ -260,7 +278,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="DDDB59DB-2705-468E-9CDC-906D3F587052" width="16" height="13">
+        <image name="305823D7-3845-4FA2-999D-F11B5EBDB2DF" width="16" height="13">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
