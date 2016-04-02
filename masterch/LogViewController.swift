@@ -40,7 +40,8 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         tableView.estimatedRowHeight = 370
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.registerNib(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "postTableViewCell")
-        monthLabel.text = "2016年2月"
+//        viewdidloadでは呼ばないでいい
+//        monthLabel.text! = CalendarManager.selectLabel()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -51,6 +52,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     //関数で受け取った時のアクションを定義
     func didSelectDayView(notification: NSNotification) {
         loadItems()
+        monthLabel.text = CalendarManager.selectLabel()
     }
     
     override func didReceiveMemoryWarning() {
@@ -66,6 +68,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                 calendarBaseView.addSubview(calendarView)
             }
             loadItems()
+            monthLabel.text = CalendarManager.selectLabel()
         }
     }
     
@@ -95,13 +98,13 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellId = "postTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! CustomTableViewCell
-        //        各値をセルに入れる
+        //各値をセルに入れる
         let postData = items[indexPath.row]
         //        postTextLabelには(key: "text")の値を入れる
         cell.postTextLabel.text = postData.objectForKey("text") as? String
         cell.postDateLabel.text = postData.objectForKey("postDate") as? String
         
-        //        画像データの取得
+        //画像データの取得
         if (postData.objectForKey("image1") == nil) { // 複数投稿の時にはどうにかしたいコード(if文)
             cell.postImageView.image = nil
         } else {
@@ -145,6 +148,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         performSegueWithIdentifier("toPostDetailViewController", sender: nil)
     }
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toPostDetailViewController" {
