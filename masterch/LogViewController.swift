@@ -160,8 +160,14 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
     }
     
+    //月週の切り替わりのアウトレイアウトの紐付け
     @IBOutlet weak var weekConstraint: NSLayoutConstraint!
     @IBOutlet weak var monthConstraint: NSLayoutConstraint!
+    
+    
+    @IBAction func backToToday(sender: AnyObject) {
+        CalendarManager.gettoday()
+    }
     
     @IBAction func toggle(sender: AnyObject) {
         print("toggle", toggleWeek)
