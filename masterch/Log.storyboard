@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QJZ-Br-eeV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QJZ-Br-eeV">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -30,27 +30,28 @@
                                 <rect key="frame" x="255" y="64" width="39" height="30"/>
                                 <state key="normal" title="today"/>
                                 <connections>
+                                    <action selector="backToToday:" destination="FJA-Vb-RO4" eventType="touchUpInside" id="Uqv-Dd-5oE"/>
                                     <action selector="toTodayMonthView" destination="FJA-Vb-RO4" eventType="touchUpInside" id="ytf-tk-23d"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="january" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89B-Y5-p8t">
-                                <rect key="frame" x="132" y="71" width="56" height="21"/>
+                                <rect key="frame" x="132" y="65.5" width="56" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fc-Zq-whP" userLabel="Calendar Week View">
-                                <rect key="frame" x="0.0" y="133" width="320" height="46"/>
+                                <rect key="frame" x="0.0" y="133" width="320" height="45.5"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="2fc-Zq-whP" secondAttribute="height" multiplier="7:1" id="Lgz-iO-7RP"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tsQ-Wi-OFt" customClass="CVCalendarMenuView" customModule="CVCalendar">
-                                <rect key="frame" x="-4" y="100" width="328" height="33"/>
+                                <rect key="frame" x="-4" y="108" width="328" height="25"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="nvG-ZK-mYt">
-                                        <rect key="frame" x="25" y="10" width="278" height="21"/>
+                                        <rect key="frame" x="25" y="2" width="278" height="21"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiX-kn-XmQ">
                                                 <rect key="frame" x="0.0" y="4" width="14" height="17"/>
@@ -101,8 +102,9 @@
                                 <constraints>
                                     <constraint firstItem="nvG-ZK-mYt" firstAttribute="leading" secondItem="tsQ-Wi-OFt" secondAttribute="leading" constant="25" id="6Yd-Gc-3mq"/>
                                     <constraint firstAttribute="trailing" secondItem="nvG-ZK-mYt" secondAttribute="trailing" constant="25" id="7hi-0q-ZWM"/>
+                                    <constraint firstAttribute="height" constant="25" id="eUY-tG-Hou"/>
                                     <constraint firstAttribute="bottom" secondItem="nvG-ZK-mYt" secondAttribute="bottom" constant="2" id="k4C-qK-qXv"/>
-                                    <constraint firstItem="nvG-ZK-mYt" firstAttribute="top" secondItem="tsQ-Wi-OFt" secondAttribute="top" constant="10" id="svQ-Gi-W8e"/>
+                                    <constraint firstItem="nvG-ZK-mYt" firstAttribute="top" secondItem="tsQ-Wi-OFt" secondAttribute="top" constant="2" id="svQ-Gi-W8e"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2PW-2V-byW" userLabel="Calendar Base View">
@@ -138,7 +140,7 @@
                             <constraint firstItem="2PW-2V-byW" firstAttribute="leading" secondItem="RXa-GT-wda" secondAttribute="leadingMargin" constant="-20" id="Duj-bo-PWK"/>
                             <constraint firstItem="4i4-iA-Dhb" firstAttribute="baseline" secondItem="dXs-Sa-FCf" secondAttribute="baseline" id="G4F-ih-DCO"/>
                             <constraint firstItem="dXs-Sa-FCf" firstAttribute="leading" secondItem="RXa-GT-wda" secondAttribute="leadingMargin" constant="-17" id="GWk-kN-6UI"/>
-                            <constraint firstItem="tsQ-Wi-OFt" firstAttribute="top" secondItem="gOC-96-N27" secondAttribute="bottom" constant="36" id="Gy0-cT-LJk"/>
+                            <constraint firstItem="tsQ-Wi-OFt" firstAttribute="top" secondItem="gOC-96-N27" secondAttribute="bottom" constant="30" id="Gy0-cT-LJk"/>
                             <constraint firstItem="2PW-2V-byW" firstAttribute="top" secondItem="tsQ-Wi-OFt" secondAttribute="bottom" id="MJY-GX-l0R"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tsQ-Wi-OFt" secondAttribute="trailing" constant="-20" id="NeS-Tp-m1H"/>
                             <constraint firstItem="oiO-Cz-3yC" firstAttribute="leading" secondItem="RXa-GT-wda" secondAttribute="leading" id="Svd-9R-6bi"/>
@@ -146,6 +148,7 @@
                             <constraint firstItem="tsQ-Wi-OFt" firstAttribute="leading" secondItem="RXa-GT-wda" secondAttribute="leadingMargin" constant="-20" id="Yvw-Et-fwV"/>
                             <constraint firstItem="2fc-Zq-whP" firstAttribute="top" secondItem="tsQ-Wi-OFt" secondAttribute="bottom" id="ZV7-wV-Pp0"/>
                             <constraint firstItem="2PW-2V-byW" firstAttribute="top" secondItem="RXa-GT-wda" secondAttribute="top" constant="133" id="aXQ-P4-Uah"/>
+                            <constraint firstItem="89B-Y5-p8t" firstAttribute="top" secondItem="gOC-96-N27" secondAttribute="bottom" constant="1.5" id="cMz-Es-BHO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2PW-2V-byW" secondAttribute="trailing" constant="-20" id="dM2-OA-9At"/>
                             <constraint firstItem="C7T-ML-Ska" firstAttribute="top" secondItem="oiO-Cz-3yC" secondAttribute="bottom" id="kVb-li-GgE"/>
                             <constraint firstItem="oiO-Cz-3yC" firstAttribute="top" secondItem="2fc-Zq-whP" secondAttribute="bottom" priority="250" id="lIa-MT-J6l"/>
@@ -155,6 +158,12 @@
                             <constraint firstItem="2PW-2V-byW" firstAttribute="centerX" secondItem="89B-Y5-p8t" secondAttribute="centerX" id="x17-xI-uI3"/>
                             <constraint firstItem="oiO-Cz-3yC" firstAttribute="top" secondItem="2PW-2V-byW" secondAttribute="bottom" priority="750" id="xDt-ZP-OHl"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="7Uh-vG-L73"/>
+                                <exclude reference="Gy0-cT-LJk"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="ログ" id="Efw-Us-mcx">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="nX5-CA-M3Q">
