@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--アカウント-->
@@ -59,17 +60,36 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRj-zi-c0P">
+                                <rect key="frame" x="314" y="79" width="75" height="30"/>
+                                <state key="normal" title="ログアウト"/>
+                                <connections>
+                                    <action selector="logOutBtn:" destination="ghQ-yp-AG1" eventType="touchUpInside" id="R7X-iz-I4W"/>
+                                    <segue destination="t6h-UR-gjx" kind="presentation" id="RPw-od-GfG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eo1-aq-DHG">
+                                <rect key="frame" x="314" y="117" width="90" height="30"/>
+                                <state key="normal" title="ユーザー情報"/>
+                                <connections>
+                                    <action selector="userInfoBtn:" destination="ghQ-yp-AG1" eventType="touchUpInside" id="R34-pg-oYH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.3512563528" green="1" blue="0.43419941779999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="5c7-5d-Duw" firstAttribute="leading" secondItem="0MU-Ax-SBF" secondAttribute="leading" id="1NS-29-1yw"/>
                             <constraint firstItem="5c7-5d-Duw" firstAttribute="top" secondItem="7ar-vc-jce" secondAttribute="bottom" constant="5" id="1Xs-8Z-1IR"/>
+                            <constraint firstItem="ZRj-zi-c0P" firstAttribute="top" secondItem="HfS-c3-fxQ" secondAttribute="bottom" constant="15" id="6cQ-Cf-k5e"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZRj-zi-c0P" secondAttribute="trailing" constant="5" id="B93-jM-K4m"/>
                             <constraint firstItem="VPW-T8-atU" firstAttribute="top" secondItem="FQx-6S-hf5" secondAttribute="bottom" id="HPI-UG-tPD"/>
+                            <constraint firstItem="Eo1-aq-DHG" firstAttribute="top" secondItem="ZRj-zi-c0P" secondAttribute="bottom" constant="8" symbolic="YES" id="Ijb-Lq-q9E"/>
                             <constraint firstItem="FQx-6S-hf5" firstAttribute="leading" secondItem="0MU-Ax-SBF" secondAttribute="leading" id="Jqe-TM-eH6"/>
                             <constraint firstItem="pO5-t8-8n7" firstAttribute="centerX" secondItem="0MU-Ax-SBF" secondAttribute="centerX" id="MCB-ek-IoH"/>
                             <constraint firstItem="pO5-t8-8n7" firstAttribute="top" secondItem="74b-xo-zhR" secondAttribute="bottom" constant="15" id="N7R-uS-r1i"/>
                             <constraint firstItem="74b-xo-zhR" firstAttribute="centerX" secondItem="0MU-Ax-SBF" secondAttribute="centerX" id="OsS-Y0-O3P"/>
                             <constraint firstItem="74b-xo-zhR" firstAttribute="top" secondItem="HfS-c3-fxQ" secondAttribute="bottom" constant="30" id="Rr2-mr-ON1"/>
+                            <constraint firstItem="Eo1-aq-DHG" firstAttribute="leading" secondItem="ZRj-zi-c0P" secondAttribute="leading" id="Ydl-Mf-eji"/>
                             <constraint firstAttribute="trailing" secondItem="5c7-5d-Duw" secondAttribute="trailing" id="myj-c1-7Oj"/>
                             <constraint firstItem="7ar-vc-jce" firstAttribute="centerX" secondItem="0MU-Ax-SBF" secondAttribute="centerX" id="rQq-9c-IHw"/>
                             <constraint firstAttribute="trailing" secondItem="FQx-6S-hf5" secondAttribute="trailing" id="vCJ-zP-TGZ"/>
@@ -140,6 +160,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Bqc-yd-juU">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="249"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="addSnsCell" id="AdU-pj-5Zl">
                                         <rect key="frame" x="0.0" y="50" width="414" height="44"/>
@@ -218,6 +239,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e0c-5w-jeg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="971" y="634"/>
+        </scene>
+        <!--Main-->
+        <scene sceneID="VfL-jw-TX9">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" id="t6h-UR-gjx" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6iZ-bB-1Mh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="526" y="14"/>
         </scene>
         <!--Container Profile View Controller-->
         <scene sceneID="41u-kt-LHa">

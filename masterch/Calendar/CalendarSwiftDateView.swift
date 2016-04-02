@@ -74,6 +74,8 @@ class CalendarSwiftDateView: UIView{
         CalendarManager.currentDate = date
         if let delegate = delegate {
             delegate.updateDayViewSelectedStatus()
+            let n = NSNotification(name: "didSelectDayView", object: self, userInfo: nil)
+            NSNotificationCenter.defaultCenter().postNotification(n)
         }
     }
 }
