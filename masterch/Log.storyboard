@@ -168,7 +168,7 @@
                     <navigationItem key="navigationItem" title="ログ" id="Efw-Us-mcx">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="nX5-CA-M3Q">
                             <connections>
-                                <segue destination="r7X-aC-6JR" kind="show" id="ypQ-t5-ztA"/>
+                                <segue destination="r7X-aC-6JR" kind="modal" id="ypQ-t5-ztA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

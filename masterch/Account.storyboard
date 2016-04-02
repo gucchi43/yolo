@@ -99,7 +99,7 @@
                     <navigationItem key="navigationItem" title="アカウント" id="841-ZB-Lth">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="9XV-8G-zyi">
                             <connections>
-                                <segue destination="c9d-ll-Bc7" kind="show" id="d7U-cz-cqx"/>
+                                <segue destination="c9d-ll-Bc7" kind="modal" id="d7U-cz-cqx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
