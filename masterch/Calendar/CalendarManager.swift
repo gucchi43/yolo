@@ -14,6 +14,8 @@ class CalendarManager: NSObject {
     static var todayDate = NSDate()
     static var currentDate: NSDate!
     
+    var calendarTitle = String(CalendarManager.currentDate.year) + "/" + String(CalendarManager.currentDate.month)
+    
     class func setCurrentDate() {
         print("setCurrentDate 呼び出し")
         let today = NSDate()
@@ -24,6 +26,20 @@ class CalendarManager: NSObject {
         print(today.weekday)
     }
     
+
+    //カレンダーの何月何日のタイトルを作る
+    class func selectLabel() -> String {
+        let calendarTitle :String = String(CalendarManager.currentDate.year) + "年" + String(CalendarManager.currentDate.month) + "月"
+        return calendarTitle
+    }
+    
+    class func gettoday() {
+        currentDate = todayDate
+    }
+
+    
+    
+    //選択した日にちの00:00:00のNSDateをゲット（その日のタイムライン絞るのに使用）
     class func FilterDateStart() -> NSDate {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
@@ -34,6 +50,7 @@ class CalendarManager: NSObject {
         return formatDate!
     }
     
+    //選択した日にちの23:59:59のNSDateをゲット（その日のタイムライン絞るのに使用）
     class func FilterDateEnd() -> NSDate {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
@@ -44,3 +61,7 @@ class CalendarManager: NSObject {
         return formatDate!
     }
 }
+
+
+
+
