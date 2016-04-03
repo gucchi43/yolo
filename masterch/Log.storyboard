@@ -31,7 +31,6 @@
                                 <state key="normal" title="today"/>
                                 <connections>
                                     <action selector="backToToday:" destination="FJA-Vb-RO4" eventType="touchUpInside" id="Uqv-Dd-5oE"/>
-                                    <action selector="toTodayMonthView" destination="FJA-Vb-RO4" eventType="touchUpInside" id="ytf-tk-23d"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="january" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89B-Y5-p8t">

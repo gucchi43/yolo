@@ -166,7 +166,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     
     @IBAction func backToToday(sender: AnyObject) {
-        CalendarManager.gettoday()
+        calendarView?.getNow()
     }
     
     @IBAction func toggle(sender: AnyObject) {

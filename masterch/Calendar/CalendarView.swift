@@ -142,4 +142,12 @@ class CalendarView: UIView, UIScrollViewDelegate {
         verticalScrollView.contentOffset = CGPoint(x: 0, y: CGRectGetHeight(frame))
         scrollView.delegate = scrollViewDelegate
     }
+    
+    func getNow (){
+        let today = NSDate()
+        CalendarManager.currentDate = today
+        resetMonthView()
+//        resetContentOffSet(verticalScrollView)
+//        resetContentOffSet(horizontalScrollView)
+    }
 }

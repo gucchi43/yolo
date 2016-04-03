@@ -70,6 +70,15 @@ class CalendarSwiftDateView: UIView{
         self.addSubview(dayButton)
     }
     
+    func getToday() {
+        let todayDate = NSDate()
+        date = todayDate
+        CalendarManager.currentDate = date
+        
+        let n = NSNotification(name: "didSelectDayView", object: self, userInfo: nil)
+        NSNotificationCenter.defaultCenter().postNotification(n)
+    }
+    
     func onTapCalendarDayButton(sender: UIButton) {
         CalendarManager.currentDate = date
         if let delegate = delegate {
@@ -78,5 +87,6 @@ class CalendarSwiftDateView: UIView{
             NSNotificationCenter.defaultCenter().postNotification(n)
         }
     }
+    
 }
 
