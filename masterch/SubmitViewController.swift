@@ -12,10 +12,10 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet var postTextView: UITextView!
     @IBOutlet var postDateTextField: UITextField!
-    @IBOutlet weak var postTextCharacters: UILabel!
     
     var postImage1: UIImage? = nil
     var toolBar: UIToolbar!
+    let postTextCharactersLabel: UILabel = UILabel()
     let notificationCenter = NSNotificationCenter.defaultCenter()
     
     let postImageView = UIImageView()
@@ -25,7 +25,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         print("SubmitViewController")
         
-        self.disPlayToolBar()
+        self.setToolBar()
         
         self.postTextView.delegate = self
         
@@ -85,7 +85,6 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     func hideKeyboard(notification: NSNotification) {
         self.postTextView.contentInset = UIEdgeInsetsZero
         self.postTextView.scrollIndicatorInsets = UIEdgeInsetsZero
-        
     }
 
     @IBAction func tappedCancelButton(sender: AnyObject) {
@@ -106,7 +105,7 @@ extension SubmitViewController {
         let string: NSMutableString = NSMutableString(string: textView.text)
         string.replaceCharactersInRange(range, withString: text)
         
-        postTextCharacters.text = "残り文字数: "+String(141-string.length)
+        postTextCharactersLabel.text = String(141-string.length)
         
         if string.length > 140 {
             let alert: UIAlertController = UIAlertController(title: "文字数制限", message: "140文字までで入力してください。", preferredStyle: .Alert)
@@ -127,7 +126,7 @@ extension SubmitViewController {
 
 // toolBar
 extension SubmitViewController {
-    func disPlayToolBar() {
+    func setToolBar() {
         // UIToolBarの設定
         toolBar = UIToolbar(frame: CGRectMake(0, self.view.frame.size.height/6, self.view.frame.size.width, 35.0))
         toolBar.layer.position = CGPoint(x: self.view.frame.size.width/2, y: self.view.frame.size.height-20.0)
@@ -138,10 +137,15 @@ extension SubmitViewController {
 //        let toolBarDateSelectButton = UIBarButtonItem(title: "日付", style: .Plain, target: self, action: "tappedToolBarDateSelectButton:") 一旦なし
         let toolBarRangeButton = UIBarButtonItem(title: "公開範囲", style: .Plain, target: self, action: "tappedToolBarRangeButton:")
         let toolBarPostButton = UIBarButtonItem(title: "完了", style: .Done, target: self, action: "tappedToolBarDoneButton:")
+
+        postTextCharactersLabel.frame = CGRectMake(0, 0, 30, 35)
+        postTextCharactersLabel.text = "140"
+        postTextCharactersLabel.textColor = UIColor.lightGrayColor()
+        let toolBarPostTextcharacterLabelItem = UIBarButtonItem(customView: postTextCharactersLabel)
         // Flexible Space Bar Button Item
         let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         
-        toolBar.items = [toolBarCameraButton, flexibleItem, toolBarRangeButton, flexibleItem, toolBarPostButton]
+        toolBar.items = [toolBarCameraButton, flexibleItem, toolBarRangeButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarPostButton]
     }
 }
 

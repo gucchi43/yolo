@@ -59,15 +59,6 @@
                                     <outlet property="delegate" destination="c8c-V5-aA3" id="hd3-oe-FiC"/>
                                 </connections>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="残り文字数: 140" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O0j-4X-WLW">
-                                <rect key="frame" x="457" y="571" width="123" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="123" id="WeJ-i3-Oa7"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -78,7 +69,6 @@
                             <constraint firstItem="Acg-FA-G1G" firstAttribute="leading" secondItem="K40-Dn-vao" secondAttribute="leading" id="8gR-I8-r5S"/>
                             <constraint firstItem="Acg-FA-G1G" firstAttribute="leading" secondItem="K40-Dn-vao" secondAttribute="leadingMargin" constant="-20" id="ARJ-sF-1mE"/>
                             <constraint firstAttribute="trailing" secondItem="Acg-FA-G1G" secondAttribute="trailing" id="BPz-KG-EqX"/>
-                            <constraint firstItem="wbe-G7-CKV" firstAttribute="top" secondItem="O0j-4X-WLW" secondAttribute="bottom" constant="8" id="BbN-4y-Aq2"/>
                             <constraint firstItem="G5n-mi-4Qq" firstAttribute="bottom" secondItem="wbe-G7-CKV" secondAttribute="top" constant="14" id="CkP-ec-41H"/>
                             <constraint firstItem="iDm-Mm-zQm" firstAttribute="leading" secondItem="K40-Dn-vao" secondAttribute="leading" id="DNY-Bd-bc5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="iDm-Mm-zQm" secondAttribute="trailing" constant="-20" id="GMa-kJ-bER"/>
@@ -98,10 +88,7 @@
                             <constraint firstItem="Acg-FA-G1G" firstAttribute="top" secondItem="iDm-Mm-zQm" secondAttribute="bottom" id="kGh-DI-wBf"/>
                             <constraint firstItem="iDm-Mm-zQm" firstAttribute="top" secondItem="cwM-fW-t0Q" secondAttribute="bottom" id="l9e-Aa-Zl3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="G5n-mi-4Qq" secondAttribute="trailing" constant="-20" id="o7n-1N-jHT"/>
-                            <constraint firstItem="O0j-4X-WLW" firstAttribute="leading" secondItem="K40-Dn-vao" secondAttribute="leadingMargin" constant="-7" id="qzY-aW-f4w"/>
                             <constraint firstItem="Acg-FA-G1G" firstAttribute="trailing" secondItem="K40-Dn-vao" secondAttribute="trailingMargin" constant="20" id="sbY-Ya-fFj"/>
-                            <constraint firstItem="O0j-4X-WLW" firstAttribute="leading" secondItem="G5n-mi-4Qq" secondAttribute="trailing" constant="-143" id="uv3-K4-SU0"/>
-                            <constraint firstItem="G5n-mi-4Qq" firstAttribute="leading" secondItem="O0j-4X-WLW" secondAttribute="trailing" constant="-143" id="z1g-Af-7KZ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -121,14 +108,11 @@
                                 <exclude reference="LpN-dx-lkJ"/>
                                 <exclude reference="Qkb-2c-PDr"/>
                                 <exclude reference="boz-Yw-gyg"/>
-                                <exclude reference="z1g-Af-7KZ"/>
-                                <exclude reference="qzY-aW-f4w"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="postDateTextField" destination="Acg-FA-G1G" id="QT5-SM-g2Y"/>
-                        <outlet property="postTextCharacters" destination="O0j-4X-WLW" id="swI-GJ-Rhm"/>
                         <outlet property="postTextView" destination="G5n-mi-4Qq" id="dbL-yE-rob"/>
                     </connections>
                 </viewController>
