@@ -147,7 +147,6 @@ class CalendarView: UIView, UIScrollViewDelegate {
         let today = NSDate()
         CalendarManager.currentDate = today
         resetMonthView()
-//        resetContentOffSet(verticalScrollView)
-//        resetContentOffSet(horizontalScrollView)
+
     }
 }

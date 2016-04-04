@@ -98,5 +98,12 @@ class CalendarAnotherView : UIView, UIScrollViewDelegate {
         horizontalScrollView.contentOffset = CGPoint(x: CGRectGetWidth(frame), y: 0)
         scrollView.delegate = scrollViewDelegate
     }
+    
+    func getNow (){
+        let today = NSDate()
+        CalendarManager.currentDate = today
+        resetWeekView()
+    }
+    
 }
 

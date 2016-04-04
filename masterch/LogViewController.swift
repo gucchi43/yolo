@@ -165,16 +165,20 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     @IBOutlet weak var monthConstraint: NSLayoutConstraint!
     
     
+    //todayボタンアクション
     @IBAction func backToToday(sender: AnyObject) {
-        calendarView?.getNow()
+        if (self.calendarBaseView != nil){
+            calendarView?.getNow()
+        }
+            calendarAnotherView?.getNow()
     }
     
     @IBAction func toggle(sender: AnyObject) {
         print("toggle", toggleWeek)
         toggleWeek = !toggleWeek
+        //ここが何やってるか不明
         if let calendarView = calendarAnotherView {
             calendarWeekView.addSubview(calendarView)
-            print("どうなってるのかな？")
         }
         
         if toggleWeek {
