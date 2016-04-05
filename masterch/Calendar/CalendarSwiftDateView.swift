@@ -31,12 +31,14 @@ class CalendarSwiftDateView: UIView{
         let w = Int((UIScreen.mainScreen().bounds.size.width) / 7)
         let h = 30
         
-        dayButton = UIButton(frame: CGRect(x: 0, y: 0, width: w, height: h))
-        dayButton.titleLabel?.textAlignment = NSTextAlignment.Center
+        dayButton = UIButton(frame: CGRect(x: 0, y: 0, width: w, height: w))
         dayButton.setTitle(String(format: "%02d", date.day), forState: UIControlState.Normal)
-//        dayButton.setTitleColor(UIColor.greenColor(), forState: .Selected)
+        dayButton.titleLabel?.font = UIFont.systemFontOfSize(10)
+        dayButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Top
+        dayButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        dayButton.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        
         dayButton.addTarget(self, action: "onTapCalendarDayButton:", forControlEvents: .TouchUpInside)
-
         print("day", date.day, "weekday", date.weekday)
 
         if date == CalendarManager.currentDate {
@@ -44,16 +46,12 @@ class CalendarSwiftDateView: UIView{
             dayButton.backgroundColor = UIColor.yellowColor()
             print(date)
         }
-        
-        
-        if date.day == NSDate().day{
-            //今日は黒（※今は同じ日にち全部に反映されている）
-            dayButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-            print("当日はくろになるはずなんけど")
+        if date.year == NSDate().year && date.month == NSDate().month && date.day == NSDate().day{
+            //今日だけ黒
+                    dayButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         } else if date.weekday == 1 {
             //日曜日は赤
             dayButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
-            print("当日はくろになるはずなんけど")
         } else if date.weekday == 7 {
             //土曜日は青
             dayButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
@@ -69,7 +67,7 @@ class CalendarSwiftDateView: UIView{
         }
         self.addSubview(dayButton)
     }
-    
+        
     func onTapCalendarDayButton(sender: UIButton) {
         CalendarManager.currentDate = date
         if let delegate = delegate {
@@ -78,5 +76,6 @@ class CalendarSwiftDateView: UIView{
             NSNotificationCenter.defaultCenter().postNotification(n)
         }
     }
+    
 }
 

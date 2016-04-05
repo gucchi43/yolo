@@ -33,11 +33,6 @@ class CalendarManager: NSObject {
         return calendarTitle
     }
     
-    class func gettoday() {
-        currentDate = todayDate
-    }
-
-    
     
     //選択した日にちの00:00:00のNSDateをゲット（その日のタイムライン絞るのに使用）
     class func FilterDateStart() -> NSDate {
