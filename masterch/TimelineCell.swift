@@ -8,8 +8,9 @@
 
 import UIKit
 
-class CustomTableViewCell: UITableViewCell {
+class TimelineCell: UITableViewCell {
     
+    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var userProfileImageView: UIImageView!
     @IBOutlet var userNameLabel: UILabel!
     

@@ -35,11 +35,9 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("LogViewController")
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didSelectDayView:", name: "didSelectDayView", object: nil)
         
         tableView.estimatedRowHeight = 370
         tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.registerNib(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: "postTableViewCell")
 //        viewdidloadでは呼ばないでいい
 //        monthLabel.text! = CalendarManager.selectLabel()
     }
@@ -100,32 +98,30 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellId = "postTableViewCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! CustomTableViewCell
-        //各値をセルに入れる
+        let cellId = "TimelineCell"
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! TimelineCell
+        // 各値をセルに入れる
         let postData = items[indexPath.row]
-        //        postTextLabelには(key: "text")の値を入れる
+        // postTextLabelには(key: "text")の値を入れる
         cell.postTextLabel.text = postData.objectForKey("text") as? String
         cell.postDateLabel.text = postData.objectForKey("postDate") as? String
         
         //画像データの取得
-        if (postData.objectForKey("image1") == nil) { // 複数投稿の時にはどうにかしたいコード(if文)
-            cell.postImageView.image = nil
-        } else {
-            let postImageName = (postData.objectForKey("image1") as? String)!
+       if let postImageName = postData.objectForKey("image1") as? String {
+            cell.imageViewHeightConstraint.constant = 150.0;
             let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
-            
-            postImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
-                if error != nil {
-                    print("写真の取得失敗: \(error)")
+            postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                if let error = error {
+                    print("写真の取得失敗： ", error)
                 } else {
                     cell.postImageView.image = UIImage(data: imageData!)
                 }
-            }
+            })
+        } else {
+            cell.postImageView.image = nil
+            cell.imageViewHeightConstraint.constant = 0.0;
         }
         
-        //        TableView にある特定の Cell のアクセサリーをつけない
-        cell.accessoryType = UITableViewCellAccessoryType.None
         return cell
     }
     
@@ -136,18 +132,16 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         selectedPostText = postData.objectForKey("text") as? String
         selectedPostDate = postData.objectForKey("postDate") as? String
         
-        //        画像データの取得
-        if postData.objectForKey("image1") != nil { // 複数投稿の時にはどうにかしたいコード(if文)
-            let postImageName = (postData.objectForKey("image1") as? String)!
+       // 画像データの取得
+        if let postImageName = postData.objectForKey("image1") as? String {
             let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
-            
-            postImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
-                if error != nil {
-                    print("写真の取得失敗: \(error)")
+            postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                if let error = error {
+                    print("写真の取得失敗： ", error)
                 } else {
                     self.selectedPostImage = UIImage(data: imageData!)
                 }
-            }
+            })
         }
         
         performSegueWithIdentifier("toPostDetailViewController", sender: nil)
