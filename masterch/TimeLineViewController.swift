@@ -66,6 +66,7 @@ class TimeLineTableViewController: UITableViewController {
         // postTextLabelには(key: "text")の値を入れる
         cell.postTextLabel.text = postData.objectForKey("text") as? String
         cell.postDateLabel.text = postData.objectForKey("postDate") as? String
+        cell.postImageView.layer.cornerRadius = 5.0
         
         // 画像データの取得
         if let postImageName = postData.objectForKey("image1") as? String {
