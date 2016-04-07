@@ -156,8 +156,8 @@
                                                     <state key="normal" title="Comment"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="nNg-tw-TuM"/>
                                                             <exclude reference="ksB-b6-rgV"/>
+                                                            <exclude reference="nNg-tw-TuM"/>
                                                         </mask>
                                                     </variation>
                                                 </button>
@@ -174,12 +174,12 @@
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="YSX-gI-CA6"/>
-                                                            <exclude reference="ruf-ww-hC8"/>
                                                             <exclude reference="e4E-Zu-RC2"/>
+                                                            <exclude reference="ruf-ww-hC8"/>
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="takigutihikari.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="eEx-X2-0YL">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="eEx-X2-0YL">
                                                     <rect key="frame" x="8" y="8" width="40" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="0jz-Rb-XhM"/>
@@ -195,8 +195,8 @@
                                                     <state key="normal" title="Like"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="X3s-Ra-1cX"/>
                                                             <exclude reference="8hp-hj-cgb"/>
+                                                            <exclude reference="X3s-Ra-1cX"/>
                                                         </mask>
                                                     </variation>
                                                 </button>
@@ -423,6 +423,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="noprofile.png" width="500" height="500"/>
         <image name="takigutihikari.jpg" width="561" height="567"/>
     </resources>
 </document>

@@ -79,6 +79,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         query.orderByDescending("postDate") // cellの並べ方
         query.whereKey("createDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
         query.whereKey("createDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+        query.includeKey("user")
         query.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -105,6 +106,23 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         // postTextLabelには(key: "text")の値を入れる
         cell.postTextLabel.text = postData.objectForKey("text") as? String
         cell.postDateLabel.text = postData.objectForKey("postDate") as? String
+        cell.postImageView.layer.cornerRadius = 5.0
+        let auther = postData.objectForKey("user") as? NCMBUser
+        if let auther = auther {
+            cell.userNameLabel.text = auther.userName
+            let postImageData = NCMBFile.fileWithName(auther.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+            postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                if let error = error {
+                    print("プロフィール画像の取得失敗： ", error)
+                    cell.userProfileImageView.image = UIImage(named: "noprofile")
+                } else {
+                    cell.userProfileImageView.image = UIImage(data: imageData!)
+                }
+            })
+        } else {
+            cell.userNameLabel.text = "username"
+            cell.userProfileImageView.image = UIImage(named: "noprofile")
+        }
         
         //画像データの取得
        if let postImageName = postData.objectForKey("image1") as? String {
