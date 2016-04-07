@@ -273,7 +273,7 @@ extension SubmitViewController {
         //        object作成
         let postObject = NCMBObject(className: "Post")
 //         ユーザーを関連づけ
-        postObject.setObject(NCMBUser.currentUser(), forKey: "userId")
+        postObject.setObject(NCMBUser.currentUser(), forKey: "user")
         
         postObject.setObject(self.postTextView.text, forKey: "text")
         postObject.setObject(postDateTextField.text, forKey: "postDate")
