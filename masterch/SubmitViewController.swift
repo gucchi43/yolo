@@ -87,7 +87,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         self.postTextView.scrollIndicatorInsets = UIEdgeInsetsZero
     }
 
-    @IBAction func tappedCancelButton(sender: AnyObject) {
+    @IBAction func selectCancelButton(sender: AnyObject) {
         print("キャンセルボタンを押した")
         postTextView.resignFirstResponder() // 先にキーボードを下ろす
         dismissViewControllerAnimated(true, completion: nil)
@@ -133,10 +133,10 @@ extension SubmitViewController {
         toolBar.barStyle = .Default
         //        toolBar.tintColor = UIColor.whiteColor()
         //        toolBar.backgroundColor = UIColor.blackColor()
-        let toolBarCameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "tappedToolBarCameraButton:")
-//        let toolBarDateSelectButton = UIBarButtonItem(title: "日付", style: .Plain, target: self, action: "tappedToolBarDateSelectButton:") 一旦なし
-        let toolBarRangeButton = UIBarButtonItem(title: "公開範囲", style: .Plain, target: self, action: "tappedToolBarRangeButton:")
-        let toolBarPostButton = UIBarButtonItem(title: "完了", style: .Done, target: self, action: "tappedToolBarDoneButton:")
+        let toolBarCameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "selectToolBarCameraButton:")
+//        let toolBarDateSelectButton = UIBarButtonItem(title: "日付", style: .Plain, target: self, action: "selectToolBarDateSelectButton:") 一旦なし
+        let toolBarRangeButton = UIBarButtonItem(title: "公開範囲", style: .Plain, target: self, action: "selectToolBarRangeButton:")
+        let toolBarPostButton = UIBarButtonItem(title: "完了", style: .Done, target: self, action: "selectToolBarDoneButton:")
 
         postTextCharactersLabel.frame = CGRectMake(0, 0, 30, 35)
         postTextCharactersLabel.text = "140"
@@ -152,7 +152,7 @@ extension SubmitViewController {
 // カメラ周り
 extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
-    func tappedToolBarCameraButton(sender: UIBarButtonItem) {
+    func selectToolBarCameraButton(sender: UIBarButtonItem) {
         print("カメラボタン押した")
         
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
@@ -228,7 +228,7 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
 
 // 日付選択
 extension SubmitViewController {
-    func tappedToolBarDateSelectButton(sender: UIBarButtonItem) {
+    func selectToolBarDateSelectButton(sender: UIBarButtonItem) {
         print("日付選択を押した")
         
         //        テキストフィールドにDatePickerを表示する
@@ -260,7 +260,7 @@ extension SubmitViewController {
 
 // 公開範囲
 extension SubmitViewController {
-    func tappedToolBarRangeButton(sender:UIBarButtonItem) {
+    func selectToolBarRangeButton(sender:UIBarButtonItem) {
         print("公開範囲ボタンを押した")
     }
 }
@@ -268,11 +268,13 @@ extension SubmitViewController {
 // 投稿アクション周り
 extension SubmitViewController {
 //    投稿ボタンプッシュ, 投稿機能メソッド
-    @IBAction func tappedPostButton(sender: AnyObject) {
+    @IBAction func selectPostButton(sender: AnyObject) {
         print("投稿ボタン押した")
-        
         //        object作成
         let postObject = NCMBObject(className: "Post")
+//         ユーザーを関連づけ
+        postObject.setObject(NCMBUser.currentUser(), forKey: "user")
+        
         postObject.setObject(self.postTextView.text, forKey: "text")
         postObject.setObject(postDateTextField.text, forKey: "postDate")
         //        保存対象の画像ファイルを作成する
@@ -295,11 +297,11 @@ extension SubmitViewController {
                     print("進捗状況: \(percentDone)% アップロード済み")
             })
         }
-        
+//        非同期通信の保存処理
         postObject.saveInBackgroundWithBlock({(error) in
             if error != nil {print("Save error : ",error)}
         })
-        
+
         postTextView.resignFirstResponder() // 先にキーボードを下ろす
         self.dismissViewControllerAnimated(true, completion: nil)
         print("投稿完了")
@@ -308,7 +310,7 @@ extension SubmitViewController {
 
 // 完了ボタン
 extension SubmitViewController {
-    func tappedToolBarDoneButton(sender: UIBarButtonItem) {
+    func selectToolBarDoneButton(sender: UIBarButtonItem) {
         print("完了ボタン押した")
         self.view.endEditing(true)
     }
