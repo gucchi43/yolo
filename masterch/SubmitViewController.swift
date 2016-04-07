@@ -270,9 +270,11 @@ extension SubmitViewController {
 //    投稿ボタンプッシュ, 投稿機能メソッド
     @IBAction func selectPostButton(sender: AnyObject) {
         print("投稿ボタン押した")
-        
         //        object作成
         let postObject = NCMBObject(className: "Post")
+//         ユーザーを関連づけ
+        postObject.setObject(NCMBUser.currentUser(), forKey: "userId")
+        
         postObject.setObject(self.postTextView.text, forKey: "text")
         postObject.setObject(postDateTextField.text, forKey: "postDate")
         //        保存対象の画像ファイルを作成する
@@ -295,11 +297,11 @@ extension SubmitViewController {
                     print("進捗状況: \(percentDone)% アップロード済み")
             })
         }
-        
+//        非同期通信の保存処理
         postObject.saveInBackgroundWithBlock({(error) in
             if error != nil {print("Save error : ",error)}
         })
-        
+
         postTextView.resignFirstResponder() // 先にキーボードを下ろす
         self.dismissViewControllerAnimated(true, completion: nil)
         print("投稿完了")
