@@ -62,7 +62,7 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="takigutihikari.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="h1L-Nt-0l1">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="h1L-Nt-0l1">
                                             <rect key="frame" x="8" y="8" width="40" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="hw2-g4-Ofw"/>
@@ -78,8 +78,8 @@
                                             <state key="normal" title="Like"/>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="OdH-uX-oxf"/>
                                                     <exclude reference="AAS-6v-T5G"/>
+                                                    <exclude reference="OdH-uX-oxf"/>
                                                 </mask>
                                             </variation>
                                         </button>
@@ -301,6 +301,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="noprofile.png" width="500" height="500"/>
         <image name="takigutihikari.jpg" width="561" height="567"/>
     </resources>
 </document>

@@ -67,6 +67,22 @@ class TimeLineTableViewController: UITableViewController {
         cell.postTextLabel.text = postData.objectForKey("text") as? String
         cell.postDateLabel.text = postData.objectForKey("postDate") as? String
         cell.postImageView.layer.cornerRadius = 5.0
+        let auther = postData.objectForKey("user") as? NCMBUser
+        if let auther = auther {
+            cell.userNameLabel.text = auther.userName
+            let postImageData = NCMBFile.fileWithName(auther.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+            postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                if let error = error {
+                    print("プロフィール画像の取得失敗： ", error)
+                    cell.userProfileImageView.image = UIImage(named: "noprofile")
+                } else {
+                    cell.userProfileImageView.image = UIImage(data: imageData!)
+                }
+            })
+        } else {
+            cell.userNameLabel.text = "username"
+            cell.userProfileImageView.image = UIImage(named: "noprofile")
+        }
         
         // 画像データの取得
         if let postImageName = postData.objectForKey("image1") as? String {
@@ -74,7 +90,7 @@ class TimeLineTableViewController: UITableViewController {
             let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
             postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
                 if let error = error {
-                    print("写真の取得失敗： ", error)
+                    print("サムネイルの取得失敗： ", error)
                 } else {
                     cell.postImageView.image = UIImage(data: imageData!)
                 }
@@ -136,6 +152,7 @@ class TimeLineTableViewController: UITableViewController {
         // query作成
         let postQuery: NCMBQuery = NCMBQuery(className: "Post")
         postQuery.orderByDescending("postDate") // cellの並べ方
+        postQuery.includeKey("user")
         postQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
             
             if error == nil {
