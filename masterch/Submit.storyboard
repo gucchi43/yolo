@@ -36,12 +36,12 @@
                                     <navigationItem title="新規作成" id="Xhm-YN-KtX">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Woq-qe-wkt">
                                             <connections>
-                                                <action selector="tappedCancelButton:" destination="c8c-V5-aA3" id="ufy-0k-iwC"/>
+                                                <action selector="selectCancelButton:" destination="c8c-V5-aA3" id="RuO-tk-VmQ"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="投稿" id="AVM-Fw-GDt">
                                             <connections>
-                                                <action selector="tappedPostButton:" destination="c8c-V5-aA3" id="YJR-gN-XC4"/>
+                                                <action selector="selectPostButton:" destination="c8c-V5-aA3" id="Db3-LS-B7n"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
