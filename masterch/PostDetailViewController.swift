@@ -10,11 +10,22 @@ import UIKit
 
 class PostDetailViewController: UIViewController {
     
+    @IBOutlet var userNameLabel: UILabel!
+    @IBOutlet var userProfileImageView: UIImageView!
+    @IBOutlet var postDateLabel: UILabel!
     @IBOutlet var postTextLabel: UILabel!
+    @IBOutlet var postTextLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet var postImageView: UIImageView!
+    @IBOutlet var postImageViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var commentButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
+    
+    var userName: String!
+    var userProfileImage: UIImage!
     var postDateText: String!
     var postText: String!
-    var postImage: UIImage!
+    var postImage: UIImage! 
     
     @IBAction func tapCancelButton(sender: UIBarButtonItem) {
         print("timelineに戻る")
@@ -25,10 +36,20 @@ class PostDetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         postTextLabel.text = postText
-        postImageView.image = postImage
+
         
-        // 画像のアスペクト比を維持しUIImageViewサイズに収まるように表示
-        postImageView.contentMode = UIViewContentMode.ScaleAspectFit
+        
+        // 画像の有無で場合分け
+        if (postImage != nil) {
+            postImageView.image = postImage
+            postImageViewHeightConstraint.constant = 300
+            
+        } else {
+            postImageView.image = nil
+            postImageViewHeightConstraint.constant = 0.0
+        }
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
