@@ -29,17 +29,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let storyboard:UIStoryboard =  UIStoryboard(name: "Main",bundle:nil)
         var viewController:UIViewController
+        var user = NCMBUser.currentUser()
         
         
         //表示するビューコントローラーを指定
-        if NCMBUser.currentUser() != nil {
+        if user != nil {
             print("appDelegate by ログイン済み")
             print("ユーザー情報: \(NCMBUser.currentUser())")
-            viewController = storyboard.instantiateViewControllerWithIdentifier("firstViewController") as UIViewController
-            window?.rootViewController = viewController
-            if let tabvc = self.window!.rootViewController as? UITabBarController  {
-                tabvc.selectedIndex = 2 // 0 が一番左のタブ
-            }
+            //ユーザー情報を取ってくる
+            user.fetchInBackgroundWithBlock({ (error: NSError!) -> Void in
+                if error == nil {
+                    let firsrtViewController :UIViewController
+                    firsrtViewController = storyboard.instantiateViewControllerWithIdentifier("firstViewController") as UIViewController
+                    self.window?.rootViewController = firsrtViewController
+                    if let tabvc = self.window!.rootViewController as? UITabBarController  {
+                        tabvc.selectedIndex = 2 // 0 が一番左のタブ (２＝Log画面)
+                    }
+                }else {
+                    print("error: \(error)")
+                }
+            })
         } else {
             print("appDelegate by ログインしてない")
             viewController = storyboard.instantiateViewControllerWithIdentifier("secondViewController") as UIViewController

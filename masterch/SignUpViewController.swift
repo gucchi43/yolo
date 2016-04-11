@@ -57,7 +57,11 @@ class SignUpViewController: UIViewController {
         print("Twitterログインボタン押した")
         NCMBTwitterUtils.logInWithBlock { (user: NCMBUser!, error: NSError!) -> Void in
             if let user = user {
-                    print("Twitterで登録成功")
+                
+                //初めてのログインかの分岐
+                if user.createDate == user.updateDate{
+                    //初めてのユーザー（Twitterでユーザー登録）
+                    print("初めてユーザー")
                     //ユーザー名を設定
                     let name = NCMBTwitterUtils.twitter().screenName
                     print("name: \(name)")
@@ -66,6 +70,16 @@ class SignUpViewController: UIViewController {
                     // ACLを本人のみに設定
                     let acl = NCMBACL(user: NCMBUser.currentUser())
                     user.ACL = acl
+                    
+                    //プロフィール写真を設定
+                    //ひとまずnoprofile.pngを設定
+                    //!!! SNSのプロフィール写真を設定したい, 谷口
+                    let userImage = UIImage(named: "noprofile.png")
+                    let userimageData = UIImagePNGRepresentation(userImage!)! as NSData
+                    let userimageFile: NCMBFile = NCMBFile.fileWithData(userimageData) as! NCMBFile
+                    user.setObject(userimageFile.name, forKey: "userProfileImage")
+                    
+                    //バックグラウンドで保存処理
                     user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                         if error == nil {
                             print("saveInBackgroundWithBlock通った")
@@ -73,10 +87,23 @@ class SignUpViewController: UIViewController {
                         } else {
                             print("saveInBackgroundWithBlockエラー: \(error)")
                         }
-                        self.performSegueWithIdentifier("signUpedSegue", sender: self)
-                        //                        self.performSegueWithIdentifier("unwindFromLogin", sender: self)
                     })
-                }else {
+                } else {
+                    //二度目以降（ログイン）
+                    print("出戻りユーザー")
+                    print("user状態１\(user)")
+                    //userクラスのデータを取ってくる
+                    user.fetchInBackgroundWithBlock({ (error) -> Void in
+                        if error == nil {
+                            print("fetchInBackgroundWithBlock成功のuser : \(user)")
+                            print("Twitterログイン成功")
+                            self.performSegueWithIdentifier("signUpedSegue", sender: self)
+                        } else {
+                            print("error")
+                        }
+                    })
+                }
+            }else {
                 print("Error: \(error)")
                 if error == nil {
                     print("Twitterログインがキャンセルされた")

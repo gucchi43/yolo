@@ -22,10 +22,34 @@ class AccountViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         print("AccountViewController")
         
-//        userProfileImageの形を整える
-        self.userProfileImage.layer.cornerRadius = 30
-        self.userProfileImage.layer.masksToBounds = true
+////        userProfileImageの形を整える
+//        self.userProfileImage.layer.cornerRadius = 30
+//        self.userProfileImage.layer.masksToBounds = true
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        //ユーザーネームを表示
+        self.userProfileName.text = NCMBUser.currentUser().userName
+        
+        //プロフィール写真の形を整える
+        let userImageView = self.userProfileImage
+        userImageView.layer.cornerRadius = userImageView.frame.width/2
+        userImageView.layer.masksToBounds = true
+        
+        //プロフィール写真を表示
+        let userImageName = (NCMBUser.currentUser().objectForKey("userProfileImage") as? String)!
+        let userImageData = NCMBFile.fileWithName(userImageName, data: nil) as! NCMBFile
+        
+        userImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+            if error != nil{
+                print("写真の取得失敗: \(error)")
+            } else {
+                userImageView.image = UIImage(data: imageData!)
+            }
+        }
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
