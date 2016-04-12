@@ -83,7 +83,7 @@ class SignUpViewController: UIViewController {
                     user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                         if error == nil {
                             print("saveInBackgroundWithBlock通った")
-                            self.performSegueWithIdentifier("signUpedSegue", sender: self)
+                            self.performSegueWithIdentifier("setUpedSegue", sender: self)
                         } else {
                             print("saveInBackgroundWithBlockエラー: \(error)")
                         }

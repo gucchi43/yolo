@@ -198,12 +198,12 @@
 			isa = PBXGroup;
 			children = (
 				EDE355F11CB284CD006C7C0A /* CommentFile.swift */,
+				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
 				32E6CF761C76F4F500904B74 /* takigutihikari.jpg */,
 				32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */,
 				32C0A3411C5DF8ED009657B9 /* Main.storyboard */,
-				EDA866771CBC93050074A71D /* SetProfileViewController.swift */,
-				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
 				ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */,
+				EDA866771CBC93050074A71D /* SetProfileViewController.swift */,
 				ED3644611C9D72F700C6676C /* TimeLine */,
 				ED3644621C9D740000C6676C /* Account */,
 				ED3644631C9D741500C6676C /* Log */,

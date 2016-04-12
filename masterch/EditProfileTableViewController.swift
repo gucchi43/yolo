@@ -17,11 +17,6 @@ class EditProfileTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        let userImage = self.userImageView
-        userImage.layer.cornerRadius = userImage.frame.width/2
-        userImage.layer.masksToBounds = true
-        //!!! 写真をグレーでぼかしたい, 谷口
         
         userName.text = NCMBUser.currentUser().userName
         
@@ -29,6 +24,7 @@ class EditProfileTableViewController: UITableViewController {
         let userImageView = self.userImageView
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.layer.masksToBounds = true
+        //!!! 写真をグレーでぼかしたい, 谷口
         
         //プロフィール写真を表示
         let userImageName = (NCMBUser.currentUser().objectForKey("userProfileImage") as? String)!
