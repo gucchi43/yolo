@@ -25,7 +25,7 @@ class SetProfileViewController: UIViewController {
 //        userImageView.layer.cornerRadius = userImageView.frame.width/2
 //        userImageView.layer.masksToBounds = true
         //!!! 写真をグレーでぼかしたい, 谷口
-        userName.text = NCMBUser.currentUser().userName
+        userName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
         
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.layer.masksToBounds = true
@@ -47,22 +47,6 @@ class SetProfileViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-//        userName.text = NCMBUser.currentUser().userName
-//        
-//        userImageView.layer.cornerRadius = userImageView.frame.width/2
-//        userImageView.layer.masksToBounds = true
-//        //プロフィール写真を表示
-//        let userImageName = (NCMBUser.currentUser().objectForKey("userProfileImage") as? String)!
-//        let userImageData = NCMBFile.fileWithName(userImageName, data: nil) as! NCMBFile
-//        
-//        userImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
-//            if error != nil{
-//                print("写真の取得失敗: \(error)")
-//                self.userImageView.image = UIImage(named: "noprofile.png")
-//            } else {
-//                self.userImageView.image = UIImage(data: imageData!)
-//            }
-//        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -75,10 +59,12 @@ class SetProfileViewController: UIViewController {
         print("user情報 \(NCMBUser.currentUser())")
     }
     
+    //プロフィール画面のカメラ選択ボタン
     @IBAction func PhotoAndCamera(sender: AnyObject) {
         tappedToolBarCameraButton()
     }
     
+    //完了ボタン
     @IBAction func SaveProfileBtn(sender: AnyObject) {
         newProfileSave()
     }
@@ -175,7 +161,7 @@ extension SetProfileViewController {
         let user = NCMBUser.currentUser()
         
         //ユーザーネーム保存
-        user.userName = userName.text
+        user.setObject(userName.text, forKey: "userFaceName")
         
         // プロフィール写真保存
         if profileImage != nil {

@@ -18,7 +18,7 @@ class EditProfileTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userName.text = NCMBUser.currentUser().userName
+        userName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
         
         //プロフィール写真の形を整える
         let userImageView = self.userImageView
@@ -142,7 +142,7 @@ extension EditProfileTableViewController {
         let user = NCMBUser.currentUser()
         
         //ユーザーネーム保存
-        user.userName = userName.text
+        user.setObject(userName.text, forKey: "userFaceName")
         
         // プロフィール写真保存
         if profileImage != nil {
