@@ -25,9 +25,6 @@ class SetProfileViewController: UIViewController {
 //        userImageView.layer.cornerRadius = userImageView.frame.width/2
 //        userImageView.layer.masksToBounds = true
         //!!! 写真をグレーでぼかしたい, 谷口
-    }
-    
-    override func viewWillAppear(animated: Bool) {
         userName.text = NCMBUser.currentUser().userName
         
         userImageView.layer.cornerRadius = userImageView.frame.width/2
@@ -39,11 +36,33 @@ class SetProfileViewController: UIViewController {
         userImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
             if error != nil{
                 print("写真の取得失敗: \(error)")
+                //初期の場合のユーザー画像
                 self.userImageView.image = UIImage(named: "noprofile.png")
             } else {
                 self.userImageView.image = UIImage(data: imageData!)
             }
         }
+        
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+//        userName.text = NCMBUser.currentUser().userName
+//        
+//        userImageView.layer.cornerRadius = userImageView.frame.width/2
+//        userImageView.layer.masksToBounds = true
+//        //プロフィール写真を表示
+//        let userImageName = (NCMBUser.currentUser().objectForKey("userProfileImage") as? String)!
+//        let userImageData = NCMBFile.fileWithName(userImageName, data: nil) as! NCMBFile
+//        
+//        userImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+//            if error != nil{
+//                print("写真の取得失敗: \(error)")
+//                self.userImageView.image = UIImage(named: "noprofile.png")
+//            } else {
+//                self.userImageView.image = UIImage(data: imageData!)
+//            }
+//        }
     }
     
     override func didReceiveMemoryWarning() {

@@ -83,6 +83,7 @@ class SignUpViewController: UIViewController {
                     user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                         if error == nil {
                             print("saveInBackgroundWithBlock通った")
+                            print("Twitter初回user登録時情報", user)
                             self.performSegueWithIdentifier("setUpedSegue", sender: self)
                         } else {
                             print("saveInBackgroundWithBlockエラー: \(error)")
