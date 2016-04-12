@@ -45,6 +45,7 @@
 		EDA4DC6E1C82F0FB005FE126 /* CalendarSwiftDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */; };
 		EDA4DC701C82F163005FE126 /* CalendarWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */; };
 		EDA4DC721C82F190005FE126 /* CalendarAnotherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC711C82F190005FE126 /* CalendarAnotherView.swift */; };
+		EDA866781CBC93050074A71D /* SetProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA866771CBC93050074A71D /* SetProfileViewController.swift */; };
 		EDB4FEFE1CBBFAFE00A318EA /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */; };
 		EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE355F11CB284CD006C7C0A /* CommentFile.swift */; };
 		EDEF991C1C9EC11F00B6D69D /* ContainerSnsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF991B1C9EC11F00B6D69D /* ContainerSnsViewController.swift */; };
@@ -126,6 +127,7 @@
 		EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSwiftDateView.swift; sourceTree = "<group>"; };
 		EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarWeekView.swift; sourceTree = "<group>"; };
 		EDA4DC711C82F190005FE126 /* CalendarAnotherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarAnotherView.swift; sourceTree = "<group>"; };
+		EDA866771CBC93050074A71D /* SetProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetProfileViewController.swift; sourceTree = "<group>"; };
 		EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		EDE355F11CB284CD006C7C0A /* CommentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFile.swift; sourceTree = "<group>"; };
 		EDEF991B1C9EC11F00B6D69D /* ContainerSnsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerSnsViewController.swift; sourceTree = "<group>"; };
@@ -196,11 +198,12 @@
 			isa = PBXGroup;
 			children = (
 				EDE355F11CB284CD006C7C0A /* CommentFile.swift */,
+				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
 				32E6CF761C76F4F500904B74 /* takigutihikari.jpg */,
 				32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */,
 				32C0A3411C5DF8ED009657B9 /* Main.storyboard */,
-				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
 				ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */,
+				EDA866771CBC93050074A71D /* SetProfileViewController.swift */,
 				ED3644611C9D72F700C6676C /* TimeLine */,
 				ED3644621C9D740000C6676C /* Account */,
 				ED3644631C9D741500C6676C /* Log */,
@@ -561,6 +564,7 @@
 				ED23B7A31C7B475B009AEDA5 /* CalendarManager.swift in Sources */,
 				32C0A33E1C5DF8ED009657B9 /* AppDelegate.swift in Sources */,
 				EDEF991E1C9EC13500B6D69D /* ContainerProfileViewController.swift in Sources */,
+				EDA866781CBC93050074A71D /* SetProfileViewController.swift in Sources */,
 				EDEF991C1C9EC11F00B6D69D /* ContainerSnsViewController.swift in Sources */,
 				ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */,
 			);

@@ -65,7 +65,8 @@ class SignUpViewController: UIViewController {
                     //ユーザー名を設定
                     let name = NCMBTwitterUtils.twitter().screenName
                     print("name: \(name)")
-                    user.userName = name
+                    user.setObject(name, forKey: "userFaceName")
+//                    user.userName = name
                     
                     // ACLを本人のみに設定
                     let acl = NCMBACL(user: NCMBUser.currentUser())
@@ -83,7 +84,8 @@ class SignUpViewController: UIViewController {
                     user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                         if error == nil {
                             print("saveInBackgroundWithBlock通った")
-                            self.performSegueWithIdentifier("signUpedSegue", sender: self)
+                            print("Twitter初回user登録時情報", user)
+                            self.performSegueWithIdentifier("setUpedSegue", sender: self)
                         } else {
                             print("saveInBackgroundWithBlockエラー: \(error)")
                         }

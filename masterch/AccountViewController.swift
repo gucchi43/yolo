@@ -30,7 +30,7 @@ class AccountViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         
         //ユーザーネームを表示
-        self.userProfileName.text = NCMBUser.currentUser().userName
+        self.userProfileName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
         
         //プロフィール写真の形を整える
         let userImageView = self.userProfileImage

@@ -1,5 +1,5 @@
 //
-//  EditProfileTableViewController.swift
+//  SetProfileViewController.swift
 //  masterch
 //
 //  Created by HIroki Taniguti on 2016/04/12.
@@ -8,8 +8,9 @@
 
 import UIKit
 
-class EditProfileTableViewController: UITableViewController {
+class SetProfileViewController: UIViewController {
     
+
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userName: UITextField!
     
@@ -18,14 +19,16 @@ class EditProfileTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //プロフィール写真の形を整える
+//        let userImageView = self.userImageView
+////        userImageView.image = UIImage(named: "noprofile.png")
+//        userImageView.layer.cornerRadius = userImageView.frame.width/2
+//        userImageView.layer.masksToBounds = true
+        //!!! 写真をグレーでぼかしたい, 谷口
         userName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
         
-        //プロフィール写真の形を整える
-        let userImageView = self.userImageView
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.layer.masksToBounds = true
-        //!!! 写真をグレーでぼかしたい, 谷口
-        
         //プロフィール写真を表示
         let userImageName = (NCMBUser.currentUser().objectForKey("userProfileImage") as? String)!
         let userImageData = NCMBFile.fileWithName(userImageName, data: nil) as! NCMBFile
@@ -33,12 +36,17 @@ class EditProfileTableViewController: UITableViewController {
         userImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
             if error != nil{
                 print("写真の取得失敗: \(error)")
+                //初期の場合のユーザー画像
+                self.userImageView.image = UIImage(named: "noprofile.png")
             } else {
-                userImageView.image = UIImage(data: imageData!)
+                self.userImageView.image = UIImage(data: imageData!)
             }
         }
         
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,21 +54,32 @@ class EditProfileTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    //保存ボタンアクション
-    @IBAction func saveBtn(sender: AnyObject) {
-        newProfileSave()
+    
+    @IBAction func userInfo(sender: AnyObject) {
+        print("user情報 \(NCMBUser.currentUser())")
     }
     
-    //プロフィール写真変更ボタンアクション
+    //プロフィール画面のカメラ選択ボタン
     @IBAction func PhotoAndCamera(sender: AnyObject) {
         tappedToolBarCameraButton()
     }
+    
+    //完了ボタン
+    @IBAction func SaveProfileBtn(sender: AnyObject) {
+        newProfileSave()
+    }
+
+    
+    
+
+    
 }
 
 
 
+
 // カメラ周り
-extension EditProfileTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
     func tappedToolBarCameraButton() {
         print("カメラボタン押した")
@@ -136,7 +155,7 @@ extension EditProfileTableViewController: UIImagePickerControllerDelegate, UINav
 
 
 // 投稿アクション周り
-extension EditProfileTableViewController {
+extension SetProfileViewController {
     //    投稿ボタンプッシュ, 投稿機能メソッド
     func newProfileSave() {
         let user = NCMBUser.currentUser()
@@ -169,7 +188,7 @@ extension EditProfileTableViewController {
             if error != nil {print("Save error : ",error)}
         })
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+//        self.performSegueWithIdentifier("signUpedSegue", sender: self)
         print("投稿完了")
     }
 }
