@@ -11,4 +11,6 @@ target 'masterch' do
   pod 'TwitterKit'
   pod 'TwitterCore'
 
+  pod 'RMUniversalAlert'
+
 end
