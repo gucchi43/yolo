@@ -19,9 +19,6 @@ class ContainerSnsViewController: UIViewController, UITableViewDataSource, UITab
     let label1Array: NSArray = ["Twitter", "Facebook"]
     let label2Array: NSArray = ["たにぐちひろき", "谷口弘樹"]
     let labelOnOffArray: NSArray = ["連携中", ""]
-//    連携したSNSの配列
-    var conectedSnsArray: NSMutableArray = []
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,27 +45,69 @@ class ContainerSnsViewController: UIViewController, UITableViewDataSource, UITab
     //各セルの要素を設定する
     func tableView(table: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // tableCell の ID で UITableViewCell のインスタンスを生成
-        switch (indexPath.section){
+        switch (indexPath.row){
         case 0 :
             print("case0 呼び出し")
             let cell = table.dequeueReusableCellWithIdentifier("conectedSnsCell", forIndexPath: indexPath)
             
-            // Tag番号 ２ で UILabel インスタンスの生成
+            let user = NCMBUser.currentUser()
+            
+            // Tag番号 ２ （連携SNS名）
             let label1 = table.viewWithTag(2) as! UILabel
             label1.text = "\(label1Array[indexPath.row])"
             
-            // Tag番号 ３ で UILabel インスタンスの生成
+            // Tag番号 ３ （連携SNSユーザー名）
             let label2 = table.viewWithTag(3) as! UILabel
-            label2.text = "\(label2Array[indexPath.row])"
-            return cell
+            let snsName = user.objectForKey("twitterName") as! String?
+            print("snsName: \(snsName)")
+            label2.text = snsName
             
-            // Tag番号 ４ で UIImageView インスタンスの生成
+            // Tag番号 ４ （連携SNSのロゴImage）
             let img = UIImage(named: "\(imgArray[indexPath.row])")
             let logoImage1 = table.viewWithTag(4) as! UIImageView
             logoImage1.image = img
             
+            //　Tag番号 ５ （連携済 or 未連携）
             let labelOnOff = table.viewWithTag(5) as! UILabel
-            labelOnOff.text = "\(labelOnOffArray[indexPath.row])"
+            let twitterDid = NCMBTwitterUtils.isLinkedWithUser(user)
+            if twitterDid == true {
+                labelOnOff.text = "連携中"
+            }else {
+                labelOnOff.text = ""
+            }
+            
+            return cell
+            
+        case 1:
+            print("case0 呼び出し")
+            let cell = table.dequeueReusableCellWithIdentifier("conectedSnsCell", forIndexPath: indexPath)
+            
+            let user = NCMBUser.currentUser()
+            
+            // Tag番号 ２ （連携SNS名）
+            let label1 = table.viewWithTag(2) as! UILabel
+            label1.text = "\(label1Array[indexPath.row])"
+            
+            // Tag番号 ３ （連携SNSユーザー名）
+            let label2 = table.viewWithTag(3) as! UILabel
+            let snsName = user.objectForKey("facebookName") as! String?
+            print("snsName: \(snsName)")
+            label2.text = snsName
+            
+            // Tag番号 ４ （連携SNSのロゴImage）
+            let img = UIImage(named: "\(imgArray[indexPath.row])")
+            let logoImage1 = table.viewWithTag(4) as! UIImageView
+            logoImage1.image = img
+            
+            //　Tag番号 ５ （連携済 or 未連携）
+            let labelOnOff = table.viewWithTag(5) as! UILabel
+            let facebookDid = NCMBFacebookUtils.isLinkedWithUser(user)
+            if facebookDid == true {
+                labelOnOff.text = "連携中"
+            }else {
+                labelOnOff.text = ""
+            }
+            
             return cell
             
         default :
@@ -94,6 +133,8 @@ class ContainerSnsViewController: UIViewController, UITableViewDataSource, UITab
 //            print("Edeintg: \(tableView.editing)")
 //        }
 //    }
+    
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("cell選択")
 //        addSnsToFacebook()
@@ -111,34 +152,57 @@ class ContainerSnsViewController: UIViewController, UITableViewDataSource, UITab
     
     func addSnsToFacebook() {
         let user = NCMBUser.currentUser()
-        NCMBFacebookUtils.linkUser(user, withPublishingPermission: nil) { (user: NCMBUser!, error: NSError!) -> Void in
-            if error == nil{
-                print("facebookアカウントリンク成功")
-            }else {
-                print("facebookアカウントリンク失敗")
+        let facebookDid = NCMBFacebookUtils.isLinkedWithUser(user)
+        if facebookDid == true {
+            print("Facebookログイン済み")
+        }else {
+            print("Facebook未ログイン")
+            NCMBFacebookUtils.linkUser(user, withPublishingPermission: nil) { (user: NCMBUser!, error: NSError!) -> Void in
+                if error == nil{
+                    print("facebookアカウントリンク成功")
+                }else {
+                    print("facebookアカウントリンク失敗")
+                }
             }
+
         }
+        conectSnsTabelView.reloadData()
     }
     
     func addSnsToTwitter() {
         let user = NCMBUser.currentUser()
-        NCMBTwitterUtils.linkUser(user) { (error: NSError!) -> Void in
-            if error == nil{
-                print("twitterアカウントリンク成功")
-            }else {
-                print("twitterアカウントリンク失敗")
+        let twitterDid = NCMBTwitterUtils.isLinkedWithUser(user)
+        if twitterDid == true {
+            print("Twitterログイン済み")
+            NCMBTwitterUtils.unlinkUserInBackground(user, block: { (error) -> Void in
+                if error == nil {
+                    print("Twitterアカウント解除成功")
+                }else {
+                    print("Twitterアカウント解除失敗", error)
+                }
+            })
+        }else {
+            print("twitter未ログイン")
+            NCMBTwitterUtils.linkUser(user) { (error: NSError!) -> Void in
+                if error == nil{
+                    print("twitterアカウントリンク成功")
+                }else {
+                    print("twitterアカウントリンク失敗")
+                }
             }
+
         }
+        conectSnsTabelView.reloadData()
     }
     
-    @IBAction func addSnsCell(sender: AnyObject) {
-        print("addSnsCell押した")
-        
-        conectedSnsArray.addObject("連携SNS その1")
-        print("conectedSnsArray \(conectedSnsArray.count)")
-        conectSnsTabelView.reloadData()
-        
-    }
+//    @IBAction func addSnsCell(sender: AnyObject) {
+//        print("addSnsCell押した")
+//        
+//        conectedSnsArray.addObject("連携SNS その1")
+//        print("conectedSnsArray \(conectedSnsArray.count)")
+//        conectSnsTabelView.reloadData()
+//        
+//    }
     
 
 

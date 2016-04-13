@@ -79,6 +79,7 @@ class SignUpViewController: UIViewController {
                     let userimageData = UIImagePNGRepresentation(userImage!)! as NSData
                     let userimageFile: NCMBFile = NCMBFile.fileWithData(userimageData) as! NCMBFile
                     user.setObject(userimageFile.name, forKey: "userProfileImage")
+                    user.setObject(name, forKey: "twitterName")
                     
                     //バックグラウンドで保存処理
                     user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
