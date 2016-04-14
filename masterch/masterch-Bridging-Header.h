@@ -4,3 +4,4 @@
 #import <NCMB/NCMB.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <RMUniversalAlert/RMUniversalAlert.h>
