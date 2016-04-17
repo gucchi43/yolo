@@ -57,26 +57,29 @@ class ContainerSnsViewController: UIViewController, UITableViewDataSource, UITab
             let label1 = table.viewWithTag(2) as! UILabel
             label1.text = "\(label1Array[indexPath.row])"
             
-            // Tag番号 ３ （連携SNSユーザー名）
-            let label2 = table.viewWithTag(3) as! UILabel
-            let snsName = user.objectForKey("twitterName") as! String?
-            print("snsName: \(snsName)")
-            label2.text = snsName
-            
             // Tag番号 ４ （連携SNSのロゴImage）
             let img = UIImage(named: "\(imgArray[indexPath.row])")
             let logoImage1 = table.viewWithTag(4) as! UIImageView
             logoImage1.image = img
             
-            //　Tag番号 ５ （連携済 or 未連携）
+            //　Tag番号 ５ （連携済 or 未連携）// Tag番号 ３ （連携SNSユーザー名）
+            let label2 = table.viewWithTag(3) as! UILabel
             let labelOnOff = table.viewWithTag(5) as! UILabel
             let twitterDid = NCMBTwitterUtils.isLinkedWithUser(user)
             if twitterDid == true {
-                labelOnOff.text = "連携中"
+                if let snsName = user.objectForKey("twitterName") as! String? {
+                    print("snsName: \(snsName)")
+                    label2.text = snsName
+                    labelOnOff.text = "連携中"
+                } else{
+                    label2.text = ""
+                    labelOnOff.text = ""
+                }
             }else {
+                label2.text = ""
                 labelOnOff.text = ""
             }
-            
+    
             return cell
             
         case 1:
@@ -204,8 +207,16 @@ class ContainerSnsViewController: UIViewController, UITableViewDataSource, UITab
                     print("解除する Tapped")
                     NCMBTwitterUtils.unlinkUserInBackground(user, block: { (error) -> Void in
                         if error == nil {
-                            print("Twitterアカウント解除成功")
+                            user.removeObjectForKey("twitterName")
                             self.conectSnsTabelView.reloadData()
+                            print("Twitterアカウント解除成功")
+                            user.saveInBackgroundWithBlock({ (error) -> Void in
+                                if error == nil {
+                                    print("保存成功")
+                                }else{
+                                    print("保存失敗")
+                                }
+                            })
                         }else {
                             print("Twitterアカウント解除失敗", error)
                         }
@@ -231,8 +242,9 @@ class ContainerSnsViewController: UIViewController, UITableViewDataSource, UITab
                     print("解除する Tapped")
                     NCMBFacebookUtils.unLinkUser(user, withBlock: { (user, error) -> Void in
                         if error == nil {
-                            print("Facebookアカウント解除成功")
+                            user.removeObjectForKey("facebookName")
                             self.conectSnsTabelView.reloadData()
+                            print("Facebookアカウント解除成功")
                         }else {
                             print("Facebookアカウント解除失敗", error)
                         }

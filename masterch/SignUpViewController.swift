@@ -11,6 +11,63 @@ import TwitterKit
 
 class SignUpViewController: UIViewController {
     
+    @IBOutlet weak var userId: UITextField!
+    @IBOutlet weak var password: UITextField!
+    
+    @IBOutlet weak var errorMessage: UILabel!
+    
+    
+    let user = NCMBUser.currentUser()
+    
+    //NCMBUserのインスタンスを作成
+    let newUser = NCMBUser()
+    
+    
+    
+    @IBAction func signUpBtn(sender: AnyObject) {
+        newUser.userName = userId.text
+        newUser.password = password.text
+        if self.password.text?.utf16.count <= 6 {
+            print("６文字以下")
+            self.errorMessage.text = "パスワードは６文字以上入力してください"
+        }else {
+            newUser.signUpInBackgroundWithBlock({(NSError error) in
+                if error != nil  {
+                    // Signup失敗
+                    print("Signup失敗", error)
+                    self.errorMessage.text = error.localizedDescription
+                    
+                }else{
+                    //Signup成功
+                    //画面遷移
+                    print("Signup成功", self.newUser)
+                }
+            })
+        }
+    }
+    
+    @IBAction func logInBtn(sender: AnyObject) {
+        NCMBUser.logInWithUsernameInBackground(userId.text, password: password.text) { (user, error) -> Void in
+            if error != nil {
+                //Login失敗
+                print("Login失敗", error)
+                
+            }else {
+                //Login成功
+                print("Login成功", user)
+            }
+        }
+
+    }
+    
+    
+    
+//    @IBOutlet weak var logInBtn: UIButton!{
+    
+    
+    
+    
+    //Facebookログイン&サインアップ
     @IBAction func fbSignUpBtn(sender: AnyObject) {
         print("facebookボタン押した")
         NCMBFacebookUtils.logInWithReadPermission(["wakannai"], block: { (user: NCMBUser!, error: NSError!) -> Void in
@@ -37,34 +94,19 @@ class SignUpViewController: UIViewController {
         })
     }
     
-//     NCMBFacebookUtils.logInWithReadPermission(["email"]) {(user, error) -> Void in
-//            if (error != nil){
-//                if (error.code == NCMBErrorFacebookLoginCancelled){
-//                    // Facebookのログインがキャンセルされた場合
-//                }else{
-//                    // その他のエラーが発生した場合
-//                    print("FBエラー")
-//                }
-//            }else{
-//                // 会員登録後の処理
-//                print("FBサクセス")
-//                self.performSegueWithIdentifier("signUpedSegue", sender: self)
-//            }
-//        }
-    
-    
+    //Twitterログイン&サインアップ
     @IBAction func twSignUpBtn(sender: AnyObject) {
         print("Twitterログインボタン押した")
         NCMBTwitterUtils.logInWithBlock { (user: NCMBUser!, error: NSError!) -> Void in
             if let user = user {
+                let name = NCMBTwitterUtils.twitter().screenName
+                print("name: \(name)")
                 
                 //初めてのログインかの分岐
                 if user.createDate == user.updateDate{
                     //初めてのユーザー（Twitterでユーザー登録）
                     print("初めてユーザー")
                     //ユーザー名を設定
-                    let name = NCMBTwitterUtils.twitter().screenName
-                    print("name: \(name)")
                     user.setObject(name, forKey: "userFaceName")
 //                    user.userName = name
                     
@@ -98,9 +140,16 @@ class SignUpViewController: UIViewController {
                     //userクラスのデータを取ってくる
                     user.fetchInBackgroundWithBlock({ (error) -> Void in
                         if error == nil {
-                            print("fetchInBackgroundWithBlock成功のuser : \(user)")
-                            print("Twitterログイン成功")
-                            self.performSegueWithIdentifier("signUpedSegue", sender: self)
+                            user.setObject(name, forKey: "twitterName")
+                            user.saveInBackgroundWithBlock({ (error) -> Void in
+                                if error == nil {
+                                    print("fetchInBackgroundWithBlock成功のuser : \(user)")
+                                    print("Twitterログイン成功")
+                                    self.performSegueWithIdentifier("signUpedSegue", sender: self)
+                                }else {
+                                    print("error")
+                                }
+                            })
                         } else {
                             print("error")
                         }
@@ -123,6 +172,7 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.errorMessage.text = ""
         // Do any additional setup after loading the view, typically from a nib.
     }
     
