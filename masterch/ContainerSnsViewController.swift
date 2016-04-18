@@ -18,8 +18,6 @@ class ContainerSnsViewController: UIViewController, UITableViewDataSource, UITab
     
     let imgArray: NSArray = ["noprofile.png","noprofile.png"]
     let label1Array: NSArray = ["Twitter", "Facebook"]
-    let label2Array: NSArray = ["たにぐちひろき", "谷口弘樹"]
-    let labelOnOffArray: NSArray = ["連携中", ""]
     
     override func viewDidLoad() {
         super.viewDidLoad()
