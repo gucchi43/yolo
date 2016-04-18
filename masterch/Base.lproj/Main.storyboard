@@ -220,8 +220,8 @@
                                     <action selector="logInBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="YRm-oz-yb9"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ERROR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qrf-W1-BOJ">
-                                <rect key="frame" x="179.5" y="299" width="55" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ERROR文章（デフォは非表示）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qrf-W1-BOJ">
+                                <rect key="frame" x="86" y="299" width="242" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.13333334029999999" blue="0.1764705926" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>

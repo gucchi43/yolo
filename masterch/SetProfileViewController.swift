@@ -25,8 +25,6 @@ class SetProfileViewController: UIViewController {
 //        userImageView.layer.cornerRadius = userImageView.frame.width/2
 //        userImageView.layer.masksToBounds = true
         //!!! 写真をグレーでぼかしたい, 谷口
-        userName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
-        
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.layer.masksToBounds = true
         //プロフィール写真を表示
@@ -47,6 +45,7 @@ class SetProfileViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        userName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
     }
     
     override func didReceiveMemoryWarning() {

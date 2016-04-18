@@ -13,9 +13,7 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var userId: UITextField!
     @IBOutlet weak var password: UITextField!
-    
     @IBOutlet weak var errorMessage: UILabel!
-    
     
     let user = NCMBUser.currentUser()
     
@@ -27,6 +25,13 @@ class SignUpViewController: UIViewController {
     @IBAction func signUpBtn(sender: AnyObject) {
         newUser.userName = userId.text
         newUser.password = password.text
+        
+        let userImage = UIImage(named: "noprofile.png")
+        let userimageData = UIImagePNGRepresentation(userImage!)! as NSData
+        let userimageFile: NCMBFile = NCMBFile.fileWithData(userimageData) as! NCMBFile
+        newUser.setObject(userimageFile.name, forKey: "userProfileImage")
+        newUser.setObject("No Name", forKey: "userFaceName")
+        
         if self.password.text?.utf16.count <= 6 {
             print("６文字以下")
             self.errorMessage.text = "パスワードは６文字以上入力してください"
@@ -36,25 +41,28 @@ class SignUpViewController: UIViewController {
                     // Signup失敗
                     print("Signup失敗", error)
                     self.errorMessage.text = error.localizedDescription
-                    
                 }else{
                     //Signup成功
                     //画面遷移
                     print("Signup成功", self.newUser)
+                    self.performSegueWithIdentifier("setUpedSegue", sender: self)
                 }
             })
         }
     }
+    
     
     @IBAction func logInBtn(sender: AnyObject) {
         NCMBUser.logInWithUsernameInBackground(userId.text, password: password.text) { (user, error) -> Void in
             if error != nil {
                 //Login失敗
                 print("Login失敗", error)
+                self.errorMessage.text = error.localizedDescription
                 
             }else {
                 //Login成功
                 print("Login成功", user)
+                self.performSegueWithIdentifier("signUpedSegue", sender: self)
             }
         }
 
