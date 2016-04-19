@@ -48,6 +48,8 @@
 		EDA866781CBC93050074A71D /* SetProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA866771CBC93050074A71D /* SetProfileViewController.swift */; };
 		EDB04C721CBDC5B600FDEB14 /* AddSnsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C711CBDC5B600FDEB14 /* AddSnsTableViewController.swift */; };
 		EDB04C751CC5190500FDEB14 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C741CC5190500FDEB14 /* UserData.swift */; };
+		EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */; };
+		EDB04C791CC6863300FDEB14 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C781CC6863300FDEB14 /* LogInViewController.swift */; };
 		EDB4FEFE1CBBFAFE00A318EA /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */; };
 		EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE355F11CB284CD006C7C0A /* CommentFile.swift */; };
 		EDEF991C1C9EC11F00B6D69D /* ContainerSnsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF991B1C9EC11F00B6D69D /* ContainerSnsViewController.swift */; };
@@ -132,6 +134,8 @@
 		EDA866771CBC93050074A71D /* SetProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetProfileViewController.swift; sourceTree = "<group>"; };
 		EDB04C711CBDC5B600FDEB14 /* AddSnsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSnsTableViewController.swift; sourceTree = "<group>"; };
 		EDB04C741CC5190500FDEB14 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
+		EDB04C781CC6863300FDEB14 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		EDE355F11CB284CD006C7C0A /* CommentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFile.swift; sourceTree = "<group>"; };
 		EDEF991B1C9EC11F00B6D69D /* ContainerSnsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerSnsViewController.swift; sourceTree = "<group>"; };
@@ -206,8 +210,10 @@
 				32E6CF761C76F4F500904B74 /* takigutihikari.jpg */,
 				32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */,
 				32C0A3411C5DF8ED009657B9 /* Main.storyboard */,
+				EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */,
 				EDB04C741CC5190500FDEB14 /* UserData.swift */,
 				ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */,
+				EDB04C781CC6863300FDEB14 /* LogInViewController.swift */,
 				EDA866771CBC93050074A71D /* SetProfileViewController.swift */,
 				ED3644611C9D72F700C6676C /* TimeLine */,
 				ED3644621C9D740000C6676C /* Account */,
@@ -555,7 +561,9 @@
 				3219A2371C70468900D1A6AF /* TimelineCell.swift in Sources */,
 				EDA4DC6E1C82F0FB005FE126 /* CalendarSwiftDateView.swift in Sources */,
 				EDA4DC701C82F163005FE126 /* CalendarWeekView.swift in Sources */,
+				EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */,
 				32C0A3401C5DF8ED009657B9 /* ViewController.swift in Sources */,
+				EDB04C791CC6863300FDEB14 /* LogInViewController.swift in Sources */,
 				ED8322D41C8EFDF700122BA2 /* SignUpViewController.swift in Sources */,
 				3289D23C1C6A1C8000B4C65A /* SearchViewController.swift in Sources */,
 				EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */,
