@@ -12,7 +12,8 @@ class AccountViewController: UIViewController {
     
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var userProfileName: UILabel!
-
+    @IBOutlet weak var userIdLabel: UILabel!
+    
     @IBOutlet weak var segmentedController: UISegmentedControl!
     @IBOutlet weak var containerSnsView: UIView!
     @IBOutlet weak var containerProfileView: UIView!
@@ -31,6 +32,8 @@ class AccountViewController: UIViewController {
         
         //ユーザーネームを表示
         self.userProfileName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
+        
+        self.userIdLabel.text = "@" + NCMBUser.currentUser().userName
         
         //プロフィール写真の形を整える
         let userImageView = self.userProfileImage
