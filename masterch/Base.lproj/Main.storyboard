@@ -139,13 +139,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9WT-NW-YNA">
-                                <rect key="frame" x="365" y="70" width="49" height="30"/>
-                                <state key="normal" title="LOG IN"/>
-                                <connections>
-                                    <action selector="logInBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="9sq-Oe-Ldn"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ユーザーID" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Tf5-t3-b1K">
                                 <rect key="frame" x="40" y="180" width="334" height="40"/>
                                 <constraints>
@@ -180,13 +173,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Tf5-t3-b1K" firstAttribute="top" secondItem="nz7-vn-ks1" secondAttribute="topMargin" constant="180" id="3Sk-Iu-gX0"/>
-                            <constraint firstAttribute="trailing" secondItem="9WT-NW-YNA" secondAttribute="trailing" id="5UX-Kf-eE1"/>
                             <constraint firstItem="Tf5-t3-b1K" firstAttribute="top" secondItem="RfO-5G-Rcv" secondAttribute="bottom" constant="8" id="Ffw-AI-F8h"/>
                             <constraint firstItem="8nY-kM-vAc" firstAttribute="centerX" secondItem="nz7-vn-ks1" secondAttribute="centerX" id="Glq-nq-jif"/>
                             <constraint firstItem="Tf5-t3-b1K" firstAttribute="leading" secondItem="nz7-vn-ks1" secondAttribute="leading" constant="40" id="LNR-Z8-pS2"/>
                             <constraint firstItem="RfO-5G-Rcv" firstAttribute="centerX" secondItem="nz7-vn-ks1" secondAttribute="centerX" id="O8E-j7-ekJ"/>
                             <constraint firstAttribute="trailing" secondItem="8Kt-QU-Mrz" secondAttribute="trailing" constant="40" id="U3C-2m-fyg"/>
-                            <constraint firstItem="9WT-NW-YNA" firstAttribute="top" secondItem="nz7-vn-ks1" secondAttribute="top" constant="70" id="Ucv-q7-jsd"/>
                             <constraint firstItem="8Kt-QU-Mrz" firstAttribute="top" secondItem="Tf5-t3-b1K" secondAttribute="bottom" constant="20" id="Vmy-s3-cVT"/>
                             <constraint firstItem="8Kt-QU-Mrz" firstAttribute="leading" secondItem="nz7-vn-ks1" secondAttribute="leading" constant="40" id="cFV-iL-qce"/>
                             <constraint firstItem="RfO-5G-Rcv" firstAttribute="top" secondItem="8nY-kM-vAc" secondAttribute="bottom" constant="8" id="gmL-89-M3q"/>

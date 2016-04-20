@@ -20,10 +20,6 @@ class SetProfileViewController: UIViewController {
         super.viewDidLoad()
         
         //プロフィール写真の形を整える
-//        let userImageView = self.userImageView
-////        userImageView.image = UIImage(named: "noprofile.png")
-//        userImageView.layer.cornerRadius = userImageView.frame.width/2
-//        userImageView.layer.masksToBounds = true
         //!!! 写真をグレーでぼかしたい, 谷口
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.layer.masksToBounds = true
@@ -48,13 +44,6 @@ class SetProfileViewController: UIViewController {
         userName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    
     
     @IBAction func userInfo(sender: AnyObject) {
         print("user情報 \(NCMBUser.currentUser())")
@@ -70,16 +59,10 @@ class SetProfileViewController: UIViewController {
         
     }
     
-    
     //完了ボタン
     @IBAction func SaveProfileBtn(sender: AnyObject) {
         newProfileSave()
     }
-
-    
-    
-
-    
 }
 
 

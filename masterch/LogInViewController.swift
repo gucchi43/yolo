@@ -28,59 +28,24 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.errorMessage.text = ""
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     //textfieldのreturnkey押した時の動作
     func textFieldShouldReturn(textField: UITextField) -> Bool{
         if (textField == userId) {
             password?.becomeFirstResponder()
         } else {
-            userLogInBtn()
-            //             キーボードを閉じる
+            userLogIn()
+            //キーボードを閉じる
             textField.resignFirstResponder()
         }
         return true
     }
     
-    @IBAction func signUpBtn(sender: AnyObject) {
-        newUser.userName = userId.text
-        newUser.password = password.text
-        
-        let userImage = UIImage(named: "noprofile.png")
-        let userimageData = UIImagePNGRepresentation(userImage!)! as NSData
-        let userimageFile: NCMBFile = NCMBFile.fileWithData(userimageData) as! NCMBFile
-        newUser.setObject(userimageFile.name, forKey: "userProfileImage")
-        newUser.setObject("No Name", forKey: "userFaceName")
-        
-        if self.password.text?.utf16.count <= 6 {
-            print("６文字以下")
-            self.errorMessage.text = "パスワードは６文字以上入力してください"
-        }else {
-            newUser.signUpInBackgroundWithBlock({(NSError error) in
-                if error != nil  {
-                    // Signup失敗
-                    print("Signup失敗", error)
-                    self.errorMessage.text = error.localizedDescription
-                }else{
-                    //Signup成功
-                    //画面遷移
-                    print("Signup成功", self.newUser)
-                    self.performSegueWithIdentifier("setUpedSegue", sender: self)
-                }
-            })
-        }
-    }
-    
-    
     @IBAction func logInBtn(sender: AnyObject) {
         print("logInBtn 押した")
-        userLogInBtn()
+        userLogIn()
     }
     
-    func userLogInBtn() {
+    func userLogIn() {
         NCMBUser.logInWithUsernameInBackground(userId.text, password: password.text) { (user, error) -> Void in
             if error != nil {
                 //Login失敗
