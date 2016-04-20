@@ -104,8 +104,8 @@
                                     <segue destination="uBe-RG-aNI" kind="show" id="5sb-DO-8mt"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCV-j1-kbO">
-                                <rect key="frame" x="190.5" y="120" width="33.5" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Masterch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCV-j1-kbO">
+                                <rect key="frame" x="171" y="120" width="72" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -146,12 +146,6 @@
                                     <action selector="logInBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="9sq-Oe-Ldn"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ERROR文章（デフォは非表示）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfO-5G-Rcv">
-                                <rect key="frame" x="86" y="326" width="242" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.13333334029999999" blue="0.1764705926" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ユーザーID" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Tf5-t3-b1K">
                                 <rect key="frame" x="40" y="180" width="334" height="40"/>
                                 <constraints>
@@ -176,11 +170,18 @@
                                     <action selector="signUpBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="vZK-sz-LKn"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ERROR文章（デフォは非表示）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfO-5G-Rcv">
+                                <rect key="frame" x="86" y="151.5" width="242" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.13333334029999999" blue="0.1764705926" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Tf5-t3-b1K" firstAttribute="top" secondItem="nz7-vn-ks1" secondAttribute="topMargin" constant="180" id="3Sk-Iu-gX0"/>
                             <constraint firstAttribute="trailing" secondItem="9WT-NW-YNA" secondAttribute="trailing" id="5UX-Kf-eE1"/>
+                            <constraint firstItem="Tf5-t3-b1K" firstAttribute="top" secondItem="RfO-5G-Rcv" secondAttribute="bottom" constant="8" id="Ffw-AI-F8h"/>
                             <constraint firstItem="8nY-kM-vAc" firstAttribute="centerX" secondItem="nz7-vn-ks1" secondAttribute="centerX" id="Glq-nq-jif"/>
                             <constraint firstItem="Tf5-t3-b1K" firstAttribute="leading" secondItem="nz7-vn-ks1" secondAttribute="leading" constant="40" id="LNR-Z8-pS2"/>
                             <constraint firstItem="RfO-5G-Rcv" firstAttribute="centerX" secondItem="nz7-vn-ks1" secondAttribute="centerX" id="O8E-j7-ekJ"/>
@@ -192,6 +193,11 @@
                             <constraint firstAttribute="trailing" secondItem="Tf5-t3-b1K" secondAttribute="trailing" constant="40" id="lkR-TH-ZZr"/>
                             <constraint firstItem="8nY-kM-vAc" firstAttribute="top" secondItem="8Kt-QU-Mrz" secondAttribute="bottom" constant="8" id="xtA-ep-aHF"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="gmL-89-M3q"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="登録" id="yfh-sH-bRn">
                         <barButtonItem key="leftBarButtonItem" title="戻る" id="oic-pD-qlq">
@@ -294,7 +300,12 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="プロフィール設定" id="Cg3-b6-dPF">
-                        <barButtonItem key="rightBarButtonItem" title="スキップ" id="wkN-F8-YrT"/>
+                        <barButtonItem key="rightBarButtonItem" title="スキップ" id="wkN-F8-YrT">
+                            <connections>
+                                <action selector="skipBtn:" destination="iJy-WC-FCV" id="awR-iu-Bin"/>
+                                <segue destination="crh-pw-A6b" kind="presentation" id="hmv-Jr-pUG"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -346,14 +357,8 @@
                                     <constraint firstAttribute="height" constant="40" id="J74-Ty-LNV"/>
                                 </constraints>
                                 <attributedString key="attributedText"/>
-                                <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="go" secureTextEntry="YES"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ERROR文章（デフォは非表示）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qrf-W1-BOJ">
-                                <rect key="frame" x="86" y="326" width="242" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.13333334029999999" blue="0.1764705926" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kXZ-Kh-Zai">
                                 <rect key="frame" x="177" y="288" width="60" height="30"/>
                                 <state key="normal" title="ログイン"/>
@@ -361,6 +366,12 @@
                                     <action selector="logInBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="YRm-oz-yb9"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ERROR文章（デフォは非表示）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qrf-W1-BOJ">
+                                <rect key="frame" x="86" y="151.5" width="242" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.13333334029999999" blue="0.1764705926" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -372,6 +383,7 @@
                             <constraint firstItem="aDU-56-fdD" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="Ce8-3F-sv5"/>
                             <constraint firstItem="T54-R8-Q28" firstAttribute="leading" secondItem="ROx-NO-idw" secondAttribute="leading" constant="40" id="GWg-OH-Ygy"/>
                             <constraint firstItem="kXZ-Kh-Zai" firstAttribute="top" secondItem="T54-R8-Q28" secondAttribute="bottom" constant="8" id="VCt-WI-IU1"/>
+                            <constraint firstItem="kLh-2Z-Alm" firstAttribute="top" secondItem="Qrf-W1-BOJ" secondAttribute="bottom" constant="8" id="aN1-h7-cyK"/>
                             <constraint firstItem="T54-R8-Q28" firstAttribute="top" secondItem="kLh-2Z-Alm" secondAttribute="bottom" constant="20" id="bHQ-2t-2xP"/>
                             <constraint firstAttribute="trailing" secondItem="T54-R8-Q28" secondAttribute="trailing" constant="40" id="dSt-5a-UoQ"/>
                             <constraint firstItem="Qrf-W1-BOJ" firstAttribute="top" secondItem="kXZ-Kh-Zai" secondAttribute="bottom" constant="8" id="eh4-6m-d2g"/>
@@ -379,6 +391,11 @@
                             <constraint firstItem="Qrf-W1-BOJ" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="sr8-kH-fHA"/>
                             <constraint firstItem="kLh-2Z-Alm" firstAttribute="leading" secondItem="ROx-NO-idw" secondAttribute="leading" constant="40" id="xqm-bq-iTH"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="eh4-6m-d2g"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="ログイン" id="YZC-dR-og5">
                         <barButtonItem key="leftBarButtonItem" title="戻る" id="JxK-fC-7JW">

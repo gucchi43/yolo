@@ -24,6 +24,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         userId?.delegate = self
         password?.delegate = self
         
+//        userId.keyboardType = UIKeyboardType.ASCIICapable
+//        password.keyboardType = UIKeyboardType.ASCIICapable
         
         self.errorMessage.text = ""
         

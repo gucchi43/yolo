@@ -54,6 +54,8 @@ class SetProfileViewController: UIViewController {
     }
     
     
+    
+    
     @IBAction func userInfo(sender: AnyObject) {
         print("user情報 \(NCMBUser.currentUser())")
     }
@@ -62,6 +64,12 @@ class SetProfileViewController: UIViewController {
     @IBAction func PhotoAndCamera(sender: AnyObject) {
         tappedToolBarCameraButton()
     }
+    
+    @IBAction func skipBtn(sender: AnyObject) {
+        print("skipBtn 押した")
+        
+    }
+    
     
     //完了ボタン
     @IBAction func SaveProfileBtn(sender: AnyObject) {
