@@ -9,7 +9,7 @@
 import UIKit
 import TwitterKit
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var userId: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -20,11 +20,36 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userId?.delegate = self
+        password?.delegate = self
+        
+        
         self.errorMessage.text = ""
+        
+        //戻るボタンを隠す
+        self.navigationItem.hidesBackButton = true
+    }
+    
+    //textfieldのreturnkey押した時の動作
+    func textFieldShouldReturn(textField: UITextField) -> Bool{
+        if (textField == userId) {
+            password?.becomeFirstResponder()
+        } else {
+            userSignUp()
+//             キーボードを閉じる
+            textField.resignFirstResponder()
+        }
+        return true
     }
     
     
     @IBAction func signUpBtn(sender: AnyObject) {
+        print("signUpBtn 押した")
+        userSignUp()
+    }
+    
+    func userSignUp() {
         newUser.userName = userId.text
         newUser.password = password.text
         
@@ -51,6 +76,7 @@ class SignUpViewController: UIViewController {
                 }
             })
         }
+
     }
     
     

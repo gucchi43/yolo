@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LogInViewController: UIViewController {
+class LogInViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var userId: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -21,12 +21,28 @@ class LogInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userId?.delegate = self
+        password?.delegate = self
+        
         self.errorMessage.text = ""
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //textfieldのreturnkey押した時の動作
+    func textFieldShouldReturn(textField: UITextField) -> Bool{
+        if (textField == userId) {
+            password?.becomeFirstResponder()
+        } else {
+            userLogInBtn()
+            //             キーボードを閉じる
+            textField.resignFirstResponder()
+        }
+        return true
     }
     
     @IBAction func signUpBtn(sender: AnyObject) {
@@ -60,6 +76,11 @@ class LogInViewController: UIViewController {
     
     
     @IBAction func logInBtn(sender: AnyObject) {
+        print("logInBtn 押した")
+        userLogInBtn()
+    }
+    
+    func userLogInBtn() {
         NCMBUser.logInWithUsernameInBackground(userId.text, password: password.text) { (user, error) -> Void in
             if error != nil {
                 //Login失敗
@@ -72,9 +93,7 @@ class LogInViewController: UIViewController {
                 self.performSegueWithIdentifier("signUpedSegue", sender: self)
             }
         }
-        
     }
-    
     
     
     //    @IBOutlet weak var logInBtn: UIButton!{
