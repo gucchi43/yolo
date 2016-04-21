@@ -9,121 +9,76 @@
 import UIKit
 import TwitterKit
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
     
-    @IBAction func fbSignUpBtn(sender: AnyObject) {
-        print("facebookボタン押した")
-        NCMBFacebookUtils.logInWithReadPermission(["wakannai"], block: { (user: NCMBUser!, error: NSError!) -> Void in
-            if error == nil {
-                print("会員登録後の処理")
-                let acl = NCMBACL(user: NCMBUser.currentUser())
-                user.ACL = acl
-                user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
-                    if error == nil {
-                        print("ACLの保存成功")
-                    }else {
-                        print("ACL設定の保存失敗: \(error)")
-                    }
-                    print("Facebook会員登録成功")
-                    self.performSegueWithIdentifier("signUpedSegue", sender: self)
-                })
-            }else {
-                if error.code == NCMBErrorFacebookLoginCancelled {
-                    print("Facebookのログインをキャンセルしました \(error)")
-                } else {
-                    print("キャンセル以外のエラー: \(error)")
-                }
-            }
-        })
-    }
+    @IBOutlet weak var userId: UITextField!
+    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var errorMessage: UILabel!
     
-//     NCMBFacebookUtils.logInWithReadPermission(["email"]) {(user, error) -> Void in
-//            if (error != nil){
-//                if (error.code == NCMBErrorFacebookLoginCancelled){
-//                    // Facebookのログインがキャンセルされた場合
-//                }else{
-//                    // その他のエラーが発生した場合
-//                    print("FBエラー")
-//                }
-//            }else{
-//                // 会員登録後の処理
-//                print("FBサクセス")
-//                self.performSegueWithIdentifier("signUpedSegue", sender: self)
-//            }
-//        }
-    
-    
-    @IBAction func twSignUpBtn(sender: AnyObject) {
-        print("Twitterログインボタン押した")
-        NCMBTwitterUtils.logInWithBlock { (user: NCMBUser!, error: NSError!) -> Void in
-            if let user = user {
-                
-                //初めてのログインかの分岐
-                if user.createDate == user.updateDate{
-                    //初めてのユーザー（Twitterでユーザー登録）
-                    print("初めてユーザー")
-                    //ユーザー名を設定
-                    let name = NCMBTwitterUtils.twitter().screenName
-                    print("name: \(name)")
-                    user.setObject(name, forKey: "userFaceName")
-//                    user.userName = name
-                    
-                    // ACLを本人のみに設定
-                    let acl = NCMBACL(user: NCMBUser.currentUser())
-                    user.ACL = acl
-                    
-                    //プロフィール写真を設定
-                    //ひとまずnoprofile.pngを設定
-                    //!!! SNSのプロフィール写真を設定したい, 谷口
-                    let userImage = UIImage(named: "noprofile.png")
-                    let userimageData = UIImagePNGRepresentation(userImage!)! as NSData
-                    let userimageFile: NCMBFile = NCMBFile.fileWithData(userimageData) as! NCMBFile
-                    user.setObject(userimageFile.name, forKey: "userProfileImage")
-                    
-                    //バックグラウンドで保存処理
-                    user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
-                        if error == nil {
-                            print("saveInBackgroundWithBlock通った")
-                            print("Twitter初回user登録時情報", user)
-                            self.performSegueWithIdentifier("setUpedSegue", sender: self)
-                        } else {
-                            print("saveInBackgroundWithBlockエラー: \(error)")
-                        }
-                    })
-                } else {
-                    //二度目以降（ログイン）
-                    print("出戻りユーザー")
-                    print("user状態１\(user)")
-                    //userクラスのデータを取ってくる
-                    user.fetchInBackgroundWithBlock({ (error) -> Void in
-                        if error == nil {
-                            print("fetchInBackgroundWithBlock成功のuser : \(user)")
-                            print("Twitterログイン成功")
-                            self.performSegueWithIdentifier("signUpedSegue", sender: self)
-                        } else {
-                            print("error")
-                        }
-                    })
-                }
-            }else {
-                print("Error: \(error)")
-                if error == nil {
-                    print("Twitterログインがキャンセルされた")
-                } else {
-                    print("エラー: \(error)")
-                }
-            }
-        }
-    }
-    
-
-
-    
+    //NCMBUserのインスタンスを作成
+    let newUser = NCMBUser()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        userId?.delegate = self
+        password?.delegate = self
+        
+        self.errorMessage.text = ""
+        
+        //戻るボタンを隠す
+        self.navigationItem.hidesBackButton = true
     }
+    
+    //textfieldのreturnkey押した時の動作
+    func textFieldShouldReturn(textField: UITextField) -> Bool{
+        if (textField == userId) {
+            password?.becomeFirstResponder()
+        } else {
+            userSignUp()
+//             キーボードを閉じる
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+    
+    
+    @IBAction func signUpBtn(sender: AnyObject) {
+        print("signUpBtn 押した")
+        userSignUp()
+    }
+    
+    func userSignUp() {
+        newUser.userName = userId.text
+        newUser.password = password.text
+        
+        let userImage = UIImage(named: "noprofile.png")
+        let userimageData = UIImagePNGRepresentation(userImage!)! as NSData
+        let userimageFile: NCMBFile = NCMBFile.fileWithData(userimageData) as! NCMBFile
+        newUser.setObject(userimageFile.name, forKey: "userProfileImage")
+        newUser.setObject("No Name", forKey: "userFaceName")
+        
+        if self.password.text?.utf16.count <= 6 {
+            print("６文字以下")
+            self.errorMessage.text = "パスワードは６文字以上入力してください"
+        }else {
+            newUser.signUpInBackgroundWithBlock({(NSError error) in
+                if error != nil  {
+                    // Signup失敗
+                    print("Signup失敗", error)
+                    self.errorMessage.text = error.localizedDescription
+                }else{
+                    //Signup成功
+                    //画面遷移
+                    print("Signup成功", self.newUser)
+                    self.performSegueWithIdentifier("setUpedSegue", sender: self)
+                }
+            })
+        }
+
+    }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

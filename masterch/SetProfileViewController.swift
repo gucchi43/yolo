@@ -20,13 +20,7 @@ class SetProfileViewController: UIViewController {
         super.viewDidLoad()
         
         //プロフィール写真の形を整える
-//        let userImageView = self.userImageView
-////        userImageView.image = UIImage(named: "noprofile.png")
-//        userImageView.layer.cornerRadius = userImageView.frame.width/2
-//        userImageView.layer.masksToBounds = true
         //!!! 写真をグレーでぼかしたい, 谷口
-        userName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
-        
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.layer.masksToBounds = true
         //プロフィール写真を表示
@@ -47,11 +41,7 @@ class SetProfileViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        userName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
     }
     
     
@@ -64,15 +54,15 @@ class SetProfileViewController: UIViewController {
         tappedToolBarCameraButton()
     }
     
+    @IBAction func skipBtn(sender: AnyObject) {
+        print("skipBtn 押した")
+        
+    }
+    
     //完了ボタン
     @IBAction func SaveProfileBtn(sender: AnyObject) {
         newProfileSave()
     }
-
-    
-    
-
-    
 }
 
 

@@ -12,7 +12,8 @@ class AccountViewController: UIViewController {
     
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var userProfileName: UILabel!
-
+    @IBOutlet weak var userIdLabel: UILabel!
+    
     @IBOutlet weak var segmentedController: UISegmentedControl!
     @IBOutlet weak var containerSnsView: UIView!
     @IBOutlet weak var containerProfileView: UIView!
@@ -31,6 +32,8 @@ class AccountViewController: UIViewController {
         
         //ユーザーネームを表示
         self.userProfileName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
+        
+        self.userIdLabel.text = "@" + NCMBUser.currentUser().userName
         
         //プロフィール写真の形を整える
         let userImageView = self.userProfileImage
@@ -63,6 +66,26 @@ class AccountViewController: UIViewController {
 //    }
     
     
+    func addSns() {
+        let user = NCMBUser.currentUser()
+        NCMBFacebookUtils.linkUser(user, withPublishingPermission: nil) { (user: NCMBUser!, error: NSError!) -> Void in
+            if error == nil{
+                print("facebookアカウントリンク成功")
+            }else {
+                print("facebookアカウントリンク失敗")
+            }
+        }
+        
+        
+        
+//        NCMBTwitterUtils.linkUser(user) { (error: NSError!) -> Void in
+//            if error == nil{
+//                print("twitterアカウントリンク成功")
+//            }else {
+//                print("twitterアカウントリンク失敗")
+//            }
+//        }
+    }
     
     @IBAction func didValueChanged(sender: AnyObject) {
         
@@ -85,6 +108,15 @@ class AccountViewController: UIViewController {
             print("segmentedControllerd: 原因不明のエラー")
         }
     }
+    
+    
+    @IBAction func testAddSnsBtn(sender: AnyObject) {
+        print("testAddSnsBtn 押した")
+        addSns()
+        let user = NCMBUser.currentUser()
+        print("user情報", user)
+    }
+    
     @IBAction func logOutBtn(sender: AnyObject) {
         print("ログイン画面に戻る")
         print("ログアウト前: \(NCMBUser.currentUser())")

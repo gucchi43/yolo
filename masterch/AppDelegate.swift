@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         } else {
             print("appDelegate by ログインしてない")
-            viewController = storyboard.instantiateViewControllerWithIdentifier("secondViewController") as UIViewController
+            viewController = storyboard.instantiateViewControllerWithIdentifier("virginViewController") as UIViewController
             window?.rootViewController = viewController
         }
 //        return true
