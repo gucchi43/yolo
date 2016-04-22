@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Slq-0H-g6t">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Slq-0H-g6t">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -161,7 +161,7 @@
                                     <action selector="signUpBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="vZK-sz-LKn"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ERROR文章（デフォは非表示）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfO-5G-Rcv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ERROR文章（デフォは非表示）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfO-5G-Rcv">
                                 <rect key="frame" x="86" y="152" width="242" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.13333334029999999" blue="0.1764705926" alpha="1" colorSpace="calibratedRGB"/>
@@ -220,76 +220,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ユーザー名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aa0-HU-JyN">
-                                <rect key="frame" x="165" y="299" width="85" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="プロフィール写真" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dke-vK-z8j">
-                                <rect key="frame" x="139" y="114" width="136" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="vRb-xq-aCt">
-                                <rect key="frame" x="157" y="149" width="100" height="100"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="vRb-xq-aCt">
+                                <rect key="frame" x="30" y="94" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="vRb-xq-aCt" secondAttribute="height" multiplier="1:1" id="5Sk-xu-Qlj"/>
                                     <constraint firstAttribute="width" constant="100" id="qLu-bO-N0P"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ユーザー名を入力してください" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iiH-hf-dRJ">
-                                <rect key="frame" x="107" y="329" width="200" height="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G4O-ws-LgW" userLabel="PhotoAndCamera">
-                                <rect key="frame" x="157" y="149" width="100" height="100"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G4O-ws-LgW" userLabel="PhotoAndCamera">
+                                <rect key="frame" x="30" y="94" width="100" height="100"/>
                                 <connections>
                                     <action selector="PhotoAndCamera:" destination="iJy-WC-FCV" eventType="touchUpInside" id="Bnv-7M-KdP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YCn-ib-BYn">
-                                <rect key="frame" x="0.0" y="70" width="90" height="30"/>
+                                <rect key="frame" x="324" y="70" width="90" height="30"/>
                                 <state key="normal" title="ユーザー情報"/>
                                 <connections>
                                     <action selector="userInfo:" destination="iJy-WC-FCV" eventType="touchUpInside" id="tp9-bR-9t5"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7k-a5-HCL">
-                                <rect key="frame" x="192" y="376" width="30" height="30"/>
-                                <state key="normal" title="完了"/>
-                                <connections>
-                                    <action selector="SaveProfileBtn:" destination="iJy-WC-FCV" eventType="touchUpInside" id="gVg-e5-y1a"/>
-                                    <segue destination="crh-pw-A6b" kind="presentation" id="moR-rM-vb8"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@userID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKb-mw-AY1">
+                                <rect key="frame" x="138" y="147" width="65" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ユーザーネーム" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iiH-hf-dRJ">
+                                <rect key="frame" x="138" y="109" width="226" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="b7k-a5-HCL" firstAttribute="centerX" secondItem="xKN-Mf-HM1" secondAttribute="centerX" id="1rb-Vp-cxD"/>
-                            <constraint firstItem="b7k-a5-HCL" firstAttribute="top" secondItem="iiH-hf-dRJ" secondAttribute="bottom" constant="30" id="9Cj-6M-24G"/>
-                            <constraint firstItem="aa0-HU-JyN" firstAttribute="top" secondItem="vRb-xq-aCt" secondAttribute="bottom" constant="50" id="Awn-Yu-pqF"/>
+                            <constraint firstItem="vRb-xq-aCt" firstAttribute="top" secondItem="gQC-BY-GiF" secondAttribute="bottom" constant="30" id="2ld-X7-PHc"/>
+                            <constraint firstItem="iiH-hf-dRJ" firstAttribute="top" secondItem="gQC-BY-GiF" secondAttribute="bottom" constant="45" id="8Ow-ni-eX7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="iiH-hf-dRJ" secondAttribute="trailing" constant="30" id="Ala-wm-equ"/>
                             <constraint firstItem="G4O-ws-LgW" firstAttribute="top" secondItem="vRb-xq-aCt" secondAttribute="top" id="C8W-1K-sPX"/>
-                            <constraint firstItem="Dke-vK-z8j" firstAttribute="top" secondItem="gQC-BY-GiF" secondAttribute="bottom" constant="50" id="DpE-ZW-bJF"/>
-                            <constraint firstItem="Dke-vK-z8j" firstAttribute="centerX" secondItem="xKN-Mf-HM1" secondAttribute="centerX" id="N4Z-vE-zNS"/>
                             <constraint firstItem="G4O-ws-LgW" firstAttribute="leading" secondItem="vRb-xq-aCt" secondAttribute="leading" id="NQl-yS-0qM"/>
-                            <constraint firstItem="vRb-xq-aCt" firstAttribute="top" secondItem="Dke-vK-z8j" secondAttribute="bottom" constant="15" id="OMf-zL-gwl"/>
+                            <constraint firstItem="iiH-hf-dRJ" firstAttribute="leading" secondItem="G4O-ws-LgW" secondAttribute="trailing" constant="8" id="Ock-ib-qSc"/>
+                            <constraint firstItem="vRb-xq-aCt" firstAttribute="leading" secondItem="xKN-Mf-HM1" secondAttribute="leading" constant="30" id="PJ8-Nl-1qW"/>
                             <constraint firstItem="G4O-ws-LgW" firstAttribute="bottom" secondItem="vRb-xq-aCt" secondAttribute="bottom" id="PJF-PG-9N4"/>
-                            <constraint firstItem="iiH-hf-dRJ" firstAttribute="top" secondItem="aa0-HU-JyN" secondAttribute="bottom" constant="10" id="W8m-qE-Gzz"/>
                             <constraint firstItem="vRb-xq-aCt" firstAttribute="centerX" secondItem="xKN-Mf-HM1" secondAttribute="centerX" id="brV-40-BBd"/>
                             <constraint firstItem="G4O-ws-LgW" firstAttribute="trailing" secondItem="vRb-xq-aCt" secondAttribute="trailing" id="eWP-vy-dfr"/>
+                            <constraint firstAttribute="trailing" secondItem="YCn-ib-BYn" secondAttribute="trailing" id="hLL-Gn-D7u"/>
+                            <constraint firstItem="SKb-mw-AY1" firstAttribute="top" secondItem="iiH-hf-dRJ" secondAttribute="bottom" constant="8" id="iCX-l9-ChW"/>
                             <constraint firstItem="YCn-ib-BYn" firstAttribute="top" secondItem="xKN-Mf-HM1" secondAttribute="top" constant="70" id="ipc-za-wEq"/>
                             <constraint firstItem="YCn-ib-BYn" firstAttribute="leading" secondItem="xKN-Mf-HM1" secondAttribute="leading" id="nXz-gc-Yi6"/>
-                            <constraint firstItem="aa0-HU-JyN" firstAttribute="centerX" secondItem="xKN-Mf-HM1" secondAttribute="centerX" id="np8-TN-6bS"/>
+                            <constraint firstItem="SKb-mw-AY1" firstAttribute="leading" secondItem="G4O-ws-LgW" secondAttribute="trailing" constant="8" id="seu-uk-739"/>
                             <constraint firstItem="iiH-hf-dRJ" firstAttribute="centerX" secondItem="xKN-Mf-HM1" secondAttribute="centerX" id="taD-fE-11E"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="brV-40-BBd"/>
+                                <exclude reference="taD-fE-11E"/>
+                                <exclude reference="nXz-gc-Yi6"/>
+                            </mask>
+                        </variation>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="プロフィール設定" id="Cg3-b6-dPF">
-                        <barButtonItem key="rightBarButtonItem" title="スキップ" id="wkN-F8-YrT">
+                        <barButtonItem key="rightBarButtonItem" title="完了" id="wkN-F8-YrT">
                             <connections>
                                 <action selector="skipBtn:" destination="iJy-WC-FCV" id="awR-iu-Bin"/>
                                 <segue destination="crh-pw-A6b" kind="presentation" id="hmv-Jr-pUG"/>
@@ -355,7 +347,7 @@
                                     <action selector="logInBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="YRm-oz-yb9"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ERROR文章（デフォは非表示）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qrf-W1-BOJ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ERROR文章（デフォは非表示）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qrf-W1-BOJ">
                                 <rect key="frame" x="86" y="152" width="242" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.13333334029999999" blue="0.1764705926" alpha="1" colorSpace="calibratedRGB"/>
@@ -451,6 +443,6 @@
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="L8J-Kv-eM2"/>
+        <segue reference="hmv-Jr-pUG"/>
     </inferredMetricsTieBreakers>
 </document>
