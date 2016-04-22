@@ -25,9 +25,13 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var monthLabel: UILabel!
     
-    var selectedPostImage: UIImage!
+//    セル選択時の変数
+    var selectedPostUserFaceName: String!
+    var selectedPostUserName: String!
+    var selectedPostUserProfileImage: UIImage!
     var selectedPostText: String!
     var selectedPostDate: String!
+    var selectedPostImage: UIImage!
     
     var animationFinished = true
     
@@ -106,11 +110,11 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         // postTextLabelには(key: "text")の値を入れる
         cell.postTextLabel.text = postData.objectForKey("text") as? String
         cell.postDateLabel.text = postData.objectForKey("postDate") as? String
-        cell.postImageView.layer.cornerRadius = 5.0
-        let auther = postData.objectForKey("user") as? NCMBUser
-        if let auther = auther {
-            cell.userNameLabel.text = auther.userName
-            let postImageData = NCMBFile.fileWithName(auther.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+//        cell.postImageView.layer.cornerRadius = 5.0
+        let author = postData.objectForKey("user") as? NCMBUser
+        if let author = author {
+            cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
+            let postImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
             postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
                 if let error = error {
                     print("プロフィール画像の取得失敗： ", error)
@@ -147,6 +151,24 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         print("セルの選択: \(indexPath.row)")
         let postData = self.items[indexPath.row]
         
+        let author = postData.objectForKey("user") as? NCMBUser
+        if let author = author {
+            self.selectedPostUserFaceName = author.objectForKey("userFaceName") as? String
+            self.selectedPostUserName = author.userName
+            let userImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+            userImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                if let error = error {
+                    print("プロフィール画像の取得失敗： ", error)
+                    self.selectedPostUserProfileImage = UIImage(named: "noprofile")
+                } else {
+                    self.selectedPostUserProfileImage = UIImage(data: imageData!)
+                }
+            })
+        } else {
+            self.selectedPostUserFaceName = "username"
+            self.selectedPostUserProfileImage = UIImage(named: "noprofile")
+        }
+        
         selectedPostText = postData.objectForKey("text") as? String
         selectedPostDate = postData.objectForKey("postDate") as? String
         
@@ -156,23 +178,28 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
                 if let error = error {
                     print("写真の取得失敗： ", error)
+                    self.selectedPostImage = nil
                 } else {
                     self.selectedPostImage = UIImage(data: imageData!)
                 }
             })
+        } else {
+            self.selectedPostImage = nil
         }
         
         performSegueWithIdentifier("toPostDetailViewController", sender: nil)
     }
     
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toPostDetailViewController" {
             let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
-            
-            postDetailVC.postDateText = selectedPostDate
-            postDetailVC.postText = selectedPostText
-            postDetailVC.postImage = selectedPostImage
+
+            postDetailVC.userFaceName = self.selectedPostUserFaceName
+            postDetailVC.userName = self.selectedPostUserName
+            postDetailVC.userProfileImage = self.selectedPostUserProfileImage
+            postDetailVC.postDateText = self.selectedPostDate
+            postDetailVC.postText = self.selectedPostText
+            postDetailVC.postImage = self.selectedPostImage
         }
     }
     
