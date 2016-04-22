@@ -13,11 +13,14 @@ class SetProfileViewController: UIViewController {
 
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userName: UITextField!
+    @IBOutlet weak var userIdLabel: UILabel!
     
     var profileImage: UIImage? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userIdLabel.text = "@" + NCMBUser.currentUser().userName
         
         //プロフィール写真の形を整える
         //!!! 写真をグレーでぼかしたい, 谷口
@@ -40,11 +43,6 @@ class SetProfileViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        userName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
-    }
-    
-    
     @IBAction func userInfo(sender: AnyObject) {
         print("user情報 \(NCMBUser.currentUser())")
     }
@@ -54,12 +52,13 @@ class SetProfileViewController: UIViewController {
         tappedToolBarCameraButton()
     }
     
-    @IBAction func skipBtn(sender: AnyObject) {
-        print("skipBtn 押した")
-        
+    
+    @IBAction func setFinishBtn(sender: AnyObject) {
+        newProfileSave()
     }
     
-    //完了ボタン
+    
+    //完了ボタン（今はない）
     @IBAction func SaveProfileBtn(sender: AnyObject) {
         newProfileSave()
     }

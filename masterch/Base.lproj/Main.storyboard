@@ -289,13 +289,14 @@
                     <navigationItem key="navigationItem" title="プロフィール設定" id="Cg3-b6-dPF">
                         <barButtonItem key="rightBarButtonItem" title="完了" id="wkN-F8-YrT">
                             <connections>
-                                <action selector="skipBtn:" destination="iJy-WC-FCV" id="awR-iu-Bin"/>
+                                <action selector="setFinishBtn:" destination="iJy-WC-FCV" id="Iew-ry-7D4"/>
                                 <segue destination="crh-pw-A6b" kind="presentation" id="hmv-Jr-pUG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="userIdLabel" destination="SKb-mw-AY1" id="x11-eM-aKK"/>
                         <outlet property="userImageView" destination="vRb-xq-aCt" id="NRh-37-YDX"/>
                         <outlet property="userName" destination="iiH-hf-dRJ" id="ruA-PH-J0p"/>
                     </connections>
@@ -455,6 +456,6 @@
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="L8J-Kv-eM2"/>
+        <segue reference="hmv-Jr-pUG"/>
     </inferredMetricsTieBreakers>
 </document>
