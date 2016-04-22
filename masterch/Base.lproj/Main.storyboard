@@ -144,6 +144,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0Sv-Yr-eTM" id="aXh-MA-V8t"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="パスワード" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="8Kt-QU-Mrz">
                                 <rect key="frame" x="40" y="240" width="334" height="40"/>
@@ -152,6 +155,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="go" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0Sv-Yr-eTM" id="EyT-kV-Fc0"/>
+                                </connections>
                             </textField>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="headTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8nY-kM-vAc">
                                 <rect key="frame" x="192" y="288" width="30" height="30"/>
@@ -198,8 +204,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="errorMessage" destination="RfO-5G-Rcv" id="KjT-Nc-1RT"/>
-                        <outlet property="password" destination="8Kt-QU-Mrz" id="m9f-bg-Snl"/>
-                        <outlet property="userId" destination="Tf5-t3-b1K" id="Zya-tw-SYF"/>
+                        <outlet property="passwordTextField" destination="8Kt-QU-Mrz" id="0oB-rV-QPn"/>
+                        <outlet property="userIdTextField" destination="Tf5-t3-b1K" id="TQU-P0-Acm"/>
                         <segue destination="iJy-WC-FCV" kind="show" identifier="setUpedSegue" id="gvJ-hH-GZh"/>
                     </connections>
                 </viewController>
@@ -331,6 +337,9 @@
                                 </constraints>
                                 <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="gvJ-cY-zuT" id="elo-Oh-rMo"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" placeholder="パスワード" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="T54-R8-Q28">
                                 <rect key="frame" x="40" y="240" width="334" height="40"/>
@@ -339,6 +348,9 @@
                                 </constraints>
                                 <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="go" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="gvJ-cY-zuT" id="3X6-oA-XeN"/>
+                                </connections>
                             </textField>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kXZ-Kh-Zai">
                                 <rect key="frame" x="177" y="288" width="60" height="30"/>
@@ -388,8 +400,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="errorMessage" destination="Qrf-W1-BOJ" id="wlE-PV-4yf"/>
-                        <outlet property="password" destination="T54-R8-Q28" id="fxU-pQ-RiD"/>
-                        <outlet property="userId" destination="kLh-2Z-Alm" id="1cL-dQ-UXf"/>
+                        <outlet property="passwordTextField" destination="T54-R8-Q28" id="2fU-UT-MM8"/>
+                        <outlet property="userIdTextField" destination="kLh-2Z-Alm" id="7vV-M6-0BV"/>
                         <segue destination="crh-pw-A6b" kind="presentation" identifier="signUpedSegue" id="L8J-Kv-eM2"/>
                     </connections>
                 </viewController>
@@ -443,6 +455,6 @@
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hmv-Jr-pUG"/>
+        <segue reference="L8J-Kv-eM2"/>
     </inferredMetricsTieBreakers>
 </document>

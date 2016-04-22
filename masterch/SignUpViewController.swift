@@ -11,9 +11,10 @@ import TwitterKit
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var userId: UITextField!
-    @IBOutlet weak var password: UITextField!
+
     @IBOutlet weak var errorMessage: UILabel!
+    @IBOutlet weak var userIdTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     
     //NCMBUserのインスタンスを作成
     let newUser = NCMBUser()
@@ -21,8 +22,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userId?.delegate = self
-        password?.delegate = self
+        userIdTextField?.delegate = self
+        passwordTextField?.delegate = self
         
         self.errorMessage.text = ""
         
@@ -32,8 +33,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     //textfieldのreturnkey押した時の動作
     func textFieldShouldReturn(textField: UITextField) -> Bool{
-        if (textField == userId) {
-            password?.becomeFirstResponder()
+        if (textField == userIdTextField) {
+            passwordTextField?.becomeFirstResponder()
         } else {
             userSignUp()
 //             キーボードを閉じる
@@ -49,8 +50,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func userSignUp() {
-        newUser.userName = userId.text
-        newUser.password = password.text
+        newUser.userName = userIdTextField.text
+        newUser.password = passwordTextField.text
         
         let userImage = UIImage(named: "noprofile.png")
         let userimageData = UIImagePNGRepresentation(userImage!)! as NSData
@@ -58,7 +59,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         newUser.setObject(userimageFile.name, forKey: "userProfileImage")
         newUser.setObject("No Name", forKey: "userFaceName")
         
-        if self.password.text?.utf16.count <= 6 {
+        if self.passwordTextField.text?.utf16.count <= 6 {
             print("６文字以下")
             self.errorMessage.text = "パスワードは６文字以上入力してください"
         }else {
