@@ -25,9 +25,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         userIdTextField?.delegate = self
         passwordTextField?.delegate = self
         
+        //エラーメッセージは最初表示しない
         self.errorMessage.text = ""
         
-        //戻るボタンを隠す
+        //userIdTextField入力画面を呼び出し
+        userIdTextField.becomeFirstResponder()
+        
+        //戻るボタンを隠す（効いていない）
         self.navigationItem.hidesBackButton = true
     }
     

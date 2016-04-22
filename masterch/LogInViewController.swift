@@ -22,10 +22,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userIdTextField?.delegate = self
-        passwordTextField?.delegate = self
-        
+        //エラーメッセージは最初表示しない
         self.errorMessage.text = ""
+        
+        //userIdTextField入力画面を呼び出し
+        userIdTextField.becomeFirstResponder()
     }
     
     //textfieldのreturnkey押した時の動作
@@ -59,12 +60,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
-    
-    //    @IBOutlet weak var logInBtn: UIButton!{
-    
-    
-    
     
     //Facebookログイン&サインアップ
     @IBAction func fbSignUpBtn(sender: AnyObject) {
