@@ -35,7 +35,6 @@ class PostDetailViewController: UIViewController {
         userFaceNameLabel.text = userFaceName
         userNameLabel.text = userName
         userProfileImageView.image = userProfileImage
-        userProfileImageView.layer.cornerRadius = 5.0
         postDateLabel.text = postDateText
         postTextLabel.text = postText
         
@@ -46,7 +45,6 @@ class PostDetailViewController: UIViewController {
         } else {
             postImageView.image = postImage
             postImageViewHeightConstraint.constant = 400
-            postImageView.layer.cornerRadius = 5.0
         }
         
         

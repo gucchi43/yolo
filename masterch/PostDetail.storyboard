@@ -23,24 +23,34 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cwv-4y-1Ss" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="WnX-4n-RXg">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="WnX-4n-RXg">
                                                 <rect key="frame" x="8" y="8" width="50" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="4HB-G8-LPV"/>
                                                     <constraint firstAttribute="width" constant="50" id="gyd-Hc-bSw"/>
                                                     <constraint firstAttribute="width" constant="50" id="uN0-Io-Y6k"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="gyd-Hc-bSw"/>
                                                     </mask>
                                                 </variation>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UAO-I1-QGB">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UAO-I1-QGB">
                                                 <rect key="frame" x="8" y="92" width="584" height="453"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="453" id="nDs-yp-WP6"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="fujifujisobasoba" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSX-VQ-IbM">
                                                 <rect key="frame" x="66" y="37" width="418" height="21"/>

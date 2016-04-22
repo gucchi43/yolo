@@ -110,7 +110,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         // postTextLabelには(key: "text")の値を入れる
         cell.postTextLabel.text = postData.objectForKey("text") as? String
         cell.postDateLabel.text = postData.objectForKey("postDate") as? String
-        cell.postImageView.layer.cornerRadius = 5.0
+//        cell.postImageView.layer.cornerRadius = 5.0
         let author = postData.objectForKey("user") as? NCMBUser
         if let author = author {
             cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
