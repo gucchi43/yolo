@@ -320,12 +320,20 @@
                         <outlet property="monthLabel" destination="89B-Y5-p8t" id="URo-jl-8fj"/>
                         <outlet property="tableView" destination="oiO-Cz-3yC" id="kCe-xA-4dL"/>
                         <outlet property="weekConstraint" destination="lIa-MT-J6l" id="q78-Pm-gIa"/>
-                        <segue destination="37J-bw-5Bk" kind="show" identifier="toPostDetailViewController" id="Kok-Uy-4Oc"/>
+                        <segue destination="0JH-uJ-YQS" kind="show" identifier="toPostDetailViewController" id="rKn-Ya-qJZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jjh-ct-ER1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-296" y="673"/>
+        </scene>
+        <!--PostDetail-->
+        <scene sceneID="hde-bH-qNb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PostDetail" id="0JH-uJ-YQS" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jVE-0Q-TX9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-14.5" y="369"/>
         </scene>
         <!--Submit-->
         <scene sceneID="gEy-ZW-ThF">
@@ -363,14 +371,14 @@
                         <viewControllerLayoutGuide type="bottom" id="1zp-Hx-aWE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ukm-Mv-nBy">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1136"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XBY-8g-2DO">
-                                <rect key="frame" x="16" y="74" width="288" height="352"/>
+                                <rect key="frame" x="20" y="74" width="560" height="352"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pHq-1O-uXh">
-                                        <rect key="frame" x="178" y="201" width="100" height="100"/>
+                                        <rect key="frame" x="450" y="201" width="100" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="zBt-Ea-zlp"/>
                                         </constraints>
@@ -382,7 +390,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cLQ-QH-TJt">
-                                        <rect key="frame" x="189" y="306" width="45" height="30"/>
+                                        <rect key="frame" x="461" y="306" width="45" height="30"/>
                                         <state key="normal" title="いいね"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="滝口ひかり" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Wf-gn-o0F">
@@ -444,7 +452,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="537-V0-eyg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="199" y="673"/>
+            <point key="canvasLocation" x="357" y="673"/>
         </scene>
     </scenes>
     <resources>
