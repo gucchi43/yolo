@@ -10,6 +10,7 @@ import UIKit
 
 class PostDetailViewController: UIViewController {
     
+    @IBOutlet var userFaceNameLabel: UILabel!
     @IBOutlet var userNameLabel: UILabel!
     @IBOutlet var userProfileImageView: UIImageView!
     @IBOutlet var postDateLabel: UILabel!
@@ -20,32 +21,32 @@ class PostDetailViewController: UIViewController {
     @IBOutlet var commentButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
     
+    var userFaceName: String!
     var userName: String!
     var userProfileImage: UIImage!
     var postDateText: String!
     var postText: String!
-    var postImage: UIImage! 
-    
-    @IBAction func tapCancelButton(sender: UIBarButtonItem) {
-        print("timelineに戻る")
-        self.navigationController?.popViewControllerAnimated(true)
-    }
+    var postImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        postTextLabel.text = postText
-
         
+        userFaceNameLabel.text = userFaceName
+        userNameLabel.text = userName
+        userProfileImageView.image = userProfileImage
+        userProfileImageView.layer.cornerRadius = 5.0
+        postDateLabel.text = postDateText
+        postTextLabel.text = postText
         
         // 画像の有無で場合分け
-        if (postImage != nil) {
-            postImageView.image = postImage
-            postImageViewHeightConstraint.constant = 300
-            
-        } else {
+        if (postImage == nil) {
             postImageView.image = nil
             postImageViewHeightConstraint.constant = 0.0
+        } else {
+            postImageView.image = postImage
+            postImageViewHeightConstraint.constant = 400
+            postImageView.layer.cornerRadius = 5.0
         }
         
         

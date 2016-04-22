@@ -23,7 +23,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cwv-4y-1Ss" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WnX-4n-RXg">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="WnX-4n-RXg">
                                                 <rect key="frame" x="8" y="8" width="50" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="4HB-G8-LPV"/>
@@ -59,10 +59,10 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="user name 富士そば" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rlk-I5-eNP">
-                                                <rect key="frame" x="66" y="10" width="418" height="21"/>
+                                                <rect key="frame" x="66" y="10" width="418" height="27"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="526" id="RCQ-j4-0xx"/>
-                                                    <constraint firstAttribute="height" constant="21" id="WOn-ra-ia9"/>
+                                                    <constraint firstAttribute="height" constant="27" id="WOn-ra-ia9"/>
                                                     <constraint firstAttribute="width" constant="418" id="nAI-5D-J1N"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -143,7 +143,7 @@
                                             <constraint firstItem="RSX-VQ-IbM" firstAttribute="top" secondItem="Rlk-I5-eNP" secondAttribute="bottom" constant="2" id="3rC-80-IWc"/>
                                             <constraint firstItem="WnX-4n-RXg" firstAttribute="leading" secondItem="cwv-4y-1Ss" secondAttribute="leading" constant="8" id="4p7-DL-bGc"/>
                                             <constraint firstItem="edR-GE-wib" firstAttribute="leading" secondItem="Rlk-I5-eNP" secondAttribute="trailing" constant="8" id="8OG-6E-u4a"/>
-                                            <constraint firstItem="RSX-VQ-IbM" firstAttribute="top" secondItem="Rlk-I5-eNP" secondAttribute="bottom" constant="6" id="8jP-Od-5Bi"/>
+                                            <constraint firstItem="RSX-VQ-IbM" firstAttribute="top" secondItem="Rlk-I5-eNP" secondAttribute="bottom" id="8jP-Od-5Bi"/>
                                             <constraint firstItem="edR-GE-wib" firstAttribute="leading" secondItem="RSX-VQ-IbM" secondAttribute="trailing" constant="8" id="9J5-dz-LnA"/>
                                             <constraint firstItem="WnX-4n-RXg" firstAttribute="top" secondItem="cwv-4y-1Ss" secondAttribute="top" constant="22" id="Clo-bH-DPi"/>
                                             <constraint firstItem="bv9-1q-nJN" firstAttribute="top" secondItem="RSX-VQ-IbM" secondAttribute="bottom" constant="8" id="D3e-ej-t5B"/>
@@ -259,6 +259,7 @@
                         <outlet property="postImageView" destination="UAO-I1-QGB" id="TKY-3H-Cr8"/>
                         <outlet property="postImageViewHeightConstraint" destination="nDs-yp-WP6" id="ESe-bA-rhc"/>
                         <outlet property="postTextLabel" destination="bv9-1q-nJN" id="HeH-Hc-h44"/>
+                        <outlet property="userFaceNameLabel" destination="Rlk-I5-eNP" id="rkx-mC-t0r"/>
                         <outlet property="userNameLabel" destination="RSX-VQ-IbM" id="qPs-uz-R4q"/>
                         <outlet property="userProfileImageView" destination="WnX-4n-RXg" id="xsR-5N-2QI"/>
                     </connections>
@@ -268,4 +269,7 @@
             <point key="canvasLocation" x="332" y="139"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="noprofile.png" width="500" height="500"/>
+    </resources>
 </document>
