@@ -14,7 +14,6 @@ class PostDetailViewController: UIViewController {
     @IBOutlet var userProfileImageView: UIImageView!
     @IBOutlet var postDateLabel: UILabel!
     @IBOutlet var postTextLabel: UILabel!
-    @IBOutlet var postTextLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet var postImageView: UIImageView!
     @IBOutlet var postImageViewHeightConstraint: NSLayoutConstraint!
     
