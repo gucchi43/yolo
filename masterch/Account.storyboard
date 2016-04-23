@@ -317,17 +317,21 @@
                                                         <constraint firstAttribute="width" secondItem="1RS-W3-lNE" secondAttribute="height" multiplier="1:1" id="eer-po-2IT"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9wY-3P-HoB">
-                                                    <rect key="frame" x="53" y="57" width="22" height="22"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9wY-3P-HoB">
+                                                    <rect key="frame" x="8" y="11" width="112.5" height="112.5"/>
                                                     <connections>
                                                         <action selector="PhotoAndCamera:" destination="b0e-HZ-ON1" eventType="touchUpInside" id="YoL-au-j8F"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="9wY-3P-HoB" firstAttribute="bottom" secondItem="1RS-W3-lNE" secondAttribute="bottom" id="0wU-QI-N7O"/>
+                                                <constraint firstItem="9wY-3P-HoB" firstAttribute="leading" secondItem="1RS-W3-lNE" secondAttribute="leading" id="B4F-YO-qYJ"/>
                                                 <constraint firstItem="1RS-W3-lNE" firstAttribute="leading" secondItem="xie-Hh-ST3" secondAttribute="leading" constant="8" id="HE9-id-An9"/>
                                                 <constraint firstAttribute="bottom" secondItem="1RS-W3-lNE" secondAttribute="bottom" constant="8" id="TuX-5v-yHV"/>
+                                                <constraint firstItem="9wY-3P-HoB" firstAttribute="top" secondItem="1RS-W3-lNE" secondAttribute="top" id="Y7i-TZ-n26"/>
                                                 <constraint firstItem="1RS-W3-lNE" firstAttribute="top" secondItem="xie-Hh-ST3" secondAttribute="top" constant="11" id="eyR-lz-7hg"/>
+                                                <constraint firstItem="9wY-3P-HoB" firstAttribute="trailing" secondItem="1RS-W3-lNE" secondAttribute="trailing" id="xiL-Vm-J2e"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
