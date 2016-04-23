@@ -63,7 +63,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         newUser.setObject(userimageFile.name, forKey: "userProfileImage")
         newUser.setObject("No Name", forKey: "userFaceName")
         
-        if self.passwordTextField.text?.utf16.count <= 6 {
+        
+        if ((self.userIdTextField.text?.dataUsingEncoding(NSASCIIStringEncoding, allowLossyConversion: false)) == nil) {
+            self.errorMessage.text = "ユーザーIDは半角英数字で入力してください"
+        }else if self.passwordTextField.text?.utf16.count <= 6 {
             print("６文字以下")
             self.errorMessage.text = "パスワードは６文字以上入力してください"
         }else {
