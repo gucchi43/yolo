@@ -10,7 +10,7 @@ import UIKit
 
 class PostDetailViewController: UIViewController {
     
-    @IBOutlet var userFaceNameLabel: UILabel!
+    @IBOutlet var userProfileNameLabel: UILabel!
     @IBOutlet var userNameLabel: UILabel!
     @IBOutlet var userProfileImageView: UIImageView!
     @IBOutlet var postDateLabel: UILabel!
@@ -18,8 +18,9 @@ class PostDetailViewController: UIViewController {
     @IBOutlet var postImageView: UIImageView!
     @IBOutlet var postImageViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet var commentButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var followButton: UIButton!
     
     var userFaceName: String!
     var userName: String!
@@ -32,7 +33,7 @@ class PostDetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        userFaceNameLabel.text = userFaceName
+        userProfileNameLabel.text = userFaceName
         userNameLabel.text = userName
         userProfileImageView.image = userProfileImage
         postDateLabel.text = postDateText
@@ -46,16 +47,10 @@ class PostDetailViewController: UIViewController {
             postImageView.image = postImage
             postImageViewHeightConstraint.constant = 400
         }
-        
-        
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func selectFollow(sender: UIButton) {
+        print("フォローボタン押した")
     }
-    
-    
-
     
 }
