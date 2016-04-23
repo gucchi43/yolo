@@ -8,16 +8,19 @@
 
 import UIKit
 
-class SetProfileViewController: UIViewController {
+class SetProfileViewController: UIViewController, UITextFieldDelegate {
     
 
     @IBOutlet weak var userImageView: UIImageView!
-    @IBOutlet weak var userName: UITextField!
+    @IBOutlet weak var userNameTextFiled: UITextField!
+    @IBOutlet weak var userIdLabel: UILabel!
     
     var profileImage: UIImage? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userIdLabel.text = "@" + NCMBUser.currentUser().userName
         
         //プロフィール写真の形を整える
         //!!! 写真をグレーでぼかしたい, 谷口
@@ -40,10 +43,21 @@ class SetProfileViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        userName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
+    //keyboardで、return押した時
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        //キーボードを閉じる
+        textField.resignFirstResponder()
+        return true
     }
     
+    //keyboard以外をタップした時keyboardを下げる
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+
+
+        if userNameTextFiled.isFirstResponder() {
+            userNameTextFiled.resignFirstResponder()
+        }
+    }
     
     @IBAction func userInfo(sender: AnyObject) {
         print("user情報 \(NCMBUser.currentUser())")
@@ -54,18 +68,11 @@ class SetProfileViewController: UIViewController {
         tappedToolBarCameraButton()
     }
     
-    @IBAction func skipBtn(sender: AnyObject) {
-        print("skipBtn 押した")
-        
-    }
-    
     //完了ボタン
-    @IBAction func SaveProfileBtn(sender: AnyObject) {
+    @IBAction func profileFinishBtn(sender: AnyObject) {
         newProfileSave()
     }
 }
-
-
 
 
 // カメラ周り
@@ -143,6 +150,9 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
     }
 }
 
+func userSaveInBackground (){
+    
+}
 
 // 投稿アクション周り
 extension SetProfileViewController {
@@ -151,20 +161,22 @@ extension SetProfileViewController {
         let user = NCMBUser.currentUser()
         
         //ユーザーネーム保存
-        user.setObject(userName.text, forKey: "userFaceName")
+        user.setObject(userNameTextFiled.text, forKey: "userFaceName")
+        print("userFaceName", userNameTextFiled.text)
         
         // プロフィール写真保存
         if profileImage != nil {
             
+            //設定してもらったprofileImageをユーザー情報に追加
             let userimageData = UIImagePNGRepresentation(self.profileImage!)! as NSData
             let userimageFile: NCMBFile = NCMBFile.fileWithData(userimageData) as! NCMBFile
-            
             user.setObject(userimageFile.name, forKey: "userProfileImage")
             
-            //            ファイルはバックグラウンド実行をする
+            //ファイルはバックグラウンド実行をする
             userimageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error == nil {
                     print("画像データ保存完了: \(userimageFile.name)")
+                    self.performSegueWithIdentifier("newSignUpedSegue", sender: self)
                 } else {
                     print("アップロード中にエラーが発生しました: \(error)")
                 }
@@ -172,13 +184,12 @@ extension SetProfileViewController {
                     //                    進捗状況を取得します。保存完了まで何度も呼ばれます
                     print("進捗状況: \(percentDone)% アップロード済み")
             })
+        }else {
+            
+            self.performSegueWithIdentifier("newSignUpedSegue", sender: self)
         }
-        
         user.saveInBackgroundWithBlock({(error) in
             if error != nil {print("Save error : ",error)}
         })
-        
-//        self.performSegueWithIdentifier("signUpedSegue", sender: self)
-        print("投稿完了")
     }
 }

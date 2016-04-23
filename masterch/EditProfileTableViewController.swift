@@ -35,6 +35,7 @@ class EditProfileTableViewController: UITableViewController {
                 print("写真の取得失敗: \(error)")
             } else {
                 userImageView.image = UIImage(data: imageData!)
+                print("写真の取得成功")
             }
         }
         

@@ -10,9 +10,9 @@ import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var userId: UITextField!
-    @IBOutlet weak var password: UITextField!
     @IBOutlet weak var errorMessage: UILabel!
+    @IBOutlet weak var userIdTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     
     let user = NCMBUser.currentUser()
     
@@ -22,16 +22,17 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userId?.delegate = self
-        password?.delegate = self
-        
+        //エラーメッセージは最初表示しない
         self.errorMessage.text = ""
+        
+        //userIdTextField入力画面を呼び出し
+        userIdTextField.becomeFirstResponder()
     }
     
     //textfieldのreturnkey押した時の動作
     func textFieldShouldReturn(textField: UITextField) -> Bool{
-        if (textField == userId) {
-            password?.becomeFirstResponder()
+        if (textField == userIdTextField) {
+            passwordTextField?.becomeFirstResponder()
         } else {
             userLogIn()
             //キーボードを閉じる
@@ -46,7 +47,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     func userLogIn() {
-        NCMBUser.logInWithUsernameInBackground(userId.text, password: password.text) { (user, error) -> Void in
+        NCMBUser.logInWithUsernameInBackground(userIdTextField.text, password: passwordTextField.text) { (user, error) -> Void in
             if error != nil {
                 //Login失敗
                 print("Login失敗", error)
@@ -59,12 +60,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
-    
-    //    @IBOutlet weak var logInBtn: UIButton!{
-    
-    
-    
     
     //Facebookログイン&サインアップ
     @IBAction func fbSignUpBtn(sender: AnyObject) {

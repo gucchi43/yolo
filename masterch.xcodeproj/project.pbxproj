@@ -54,6 +54,7 @@
 		EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */; };
 		EDB04C791CC6863300FDEB14 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C781CC6863300FDEB14 /* LogInViewController.swift */; };
 		EDB4FEFE1CBBFAFE00A318EA /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */; };
+		EDCBEE721CCA793700317BCE /* PostDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDCBEE711CCA793700317BCE /* PostDetail.storyboard */; };
 		EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE355F11CB284CD006C7C0A /* CommentFile.swift */; };
 		EDEF991C1C9EC11F00B6D69D /* ContainerSnsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF991B1C9EC11F00B6D69D /* ContainerSnsViewController.swift */; };
 		EDEF991E1C9EC13500B6D69D /* ContainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */; };
@@ -143,6 +144,7 @@
 		EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
 		EDB04C781CC6863300FDEB14 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
+		EDCBEE711CCA793700317BCE /* PostDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PostDetail.storyboard; sourceTree = "<group>"; };
 		EDE355F11CB284CD006C7C0A /* CommentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFile.swift; sourceTree = "<group>"; };
 		EDEF991B1C9EC11F00B6D69D /* ContainerSnsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerSnsViewController.swift; sourceTree = "<group>"; };
 		EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerProfileViewController.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 				32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */,
 				3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */,
 				3219A2351C70468900D1A6AF /* TimelineCell.swift */,
+				EDCBEE711CCA793700317BCE /* PostDetail.storyboard */,
 				ED3644551C9D657600C6676C /* TimeLine.storyboard */,
 				3219A2361C70468900D1A6AF /* CustomTableViewCell.xib */,
 			);
@@ -475,6 +478,7 @@
 				ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */,
 				ED7DB14F1C9365250028C986 /* fb_login_small.png in Resources */,
 				ED3644581C9D658A00C6676C /* Search.storyboard in Resources */,
+				EDCBEE721CCA793700317BCE /* PostDetail.storyboard in Resources */,
 				ED7DB1511C9365250028C986 /* tw_login_small.png in Resources */,
 				32C0A3431C5DF8ED009657B9 /* Main.storyboard in Resources */,
 				ED9158631CC7B29B0038F26F /* noprofile.png in Resources */,
