@@ -133,10 +133,10 @@ class TimeLineTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toPostDetailViewController" {
             let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
-            
-            postDetailVC.postDateText = selectedPostDate
-            postDetailVC.postText = selectedPostText
-            postDetailVC.postImage = selectedPostImage
+
+//            postDetailVC.postDateText = selectedPostDate
+//            postDetailVC.postText = selectedPostText
+//            postDetailVC.postImage = selectedPostImage
         }
     }
     

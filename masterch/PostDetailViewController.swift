@@ -22,35 +22,67 @@ class PostDetailViewController: UIViewController {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var followButton: UIButton!
     
-    var userFaceName: String!
-    var userName: String!
-    var userProfileImage: UIImage!
-    var postDateText: String!
-    var postText: String!
-    var postImage: UIImage!
+    var postObject: NCMBObject!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        userProfileNameLabel.text = userFaceName
-        userNameLabel.text = userName
-        userProfileImageView.image = userProfileImage
-        postDateLabel.text = postDateText
-        postTextLabel.text = postText
+        let author = postObject.objectForKey("user") as? NCMBUser
+        if let author = author {
+            userProfileNameLabel.text = author.objectForKey("userFaceName") as? String
+            userNameLabel.text = author.userName
+            let userImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+            userImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                if let error = error {
+                    print("プロフィール画像の取得失敗： ", error)
+                    self.userProfileImageView.image = UIImage(named: "noprofile")
+                } else {
+                    self.userProfileImageView.image = UIImage(data: imageData!)
+                }
+            })
+        } else {
+            userNameLabel.text = "username"
+            userProfileImageView.image = UIImage(named: "noprofile")
+        }
+        
+        postTextLabel.text = postObject.objectForKey("text") as? String
+        postDateLabel.text = postObject.objectForKey("postDate") as? String
+        
+        // 画像データの取得
+        if let postImageName = postObject.objectForKey("image1") as? String {
+            let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
+            postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                if let error = error {
+                    print("写真の取得失敗： ", error)
+                    self.postImageView.image = nil
+                } else {
+                    self.postImageView.image = UIImage(data: imageData!)
+                }
+            })
+        } else {
+            self.postImageView.image = nil
+        }
         
         // 画像の有無で場合分け
-        if (postImage == nil) {
-            postImageView.image = nil
+        if (postImageView.image == nil) {
             postImageViewHeightConstraint.constant = 0.0
         } else {
-            postImageView.image = postImage
             postImageViewHeightConstraint.constant = 400
         }
     }
     
     @IBAction func selectFollow(sender: UIButton) {
         print("フォローボタン押した")
+        
+        let relationObject = NCMBObject(className: "Relationship")
+        relationObject.setObject(NCMBUser.currentUser(), forKey: "followed")
+        relationObject.setObject(postObject.objectForKey("user"), forKey: "follower")
+        relationObject.save(nil)
+        
+        followButton.setTitle("フォローした", forState: UIControlState.Normal)
+        followButton.titleLabel?.font = UIFont.systemFontOfSize(10)
+    
     }
     
 }

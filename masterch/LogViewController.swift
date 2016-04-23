@@ -26,6 +26,8 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     @IBOutlet weak var monthLabel: UILabel!
     
 //    セル選択時の変数
+    var selectedPostObject: NCMBObject!
+    
     var selectedPostUserFaceName: String!
     var selectedPostUserName: String!
     var selectedPostUserProfileImage: UIImage!
@@ -84,6 +86,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         query.whereKey("createDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
         query.whereKey("createDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
         query.includeKey("user")
+        print(query)
         query.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -149,43 +152,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("セルの選択: \(indexPath.row)")
-        let postData = self.items[indexPath.row]
-        
-        let author = postData.objectForKey("user") as? NCMBUser
-        if let author = author {
-            self.selectedPostUserFaceName = author.objectForKey("userFaceName") as? String
-            self.selectedPostUserName = author.userName
-            let userImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-            userImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                if let error = error {
-                    print("プロフィール画像の取得失敗： ", error)
-                    self.selectedPostUserProfileImage = UIImage(named: "noprofile")
-                } else {
-                    self.selectedPostUserProfileImage = UIImage(data: imageData!)
-                }
-            })
-        } else {
-            self.selectedPostUserFaceName = "username"
-            self.selectedPostUserProfileImage = UIImage(named: "noprofile")
-        }
-        
-        selectedPostText = postData.objectForKey("text") as? String
-        selectedPostDate = postData.objectForKey("postDate") as? String
-        
-       // 画像データの取得
-        if let postImageName = postData.objectForKey("image1") as? String {
-            let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
-            postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                if let error = error {
-                    print("写真の取得失敗： ", error)
-                    self.selectedPostImage = nil
-                } else {
-                    self.selectedPostImage = UIImage(data: imageData!)
-                }
-            })
-        } else {
-            self.selectedPostImage = nil
-        }
+        selectedPostObject = self.items[indexPath.row] as! NCMBObject
         
         performSegueWithIdentifier("toPostDetailViewController", sender: nil)
     }
@@ -193,13 +160,8 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toPostDetailViewController" {
             let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
-
-            postDetailVC.userFaceName = self.selectedPostUserFaceName
-            postDetailVC.userName = self.selectedPostUserName
-            postDetailVC.userProfileImage = self.selectedPostUserProfileImage
-            postDetailVC.postDateText = self.selectedPostDate
-            postDetailVC.postText = self.selectedPostText
-            postDetailVC.postImage = self.selectedPostImage
+            
+            postDetailVC.postObject = self.selectedPostObject
         }
     }
     
@@ -236,10 +198,6 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             self.calendarBaseView.alpha = self.toggleWeek ? 0.0 : 1.0
             self.view.layoutIfNeeded()
         }
-    }
-    
-    @IBAction func unwindToTop(segue: UIStoryboardSegue) {
-        print("back to LogView")
     }
 }
 
