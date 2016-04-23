@@ -15,8 +15,6 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var userNameTextFiled: UITextField!
     @IBOutlet weak var userIdLabel: UILabel!
     
-    
-    
     var profileImage: UIImage? = nil
     
     override func viewDidLoad() {
@@ -70,19 +68,11 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate {
         tappedToolBarCameraButton()
     }
     
-    
-    @IBAction func setFinishBtn(sender: AnyObject) {
-        newProfileSave()
-    }
-    
-    
-    //完了ボタン（今はない）
-    @IBAction func SaveProfileBtn(sender: AnyObject) {
+    //完了ボタン
+    @IBAction func profileFinishBtn(sender: AnyObject) {
         newProfileSave()
     }
 }
-
-
 
 
 // カメラ周り
@@ -160,6 +150,9 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
     }
 }
 
+func userSaveInBackground (){
+    
+}
 
 // 投稿アクション周り
 extension SetProfileViewController {
@@ -169,19 +162,21 @@ extension SetProfileViewController {
         
         //ユーザーネーム保存
         user.setObject(userNameTextFiled.text, forKey: "userFaceName")
+        print("userFaceName", userNameTextFiled.text)
         
         // プロフィール写真保存
         if profileImage != nil {
             
+            //設定してもらったprofileImageをユーザー情報に追加
             let userimageData = UIImagePNGRepresentation(self.profileImage!)! as NSData
             let userimageFile: NCMBFile = NCMBFile.fileWithData(userimageData) as! NCMBFile
-            
             user.setObject(userimageFile.name, forKey: "userProfileImage")
             
-            //            ファイルはバックグラウンド実行をする
+            //ファイルはバックグラウンド実行をする
             userimageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error == nil {
                     print("画像データ保存完了: \(userimageFile.name)")
+                    self.performSegueWithIdentifier("newSignUpedSegue", sender: self)
                 } else {
                     print("アップロード中にエラーが発生しました: \(error)")
                 }
@@ -189,13 +184,12 @@ extension SetProfileViewController {
                     //                    進捗状況を取得します。保存完了まで何度も呼ばれます
                     print("進捗状況: \(percentDone)% アップロード済み")
             })
+        }else {
+            
+            self.performSegueWithIdentifier("newSignUpedSegue", sender: self)
         }
-        
         user.saveInBackgroundWithBlock({(error) in
             if error != nil {print("Save error : ",error)}
         })
-        
-//        self.performSegueWithIdentifier("signUpedSegue", sender: self)
-        print("投稿完了")
     }
 }
