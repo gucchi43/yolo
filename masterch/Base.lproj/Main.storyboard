@@ -256,6 +256,9 @@
                                 <rect key="frame" x="138" y="109" width="226" height="30"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="iJy-WC-FCV" id="pmU-Ub-nVx"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -298,7 +301,7 @@
                     <connections>
                         <outlet property="userIdLabel" destination="SKb-mw-AY1" id="x11-eM-aKK"/>
                         <outlet property="userImageView" destination="vRb-xq-aCt" id="NRh-37-YDX"/>
-                        <outlet property="userName" destination="iiH-hf-dRJ" id="ruA-PH-J0p"/>
+                        <outlet property="userNameTextFiled" destination="iiH-hf-dRJ" id="BZL-Ax-RFz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DGq-mk-CSW" userLabel="First Responder" sceneMemberID="firstResponder"/>

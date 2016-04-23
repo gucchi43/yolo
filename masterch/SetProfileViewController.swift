@@ -8,12 +8,14 @@
 
 import UIKit
 
-class SetProfileViewController: UIViewController {
+class SetProfileViewController: UIViewController, UITextFieldDelegate {
     
 
     @IBOutlet weak var userImageView: UIImageView!
-    @IBOutlet weak var userName: UITextField!
+    @IBOutlet weak var userNameTextFiled: UITextField!
     @IBOutlet weak var userIdLabel: UILabel!
+    
+    
     
     var profileImage: UIImage? = nil
     
@@ -41,6 +43,22 @@ class SetProfileViewController: UIViewController {
         }
         
         
+    }
+    
+    //keyboardで、return押した時
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        //キーボードを閉じる
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    //keyboard以外をタップした時keyboardを下げる
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+
+
+        if userNameTextFiled.isFirstResponder() {
+            userNameTextFiled.resignFirstResponder()
+        }
     }
     
     @IBAction func userInfo(sender: AnyObject) {
@@ -150,7 +168,7 @@ extension SetProfileViewController {
         let user = NCMBUser.currentUser()
         
         //ユーザーネーム保存
-        user.setObject(userName.text, forKey: "userFaceName")
+        user.setObject(userNameTextFiled.text, forKey: "userFaceName")
         
         // プロフィール写真保存
         if profileImage != nil {
