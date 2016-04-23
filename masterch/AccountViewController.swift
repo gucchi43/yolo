@@ -14,6 +14,12 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var userProfileName: UILabel!
     @IBOutlet weak var userIdLabel: UILabel!
     
+    //フォロー数、フォロワー数
+    @IBOutlet weak var followNumberBtn: UIButton!
+    @IBOutlet weak var followerNumberBtn: UIButton!
+    
+    
+    
     @IBOutlet weak var segmentedController: UISegmentedControl!
     @IBOutlet weak var containerSnsView: UIView!
     @IBOutlet weak var containerProfileView: UIView!
@@ -22,10 +28,7 @@ class AccountViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("AccountViewController")
-        
-////        userProfileImageの形を整える
-//        self.userProfileImage.layer.cornerRadius = 30
-//        self.userProfileImage.layer.masksToBounds = true
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -59,33 +62,6 @@ class AccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-//    @IBAction func logautBtn(sender: AnyObject) {
-//        print("ログイン前ユーザー情報:\(NCMBUser.currentUser())")
-//        NCMBUser.logOut()
-//        print("ログアウト後ユーザー情報:\(NCMBUser.currentUser())")
-//    }
-    
-    
-    func addSns() {
-        let user = NCMBUser.currentUser()
-        NCMBFacebookUtils.linkUser(user, withPublishingPermission: nil) { (user: NCMBUser!, error: NSError!) -> Void in
-            if error == nil{
-                print("facebookアカウントリンク成功")
-            }else {
-                print("facebookアカウントリンク失敗")
-            }
-        }
-        
-        
-        
-//        NCMBTwitterUtils.linkUser(user) { (error: NSError!) -> Void in
-//            if error == nil{
-//                print("twitterアカウントリンク成功")
-//            }else {
-//                print("twitterアカウントリンク失敗")
-//            }
-//        }
-    }
     
     @IBAction func didValueChanged(sender: AnyObject) {
         
@@ -107,14 +83,6 @@ class AccountViewController: UIViewController {
         default:
             print("segmentedControllerd: 原因不明のエラー")
         }
-    }
-    
-    
-    @IBAction func testAddSnsBtn(sender: AnyObject) {
-        print("testAddSnsBtn 押した")
-        addSns()
-        let user = NCMBUser.currentUser()
-        print("user情報", user)
     }
     
     @IBAction func logOutBtn(sender: AnyObject) {
