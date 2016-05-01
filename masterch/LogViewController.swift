@@ -50,6 +50,9 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     override func viewWillAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didSelectDayView:", name: "didSelectDayView", object: nil)
+        if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
+        }
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -87,7 +90,6 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relation") // 自分がフォローしている人のクエリ
         relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
         relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "Post"))
-        print(relationshipQuery)
         
         let followingQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分がフォローしている人の投稿クエリ
         followingQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)
@@ -97,9 +99,18 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         postQuery.whereKey("createDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
         postQuery.whereKey("createDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
         postQuery.includeKey("user")
-        print(postQuery)
 
-        postQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
+//        自分の投稿だけを表示するQueryを発行
+        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post")
+        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+        myPostQuery.orderByDescending("postDate") // cellの並べ方
+
+//        TODO: createDate を postDateに変更する
+        myPostQuery.whereKey("createDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+        myPostQuery.whereKey("createDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+        myPostQuery.includeKey("user")
+
+        myPostQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
             if let error = error {
                 print(error.localizedDescription)
             } else {
