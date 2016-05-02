@@ -106,8 +106,8 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         myPostQuery.orderByDescending("postDate") // cellの並べ方
 
 //        TODO: createDate を postDateに変更する
-        myPostQuery.whereKey("createDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
-        myPostQuery.whereKey("createDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+        myPostQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+        myPostQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
         myPostQuery.includeKey("user")
 
         myPostQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
@@ -135,7 +135,12 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         let postData = items[indexPath.row]
         // postTextLabelには(key: "text")の値を入れる
         cell.postTextLabel.text = postData.objectForKey("text") as? String
-        cell.postDateLabel.text = postData.objectForKey("postDate") as? String
+        // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
+        let date = postData.objectForKey("postDate") as? NSDate
+        let postDateFormatter: NSDateFormatter = NSDateFormatter()
+        postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
+        
 //        cell.postImageView.layer.cornerRadius = 5.0
         let author = postData.objectForKey("user") as? NCMBUser
         if let author = author {

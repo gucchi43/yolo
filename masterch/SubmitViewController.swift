@@ -15,6 +15,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     var postImage1: UIImage? = nil
     var toolBar: UIToolbar!
+    var postPickerDate: NSDate = NSDate()
     let postTextCharactersLabel: UILabel = UILabel()
     let notificationCenter = NSNotificationCenter.defaultCenter()
     
@@ -247,12 +248,13 @@ extension SubmitViewController {
     //    postDatePickerが選ばれた際に呼ばれる.
     func onDidChangeDate(sender: UIDatePicker) {
         setDate(sender.date)
+        postPickerDate = sender.date
     }
     //    postDateのための共通のメソッド
     func setDate(date: NSDate) {
         //        フォーマットを生成.
         let postDateFormatter: NSDateFormatter = NSDateFormatter()
-        postDateFormatter.dateFormat = "yyyy/MM/dd hh:mm"
+        postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         //        日付をフォーマットに則って取得.
         postDateTextField.text = postDateFormatter.stringFromDate(date)
     }
@@ -276,7 +278,7 @@ extension SubmitViewController {
         postObject.setObject(NCMBUser.currentUser(), forKey: "user")
         
         postObject.setObject(self.postTextView.text, forKey: "text")
-        postObject.setObject(postDateTextField.text, forKey: "postDate")
+        postObject.setObject(postPickerDate, forKey: "postDate")
         //        保存対象の画像ファイルを作成する
         if postImage1 != nil {
             
