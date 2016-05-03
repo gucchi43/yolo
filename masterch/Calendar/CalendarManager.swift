@@ -55,6 +55,28 @@ class CalendarManager: NSObject {
             String(CalendarManager.currentDate.day) + " 23:59:59")
         return formatDate!
     }
+    
+    class func postedDate(date: NSDate) {
+        //        自分の投稿だけを表示するQueryを発行
+        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post")
+        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+        myPostQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+        myPostQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+        
+        myPostQuery.getFirstObjectInBackgroundWithBlock { (objects, error) -> Void in
+            if error != nil {
+                print(error)
+            }else {
+                if objects == nil {
+                    
+                }else {
+                    
+                }
+            }
+        }
+    }
+
+
 }
 
 

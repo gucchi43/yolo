@@ -138,7 +138,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
         let date = postData.objectForKey("postDate") as? NSDate
         let postDateFormatter: NSDateFormatter = NSDateFormatter()
-        postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        postDateFormatter.dateFormat = "HH:mm"
         cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
         
 //        cell.postImageView.layer.cornerRadius = 5.0

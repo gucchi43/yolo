@@ -65,7 +65,14 @@ class TimeLineTableViewController: UITableViewController {
         
         // postTextLabelには(key: "text")の値を入れる
         cell.postTextLabel.text = postData.objectForKey("text") as? String
-        cell.postDateLabel.text = postData.objectForKey("postDate") as? String
+        
+        // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
+        let date = postData.objectForKey("postDate") as? NSDate
+        let postDateFormatter: NSDateFormatter = NSDateFormatter()
+        postDateFormatter.dateFormat = "HH:mm"
+        cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
+        
+        
         cell.postImageView.layer.cornerRadius = 5.0
         let auther = postData.objectForKey("user") as? NCMBUser
         if let auther = auther {
@@ -110,7 +117,14 @@ class TimeLineTableViewController: UITableViewController {
         let postData = self.postArray[indexPath.row]
         
         self.selectedPostText = postData.objectForKey("text") as? String
-        self.selectedPostDate = postData.objectForKey("postDate") as? String
+//        self.selectedPostDate = postData.objectForKey("postDate") as? String
+        
+        // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
+        let date = postData.objectForKey("postDate") as? NSDate
+        let postDateFormatter: NSDateFormatter = NSDateFormatter()
+        postDateFormatter.dateFormat = "HH:mm"
+        self.selectedPostDate = postDateFormatter.stringFromDate(date!)
+        
         
         // 画像データの取得
         if let postImageName = postData.objectForKey("image1") as? String {

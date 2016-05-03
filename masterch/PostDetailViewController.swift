@@ -48,7 +48,13 @@ class PostDetailViewController: UIViewController {
         }
         
         postTextLabel.text = postObject.objectForKey("text") as? String
-        postDateLabel.text = postObject.objectForKey("postDate") as? String
+//        postDateLabel.text = postObject.objectForKey("postDate") as? String
+        
+        // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
+        let date = postObject.objectForKey("postDate") as? NSDate
+        let postDateFormatter: NSDateFormatter = NSDateFormatter()
+        postDateFormatter.dateFormat = "HH:mm"
+        postDateLabel.text = postDateFormatter.stringFromDate(date!)
         
         // 画像データの取得
         if let postImageName = postObject.objectForKey("image1") as? String {

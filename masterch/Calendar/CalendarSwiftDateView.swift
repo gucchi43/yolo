@@ -40,12 +40,17 @@ class CalendarSwiftDateView: UIView{
         
         dayButton.addTarget(self, action: "onTapCalendarDayButton:", forControlEvents: .TouchUpInside)
         print("day", date.day, "weekday", date.weekday)
+        
+        CalendarManager.postedDate(date)
 
         if date == CalendarManager.currentDate {
             //            dayButton.selected = true
             dayButton.backgroundColor = UIColor.yellowColor()
             print(date)
         }
+//      if date.day == nil　これは今適当{
+//            TODO: 投稿があった日への
+//    }
         if date.year == NSDate().year && date.month == NSDate().month && date.day == NSDate().day{
             //今日だけ黒
                     dayButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
