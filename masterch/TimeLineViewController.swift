@@ -72,8 +72,10 @@ class TimeLineTableViewController: UITableViewController {
         postDateFormatter.dateFormat = "HH:mm"
         cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
         
-        
-        cell.postImageView.layer.cornerRadius = 5.0
+        //プロフィール写真の形を円形にする
+        cell.postImageView.layer.cornerRadius = cell.postImageView.frame.width/2
+        cell.postImageView.layer.masksToBounds = true
+
         let auther = postData.objectForKey("user") as? NCMBUser
         if let auther = auther {
             cell.userNameLabel.text = auther.userName

@@ -38,7 +38,7 @@ class AccountViewController: UIViewController {
         
         self.userIdLabel.text = "@" + NCMBUser.currentUser().userName
         
-        //プロフィール写真の形を整える
+        //プロフィール写真の形を円形にする
         let userImageView = self.userProfileImage
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.layer.masksToBounds = true

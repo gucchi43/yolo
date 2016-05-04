@@ -145,6 +145,10 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         let author = postData.objectForKey("user") as? NCMBUser
         if let author = author {
             cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
+            
+            //プロフィール写真の形を円形にする
+            cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
+            cell.userProfileImageView.layer.masksToBounds = true
             let postImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
             postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
                 if let error = error {
