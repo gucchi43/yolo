@@ -42,8 +42,15 @@ class CalendarSwiftDateView: UIView{
         print("day", date.day, "weekday", date.weekday)
 
 //        CalendarManager.postedDate(date)
+        if date.year == NSDate().year && date.month  == NSDate().month{
+            print("month用（一ヶ月分出る筈）")
+            self.postedDate(date)
+        }
         
-        self.postedDate(date)
+        if date.year == NSDate().year && date.weekOfYear == NSDate().weekOfYear{
+            print("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeek用（一週間分出る筈）")
+            self.postedDate(date)
+        }
 
         if date == CalendarManager.currentDate {
             //            dayButton.selected = true
@@ -95,7 +102,7 @@ class CalendarSwiftDateView: UIView{
                 }else {
 //                    投稿あり
                     print("投稿あり")
-                    self.dayButton.backgroundColor =  UIColor.purpleColor()
+                    self.dayButton.backgroundColor =  UIColor.orangeColor()
                 }
             }
     }
