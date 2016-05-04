@@ -42,6 +42,8 @@ class CalendarManager: NSObject {
         let formatDate = formatter.dateFromString(String(CalendarManager.currentDate.year) + "/" +
             String(CalendarManager.currentDate.month) + "/" +
             String(CalendarManager.currentDate.day) + " 00:00:00")
+        
+        print("FilterDateStart", currentDate)
         return formatDate!
     }
     
@@ -53,6 +55,8 @@ class CalendarManager: NSObject {
         let formatDate = formatter.dateFromString(String(CalendarManager.currentDate.year) + "/" +
             String(CalendarManager.currentDate.month) + "/" +
             String(CalendarManager.currentDate.day) + " 23:59:59")
+        
+        print("FilterDateEnd", currentDate)
         return formatDate!
     }
     

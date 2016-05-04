@@ -40,17 +40,16 @@ class CalendarSwiftDateView: UIView{
         
         dayButton.addTarget(self, action: "onTapCalendarDayButton:", forControlEvents: .TouchUpInside)
         print("day", date.day, "weekday", date.weekday)
+
+//        CalendarManager.postedDate(date)
         
-        CalendarManager.postedDate(date)
+        self.postedDate(date)
 
         if date == CalendarManager.currentDate {
             //            dayButton.selected = true
             dayButton.backgroundColor = UIColor.yellowColor()
             print(date)
         }
-//      if date.day == nil　これは今適当{
-//            TODO: 投稿があった日への
-//    }
         if date.year == NSDate().year && date.month == NSDate().month && date.day == NSDate().day{
             //今日だけ黒
                     dayButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -80,6 +79,51 @@ class CalendarSwiftDateView: UIView{
             let n = NSNotification(name: "didSelectDayView", object: self, userInfo: nil)
             NSNotificationCenter.defaultCenter().postNotification(n)
         }
+    }
+    
+    func postedDate(date: NSDate) {
+        //        自分の投稿だけを表示するQueryを発行
+        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post")
+        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+        myPostQuery.whereKey("postDate", greaterThanOrEqualTo: self.FirstFilterDateStart(date))
+        myPostQuery.whereKey("postDate", lessThanOrEqualTo: self.FirstFilterDateEnd(date))
+        print("postedDate読み込み時", date)
+        myPostQuery.getFirstObjectInBackgroundWithBlock { (objects, error) -> Void in
+            if objects == nil {
+//                    投稿0件
+                    print("投稿0件")
+                }else {
+//                    投稿あり
+                    print("投稿あり")
+                    self.dayButton.backgroundColor =  UIColor.purpleColor()
+                }
+            }
+    }
+    
+    //その日にちの00:00:00のNSDateをゲット（そのの範囲を決めるため）
+    func FirstFilterDateStart(date: NSDate) -> NSDate {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        
+        let formatDate = formatter.dateFromString(String(date.year) + "/" +
+            String(date.month) + "/" +
+            String(date.day) + " 00:00:00")
+        
+        print("FilterDateStart", date)
+        return formatDate!
+    }
+    
+    //その日にちの23:59:59のNSDateをゲット（そのの範囲を決めるため）
+    func FirstFilterDateEnd(date: NSDate) -> NSDate {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        
+        let formatDate = formatter.dateFromString(String(date.year) + "/" +
+            String(date.month) + "/" +
+            String(date.day) + " 23:59:59")
+        
+        print("FilterDateEnd", date)
+        return formatDate!
     }
     
 }
