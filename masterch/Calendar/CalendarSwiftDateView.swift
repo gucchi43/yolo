@@ -34,9 +34,11 @@ class CalendarSwiftDateView: UIView{
         dayButton = UIButton(frame: CGRect(x: 0, y: 0, width: w, height: w))
         dayButton.setTitle(String(format: "%02d", date.day), forState: UIControlState.Normal)
         dayButton.titleLabel?.font = UIFont.systemFontOfSize(10)
-        dayButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Top
-        dayButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        dayButton.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        
+//        日にちの数字を左上にするとこ
+//        dayButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Top
+//        dayButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+//        dayButton.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         
         dayButton.addTarget(self, action: "onTapCalendarDayButton:", forControlEvents: .TouchUpInside)
         print("day", date.day, "weekday", date.weekday)
