@@ -38,7 +38,8 @@ class CalendarSwiftDateView: UIView{
         dayButton.layer.borderColor = UIColor.clearColor().CGColor
         dayButton.layer.borderWidth = 3
         
-//        日にちの数字を左上にするとこ
+
+        //日にちの数字を左上にするとこ
 //        dayButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Top
 //        dayButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
 //        dayButton.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
@@ -46,23 +47,24 @@ class CalendarSwiftDateView: UIView{
         dayButton.addTarget(self, action: "onTapCalendarDayButton:", forControlEvents: .TouchUpInside)
         print("day", date.day, "weekday", date.weekday)
 
-//        CalendarManager.postedDate(date)
-        if date.year == NSDate().year && date.month  == NSDate().month{
-            print("month用（一ヶ月分出る筈）")
-            self.postedDate(date)
-        }
         
-        if date.year == NSDate().year && date.weekOfYear == NSDate().weekOfYear{
-            print("weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeek用（一週間分出る筈）")
+        //投稿があったかを調べる
+        //選択した日を含む月のdateと、選択した日を含む週のdate
+        //月の日にちを調べる
+        if date.year == CalendarManager.currentDate.year && date.month == CalendarManager.currentDate.month{
+            //月の日にちを調べる
+            print("month用")
+            self.postedDate(date)
+        }else if date.year == CalendarManager.currentDate.year && date.weekOfYear == CalendarManager.currentDate.weekOfYear{
+            //週の日にちで、月に含まれなかったものを調べる（頭にある３０日、３１日や、尻にある１日、２日など）
+            print("week用")
             self.postedDate(date)
         }
 
         if date == CalendarManager.currentDate {
-            //            dayButton.selected = true
             dayButton.layer.borderColor = UIColor.grayColor().CGColor
             dayButton.layer.borderWidth = 3
             dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
-//            dayButton.backgroundColor = UIColor.yellowColor()
             print(date)
         }
         if date.year == NSDate().year && date.month == NSDate().month && date.day == NSDate().day{
