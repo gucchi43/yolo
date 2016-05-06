@@ -42,6 +42,8 @@ class CalendarManager: NSObject {
         let formatDate = formatter.dateFromString(String(CalendarManager.currentDate.year) + "/" +
             String(CalendarManager.currentDate.month) + "/" +
             String(CalendarManager.currentDate.day) + " 00:00:00")
+        
+        print("FilterDateStart", currentDate)
         return formatDate!
     }
     
@@ -53,8 +55,32 @@ class CalendarManager: NSObject {
         let formatDate = formatter.dateFromString(String(CalendarManager.currentDate.year) + "/" +
             String(CalendarManager.currentDate.month) + "/" +
             String(CalendarManager.currentDate.day) + " 23:59:59")
+        
+        print("FilterDateEnd", currentDate)
         return formatDate!
     }
+    
+    class func postedDate(date: NSDate) {
+        //        自分の投稿だけを表示するQueryを発行
+        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post")
+        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+        myPostQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+        myPostQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+        
+        myPostQuery.getFirstObjectInBackgroundWithBlock { (objects, error) -> Void in
+            if error != nil {
+                print(error)
+            }else {
+                if objects == nil {
+                    
+                }else {
+                    
+                }
+            }
+        }
+    }
+
+
 }
 
 

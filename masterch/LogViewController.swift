@@ -138,13 +138,17 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
         let date = postData.objectForKey("postDate") as? NSDate
         let postDateFormatter: NSDateFormatter = NSDateFormatter()
-        postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        postDateFormatter.dateFormat = "HH:mm"
         cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
         
 //        cell.postImageView.layer.cornerRadius = 5.0
         let author = postData.objectForKey("user") as? NCMBUser
         if let author = author {
             cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
+            
+            //プロフィール写真の形を円形にする
+            cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
+            cell.userProfileImageView.layer.masksToBounds = true
             let postImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
             postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
                 if let error = error {
