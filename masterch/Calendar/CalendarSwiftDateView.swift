@@ -35,6 +35,8 @@ class CalendarSwiftDateView: UIView{
         dayButton.setTitle(String(format: "%02d", date.day), forState: UIControlState.Normal)
         dayButton.titleLabel?.font = UIFont.systemFontOfSize(10)
         dayButton.layer.cornerRadius = CGFloat(w/2)
+        dayButton.layer.borderColor = UIColor.clearColor().CGColor
+        dayButton.layer.borderWidth = 3
         
 //        日にちの数字を左上にするとこ
 //        dayButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Top
@@ -57,7 +59,10 @@ class CalendarSwiftDateView: UIView{
 
         if date == CalendarManager.currentDate {
             //            dayButton.selected = true
-            dayButton.backgroundColor = UIColor.yellowColor()
+            dayButton.layer.borderColor = UIColor.grayColor().CGColor
+            dayButton.layer.borderWidth = 3
+            dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
+//            dayButton.backgroundColor = UIColor.yellowColor()
             print(date)
         }
         if date.year == NSDate().year && date.month == NSDate().month && date.day == NSDate().day{
