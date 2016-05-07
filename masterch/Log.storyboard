@@ -126,11 +126,6 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="150" id="tyc-5F-3XU"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUm-qe-xvs">
                                                     <rect key="frame" x="164" y="278" width="148" height="30"/>
@@ -170,11 +165,6 @@
                                                         <constraint firstAttribute="height" constant="40" id="0jz-Rb-XhM"/>
                                                         <constraint firstAttribute="width" constant="40" id="eiC-Zk-x0T"/>
                                                     </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGz-eO-Vmi">
                                                     <rect key="frame" x="8" y="278" width="148" height="30"/>

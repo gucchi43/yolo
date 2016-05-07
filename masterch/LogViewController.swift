@@ -9,10 +9,10 @@
 import UIKit
 
 
-class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LogViewController: UIViewController {
     
     var toggleWeek: Bool = false
-    var items: NSArray = NSArray()
+    var postArray: NSArray = NSArray()
     
     @IBOutlet weak var calendarBaseView: UIView!
     @IBOutlet weak var calendarWeekView: UIView!
@@ -27,13 +27,14 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
 //    セル選択時の変数
     var selectedPostObject: NCMBObject!
-    
-    var selectedPostUserFaceName: String!
-    var selectedPostUserName: String!
-    var selectedPostUserProfileImage: UIImage!
-    var selectedPostText: String!
-    var selectedPostDate: String!
-    var selectedPostImage: UIImage!
+
+//    それぞれを変数にして渡す場合に使用。その方が早いけど、何故かずれたりする原因がわからないのでNMCBObjectをそのまま渡している
+//    var selectedPostUserFaceName: String!
+//    var selectedPostUserName: String!
+//    var selectedPostUserProfileImage: UIImage!
+//    var selectedPostText: String!
+//    var selectedPostDate: String!
+//    var selectedPostImage: UIImage!
     
     var animationFinished = true
     
@@ -115,78 +116,13 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                 print(error.localizedDescription)
             } else {
                 if objects.count > 0 {
-                    self.items = objects
+                    self.postArray = objects
                 } else {
-                    self.items = []
+                    self.postArray = []
                 }
                 self.tableView.reloadData()
             }
         })
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellId = "TimelineCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! TimelineCell
-        // 各値をセルに入れる
-        let postData = items[indexPath.row]
-        // postTextLabelには(key: "text")の値を入れる
-        cell.postTextLabel.text = postData.objectForKey("text") as? String
-        // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
-        let date = postData.objectForKey("postDate") as? NSDate
-        let postDateFormatter: NSDateFormatter = NSDateFormatter()
-        postDateFormatter.dateFormat = "HH:mm"
-        cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
-        
-//        cell.postImageView.layer.cornerRadius = 5.0
-        let author = postData.objectForKey("user") as? NCMBUser
-        if let author = author {
-            cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
-            
-            //プロフィール写真の形を円形にする
-            cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
-            cell.userProfileImageView.layer.masksToBounds = true
-            let postImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-            postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                if let error = error {
-                    print("プロフィール画像の取得失敗： ", error)
-                    cell.userProfileImageView.image = UIImage(named: "noprofile")
-                } else {
-                    cell.userProfileImageView.image = UIImage(data: imageData!)
-                }
-            })
-        } else {
-            cell.userNameLabel.text = "username"
-            cell.userProfileImageView.image = UIImage(named: "noprofile")
-        }
-        
-        //画像データの取得
-       if let postImageName = postData.objectForKey("image1") as? String {
-            cell.imageViewHeightConstraint.constant = 150.0
-            let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
-            postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                if let error = error {
-                    print("写真の取得失敗： ", error)
-                } else {
-                    cell.postImageView.image = UIImage(data: imageData!)
-                }
-            })
-        } else {
-            cell.postImageView.image = nil
-            cell.imageViewHeightConstraint.constant = 0.0
-        }
-        
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("セルの選択: \(indexPath.row)")
-        selectedPostObject = self.items[indexPath.row] as! NCMBObject
-        
-        performSegueWithIdentifier("toPostDetailViewController", sender: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -231,5 +167,75 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             self.view.layoutIfNeeded()
         }
     }
+}
+
+extension LogViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return postArray.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cellId = "TimelineCell"
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! TimelineCell
+        // 各値をセルに入れる
+        let postData = postArray[indexPath.row]
+        // postTextLabelには(key: "text")の値を入れる
+        cell.postTextLabel.text = postData.objectForKey("text") as? String
+        // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
+        let date = postData.objectForKey("postDate") as? NSDate
+        let postDateFormatter: NSDateFormatter = NSDateFormatter()
+        postDateFormatter.dateFormat = "HH:mm"
+        cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
+        
+        //プロフィール写真の形を円形にする
+        cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
+        
+        let author = postData.objectForKey("user") as? NCMBUser
+        if let author = author {
+            cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
+            
+            
+            let postImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+            postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                if let error = error {
+                    print("プロフィール画像の取得失敗： ", error)
+                    cell.userProfileImageView.image = UIImage(named: "noprofile")
+                } else {
+                    cell.userProfileImageView.image = UIImage(data: imageData!)
+                    
+                }
+            })
+        } else {
+            cell.userNameLabel.text = "username"
+            cell.userProfileImageView.image = UIImage(named: "noprofile")
+        }
+        
+        //画像データの取得
+        if let postImageName = postData.objectForKey("image1") as? String {
+            cell.imageViewHeightConstraint.constant = 150.0
+            let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
+            postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                if let error = error {
+                    print("写真の取得失敗： ", error)
+                } else {
+                    cell.postImageView.image = UIImage(data: imageData!)
+                    cell.postImageView.layer.cornerRadius = 5.0
+                }
+            })
+        } else {
+            cell.postImageView.image = nil
+            cell.imageViewHeightConstraint.constant = 0.0
+        }
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("セルの選択: \(indexPath.row)")
+        selectedPostObject = self.postArray[indexPath.row] as! NCMBObject
+        
+        performSegueWithIdentifier("toPostDetailViewController", sender: nil)
+    }
+
 }
 
