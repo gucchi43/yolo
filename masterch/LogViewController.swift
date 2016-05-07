@@ -165,7 +165,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         //画像データの取得
        if let postImageName = postData.objectForKey("image1") as? String {
-            cell.imageViewHeightConstraint.constant = 150.0;
+            cell.imageViewHeightConstraint.constant = 150.0
             let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
             postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
                 if let error = error {
@@ -176,7 +176,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             })
         } else {
             cell.postImageView.image = nil
-            cell.imageViewHeightConstraint.constant = 0.0;
+            cell.imageViewHeightConstraint.constant = 0.0
         }
         
         return cell
