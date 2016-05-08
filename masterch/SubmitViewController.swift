@@ -28,6 +28,8 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     var twitterToggle: Bool = true
     var facebookToggle: Bool = true
     
+    let user = NCMBUser.currentUser()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -272,32 +274,70 @@ extension SubmitViewController {
     func selectToolBarRangeButton(sender:UIBarButtonItem) {
         print("公開範囲ボタンを押した")
         
-        let view:UIView = UINib(nibName: "SnsKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
-        let postDatePicker = UIDatePicker()
-        self.postTextView.inputView = view
-        self.postTextView.reloadInputViews()
         
-
-        let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
+        let snsKeyboardview:UIView = UINib(nibName: "SnsKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+        self.postTextView.inputView = snsKeyboardview
+        self.postTextView.reloadInputViews()
     }
     
     @IBAction func pushShareTwitter(sender: AnyObject) {
         print("twitterボタン押した")
         let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
         let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
-        twitterToggle = !twitterToggle
         
-        if twitterToggle == false{
-            shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-            twitterToggle == true
-            print(twitterToggle)
-        }else {
-           shareTwitterButton.setImage(imgTwitterOff, forState: .Normal)
-            twitterToggle == false
-            print(twitterToggle)
+        let twitterDid = NCMBTwitterUtils.isLinkedWithUser(user)
+        if twitterDid == true {
+            //Twitter連携済み
+            twitterToggle = !twitterToggle
+            if twitterToggle == false{
+                shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+                twitterToggle == true
+                
+                shareTwitterPermission(user)
+                print(twitterToggle)
+            }else {
+                shareTwitterButton.setImage(imgTwitterOff, forState: .Normal)
+                twitterToggle == false
+                print(twitterToggle)
+            }
+        }else{
+            //Twitter未連携
+            self.postTextView.endEditing(true)
+            let containerSnsViewController = ContainerSnsViewController()
+            containerSnsViewController.addSnsToTwitter(user)
         }
+        
     }
     
+    func shareTwitterPermission(user: NCMBUser){
+        print("twitterへの投稿シェア")
+        let URL = NSURL(string: "https://api.twitter.com/1.1/statuses/update.json")
+        
+        // ツイートしたい文章をセット
+        let params = ["status" : "Tweet from iOS!"]
+        
+        // リクエストを生成
+        let request = SLRequest(forServiceType: SLServiceTypeTwitter,
+            requestMethod: .POST,
+            URL: URL,
+            parameters: params)
+        
+        // 取得したアカウントをセット
+        request.account = twAccount
+        
+        // APIコールを実行
+        request.performRequestWithHandler { (responseData, urlResponse, error) -> Void in
+            
+            if error != nil {
+                println("error is \(error)")
+            }
+            else {
+                // 結果の表示
+                let result = NSJSONSerialization.JSONObjectWithData(responseData, options: .AllowFragments, error: nil) as NSDictionary
+                print("result is \(result)")
+            }
+        }
+    }
     
     @IBAction func pushShareFacebook(sender: AnyObject) {
         print("Facebookボタン押した")

@@ -201,7 +201,10 @@ class ContainerSnsViewController: UIViewController, UITableViewDataSource, UITab
                         print("twitterリンク失敗", error)
                     }else {
                         print("twitterリンク成功")
-                        self.conectSnsTabelView.reloadData()
+                        if let a = self.conectSnsTabelView{
+                            a.reloadData()
+                        }
+                        
                     }
                 })
             }else {
