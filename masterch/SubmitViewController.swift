@@ -306,11 +306,11 @@ extension SubmitViewController {
         facebookToggle = !facebookToggle
         
         if facebookToggle == false{
-            shareTwitterButton.setImage(imgFacebookOn, forState: .Normal)
-            twitterToggle == true
+            shareFacebookButton.setImage(imgFacebookOn, forState: .Normal)
+            facebookToggle == true
             print(facebookToggle)
         }else {
-            shareTwitterButton.setImage(imgFacebookOn, forState: .Normal)
+            shareFacebookButton.setImage(imgFacebookOff, forState: .Normal)
             facebookToggle == false
             print(facebookToggle)
         }
