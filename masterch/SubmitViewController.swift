@@ -13,6 +13,10 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var postTextView: UITextView!
     @IBOutlet var postDateTextField: UITextField!
     
+    
+    @IBOutlet weak var shareTwitterButton: UIButton!
+    @IBOutlet weak var shareFacebookButton: UIButton!
+    
     var postImage1: UIImage? = nil
     var toolBar: UIToolbar!
     var postPickerDate: NSDate = NSDate()
@@ -20,6 +24,9 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     let notificationCenter = NSNotificationCenter.defaultCenter()
     
     let postImageView = UIImageView()
+    
+    var twitterToggle: Bool = true
+    var facebookToggle: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +54,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         postDatePicker.addTarget(self, action: "onDidChangeDate:", forControlEvents: .ValueChanged)
         
         self.postDateTextField.inputAccessoryView = toolBar
-
+        
     }
     
 //     Viewが画面に表示される度に呼ばれるメソッド
@@ -242,7 +249,7 @@ extension SubmitViewController {
         
         //        UIDatePickerにイベントを設定。
         postDatePicker.addTarget(self, action: "onDidChangeDate:", forControlEvents: .ValueChanged)
-        self.view.addSubview(postDatePicker)
+//        self.view.addSubview(postDatePicker)
     }
     
     //    postDatePickerが選ばれた際に呼ばれる.
@@ -264,6 +271,51 @@ extension SubmitViewController {
 extension SubmitViewController {
     func selectToolBarRangeButton(sender:UIBarButtonItem) {
         print("公開範囲ボタンを押した")
+        
+        let view:UIView = UINib(nibName: "SnsKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+        let postDatePicker = UIDatePicker()
+        self.postTextView.inputView = view
+        self.postTextView.reloadInputViews()
+        
+
+        let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
+    }
+    
+    @IBAction func pushShareTwitter(sender: AnyObject) {
+        print("twitterボタン押した")
+        let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
+        let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
+        twitterToggle = !twitterToggle
+        
+        if twitterToggle == false{
+            shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+            twitterToggle == true
+            print(twitterToggle)
+        }else {
+           shareTwitterButton.setImage(imgTwitterOff, forState: .Normal)
+            twitterToggle == false
+            print(twitterToggle)
+        }
+    }
+    
+    
+    @IBAction func pushShareFacebook(sender: AnyObject) {
+        print("Facebookボタン押した")
+        let imgFacebookOn = UIImage(named: "facebook_logo_640*480_origin")
+        let imgFacebookOff = UIImage(named: "facebook_logo_640*480_gray")
+        facebookToggle = !facebookToggle
+        
+        if facebookToggle == false{
+            shareTwitterButton.setImage(imgFacebookOn, forState: .Normal)
+            twitterToggle == true
+            print(facebookToggle)
+        }else {
+            shareTwitterButton.setImage(imgFacebookOn, forState: .Normal)
+            facebookToggle == false
+            print(facebookToggle)
+        }
+        
+
     }
 }
 

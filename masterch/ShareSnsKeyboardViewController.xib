@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShareSnsKeyboardViewController" customModule="masterch" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQf-49-UgU">
+                    <rect key="frame" x="30" y="112" width="100" height="69"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="uQf-49-UgU" secondAttribute="height" multiplier="347:240" id="0F1-Lp-S09"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="694" id="3k5-gI-uMh"/>
+                        <constraint firstAttribute="width" secondItem="uQf-49-UgU" secondAttribute="height" multiplier="347:240" id="5jE-hN-TKA"/>
+                        <constraint firstAttribute="width" constant="694" id="dMW-yq-cOx"/>
+                        <constraint firstAttribute="width" secondItem="uQf-49-UgU" secondAttribute="height" multiplier="347:240" id="mZs-cd-e2A"/>
+                        <constraint firstAttribute="width" constant="100" id="oHp-ff-cgt"/>
+                    </constraints>
+                    <state key="normal" title="Button" image="facebook_logo_640*480_origin.png"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="0F1-Lp-S09"/>
+                            <exclude reference="5jE-hN-TKA"/>
+                            <exclude reference="dMW-yq-cOx"/>
+                            <exclude reference="3k5-gI-uMh"/>
+                        </mask>
+                    </variation>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oJu-xJ-2T0">
+                    <rect key="frame" x="30" y="33" width="100" height="69"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="oJu-xJ-2T0" secondAttribute="height" multiplier="347:240" id="ADg-Bq-e3P"/>
+                        <constraint firstAttribute="width" constant="100" id="nxm-wc-wAH"/>
+                    </constraints>
+                    <state key="normal" title="Button" image="twitter_logo_640*480_origin.png"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="uQf-49-UgU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="E84-x0-hua"/>
+                <constraint firstItem="uQf-49-UgU" firstAttribute="leading" secondItem="oJu-xJ-2T0" secondAttribute="leading" id="Nc8-WI-qz0"/>
+                <constraint firstItem="uQf-49-UgU" firstAttribute="top" secondItem="oJu-xJ-2T0" secondAttribute="bottom" constant="10" id="Qz0-Pf-Q4o"/>
+                <constraint firstItem="oJu-xJ-2T0" firstAttribute="width" secondItem="oJu-xJ-2T0" secondAttribute="height" multiplier="347:240" id="hyN-H9-Xx6"/>
+                <constraint firstItem="uQf-49-UgU" firstAttribute="width" secondItem="uQf-49-UgU" secondAttribute="height" multiplier="347:240" id="lyB-ok-r3K"/>
+                <constraint firstItem="uQf-49-UgU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="112" id="txf-kj-wBH"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="facebook_logo_640*480_origin.png" width="640" height="480"/>
+        <image name="twitter_logo_640*480_origin.png" width="640" height="480"/>
+    </resources>
+</document>
