@@ -396,28 +396,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="166"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="プロフィール" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3j-oM-Px2">
-                                <rect key="frame" x="20" y="20" width="374" height="126"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PjV-nG-cit">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="166"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ITj-oj-GUO" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="166"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="プロフィール" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3j-oM-Px2">
+                                                <rect key="frame" x="8" y="8" width="398" height="150"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="Y3j-oM-Px2" firstAttribute="leading" secondItem="ITj-oj-GUO" secondAttribute="leading" constant="8" id="C7h-hS-krx"/>
+                                            <constraint firstAttribute="trailing" secondItem="Y3j-oM-Px2" secondAttribute="trailing" constant="8" id="CAH-Vg-nfn"/>
+                                            <constraint firstAttribute="bottom" secondItem="Y3j-oM-Px2" secondAttribute="bottom" constant="8" id="DLN-ZA-dty"/>
+                                            <constraint firstItem="Y3j-oM-Px2" firstAttribute="top" secondItem="ITj-oj-GUO" secondAttribute="top" constant="8" id="X0L-Bd-3h8"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ITj-oj-GUO" secondAttribute="bottom" id="37f-kw-SCO"/>
+                                    <constraint firstItem="ITj-oj-GUO" firstAttribute="centerX" secondItem="PjV-nG-cit" secondAttribute="centerX" id="BLD-tI-dt7"/>
+                                    <constraint firstAttribute="trailing" secondItem="ITj-oj-GUO" secondAttribute="trailing" id="HrE-nV-KdH"/>
+                                    <constraint firstItem="ITj-oj-GUO" firstAttribute="top" secondItem="PjV-nG-cit" secondAttribute="top" id="jRf-vw-eJN"/>
+                                    <constraint firstItem="ITj-oj-GUO" firstAttribute="leading" secondItem="PjV-nG-cit" secondAttribute="leading" id="lpZ-1O-7fF"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Y3j-oM-Px2" secondAttribute="trailing" id="6uG-BY-BrM"/>
-                            <constraint firstItem="Y3j-oM-Px2" firstAttribute="centerY" secondItem="vzo-gk-UfS" secondAttribute="centerY" id="HUv-U5-5bH"/>
-                            <constraint firstItem="Y3j-oM-Px2" firstAttribute="top" secondItem="L5g-Ei-bqx" secondAttribute="bottom" constant="20" id="LIm-bV-qy7"/>
-                            <constraint firstItem="YGJ-Ai-0ya" firstAttribute="top" secondItem="Y3j-oM-Px2" secondAttribute="bottom" constant="20" id="Mt7-6p-90f"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="Y3j-oM-Px2" secondAttribute="leading" id="k15-ld-0tc"/>
-                            <constraint firstItem="Y3j-oM-Px2" firstAttribute="centerX" secondItem="vzo-gk-UfS" secondAttribute="centerX" id="vHw-0l-K9M"/>
+                            <constraint firstItem="PjV-nG-cit" firstAttribute="top" secondItem="L5g-Ei-bqx" secondAttribute="bottom" id="ELb-1e-sMs"/>
+                            <constraint firstItem="YGJ-Ai-0ya" firstAttribute="top" secondItem="PjV-nG-cit" secondAttribute="bottom" id="pJM-Qg-j0s"/>
+                            <constraint firstItem="PjV-nG-cit" firstAttribute="leading" secondItem="vzo-gk-UfS" secondAttribute="leading" id="tvb-Di-EvW"/>
+                            <constraint firstAttribute="trailing" secondItem="PjV-nG-cit" secondAttribute="trailing" id="vbT-HO-P6V"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="HUv-U5-5bH"/>
-                                <exclude reference="vHw-0l-K9M"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="selfIntroductionLabel" destination="Y3j-oM-Px2" id="jWH-Kr-V2t"/>
