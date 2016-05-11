@@ -85,33 +85,24 @@ class LogViewController: UIViewController {
     }
     
     func loadItems() {
-        let myselfQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分の投稿クエリ
-        myselfQuery.whereKey("user", equalTo: NCMBUser.currentUser())
         
-        let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relation") // 自分がフォローしている人のクエリ
+        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分の投稿クエリ
+        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+        
+        let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship") // 自分がフォローしている人かどうかのクエリ
         relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
         relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "Post"))
         
         let followingQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分がフォローしている人の投稿クエリ
         followingQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)
 
-        let postQuery: NCMBQuery = NCMBQuery.orQueryWithSubqueries([myselfQuery, followingQuery]) // クエリの合成
+        let postQuery: NCMBQuery = NCMBQuery.orQueryWithSubqueries([myPostQuery, followingQuery]) // クエリの合成
         postQuery.orderByDescending("postDate") // cellの並べ方
         postQuery.whereKey("createDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
         postQuery.whereKey("createDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
         postQuery.includeKey("user")
 
-//        自分の投稿だけを表示するQueryを発行
-        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post")
-        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
-        myPostQuery.orderByDescending("postDate") // cellの並べ方
-
-//        TODO: createDate を postDateに変更する
-        myPostQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
-        myPostQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
-        myPostQuery.includeKey("user")
-
-        myPostQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
+        postQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
             if let error = error {
                 print(error.localizedDescription)
             } else {
