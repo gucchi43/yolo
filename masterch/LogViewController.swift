@@ -116,6 +116,32 @@ class LogViewController: UIViewController {
         })
     }
     
+    // スクロール感知用の変数
+    var scrollBeginingPoint: CGPoint!
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        scrollBeginingPoint = scrollView.contentOffset;
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let currentPoint = scrollView.contentOffset
+        print(currentPoint)
+        
+        if toggleWeek == false {
+            if 20 < currentPoint.y {
+                print("scrollBeginingPoint \(scrollBeginingPoint) ")
+                print("currentPoint \(currentPoint) ")
+                self.exchangeCalendarView()
+            }
+        } else if toggleWeek == true {
+            if -20 > currentPoint.y {
+                        print(currentPoint)
+                self.exchangeCalendarView()
+            }
+        }
+
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toPostDetailViewController" {
             let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
@@ -139,6 +165,10 @@ class LogViewController: UIViewController {
     
     @IBAction func toggle(sender: AnyObject) {
         print("toggle", toggleWeek)
+        self.exchangeCalendarView()
+    }
+    
+    private func exchangeCalendarView() {
         toggleWeek = !toggleWeek
         //ここが何やってるか不明
         if let calendarView = calendarAnotherView {
