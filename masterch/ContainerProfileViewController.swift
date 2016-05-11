@@ -13,10 +13,14 @@ import UIKit
 
 class ContainerProfileViewController: UIViewController {
 
+    @IBOutlet weak var selfIntroductionLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        selfIntroductionLabel.text = NCMBUser.currentUser().objectForKey("userSelfIntroduction") as! String
+        selfIntroductionLabel.sizeToFit()
     }
 
     override func didReceiveMemoryWarning() {
