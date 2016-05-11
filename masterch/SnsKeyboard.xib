@@ -9,6 +9,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubmitViewController" customModule="masterch" customModuleProvider="target">
             <connections>
                 <outlet property="shareFacebookButton" destination="CgE-XT-FGb" id="Tos-P3-SQ4"/>
+                <outlet property="shareTestTwitterButton" destination="Qe0-k4-DhO" id="Z22-uc-c3Z"/>
                 <outlet property="shareTwitterButton" destination="HeO-Iz-mck" id="wMN-OU-IzO"/>
             </connections>
         </placeholder>
@@ -57,13 +58,40 @@
                         <action selector="pushShareFacebook:" destination="-1" eventType="touchUpInside" id="AOH-ly-cRd"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qe0-k4-DhO">
+                    <rect key="frame" x="120" y="10" width="87" height="30"/>
+                    <state key="normal" title="TwitterShare"/>
+                    <connections>
+                        <action selector="ShareTestTwitter:" destination="-1" eventType="touchUpInside" id="bsN-vZ-EFb"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H53-EU-qdg">
+                    <rect key="frame" x="120" y="60" width="90" height="30"/>
+                    <state key="normal" title="TwitterSignIn"/>
+                    <connections>
+                        <action selector="signInTwitter:" destination="-1" eventType="touchUpInside" id="e8g-mI-jwk"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RB4-IK-Z3S">
+                    <rect key="frame" x="120" y="110" width="103" height="30"/>
+                    <state key="normal" title="TwitterSignOut"/>
+                    <connections>
+                        <action selector="signOutTwitter:" destination="-1" eventType="touchUpInside" id="Sqy-UP-Pf3"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="CgE-XT-FGb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="2cx-Fe-vGB"/>
+                <constraint firstItem="Qe0-k4-DhO" firstAttribute="top" secondItem="HeO-Iz-mck" secondAttribute="top" id="494-FT-p8N"/>
                 <constraint firstItem="HeO-Iz-mck" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="9nl-Kr-pS2"/>
                 <constraint firstItem="CgE-XT-FGb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="AN6-KA-hER"/>
+                <constraint firstItem="H53-EU-qdg" firstAttribute="top" secondItem="Qe0-k4-DhO" secondAttribute="bottom" constant="20" id="BLN-4J-rxn"/>
                 <constraint firstItem="HeO-Iz-mck" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="KXb-Yv-7cm"/>
+                <constraint firstItem="Qe0-k4-DhO" firstAttribute="leading" secondItem="HeO-Iz-mck" secondAttribute="trailing" constant="10" id="f2U-hj-h4E"/>
+                <constraint firstItem="RB4-IK-Z3S" firstAttribute="top" secondItem="H53-EU-qdg" secondAttribute="bottom" constant="20" id="fo6-FQ-S0h"/>
+                <constraint firstItem="RB4-IK-Z3S" firstAttribute="leading" secondItem="H53-EU-qdg" secondAttribute="leading" id="qD2-c2-fTy"/>
+                <constraint firstItem="H53-EU-qdg" firstAttribute="leading" secondItem="Qe0-k4-DhO" secondAttribute="leading" id="rl2-Ya-Dwk"/>
                 <constraint firstItem="CgE-XT-FGb" firstAttribute="top" secondItem="HeO-Iz-mck" secondAttribute="bottom" constant="10" id="y9G-Sb-mOu"/>
             </constraints>
             <variation key="default">

@@ -19,6 +19,8 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var shareTwitterButton: UIButton!
     @IBOutlet weak var shareFacebookButton: UIButton!
     
+    @IBOutlet weak var shareTestTwitterButton: UIButton!
+    
     var postImage1: UIImage? = nil
     var toolBar: UIToolbar!
     var postPickerDate: NSDate = NSDate()
@@ -31,6 +33,8 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     var facebookToggle: Bool = true
     
     let user = NCMBUser.currentUser()
+    
+    var testUserID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -273,6 +277,7 @@ extension SubmitViewController {
 
 // 公開範囲
 extension SubmitViewController {
+    
     func selectToolBarRangeButton(sender:UIBarButtonItem) {
         print("公開範囲ボタンを押した")
         
@@ -281,6 +286,89 @@ extension SubmitViewController {
         self.postTextView.inputView = snsKeyboardview
         self.postTextView.reloadInputViews()
     }
+    
+    func loginTwitterFabric(){
+        Twitter.sharedInstance().logInWithCompletion { session, error in
+            if (session != nil) {
+                print("signed in as \(session!.userName)")
+                let store = Twitter.sharedInstance().sessionStore
+                store.saveSession(session!, completion: { (session, error) -> Void in
+                    if error == nil {
+                        print("sessionセーブ成功")
+                    }else {
+                        error
+                    }
+                })
+                self.testUserID = session!.userID
+                
+            } else {
+                print("error: \(error!.localizedDescription)")
+            }
+        }
+    }
+    
+    func logOutTwitterFabric(){
+        let store = Twitter.sharedInstance().sessionStore
+        
+        if let userID = store.session()?.userID {
+            print(userID)
+            store.logOutUserID(userID)
+            
+        }
+    }
+    
+    func testAAA(){
+        let store = Twitter.sharedInstance().sessionStore.existingUserSessions()
+        
+    }
+    
+    func shareTwitterPost2(testUserID: String){
+        
+//        if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
+            let client = TWTRAPIClient(userID: testUserID)
+            print("userID", testUserID)
+            
+            let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/update.json"
+            //                let tweetText = self.postTextView.text
+            let tweetText = "hagehage"
+            print("tweetText", tweetText)
+            let params = ["status": tweetText]
+            var clientError : NSError?
+            
+            let request = client.URLRequestWithMethod("POST", URL: statusesShowEndpoint, parameters: params, error: &clientError)
+            
+            client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
+                if connectionError != nil {
+                    print("Error: \(connectionError)")
+                }
+                
+                do {
+                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
+                    print("json: \(json)")
+                } catch let jsonError as NSError {
+                    print("json error: \(jsonError.localizedDescription)")
+                }
+            }
+//        }
+        
+    }
+    
+    
+    @IBAction func signInTwitter(sender: AnyObject) {
+        loginTwitterFabric()
+    }
+    
+    @IBAction func signOutTwitter(sender: AnyObject) {
+        logOutTwitterFabric()
+    }
+    
+    @IBAction func ShareTestTwitter(sender: AnyObject) {
+        shareTwitterPost2(testUserID!)
+    }
+    
+    
+    
+    
     
     @IBAction func pushShareTwitter(sender: AnyObject) {
         print("twitterボタン押した")
@@ -309,11 +397,7 @@ extension SubmitViewController {
         }
         
     }
-    
-    
-    
-    
-    
+
     
     func shareTwitterPermission(user: NCMBUser){
         let postUrl = NSURL(string: "https://api.twitter.com/1.1/statuses/update.json")
@@ -404,7 +488,8 @@ extension SubmitViewController {
         print("投稿完了")
         
         if twitterToggle == false {
-            shareTwitterPost(user)
+            shareTwitterPost3()
+//            shareTwitterPost(user)
             print("twitterシェア完了")
         }else {
             print("twitterシェアなし")
@@ -460,7 +545,7 @@ extension SubmitViewController {
     
     
     //twitterシェア
-    func shareTwitterPost2(user: NCMBUser){
+    func shareTwitterPost3(){
         if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
             let client = TWTRAPIClient(userID: userID)
             print("userID", userID)

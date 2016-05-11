@@ -37,8 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let consumerKey = "2qY7CYrPfZrvSo8AcMZwMify9"
         let consumerSecret = "qLBkQ9ATbpz8Ym6pWcNqRrzINceW0IaszxYWLFy46Zjy9O3VQc"
         Twitter.sharedInstance().startWithConsumerKey(consumerKey, consumerSecret: consumerSecret)
-        Fabric.with([Twitter.sharedInstance()])
-//        Fabric.with([Twitter()])
+//        Fabric.with([Twitter.sharedInstance()])
+        Fabric.with([Twitter()])
         
         
         /** Facebook連携 **/
