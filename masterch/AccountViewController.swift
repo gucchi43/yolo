@@ -10,19 +10,21 @@ import UIKit
 
 class AccountViewController: UIViewController {
     
-    @IBOutlet weak var userProfileImage: UIImageView!
-    @IBOutlet weak var userProfileName: UILabel!
+    @IBOutlet weak var userProfileImageView: UIImageView!
+    @IBOutlet weak var userProfileNameLabel: UILabel!
     @IBOutlet weak var userIdLabel: UILabel!
+    @IBOutlet weak var userHomeImageView: UIImageView!
     
     //フォロー数、フォロワー数
-    @IBOutlet weak var followNumberBtn: UIButton!
-    @IBOutlet weak var followerNumberBtn: UIButton!
-    
-    
+    @IBOutlet weak var followNumberButton: UIButton!
+    @IBOutlet weak var followerNumberButton: UIButton!
     
     @IBOutlet weak var segmentedController: UISegmentedControl!
     @IBOutlet weak var containerSnsView: UIView!
     @IBOutlet weak var containerProfileView: UIView!
+    
+    
+    var currentUser: NCMBUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,27 +35,61 @@ class AccountViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         
-        //ユーザーネームを表示
-        self.userProfileName.text = (NCMBUser.currentUser().objectForKey("userFaceName") as? String)!
+        currentUser = NCMBUser.currentUser()
         
-        self.userIdLabel.text = "@" + NCMBUser.currentUser().userName
+        
+        //ユーザーネームを表示
+        self.userProfileNameLabel.text = (currentUser.objectForKey("userFaceName") as? String)!
+        self.userIdLabel.text = "@" + currentUser.userName
         
         //プロフィール写真の形を円形にする
-        let userImageView = self.userProfileImage
-        userImageView.layer.cornerRadius = userImageView.frame.width/2
-        userImageView.layer.masksToBounds = true
+        userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
         
         //プロフィール写真を表示
-        let userImageName = (NCMBUser.currentUser().objectForKey("userProfileImage") as? String)!
-        let userImageData = NCMBFile.fileWithName(userImageName, data: nil) as! NCMBFile
+        let userProfileImageName = (currentUser.objectForKey("userProfileImage") as? String)!
+        let userProfileImageData = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
         
-        userImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+        userProfileImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
             if error != nil{
                 print("写真の取得失敗: \(error)")
             } else {
-                userImageView.image = UIImage(data: imageData!)
+                self.userProfileImageView.image = UIImage(data: imageData!)
             }
         }
+        
+        //ホーム写真を表示
+        let userHomeImageName = (currentUser.objectForKey("userHomeImage") as? String)!
+        let userHomeImageData = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
+        
+        userHomeImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+            if error != nil{
+                print("写真の取得失敗: \(error)")
+            } else {
+                self.userHomeImageView.image = UIImage(data: imageData!)
+            }
+        }
+        
+    }
+    
+    @IBAction func selectEditProfileButton(sender: AnyObject) {
+        performSegueWithIdentifier("toEditProfile", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var destination = segue.destinationViewController as UIViewController
+        if let naviC = destination as? UINavigationController {
+            destination = naviC.visibleViewController!
+        } // storyboard上でnavigaitonControllerを使ってる時の変数の渡し方
+        if let editProfileVC = destination as? EditProfileTableViewController {
+            if segue.identifier == "toEditProfile" {
+                editProfileVC.userProfileName = userProfileNameLabel.text
+                editProfileVC.userSelfIntroduction = NCMBUser.currentUser().objectForKey("userSelfIntroduction") as! String
+                editProfileVC.profileImage = userProfileImageView.image
+                editProfileVC.homeImage = userHomeImageView.image
+            }
+        }
+        
+    
     }
 
     
@@ -93,11 +129,10 @@ class AccountViewController: UIViewController {
     }
     
     @IBAction func userInfoBtn(sender: AnyObject) {
-        print("ユーザー情報: \(NCMBUser.currentUser())")
-    }
-    
-    @IBAction func unwindToTop(segue: UIStoryboardSegue) {
-        print("back to AccountView")
+        print("ユーザー情報: \(currentUser)")
     }
     
 }
+
+
+
