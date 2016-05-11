@@ -94,6 +94,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         NCMBTwitterUtils.logInWithBlock { (user: NCMBUser!, error: NSError!) -> Void in
             if let user = user {
                 let name = NCMBTwitterUtils.twitter().screenName
+                let userID = NCMBTwitterUtils.twitter().userId
                 print("name: \(name)")
                 
                 //初めてのログインかの分岐
@@ -116,7 +117,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     let userimageFile: NCMBFile = NCMBFile.fileWithData(userimageData) as! NCMBFile
                     user.setObject(userimageFile.name, forKey: "userProfileImage")
                     user.setObject(name, forKey: "twitterName")
-                    
+                    user.setObject(userID, forKey: "twitterID")
                     //バックグラウンドで保存処理
                     user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                         if error == nil {

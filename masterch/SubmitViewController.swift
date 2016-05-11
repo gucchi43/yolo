@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import TwitterKit
+import Fabric
 
 class SubmitViewController: UIViewController, UITextViewDelegate {
     
@@ -44,10 +46,10 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         self.postTextView.becomeFirstResponder() // 最初からキーボードを表示させる
         self.postTextView.inputAccessoryView = toolBar // キーボード上にツールバーを表示
         
-        //        NSDate()で現在時刻をあらかじめ表示する。
+        //NSDate()で現在時刻をあらかじめ表示する。
         setDate(NSDate())
         
-        //        テキストフィールドにDatePickerを表示する
+        //テキストフィールドにDatePickerを表示する
         let postDatePicker = UIDatePicker()
         self.postDateTextField.inputView = postDatePicker
         //        日本の日付表示形式にする
@@ -284,20 +286,19 @@ extension SubmitViewController {
         print("twitterボタン押した")
         let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
         let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
+        print("初期状態だぞおおおおお", twitterToggle)
         
         let twitterDid = NCMBTwitterUtils.isLinkedWithUser(user)
+        //Twitterと連携しているか？
         if twitterDid == true {
-            //Twitter連携済み
-            twitterToggle = !twitterToggle
+            twitterToggle = !twitterToggle //ここできりかえている
             if twitterToggle == false{
                 shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-                twitterToggle == true
-                
-                shareTwitterPermission(user)
+                //ツイッターシェアはtrue
                 print(twitterToggle)
             }else {
                 shareTwitterButton.setImage(imgTwitterOff, forState: .Normal)
-                twitterToggle == false
+                //ツイッターシェアはtrue
                 print(twitterToggle)
             }
         }else{
@@ -309,35 +310,37 @@ extension SubmitViewController {
         
     }
     
+    
+    
+    
+    
+    
     func shareTwitterPermission(user: NCMBUser){
-        print("twitterへの投稿シェア")
-        let URL = NSURL(string: "https://api.twitter.com/1.1/statuses/update.json")
+        let postUrl = NSURL(string: "https://api.twitter.com/1.1/statuses/update.json")
+        let request = NSMutableURLRequest(URL: postUrl!)
+        let aaa = NCMBTwitterUtils.twitter().signRequest(request)
+        print("aaa", aaa)
         
-        // ツイートしたい文章をセット
-        let params = ["status" : "Tweet from iOS!"]
-        
-        // リクエストを生成
-        let request = SLRequest(forServiceType: SLServiceTypeTwitter,
-            requestMethod: .POST,
-            URL: URL,
-            parameters: params)
-        
-        // 取得したアカウントをセット
-        request.account = twAccount
-        
-        // APIコールを実行
-        request.performRequestWithHandler { (responseData, urlResponse, error) -> Void in
-            
-            if error != nil {
-                println("error is \(error)")
-            }
-            else {
-                // 結果の表示
-                let result = NSJSONSerialization.JSONObjectWithData(responseData, options: .AllowFragments, error: nil) as NSDictionary
-                print("result is \(result)")
-            }
+        let authData = NCMBUser.currentUser().objectForKey("authData")
+        print("authData", authData)
+    }
+    
+    func getTweetOne(){
+        if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
+            let client = TWTRAPIClient(userID: userID)
+            client.loadUserWithID(userID, completion: { (tweet, error) -> Void in
+                if error == nil {
+                    print("tweet", tweet)
+                }else {
+                    print("error", error)
+                }
+            })
         }
     }
+    
+    
+    
+    
     
     @IBAction func pushShareFacebook(sender: AnyObject) {
         print("Facebookボタン押した")
@@ -347,11 +350,11 @@ extension SubmitViewController {
         
         if facebookToggle == false{
             shareFacebookButton.setImage(imgFacebookOn, forState: .Normal)
-            facebookToggle == true
+//            facebookToggle == true
             print(facebookToggle)
         }else {
             shareFacebookButton.setImage(imgFacebookOff, forState: .Normal)
-            facebookToggle == false
+//            facebookToggle == false
             print(facebookToggle)
         }
         
@@ -399,7 +402,99 @@ extension SubmitViewController {
         postTextView.resignFirstResponder() // 先にキーボードを下ろす
         self.dismissViewControllerAnimated(true, completion: nil)
         print("投稿完了")
+        
+        if twitterToggle == false {
+            shareTwitterPost(user)
+            print("twitterシェア完了")
+        }else {
+            print("twitterシェアなし")
+        }
+        
+//        if twitterToggle == true {
+//            shareFacebookPost()
+//            print("twitterシェア完了")
+//        }else {
+//            print("twitterシェアなし")
+//        }
+        
     }
+
+    
+    //twitterシェア
+    func shareTwitterPost(user: NCMBUser){
+        
+        let userID = user.objectForKey("twitterID") as! String
+        print("userID", userID)
+//        let a = Twitter.sharedInstance().sessionStore.sessionForUserID(userID)
+//        let client = TWTRAPIClient(userID: a?.userID)
+        let client = TWTRAPIClient(userID: userID)
+        
+        let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/update.json"
+        let tweetText = self.postTextView.text
+        print("tweetText", tweetText)
+        let params = ["status": tweetText]
+        var clientError : NSError?
+        
+        let request = client.URLRequestWithMethod("POST", URL: statusesShowEndpoint, parameters: params, error: &clientError)
+        
+        client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
+            if connectionError != nil {
+                print("Error: \(connectionError)")
+            }
+            
+            do {
+                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
+                print("json: \(json)")
+            } catch let jsonError as NSError {
+                print("json error: \(jsonError.localizedDescription)")
+            }
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    //twitterシェア
+    func shareTwitterPost2(user: NCMBUser){
+        if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
+            let client = TWTRAPIClient(userID: userID)
+            print("userID", userID)
+            
+            let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/update.json"
+            let tweetText = self.postTextView.text
+            print("tweetText", tweetText)
+            let params = ["status": tweetText]
+            var clientError : NSError?
+            
+            let request = client.URLRequestWithMethod("POST", URL: statusesShowEndpoint, parameters: params, error: &clientError)
+            
+            client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
+                if connectionError != nil {
+                    print("Error: \(connectionError)")
+                }
+                
+                do {
+                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
+                    print("json: \(json)")
+                } catch let jsonError as NSError {
+                    print("json error: \(jsonError.localizedDescription)")
+                }
+            }
+        }
+        
+    }
+    
+    //Facebookシェア
+    func shareFacebookPost(){
+        
+    }
+    
+    
 }
 
 // 完了ボタン

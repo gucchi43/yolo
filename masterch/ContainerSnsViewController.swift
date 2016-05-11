@@ -195,7 +195,10 @@ class ContainerSnsViewController: UIViewController, UITableViewDataSource, UITab
                 print("twitterリンク開始")
                 let name = NCMBTwitterUtils.twitter().screenName
                 print("twitterユーザー名 : \(name)")
+                let twitterID = NCMBTwitterUtils.twitter().userId
+                print("twitterID : \(twitterID)")
                 user.setObject(name, forKey: "twitterName")
+                user.setObject(twitterID, forKey: "twitterID")
                 user.saveInBackgroundWithBlock({ (error) -> Void in
                     if error != nil {
                         print("twitterリンク失敗", error)
@@ -266,6 +269,7 @@ class ContainerSnsViewController: UIViewController, UITableViewDataSource, UITab
                         if error == nil {
                             print("Twitterアンリンク開始")
                             user.removeObjectForKey("twitterName")
+                            user.removeObjectForKey("twitterID")
                             user.saveInBackgroundWithBlock({ (error) -> Void in
                                 if error == nil {
                                     self.conectSnsTabelView.reloadData()
