@@ -54,10 +54,11 @@
 		EDB04C751CC5190500FDEB14 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C741CC5190500FDEB14 /* UserData.swift */; };
 		EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */; };
 		EDB04C791CC6863300FDEB14 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C781CC6863300FDEB14 /* LogInViewController.swift */; };
+		EDB4AF581CE37AE2002781F3 /* ContainerSnsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4AF571CE37AE2002781F3 /* ContainerSnsViewController.swift */; };
 		EDB4FEFE1CBBFAFE00A318EA /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */; };
 		EDCBEE721CCA793700317BCE /* PostDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDCBEE711CCA793700317BCE /* PostDetail.storyboard */; };
 		EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE355F11CB284CD006C7C0A /* CommentFile.swift */; };
-		EDEF991C1C9EC11F00B6D69D /* ContainerSnsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF991B1C9EC11F00B6D69D /* ContainerSnsViewController.swift */; };
+		EDEF991C1C9EC11F00B6D69D /* ContainerSns2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF991B1C9EC11F00B6D69D /* ContainerSns2ViewController.swift */; };
 		EDEF991E1C9EC13500B6D69D /* ContainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -145,10 +146,11 @@
 		EDB04C741CC5190500FDEB14 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
 		EDB04C781CC6863300FDEB14 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		EDB4AF571CE37AE2002781F3 /* ContainerSnsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerSnsViewController.swift; sourceTree = "<group>"; };
 		EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		EDCBEE711CCA793700317BCE /* PostDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PostDetail.storyboard; sourceTree = "<group>"; };
 		EDE355F11CB284CD006C7C0A /* CommentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFile.swift; sourceTree = "<group>"; };
-		EDEF991B1C9EC11F00B6D69D /* ContainerSnsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerSnsViewController.swift; sourceTree = "<group>"; };
+		EDEF991B1C9EC11F00B6D69D /* ContainerSns2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerSns2ViewController.swift; sourceTree = "<group>"; };
 		EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerProfileViewController.swift; sourceTree = "<group>"; };
 		F2011EB0AC35898DBEA8FD95 /* Pods-masterch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.release.xcconfig"; sourceTree = "<group>"; };
 		FAEFA590D5AF150641D1A08F /* Pods-masterch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -301,7 +303,8 @@
 				EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */,
 				3289D2391C6A1C6F00B4C65A /* AccountViewController.swift */,
 				EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */,
-				EDEF991B1C9EC11F00B6D69D /* ContainerSnsViewController.swift */,
+				EDEF991B1C9EC11F00B6D69D /* ContainerSns2ViewController.swift */,
+				EDB4AF571CE37AE2002781F3 /* ContainerSnsViewController.swift */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -582,6 +585,7 @@
 				3219A2371C70468900D1A6AF /* TimelineCell.swift in Sources */,
 				EDA4DC6E1C82F0FB005FE126 /* CalendarSwiftDateView.swift in Sources */,
 				EDA4DC701C82F163005FE126 /* CalendarWeekView.swift in Sources */,
+				EDB4AF581CE37AE2002781F3 /* ContainerSnsViewController.swift in Sources */,
 				EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */,
 				32C0A3401C5DF8ED009657B9 /* ViewController.swift in Sources */,
 				EDB04C791CC6863300FDEB14 /* LogInViewController.swift in Sources */,
@@ -601,7 +605,7 @@
 				EDB04C751CC5190500FDEB14 /* UserData.swift in Sources */,
 				EDEF991E1C9EC13500B6D69D /* ContainerProfileViewController.swift in Sources */,
 				EDA866781CBC93050074A71D /* SetProfileViewController.swift in Sources */,
-				EDEF991C1C9EC11F00B6D69D /* ContainerSnsViewController.swift in Sources */,
+				EDEF991C1C9EC11F00B6D69D /* ContainerSns2ViewController.swift in Sources */,
 				ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

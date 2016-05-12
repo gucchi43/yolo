@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TwitterKit
 
 class AccountViewController: UIViewController {
     
@@ -129,7 +130,8 @@ class AccountViewController: UIViewController {
     }
     
     @IBAction func userInfoBtn(sender: AnyObject) {
-        print("ユーザー情報: \(currentUser)")
+        let twitterArray = Twitter.sharedInstance().sessionStore.existingUserSessions()
+        print("ユーザー情報:", currentUser, twitterArray)
     }
     
 }

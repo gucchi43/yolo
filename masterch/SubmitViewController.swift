@@ -307,6 +307,23 @@ extension SubmitViewController {
         }
     }
     
+    func testBBB() {
+        let session = Twitter.sharedInstance().sessionStore.session()
+        let store = Twitter.sharedInstance().sessionStore
+        let a = LogInViewController()
+        let authToken = a.authToken
+        let authTokenSecret = a.authTokenSecret
+        print("session:", session, "store", store, "authToken:", authToken, "authTokenSecret", authTokenSecret)
+        store.saveSessionWithAuthToken(authToken!, authTokenSecret: authTokenSecret!) { (session, error) -> Void in
+            if error == nil {
+                print("save成功")
+            }else {
+                print("失敗")
+            }
+        }
+    }
+    
+    
     func logOutTwitterFabric(){
         let store = Twitter.sharedInstance().sessionStore
         
@@ -324,38 +341,14 @@ extension SubmitViewController {
     
     func shareTwitterPost2(testUserID: String){
         
-//        if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
-            let client = TWTRAPIClient(userID: testUserID)
-            print("userID", testUserID)
-            
-            let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/update.json"
-            //                let tweetText = self.postTextView.text
-            let tweetText = "hagehage"
-            print("tweetText", tweetText)
-            let params = ["status": tweetText]
-            var clientError : NSError?
-            
-            let request = client.URLRequestWithMethod("POST", URL: statusesShowEndpoint, parameters: params, error: &clientError)
-            
-            client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
-                if connectionError != nil {
-                    print("Error: \(connectionError)")
-                }
-                
-                do {
-                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
-                    print("json: \(json)")
-                } catch let jsonError as NSError {
-                    print("json error: \(jsonError.localizedDescription)")
-                }
-            }
-//        }
-        
+        let sessionArray = Twitter.sharedInstance().sessionStore.existingUserSessions()
+        print("sessionArray:", sessionArray)
     }
     
     
     @IBAction func signInTwitter(sender: AnyObject) {
-        loginTwitterFabric()
+//        loginTwitterFabric()
+        testBBB()
     }
     
     @IBAction func signOutTwitter(sender: AnyObject) {
@@ -375,57 +368,52 @@ extension SubmitViewController {
         let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
         let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
         print("初期状態だぞおおおおお", twitterToggle)
-        
-        let twitterDid = NCMBTwitterUtils.isLinkedWithUser(user)
         //Twitterと連携しているか？
-        if twitterDid == true {
-            twitterToggle = !twitterToggle //ここできりかえている
-            if twitterToggle == false{
-                shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-                //ツイッターシェアはtrue
-                print(twitterToggle)
+        if let userID = user.objectForKey("twitterID") {
+            if userID.isKindOfClass(NSNull) != true {
+                if let userLink = Twitter.sharedInstance().sessionStore.sessionForUserID(userID as! String){
+                    print("Twitter連携済 userID:", userLink.userID)//Twitter連携している
+                    twitterToggle = !twitterToggle //連携済みの場合の切り替えToggle
+                    if twitterToggle == false{
+                        shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+                        //ツイッターシェアはtrue
+                        print("シェアする", twitterToggle)
+                    }else {
+                        shareTwitterButton.setImage(imgTwitterOff, forState: .Normal)
+                        //ツイッターシェアはtrue
+                        print("シェアしない" , twitterToggle)
+                    }
+                }else {
+                    print("ありえないはず: twitterIDは登録してるのにTwitterSessionがsaveできていない")
+                    self.postTextView.endEditing(true)
+                    let containerSnsViewController = ContainerSnsViewController()
+                    containerSnsViewController.addSnsToTwitter(user)
+                    twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+                    shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+                    print("シェアする", twitterToggle)
+                }
             }else {
-                shareTwitterButton.setImage(imgTwitterOff, forState: .Normal)
-                //ツイッターシェアはtrue
-                print(twitterToggle)
+                print("Twitter未連携（外した状態） userID", userID)//Twitter連携をはずして、空っぽの状態
+                //Twitter未連携
+                self.postTextView.endEditing(true)
+                let containerSnsViewController = ContainerSnsViewController()
+                containerSnsViewController.addSnsToTwitter(user)
+                twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+                shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+                print("シェアする", twitterToggle)
             }
-        }else{
-            //Twitter未連携
+        }else {
+            print("Twitter未連携")//Twitter連携は今まで一度もしていない
+            //Twitter未連携
             self.postTextView.endEditing(true)
             let containerSnsViewController = ContainerSnsViewController()
             containerSnsViewController.addSnsToTwitter(user)
+            twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+            shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+            print("シェアする", twitterToggle)
         }
-        
     }
 
-    
-    func shareTwitterPermission(user: NCMBUser){
-        let postUrl = NSURL(string: "https://api.twitter.com/1.1/statuses/update.json")
-        let request = NSMutableURLRequest(URL: postUrl!)
-        let aaa = NCMBTwitterUtils.twitter().signRequest(request)
-        print("aaa", aaa)
-        
-        let authData = NCMBUser.currentUser().objectForKey("authData")
-        print("authData", authData)
-    }
-    
-    func getTweetOne(){
-        if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
-            let client = TWTRAPIClient(userID: userID)
-            client.loadUserWithID(userID, completion: { (tweet, error) -> Void in
-                if error == nil {
-                    print("tweet", tweet)
-                }else {
-                    print("error", error)
-                }
-            })
-        }
-    }
-    
-    
-    
-    
-    
     @IBAction func pushShareFacebook(sender: AnyObject) {
         print("Facebookボタン押した")
         let imgFacebookOn = UIImage(named: "facebook_logo_640*480_origin")

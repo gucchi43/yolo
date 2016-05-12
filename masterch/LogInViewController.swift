@@ -15,6 +15,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     
     let user = NCMBUser.currentUser()
+    var authToken: String?
+    var authTokenSecret: String?
     
     //NCMBUserのインスタンスを作成
     let newUser = NCMBUser()
@@ -95,6 +97,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             if let user = user {
                 let name = NCMBTwitterUtils.twitter().screenName
                 let userID = NCMBTwitterUtils.twitter().userId
+                self.authToken = NCMBTwitterUtils.twitter().authToken
+                self.authTokenSecret = NCMBTwitterUtils.twitter().authTokenSecret
+                
                 print("name: \(name)")
                 
                 //初めてのログインかの分岐
@@ -135,7 +140,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     //userクラスのデータを取ってくる
                     user.fetchInBackgroundWithBlock({ (error) -> Void in
                         if error == nil {
-                            user.setObject(name, forKey: "twitterName")
+//                            user.setObject(name, forKey: "twitterName")
                             user.saveInBackgroundWithBlock({ (error) -> Void in
                                 if error == nil {
                                     print("fetchInBackgroundWithBlock成功のuser : \(user)")
