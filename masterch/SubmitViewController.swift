@@ -153,6 +153,7 @@ extension SubmitViewController {
         //        toolBar.backgroundColor = UIColor.blackColor()
         let toolBarCameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "selectToolBarCameraButton:")
 //        let toolBarDateSelectButton = UIBarButtonItem(title: "日付", style: .Plain, target: self, action: "selectToolBarDateSelectButton:") 一旦なし
+        let toolBarPencilButton = UIBarButtonItem(title: "テキスト", style: .Plain, target: self, action: "selectToolBarPencilButton:")
         let toolBarRangeButton = UIBarButtonItem(title: "公開範囲", style: .Plain, target: self, action: "selectToolBarRangeButton:")
         let toolBarPostButton = UIBarButtonItem(title: "完了", style: .Done, target: self, action: "selectToolBarDoneButton:")
 
@@ -163,7 +164,7 @@ extension SubmitViewController {
         // Flexible Space Bar Button Item
         let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         
-        toolBar.items = [toolBarCameraButton, flexibleItem, toolBarRangeButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarPostButton]
+        toolBar.items = [toolBarCameraButton, toolBarPencilButton, toolBarRangeButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarPostButton]
     }
 }
 
@@ -279,16 +280,12 @@ extension SubmitViewController {
 
 // 公開範囲
 extension SubmitViewController {
-    
     func selectToolBarRangeButton(sender:UIBarButtonItem) {
         print("公開範囲ボタンを押した")
-        
-        
         let snsKeyboardview:UIView = UINib(nibName: "SnsKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
         self.postTextView.inputView = snsKeyboardview
         self.postTextView.reloadInputViews()
     }
-    
     @IBAction func pushShareTwitter(sender: AnyObject) {
         print("twitterボタン押した")
         let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
@@ -370,6 +367,18 @@ extension SubmitViewController {
     }
     
 }
+
+
+// テキストボタン
+extension SubmitViewController {
+    func selectToolBarPencilButton(sender: UIBarButtonItem) {
+        print("テキストボタン押した")
+//        let snsKeyboardview:UIView = UINib(nibName: "SnsKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+        self.postTextView.inputView = nil
+        self.postTextView.reloadInputViews()
+    }
+}
+
 
 // 投稿アクション周り
 extension SubmitViewController {
