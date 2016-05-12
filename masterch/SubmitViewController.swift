@@ -307,23 +307,6 @@ extension SubmitViewController {
         }
     }
     
-    func testBBB() {
-        let session = Twitter.sharedInstance().sessionStore.session()
-        let store = Twitter.sharedInstance().sessionStore
-        let a = LogInViewController()
-        let authToken = a.authToken
-        let authTokenSecret = a.authTokenSecret
-        print("session:", session, "store", store, "authToken:", authToken, "authTokenSecret", authTokenSecret)
-        store.saveSessionWithAuthToken(authToken!, authTokenSecret: authTokenSecret!) { (session, error) -> Void in
-            if error == nil {
-                print("save成功")
-            }else {
-                print("失敗")
-            }
-        }
-    }
-    
-    
     func logOutTwitterFabric(){
         let store = Twitter.sharedInstance().sessionStore
         
@@ -334,21 +317,7 @@ extension SubmitViewController {
         }
     }
     
-    func testAAA(){
-        let store = Twitter.sharedInstance().sessionStore.existingUserSessions()
-        
-    }
-    
-    func shareTwitterPost2(testUserID: String){
-        
-        let sessionArray = Twitter.sharedInstance().sessionStore.existingUserSessions()
-        print("sessionArray:", sessionArray)
-    }
-    
-    
     @IBAction func signInTwitter(sender: AnyObject) {
-//        loginTwitterFabric()
-        testBBB()
     }
     
     @IBAction func signOutTwitter(sender: AnyObject) {
@@ -356,7 +325,6 @@ extension SubmitViewController {
     }
     
     @IBAction func ShareTestTwitter(sender: AnyObject) {
-        shareTwitterPost2(testUserID!)
     }
     
     
@@ -498,8 +466,6 @@ extension SubmitViewController {
         
         let userID = user.objectForKey("twitterID") as! String
         print("userID", userID)
-//        let a = Twitter.sharedInstance().sessionStore.sessionForUserID(userID)
-//        let client = TWTRAPIClient(userID: a?.userID)
         let client = TWTRAPIClient(userID: userID)
         
         let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/update.json"

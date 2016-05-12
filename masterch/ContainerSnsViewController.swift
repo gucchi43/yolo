@@ -149,15 +149,15 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
                         deleteTwitterAccount(user)
                     }else {
                         print("ありえないはずのエラー: twitterIDは登録してるのにTwitterSessionがsaveできていない")
-                        addSnsToTwitter2(user)
+                        addSnsToTwitter(user)
                     }
                 }else {
                     print("Twitter未連携（外した状態） userID", userID)//Twitter連携をはずして、空っぽの状態
-                    addSnsToTwitter2(user)
+                    addSnsToTwitter(user)
                 }
              }else {
                 print("Twitter未連携")//Twitter連携は今まで一度もしていない
-                addSnsToTwitter2(user)
+                addSnsToTwitter(user)
             }
         case 1:
             //Facebook連携
@@ -180,41 +180,41 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
     
     /***SNSリンクメソッド***/
      
-     //Twitterリンク
+     //Twitterリンク(NCMBとTwitterとの連携を無視したやつ)
+//    func addSnsToTwitter2(user: NCMBUser){
+//        Twitter.sharedInstance().logInWithCompletion { session, error in
+//            if (session != nil) {
+//                print("signed in as", session!.userName, session!.userID)
+//                //TODO: Twitterが準備するsessionをsaveするメソッド、詳しく分かり次第使う
+//                user.setObject(session!.userName, forKey: "twitterName")
+//                user.setObject(session!.userID, forKey: "twitterID")
+//                let store = Twitter.sharedInstance().sessionStore
+//                store.saveSession(session!, completion: { (session, error) -> Void in
+//                    if error == nil {
+//                        print("sessionセーブ開始")
+//                        user.saveInBackgroundWithBlock({ (error) -> Void in
+//                            if error != nil {
+//                                print("twitterリンク失敗", error)
+//                            }else {
+//                                print("twitterリンク成功")
+//                                if let a = self.conectSnsTabelView{
+//                                    a.reloadData()
+//                                }
+//                            }
+//                        })
+//                        
+//                    }else {
+//                        print("sessionセーブ開始失敗", error)
+//                    }
+//                })
+//            } else {
+//                print("error: \(error!.localizedDescription)")
+//            }
+//        }
+//    }
+    
+    //Twitterリンク(NCMBとの連携もできる)
     func addSnsToTwitter(user: NCMBUser){
-        Twitter.sharedInstance().logInWithCompletion { session, error in
-            if (session != nil) {
-                print("signed in as", session!.userName, session!.userID)
-                //TODO: Twitterが準備するsessionをsaveするメソッド、詳しく分かり次第使う
-                user.setObject(session!.userName, forKey: "twitterName")
-                user.setObject(session!.userID, forKey: "twitterID")
-                let store = Twitter.sharedInstance().sessionStore
-                store.saveSession(session!, completion: { (session, error) -> Void in
-                    if error == nil {
-                        print("sessionセーブ開始")
-                        user.saveInBackgroundWithBlock({ (error) -> Void in
-                            if error != nil {
-                                print("twitterリンク失敗", error)
-                            }else {
-                                print("twitterリンク成功")
-                                if let a = self.conectSnsTabelView{
-                                    a.reloadData()
-                                }
-                            }
-                        })
-                        
-                    }else {
-                        print("sessionセーブ開始失敗", error)
-                    }
-                })
-            } else {
-                print("error: \(error!.localizedDescription)")
-            }
-        }
-    }
-    
-    
-    func addSnsToTwitter2(user: NCMBUser){
         NCMBTwitterUtils.linkUser(user) { (error) -> Void in
             if error == nil {
                 if let authToken = NCMBTwitterUtils.twitter().authToken{
