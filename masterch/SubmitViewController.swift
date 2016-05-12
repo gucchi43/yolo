@@ -19,7 +19,8 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var shareTwitterButton: UIButton!
     @IBOutlet weak var shareFacebookButton: UIButton!
     
-    @IBOutlet weak var shareTestTwitterButton: UIButton!
+    @IBOutlet weak var directinonSecretButton: UIButton!
+    
     
     var postImage1: UIImage? = nil
     var toolBar: UIToolbar!
@@ -31,6 +32,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     var twitterToggle: Bool = true
     var facebookToggle: Bool = true
+    var secretToggle:Bool = true
     
     let user = NCMBUser.currentUser()
     
@@ -287,50 +289,6 @@ extension SubmitViewController {
         self.postTextView.reloadInputViews()
     }
     
-    func loginTwitterFabric(){
-        Twitter.sharedInstance().logInWithCompletion { session, error in
-            if (session != nil) {
-                print("signed in as \(session!.userName)")
-                let store = Twitter.sharedInstance().sessionStore
-                store.saveSession(session!, completion: { (session, error) -> Void in
-                    if error == nil {
-                        print("sessionセーブ成功")
-                    }else {
-                        error
-                    }
-                })
-                self.testUserID = session!.userID
-                
-            } else {
-                print("error: \(error!.localizedDescription)")
-            }
-        }
-    }
-    
-    func logOutTwitterFabric(){
-        let store = Twitter.sharedInstance().sessionStore
-        
-        if let userID = store.session()?.userID {
-            print(userID)
-            store.logOutUserID(userID)
-            
-        }
-    }
-    
-    @IBAction func signInTwitter(sender: AnyObject) {
-    }
-    
-    @IBAction func signOutTwitter(sender: AnyObject) {
-        logOutTwitterFabric()
-    }
-    
-    @IBAction func ShareTestTwitter(sender: AnyObject) {
-    }
-    
-    
-    
-    
-    
     @IBAction func pushShareTwitter(sender: AnyObject) {
         print("twitterボタン押した")
         let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
@@ -382,6 +340,8 @@ extension SubmitViewController {
         }
     }
 
+    
+    //TODO: 途中の状態（見た目だけは動く）
     @IBAction func pushShareFacebook(sender: AnyObject) {
         print("Facebookボタン押した")
         let imgFacebookOn = UIImage(named: "facebook_logo_640*480_origin")
@@ -390,16 +350,25 @@ extension SubmitViewController {
         
         if facebookToggle == false{
             shareFacebookButton.setImage(imgFacebookOn, forState: .Normal)
-//            facebookToggle == true
             print(facebookToggle)
         }else {
             shareFacebookButton.setImage(imgFacebookOff, forState: .Normal)
-//            facebookToggle == false
             print(facebookToggle)
         }
         
 
     }
+    
+    @IBAction func pushDidectionSecret(sender: AnyObject) {
+        print("Keyボタン押した")
+        secretToggle = !secretToggle
+        if secretToggle == false{
+            print("カギをかける")
+        }else{
+            print("カギを開ける")
+        }
+    }
+    
 }
 
 // 投稿アクション周り
@@ -443,14 +412,16 @@ extension SubmitViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
         print("投稿完了")
         
+        //Twitterシェアかの判断
         if twitterToggle == false {
-            shareTwitterPost3()
+            shareTwitterPost()
 //            shareTwitterPost(user)
             print("twitterシェア完了")
         }else {
             print("twitterシェアなし")
         }
         
+        //Facebookシェアかの判断
 //        if twitterToggle == true {
 //            shareFacebookPost()
 //            print("twitterシェア完了")
@@ -458,48 +429,18 @@ extension SubmitViewController {
 //            print("twitterシェアなし")
 //        }
         
-    }
-
-    
-    //twitterシェア
-    func shareTwitterPost(user: NCMBUser){
-        
-        let userID = user.objectForKey("twitterID") as! String
-        print("userID", userID)
-        let client = TWTRAPIClient(userID: userID)
-        
-        let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/update.json"
-        let tweetText = self.postTextView.text
-        print("tweetText", tweetText)
-        let params = ["status": tweetText]
-        var clientError : NSError?
-        
-        let request = client.URLRequestWithMethod("POST", URL: statusesShowEndpoint, parameters: params, error: &clientError)
-        
-        client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
-            if connectionError != nil {
-                print("Error: \(connectionError)")
-            }
-            
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
-                print("json: \(json)")
-            } catch let jsonError as NSError {
-                print("json error: \(jsonError.localizedDescription)")
-            }
+        //Secretモードかの判断
+        if secretToggle == false {
+            shareTwitterPost()
+            print("twitterシェア完了")
+        }else {
+            print("twitterシェアなし")
         }
         
     }
     
-    
-    
-    
-    
-    
-    
-    
     //twitterシェア
-    func shareTwitterPost3(){
+    func shareTwitterPost(){
         if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
             let client = TWTRAPIClient(userID: userID)
             print("userID", userID)
@@ -530,6 +471,11 @@ extension SubmitViewController {
     
     //Facebookシェア
     func shareFacebookPost(){
+        
+    }
+    
+    //Secretモード
+    func secretPost(){
         
     }
     
