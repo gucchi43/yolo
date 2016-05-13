@@ -18,12 +18,12 @@ class CalendarManager: NSObject {
     
     class func setCurrentDate() {
         print("setCurrentDate 呼び出し")
-        let today = NSDate()
-        print("今日", NSDate())
+        let japanGMTDifference = 9.hours
+        let today = NSDate() + japanGMTDifference
+//        let japan = Region(calendarName: .Japanese, timeZoneName: .AsiaTokyo, localeName: .Japanese)
+        
         CalendarManager.currentDate = today
         print("currentDate: ", CalendarManager.currentDate)
-
-        print(today.weekday)
     }
     
 
