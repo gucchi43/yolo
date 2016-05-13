@@ -51,15 +51,17 @@ class CalendarSwiftDateView: UIView{
         //投稿があったかを調べる
         //選択した日を含む月のdateと、選択した日を含む週のdate
         //月の日にちを調べる
-        if date.year == CalendarManager.currentDate.year && date.month == CalendarManager.currentDate.month{
+        if date.year == CalendarManager.currentDate.year && date.month == CalendarManager.currentDate.month || date.year == CalendarManager.currentDate.year && date.weekOfYear == CalendarManager.currentDate.weekOfYear{
             //月の日にちを調べる
             print("month用")
             self.postedDate(date)
-        }else if date.year == CalendarManager.currentDate.year && date.weekOfYear == CalendarManager.currentDate.weekOfYear{
-            //週の日にちで、月に含まれなかったものを調べる（頭にある３０日、３１日や、尻にある１日、２日など）
-            print("week用")
-            self.postedDate(date)
         }
+        //上の分岐に( || ~~~~~~ )で追加したためひとまずコメントアウト
+//        else if date.year == CalendarManager.currentDate.year && date.weekOfYear == CalendarManager.currentDate.weekOfYear{
+//            //週の日にちで、月に含まれなかったものを調べる（頭にある３０日、３１日や、尻にある１日、２日など）
+//            print("week用")
+//            self.postedDate(date)
+//        }
 
         if date == CalendarManager.currentDate {
             dayButton.layer.borderColor = UIColor.grayColor().CGColor
@@ -106,15 +108,13 @@ class CalendarSwiftDateView: UIView{
         myPostQuery.whereKey("postDate", lessThanOrEqualTo: self.FirstFilterDateEnd(date))
         print("postedDate読み込み時", date)
         myPostQuery.getFirstObjectInBackgroundWithBlock { (objects, error) -> Void in
-            if objects == nil {
-//                    投稿0件
-                    print("投稿0件")
-                }else {
-//                    投稿あり
-                    print("投稿あり")
-                    self.dayButton.backgroundColor =  UIColor.orangeColor()
-                }
+            if objects != nil {//投稿0件
+                print("投稿あり")
+                self.dayButton.backgroundColor =  UIColor.orangeColor()
+            }else {//投稿あり
+                print("投稿なし")
             }
+        }
     }
     
     //その日にちの00:00:00のNSDateをゲット（そのの範囲を決めるため）

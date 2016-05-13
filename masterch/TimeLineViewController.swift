@@ -69,7 +69,7 @@ class TimeLineTableViewController: UITableViewController {
         // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
         let date = postData.objectForKey("postDate") as? NSDate
         let postDateFormatter: NSDateFormatter = NSDateFormatter()
-        postDateFormatter.dateFormat = "HH:mm"
+        postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
         
         //プロフィール写真の形を円形にする
@@ -124,7 +124,7 @@ class TimeLineTableViewController: UITableViewController {
         // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
         let date = postData.objectForKey("postDate") as? NSDate
         let postDateFormatter: NSDateFormatter = NSDateFormatter()
-        postDateFormatter.dateFormat = "HH:mm"
+        postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         self.selectedPostDate = postDateFormatter.stringFromDate(date!)
         
         
