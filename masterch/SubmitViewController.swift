@@ -18,8 +18,8 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var shareTwitterButton: UIButton!
     @IBOutlet weak var shareFacebookButton: UIButton!
-    
     @IBOutlet weak var directinonSecretButton: UIButton!
+    
     
     
     var postImage1: UIImage? = nil
@@ -224,12 +224,14 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
 
         }
         picker.dismissViewControllerAnimated(true, completion: nil)
+        self.postTextView.becomeFirstResponder()
     }
     
     //    画像選択がキャンセルされた時に呼ばれる.
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         // モーダルビューを閉じる
         self.dismissViewControllerAnimated(true, completion: nil)
+        self.postTextView.becomeFirstResponder()
         print("カメラキャンセル")
     }
     
@@ -311,9 +313,9 @@ extension SubmitViewController {
                     self.postTextView.endEditing(true)
                     let containerSnsViewController = ContainerSnsViewController()
                     containerSnsViewController.addSnsToTwitter(user)
-                    twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
-                    shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-                    print("シェアする", twitterToggle)
+//                    twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+//                    shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+//                    print("シェアする", twitterToggle)
                 }
             }else {
                 print("Twitter未連携（外した状態） userID", userID)//Twitter連携をはずして、空っぽの状態
@@ -321,9 +323,9 @@ extension SubmitViewController {
                 self.postTextView.endEditing(true)
                 let containerSnsViewController = ContainerSnsViewController()
                 containerSnsViewController.addSnsToTwitter(user)
-                twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
-                shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-                print("シェアする", twitterToggle)
+//                twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+//                shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+//                print("シェアする", twitterToggle)
             }
         }else {
             print("Twitter未連携")//Twitter連携は今まで一度もしていない
@@ -331,9 +333,9 @@ extension SubmitViewController {
             self.postTextView.endEditing(true)
             let containerSnsViewController = ContainerSnsViewController()
             containerSnsViewController.addSnsToTwitter(user)
-            twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
-            shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-            print("シェアする", twitterToggle)
+//            twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+//            shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+//            print("シェアする", twitterToggle)
         }
     }
 
@@ -423,11 +425,15 @@ extension SubmitViewController {
         
         //Twitterシェアかの判断
         if twitterToggle == false {
-            shareTwitterPost()
-//            shareTwitterPost(user)
-            print("twitterシェア完了")
+            if self.postImage1 != nil{
+                shareTwitterMedia()
+                print("twitterシェア完了 メディアあり")
+            }else {
+                shareTwitterPost()
+                print("twitterシェア完了 メディアなし")
+            }
         }else {
-            print("twitterシェアなし")
+            print("Twitterシェア無し")
         }
         
         //Facebookシェアかの判断
@@ -440,16 +446,29 @@ extension SubmitViewController {
         
         //Secretモードかの判断
         if secretToggle == false {
-            shareTwitterPost()
-            print("twitterシェア完了")
+            print("Secret投稿")
         }else {
-            print("twitterシェアなし")
+            print("Secret投稿無し")
         }
         
     }
     
-    //twitterシェア
-    func shareTwitterPost(){
+    //Facebookシェア
+    func shareFacebookPost(){
+        
+    }
+    
+    //Secretモード
+    func secretPost(){
+        
+    }
+    
+    
+}
+
+//Twitterシェア
+extension SubmitViewController {
+    func shareTwitterPost(mediaID: String? = nil){//mediaIDの初期値をnilに（複数にすると多分Arrayになる）
         if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
             let client = TWTRAPIClient(userID: userID)
             print("userID", userID)
@@ -457,7 +476,14 @@ extension SubmitViewController {
             let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/update.json"
             let tweetText = self.postTextView.text
             print("tweetText", tweetText)
-            let params = ["status": tweetText]
+            var params = ["status": tweetText]
+            
+            //写真の添付があればparamsの配列に"media_ids"のキーと値を追加
+            if mediaID != nil {
+                params["media_ids"] = mediaID
+            }
+            print("params ここが変わるはず", params)
+            
             var clientError : NSError?
             
             let request = client.URLRequestWithMethod("POST", URL: statusesShowEndpoint, parameters: params, error: &clientError)
@@ -475,20 +501,41 @@ extension SubmitViewController {
                 }
             }
         }
-        
     }
     
-    //Facebookシェア
-    func shareFacebookPost(){
-        
+    //twitterメディア添付シェア
+    func shareTwitterMedia(){
+        if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
+            let client = TWTRAPIClient(userID: userID)
+            print("userID", userID)
+            
+            let statusesShowEndpoint = "https://upload.twitter.com/1.1/media/upload.json"
+            let imageData = UIImagePNGRepresentation(self.postImage1!)
+            let media = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.EncodingEndLineWithLineFeed)
+            let params = ["media": media]
+            
+            var clientError : NSError?
+            
+            let request = client.URLRequestWithMethod("POST", URL: statusesShowEndpoint, parameters: params, error: &clientError)
+            
+            client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
+                if connectionError != nil {
+                    print("Error: \(connectionError)")
+                }
+                
+                do {
+                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
+                    let mediaID = json["media_id_string"] as! String
+                    print("mediaID", mediaID)
+                    self.shareTwitterPost(mediaID)
+                    //                    self.shareTwitterPost()
+                } catch let jsonError as NSError {
+                    print("json error: \(jsonError.localizedDescription)")
+                }
+            }
+        }
     }
-    
-    //Secretモード
-    func secretPost(){
-        
-    }
-    
-    
+
 }
 
 // 完了ボタン
