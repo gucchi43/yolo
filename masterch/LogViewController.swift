@@ -59,6 +59,7 @@ class LogViewController: UIViewController {
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        print("LogViewController viewWillAppear")
     }
     
     //関数で受け取った時のアクションを定義

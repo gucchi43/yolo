@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import TwitterKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
@@ -60,7 +61,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
+}
+
+extension LogInViewController {
     //Facebookログイン&サインアップ
     @IBAction func fbSignUpBtn(sender: AnyObject) {
         print("facebookボタン押した")
@@ -86,24 +89,28 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         })
-    }
-    
+    }    
+}
+
+extension LogInViewController {
     //Twitterログイン&サインアップ
     @IBAction func twSignUpBtn(sender: AnyObject) {
         print("Twitterログインボタン押した")
         NCMBTwitterUtils.logInWithBlock { (user: NCMBUser!, error: NSError!) -> Void in
             if let user = user {
                 let name = NCMBTwitterUtils.twitter().screenName
+                let userID = NCMBTwitterUtils.twitter().userId
+                let authToken = NCMBTwitterUtils.twitter().authToken
+                let authTokenSecret = NCMBTwitterUtils.twitter().authTokenSecret
                 print("name: \(name)")
-                
                 //初めてのログインかの分岐
                 if user.createDate == user.updateDate{
                     //初めてのユーザー（Twitterでユーザー登録）
                     print("初めてユーザー")
+                    //ユーザーIDを設定
+                    user.userName = userID
                     //ユーザー名を設定
                     user.setObject(name, forKey: "userFaceName")
-                    //                    user.userName = name
-                    
                     // ACLを本人のみに設定
                     let acl = NCMBACL(user: NCMBUser.currentUser())
                     user.ACL = acl
@@ -115,16 +122,26 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     let userimageData = UIImagePNGRepresentation(userImage!)! as NSData
                     let userimageFile: NCMBFile = NCMBFile.fileWithData(userimageData) as! NCMBFile
                     user.setObject(userimageFile.name, forKey: "userProfileImage")
+                    //Twitter接続判断系データ
                     user.setObject(name, forKey: "twitterName")
+                    user.setObject(userID, forKey: "twitterID")
+                    let store = Twitter.sharedInstance().sessionStore
                     
-                    //バックグラウンドで保存処理
-                    user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
+                    print(store)
+                    store.saveSessionWithAuthToken(authToken, authTokenSecret: authTokenSecret, completion: { (session, error) -> Void in
                         if error == nil {
-                            print("saveInBackgroundWithBlock通った")
-                            print("Twitter初回user登録時情報", user)
-                            self.performSegueWithIdentifier("setUpedSegue", sender: self)
-                        } else {
-                            print("saveInBackgroundWithBlockエラー: \(error)")
+                            //バックグラウンドで保存処理
+                            user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
+                                if error == nil {
+                                    print("saveInBackgroundWithBlock通った")
+                                    print("Twitter初回user登録時情報", user)
+                                    self.performSegueWithIdentifier("setUpedSegue", sender: self)
+                                } else {
+                                    print("saveInBackgroundWithBlockエラー: \(error)")
+                                }
+                            })
+                        }else {
+                            print("error: authTokenなどが取得できなかった")
                         }
                     })
                 } else {
@@ -134,7 +151,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     //userクラスのデータを取ってくる
                     user.fetchInBackgroundWithBlock({ (error) -> Void in
                         if error == nil {
-                            user.setObject(name, forKey: "twitterName")
                             user.saveInBackgroundWithBlock({ (error) -> Void in
                                 if error == nil {
                                     print("fetchInBackgroundWithBlock成功のuser : \(user)")

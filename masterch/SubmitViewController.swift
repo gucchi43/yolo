@@ -7,11 +7,20 @@
 //
 
 import UIKit
+import TwitterKit
+import Fabric
 
 class SubmitViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet var postTextView: UITextView!
     @IBOutlet var postDateTextField: UITextField!
+    
+    
+    @IBOutlet weak var shareTwitterButton: UIButton!
+    @IBOutlet weak var shareFacebookButton: UIButton!
+    @IBOutlet weak var directinonSecretButton: UIButton!
+    
+    
     
     var postImage1: UIImage? = nil
     var toolBar: UIToolbar!
@@ -20,6 +29,14 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     let notificationCenter = NSNotificationCenter.defaultCenter()
     
     let postImageView = UIImageView()
+    
+    var twitterToggle: Bool = true
+    var facebookToggle: Bool = true
+    var secretToggle:Bool = true
+    
+    let user = NCMBUser.currentUser()
+    
+    var testUserID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,10 +52,10 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         self.postTextView.becomeFirstResponder() // 最初からキーボードを表示させる
         self.postTextView.inputAccessoryView = toolBar // キーボード上にツールバーを表示
         
-        //        NSDate()で現在時刻をあらかじめ表示する。
+        //NSDate()で現在時刻をあらかじめ表示する。
         setDate(NSDate())
         
-        //        テキストフィールドにDatePickerを表示する
+        //テキストフィールドにDatePickerを表示する
         let postDatePicker = UIDatePicker()
         self.postDateTextField.inputView = postDatePicker
         //        日本の日付表示形式にする
@@ -47,7 +64,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         postDatePicker.addTarget(self, action: "onDidChangeDate:", forControlEvents: .ValueChanged)
         
         self.postDateTextField.inputAccessoryView = toolBar
-
+        
     }
     
 //     Viewが画面に表示される度に呼ばれるメソッド
@@ -136,6 +153,7 @@ extension SubmitViewController {
         //        toolBar.backgroundColor = UIColor.blackColor()
         let toolBarCameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "selectToolBarCameraButton:")
 //        let toolBarDateSelectButton = UIBarButtonItem(title: "日付", style: .Plain, target: self, action: "selectToolBarDateSelectButton:") 一旦なし
+        let toolBarPencilButton = UIBarButtonItem(title: "テキスト", style: .Plain, target: self, action: "selectToolBarPencilButton:")
         let toolBarRangeButton = UIBarButtonItem(title: "公開範囲", style: .Plain, target: self, action: "selectToolBarRangeButton:")
         let toolBarPostButton = UIBarButtonItem(title: "完了", style: .Done, target: self, action: "selectToolBarDoneButton:")
 
@@ -146,7 +164,7 @@ extension SubmitViewController {
         // Flexible Space Bar Button Item
         let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         
-        toolBar.items = [toolBarCameraButton, flexibleItem, toolBarRangeButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarPostButton]
+        toolBar.items = [toolBarCameraButton, toolBarPencilButton, toolBarRangeButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarPostButton]
     }
 }
 
@@ -206,12 +224,14 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
 
         }
         picker.dismissViewControllerAnimated(true, completion: nil)
+        self.postTextView.becomeFirstResponder()
     }
     
     //    画像選択がキャンセルされた時に呼ばれる.
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         // モーダルビューを閉じる
         self.dismissViewControllerAnimated(true, completion: nil)
+        self.postTextView.becomeFirstResponder()
         print("カメラキャンセル")
     }
     
@@ -242,7 +262,7 @@ extension SubmitViewController {
         
         //        UIDatePickerにイベントを設定。
         postDatePicker.addTarget(self, action: "onDidChangeDate:", forControlEvents: .ValueChanged)
-        self.view.addSubview(postDatePicker)
+//        self.view.addSubview(postDatePicker)
     }
     
     //    postDatePickerが選ばれた際に呼ばれる.
@@ -264,8 +284,103 @@ extension SubmitViewController {
 extension SubmitViewController {
     func selectToolBarRangeButton(sender:UIBarButtonItem) {
         print("公開範囲ボタンを押した")
+        let snsKeyboardview:UIView = UINib(nibName: "SnsKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+        self.postTextView.inputView = snsKeyboardview
+        self.postTextView.reloadInputViews()
+    }
+    @IBAction func pushShareTwitter(sender: AnyObject) {
+        print("twitterボタン押した")
+        let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
+        let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
+        print("初期状態だぞおおおおお", twitterToggle)
+        //Twitterと連携しているか？
+        if let userID = user.objectForKey("twitterID") {
+            if userID.isKindOfClass(NSNull) != true {
+                if let userLink = Twitter.sharedInstance().sessionStore.sessionForUserID(userID as! String){
+                    print("Twitter連携済 userID:", userLink.userID)//Twitter連携している
+                    twitterToggle = !twitterToggle //連携済みの場合の切り替えToggle
+                    if twitterToggle == false{
+                        shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+                        //ツイッターシェアはtrue
+                        print("シェアする", twitterToggle)
+                    }else {
+                        shareTwitterButton.setImage(imgTwitterOff, forState: .Normal)
+                        //ツイッターシェアはtrue
+                        print("シェアしない" , twitterToggle)
+                    }
+                }else {
+                    print("ありえないはず: twitterIDは登録してるのにTwitterSessionがsaveできていない")
+                    self.postTextView.endEditing(true)
+                    let containerSnsViewController = ContainerSnsViewController()
+                    containerSnsViewController.addSnsToTwitter(user)
+//                    twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+//                    shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+//                    print("シェアする", twitterToggle)
+                }
+            }else {
+                print("Twitter未連携（外した状態） userID", userID)//Twitter連携をはずして、空っぽの状態
+                //Twitter未連携
+                self.postTextView.endEditing(true)
+                let containerSnsViewController = ContainerSnsViewController()
+                containerSnsViewController.addSnsToTwitter(user)
+//                twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+//                shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+//                print("シェアする", twitterToggle)
+            }
+        }else {
+            print("Twitter未連携")//Twitter連携は今まで一度もしていない
+            //Twitter未連携
+            self.postTextView.endEditing(true)
+            let containerSnsViewController = ContainerSnsViewController()
+            containerSnsViewController.addSnsToTwitter(user)
+//            twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+//            shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+//            print("シェアする", twitterToggle)
+        }
+    }
+
+    
+    //TODO: 途中の状態（見た目だけは動く）
+    @IBAction func pushShareFacebook(sender: AnyObject) {
+        print("Facebookボタン押した")
+        let imgFacebookOn = UIImage(named: "facebook_logo_640*480_origin")
+        let imgFacebookOff = UIImage(named: "facebook_logo_640*480_gray")
+        facebookToggle = !facebookToggle
+        
+        if facebookToggle == false{
+            shareFacebookButton.setImage(imgFacebookOn, forState: .Normal)
+            print(facebookToggle)
+        }else {
+            shareFacebookButton.setImage(imgFacebookOff, forState: .Normal)
+            print(facebookToggle)
+        }
+        
+
+    }
+    
+    @IBAction func pushDidectionSecret(sender: AnyObject) {
+        print("Keyボタン押した")
+        secretToggle = !secretToggle
+        if secretToggle == false{
+            print("カギをかける")
+        }else{
+            print("カギを開ける")
+        }
+    }
+    
+}
+
+
+// テキストボタン
+extension SubmitViewController {
+    func selectToolBarPencilButton(sender: UIBarButtonItem) {
+        print("テキストボタン押した")
+//        let snsKeyboardview:UIView = UINib(nibName: "SnsKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+        self.postTextView.inputView = nil
+        self.postTextView.reloadInputViews()
     }
 }
+
 
 // 投稿アクション周り
 extension SubmitViewController {
@@ -307,7 +422,120 @@ extension SubmitViewController {
         postTextView.resignFirstResponder() // 先にキーボードを下ろす
         self.dismissViewControllerAnimated(true, completion: nil)
         print("投稿完了")
+        
+        //Twitterシェアかの判断
+        if twitterToggle == false {
+            if self.postImage1 != nil{
+                shareTwitterMedia()
+                print("twitterシェア完了 メディアあり")
+            }else {
+                shareTwitterPost()
+                print("twitterシェア完了 メディアなし")
+            }
+        }else {
+            print("Twitterシェア無し")
+        }
+        
+        //Facebookシェアかの判断
+//        if twitterToggle == true {
+//            shareFacebookPost()
+//            print("twitterシェア完了")
+//        }else {
+//            print("twitterシェアなし")
+//        }
+        
+        //Secretモードかの判断
+        if secretToggle == false {
+            print("Secret投稿")
+        }else {
+            print("Secret投稿無し")
+        }
+        
     }
+    
+    //Facebookシェア
+    func shareFacebookPost(){
+        
+    }
+    
+    //Secretモード
+    func secretPost(){
+        
+    }
+    
+    
+}
+
+//Twitterシェア
+extension SubmitViewController {
+    func shareTwitterPost(mediaID: String? = nil){//mediaIDの初期値をnilに（複数にすると多分Arrayになる）
+        if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
+            let client = TWTRAPIClient(userID: userID)
+            print("userID", userID)
+            
+            let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/update.json"
+            let tweetText = self.postTextView.text
+            print("tweetText", tweetText)
+            var params = ["status": tweetText]
+            
+            //写真の添付があればparamsの配列に"media_ids"のキーと値を追加
+            if mediaID != nil {
+                params["media_ids"] = mediaID
+            }
+            print("params ここが変わるはず", params)
+            
+            var clientError : NSError?
+            
+            let request = client.URLRequestWithMethod("POST", URL: statusesShowEndpoint, parameters: params, error: &clientError)
+            
+            client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
+                if connectionError != nil {
+                    print("Error: \(connectionError)")
+                }
+                
+                do {
+                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
+                    print("json: \(json)")
+                } catch let jsonError as NSError {
+                    print("json error: \(jsonError.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    //twitterメディア添付シェア
+    func shareTwitterMedia(){
+        if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
+            let client = TWTRAPIClient(userID: userID)
+            print("userID", userID)
+            
+            let statusesShowEndpoint = "https://upload.twitter.com/1.1/media/upload.json"
+            let imageData = UIImagePNGRepresentation(self.postImage1!)
+            let media = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.EncodingEndLineWithLineFeed)
+            let params = ["media": media]
+            
+            var clientError : NSError?
+            
+            let request = client.URLRequestWithMethod("POST", URL: statusesShowEndpoint, parameters: params, error: &clientError)
+            
+            client.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
+                if connectionError != nil {
+                    print("Error: \(connectionError)")
+                }
+                
+                do {
+                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
+                    let mediaID = json["media_id_string"] as! String
+                    print("mediaID", mediaID)
+                    self.shareTwitterPost(mediaID)
+                    //                    self.shareTwitterPost()
+                } catch let jsonError as NSError {
+                    print("json error: \(jsonError.localizedDescription)")
+                }
+            }
+        }
+    }
+
 }
 
 // 完了ボタン
