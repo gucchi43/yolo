@@ -579,8 +579,8 @@ extension SubmitViewController {
         logCollerObject.incrementKey("postCount")
         
         logCollerObject.saveInBackgroundWithBlock { (error) -> Void in
-            if error == nil {
-                print("error", error.localizedDescription)
+            if error != nil {
+                print("error", error)
             }else {
                 print("logColler 今日初めての投稿 save成功")
             }

@@ -47,21 +47,12 @@ class CalendarSwiftDateView: UIView{
         dayButton.addTarget(self, action: "onTapCalendarDayButton:", forControlEvents: .TouchUpInside)
         print("day", date.day, "weekday", date.weekday)
 
-        
         //投稿があったかを調べる
         //選択した日を含む月のdateと、選択した日を含む週のdate
-        //月の日にちを調べる
         if date.year == CalendarManager.currentDate.year && date.month == CalendarManager.currentDate.month || date.year == CalendarManager.currentDate.year && date.weekOfYear == CalendarManager.currentDate.weekOfYear{
-            //月の日にちを調べる
-            print("month用")
-            self.postedDate(date)
+            //※初回起動時のみ、月（５ヶ月）と週（３週）分を読み込む、以降は、月のみor週のみ
+            self.whetherLogColler(date)
         }
-        //上の分岐に( || ~~~~~~ )で追加したためひとまずコメントアウト
-//        else if date.year == CalendarManager.currentDate.year && date.weekOfYear == CalendarManager.currentDate.weekOfYear{
-//            //週の日にちで、月に含まれなかったものを調べる（頭にある３０日、３１日や、尻にある１日、２日など）
-//            print("week用")
-//            self.postedDate(date)
-//        }
 
         if date == CalendarManager.currentDate {
             dayButton.layer.borderColor = UIColor.grayColor().CGColor
@@ -99,49 +90,91 @@ class CalendarSwiftDateView: UIView{
             NSNotificationCenter.defaultCenter().postNotification(n)
         }
     }
-    
-    func postedDate(date: NSDate) {
-        //        自分の投稿だけを表示するQueryを発行
-        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post")
-        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
-        myPostQuery.whereKey("postDate", greaterThanOrEqualTo: self.FirstFilterDateStart(date))
-        myPostQuery.whereKey("postDate", lessThanOrEqualTo: self.FirstFilterDateEnd(date))
-        print("postedDate読み込み時", date)
-        myPostQuery.getFirstObjectInBackgroundWithBlock { (objects, error) -> Void in
-            if objects != nil {//投稿0件
-                print("投稿あり")
-                self.dayButton.backgroundColor =  UIColor.orangeColor()
-            }else {//投稿あり
-                print("投稿なし")
+        
+    //LogViewの日にちごとの色を決める実行部分
+    func whetherLogColler(date: NSDate) {
+        let myLogCollerQuery: NCMBQuery = NCMBQuery(className: "LogColler") // 自分の投稿クエリ
+        myLogCollerQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+        myLogCollerQuery.whereKey("logDate", equalTo: getLogYearMonthDate(date))
+        myLogCollerQuery.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
+            if let error = error{
+                print(error.localizedDescription)
+            }else {
+                if object != nil {//投稿あり
+                    print("投稿ありありありあり", date)
+                    let dateColler = object.objectForKey("dateColler") as! String
+                    self.selectDateColler(dateColler)
+                }else {//投稿なし
+                    print("投稿なし", date)
+                }
             }
         }
     }
     
-    //その日にちの00:00:00のNSDateをゲット（そのの範囲を決めるため）
-    func FirstFilterDateStart(date: NSDate) -> NSDate {
+    //その日の"yyyy/MM/dd"を取る()
+    func getLogYearMonthDate(date: NSDate) -> String {
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
-        
-        let formatDate = formatter.dateFromString(String(date.year) + "/" +
-            String(date.month) + "/" +
-            String(date.day) + " 00:00:00")
-        
-        print("FilterDateStart", date)
-        return formatDate!
+        formatter.dateFormat = "yyyy/MM/dd"
+        let logDate = formatter.stringFromDate(date)
+        print("検索側logDate", logDate)
+        return logDate
     }
     
-    //その日にちの23:59:59のNSDateをゲット（そのの範囲を決めるため）
-    func FirstFilterDateEnd(date: NSDate) -> NSDate {
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
-        
-        let formatDate = formatter.dateFromString(String(date.year) + "/" +
-            String(date.month) + "/" +
-            String(date.day) + " 23:59:59")
-        
-        print("FilterDateEnd", date)
-        return formatDate!
+    //その日の色を、決定する
+    func selectDateColler(dateColler: String){
+        switch dateColler {
+        case "red" :
+            self.dayButton.backgroundColor =  UIColor.redColor()
+        case "blue" :
+            self.dayButton.backgroundColor =  UIColor.blueColor()
+        default :
+            self.dayButton.backgroundColor =  UIColor.orangeColor()
+        }
     }
     
+    
+//    //以前の判断に使っていたメソッド（オレンジ時代）
+//    func postedDate(date: NSDate) {
+//        //        自分の投稿だけを表示するQueryを発行
+//        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post")
+//        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+//        myPostQuery.whereKey("postDate", greaterThanOrEqualTo: self.FirstFilterDateStart(date))
+//        myPostQuery.whereKey("postDate", lessThanOrEqualTo: self.FirstFilterDateEnd(date))
+//        print("postedDate読み込み時", date)
+//        myPostQuery.getFirstObjectInBackgroundWithBlock { (objects, error) -> Void in
+//            if objects != nil {//投稿0件
+//                print("投稿あり")
+//                self.dayButton.backgroundColor =  UIColor.orangeColor()
+//            }else {//投稿あり
+//                print("投稿なし")
+//            }
+//        }
+//    }
+    
+//    //その日にちの00:00:00のNSDateをゲット（そのの範囲を決めるため）
+//    func FirstFilterDateStart(date: NSDate) -> NSDate {
+//        let formatter = NSDateFormatter()
+//        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+//        
+//        let formatDate = formatter.dateFromString(String(date.year) + "/" +
+//            String(date.month) + "/" +
+//            String(date.day) + " 00:00:00")
+//        
+//        print("FilterDateStart", date)
+//        return formatDate!
+//    }
+//    
+//    //その日にちの23:59:59のNSDateをゲット（そのの範囲を決めるため）
+//    func FirstFilterDateEnd(date: NSDate) -> NSDate {
+//        let formatter = NSDateFormatter()
+//        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+//        
+//        let formatDate = formatter.dateFromString(String(date.year) + "/" +
+//            String(date.month) + "/" +
+//            String(date.day) + " 23:59:59")
+//        
+//        print("FilterDateEnd", date)
+//        return formatDate!
+//    }
 }
 
