@@ -22,10 +22,15 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        //テーブルビューの上に出来る余白を削除
+        //ステータスバーの高さ(20.0)とナビゲーションバーの高さ(44.0)をtopインセットから引きます。(応急処置に近い)
+        conectSnsTabelView.contentInset = UIEdgeInsets(top: -64, left: 0, bottom: 0, right: 0)
     }
     
     
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
+    }
     //cellの数
     func tableView(table: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
