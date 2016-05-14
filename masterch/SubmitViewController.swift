@@ -36,6 +36,9 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     let user = NCMBUser.currentUser()
     
+    var logDate: String?
+    var dateColler: String?
+    
     var testUserID: String?
     
     override func viewDidLoad() {
@@ -274,7 +277,7 @@ extension SubmitViewController {
     func setDate(date: NSDate) {
         //        フォーマットを生成.
         let postDateFormatter: NSDateFormatter = NSDateFormatter()
-        postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         //        日付をフォーマットに則って取得.
         postDateTextField.text = postDateFormatter.stringFromDate(date)
     }
@@ -362,9 +365,9 @@ extension SubmitViewController {
         print("Keyボタン押した")
         secretToggle = !secretToggle
         if secretToggle == false{
-            print("カギをかける")
+            print("Secretモード")
         }else{
-            print("カギを開ける")
+            print("Secretモード解除")
         }
     }
     
@@ -414,6 +417,8 @@ extension SubmitViewController {
                     print("進捗状況: \(percentDone)% アップロード済み")
             })
         }
+        self.setLogColler() //"logColler"クラスへのセット
+        
 //        非同期通信の保存処理
         postObject.saveInBackgroundWithBlock({(error) in
             if error != nil {print("Save error : ",error)}
@@ -422,6 +427,7 @@ extension SubmitViewController {
         postTextView.resignFirstResponder() // 先にキーボードを下ろす
         self.dismissViewControllerAnimated(true, completion: nil)
         print("投稿完了")
+        
         
         //Twitterシェアかの判断
         if twitterToggle == false {
@@ -450,21 +456,10 @@ extension SubmitViewController {
         }else {
             print("Secret投稿無し")
         }
-        
     }
-    
-    //Facebookシェア
-    func shareFacebookPost(){
-        
-    }
-    
-    //Secretモード
-    func secretPost(){
-        
-    }
-    
-    
 }
+
+
 
 //Twitterシェア
 extension SubmitViewController {
@@ -537,6 +532,69 @@ extension SubmitViewController {
     }
 
 }
+
+//Facebookシェア
+extension SubmitViewController {
+    func shareFacebookPost(){
+    }
+}
+
+
+//Secretモード
+extension SubmitViewController {
+    func secretPost(){
+    }
+}
+
+extension SubmitViewController {
+    func setLogColler(){
+        self.dateColler = "red"
+        let longLogDate = postDateTextField.text //投稿画面に表示されている投稿する日時（PostDateのString版）
+        let logDate = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(10))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
+        print("logDate", logDate)
+        let myLogCollerQuery: NCMBQuery = NCMBQuery(className: "LogColler") // 自分の投稿クエリ
+        myLogCollerQuery.whereKey("user", equalTo: user)
+        myLogCollerQuery.whereKey("logDate", equalTo: logDate)
+        myLogCollerQuery.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                if object == nil {
+                    //今日の投稿はまだない
+                    self.firstSetLogColler(logDate)
+                }else {
+                    //２度目以降の投稿
+                    self.updateLogColler()
+                }
+            }
+        }
+    }
+    
+    //今日初めての投稿
+    func firstSetLogColler(logDate: String){
+        let logCollerObject = NCMBObject(className: "LogColler")
+        logCollerObject.setObject(user, forKey: "user")
+        logCollerObject.setObject(logDate, forKey: "logDate")
+        logCollerObject.setObject(self.dateColler, forKey: "dateColler")
+        logCollerObject.incrementKey("postCount")
+        
+        logCollerObject.saveInBackgroundWithBlock { (error) -> Void in
+            if error == nil {
+                print("error", error.localizedDescription)
+            }else {
+                print("logColler 今日初めての投稿 save成功")
+            }
+        }
+    }
+    
+    
+    //今日２回目以降の投稿
+    func updateLogColler(){
+        
+    }
+    
+}
+
 
 // 完了ボタン
 extension SubmitViewController {
