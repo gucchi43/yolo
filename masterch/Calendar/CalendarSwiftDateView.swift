@@ -51,7 +51,7 @@ class CalendarSwiftDateView: UIView{
         //選択した日を含む月のdateと、選択した日を含む週のdate
         if date.year == CalendarManager.currentDate.year && date.month == CalendarManager.currentDate.month || date.year == CalendarManager.currentDate.year && date.weekOfYear == CalendarManager.currentDate.weekOfYear{
             //※初回起動時のみ、月（５ヶ月）と週（３週）分を読み込む、以降は、月のみor週のみ
-            self.whetherLogColler(date)
+            self.whetherLogColor(date)
         }
 
         if date == CalendarManager.currentDate {
@@ -92,18 +92,18 @@ class CalendarSwiftDateView: UIView{
     }
         
     //LogViewの日にちごとの色を決める実行部分
-    func whetherLogColler(date: NSDate) {
-        let myLogCollerQuery: NCMBQuery = NCMBQuery(className: "LogColler") // 自分の投稿クエリ
-        myLogCollerQuery.whereKey("user", equalTo: NCMBUser.currentUser())
-        myLogCollerQuery.whereKey("logDate", equalTo: getLogYearMonthDate(date))
-        myLogCollerQuery.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
+    func whetherLogColor(date: NSDate) {
+        let myLogColorQuery: NCMBQuery = NCMBQuery(className: "LogColor") // 自分の投稿クエリ
+        myLogColorQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+        myLogColorQuery.whereKey("logDate", equalTo: getLogYearMonthDate(date))
+        myLogColorQuery.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
             if let error = error{
                 print(error.localizedDescription)
             }else {
                 if object != nil {//投稿あり
                     print("投稿ありありありあり", date)
-                    let dateColler = object.objectForKey("dateColler") as! String
-                    self.selectDateColler(dateColler)
+                    let dateColor = object.objectForKey("dateColor") as! String
+                    self.selectDateColor(dateColor)
                 }else {//投稿なし
                     print("投稿なし", date)
                 }
@@ -121,8 +121,8 @@ class CalendarSwiftDateView: UIView{
     }
     
     //その日の色を、決定する
-    func selectDateColler(dateColler: String){
-        switch dateColler {
+    func selectDateColor(dateColor: String){
+        switch dateColor {
         case "red" :
             self.dayButton.backgroundColor =  UIColor.redColor()
         case "blue" :

@@ -37,7 +37,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     let user = NCMBUser.currentUser()
     
     var logDate: String?
-    var dateColler: String?
+    var dateColor: String?
     
     var testUserID: String?
     
@@ -417,7 +417,7 @@ extension SubmitViewController {
                     print("進捗状況: \(percentDone)% アップロード済み")
             })
         }
-        self.setLogColler() //"logColler"クラスへのセット
+        self.setLogColor() //"logColor"クラスへのセット
         
 //        非同期通信の保存処理
         postObject.saveInBackgroundWithBlock({(error) in
@@ -547,49 +547,49 @@ extension SubmitViewController {
 }
 
 extension SubmitViewController {
-    func setLogColler(){
-        self.dateColler = "red"
+    func setLogColor(){
+        self.dateColor = "red"
         let longLogDate = postDateTextField.text //投稿画面に表示されている投稿する日時（PostDateのString版）
         let logDate = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(10))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
         print("logDate", logDate)
-        let myLogCollerQuery: NCMBQuery = NCMBQuery(className: "LogColler") // 自分の投稿クエリ
-        myLogCollerQuery.whereKey("user", equalTo: user)
-        myLogCollerQuery.whereKey("logDate", equalTo: logDate)
-        myLogCollerQuery.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
+        let myLogColorQuery: NCMBQuery = NCMBQuery(className: "LogColor") // 自分の投稿クエリ
+        myLogColorQuery.whereKey("user", equalTo: user)
+        myLogColorQuery.whereKey("logDate", equalTo: logDate)
+        myLogColorQuery.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
             if let error = error {
                 print(error.localizedDescription)
             }else {
                 if object == nil {
                     //今日の投稿はまだない
-                    self.firstSetLogColler(logDate)
+                    self.firstSetLogColor(logDate)
                 }else {
                     //２度目以降の投稿
-                    self.updateLogColler()
+                    self.updateLogColor()
                 }
             }
         }
     }
     
     //今日初めての投稿
-    func firstSetLogColler(logDate: String){
-        let logCollerObject = NCMBObject(className: "LogColler")
-        logCollerObject.setObject(user, forKey: "user")
-        logCollerObject.setObject(logDate, forKey: "logDate")
-        logCollerObject.setObject(self.dateColler, forKey: "dateColler")
-        logCollerObject.incrementKey("postCount")
+    func firstSetLogColor(logDate: String){
+        let logColorObject = NCMBObject(className: "LogColor")
+        logColorObject.setObject(user, forKey: "user")
+        logColorObject.setObject(logDate, forKey: "logDate")
+        logColorObject.setObject(self.dateColor, forKey: "dateColor")
+        logColorObject.incrementKey("postCount")
         
-        logCollerObject.saveInBackgroundWithBlock { (error) -> Void in
+        logColorObject.saveInBackgroundWithBlock { (error) -> Void in
             if error != nil {
                 print("error", error)
             }else {
-                print("logColler 今日初めての投稿 save成功")
+                print("logColor 今日初めての投稿 save成功")
             }
         }
     }
     
     
     //今日２回目以降の投稿
-    func updateLogColler(){
+    func updateLogColor(){
         
     }
     
