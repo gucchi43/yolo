@@ -10,12 +10,36 @@ import UIKit
 
 class SearchUserTableViewController: UITableViewController {
     
+    var userInfo: NSArray = NSArray()
     var userArray: NSArray = NSArray()
+    var userNameArray = [String]()
+    var userFaceNameArray = [String]()
+    var aaa = []
+    var filterUsers: NSArray = NSArray()
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    
+    func filterContextSearchText(searchText: String, scope: String = "All"){
+        
+        print("searchText", searchText)
+        filterUsers = userArray.filter{ userArray in
+            print("return結果", userArray.objectForKey("userName")!.lowercaseString.containsString(searchText.lowercaseString))
+            
+            print("filterUsers.count", filterUsers.count)
+            return userArray.objectForKey("userName")!.lowercaseString.containsString(searchText.lowercaseString) || userArray.objectForKey("userFaceName")!.lowercaseString.containsString(searchText.lowercaseString)
+        }
+        tableView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print("SearchUserTableViewController viewDidload")
 //        loadAllUser()
+        
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
         
     }
     
@@ -31,20 +55,27 @@ class SearchUserTableViewController: UITableViewController {
     @IBAction func unwindToTop(segue: UIStoryboardSegue) {
         print("back to SearchView")
     }
-    
+
     func loadAllUser(){
 //        let userListQuery: NCMBQuery = NCMBUser.query()
         let userListQuery: NCMBQuery = NCMBQuery(className: "user")
-//        userListQuery.orderByAscending("userName")
+        userListQuery.orderByAscending("userName")
         userListQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
             if let error = error {
                 print(error.localizedDescription)
             } else {
                 if objects.count > 0 {
-                    self.userArray = objects
+                    self.userInfo = objects
+
+                    self.userArray = self.userInfo
+//                    self.filterUsers = self.userInfo
+                    
                     print(self.userArray)
                 } else {
-                    self.userArray = []
+                    self.userInfo = []
+                    
+                    self.userArray = self.userInfo
+//                    self.filterUsers = self.userInfo
                 }
                 self.tableView.reloadData()
             }
@@ -59,15 +90,31 @@ class SearchUserTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userArray.count
+        if searchController.active && searchController.searchBar.text != "" {
+            return filterUsers.count
+        }else {
+            return userArray.count
+        }
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! SearchUserTableViewCell
-        let userData = userArray[indexPath.row]
+        let userData: AnyObject?
         
-        cell.userFaceNameLabel.text = userData.objectForKey("userFaceName") as? String
-        cell.userName.text = userData.objectForKey("userName") as? String
+        if searchController.active && searchController.searchBar.text != "" {
+            userData = filterUsers[indexPath.row]
+        }else {
+            userData = userArray[indexPath.row]
+        }
+
+        cell.userFaceNameLabel.text = userData!.objectForKey("userFaceName") as? String
+        cell.userName.text = userData!.objectForKey("userName") as? String
+        
+        userNameArray.append(cell.userName.text!)
+        userFaceNameArray.append(cell.userFaceNameLabel.text!)
+        
+        print("userNameArray", userNameArray, "userFaceName", userFaceNameArray, "userArray", userArray)
+        
         cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
         let userImageData = NCMBFile.fileWithName("userImageProfile", data: nil) as! NCMBFile
         userImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
@@ -81,50 +128,11 @@ class SearchUserTableViewController: UITableViewController {
         })
         return cell
     }
+}
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+extension SearchUserTableViewController: UISearchResultsUpdating {
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        filterContextSearchText(searchController.searchBar.text!)
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }
