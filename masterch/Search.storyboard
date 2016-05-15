@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Submit-->
@@ -11,32 +12,86 @@
                 <viewControllerPlaceholder storyboardName="Submit" id="YW9-Co-wLb" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U5U-xy-XIh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1581" y="1584"/>
+            <point key="canvasLocation" x="1330" y="1752"/>
         </scene>
-        <!--検索-->
-        <scene sceneID="w9N-TN-cOK">
+        <!--Search User Table View Controller-->
+        <scene sceneID="w6M-Ng-YSG">
             <objects>
-                <viewController id="c0M-Ap-7Ki" customClass="SearchViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="2iL-1d-iP8"/>
-                        <viewControllerLayoutGuide type="bottom" id="WZJ-9b-qCM"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="c28-ZZ-vWT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <tableViewController id="Qep-Bb-oeh" customClass="SearchUserTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Meb-WZ-Pd8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.071136035730000005" blue="0.1044621134" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="検索" id="cj9-qe-8UG">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="HeC-LR-HgO">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="F39-qc-fDo">
+                            <rect key="frame" x="0.0" y="64" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" id="LUC-7P-6Qa" customClass="SearchUserTableViewCell" customModule="masterch" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="136" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LUC-7P-6Qa" id="qZS-Br-dGM">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nk6-ZT-aKK">
+                                            <rect key="frame" x="8" y="2" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="nk6-ZT-aKK" secondAttribute="height" multiplier="1:1" id="dak-m8-yDw"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ベッキー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G2R-Fp-off">
+                                            <rect key="frame" x="56" y="2" width="68" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="G2R-Fp-off" secondAttribute="height" multiplier="68:21" id="0lw-a7-KMC"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@furindamezettai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhK-kI-AP9">
+                                            <rect key="frame" x="56" y="25" width="121" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="nk6-ZT-aKK" firstAttribute="leading" secondItem="qZS-Br-dGM" secondAttribute="leading" constant="8" id="6bv-qC-WxI"/>
+                                        <constraint firstAttribute="bottom" secondItem="mhK-kI-AP9" secondAttribute="bottom" id="7d4-3i-jxh"/>
+                                        <constraint firstAttribute="bottom" secondItem="nk6-ZT-aKK" secondAttribute="bottom" constant="1.5" id="Jio-Pv-wSj"/>
+                                        <constraint firstItem="G2R-Fp-off" firstAttribute="leading" secondItem="nk6-ZT-aKK" secondAttribute="trailing" constant="8" id="NIz-tx-EPa"/>
+                                        <constraint firstItem="mhK-kI-AP9" firstAttribute="leading" secondItem="nk6-ZT-aKK" secondAttribute="trailing" constant="8" id="dGU-6F-2ys"/>
+                                        <constraint firstItem="nk6-ZT-aKK" firstAttribute="top" secondItem="qZS-Br-dGM" secondAttribute="top" constant="2" id="hzl-uH-75e"/>
+                                        <constraint firstItem="G2R-Fp-off" firstAttribute="top" secondItem="qZS-Br-dGM" secondAttribute="top" constant="2" id="trM-lW-y3o"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="userFaceNameLabel" destination="G2R-Fp-off" id="v5k-sj-UEt"/>
+                                    <outlet property="userImageView" destination="nk6-ZT-aKK" id="cc9-Qw-pn0"/>
+                                    <outlet property="userName" destination="mhK-kI-AP9" id="7jT-D4-a1X"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="Qep-Bb-oeh" id="vM8-bB-743"/>
+                            <outlet property="delegate" destination="Qep-Bb-oeh" id="M65-Jb-eeM"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="iV6-7p-hky">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="oUw-pN-UqO">
                             <connections>
-                                <segue destination="YW9-Co-wLb" kind="modal" id="GFb-WO-xLh"/>
+                                <segue destination="YW9-Co-wLb" kind="presentation" id="9rY-Jd-WVI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="peK-73-kNO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tfO-zm-Biy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1576" y="494"/>
+            <point key="canvasLocation" x="1500" y="470"/>
         </scene>
         <!--検索-->
         <scene sceneID="ZzT-P1-Ax9">
@@ -50,7 +105,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="c0M-Ap-7Ki" kind="relationship" relationship="rootViewController" id="MwS-R6-aJy"/>
+                        <segue destination="Qep-Bb-oeh" kind="relationship" relationship="rootViewController" id="XvG-SM-bIw"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CN5-tG-kC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
