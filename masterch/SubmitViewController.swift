@@ -289,20 +289,40 @@ extension SubmitViewController {
 extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
     func selectToolBarCameraButton(sender: UIBarButtonItem) {
-        print("カメラボタン押した")
-        
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-//             アルバムから写真を取得
-            self.pickImageFromLibrary()
-//        } else if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-//            self.pickImageFromCamera()
-        } else {
-            UIAlertView(title: "警告", message: "Photoライブラリにアクセス出来ません", delegate: nil, cancelButtonTitle: "OK").show()
-        }
+        print("カメラ&カメラロール呼び出しボタン押した")
+        //カメラかカメラロールの分岐
+        RMUniversalAlert.showActionSheetInViewController(self,
+            withTitle: nil,
+            message: nil,
+            cancelButtonTitle: "Cancel",
+            destructiveButtonTitle: nil,
+            otherButtonTitles: ["カメラ", "カメラロール"],
+            popoverPresentationControllerBlock: {(popover) in
+                popover.sourceView = self.view
+                popover.sourceRect = CGRect()
+            },
+            tapBlock: {(alert, buttonIndex) in
+                if (buttonIndex == alert.cancelButtonIndex) {
+                    print("Cancel Tapped")
+                } else if (buttonIndex == alert.destructiveButtonIndex) {
+                    print("Delete Tapped")
+                } else if (buttonIndex == alert.firstOtherButtonIndex) {
+                    print("カメラ選択 \(alert.firstOtherButtonIndex)")
+                    self.pickImageFromCamera()
+                } else {
+                    print("カメラロール選択\(alert.firstOtherButtonIndex)")
+                    self.pickImageFromLibrary()
+                }
+        })
     }
+    
+    func selectCameraOrPictureAlert(){
+    }
+    
     
     // ライブラリから写真を選択する
     func pickImageFromLibrary() {
+        print("カメラロール起動")
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
             //            インスタンス生成
             let imagePickerController = UIImagePickerController()
@@ -318,6 +338,7 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
     }
 //    写真を撮影
     func pickImageFromCamera() {
+        print("カメラ起動")
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
             let controller = UIImagePickerController()
             controller.delegate = self
