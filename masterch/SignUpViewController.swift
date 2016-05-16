@@ -47,7 +47,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    
     @IBAction func signUpBtn(sender: AnyObject) {
         print("signUpBtn 押した")
         userSignUp()
@@ -63,6 +62,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         newUser.setObject(userimageFile.name, forKey: "userProfileImage")
         newUser.setObject("No Name", forKey: "userFaceName")
         
+        newUser.ACL.setPublicWriteAccess(true)
+        newUser.ACL.setPublicReadAccess(true)
         
         if ((self.userIdTextField.text?.dataUsingEncoding(NSASCIIStringEncoding, allowLossyConversion: false)) == nil) {
             self.errorMessage.text = "ユーザーIDは半角英数字で入力してください"

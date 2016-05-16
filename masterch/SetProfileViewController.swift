@@ -163,7 +163,7 @@ extension SetProfileViewController {
         //ユーザーネーム保存
         user.setObject(userNameTextFiled.text, forKey: "userFaceName")
         print("userFaceName", userNameTextFiled.text)
-        
+                
         // プロフィール写真保存
         if profileImage != nil {
             
