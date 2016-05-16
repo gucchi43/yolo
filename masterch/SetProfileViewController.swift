@@ -16,18 +16,21 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var userIdLabel: UILabel!
     
     var profileImage: UIImage? = nil
+    var homeImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userIdLabel.text = "@" + NCMBUser.currentUser().userName
+        let currentUser: NCMBUser = NCMBUser.currentUser()
+        
+        userIdLabel.text = "@" + currentUser.userName
         
         //プロフィール写真の形を整える
         //!!! 写真をグレーでぼかしたい, 谷口
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.layer.masksToBounds = true
         //プロフィール写真を表示
-        let userImageName = (NCMBUser.currentUser().objectForKey("userProfileImage") as? String)!
+        let userImageName = (currentUser.objectForKey("userProfileImage") as? String)!
         let userImageData = NCMBFile.fileWithName(userImageName, data: nil) as! NCMBFile
         
         userImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
@@ -127,6 +130,7 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
             
             self.userImageView.image = image
             self.profileImage = image
+            self.homeImage = image
         }
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -163,33 +167,59 @@ extension SetProfileViewController {
         //ユーザーネーム保存
         user.setObject(userNameTextFiled.text, forKey: "userFaceName")
         print("userFaceName", userNameTextFiled.text)
-                
+        //自己紹介保存
+        user.setObject("ここに自己紹介をいれます", forKey: "userSelfIntroduction")
+        
+        
         // プロフィール写真保存
         if profileImage != nil {
             
-            //設定してもらったprofileImageをユーザー情報に追加
-            let userimageData = UIImagePNGRepresentation(self.profileImage!)! as NSData
-            let userimageFile: NCMBFile = NCMBFile.fileWithData(userimageData) as! NCMBFile
-            user.setObject(userimageFile.name, forKey: "userProfileImage")
+            //設定してもらったProfileImageをユーザー情報に追加
+            let userProfileImageData = UIImagePNGRepresentation(self.profileImage!)! as NSData
+            let userProfileImageFile: NCMBFile = NCMBFile.fileWithData(userProfileImageData) as! NCMBFile
+            user.setObject(userProfileImageFile.name, forKey: "userProfileImage")
             
             //ファイルはバックグラウンド実行をする
-            userimageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
+            userProfileImageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error == nil {
-                    print("画像データ保存完了: \(userimageFile.name)")
-                    self.performSegueWithIdentifier("newSignUpedSegue", sender: self)
+                    print("画像データ保存完了: \(userProfileImageFile.name)")
                 } else {
                     print("アップロード中にエラーが発生しました: \(error)")
                 }
-                }, progressBlock: { (percentDone: Int32) -> Void in
+            }, progressBlock: { (percentDone: Int32) -> Void in
                     //                    進捗状況を取得します。保存完了まで何度も呼ばれます
                     print("進捗状況: \(percentDone)% アップロード済み")
             })
         }else {
-            
-            self.performSegueWithIdentifier("newSignUpedSegue", sender: self)
+            print("profileImageはnil")
         }
+        
+        if homeImage != nil {
+            //設定してもらったHomeImageをユーザー情報に追加
+            let userHomeImageData = UIImagePNGRepresentation(self.profileImage!)! as NSData
+            let userHomeImageFile: NCMBFile = NCMBFile.fileWithData(userHomeImageData) as! NCMBFile
+            user.setObject(userHomeImageFile.name, forKey: "userHomeImage")
+            
+            //ファイルはバックグラウンド実行をする
+            userHomeImageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
+                if error == nil {
+                    print("画像データ保存完了: \(userHomeImageFile.name)")
+                } else {
+                    print("アップロード中にエラーが発生しました: \(error)")
+                }
+            }, progressBlock: { (percentDone: Int32) -> Void in
+                    //                    進捗状況を取得します。保存完了まで何度も呼ばれます
+                    print("進捗状況: \(percentDone)% アップロード済み")
+            })
+        }else {
+            print("homeImageはnil")            
+        }
+        
+        
         user.saveInBackgroundWithBlock({(error) in
-            if error != nil {print("Save error : ",error)}
+            if error != nil { print("Save error : ",error)}
         })
+        
+        performSegueWithIdentifier("signUpSegue", sender: self)
     }
 }
