@@ -10,11 +10,9 @@ import UIKit
 
 class SearchUserTableViewController: UITableViewController {
     
-    var userInfo: NSArray = NSArray()
     var userArray: NSArray = NSArray()
     var userNameArray = [String]()
     var userFaceNameArray = [String]()
-    var aaa = []
     var filterUsers: NSArray = NSArray()
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -57,25 +55,18 @@ class SearchUserTableViewController: UITableViewController {
     }
 
     func loadAllUser(){
-//        let userListQuery: NCMBQuery = NCMBUser.query()
         let userListQuery: NCMBQuery = NCMBQuery(className: "user")
-        userListQuery.orderByAscending("userName")
+        userListQuery.orderByAscending("updateDate")
         userListQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
             if let error = error {
                 print(error.localizedDescription)
             } else {
                 if objects.count > 0 {
-                    self.userInfo = objects
-
-                    self.userArray = self.userInfo
-//                    self.filterUsers = self.userInfo
+                    self.userArray = objects
                     
                     print(self.userArray)
                 } else {
-                    self.userInfo = []
-                    
-                    self.userArray = self.userInfo
-//                    self.filterUsers = self.userInfo
+                    self.userArray = []
                 }
                 self.tableView.reloadData()
             }
@@ -93,7 +84,8 @@ class SearchUserTableViewController: UITableViewController {
         if searchController.active && searchController.searchBar.text != "" {
             return filterUsers.count
         }else {
-            return userArray.count
+            return filterUsers.count
+//            return userArray.count
         }
     }
 
@@ -104,16 +96,18 @@ class SearchUserTableViewController: UITableViewController {
         if searchController.active && searchController.searchBar.text != "" {
             userData = filterUsers[indexPath.row]
         }else {
-            userData = userArray[indexPath.row]
+            userData = filterUsers[indexPath.row]
+//            userData = userArray[indexPath.row]
         }
-
-        cell.userFaceNameLabel.text = userData!.objectForKey("userFaceName") as? String
-        cell.userName.text = userData!.objectForKey("userName") as? String
         
-        userNameArray.append(cell.userName.text!)
-        userFaceNameArray.append(cell.userFaceNameLabel.text!)
-        
-        print("userNameArray", userNameArray, "userFaceName", userFaceNameArray, "userArray", userArray)
+        let userFaceName = userData!.objectForKey("userFaceName") as? String
+        let userName = userData!.objectForKey("userName") as? String
+        cell.userFaceNameLabel.text = userFaceName!
+        cell.userName.text = "@" + userName!
+//        userFaceNameArray.append(userFaceName!)
+//        userNameArray.append(userName!)
+//        
+//        print("userNameArray", userNameArray, "userFaceName", userFaceNameArray, "userArray", userArray)
         
         cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
         let userImageData = NCMBFile.fileWithName("userImageProfile", data: nil) as! NCMBFile
@@ -127,6 +121,18 @@ class SearchUserTableViewController: UITableViewController {
             }
         })
         return cell
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let cell = sender as? SearchUserTableViewCell {
+            if let OtherAccountViewController = segue.destinationViewController as? OtherAccountViewController{
+                if let a = cell.userName.text{
+                    print("cell.userName", a)
+
+                    OtherAccountViewController.userName = a
+                }
+            }
+        }
     }
 }
 

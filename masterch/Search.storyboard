@@ -14,7 +14,7 @@
             </objects>
             <point key="canvasLocation" x="1330" y="1752"/>
         </scene>
-        <!--Search User Table View Controller-->
+        <!--ユーザー検索-->
         <scene sceneID="w6M-Ng-YSG">
             <objects>
                 <tableViewController id="Qep-Bb-oeh" customClass="SearchUserTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" id="LUC-7P-6Qa" customClass="SearchUserTableViewCell" customModule="masterch" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="userCell" id="LUC-7P-6Qa" customClass="SearchUserTableViewCell" customModule="masterch" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LUC-7P-6Qa" id="qZS-Br-dGM">
@@ -37,7 +37,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ベッキー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G2R-Fp-off">
-                                            <rect key="frame" x="56" y="2" width="68" height="21"/>
+                                            <rect key="frame" x="56" y="3" width="68" height="20.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="G2R-Fp-off" secondAttribute="height" multiplier="68:21" id="0lw-a7-KMC"/>
                                             </constraints>
@@ -64,13 +64,20 @@
                                         <constraint firstItem="G2R-Fp-off" firstAttribute="leading" secondItem="nk6-ZT-aKK" secondAttribute="trailing" constant="8" id="NIz-tx-EPa"/>
                                         <constraint firstItem="mhK-kI-AP9" firstAttribute="leading" secondItem="nk6-ZT-aKK" secondAttribute="trailing" constant="8" id="dGU-6F-2ys"/>
                                         <constraint firstItem="nk6-ZT-aKK" firstAttribute="top" secondItem="qZS-Br-dGM" secondAttribute="top" constant="2" id="hzl-uH-75e"/>
-                                        <constraint firstItem="G2R-Fp-off" firstAttribute="top" secondItem="qZS-Br-dGM" secondAttribute="top" constant="2" id="trM-lW-y3o"/>
+                                        <constraint firstItem="G2R-Fp-off" firstAttribute="top" secondItem="qZS-Br-dGM" secondAttribute="top" constant="3" id="trM-lW-y3o"/>
+                                        <constraint firstItem="mhK-kI-AP9" firstAttribute="top" secondItem="G2R-Fp-off" secondAttribute="bottom" constant="1" id="vXB-10-cNe"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="7d4-3i-jxh"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="userFaceNameLabel" destination="G2R-Fp-off" id="v5k-sj-UEt"/>
                                     <outlet property="userImageView" destination="nk6-ZT-aKK" id="cc9-Qw-pn0"/>
                                     <outlet property="userName" destination="mhK-kI-AP9" id="7jT-D4-a1X"/>
+                                    <segue destination="umc-mm-M1J" kind="show" id="G2M-yt-8vs"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -80,7 +87,7 @@
                             <outlet property="delegate" destination="Qep-Bb-oeh" id="M65-Jb-eeM"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="iV6-7p-hky">
+                    <navigationItem key="navigationItem" title="ユーザー検索" id="iV6-7p-hky">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="oUw-pN-UqO">
                             <connections>
                                 <segue destination="YW9-Co-wLb" kind="presentation" id="9rY-Jd-WVI"/>
@@ -92,6 +99,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tfO-zm-Biy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1500" y="470"/>
+        </scene>
+        <!--Other Account View Controller-->
+        <scene sceneID="pe7-wJ-sDQ">
+            <objects>
+                <viewController id="umc-mm-M1J" customClass="OtherAccountViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fyd-XU-a0l"/>
+                        <viewControllerLayoutGuide type="bottom" id="G1u-6S-3CW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DEu-qX-J8E">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@furinhapurin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uDT-cv-PAE">
+                                <rect key="frame" x="140" y="248" width="108" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="userNameLabel" destination="uDT-cv-PAE" id="gn1-wF-Adz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Q9-ru-uOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2042" y="470"/>
         </scene>
         <!--検索-->
         <scene sceneID="ZzT-P1-Ax9">

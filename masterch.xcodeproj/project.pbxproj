@@ -25,6 +25,7 @@
 		32E6CF751C76DD4F00904B74 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */; };
 		32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32E6CF761C76F4F500904B74 /* takigutihikari.jpg */; };
 		3DE5BDC5DC22063F6BBBE06C /* libPods-masterch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6710425171B174F17B3734 /* libPods-masterch.a */; };
+		ED04F1C51CE98577009B4B52 /* OtherAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED04F1C41CE98577009B4B52 /* OtherAccountViewController.swift */; };
 		ED23B7A31C7B475B009AEDA5 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */; };
 		ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */; };
 		ED23B7A51C7B475B009AEDA5 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */; };
@@ -120,6 +121,7 @@
 		32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		32E6CF761C76F4F500904B74 /* takigutihikari.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = takigutihikari.jpg; sourceTree = "<group>"; };
 		AA6710425171B174F17B3734 /* libPods-masterch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-masterch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED04F1C41CE98577009B4B52 /* OtherAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherAccountViewController.swift; sourceTree = "<group>"; };
 		ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonthView.swift; sourceTree = "<group>"; };
 		ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */,
 				ED3644571C9D658A00C6676C /* Search.storyboard */,
 				ED4830721CE8148100D29A2F /* SearchUserTableViewController.swift */,
+				ED04F1C41CE98577009B4B52 /* OtherAccountViewController.swift */,
 				ED4830701CE8130D00D29A2F /* SearchUserTableViewCell.swift */,
 			);
 			name = Search;
@@ -611,6 +614,7 @@
 				ED23B7A31C7B475B009AEDA5 /* CalendarManager.swift in Sources */,
 				32C0A33E1C5DF8ED009657B9 /* AppDelegate.swift in Sources */,
 				EDB04C751CC5190500FDEB14 /* UserData.swift in Sources */,
+				ED04F1C51CE98577009B4B52 /* OtherAccountViewController.swift in Sources */,
 				EDEF991E1C9EC13500B6D69D /* ContainerProfileViewController.swift in Sources */,
 				EDA866781CBC93050074A71D /* SetProfileViewController.swift in Sources */,
 				EDEF991C1C9EC11F00B6D69D /* ContainerSns2ViewController.swift in Sources */,
