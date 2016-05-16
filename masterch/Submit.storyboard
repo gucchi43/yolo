@@ -19,12 +19,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016/12/12/ 23:21" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="962-VD-fqV">
+                                <rect key="frame" x="228" y="73.5" width="144" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.1843137255" green="0.70980392160000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Acg-FA-G1G">
                                 <rect key="frame" x="0.0" y="64" width="600" height="30"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="xnf-Jd-fBs"/>
                                 </constraints>
-                                <color key="textColor" red="0.18202932569999999" green="0.7097251108" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -61,7 +68,7 @@
                                 </connections>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s6L-6H-DX6">
-                                <rect key="frame" x="482.5" y="570" width="43" height="30"/>
+                                <rect key="frame" x="482" y="570" width="43" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="s6L-6H-DX6" secondAttribute="height" multiplier="36:25" id="IT7-fK-KlI"/>
                                     <constraint firstAttribute="height" constant="30" id="qRX-IG-3b8"/>
@@ -73,7 +80,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cRS-No-qDS">
-                                <rect key="frame" x="530.5" y="570" width="44.5" height="30"/>
+                                <rect key="frame" x="530" y="570" width="44.5" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="g3P-oW-ZxE"/>
                                     <constraint firstAttribute="width" secondItem="cRS-No-qDS" secondAttribute="height" multiplier="37:25" id="sv8-oM-h5p"/>
@@ -84,7 +91,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1u-eP-Yn4">
-                                <rect key="frame" x="442.5" y="570" width="30" height="30"/>
+                                <rect key="frame" x="442" y="570" width="30" height="30"/>
                                 <state key="normal" title="カギ"/>
                                 <connections>
                                     <action selector="selectSeacret:" destination="c8c-V5-aA3" eventType="touchUpInside" id="Fsc-WC-hor"/>
@@ -100,6 +107,7 @@
                             <constraint firstItem="cRS-No-qDS" firstAttribute="leading" secondItem="s6L-6H-DX6" secondAttribute="trailing" constant="5" id="Baj-4b-tjh"/>
                             <constraint firstItem="iDm-Mm-zQm" firstAttribute="leading" secondItem="K40-Dn-vao" secondAttribute="leading" id="DNY-Bd-bc5"/>
                             <constraint firstItem="G5n-mi-4Qq" firstAttribute="bottom" secondItem="wbe-G7-CKV" secondAttribute="top" id="Hpa-RW-OvX"/>
+                            <constraint firstItem="G5n-mi-4Qq" firstAttribute="centerX" secondItem="K40-Dn-vao" secondAttribute="centerX" id="Meg-Cq-tZv"/>
                             <constraint firstItem="wbe-G7-CKV" firstAttribute="top" secondItem="s6L-6H-DX6" secondAttribute="bottom" id="OX0-zb-2ZC"/>
                             <constraint firstItem="G5n-mi-4Qq" firstAttribute="leading" secondItem="K40-Dn-vao" secondAttribute="leadingMargin" constant="-20" id="PE1-u0-x4I"/>
                             <constraint firstItem="Acg-FA-G1G" firstAttribute="centerX" secondItem="K40-Dn-vao" secondAttribute="centerX" id="Tk2-mR-ut9"/>
@@ -107,14 +115,17 @@
                             <constraint firstAttribute="trailing" secondItem="iDm-Mm-zQm" secondAttribute="trailing" id="Zs1-fk-5Zx"/>
                             <constraint firstItem="iDm-Mm-zQm" firstAttribute="top" secondItem="K40-Dn-vao" secondAttribute="top" id="enf-NX-pJZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cRS-No-qDS" secondAttribute="trailing" constant="5" id="haw-vv-drz"/>
+                            <constraint firstItem="962-VD-fqV" firstAttribute="top" secondItem="iDm-Mm-zQm" secondAttribute="bottom" constant="9" id="jaP-op-sgj"/>
                             <constraint firstItem="Acg-FA-G1G" firstAttribute="top" secondItem="iDm-Mm-zQm" secondAttribute="bottom" id="kGh-DI-wBf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="G5n-mi-4Qq" secondAttribute="trailing" constant="-20" id="o7n-1N-jHT"/>
                             <constraint firstItem="wbe-G7-CKV" firstAttribute="top" secondItem="cRS-No-qDS" secondAttribute="bottom" id="qBU-Iu-3Ar"/>
+                            <constraint firstItem="962-VD-fqV" firstAttribute="centerX" secondItem="K40-Dn-vao" secondAttribute="centerX" id="tmK-Dc-4s4"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="facebookBottomConstraint" destination="qBU-Iu-3Ar" id="jD1-dL-kaM"/>
                         <outlet property="facebookButton" destination="cRS-No-qDS" id="Je9-oR-zdt"/>
+                        <outlet property="postDateLabel" destination="962-VD-fqV" id="vaF-h5-aRO"/>
                         <outlet property="postDateTextField" destination="Acg-FA-G1G" id="QT5-SM-g2Y"/>
                         <outlet property="postTextView" destination="G5n-mi-4Qq" id="dbL-yE-rob"/>
                         <outlet property="secretBottomConstraint" destination="Zf7-Ob-c8G" id="Ydq-5v-InO"/>

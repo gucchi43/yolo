@@ -15,6 +15,8 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var postTextView: UITextView!
     @IBOutlet var postDateTextField: UITextField!
     
+    @IBOutlet weak var postDateLabel: UILabel!
+    
     
     @IBOutlet weak var shareTwitterButton: UIButton!
     @IBOutlet weak var shareFacebookButton: UIButton!
@@ -78,9 +80,6 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         postDatePicker.addTarget(self, action: "onDidChangeDate:", forControlEvents: .ValueChanged)
         
         self.postDateTextField.inputAccessoryView = toolBar
-        
-//        twitterButton.setImage(imgTwitterOff, forState: .Normal)
-//        facebookButton.setImage(imgFacebookOff, forState: .Normal)
         
     }
     
@@ -367,6 +366,7 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
 
 // 日付選択
 extension SubmitViewController {
+    
     func selectToolBarDateSelectButton(sender: UIBarButtonItem) {
         print("日付選択を押した")
         
@@ -394,7 +394,9 @@ extension SubmitViewController {
         let postDateFormatter: NSDateFormatter = NSDateFormatter()
         postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         //        日付をフォーマットに則って取得.
-        postDateTextField.text = postDateFormatter.stringFromDate(date)
+        postDateLabel.text = postDateFormatter.stringFromDate(date)
+//        postDateTextField.text = postDateFormatter.stringFromDate(date)
+//        postDateLabel.text = postDateTextField.text
     }
 }
 
@@ -593,7 +595,7 @@ extension SubmitViewController {
 extension SubmitViewController {
     func setLogColor(){
         self.dateColor = "red"
-        let longLogDate = postDateTextField.text //投稿画面に表示されている投稿する日時（PostDateのString版）
+        let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）
         let logDate = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(10))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
         print("logDate", logDate)
         let myLogColorQuery: NCMBQuery = NCMBQuery(className: "LogColor") // 自分の投稿クエリ
