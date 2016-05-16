@@ -30,24 +30,16 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate {
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.layer.masksToBounds = true
         //プロフィール写真を表示
-        let userImageName = (currentUser.objectForKey("userProfileImage") as? String)!
-        let userImageData = NCMBFile.fileWithName(userImageName, data: nil) as! NCMBFile
-        
-        userImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
-            if error != nil{
-                print("写真の取得失敗: \(error)")
-                //初期の場合のユーザー画像
-                self.userImageView.image = UIImage(named: "noprofile.png")
-            } else {
-                self.userImageView.image = UIImage(data: imageData!)
-            }
-        }
+        userImageView.image = UIImage(named: "noprofile.png")
+
+        homeImage = UIImage(named: "noprofile.png")
+        profileImage = UIImage(named: "noprofile.png")
         
         
     }
     
     //keyboardで、return押した時
-    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
         //キーボードを閉じる
         textField.resignFirstResponder()
         return true

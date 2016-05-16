@@ -300,17 +300,14 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="プロフィール設定" id="Cg3-b6-dPF">
-                        <barButtonItem key="rightBarButtonItem" title="スキップ" id="wkN-F8-YrT">
-                            <connections>
-                                <segue destination="crh-pw-A6b" kind="presentation" identifier="signUpSegue" id="hmv-Jr-pUG"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="スキップ" id="wkN-F8-YrT"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="userIdLabel" destination="SKb-mw-AY1" id="x11-eM-aKK"/>
                         <outlet property="userImageView" destination="vRb-xq-aCt" id="NRh-37-YDX"/>
                         <outlet property="userNameTextFiled" destination="iiH-hf-dRJ" id="BZL-Ax-RFz"/>
+                        <segue destination="crh-pw-A6b" kind="presentation" identifier="signUpSegue" id="d3l-QJ-9PL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DGq-mk-CSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -468,6 +465,6 @@
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hmv-Jr-pUG"/>
+        <segue reference="d3l-QJ-9PL"/>
     </inferredMetricsTieBreakers>
 </document>
