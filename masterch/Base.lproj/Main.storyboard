@@ -17,9 +17,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="gMd-fS-80a" kind="relationship" relationship="viewControllers" id="R1K-i8-rNX"/>
-                        <segue destination="qbn-iQ-1wZ" kind="relationship" relationship="viewControllers" id="LC9-MI-3Ts"/>
-                        <segue destination="mLo-TN-FjO" kind="relationship" relationship="viewControllers" id="LAX-m9-J1p"/>
+                        <segue destination="gMd-fS-80a" kind="relationship" relationship="viewControllers" id="xir-Tq-NfJ"/>
+                        <segue destination="Nr0-kO-o6P" kind="relationship" relationship="viewControllers" id="Duo-LR-RfI"/>
+                        <segue destination="qbn-iQ-1wZ" kind="relationship" relationship="viewControllers" id="SVS-PC-YbQ"/>
+                        <segue destination="mLo-TN-FjO" kind="relationship" relationship="viewControllers" id="MuG-OD-C7a"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ke4-eq-fQv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -40,11 +41,11 @@
         <scene sceneID="8D1-oi-x1X">
             <objects>
                 <viewControllerPlaceholder storyboardName="Search" id="Nr0-kO-o6P" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="BqW-la-UdK"/>
+                    <tabBarItem key="tabBarItem" id="BqW-la-UdK"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M0T-Vo-Gbg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1192.5" y="1091"/>
+            <point key="canvasLocation" x="812.5" y="1195"/>
         </scene>
         <!--Log-->
         <scene sceneID="hRI-mY-na7">
@@ -60,7 +61,7 @@
         <scene sceneID="rHk-mp-WUd">
             <objects>
                 <viewControllerPlaceholder storyboardName="Notification" id="qbn-iQ-1wZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Hhi-4O-exZ"/>
+                    <tabBarItem key="tabBarItem" id="Hhi-4O-exZ"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q8G-65-BWB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -70,7 +71,7 @@
         <scene sceneID="feu-Io-4KO">
             <objects>
                 <viewControllerPlaceholder storyboardName="Account" id="mLo-TN-FjO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="LhM-YA-FVq"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="noprofile.png" id="LhM-YA-FVq"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9f2-nA-gI3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -467,6 +468,6 @@
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="L8J-Kv-eM2"/>
+        <segue reference="hmv-Jr-pUG"/>
     </inferredMetricsTieBreakers>
 </document>
