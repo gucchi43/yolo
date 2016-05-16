@@ -51,8 +51,8 @@
                                             </variation>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@furindamezettai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhK-kI-AP9">
-                                            <rect key="frame" x="56" y="25" width="121" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <rect key="frame" x="56" y="25" width="107" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>

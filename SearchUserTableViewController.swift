@@ -85,6 +85,7 @@ class SearchUserTableViewController: UITableViewController {
             return filterUsers.count
         }else {
             return filterUsers.count
+            //こっちの場合は最初に全ユーザー表示
 //            return userArray.count
         }
     }
@@ -97,6 +98,7 @@ class SearchUserTableViewController: UITableViewController {
             userData = filterUsers[indexPath.row]
         }else {
             userData = filterUsers[indexPath.row]
+            //こっちの場合は最初に全ユーザー表示
 //            userData = userArray[indexPath.row]
         }
         
