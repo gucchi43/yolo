@@ -20,15 +20,12 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let currentUser: NCMBUser = NCMBUser.currentUser()
-        
-        userIdLabel.text = "@" + currentUser.userName
+
+        userIdLabel.text = "@" + NCMBUser.currentUser().userName
         
         //プロフィール写真の形を整える
         //!!! 写真をグレーでぼかしたい, 谷口
         userImageView.layer.cornerRadius = userImageView.frame.width/2
-        userImageView.layer.masksToBounds = true
         //プロフィール写真を表示
         userImageView.image = UIImage(named: "noprofile.png")
 
@@ -54,26 +51,18 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func userInfo(sender: AnyObject) {
-        print("user情報 \(NCMBUser.currentUser())")
-    }
-    
-    //プロフィール画面のカメラ選択ボタン
-    @IBAction func PhotoAndCamera(sender: AnyObject) {
-        tappedToolBarCameraButton()
-    }
-    
-    //完了ボタン
-    @IBAction func profileFinishBtn(sender: AnyObject) {
-        newProfileSave()
-    }
 }
 
 
 // カメラ周り
 extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
-    func tappedToolBarCameraButton() {
+    //プロフィール画面のカメラ選択ボタン
+    @IBAction func editProfileImageButton(sender: AnyObject) {
+        selectEditProfileImage()
+    }
+
+    func selectEditProfileImage() {
         print("カメラボタン押した")
         
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
@@ -152,10 +141,15 @@ func userSaveInBackground (){
 
 // 投稿アクション周り
 extension SetProfileViewController {
-    //    投稿ボタンプッシュ, 投稿機能メソッド
-    func newProfileSave() {
+    //保存ボタン
+    @IBAction func saveProfileButton(sender: AnyObject) {
+        saveNewProfile()
+    }
+
+    //投稿ボタンプッシュ, 投稿機能メソッド
+    func saveNewProfile() {
         let user = NCMBUser.currentUser()
-        
+
         //ユーザーネーム保存
         user.setObject(userNameTextFiled.text, forKey: "userFaceName")
         print("userFaceName", userNameTextFiled.text)
