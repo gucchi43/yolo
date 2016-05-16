@@ -14,9 +14,13 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameTextFiled: UITextField!
     @IBOutlet weak var userIdLabel: UILabel!
+    @IBOutlet weak var selfIntroductionTextView: UITextView!
     
     var profileImage: UIImage? = nil
     var homeImage: UIImage!
+    
+    @IBOutlet weak var placeHolderLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +54,24 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate {
             userNameTextFiled.resignFirstResponder()
         }
     }
+
+}
+
+extension SetProfileViewController {
+//    テキストビューのplaceholder
+    //textviewがフォーカスされたら、Labelを非表示
+    func textViewShouldBeginEditing(textView: UITextView) -> Bool
+    {
+        placeHolderLabel.hidden = true
+        return true
+    }
     
+    //textviewからフォーカスが外れて、TextViewが空だったらLabelを再び表示
+    func textViewDidEndEditing(textView: UITextView) {
+        if(textView.text.isEmpty){
+            placeHolderLabel.hidden = false
+        }
+    }
 }
 
 
@@ -135,9 +156,6 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
     }
 }
 
-func userSaveInBackground (){
-    
-}
 
 // 投稿アクション周り
 extension SetProfileViewController {
@@ -154,7 +172,7 @@ extension SetProfileViewController {
         user.setObject(userNameTextFiled.text, forKey: "userFaceName")
         print("userFaceName", userNameTextFiled.text)
         //自己紹介保存
-        user.setObject("ここに自己紹介をいれます", forKey: "userSelfIntroduction")
+        user.setObject(selfIntroductionTextView.text, forKey: "userSelfIntroduction")
         
         
         // プロフィール写真保存

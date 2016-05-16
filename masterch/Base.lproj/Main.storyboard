@@ -218,7 +218,6 @@
         <!--プロフィール設定-->
         <scene sceneID="Mpw-0u-QWC">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DGq-mk-CSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="iJy-WC-FCV" customClass="SetProfileViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gQC-BY-GiF"/>
@@ -242,11 +241,14 @@
                                     <outlet property="delegate" destination="iJy-WC-FCV" id="pmU-Ub-nVx"/>
                                 </connections>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="自己紹介を入力してください" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sw8-Rl-vw6">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="sw8-Rl-vw6">
                                 <rect key="frame" x="20" y="202" width="348" height="193"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="iJy-WC-FCV" id="Lgz-Ce-72i"/>
+                                </connections>
                             </textView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="vRb-xq-aCt">
                                 <rect key="frame" x="20" y="94" width="100" height="100"/>
@@ -261,6 +263,16 @@
                                     <action selector="editProfileImageButton:" destination="iJy-WC-FCV" eventType="touchUpInside" id="fW8-TS-d6N"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="自己紹介を入力してください" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fqo-4m-cN6">
+                                <rect key="frame" x="20" y="202" width="250" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="Og8-gN-5VH"/>
+                                    <constraint firstAttribute="height" constant="21" id="SR8-DQ-gYI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -289,8 +301,10 @@
                             <constraint firstAttribute="trailingMargin" secondItem="sw8-Rl-vw6" secondAttribute="trailing" constant="26" id="gS7-hk-eHV"/>
                             <constraint firstItem="SKb-mw-AY1" firstAttribute="top" secondItem="iiH-hf-dRJ" secondAttribute="bottom" constant="8" id="iCX-l9-ChW"/>
                             <constraint firstItem="SKb-mw-AY1" firstAttribute="leading" secondItem="G4O-ws-LgW" secondAttribute="trailing" constant="47" id="mhh-8D-WRf"/>
+                            <constraint firstItem="sw8-Rl-vw6" firstAttribute="top" secondItem="Fqo-4m-cN6" secondAttribute="bottom" constant="-21" id="nxU-pr-3Wh"/>
                             <constraint firstItem="SKb-mw-AY1" firstAttribute="leading" secondItem="G4O-ws-LgW" secondAttribute="trailing" constant="8" id="seu-uk-739"/>
                             <constraint firstItem="iiH-hf-dRJ" firstAttribute="centerX" secondItem="xKN-Mf-HM1" secondAttribute="centerX" id="taD-fE-11E"/>
+                            <constraint firstItem="sw8-Rl-vw6" firstAttribute="leading" secondItem="Fqo-4m-cN6" secondAttribute="trailing" constant="-250" id="wjk-GN-zdT"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -318,12 +332,15 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="placeHolderLabel" destination="Fqo-4m-cN6" id="dK9-od-cqK"/>
+                        <outlet property="selfIntroductionTextView" destination="sw8-Rl-vw6" id="WqG-3I-yVz"/>
                         <outlet property="userIdLabel" destination="SKb-mw-AY1" id="M8g-t0-biU"/>
                         <outlet property="userImageView" destination="vRb-xq-aCt" id="NRh-37-YDX"/>
                         <outlet property="userNameTextFiled" destination="iiH-hf-dRJ" id="BZL-Ax-RFz"/>
                         <segue destination="crh-pw-A6b" kind="presentation" identifier="signUpSegue" id="d3l-QJ-9PL"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DGq-mk-CSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-316" y="1039"/>
         </scene>
