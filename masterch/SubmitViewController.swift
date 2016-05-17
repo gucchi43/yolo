@@ -33,7 +33,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var redButton: UIButton!
     @IBOutlet weak var yellowButton: UIButton!
     @IBOutlet weak var pinkButton: UIButton!
-    @IBOutlet weak var buleButton: UIButton!
+    @IBOutlet weak var blueButton: UIButton!
     @IBOutlet weak var greenButton: UIButton!
     @IBOutlet weak var grayButton: UIButton!
     
@@ -443,7 +443,8 @@ extension SubmitViewController {
         print("selectPink")
         self.dateColor = "pink"
     }
-    @IBAction func selectBule(sender: AnyObject) {
+    
+    @IBAction func selectBlue(sender: AnyObject) {
         print("selectBule")
         self.dateColor = "bule"
     }
@@ -455,8 +456,6 @@ extension SubmitViewController {
         print("selectGray")
         self.dateColor = "gray"
     }
-    
-    
 }
 
 

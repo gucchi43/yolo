@@ -125,10 +125,18 @@ class CalendarSwiftDateView: UIView{
         switch dateColor {
         case "red" :
             self.dayButton.backgroundColor =  UIColor.redColor()
+        case "yellow" :
+            self.dayButton.backgroundColor =  UIColor.yellowColor()
+        case "pink" :
+            self.dayButton.backgroundColor =  UIColor.magentaColor()
         case "blue" :
             self.dayButton.backgroundColor =  UIColor.blueColor()
+        case "green" :
+            self.dayButton.backgroundColor =  UIColor.blueColor()
+        case "gray" :
+            self.dayButton.backgroundColor =  UIColor.darkGrayColor()
         default :
-            self.dayButton.backgroundColor =  UIColor.orangeColor()
+            self.dayButton.backgroundColor =  UIColor.lightGrayColor()
         }
     }
     

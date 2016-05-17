@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubmitViewController" customModule="masterch" customModuleProvider="target">
             <connections>
-                <outlet property="buleButton" destination="75T-d3-dP8" id="hXe-2t-qGl"/>
+                <outlet property="blueButton" destination="75T-d3-dP8" id="YKI-jQ-ib5"/>
                 <outlet property="grayButton" destination="9sN-7y-smB" id="Uud-Fi-cfZ"/>
                 <outlet property="greenButton" destination="RS1-HT-wci" id="x3p-Oe-6xE"/>
                 <outlet property="pinkButton" destination="36m-vP-OkH" id="wV1-Jb-uyR"/>
@@ -45,7 +45,7 @@
                     <rect key="frame" x="285" y="180" width="30" height="30"/>
                     <state key="normal" title="bule"/>
                     <connections>
-                        <action selector="selectBule:" destination="-1" eventType="touchUpInside" id="kOJ-Tz-e9n"/>
+                        <action selector="selectBlue:" destination="-1" eventType="touchUpInside" id="m1E-l3-xEp"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9sN-7y-smB">
