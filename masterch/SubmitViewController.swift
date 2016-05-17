@@ -260,7 +260,7 @@ extension SubmitViewController {
     
 }
 
-// toolBar
+// toolBar設定
 extension SubmitViewController {
     func setToolBar() {
         // UIToolBarの設定
@@ -434,26 +434,32 @@ extension SubmitViewController {
     @IBAction func selectRed(sender: AnyObject) {
         print("selectRed")
         self.dateColor = "red"
+        toolBar.backgroundColor = UIColor.redColor()
     }
     @IBAction func selectYellow(sender: AnyObject) {
         print("selectYellow")
         self.dateColor = "yellow"
+        toolBar.backgroundColor = UIColor.yellowColor()
     }
     @IBAction func selectPink(sender: AnyObject) {
         print("selectPink")
         self.dateColor = "pink"
+        toolBar.backgroundColor = UIColor.magentaColor()
     }
     @IBAction func selectBlue(sender: AnyObject) {
         print("selectBlue")
         self.dateColor = "blue"
+        toolBar.backgroundColor = UIColor.blueColor()
     }
     @IBAction func selectGreen(sender: AnyObject) {
         print("selectGreen")
         self.dateColor = "green"
+        toolBar.backgroundColor = UIColor.greenColor()
     }
     @IBAction func selectGray(sender: AnyObject) {
         print("selectGray")
         self.dateColor = "gray"
+        toolBar.backgroundColor = UIColor.darkGrayColor()
     }
 }
 
@@ -647,7 +653,20 @@ extension SubmitViewController {
                     self.firstSetLogColor(logDate)
                 }else {
                     //２度目以降の投稿
-                    self.updateLogColor()
+                    print("変更した後の色は？", self.dateColor)
+                    self.updateLogColor(object)
+//                    object.incrementKey("postCount")
+//                    object.setObject(self.dateColor, forKey: "dateColor")
+//                    
+//                    object.saveInBackgroundWithBlock { (error) -> Void in
+//                        object.saveInBackgroundWithBlock { (error) -> Void in
+//                            if error != nil {
+//                                print("error", error)
+//                            }else {
+//                                print("logColor ２回目以降の投稿 save成功")
+//                            }
+//                        }
+//                    }
                 }
             }
         }
@@ -671,11 +690,23 @@ extension SubmitViewController {
         }
     }
     
-    //今日２回目以降の投稿
-    func updateLogColor(){
+//    //今日２回目以降の投稿
+    func updateLogColor(object: AnyObject){
+        let secondObject = object as! NCMBObject
+        secondObject.incrementKey("postCount")
+        secondObject.setObject(self.dateColor, forKey: "dateColor")
+        
+        secondObject.saveInBackgroundWithBlock { (error) -> Void in
+            object.saveInBackgroundWithBlock { (error) -> Void in
+                if error != nil {
+                    print("error", error)
+                }else {
+                    print("logColor ２回目以降の投稿 save成功")
+                }
+            }
+        }
         
     }
-    
 }
 
 

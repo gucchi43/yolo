@@ -133,7 +133,7 @@ class CalendarSwiftDateView: UIView{
         case "blue" :
             self.dayButton.backgroundColor =  UIColor.blueColor()
         case "green" :
-            self.dayButton.backgroundColor =  UIColor.blueColor()
+            self.dayButton.backgroundColor =  UIColor.greenColor()
         case "gray" :
             self.dayButton.backgroundColor =  UIColor.darkGrayColor()
         default :
