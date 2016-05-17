@@ -17,11 +17,6 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var postDateLabel: UILabel!
     
-    
-    @IBOutlet weak var shareTwitterButton: UIButton!
-    @IBOutlet weak var shareFacebookButton: UIButton!
-    @IBOutlet weak var directinonSecretButton: UIButton!
-    
     @IBOutlet weak var twitterButton: UIButton!
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var secretButton: UIButton!
@@ -34,6 +29,13 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
     let imgFacebookOn = UIImage(named: "facebook_logo_640*480_origin")
     let imgFacebookOff = UIImage(named: "facebook_logo_640*480_gray")
+    
+    @IBOutlet weak var redButton: UIButton!
+    @IBOutlet weak var yellowButton: UIButton!
+    @IBOutlet weak var pinkButton: UIButton!
+    @IBOutlet weak var buleButton: UIButton!
+    @IBOutlet weak var greenButton: UIButton!
+    @IBOutlet weak var grayButton: UIButton!
     
     var postImage1: UIImage? = nil
     var toolBar: UIToolbar!
@@ -52,7 +54,6 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     var logDate: String?
     var dateColor: String?
     
-    var testUserID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -430,14 +431,32 @@ extension SubmitViewController {
         self.postTextView.reloadInputViews()
     }
     
-    @IBAction func pushShareTwitter(sender: AnyObject) {
+    @IBAction func selectRed(sender: AnyObject) {
+        print("selectRed")
+        self.dateColor = "red"
     }
-    //TODO: 途中の状態（見た目だけは動く）
-    @IBAction func pushShareFacebook(sender: AnyObject) {
+    @IBAction func selectYellow(sender: AnyObject) {
+        print("selectYellow")
+        self.dateColor = "yellow"
+    }
+    @IBAction func selectPink(sender: AnyObject) {
+        print("selectPink")
+        self.dateColor = "pink"
+    }
+    @IBAction func selectBule(sender: AnyObject) {
+        print("selectBule")
+        self.dateColor = "bule"
+    }
+    @IBAction func selectGreen(sender: AnyObject) {
+        print("selectGreen")
+        self.dateColor = "green"
+    }
+    @IBAction func selectGray(sender: AnyObject) {
+        print("selectGray")
+        self.dateColor = "gray"
     }
     
-    @IBAction func pushDidectionSecret(sender: AnyObject) {
-    }
+    
 }
 
 
@@ -615,7 +634,6 @@ extension SubmitViewController {
 
 extension SubmitViewController {
     func setLogColor(){
-        self.dateColor = "red"
         let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）
         let logDate = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(10))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
         print("logDate", logDate)
@@ -639,10 +657,11 @@ extension SubmitViewController {
     
     //今日初めての投稿
     func firstSetLogColor(logDate: String){
+        print("本日の色は？", self.dateColor!)
         let logColorObject = NCMBObject(className: "LogColor")
         logColorObject.setObject(user, forKey: "user")
         logColorObject.setObject(logDate, forKey: "logDate")
-        logColorObject.setObject(self.dateColor, forKey: "dateColor")
+        logColorObject.setObject(self.dateColor!, forKey: "dateColor")
         logColorObject.incrementKey("postCount")
         
         logColorObject.saveInBackgroundWithBlock { (error) -> Void in

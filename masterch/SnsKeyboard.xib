@@ -3,14 +3,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubmitViewController" customModule="masterch" customModuleProvider="target">
             <connections>
-                <outlet property="directinonSecretButton" destination="1Wi-S8-S2w" id="irV-Rg-oPh"/>
-                <outlet property="shareFacebookButton" destination="CgE-XT-FGb" id="Tos-P3-SQ4"/>
-                <outlet property="shareTwitterButton" destination="HeO-Iz-mck" id="wMN-OU-IzO"/>
+                <outlet property="buleButton" destination="75T-d3-dP8" id="hXe-2t-qGl"/>
+                <outlet property="grayButton" destination="9sN-7y-smB" id="Uud-Fi-cfZ"/>
+                <outlet property="greenButton" destination="RS1-HT-wci" id="x3p-Oe-6xE"/>
+                <outlet property="pinkButton" destination="36m-vP-OkH" id="wV1-Jb-uyR"/>
+                <outlet property="redButton" destination="CXL-13-0zO" id="Xcd-Kl-lo4"/>
+                <outlet property="yellowButton" destination="x6g-Lz-Mhu" id="CKV-qA-ObD"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -18,70 +20,64 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HeO-Iz-mck">
-                    <rect key="frame" x="10" y="30" width="100" height="69"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="HeO-Iz-mck" secondAttribute="height" multiplier="347:240" id="MKJ-Kf-j5a"/>
-                        <constraint firstAttribute="width" constant="100" id="UOc-cQ-xDc"/>
-                    </constraints>
-                    <state key="normal" title="Button" image="twitter_logo_640*480_gray.png"/>
-                    <state key="selected" image="twitter_logo_640*480_origin.png"/>
-                    <state key="highlighted" image="twitter_logo_640*480_origin.png"/>
-                    <state key="focused" image="twitter_logo_640*480_origin.png"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXL-13-0zO">
+                    <rect key="frame" x="189" y="50" width="30" height="30"/>
+                    <state key="normal" title="red"/>
                     <connections>
-                        <action selector="pushShareTwitter:" destination="-1" eventType="touchUpInside" id="uI6-8H-0l8"/>
+                        <action selector="selectRed:" destination="-1" eventType="touchUpInside" id="qMl-oV-6QL"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CgE-XT-FGb">
-                    <rect key="frame" x="490" y="30" width="100" height="69"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="CgE-XT-FGb" secondAttribute="height" multiplier="347:240" id="CJ7-Kw-kY8"/>
-                        <constraint firstAttribute="width" secondItem="CgE-XT-FGb" secondAttribute="height" multiplier="347:240" id="ONw-1n-KoP"/>
-                        <constraint firstAttribute="width" secondItem="CgE-XT-FGb" secondAttribute="height" multiplier="347:240" id="QMj-nT-llJ"/>
-                        <constraint firstAttribute="width" constant="100" id="cLH-pj-eeQ"/>
-                        <constraint firstAttribute="width" constant="694" id="iFc-kE-SBE"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="694" id="k78-CI-b8P"/>
-                    </constraints>
-                    <state key="normal" title="Button" image="facebook_logo_640*480_gray.png"/>
-                    <state key="selected" image="facebook_logo_640*480_origin.png"/>
-                    <state key="highlighted" image="facebook_logo_640*480_origin.png"/>
-                    <state key="focused" image="facebook_logo_640*480_origin.png"/>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="CJ7-Kw-kY8"/>
-                            <exclude reference="QMj-nT-llJ"/>
-                            <exclude reference="iFc-kE-SBE"/>
-                            <exclude reference="k78-CI-b8P"/>
-                        </mask>
-                    </variation>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6g-Lz-Mhu">
+                    <rect key="frame" x="279" y="50" width="43" height="30"/>
+                    <state key="normal" title="yellow"/>
                     <connections>
-                        <action selector="pushShareFacebook:" destination="-1" eventType="touchUpInside" id="AOH-ly-cRd"/>
+                        <action selector="selectYellow:" destination="-1" eventType="touchUpInside" id="Xff-Gw-pzd"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Wi-S8-S2w">
-                    <rect key="frame" x="260" y="30" width="80" height="60"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                    <state key="normal" title="カギ"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="36m-vP-OkH">
+                    <rect key="frame" x="382" y="50" width="30" height="30"/>
+                    <state key="normal" title="pink"/>
                     <connections>
-                        <action selector="pushDidectionSecret:" destination="-1" eventType="touchUpInside" id="SZ9-RM-eOv"/>
+                        <action selector="selectPink:" destination="-1" eventType="touchUpInside" id="TsX-8V-wf5"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75T-d3-dP8">
+                    <rect key="frame" x="285" y="180" width="30" height="30"/>
+                    <state key="normal" title="bule"/>
+                    <connections>
+                        <action selector="selectBule:" destination="-1" eventType="touchUpInside" id="kOJ-Tz-e9n"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9sN-7y-smB">
+                    <rect key="frame" x="381" y="180" width="31" height="30"/>
+                    <state key="normal" title="gray"/>
+                    <connections>
+                        <action selector="selectGray:" destination="-1" eventType="touchUpInside" id="CQe-wK-0Rp"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RS1-HT-wci">
+                    <rect key="frame" x="189" y="180" width="40" height="30"/>
+                    <state key="normal" title="green"/>
+                    <connections>
+                        <action selector="selectGreen:" destination="-1" eventType="touchUpInside" id="bkh-Le-vB2"/>
                     </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="CgE-XT-FGb" secondAttribute="trailing" constant="10" id="7CF-rz-CJ2"/>
-                <constraint firstItem="HeO-Iz-mck" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="30" id="9nl-Kr-pS2"/>
-                <constraint firstItem="CgE-XT-FGb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="30" id="CfV-QR-7zz"/>
-                <constraint firstItem="HeO-Iz-mck" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="KXb-Yv-7cm"/>
-                <constraint firstItem="1Wi-S8-S2w" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="30" id="YSy-SV-Gdz"/>
-                <constraint firstItem="1Wi-S8-S2w" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fYE-2e-Lrg"/>
+                <constraint firstItem="RS1-HT-wci" firstAttribute="leading" secondItem="CXL-13-0zO" secondAttribute="leading" id="4pQ-c2-bwE"/>
+                <constraint firstItem="x6g-Lz-Mhu" firstAttribute="leading" secondItem="CXL-13-0zO" secondAttribute="trailing" constant="60" id="80Y-dX-kmH"/>
+                <constraint firstItem="9sN-7y-smB" firstAttribute="trailing" secondItem="36m-vP-OkH" secondAttribute="trailing" id="EgP-3j-pFI"/>
+                <constraint firstItem="75T-d3-dP8" firstAttribute="centerX" secondItem="x6g-Lz-Mhu" secondAttribute="centerX" id="RXy-OR-ejU"/>
+                <constraint firstItem="x6g-Lz-Mhu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Sj0-o9-hnA"/>
+                <constraint firstItem="9sN-7y-smB" firstAttribute="bottom" secondItem="75T-d3-dP8" secondAttribute="bottom" id="TD0-81-fIe"/>
+                <constraint firstItem="RS1-HT-wci" firstAttribute="bottom" secondItem="75T-d3-dP8" secondAttribute="bottom" id="ahC-WD-3tL"/>
+                <constraint firstItem="36m-vP-OkH" firstAttribute="leading" secondItem="x6g-Lz-Mhu" secondAttribute="trailing" constant="60" id="k7h-pE-lHb"/>
+                <constraint firstItem="CXL-13-0zO" firstAttribute="bottom" secondItem="x6g-Lz-Mhu" secondAttribute="bottom" id="lAO-lH-8Q0"/>
+                <constraint firstItem="x6g-Lz-Mhu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="lYU-7F-w8O"/>
+                <constraint firstItem="75T-d3-dP8" firstAttribute="top" secondItem="x6g-Lz-Mhu" secondAttribute="bottom" constant="100" id="myQ-fs-0Gb"/>
+                <constraint firstItem="36m-vP-OkH" firstAttribute="bottom" secondItem="x6g-Lz-Mhu" secondAttribute="bottom" id="n5T-4L-XQo"/>
             </constraints>
         </view>
     </objects>
-    <resources>
-        <image name="facebook_logo_640*480_gray.png" width="640" height="480"/>
-        <image name="facebook_logo_640*480_origin.png" width="640" height="480"/>
-        <image name="twitter_logo_640*480_gray.png" width="640" height="480"/>
-        <image name="twitter_logo_640*480_origin.png" width="640" height="480"/>
-    </resources>
 </document>

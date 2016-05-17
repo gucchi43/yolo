@@ -24,7 +24,7 @@
 		32C0A35E1C5DF8EE009657B9 /* masterchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A35D1C5DF8EE009657B9 /* masterchUITests.swift */; };
 		32E6CF751C76DD4F00904B74 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */; };
 		32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32E6CF761C76F4F500904B74 /* takigutihikari.jpg */; };
-		3DE5BDC5DC22063F6BBBE06C /* libPods-masterch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6710425171B174F17B3734 /* libPods-masterch.a */; };
+		E0B7E0BA07F94C20BB5A1280 /* libPods-masterch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2256E15F2038E12B35758EC6 /* libPods-masterch.a */; };
 		ED04F1C51CE98577009B4B52 /* OtherAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED04F1C41CE98577009B4B52 /* OtherAccountViewController.swift */; };
 		ED23B7A31C7B475B009AEDA5 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */; };
 		ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */; };
@@ -96,6 +96,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2256E15F2038E12B35758EC6 /* libPods-masterch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-masterch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3219A2351C70468900D1A6AF /* TimelineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
 		3219A2361C70468900D1A6AF /* CustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 		3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitViewController.swift; sourceTree = "<group>"; };
@@ -120,7 +121,8 @@
 		32C0A35F1C5DF8EE009657B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		32E6CF761C76F4F500904B74 /* takigutihikari.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = takigutihikari.jpg; sourceTree = "<group>"; };
-		AA6710425171B174F17B3734 /* libPods-masterch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-masterch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CC6FA301452F9BE8446E0CB /* Pods-masterch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.release.xcconfig"; sourceTree = "<group>"; };
+		DDDA2AF98486C953A99F98DB /* Pods-masterch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.debug.xcconfig"; sourceTree = "<group>"; };
 		ED04F1C41CE98577009B4B52 /* OtherAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherAccountViewController.swift; sourceTree = "<group>"; };
 		ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonthView.swift; sourceTree = "<group>"; };
@@ -158,8 +160,6 @@
 		EDE355F11CB284CD006C7C0A /* CommentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFile.swift; sourceTree = "<group>"; };
 		EDEF991B1C9EC11F00B6D69D /* ContainerSns2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerSns2ViewController.swift; sourceTree = "<group>"; };
 		EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerProfileViewController.swift; sourceTree = "<group>"; };
-		F2011EB0AC35898DBEA8FD95 /* Pods-masterch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.release.xcconfig"; sourceTree = "<group>"; };
-		FAEFA590D5AF150641D1A08F /* Pods-masterch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,7 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */,
-				3DE5BDC5DC22063F6BBBE06C /* libPods-masterch.a in Frameworks */,
+				E0B7E0BA07F94C20BB5A1280 /* libPods-masterch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,15 +189,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		11EC34571A810140C6E33FFA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FAEFA590D5AF150641D1A08F /* Pods-masterch.debug.xcconfig */,
-				F2011EB0AC35898DBEA8FD95 /* Pods-masterch.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		32C0A3311C5DF8ED009657B9 = {
 			isa = PBXGroup;
 			children = (
@@ -206,7 +197,7 @@
 				32C0A35C1C5DF8EE009657B9 /* masterchUITests */,
 				32C0A33B1C5DF8ED009657B9 /* Products */,
 				B831727C3E3CF2E5ED6388D9 /* Frameworks */,
-				11EC34571A810140C6E33FFA /* Pods */,
+				4CC37C4A035C0187CA34D9A7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -267,11 +258,20 @@
 			path = masterchUITests;
 			sourceTree = "<group>";
 		};
+		4CC37C4A035C0187CA34D9A7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DDDA2AF98486C953A99F98DB /* Pods-masterch.debug.xcconfig */,
+				3CC6FA301452F9BE8446E0CB /* Pods-masterch.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B831727C3E3CF2E5ED6388D9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED779B091C8DCB9100C3027C /* SwiftDate.framework */,
-				AA6710425171B174F17B3734 /* libPods-masterch.a */,
+				2256E15F2038E12B35758EC6 /* libPods-masterch.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -380,14 +380,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32C0A3621C5DF8EE009657B9 /* Build configuration list for PBXNativeTarget "masterch" */;
 			buildPhases = (
-				8A566DE260D41DF180B93678 /* Check Pods Manifest.lock */,
+				50F719C96381B430B7401FB8 /* 📦 Check Pods Manifest.lock */,
 				32C0A3361C5DF8ED009657B9 /* Sources */,
 				32C0A3371C5DF8ED009657B9 /* Frameworks */,
 				32C0A3381C5DF8ED009657B9 /* Resources */,
 				ED779B0B1C8ED0D300C3027C /* CopyFiles */,
 				ED8FE1CB1C8FE62200CFD685 /* ShellScript */,
-				58AF20992B63ACCF6D045CBE /* Embed Pods Frameworks */,
-				5A9514ED547ACB3EBBAF69D7 /* Copy Pods Resources */,
+				B8A26049C56D2BF01088C609 /* 📦 Embed Pods Frameworks */,
+				C0A1DA4F142BF0175A1A60DB /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -525,14 +525,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		58AF20992B63ACCF6D045CBE /* Embed Pods Frameworks */ = {
+		50F719C96381B430B7401FB8 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B8A26049C56D2BF01088C609 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -540,34 +555,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-masterch/Pods-masterch-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5A9514ED547ACB3EBBAF69D7 /* Copy Pods Resources */ = {
+		C0A1DA4F142BF0175A1A60DB /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-masterch/Pods-masterch-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8A566DE260D41DF180B93678 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		ED8FE1CB1C8FE62200CFD685 /* ShellScript */ = {
@@ -756,7 +756,7 @@
 		};
 		32C0A3631C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FAEFA590D5AF150641D1A08F /* Pods-masterch.debug.xcconfig */;
+			baseConfigurationReference = DDDA2AF98486C953A99F98DB /* Pods-masterch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -780,7 +780,7 @@
 		};
 		32C0A3641C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F2011EB0AC35898DBEA8FD95 /* Pods-masterch.release.xcconfig */;
+			baseConfigurationReference = 3CC6FA301452F9BE8446E0CB /* Pods-masterch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
