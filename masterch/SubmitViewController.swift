@@ -52,7 +52,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     let user = NCMBUser.currentUser()
     
     var logDate: String?
-    var dateColor: String?
+    var dateColor: String = "normal"
     
     
     override func viewDidLoad() {
@@ -272,7 +272,7 @@ extension SubmitViewController {
         let toolBarCameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "selectToolBarCameraButton:")
 //        let toolBarDateSelectButton = UIBarButtonItem(title: "日付", style: .Plain, target: self, action: "selectToolBarDateSelectButton:") 一旦なし
         let toolBarPencilButton = UIBarButtonItem(title: "テキスト", style: .Plain, target: self, action: "selectToolBarPencilButton:")
-        let toolBarRangeButton = UIBarButtonItem(title: "公開範囲", style: .Plain, target: self, action: "selectToolBarRangeButton:")
+        let toolBarColorButton = UIBarButtonItem(title: "カラー", style: .Plain, target: self, action: "selectToolBarColorButton:")
         let toolBarPostButton = UIBarButtonItem(title: "完了", style: .Done, target: self, action: "selectToolBarDoneButton:")
 
         postTextCharactersLabel.frame = CGRectMake(0, 0, 30, 35)
@@ -282,7 +282,7 @@ extension SubmitViewController {
         // Flexible Space Bar Button Item
         let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         
-        toolBar.items = [toolBarCameraButton, toolBarPencilButton, toolBarRangeButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarPostButton]
+        toolBar.items = [toolBarCameraButton, toolBarPencilButton, toolBarColorButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarPostButton]
     }
 }
 
@@ -422,11 +422,11 @@ extension SubmitViewController {
     }
 }
 
-// 公開範囲
+// DateColor設定
 extension SubmitViewController {
-    func selectToolBarRangeButton(sender:UIBarButtonItem) {
-        print("公開範囲ボタンを押した")
-        let snsKeyboardview:UIView = UINib(nibName: "SnsKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+    func selectToolBarColorButton(sender:UIBarButtonItem) {
+        print("カラーボタンを押した")
+        let snsKeyboardview:UIView = UINib(nibName: "ColorKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
         self.postTextView.inputView = snsKeyboardview
         self.postTextView.reloadInputViews()
     }
@@ -443,10 +443,9 @@ extension SubmitViewController {
         print("selectPink")
         self.dateColor = "pink"
     }
-    
     @IBAction func selectBlue(sender: AnyObject) {
-        print("selectBule")
-        self.dateColor = "bule"
+        print("selectBlue")
+        self.dateColor = "blue"
     }
     @IBAction func selectGreen(sender: AnyObject) {
         print("selectGreen")
@@ -656,11 +655,11 @@ extension SubmitViewController {
     
     //今日初めての投稿
     func firstSetLogColor(logDate: String){
-        print("本日の色は？", self.dateColor!)
+        print("本日の色は？", self.dateColor)
         let logColorObject = NCMBObject(className: "LogColor")
         logColorObject.setObject(user, forKey: "user")
         logColorObject.setObject(logDate, forKey: "logDate")
-        logColorObject.setObject(self.dateColor!, forKey: "dateColor")
+        logColorObject.setObject(self.dateColor, forKey: "dateColor")
         logColorObject.incrementKey("postCount")
         
         logColorObject.saveInBackgroundWithBlock { (error) -> Void in
@@ -671,7 +670,6 @@ extension SubmitViewController {
             }
         }
     }
-    
     
     //今日２回目以降の投稿
     func updateLogColor(){

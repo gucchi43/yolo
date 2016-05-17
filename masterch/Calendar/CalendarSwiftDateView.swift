@@ -122,6 +122,7 @@ class CalendarSwiftDateView: UIView{
     
     //その日の色を、決定する
     func selectDateColor(dateColor: String){
+        self.dayButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         switch dateColor {
         case "red" :
             self.dayButton.backgroundColor =  UIColor.redColor()

@@ -29,7 +29,7 @@
 		ED23B7A31C7B475B009AEDA5 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */; };
 		ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */; };
 		ED23B7A51C7B475B009AEDA5 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */; };
-		ED3282ED1CDEE52A009602C9 /* SnsKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED3282EC1CDEE52A009602C9 /* SnsKeyboard.xib */; };
+		ED3282ED1CDEE52A009602C9 /* ColorKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED3282EC1CDEE52A009602C9 /* ColorKeyboard.xib */; };
 		ED3644561C9D657600C6676C /* TimeLine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED3644551C9D657600C6676C /* TimeLine.storyboard */; };
 		ED3644581C9D658A00C6676C /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED3644571C9D658A00C6676C /* Search.storyboard */; };
 		ED36445A1C9D659A00C6676C /* Log.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED3644591C9D659A00C6676C /* Log.storyboard */; };
@@ -127,7 +127,7 @@
 		ED23B79F1C7B475B009AEDA5 /* CalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarMonthView.swift; sourceTree = "<group>"; };
 		ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		ED3282EC1CDEE52A009602C9 /* SnsKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SnsKeyboard.xib; sourceTree = "<group>"; };
+		ED3282EC1CDEE52A009602C9 /* ColorKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorKeyboard.xib; sourceTree = "<group>"; };
 		ED3644551C9D657600C6676C /* TimeLine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TimeLine.storyboard; sourceTree = "<group>"; };
 		ED3644571C9D658A00C6676C /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = masterch/Search.storyboard; sourceTree = "<group>"; };
 		ED3644591C9D659A00C6676C /* Log.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Log.storyboard; sourceTree = "<group>"; };
@@ -351,7 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */,
-				ED3282EC1CDEE52A009602C9 /* SnsKeyboard.xib */,
+				ED3282EC1CDEE52A009602C9 /* ColorKeyboard.xib */,
 				ED36445F1C9D6DBA00C6676C /* Submit.storyboard */,
 			);
 			name = Submit;
@@ -484,7 +484,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32C0A3481C5DF8ED009657B9 /* LaunchScreen.storyboard in Resources */,
-				ED3282ED1CDEE52A009602C9 /* SnsKeyboard.xib in Resources */,
+				ED3282ED1CDEE52A009602C9 /* ColorKeyboard.xib in Resources */,
 				ED3644561C9D657600C6676C /* TimeLine.storyboard in Resources */,
 				ED91586C1CC7BB540038F26F /* facebook_logo_640*480_origin.png in Resources */,
 				32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */,
