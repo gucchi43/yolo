@@ -15,12 +15,27 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var postTextView: UITextView!
     @IBOutlet var postDateTextField: UITextField!
     
+    @IBOutlet weak var postDateLabel: UILabel!
     
-    @IBOutlet weak var shareTwitterButton: UIButton!
-    @IBOutlet weak var shareFacebookButton: UIButton!
-    @IBOutlet weak var directinonSecretButton: UIButton!
+    @IBOutlet weak var twitterButton: UIButton!
+    @IBOutlet weak var facebookButton: UIButton!
+    @IBOutlet weak var secretButton: UIButton!
     
+    @IBOutlet weak var twitterBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var facebookBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var secretBottomConstraint: NSLayoutConstraint!
     
+    let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
+    let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
+    let imgFacebookOn = UIImage(named: "facebook_logo_640*480_origin")
+    let imgFacebookOff = UIImage(named: "facebook_logo_640*480_gray")
+    
+    @IBOutlet weak var redButton: UIButton!
+    @IBOutlet weak var yellowButton: UIButton!
+    @IBOutlet weak var pinkButton: UIButton!
+    @IBOutlet weak var blueButton: UIButton!
+    @IBOutlet weak var greenButton: UIButton!
+    @IBOutlet weak var grayButton: UIButton!
     
     var postImage1: UIImage? = nil
     var toolBar: UIToolbar!
@@ -30,16 +45,15 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     let postImageView = UIImageView()
     
-    var twitterToggle: Bool = true
-    var facebookToggle: Bool = true
-    var secretToggle:Bool = true
+    var twitterToggle: Bool = false
+    var facebookToggle: Bool = false
+    var secretToggle:Bool = false
     
     let user = NCMBUser.currentUser()
     
     var logDate: String?
-    var dateColor: String?
+    var dateColor: String = "normal"
     
-    var testUserID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,14 +112,36 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
 //    キーボードが表示された時
     func showKeyboard(notification: NSNotification) {
         let userInfo = notification.userInfo ?? [:]
-        let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue().size //キーボードサイズの取得
-        self.postTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height+toolBar.layer.bounds.height+10, right: 0) // 下からの高さ
+        let keyboardHeight = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue().size.height //キーボードサイズの取得
+        
+        self.postTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight+40, right: 0) // 下からの高さ(+60は、30がシェアアイコンのサイズの高さでプラス10余裕持っている)
+        
+        
+        
         self.postTextView.scrollIndicatorInsets = self.postTextView.contentInset // キーボードがある時は、一番下の部分をキーボードのしたから10の位置に指定
+        let duration : NSTimeInterval = userInfo[UIKeyboardAnimationDurationUserInfoKey]! as! NSTimeInterval
+        self.twitterBottomConstraint.constant = keyboardHeight + 5
+        self.facebookBottomConstraint.constant = keyboardHeight + 5
+        self.secretBottomConstraint.constant = keyboardHeight + 5
+        UIView.animateWithDuration(duration, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
     }
 //    キーボード閉じたとき
     func hideKeyboard(notification: NSNotification) {
+        let userInfo = notification.userInfo ?? [:]
         self.postTextView.contentInset = UIEdgeInsetsZero
         self.postTextView.scrollIndicatorInsets = UIEdgeInsetsZero
+        
+        self.twitterBottomConstraint.constant = 5
+        self.facebookBottomConstraint.constant = 5
+        self.secretBottomConstraint.constant = 5
+        
+        let duration : NSTimeInterval = userInfo[UIKeyboardAnimationDurationUserInfoKey]! as! NSTimeInterval
+        UIView.animateWithDuration(duration, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
+        
     }
 
     @IBAction func selectCancelButton(sender: AnyObject) {
@@ -145,7 +181,86 @@ extension SubmitViewController {
     }
 }
 
-// toolBar
+//SNSシェアセレクトボタン
+extension SubmitViewController {
+    //Twitterシェア
+        @IBAction func selectShareTwitter(sender: AnyObject) {
+        print("twitterボタン押した")
+        print("初期状態だぞおおおおお", twitterToggle)
+        //Twitterと連携しているか？
+        if let userID = user.objectForKey("twitterID") {
+            if userID.isKindOfClass(NSNull) != true {//「userID」がnullじゃないか？
+                if let userLink = Twitter.sharedInstance().sessionStore.sessionForUserID(userID as! String){
+                    print("Twitter連携済 userID:", userLink.userID)//Twitter連携している
+                    twitterToggle = !twitterToggle //連携済みの場合の切り替えToggle
+                    if twitterToggle == true{
+                        twitterButton.setImage(imgTwitterOn, forState: .Normal)
+                        //ツイッターシェアはtrue
+                        print("シェアする", twitterToggle)
+                    }else {
+                        twitterButton.setImage(imgTwitterOff, forState: .Normal)
+                        //ツイッターシェアはtrue
+                        print("シェアしない" , twitterToggle)
+                    }
+                }else {
+                    print("ありえないはず: twitterIDは登録してるのにTwitterSessionがsaveできていない")
+                    self.postTextView.endEditing(true)
+                    let containerSnsViewController = ContainerSnsViewController()
+                    containerSnsViewController.addSnsToTwitter(user)
+//                                        twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+//                                        shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+//                                        print("シェアする", twitterToggle)
+                }
+            }else {
+                print("Twitter未連携（外した状態） userID", userID)//Twitter連携をはずして、空っぽの状態
+                //Twitter未連携
+                self.postTextView.endEditing(true)
+                let containerSnsViewController = ContainerSnsViewController()
+                containerSnsViewController.addSnsToTwitter(user)
+                //                twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+                //                shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+                //                print("シェアする", twitterToggle)
+            }
+        }else {
+            print("Twitter未連携")//Twitter連携は今まで一度もしていない
+            //Twitter未連携
+            self.postTextView.endEditing(true)
+            let containerSnsViewController = ContainerSnsViewController()
+            containerSnsViewController.addSnsToTwitter(user)
+            //            twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+            //            shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+            //            print("シェアする", twitterToggle)
+        }
+    }
+    
+    //Facebookシェア
+    @IBAction func selectShareFacebook(sender: AnyObject) {
+        print("Facebookボタン押した")
+        facebookToggle = !facebookToggle
+        if facebookToggle == true{
+            facebookButton.setImage(imgFacebookOn, forState: .Normal)
+            print(facebookToggle)
+        }else {
+            facebookButton.setImage(imgFacebookOff, forState: .Normal)
+            print(facebookToggle)
+        }
+    }
+    
+    
+    //secret切り替え
+    @IBAction func selectSeacret(sender: AnyObject) {
+        secretToggle = !secretToggle
+        if secretToggle == true {
+            print("Secret投稿")
+        }else {
+            print("Secret投稿無し")
+        }
+
+    }
+    
+}
+
+// toolBar設定
 extension SubmitViewController {
     func setToolBar() {
         // UIToolBarの設定
@@ -157,7 +272,7 @@ extension SubmitViewController {
         let toolBarCameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "selectToolBarCameraButton:")
 //        let toolBarDateSelectButton = UIBarButtonItem(title: "日付", style: .Plain, target: self, action: "selectToolBarDateSelectButton:") 一旦なし
         let toolBarPencilButton = UIBarButtonItem(title: "テキスト", style: .Plain, target: self, action: "selectToolBarPencilButton:")
-        let toolBarRangeButton = UIBarButtonItem(title: "公開範囲", style: .Plain, target: self, action: "selectToolBarRangeButton:")
+        let toolBarColorButton = UIBarButtonItem(title: "カラー", style: .Plain, target: self, action: "selectToolBarColorButton:")
         let toolBarPostButton = UIBarButtonItem(title: "完了", style: .Done, target: self, action: "selectToolBarDoneButton:")
 
         postTextCharactersLabel.frame = CGRectMake(0, 0, 30, 35)
@@ -167,7 +282,7 @@ extension SubmitViewController {
         // Flexible Space Bar Button Item
         let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         
-        toolBar.items = [toolBarCameraButton, toolBarPencilButton, toolBarRangeButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarPostButton]
+        toolBar.items = [toolBarCameraButton, toolBarPencilButton, toolBarColorButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarPostButton]
     }
 }
 
@@ -175,20 +290,40 @@ extension SubmitViewController {
 extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
     func selectToolBarCameraButton(sender: UIBarButtonItem) {
-        print("カメラボタン押した")
-        
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-//             アルバムから写真を取得
-            self.pickImageFromLibrary()
-//        } else if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-//            self.pickImageFromCamera()
-        } else {
-            UIAlertView(title: "警告", message: "Photoライブラリにアクセス出来ません", delegate: nil, cancelButtonTitle: "OK").show()
-        }
+        print("カメラ&カメラロール呼び出しボタン押した")
+        //カメラかカメラロールの分岐
+        RMUniversalAlert.showActionSheetInViewController(self,
+            withTitle: nil,
+            message: nil,
+            cancelButtonTitle: "Cancel",
+            destructiveButtonTitle: nil,
+            otherButtonTitles: ["カメラ", "カメラロール"],
+            popoverPresentationControllerBlock: {(popover) in
+                popover.sourceView = self.view
+                popover.sourceRect = CGRect()
+            },
+            tapBlock: {(alert, buttonIndex) in
+                if (buttonIndex == alert.cancelButtonIndex) {
+                    print("Cancel Tapped")
+                } else if (buttonIndex == alert.destructiveButtonIndex) {
+                    print("Delete Tapped")
+                } else if (buttonIndex == alert.firstOtherButtonIndex) {
+                    print("カメラ選択 \(alert.firstOtherButtonIndex)")
+                    self.pickImageFromCamera()
+                } else {
+                    print("カメラロール選択\(alert.firstOtherButtonIndex)")
+                    self.pickImageFromLibrary()
+                }
+        })
     }
+    
+    func selectCameraOrPictureAlert(){
+    }
+    
     
     // ライブラリから写真を選択する
     func pickImageFromLibrary() {
+        print("カメラロール起動")
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
             //            インスタンス生成
             let imagePickerController = UIImagePickerController()
@@ -204,6 +339,7 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
     }
 //    写真を撮影
     func pickImageFromCamera() {
+        print("カメラ起動")
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
             let controller = UIImagePickerController()
             controller.delegate = self
@@ -252,6 +388,7 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
 
 // 日付選択
 extension SubmitViewController {
+    
     func selectToolBarDateSelectButton(sender: UIBarButtonItem) {
         print("日付選択を押した")
         
@@ -279,98 +416,51 @@ extension SubmitViewController {
         let postDateFormatter: NSDateFormatter = NSDateFormatter()
         postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         //        日付をフォーマットに則って取得.
-        postDateTextField.text = postDateFormatter.stringFromDate(date)
+        postDateLabel.text = postDateFormatter.stringFromDate(date)
+//        postDateTextField.text = postDateFormatter.stringFromDate(date)
+//        postDateLabel.text = postDateTextField.text
     }
 }
 
-// 公開範囲
+// DateColor設定
 extension SubmitViewController {
-    func selectToolBarRangeButton(sender:UIBarButtonItem) {
-        print("公開範囲ボタンを押した")
-        let snsKeyboardview:UIView = UINib(nibName: "SnsKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+    func selectToolBarColorButton(sender:UIBarButtonItem) {
+        print("カラーボタンを押した")
+        let snsKeyboardview:UIView = UINib(nibName: "ColorKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
         self.postTextView.inputView = snsKeyboardview
         self.postTextView.reloadInputViews()
     }
-    @IBAction func pushShareTwitter(sender: AnyObject) {
-        print("twitterボタン押した")
-        let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
-        let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
-        print("初期状態だぞおおおおお", twitterToggle)
-        //Twitterと連携しているか？
-        if let userID = user.objectForKey("twitterID") {
-            if userID.isKindOfClass(NSNull) != true {
-                if let userLink = Twitter.sharedInstance().sessionStore.sessionForUserID(userID as! String){
-                    print("Twitter連携済 userID:", userLink.userID)//Twitter連携している
-                    twitterToggle = !twitterToggle //連携済みの場合の切り替えToggle
-                    if twitterToggle == false{
-                        shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-                        //ツイッターシェアはtrue
-                        print("シェアする", twitterToggle)
-                    }else {
-                        shareTwitterButton.setImage(imgTwitterOff, forState: .Normal)
-                        //ツイッターシェアはtrue
-                        print("シェアしない" , twitterToggle)
-                    }
-                }else {
-                    print("ありえないはず: twitterIDは登録してるのにTwitterSessionがsaveできていない")
-                    self.postTextView.endEditing(true)
-                    let containerSnsViewController = ContainerSnsViewController()
-                    containerSnsViewController.addSnsToTwitter(user)
-//                    twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
-//                    shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-//                    print("シェアする", twitterToggle)
-                }
-            }else {
-                print("Twitter未連携（外した状態） userID", userID)//Twitter連携をはずして、空っぽの状態
-                //Twitter未連携
-                self.postTextView.endEditing(true)
-                let containerSnsViewController = ContainerSnsViewController()
-                containerSnsViewController.addSnsToTwitter(user)
-//                twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
-//                shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-//                print("シェアする", twitterToggle)
-            }
-        }else {
-            print("Twitter未連携")//Twitter連携は今まで一度もしていない
-            //Twitter未連携
-            self.postTextView.endEditing(true)
-            let containerSnsViewController = ContainerSnsViewController()
-            containerSnsViewController.addSnsToTwitter(user)
-//            twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
-//            shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-//            print("シェアする", twitterToggle)
-        }
-    }
-
     
-    //TODO: 途中の状態（見た目だけは動く）
-    @IBAction func pushShareFacebook(sender: AnyObject) {
-        print("Facebookボタン押した")
-        let imgFacebookOn = UIImage(named: "facebook_logo_640*480_origin")
-        let imgFacebookOff = UIImage(named: "facebook_logo_640*480_gray")
-        facebookToggle = !facebookToggle
-        
-        if facebookToggle == false{
-            shareFacebookButton.setImage(imgFacebookOn, forState: .Normal)
-            print(facebookToggle)
-        }else {
-            shareFacebookButton.setImage(imgFacebookOff, forState: .Normal)
-            print(facebookToggle)
-        }
-        
-
+    @IBAction func selectRed(sender: AnyObject) {
+        print("selectRed")
+        self.dateColor = "red"
+        toolBar.backgroundColor = UIColor.redColor()
     }
-    
-    @IBAction func pushDidectionSecret(sender: AnyObject) {
-        print("Keyボタン押した")
-        secretToggle = !secretToggle
-        if secretToggle == false{
-            print("Secretモード")
-        }else{
-            print("Secretモード解除")
-        }
+    @IBAction func selectYellow(sender: AnyObject) {
+        print("selectYellow")
+        self.dateColor = "yellow"
+        toolBar.backgroundColor = UIColor.yellowColor()
     }
-    
+    @IBAction func selectPink(sender: AnyObject) {
+        print("selectPink")
+        self.dateColor = "pink"
+        toolBar.backgroundColor = UIColor.magentaColor()
+    }
+    @IBAction func selectBlue(sender: AnyObject) {
+        print("selectBlue")
+        self.dateColor = "blue"
+        toolBar.backgroundColor = UIColor.blueColor()
+    }
+    @IBAction func selectGreen(sender: AnyObject) {
+        print("selectGreen")
+        self.dateColor = "green"
+        toolBar.backgroundColor = UIColor.greenColor()
+    }
+    @IBAction func selectGray(sender: AnyObject) {
+        print("selectGray")
+        self.dateColor = "gray"
+        toolBar.backgroundColor = UIColor.darkGrayColor()
+    }
 }
 
 
@@ -430,7 +520,7 @@ extension SubmitViewController {
         
         
         //Twitterシェアかの判断
-        if twitterToggle == false {
+        if twitterToggle == true {
             if self.postImage1 != nil{
                 shareTwitterMedia()
                 print("twitterシェア完了 メディアあり")
@@ -548,8 +638,7 @@ extension SubmitViewController {
 
 extension SubmitViewController {
     func setLogColor(){
-        self.dateColor = "red"
-        let longLogDate = postDateTextField.text //投稿画面に表示されている投稿する日時（PostDateのString版）
+        let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）
         let logDate = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(10))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
         print("logDate", logDate)
         let myLogColorQuery: NCMBQuery = NCMBQuery(className: "LogColor") // 自分の投稿クエリ
@@ -564,7 +653,20 @@ extension SubmitViewController {
                     self.firstSetLogColor(logDate)
                 }else {
                     //２度目以降の投稿
-                    self.updateLogColor()
+                    print("変更した後の色は？", self.dateColor)
+                    self.updateLogColor(object)
+//                    object.incrementKey("postCount")
+//                    object.setObject(self.dateColor, forKey: "dateColor")
+//                    
+//                    object.saveInBackgroundWithBlock { (error) -> Void in
+//                        object.saveInBackgroundWithBlock { (error) -> Void in
+//                            if error != nil {
+//                                print("error", error)
+//                            }else {
+//                                print("logColor ２回目以降の投稿 save成功")
+//                            }
+//                        }
+//                    }
                 }
             }
         }
@@ -572,6 +674,7 @@ extension SubmitViewController {
     
     //今日初めての投稿
     func firstSetLogColor(logDate: String){
+        print("本日の色は？", self.dateColor)
         let logColorObject = NCMBObject(className: "LogColor")
         logColorObject.setObject(user, forKey: "user")
         logColorObject.setObject(logDate, forKey: "logDate")
@@ -587,12 +690,23 @@ extension SubmitViewController {
         }
     }
     
-    
-    //今日２回目以降の投稿
-    func updateLogColor(){
+//    //今日２回目以降の投稿
+    func updateLogColor(object: AnyObject){
+        let secondObject = object as! NCMBObject
+        secondObject.incrementKey("postCount")
+        secondObject.setObject(self.dateColor, forKey: "dateColor")
+        
+        secondObject.saveInBackgroundWithBlock { (error) -> Void in
+            object.saveInBackgroundWithBlock { (error) -> Void in
+                if error != nil {
+                    print("error", error)
+                }else {
+                    print("logColor ２回目以降の投稿 save成功")
+                }
+            }
+        }
         
     }
-    
 }
 
 
