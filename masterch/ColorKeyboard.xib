@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubmitViewController" customModule="masterch" customModuleProvider="target">
+            <connections>
+                <outlet property="blueButton" destination="75T-d3-dP8" id="YKI-jQ-ib5"/>
+                <outlet property="grayButton" destination="9sN-7y-smB" id="Uud-Fi-cfZ"/>
+                <outlet property="greenButton" destination="RS1-HT-wci" id="x3p-Oe-6xE"/>
+                <outlet property="pinkButton" destination="36m-vP-OkH" id="wV1-Jb-uyR"/>
+                <outlet property="redButton" destination="CXL-13-0zO" id="Xcd-Kl-lo4"/>
+                <outlet property="yellowButton" destination="x6g-Lz-Mhu" id="CKV-qA-ObD"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="Color Keyboard View" customClass="ColorKeyboardView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXL-13-0zO">
+                    <rect key="frame" x="189" y="50" width="30" height="30"/>
+                    <state key="normal" title="red">
+                        <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="selectRed:" destination="-1" eventType="touchUpInside" id="qMl-oV-6QL"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6g-Lz-Mhu">
+                    <rect key="frame" x="279" y="50" width="43" height="30"/>
+                    <state key="normal" title="yellow">
+                        <color key="titleColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="selectYellow:" destination="-1" eventType="touchUpInside" id="Xff-Gw-pzd"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="36m-vP-OkH">
+                    <rect key="frame" x="382" y="50" width="30" height="30"/>
+                    <state key="normal" title="pink">
+                        <color key="titleColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="selectPink:" destination="-1" eventType="touchUpInside" id="TsX-8V-wf5"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75T-d3-dP8">
+                    <rect key="frame" x="285" y="140" width="30" height="30"/>
+                    <state key="normal" title="blue"/>
+                    <connections>
+                        <action selector="selectBlue:" destination="-1" eventType="touchUpInside" id="m1E-l3-xEp"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9sN-7y-smB">
+                    <rect key="frame" x="381" y="140" width="31" height="30"/>
+                    <state key="normal" title="gray">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="selectGray:" destination="-1" eventType="touchUpInside" id="CQe-wK-0Rp"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RS1-HT-wci">
+                    <rect key="frame" x="189" y="140" width="40" height="30"/>
+                    <state key="normal" title="green">
+                        <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="selectGreen:" destination="-1" eventType="touchUpInside" id="bkh-Le-vB2"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="RS1-HT-wci" firstAttribute="leading" secondItem="CXL-13-0zO" secondAttribute="leading" id="4pQ-c2-bwE"/>
+                <constraint firstItem="x6g-Lz-Mhu" firstAttribute="leading" secondItem="CXL-13-0zO" secondAttribute="trailing" constant="60" id="80Y-dX-kmH"/>
+                <constraint firstItem="9sN-7y-smB" firstAttribute="trailing" secondItem="36m-vP-OkH" secondAttribute="trailing" id="EgP-3j-pFI"/>
+                <constraint firstItem="75T-d3-dP8" firstAttribute="centerX" secondItem="x6g-Lz-Mhu" secondAttribute="centerX" id="RXy-OR-ejU"/>
+                <constraint firstItem="x6g-Lz-Mhu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Sj0-o9-hnA"/>
+                <constraint firstItem="9sN-7y-smB" firstAttribute="bottom" secondItem="75T-d3-dP8" secondAttribute="bottom" id="TD0-81-fIe"/>
+                <constraint firstItem="RS1-HT-wci" firstAttribute="bottom" secondItem="75T-d3-dP8" secondAttribute="bottom" id="ahC-WD-3tL"/>
+                <constraint firstItem="36m-vP-OkH" firstAttribute="leading" secondItem="x6g-Lz-Mhu" secondAttribute="trailing" constant="60" id="k7h-pE-lHb"/>
+                <constraint firstItem="CXL-13-0zO" firstAttribute="bottom" secondItem="x6g-Lz-Mhu" secondAttribute="bottom" id="lAO-lH-8Q0"/>
+                <constraint firstItem="x6g-Lz-Mhu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="lYU-7F-w8O"/>
+                <constraint firstItem="75T-d3-dP8" firstAttribute="top" secondItem="x6g-Lz-Mhu" secondAttribute="bottom" constant="60" id="myQ-fs-0Gb"/>
+                <constraint firstItem="36m-vP-OkH" firstAttribute="bottom" secondItem="x6g-Lz-Mhu" secondAttribute="bottom" id="n5T-4L-XQo"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

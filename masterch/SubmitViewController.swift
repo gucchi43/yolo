@@ -17,11 +17,6 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var postDateLabel: UILabel!
     
-    
-    @IBOutlet weak var shareTwitterButton: UIButton!
-    @IBOutlet weak var shareFacebookButton: UIButton!
-    @IBOutlet weak var directinonSecretButton: UIButton!
-    
     @IBOutlet weak var twitterButton: UIButton!
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var secretButton: UIButton!
@@ -34,6 +29,13 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
     let imgFacebookOn = UIImage(named: "facebook_logo_640*480_origin")
     let imgFacebookOff = UIImage(named: "facebook_logo_640*480_gray")
+    
+    @IBOutlet weak var redButton: UIButton!
+    @IBOutlet weak var yellowButton: UIButton!
+    @IBOutlet weak var pinkButton: UIButton!
+    @IBOutlet weak var blueButton: UIButton!
+    @IBOutlet weak var greenButton: UIButton!
+    @IBOutlet weak var grayButton: UIButton!
     
     var postImage1: UIImage? = nil
     var toolBar: UIToolbar!
@@ -50,9 +52,8 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     let user = NCMBUser.currentUser()
     
     var logDate: String?
-    var dateColor: String?
+    var dateColor: String = "normal"
     
-    var testUserID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -259,7 +260,7 @@ extension SubmitViewController {
     
 }
 
-// toolBar
+// toolBar設定
 extension SubmitViewController {
     func setToolBar() {
         // UIToolBarの設定
@@ -271,7 +272,7 @@ extension SubmitViewController {
         let toolBarCameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "selectToolBarCameraButton:")
 //        let toolBarDateSelectButton = UIBarButtonItem(title: "日付", style: .Plain, target: self, action: "selectToolBarDateSelectButton:") 一旦なし
         let toolBarPencilButton = UIBarButtonItem(title: "テキスト", style: .Plain, target: self, action: "selectToolBarPencilButton:")
-        let toolBarRangeButton = UIBarButtonItem(title: "公開範囲", style: .Plain, target: self, action: "selectToolBarRangeButton:")
+        let toolBarColorButton = UIBarButtonItem(title: "カラー", style: .Plain, target: self, action: "selectToolBarColorButton:")
         let toolBarPostButton = UIBarButtonItem(title: "完了", style: .Done, target: self, action: "selectToolBarDoneButton:")
 
         postTextCharactersLabel.frame = CGRectMake(0, 0, 30, 35)
@@ -281,7 +282,7 @@ extension SubmitViewController {
         // Flexible Space Bar Button Item
         let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         
-        toolBar.items = [toolBarCameraButton, toolBarPencilButton, toolBarRangeButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarPostButton]
+        toolBar.items = [toolBarCameraButton, toolBarPencilButton, toolBarColorButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarPostButton]
     }
 }
 
@@ -421,22 +422,44 @@ extension SubmitViewController {
     }
 }
 
-// 公開範囲
+// DateColor設定
 extension SubmitViewController {
-    func selectToolBarRangeButton(sender:UIBarButtonItem) {
-        print("公開範囲ボタンを押した")
-        let snsKeyboardview:UIView = UINib(nibName: "SnsKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+    func selectToolBarColorButton(sender:UIBarButtonItem) {
+        print("カラーボタンを押した")
+        let snsKeyboardview:UIView = UINib(nibName: "ColorKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
         self.postTextView.inputView = snsKeyboardview
         self.postTextView.reloadInputViews()
     }
     
-    @IBAction func pushShareTwitter(sender: AnyObject) {
+    @IBAction func selectRed(sender: AnyObject) {
+        print("selectRed")
+        self.dateColor = "red"
+        toolBar.backgroundColor = UIColor.redColor()
     }
-    //TODO: 途中の状態（見た目だけは動く）
-    @IBAction func pushShareFacebook(sender: AnyObject) {
+    @IBAction func selectYellow(sender: AnyObject) {
+        print("selectYellow")
+        self.dateColor = "yellow"
+        toolBar.backgroundColor = UIColor.yellowColor()
     }
-    
-    @IBAction func pushDidectionSecret(sender: AnyObject) {
+    @IBAction func selectPink(sender: AnyObject) {
+        print("selectPink")
+        self.dateColor = "pink"
+        toolBar.backgroundColor = UIColor.magentaColor()
+    }
+    @IBAction func selectBlue(sender: AnyObject) {
+        print("selectBlue")
+        self.dateColor = "blue"
+        toolBar.backgroundColor = UIColor.blueColor()
+    }
+    @IBAction func selectGreen(sender: AnyObject) {
+        print("selectGreen")
+        self.dateColor = "green"
+        toolBar.backgroundColor = UIColor.greenColor()
+    }
+    @IBAction func selectGray(sender: AnyObject) {
+        print("selectGray")
+        self.dateColor = "gray"
+        toolBar.backgroundColor = UIColor.darkGrayColor()
     }
 }
 
@@ -615,7 +638,6 @@ extension SubmitViewController {
 
 extension SubmitViewController {
     func setLogColor(){
-        self.dateColor = "red"
         let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）
         let logDate = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(10))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
         print("logDate", logDate)
@@ -631,7 +653,20 @@ extension SubmitViewController {
                     self.firstSetLogColor(logDate)
                 }else {
                     //２度目以降の投稿
-                    self.updateLogColor()
+                    print("変更した後の色は？", self.dateColor)
+                    self.updateLogColor(object)
+//                    object.incrementKey("postCount")
+//                    object.setObject(self.dateColor, forKey: "dateColor")
+//                    
+//                    object.saveInBackgroundWithBlock { (error) -> Void in
+//                        object.saveInBackgroundWithBlock { (error) -> Void in
+//                            if error != nil {
+//                                print("error", error)
+//                            }else {
+//                                print("logColor ２回目以降の投稿 save成功")
+//                            }
+//                        }
+//                    }
                 }
             }
         }
@@ -639,6 +674,7 @@ extension SubmitViewController {
     
     //今日初めての投稿
     func firstSetLogColor(logDate: String){
+        print("本日の色は？", self.dateColor)
         let logColorObject = NCMBObject(className: "LogColor")
         logColorObject.setObject(user, forKey: "user")
         logColorObject.setObject(logDate, forKey: "logDate")
@@ -654,12 +690,23 @@ extension SubmitViewController {
         }
     }
     
-    
-    //今日２回目以降の投稿
-    func updateLogColor(){
+//    //今日２回目以降の投稿
+    func updateLogColor(object: AnyObject){
+        let secondObject = object as! NCMBObject
+        secondObject.incrementKey("postCount")
+        secondObject.setObject(self.dateColor, forKey: "dateColor")
+        
+        secondObject.saveInBackgroundWithBlock { (error) -> Void in
+            object.saveInBackgroundWithBlock { (error) -> Void in
+                if error != nil {
+                    print("error", error)
+                }else {
+                    print("logColor ２回目以降の投稿 save成功")
+                }
+            }
+        }
         
     }
-    
 }
 
 
