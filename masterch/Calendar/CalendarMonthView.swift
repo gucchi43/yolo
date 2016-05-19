@@ -19,11 +19,11 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
     
     init(frame: CGRect, date: NSDate) {
         super.init(frame:frame)
-        startsetUpDays(date)
+        startSetUpDays(date)
     }
     
     //setUpDaysの前に呼ぶ（真ん中の月だけgetLogColorを呼び出す）
-    func startsetUpDays(date:NSDate) {
+    func startSetUpDays(date:NSDate) {
         if date.year == CalendarManager.currentDate.year && date.month == CalendarManager.currentDate.month{
             print("getLogColor呼び出し月")
             getLogColorDate(date)

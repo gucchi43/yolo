@@ -81,7 +81,7 @@ class CalendarAnotherView : UIView, UIScrollViewDelegate {
     }
     
     func resetWeekView() {
-        currentWeekView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days)
+        currentWeekView.startSetUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days)
         prevWeekView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days - 7.days)
         nextWeekView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days + 7.days)
         

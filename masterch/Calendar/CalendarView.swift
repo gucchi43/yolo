@@ -119,7 +119,7 @@ class CalendarView: UIView, UIScrollViewDelegate {
     }
     
     func resetMonthView() {
-        currentMonthView.startsetUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days)
+        currentMonthView.startSetUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days)
         prevMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days - 1.months)
         nextMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days + 1.months)
         nextYearMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days + 1.years)

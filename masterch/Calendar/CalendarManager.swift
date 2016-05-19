@@ -33,12 +33,31 @@ class CalendarManager: NSObject {
         return calendarTitle
     }
     
-    //その日の月の"yyyy/MM"を取る()
+    //その日の月の"yyyy/MM"を取る(month用)
     class func getDateYearAndMonth(date: NSDate) -> String {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy/MM"
         let logDate = formatter.stringFromDate(date)
-        //        let logDate = (String(date.year) + "/" + String(date.month))
+        print("検索側logDate", logDate)
+        return logDate
+    }
+    
+    //その日の月の"yyyy/MM/+6day"を取る(week用)
+    class func getDateWeekOfMax(date: NSDate) -> String {
+        let maxDate = date + 6.days
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        let logDate = formatter.stringFromDate(maxDate)
+        print("検索側logDate", logDate)
+        return logDate
+    }
+    
+    //その日の月の"yyyy/MM/-6day"を取る(week用)
+    class func getDateWeekOfMin(date: NSDate) -> String {
+        let minDate = date - 6.days
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        let logDate = formatter.stringFromDate(minDate)
         print("検索側logDate", logDate)
         return logDate
     }
