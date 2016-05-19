@@ -97,20 +97,29 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
     
     //プロフィール画面のカメラ選択ボタン
     @IBAction func selectEditProfileImageButton(sender: AnyObject) {
-        selectEditProfileImage()
-    }
-
-    func selectEditProfileImage() {
-        print("カメラボタン押した")
-        
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-            //             アルバムから写真を取得
-            self.pickImageFromLibrary()
-            //        } else if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-            //            self.pickImageFromCamera()
-        } else {
-            UIAlertView(title: "警告", message: "Photoライブラリにアクセス出来ません", delegate: nil, cancelButtonTitle: "OK").show()
-        }
+        RMUniversalAlert.showActionSheetInViewController(self,
+            withTitle: nil,
+            message: nil,
+            cancelButtonTitle: "Cancel",
+            destructiveButtonTitle: nil,
+            otherButtonTitles: ["カメラ", "カメラロール"],
+            popoverPresentationControllerBlock: {(popover) in
+                popover.sourceView = self.view
+                popover.sourceRect = CGRect()
+            },
+            tapBlock: {(alert, buttonIndex) in
+                if (buttonIndex == alert.cancelButtonIndex) {
+                    print("Cancel Tapped")
+                } else if (buttonIndex == alert.destructiveButtonIndex) {
+                    print("Delete Tapped")
+                } else if (buttonIndex == alert.firstOtherButtonIndex) {
+                    print("カメラ選択 \(alert.firstOtherButtonIndex)")
+                    self.pickImageFromCamera()
+                } else {
+                    print("カメラロール選択\(alert.firstOtherButtonIndex)")
+                    self.pickImageFromLibrary()
+                }
+        })
     }
     
     // ライブラリから写真を選択する
