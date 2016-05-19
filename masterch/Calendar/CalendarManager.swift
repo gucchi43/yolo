@@ -11,15 +11,18 @@ import SwiftDate
 
 class CalendarManager: NSObject {
     
-    static var todayDate = NSDate()
+    static var testDate = NSDate()
     static var currentDate: NSDate!
-    
-    var calendarTitle = String(CalendarManager.currentDate.year) + "/" + String(CalendarManager.currentDate.month)
+
+    var calendarTitle: String!
+
+//    var calendarTitle = String(CalendarManager.currentDate.year) + "/" + String(CalendarManager.currentDate.month)
     
     class func setCurrentDate() {
         print("setCurrentDate 呼び出し")
         let japanGMTDifference = 9.hours
-        let today = NSDate() + japanGMTDifference
+        let japanaToday = NSDate() + japanGMTDifference
+        let today = NSDate()
 //        let japan = Region(calendarName: .Japanese, timeZoneName: .AsiaTokyo, localeName: .Japanese)
         
         CalendarManager.currentDate = today
@@ -29,7 +32,10 @@ class CalendarManager: NSObject {
 
     //カレンダーの何月何日のタイトルを作る
     class func selectLabel() -> String {
-        let calendarTitle :String = String(CalendarManager.currentDate.year) + "年" + String(CalendarManager.currentDate.month) + "月"
+        let formatter = NSDateFormatter()
+        // M=0なし（M月=1月）, MM=0あり（MM月=01月）
+        formatter.dateFormat = "yyyy年M月"
+        let calendarTitle :String = formatter.stringFromDate(CalendarManager.currentDate)
         return calendarTitle
     }
     

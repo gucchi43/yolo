@@ -25,11 +25,11 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
     //setUpDaysの前に呼ぶ（真ん中の月だけgetLogColorを呼び出す）
     func startSetUpDays(date:NSDate) {
         if date.year == CalendarManager.currentDate.year && date.month == CalendarManager.currentDate.month{
-            print("getLogColor呼び出し月")
+            print("getLogColor呼び出し月" ,date)
             getLogColorDate(date)
             setUpDays(date)
         }else {
-            print("getLogColor呼び出しなし")
+            print("getLogColor呼び出しなし", date)
             setUpDays(date)
         }
     }
@@ -75,7 +75,7 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
                 print("getLogColorerrorr", error.localizedDescription)
                 self.setUpDays(date)
             }else{
-                if objects != nil{
+                if objects != nil {
                     self.logColorArray = objects
                     print("今月の投稿",date, self.logColorArray)
                     self.setUpDays(date)
@@ -95,15 +95,11 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
                 if dateView.date == CalendarManager.currentDate {
                     dateView.dayButton.layer.borderColor = UIColor.grayColor().CGColor
                     dateView.dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
-//                    dateView.dayButton.backgroundColor = UIColor.yellowColor()
-//                    dateView.dayButton.selected = true
-//                    print("true")
                     print(dateView.date)
                 } else {
                     dateView.dayButton.layer.borderColor = UIColor.clearColor().CGColor
                     dateView.dayButton.titleLabel?.font = UIFont.systemFontOfSize(10)
-//                    dateView.dayButton.selected = false
-//                    print("false")
+
                 }
             }
         }

@@ -49,23 +49,17 @@ class CalendarSwiftDateView: UIView{
 
         //投稿があったかを調べる
         
+        if date == CalendarManager.currentDate {
+            dayButton.layer.borderColor = UIColor.grayColor().CGColor
+            dayButton.layer.borderWidth = 3
+            dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
+        }
+        
         if array != []{
             print("投稿があったあああああああああああああああ", date, array)
             mutchArraytoLogDate(date, array: array)
         }
         
-        //選択した日を含む月のdateと、選択した日を含む週のdate
-//        if date.year == CalendarManager.currentDate.year && date.month == CalendarManager.currentDate.month || date.year == CalendarManager.currentDate.year && date.weekOfYear == CalendarManager.currentDate.weekOfYear{
-//            //※初回起動時のみ、月（５ヶ月）と週（３週）分を読み込む、以降は、月のみor週のみ
-//            self.whetherLogColor(date)
-//        }
-
-        if date == CalendarManager.currentDate {
-            dayButton.layer.borderColor = UIColor.grayColor().CGColor
-            dayButton.layer.borderWidth = 3
-            dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
-            print(date)
-        }
         if date.year == NSDate().year && date.month == NSDate().month && date.day == NSDate().day{
             //今日だけ黒
                     dayButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)

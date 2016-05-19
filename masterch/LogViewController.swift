@@ -99,8 +99,8 @@ class LogViewController: UIViewController {
 
         let postQuery: NCMBQuery = NCMBQuery.orQueryWithSubqueries([myPostQuery, followingQuery]) // クエリの合成
         postQuery.orderByDescending("postDate") // cellの並べ方
-        postQuery.whereKey("createDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
-        postQuery.whereKey("createDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+        postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+        postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
         postQuery.includeKey("user")
 
         postQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
