@@ -13,19 +13,19 @@ class CalendarManager: NSObject {
     
     static var testDate = NSDate()
     static var currentDate: NSDate!
-    
-    var calendarTitle = String(CalendarManager.currentDate.year) + "/" + String(CalendarManager.currentDate.month)
+
+    var calendarTitle: String!
+
+//    var calendarTitle = String(CalendarManager.currentDate.year) + "/" + String(CalendarManager.currentDate.month)
     
     class func setCurrentDate() {
         print("setCurrentDate 呼び出し")
         let japanGMTDifference = 9.hours
         let japanaToday = NSDate() + japanGMTDifference
         let today = NSDate()
-        let lialeToday = NSDate()
 //        let japan = Region(calendarName: .Japanese, timeZoneName: .AsiaTokyo, localeName: .Japanese)
         
         CalendarManager.currentDate = today
-        CalendarManager.testDate = lialeToday
         print("currentDate: ", CalendarManager.currentDate)
     }
     
