@@ -9,32 +9,35 @@
 import UIKit
 
 class OtherAccountViewController: UIViewController {
-
-    @IBOutlet weak var userNameLabel: UILabel!
     
-    var userName: String?
+    
+    @IBOutlet weak var userProfileImageView: UIImageView!
+    @IBOutlet weak var userProfileNameLabel: UILabel!
+    @IBOutlet weak var userIdLabel: UILabel!
+    @IBOutlet weak var userHomeImageView: UIImageView!
+    @IBOutlet weak var userSelfIntroductionLabel: UILabel!
+    
+    var user: NCMBUser!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userNameLabel.text = userName
+        
+        print(user)
+        userIdLabel.text = "@" + user.userName
+        userProfileNameLabel.text = user.objectForKey("userFaceName") as? String
+        userProfileImageView.image = user.objectForKey("userProfileImage") as? UIImage
+        userHomeImageView.image = user.objectForKey("userHomeImage") as? UIImage
+        userSelfIntroductionLabel.text = user.objectForKey("userSelfIntroduction") as? String
 
-        // Do any additional setup after loading the view.
+        userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
+
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

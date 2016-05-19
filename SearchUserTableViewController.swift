@@ -15,8 +15,9 @@ class SearchUserTableViewController: UITableViewController {
     var userFaceNameArray = [String]()
     var filterUsers: NSArray = NSArray()
     let searchController = UISearchController(searchResultsController: nil)
-    
-    
+
+    var selectedUser: NCMBUser!
+
     func filterContextSearchText(searchText: String, scope: String = "All"){
         
         print("searchText", searchText)
@@ -110,7 +111,7 @@ class SearchUserTableViewController: UITableViewController {
 //        userNameArray.append(userName!)
 //        
 //        print("userNameArray", userNameArray, "userFaceName", userFaceNameArray, "userArray", userArray)
-        
+
         cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
         let userImageData = NCMBFile.fileWithName("userImageProfile", data: nil) as! NCMBFile
         userImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
@@ -124,18 +125,23 @@ class SearchUserTableViewController: UITableViewController {
         })
         return cell
     }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let cell = sender as? SearchUserTableViewCell {
-            if let OtherAccountViewController = segue.destinationViewController as? OtherAccountViewController{
-                if let a = cell.userName.text{
-                    print("cell.userName", a)
 
-                    OtherAccountViewController.userName = a
-                }
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("セルの選択: \(indexPath.row)")
+
+        selectedUser = self.filterUsers[indexPath.row] as! NCMBUser
+        print(selectedUser)
+        performSegueWithIdentifier("toOtherAccountViewController", sender: nil)
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toOtherAccountViewController" {
+            if let OtherAccountViewController = segue.destinationViewController as? OtherAccountViewController{
+                OtherAccountViewController.user = selectedUser
             }
         }
     }
+
 }
 
 extension SearchUserTableViewController: UISearchResultsUpdating {
