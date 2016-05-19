@@ -146,7 +146,6 @@ class CalendarView: UIView, UIScrollViewDelegate {
     func getNow (){
         let today = NSDate()
         CalendarManager.currentDate = today
-        print("CalendarManager.currentDate = today", CalendarManager.currentDate)
         resetMonthView()
 
     }

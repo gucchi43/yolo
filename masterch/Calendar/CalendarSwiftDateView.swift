@@ -49,17 +49,17 @@ class CalendarSwiftDateView: UIView{
 
         //投稿があったかを調べる
         
-        if array != []{
-            print("投稿があったあああああああああああああああ", date, array)
-            mutchArraytoLogDate(date, array: array)
-        }
-
         if date == CalendarManager.currentDate {
             dayButton.layer.borderColor = UIColor.grayColor().CGColor
             dayButton.layer.borderWidth = 3
             dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
-            print(date)
         }
+        
+        if array != []{
+            print("投稿があったあああああああああああああああ", date, array)
+            mutchArraytoLogDate(date, array: array)
+        }
+        
         if date.year == NSDate().year && date.month == NSDate().month && date.day == NSDate().day{
             //今日だけ黒
                     dayButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
