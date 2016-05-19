@@ -11,6 +11,7 @@ import SwiftDate
 
 class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
     var selectedDay: UIButton?
+    var logColorArray: NSArray?
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -18,7 +19,19 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
     
     init(frame: CGRect, date: NSDate) {
         super.init(frame:frame)
-        setUpDays(date)
+        startSetUpDays(date)
+    }
+    
+    //setUpDaysの前に呼ぶ（真ん中の週だけgetLogColorを呼び出す）
+    func startSetUpDays(date:NSDate) {
+        if date.yearForWeekOfYear == CalendarManager.currentDate.yearForWeekOfYear && date.weekOfYear == CalendarManager.currentDate.weekOfYear{
+            print("getLogColor呼び出し週", date)
+            getLogColorDate(date)
+            setUpDays(date)
+        }else {
+            print("getLogColor呼び出しなし")
+            setUpDays(date)
+        }
     }
     
     func setUpDays(date: NSDate) {
@@ -36,19 +49,46 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
         for var i = 0; i < 7; i++ {
             let x = i * Int(daySize.width)
             let frame = CGRect(origin: CGPoint(x: x, y: 0), size: daySize)
-            let dayView = CalendarSwiftDateView(frame: frame, date: date + i.days)
-            dayView.delegate = self
-            self.addSubview(dayView)
+            
+            if let array = self.logColorArray{ //logColorがあった場合(真ん中の月のみ)
+                let dayView = CalendarSwiftDateView(frame: frame, date: date + i.days, array: array)
+                dayView.delegate = self
+                self.addSubview(dayView)
+            }else {//logColorがない場合(真ん中の月以外)
+                let dayView = CalendarSwiftDateView(frame: frame, date: date + i.days)
+                dayView.delegate = self
+                self.addSubview(dayView)
+            }
+
         }
     }
     
-//    func onTapCalendarDayButton(sender: UIButton) {
-//        sender.selected = true
-//        if let selectedDay = selectedDay {
-//            selectedDay.selected = false
-//        }
-//        selectedDay = sender
-//    }
+    //LogViewの日にちごとの色を決める実行部分２
+    func getLogColorDate(date: NSDate) {
+        let myLogColorQuery: NCMBQuery = NCMBQuery(className: "LogColor") // 自分の投稿クエリ
+        myLogColorQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+        myLogColorQuery.whereKey("logDate", greaterThanOrEqualTo: CalendarManager.getDateWeekOfMin(date))
+        myLogColorQuery.whereKey("logDate", lessThanOrEqualTo: CalendarManager.getDateWeekOfMax(date))
+        myLogColorQuery.orderByAscending("logDate")
+        myLogColorQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
+            if let error = error{
+                print("getLogColorerrorr", error.localizedDescription)
+                self.setUpDays(date)
+            }else{
+                if objects != nil{
+                    self.logColorArray = objects
+                    print("今週の投稿",date, self.logColorArray)
+                    self.setUpDays(date)
+                }else{
+                    print("今月の投稿はまだない")
+                    self.setUpDays(date)
+                }
+            }
+        })
+    }
+
+    
+
     
     //日にち押すと
     func updateDayViewSelectedStatus() {

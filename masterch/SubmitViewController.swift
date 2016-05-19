@@ -641,6 +641,7 @@ extension SubmitViewController {
         let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）
         let logDate = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(10))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
         print("logDate", logDate)
+        let logYearAndMonth = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(7))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM"
         let myLogColorQuery: NCMBQuery = NCMBQuery(className: "LogColor") // 自分の投稿クエリ
         myLogColorQuery.whereKey("user", equalTo: user)
         myLogColorQuery.whereKey("logDate", equalTo: logDate)
@@ -650,34 +651,23 @@ extension SubmitViewController {
             }else {
                 if object == nil {
                     //今日の投稿はまだない
-                    self.firstSetLogColor(logDate)
+                    self.firstSetLogColor(logDate, logYearAndMonth: logYearAndMonth)
                 }else {
                     //２度目以降の投稿
                     print("変更した後の色は？", self.dateColor)
                     self.updateLogColor(object)
-//                    object.incrementKey("postCount")
-//                    object.setObject(self.dateColor, forKey: "dateColor")
-//                    
-//                    object.saveInBackgroundWithBlock { (error) -> Void in
-//                        object.saveInBackgroundWithBlock { (error) -> Void in
-//                            if error != nil {
-//                                print("error", error)
-//                            }else {
-//                                print("logColor ２回目以降の投稿 save成功")
-//                            }
-//                        }
-//                    }
                 }
             }
         }
     }
     
     //今日初めての投稿
-    func firstSetLogColor(logDate: String){
+    func firstSetLogColor(logDate: String, logYearAndMonth: String){
         print("本日の色は？", self.dateColor)
         let logColorObject = NCMBObject(className: "LogColor")
         logColorObject.setObject(user, forKey: "user")
         logColorObject.setObject(logDate, forKey: "logDate")
+        logColorObject.setObject(logYearAndMonth, forKey: "logYearAndMonth")
         logColorObject.setObject(self.dateColor, forKey: "dateColor")
         logColorObject.incrementKey("postCount")
         

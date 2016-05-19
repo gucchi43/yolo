@@ -33,6 +33,34 @@ class CalendarManager: NSObject {
         return calendarTitle
     }
     
+    //その日の月の"yyyy/MM"を取る(month用)
+    class func getDateYearAndMonth(date: NSDate) -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy/MM"
+        let logDate = formatter.stringFromDate(date)
+        print("検索側logDate", logDate)
+        return logDate
+    }
+    
+    //その日の月の"yyyy/MM/+6day"を取る(week用)
+    class func getDateWeekOfMax(date: NSDate) -> String {
+        let maxDate = date + 6.days
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        let logDate = formatter.stringFromDate(maxDate)
+        print("検索側logDate", logDate)
+        return logDate
+    }
+    
+    //その日の月の"yyyy/MM/-6day"を取る(week用)
+    class func getDateWeekOfMin(date: NSDate) -> String {
+        let minDate = date - 6.days
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        let logDate = formatter.stringFromDate(minDate)
+        print("検索側logDate", logDate)
+        return logDate
+    }
     
     //選択した日にちの00:00:00のNSDateをゲット（その日のタイムライン絞るのに使用）
     class func FilterDateStart() -> NSDate {
@@ -59,28 +87,6 @@ class CalendarManager: NSObject {
         print("FilterDateEnd", currentDate)
         return formatDate!
     }
-    
-    class func postedDate(date: NSDate) {
-        //        自分の投稿だけを表示するQueryを発行
-        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post")
-        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
-        myPostQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
-        myPostQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
-        
-        myPostQuery.getFirstObjectInBackgroundWithBlock { (objects, error) -> Void in
-            if error != nil {
-                print(error)
-            }else {
-                if objects == nil {
-                    
-                }else {
-                    
-                }
-            }
-        }
-    }
-
-
 }
 
 

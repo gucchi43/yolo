@@ -18,12 +18,13 @@ class CalendarSwiftDateView: UIView{
     var delegate: WeekCalendarDateViewDelegate?
     var dayButton: UIButton!
     var selectedButton: UIButton!
+    var dateColorArray: [NSArray]?
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect, date: NSDate)  {
+    init(frame: CGRect, date: NSDate, array: NSArray = [])  {
         super.init(frame: frame)
         print("ここにきてるdateは？→", date)
         self.date = date
@@ -38,7 +39,6 @@ class CalendarSwiftDateView: UIView{
         dayButton.layer.borderColor = UIColor.clearColor().CGColor
         dayButton.layer.borderWidth = 3
         
-
         //日にちの数字を左上にするとこ
 //        dayButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Top
 //        dayButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
@@ -48,11 +48,17 @@ class CalendarSwiftDateView: UIView{
         print("day", date.day, "weekday", date.weekday)
 
         //投稿があったかを調べる
-        //選択した日を含む月のdateと、選択した日を含む週のdate
-        if date.year == CalendarManager.currentDate.year && date.month == CalendarManager.currentDate.month || date.year == CalendarManager.currentDate.year && date.weekOfYear == CalendarManager.currentDate.weekOfYear{
-            //※初回起動時のみ、月（５ヶ月）と週（３週）分を読み込む、以降は、月のみor週のみ
-            self.whetherLogColor(date)
+        
+        if array != []{
+            print("投稿があったあああああああああああああああ", date, array)
+            mutchArraytoLogDate(date, array: array)
         }
+        
+        //選択した日を含む月のdateと、選択した日を含む週のdate
+//        if date.year == CalendarManager.currentDate.year && date.month == CalendarManager.currentDate.month || date.year == CalendarManager.currentDate.year && date.weekOfYear == CalendarManager.currentDate.weekOfYear{
+//            //※初回起動時のみ、月（５ヶ月）と週（３週）分を読み込む、以降は、月のみor週のみ
+//            self.whetherLogColor(date)
+//        }
 
         if date == CalendarManager.currentDate {
             dayButton.layer.borderColor = UIColor.grayColor().CGColor
@@ -90,39 +96,38 @@ class CalendarSwiftDateView: UIView{
             NSNotificationCenter.defaultCenter().postNotification(n)
         }
     }
-        
-    //LogViewの日にちごとの色を決める実行部分
-    func whetherLogColor(date: NSDate) {
-        let myLogColorQuery: NCMBQuery = NCMBQuery(className: "LogColor") // 自分の投稿クエリ
-        myLogColorQuery.whereKey("user", equalTo: NCMBUser.currentUser())
-        myLogColorQuery.whereKey("logDate", equalTo: getLogYearMonthDate(date))
-        myLogColorQuery.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
-            if let error = error{
-                print(error.localizedDescription)
-            }else {
-                if object != nil {//投稿あり
-                    print("投稿ありありありあり", date)
-                    let dateColor = object.objectForKey("dateColor") as! String
-                    self.selectDateColor(dateColor)
-                }else {//投稿なし
-                    print("投稿なし", date)
-                }
+    
+    func mutchArraytoLogDate(date: NSDate, array: NSArray) {
+        searchMutchLogColorDate(date)//その日の"yyyy/MM/dd"
+        let mutchObject = array.filter { array -> Bool in
+            let logDateArray = array.objectForKey("logDate") as! String
+            if logDateArray == searchMutchLogColorDate(date){
+                //投稿があった日
+                let logColor = array.objectForKey("dateColor") as! String
+                print("logColorあるんじゃないのおおおおおおおおおおおおおお", logColor)
+                selectDateColor(logColor)
+                return true
+            }else{
+                //投稿がなかった日
+                return false
             }
         }
     }
+        
     
-    //その日の"yyyy/MM/dd"を取る()
-    func getLogYearMonthDate(date: NSDate) -> String {
+    
+    //その日の"yyyy/MM/dd"
+    func searchMutchLogColorDate(date: NSDate) -> String{
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
         let logDate = formatter.stringFromDate(date)
-        print("検索側logDate", logDate)
         return logDate
     }
     
     //その日の色を、決定する
     func selectDateColor(dateColor: String){
         self.dayButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        
         switch dateColor {
         case "red" :
             self.dayButton.backgroundColor =  UIColor.redColor()
@@ -140,50 +145,8 @@ class CalendarSwiftDateView: UIView{
             self.dayButton.backgroundColor =  UIColor.lightGrayColor()
         }
     }
-    
-    
-//    //以前の判断に使っていたメソッド（オレンジ時代）
-//    func postedDate(date: NSDate) {
-//        //        自分の投稿だけを表示するQueryを発行
-//        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post")
-//        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
-//        myPostQuery.whereKey("postDate", greaterThanOrEqualTo: self.FirstFilterDateStart(date))
-//        myPostQuery.whereKey("postDate", lessThanOrEqualTo: self.FirstFilterDateEnd(date))
-//        print("postedDate読み込み時", date)
-//        myPostQuery.getFirstObjectInBackgroundWithBlock { (objects, error) -> Void in
-//            if objects != nil {//投稿0件
-//                print("投稿あり")
-//                self.dayButton.backgroundColor =  UIColor.orangeColor()
-//            }else {//投稿あり
-//                print("投稿なし")
-//            }
-//        }
-//    }
-    
-//    //その日にちの00:00:00のNSDateをゲット（そのの範囲を決めるため）
-//    func FirstFilterDateStart(date: NSDate) -> NSDate {
-//        let formatter = NSDateFormatter()
-//        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
-//        
-//        let formatDate = formatter.dateFromString(String(date.year) + "/" +
-//            String(date.month) + "/" +
-//            String(date.day) + " 00:00:00")
-//        
-//        print("FilterDateStart", date)
-//        return formatDate!
-//    }
-//    
-//    //その日にちの23:59:59のNSDateをゲット（そのの範囲を決めるため）
-//    func FirstFilterDateEnd(date: NSDate) -> NSDate {
-//        let formatter = NSDateFormatter()
-//        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
-//        
-//        let formatDate = formatter.dateFromString(String(date.year) + "/" +
-//            String(date.month) + "/" +
-//            String(date.day) + " 23:59:59")
-//        
-//        print("FilterDateEnd", date)
-//        return formatDate!
-//    }
 }
+    
+
+
 
