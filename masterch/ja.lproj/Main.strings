@@ -44,8 +44,8 @@
 /* Class = "UIButton"; normalTitle = "登録"; ObjectID = "Z5c-WT-Tm5"; */
 "Z5c-WT-Tm5.normalTitle" = "登録";
 
-/* Class = "UITextField"; placeholder = "ニックネームを入力してください"; ObjectID = "iiH-hf-dRJ"; */
-"iiH-hf-dRJ.placeholder" = "ニックネームを入力してください";
+/* Class = "UITextField"; placeholder = "名前を入力してください"; ObjectID = "iiH-hf-dRJ"; */
+"iiH-hf-dRJ.placeholder" = "名前を入力してください";
 
 /* Class = "UITextField"; placeholder = "ユーザーID"; ObjectID = "kLh-2Z-Alm"; */
 "kLh-2Z-Alm.placeholder" = "ユーザーID";

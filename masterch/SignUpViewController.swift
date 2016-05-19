@@ -11,12 +11,8 @@ import TwitterKit
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
     
-
     @IBOutlet weak var userIdTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
-    //NCMBUserのインスタンスを作成
-    let newUser = NCMBUser()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,24 +36,16 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    @IBAction func signUpButton(sender: AnyObject) {
+    @IBAction func selectSignUpButton(sender: AnyObject) {
         print("signUpButton 押した")
         signUp()
     }
     
     func signUp() {
+        
+        let newUser = NCMBUser()
         newUser.userName = userIdTextField.text
         newUser.password = passwordTextField.text
-        
-        let userImage = UIImage(named: "noprofile.png")
-        let userimageData = UIImagePNGRepresentation(userImage!)! as NSData
-        let userimageFile: NCMBFile = NCMBFile.fileWithData(userimageData) as! NCMBFile
-        newUser.setObject(userimageFile.name, forKey: "userProfileImage")
-        newUser.setObject("No Name", forKey: "userFaceName")
-        
-        newUser.ACL.setPublicWriteAccess(true)
-        newUser.ACL.setPublicReadAccess(true)
-        
         
         if ((self.userIdTextField.text?.dataUsingEncoding(NSASCIIStringEncoding, allowLossyConversion: false)) == nil) {
             RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "ユーザーIDは半角英数字で入力してください", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
@@ -65,21 +53,22 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             print("６文字以下")
             RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "パスワードは6文字以上入力してください", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
         }else {
-            self.newUser.signUpInBackgroundWithBlock({(NSError error) in
+            newUser.signUpInBackgroundWithBlock({(NSError error) in
                 if error != nil  {
-                    // Signup失敗
-                    print("Signup失敗", error)
+                    // SignUp失敗
+                    print("SignUp失敗", error)
                     self.showErrorAlert(error)
                 }else{
-                    //Signup成功
+                    //SignUp成功
                     //画面遷移
-                    print("Signup成功", self.newUser)
-                    self.performSegueWithIdentifier("setUpedSegue", sender: self)
+                    print("SignUp成功", newUser)
+                    self.performSegueWithIdentifier("toSetProfileViewSegue", sender: self)
                 }
+                
             })
         }
     }
-    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

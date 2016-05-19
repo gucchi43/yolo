@@ -8,68 +8,85 @@
 
 import UIKit
 
-class SetProfileViewController: UIViewController, UITextFieldDelegate {
-    
+class SetProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
     @IBOutlet weak var userImageView: UIImageView!
-    @IBOutlet weak var userNameTextFiled: UITextField!
+    @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var userIdLabel: UILabel!
     @IBOutlet weak var selfIntroductionTextView: UITextView!
+    @IBOutlet weak var saveProfileButton: UIBarButtonItem!
     
-    var profileImage: UIImage? = nil
-    var homeImage: UIImage!
+    var user = NCMBUser()
     
+    var userId: String!
+    var password: String!
+
+//   テキストフィールドのplaceholder用ラベル
     @IBOutlet weak var placeHolderLabel: UILabel!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        userIdLabel.text = "@" + NCMBUser.currentUser().userName
+        
+        user = NCMBUser.currentUser()
+        userIdLabel.text = "@" + user.userName
         
         //プロフィール写真の形を整える
         //!!! 写真をグレーでぼかしたい, 谷口
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         //プロフィール写真を表示
         userImageView.image = UIImage(named: "noprofile.png")
+        
+        //userIdTextField入力画面を呼び出し
+        userNameTextField.becomeFirstResponder()
 
-        homeImage = UIImage(named: "noprofile.png")
-        profileImage = UIImage(named: "noprofile.png")
+        selfIntroductionTextView.layer.borderWidth = 1.0
+        selfIntroductionTextView.layer.borderColor = UIColor.lightGrayColor().CGColor
+        selfIntroductionTextView.layer.cornerRadius = 5.0
         
-        
+//        文字数カウントのために入力後の通知を受け取れるようにする
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector:"userNameTextFieldDidChange:",
+            name: UITextFieldTextDidChangeNotification,
+            object: nil)
     }
     
-    //keyboardで、return押した時
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        //キーボードを閉じる
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    //keyboard以外をタップした時keyboardを下げる
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-
-
-        if userNameTextFiled.isFirstResponder() {
-            userNameTextFiled.resignFirstResponder()
+//    通知後に呼ばれるメソッドで文字数をカウントする
+    func userNameTextFieldDidChange(notification:NSNotification) {
+        if userNameTextField.text!.characters.count == 0 {
+            saveProfileButton.enabled = false
+        } else {
+            saveProfileButton.enabled = true
         }
     }
 
-}
-
-extension SetProfileViewController {
-//    テキストビューのplaceholder
-    //textviewがフォーカスされたら、Labelを非表示
-    func textViewShouldBeginEditing(textView: UITextView) -> Bool
-    {
-        placeHolderLabel.hidden = true
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+//        userNameTextFieldでreturn押した時に自己紹介のtextViewへ
+        if textField == userNameTextField {
+            selfIntroductionTextView.becomeFirstResponder()
+        }
         return true
     }
     
+    //textviewがフォーカスされたら、Labelを非表示
+    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+        placeHolderLabel.hidden = true
+        return true
+    }
+
     //textviewからフォーカスが外れて、TextViewが空だったらLabelを再び表示
     func textViewDidEndEditing(textView: UITextView) {
         if(textView.text.isEmpty){
             placeHolderLabel.hidden = false
+        }
+    }
+    
+    //keyboard以外をタップした時keyboardを下げる
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if userNameTextField.isFirstResponder() {
+            userNameTextField.resignFirstResponder()
+        }
+        if selfIntroductionTextView.isFirstResponder() {
+            selfIntroductionTextView.resignFirstResponder()
         }
     }
 }
@@ -79,7 +96,7 @@ extension SetProfileViewController {
 extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
     //プロフィール画面のカメラ選択ボタン
-    @IBAction func editProfileImageButton(sender: AnyObject) {
+    @IBAction func selectEditProfileImageButton(sender: AnyObject) {
         selectEditProfileImage()
     }
 
@@ -131,8 +148,6 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
             image = resizeImage
             
             self.userImageView.image = image
-            self.profileImage = image
-            self.homeImage = image
         }
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -160,28 +175,28 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
 // 投稿アクション周り
 extension SetProfileViewController {
     //保存ボタン
-    @IBAction func saveProfileButton(sender: AnyObject) {
+    @IBAction func selectSaveProfileButton(sender: AnyObject) {
         saveNewProfile()
     }
 
     //投稿ボタンプッシュ, 投稿機能メソッド
     func saveNewProfile() {
-        let user = NCMBUser.currentUser()
-
+        
+        user.ACL.setPublicWriteAccess(true)
+        user.ACL.setPublicReadAccess(true)
         //ユーザーネーム保存
-        user.setObject(userNameTextFiled.text, forKey: "userFaceName")
-        print("userFaceName", userNameTextFiled.text)
+        user.setObject(userNameTextField.text, forKey: "userFaceName")
         //自己紹介保存
         user.setObject(selfIntroductionTextView.text, forKey: "userSelfIntroduction")
-        
-        
+
         // プロフィール写真保存
-        if profileImage != nil {
+        if userImageView.image != nil {
             
             //設定してもらったProfileImageをユーザー情報に追加
-            let userProfileImageData = UIImagePNGRepresentation(self.profileImage!)! as NSData
+            let userProfileImageData = UIImagePNGRepresentation(self.userImageView.image!)! as NSData
             let userProfileImageFile: NCMBFile = NCMBFile.fileWithData(userProfileImageData) as! NCMBFile
             user.setObject(userProfileImageFile.name, forKey: "userProfileImage")
+            user.setObject(userProfileImageFile.name, forKey: "userHomeImage")
             
             //ファイルはバックグラウンド実行をする
             userProfileImageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
@@ -190,7 +205,7 @@ extension SetProfileViewController {
                 } else {
                     print("アップロード中にエラーが発生しました: \(error)")
                 }
-            }, progressBlock: { (percentDone: Int32) -> Void in
+                }, progressBlock: { (percentDone: Int32) -> Void in
                     //                    進捗状況を取得します。保存完了まで何度も呼ばれます
                     print("進捗状況: \(percentDone)% アップロード済み")
             })
@@ -198,32 +213,12 @@ extension SetProfileViewController {
             print("profileImageはnil")
         }
         
-        if homeImage != nil {
-            //設定してもらったHomeImageをユーザー情報に追加
-            let userHomeImageData = UIImagePNGRepresentation(self.profileImage!)! as NSData
-            let userHomeImageFile: NCMBFile = NCMBFile.fileWithData(userHomeImageData) as! NCMBFile
-            user.setObject(userHomeImageFile.name, forKey: "userHomeImage")
-            
-            //ファイルはバックグラウンド実行をする
-            userHomeImageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
-                if error == nil {
-                    print("画像データ保存完了: \(userHomeImageFile.name)")
-                } else {
-                    print("アップロード中にエラーが発生しました: \(error)")
-                }
-            }, progressBlock: { (percentDone: Int32) -> Void in
-                    //                    進捗状況を取得します。保存完了まで何度も呼ばれます
-                    print("進捗状況: \(percentDone)% アップロード済み")
-            })
-        }else {
-            print("homeImageはnil")            
-        }
-        
-        
         user.saveInBackgroundWithBlock({(error) in
             if error != nil { print("Save error : ",error)}
+            else { self.performSegueWithIdentifier("signUpSegue", sender: self) }
         })
         
-        performSegueWithIdentifier("signUpSegue", sender: self)
+       
+        
     }
 }
