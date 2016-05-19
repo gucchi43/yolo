@@ -139,7 +139,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ユーザーID" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Tf5-t3-b1K">
-                                <rect key="frame" x="40" y="180" width="334" height="40"/>
+                                <rect key="frame" x="40" y="94" width="334" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Awh-Lh-pIr"/>
                                 </constraints>
@@ -149,8 +149,16 @@
                                     <outlet property="delegate" destination="0Sv-Yr-eTM" id="aXh-MA-V8t"/>
                                 </connections>
                             </textField>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="headTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8nY-kM-vAc">
+                                <rect key="frame" x="192" y="288" width="30" height="30"/>
+                                <state key="normal" title="登録"/>
+                                <connections>
+                                    <action selector="signUpBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="vZK-sz-LKn"/>
+                                    <action selector="signUpButton:" destination="0Sv-Yr-eTM" eventType="touchUpInside" id="JyI-iO-lO9"/>
+                                </connections>
+                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="パスワード" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="8Kt-QU-Mrz">
-                                <rect key="frame" x="40" y="240" width="334" height="40"/>
+                                <rect key="frame" x="40" y="142" width="334" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="3BT-Os-Gke"/>
                                 </constraints>
@@ -160,40 +168,18 @@
                                     <outlet property="delegate" destination="0Sv-Yr-eTM" id="EyT-kV-Fc0"/>
                                 </connections>
                             </textField>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="headTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8nY-kM-vAc">
-                                <rect key="frame" x="192" y="288" width="30" height="30"/>
-                                <state key="normal" title="登録"/>
-                                <connections>
-                                    <action selector="signUpBtn:" destination="0Sv-Yr-eTM" eventType="touchUpInside" id="Xy0-pH-JA1"/>
-                                    <action selector="signUpBtn:" destination="gvJ-cY-zuT" eventType="touchUpInside" id="vZK-sz-LKn"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ERROR文章（デフォは非表示）" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfO-5G-Rcv">
-                                <rect key="frame" x="86" y="152" width="242" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.13333334029999999" blue="0.1764705926" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Tf5-t3-b1K" firstAttribute="top" secondItem="nz7-vn-ks1" secondAttribute="topMargin" constant="180" id="3Sk-Iu-gX0"/>
-                            <constraint firstItem="Tf5-t3-b1K" firstAttribute="top" secondItem="RfO-5G-Rcv" secondAttribute="bottom" constant="8" id="Ffw-AI-F8h"/>
+                            <constraint firstItem="Tf5-t3-b1K" firstAttribute="top" secondItem="nz7-vn-ks1" secondAttribute="topMargin" constant="94" id="3Sk-Iu-gX0"/>
                             <constraint firstItem="8nY-kM-vAc" firstAttribute="centerX" secondItem="nz7-vn-ks1" secondAttribute="centerX" id="Glq-nq-jif"/>
                             <constraint firstItem="Tf5-t3-b1K" firstAttribute="leading" secondItem="nz7-vn-ks1" secondAttribute="leading" constant="40" id="LNR-Z8-pS2"/>
-                            <constraint firstItem="RfO-5G-Rcv" firstAttribute="centerX" secondItem="nz7-vn-ks1" secondAttribute="centerX" id="O8E-j7-ekJ"/>
                             <constraint firstAttribute="trailing" secondItem="8Kt-QU-Mrz" secondAttribute="trailing" constant="40" id="U3C-2m-fyg"/>
-                            <constraint firstItem="8Kt-QU-Mrz" firstAttribute="top" secondItem="Tf5-t3-b1K" secondAttribute="bottom" constant="20" id="Vmy-s3-cVT"/>
+                            <constraint firstItem="8Kt-QU-Mrz" firstAttribute="top" secondItem="Tf5-t3-b1K" secondAttribute="bottom" constant="8" id="Vmy-s3-cVT"/>
                             <constraint firstItem="8Kt-QU-Mrz" firstAttribute="leading" secondItem="nz7-vn-ks1" secondAttribute="leading" constant="40" id="cFV-iL-qce"/>
-                            <constraint firstItem="RfO-5G-Rcv" firstAttribute="top" secondItem="8nY-kM-vAc" secondAttribute="bottom" constant="8" id="gmL-89-M3q"/>
                             <constraint firstAttribute="trailing" secondItem="Tf5-t3-b1K" secondAttribute="trailing" constant="40" id="lkR-TH-ZZr"/>
-                            <constraint firstItem="8nY-kM-vAc" firstAttribute="top" secondItem="8Kt-QU-Mrz" secondAttribute="bottom" constant="8" id="xtA-ep-aHF"/>
+                            <constraint firstItem="8nY-kM-vAc" firstAttribute="top" secondItem="8Kt-QU-Mrz" secondAttribute="bottom" constant="106" id="xtA-ep-aHF"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="gmL-89-M3q"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="登録" id="yfh-sH-bRn">
                         <barButtonItem key="leftBarButtonItem" title="戻る" id="oic-pD-qlq">
@@ -204,7 +190,6 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <outlet property="errorMessage" destination="RfO-5G-Rcv" id="KjT-Nc-1RT"/>
                         <outlet property="passwordTextField" destination="8Kt-QU-Mrz" id="0oB-rV-QPn"/>
                         <outlet property="userIdTextField" destination="Tf5-t3-b1K" id="TQU-P0-Acm"/>
                         <segue destination="iJy-WC-FCV" kind="show" identifier="setUpedSegue" id="gvJ-hH-GZh"/>
@@ -233,7 +218,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ニックネームを入力してください" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iiH-hf-dRJ">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="名前を入力してください" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iiH-hf-dRJ">
                                 <rect key="frame" x="128" y="109" width="266" height="30"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>

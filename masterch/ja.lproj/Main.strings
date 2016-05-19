@@ -1,0 +1,66 @@
+
+/* Class = "UITextField"; placeholder = "パスワード"; ObjectID = "8Kt-QU-Mrz"; */
+"8Kt-QU-Mrz.placeholder" = "パスワード";
+
+/* Class = "UIButton"; normalTitle = "登録"; ObjectID = "8nY-kM-vAc"; */
+"8nY-kM-vAc.normalTitle" = "登録";
+
+/* Class = "UILabel"; text = "Masterch"; ObjectID = "CCV-j1-kbO"; */
+"CCV-j1-kbO.text" = "Masterch";
+
+/* Class = "UINavigationItem"; title = "プロフィール設定"; ObjectID = "Cg3-b6-dPF"; */
+"Cg3-b6-dPF.title" = "プロフィール設定";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "Dlk-Pa-KrV"; */
+"Dlk-Pa-KrV.title" = "Item";
+
+/* Class = "UILabel"; text = "自己紹介を入力してください"; ObjectID = "Fqo-4m-cN6"; */
+"Fqo-4m-cN6.text" = "自己紹介を入力してください";
+
+/* Class = "UIButton"; normalTitle = "ログイン"; ObjectID = "JdY-yu-2Mj"; */
+"JdY-yu-2Mj.normalTitle" = "ログイン";
+
+/* Class = "UIBarButtonItem"; title = "戻る"; ObjectID = "JxK-fC-7JW"; */
+"JxK-fC-7JW.title" = "戻る";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "LhM-YA-FVq"; */
+"LhM-YA-FVq.title" = "Item";
+
+/* Class = "UILabel"; text = "ERROR文章（デフォは非表示）"; ObjectID = "Qrf-W1-BOJ"; */
+"Qrf-W1-BOJ.text" = "ERROR文章（デフォは非表示）";
+
+/* Class = "UILabel"; text = "@userID"; ObjectID = "SKb-mw-AY1"; */
+"SKb-mw-AY1.text" = "@userID";
+
+/* Class = "UITextField"; placeholder = "パスワード"; ObjectID = "T54-R8-Q28"; */
+"T54-R8-Q28.placeholder" = "パスワード";
+
+/* Class = "UITextField"; placeholder = "ユーザーID"; ObjectID = "Tf5-t3-b1K"; */
+"Tf5-t3-b1K.placeholder" = "ユーザーID";
+
+/* Class = "UINavigationItem"; title = "ログイン"; ObjectID = "YZC-dR-og5"; */
+"YZC-dR-og5.title" = "ログイン";
+
+/* Class = "UIButton"; normalTitle = "登録"; ObjectID = "Z5c-WT-Tm5"; */
+"Z5c-WT-Tm5.normalTitle" = "登録";
+
+/* Class = "UITextField"; placeholder = "ニックネームを入力してください"; ObjectID = "iiH-hf-dRJ"; */
+"iiH-hf-dRJ.placeholder" = "ニックネームを入力してください";
+
+/* Class = "UITextField"; placeholder = "ユーザーID"; ObjectID = "kLh-2Z-Alm"; */
+"kLh-2Z-Alm.placeholder" = "ユーザーID";
+
+/* Class = "UIButton"; normalTitle = "ログイン"; ObjectID = "kXZ-Kh-Zai"; */
+"kXZ-Kh-Zai.normalTitle" = "ログイン";
+
+/* Class = "UIBarButtonItem"; title = "戻る"; ObjectID = "oic-pD-qlq"; */
+"oic-pD-qlq.title" = "戻る";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "wCD-62-sqi"; */
+"wCD-62-sqi.title" = "Item";
+
+/* Class = "UIBarButtonItem"; title = "保存"; ObjectID = "wkN-F8-YrT"; */
+"wkN-F8-YrT.title" = "保存";
+
+/* Class = "UINavigationItem"; title = "登録"; ObjectID = "yfh-sH-bRn"; */
+"yfh-sH-bRn.title" = "登録";

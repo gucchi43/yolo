@@ -12,7 +12,6 @@ import TwitterKit
 class SignUpViewController: UIViewController, UITextFieldDelegate {
     
 
-    @IBOutlet weak var errorMessage: UILabel!
     @IBOutlet weak var userIdTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -21,12 +20,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        userIdTextField?.delegate = self
-        passwordTextField?.delegate = self
-        
-        //エラーメッセージは最初表示しない
-        self.errorMessage.text = ""
         
         //userIdTextField入力画面を呼び出し
         userIdTextField.becomeFirstResponder()
@@ -40,19 +33,19 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         if (textField == userIdTextField) {
             passwordTextField?.becomeFirstResponder()
         } else {
-            userSignUp()
+            signUp()
 //             キーボードを閉じる
             textField.resignFirstResponder()
         }
         return true
     }
     
-    @IBAction func signUpBtn(sender: AnyObject) {
-        print("signUpBtn 押した")
-        userSignUp()
+    @IBAction func signUpButton(sender: AnyObject) {
+        print("signUpButton 押した")
+        signUp()
     }
     
-    func userSignUp() {
+    func signUp() {
         newUser.userName = userIdTextField.text
         newUser.password = passwordTextField.text
         
@@ -65,17 +58,18 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         newUser.ACL.setPublicWriteAccess(true)
         newUser.ACL.setPublicReadAccess(true)
         
+        
         if ((self.userIdTextField.text?.dataUsingEncoding(NSASCIIStringEncoding, allowLossyConversion: false)) == nil) {
-            self.errorMessage.text = "ユーザーIDは半角英数字で入力してください"
+            RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "ユーザーIDは半角英数字で入力してください", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
         }else if self.passwordTextField.text?.utf16.count <= 6 {
             print("６文字以下")
-            self.errorMessage.text = "パスワードは６文字以上入力してください"
+            RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "パスワードは6文字以上入力してください", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
         }else {
-            newUser.signUpInBackgroundWithBlock({(NSError error) in
+            self.newUser.signUpInBackgroundWithBlock({(NSError error) in
                 if error != nil  {
                     // Signup失敗
                     print("Signup失敗", error)
-                    self.errorMessage.text = error.localizedDescription
+                    self.showErrorAlert(error)
                 }else{
                     //Signup成功
                     //画面遷移
@@ -84,9 +78,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 }
             })
         }
-
     }
-    
     
     
     override func didReceiveMemoryWarning() {
@@ -96,3 +88,4 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     
 }
+
