@@ -33,6 +33,15 @@ class CalendarManager: NSObject {
         return calendarTitle
     }
     
+    //その日の月の"yyyy/MM"を取る()
+    class func getDateYearAndMonth(date: NSDate) -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy/MM"
+        let logDate = formatter.stringFromDate(date)
+        //        let logDate = (String(date.year) + "/" + String(date.month))
+        print("検索側logDate", logDate)
+        return logDate
+    }
     
     //選択した日にちの00:00:00のNSDateをゲット（その日のタイムライン絞るのに使用）
     class func FilterDateStart() -> NSDate {
@@ -59,28 +68,6 @@ class CalendarManager: NSObject {
         print("FilterDateEnd", currentDate)
         return formatDate!
     }
-    
-    class func postedDate(date: NSDate) {
-        //        自分の投稿だけを表示するQueryを発行
-        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post")
-        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
-        myPostQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
-        myPostQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
-        
-        myPostQuery.getFirstObjectInBackgroundWithBlock { (objects, error) -> Void in
-            if error != nil {
-                print(error)
-            }else {
-                if objects == nil {
-                    
-                }else {
-                    
-                }
-            }
-        }
-    }
-
-
 }
 
 
