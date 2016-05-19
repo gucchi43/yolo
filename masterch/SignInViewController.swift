@@ -1,30 +1,22 @@
 //
-//  LogInViewController.swift
+//  SignInViewController.swift
 //  masterch
 //
-//  Created by HIroki Taniguti on 2016/04/20.
+//  Created by Fumiya Yamanaka on 2016/05/19.
 //  Copyright © 2016年 Fumiya Yamanaka. All rights reserved.
 //
 
 import UIKit
 import TwitterKit
 
-class LogInViewController: UIViewController, UITextFieldDelegate {
-    
-    @IBOutlet weak var errorMessage: UILabel!
+class SignInViewController: UIViewController {
     @IBOutlet weak var userIdTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
     let user = NCMBUser.currentUser()
-    
-    //NCMBUserのインスタンスを作成
-    let newUser = NCMBUser()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //エラーメッセージは最初表示しない
-        self.errorMessage.text = ""
         
         //userIdTextField入力画面を呼び出し
         userIdTextField.becomeFirstResponder()
@@ -35,25 +27,24 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         if (textField == userIdTextField) {
             passwordTextField?.becomeFirstResponder()
         } else {
-            userLogIn()
+            signIn()
             //キーボードを閉じる
             textField.resignFirstResponder()
         }
         return true
     }
     
-    @IBAction func logInBtn(sender: AnyObject) {
-        print("logInBtn 押した")
-        userLogIn()
+    @IBAction func SignInBtn(sender: AnyObject) {
+        print("SignInBtn 押した")
+        signIn()
     }
     
-    func userLogIn() {
+    func signIn() {
         NCMBUser.logInWithUsernameInBackground(userIdTextField.text, password: passwordTextField.text) { (user, error) -> Void in
             if error != nil {
                 //Login失敗
                 print("Login失敗", error)
-                self.errorMessage.text = error.localizedDescription
-                
+                self.showErrorAlert(error)
             }else {
                 //Login成功
                 print("Login成功", user)
@@ -63,9 +54,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-extension LogInViewController {
+extension SignInViewController {
     //Facebookログイン&サインアップ
-    @IBAction func fbSignUpBtn(sender: AnyObject) {
+    @IBAction func fbSignUpButton(sender: AnyObject) {
         print("facebookボタン押した")
         NCMBFacebookUtils.logInWithReadPermission(["wakannai"], block: { (user: NCMBUser!, error: NSError!) -> Void in
             if error == nil {
@@ -89,12 +80,12 @@ extension LogInViewController {
                 }
             }
         })
-    }    
+    }
 }
 
-extension LogInViewController {
+extension SignInViewController {
     //Twitterログイン&サインアップ
-    @IBAction func twSignUpBtn(sender: AnyObject) {
+    @IBAction func twSignUpButton(sender: AnyObject) {
         print("Twitterログインボタン押した")
         NCMBTwitterUtils.logInWithBlock { (user: NCMBUser!, error: NSError!) -> Void in
             if let user = user {
