@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     firsrtViewController = storyboard.instantiateViewControllerWithIdentifier("firstViewController") as UIViewController
                     self.window?.rootViewController = firsrtViewController
                     if let tabvc = self.window!.rootViewController as? UITabBarController  {
-                        tabvc.selectedIndex = 2 // 0 が一番左のタブ (２＝Log画面)
+                        tabvc.selectedIndex = 0 // 0 が一番左のタブ (0＝Log画面)
                     }
                 }else {
                     print("error: \(error)")
