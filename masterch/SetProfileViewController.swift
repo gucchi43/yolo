@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class SetProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
@@ -207,7 +208,7 @@ extension SetProfileViewController {
             let userProfileImageFile: NCMBFile = NCMBFile.fileWithData(userProfileImageData) as! NCMBFile
             user.setObject(userProfileImageFile.name, forKey: "userProfileImage")
             user.setObject(userProfileImageFile.name, forKey: "userHomeImage")
-            
+                        
             //ファイルはバックグラウンド実行をする
             userProfileImageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error == nil {
