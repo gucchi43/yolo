@@ -40,7 +40,7 @@ class AccountViewController: UIViewController {
         
         
         //ユーザーネームを表示
-        self.userProfileNameLabel.text = (currentUser.objectForKey("userFaceName") as? String)!
+        self.userProfileNameLabel.text = currentUser.objectForKey("userFaceName") as? String
         self.userIdLabel.text = "@" + currentUser.userName
         
         //プロフィール写真の形を円形にする
