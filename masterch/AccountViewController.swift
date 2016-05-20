@@ -17,11 +17,8 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var userHomeImageView: UIImageView!
     
     //フォロー数、フォロワー数
-//    @IBOutlet weak var followNumberButton: UIButton!
-//    @IBOutlet weak var followerNumberButton: UIButton!
-    
-    @IBOutlet weak var followNumberLabel: UILabel!
-    @IBOutlet weak var followerNumberLabel: UILabel!
+    @IBOutlet weak var followNumberButton: UIButton!
+    @IBOutlet weak var followerNumberButton: UIButton!
     
     @IBOutlet weak var segmentedController: UISegmentedControl!
     @IBOutlet weak var containerSnsView: UIView!
@@ -113,7 +110,7 @@ class AccountViewController: UIViewController {
                 print("error", error)
             }else {
                 print(NCMBUser.currentUser(),"の, フォロー数: ", count)
-                self.followNumberLabel.text = String(count) + "フォロー"
+                self.followNumberButton.setTitle(String(count) + "フォロー", forState: .Normal)
             }
         }
     }
@@ -126,7 +123,7 @@ class AccountViewController: UIViewController {
                 print("error", error)
             }else {
                 print(NCMBUser.currentUser(),"の, フォロワー数: ", count)
-                self.followerNumberLabel.text = String(count) + "フォロワー"
+                self.followerNumberButton.setTitle(String(count) + "フォロワー", forState: .Normal)
             }
         }
     }
