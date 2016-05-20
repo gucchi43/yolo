@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vnO-Ry-kCf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vnO-Ry-kCf">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -28,7 +28,7 @@
                                 <rect key="frame" x="0.0" y="92" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LUC-7P-6Qa" id="qZS-Br-dGM">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nk6-ZT-aKK">
@@ -206,13 +206,19 @@
                                 </variation>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="247" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="USh-dz-Ski">
-                                <rect key="frame" x="20" y="272" width="374" height="144"/>
+                                <rect key="frame" x="20" y="272" width="374" height="124.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="374" id="OJO-0y-GYJ"/>
+                                    <constraint firstAttribute="width" secondItem="USh-dz-Ski" secondAttribute="height" multiplier="3:1" id="XL1-DK-Iln"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="OJO-0y-GYJ"/>
+                                    </mask>
+                                </variation>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -244,6 +250,7 @@
                                 <exclude reference="pQl-OM-8Be"/>
                                 <exclude reference="rsM-Vm-ibB"/>
                                 <exclude reference="9Dg-mM-V8C"/>
+                                <exclude reference="tN2-nx-Unr"/>
                             </mask>
                         </variation>
                     </view>
@@ -253,7 +260,7 @@
                         <outlet property="userIdLabel" destination="9Oz-sH-Vtf" id="7Ad-fV-8dL"/>
                         <outlet property="userProfileImageView" destination="v9J-NY-3rr" id="FCN-ct-X7g"/>
                         <outlet property="userProfileNameLabel" destination="uDT-cv-PAE" id="oTe-Qj-rDt"/>
-                        <outlet property="userSelfIntroductionLabel" destination="USh-dz-Ski" id="UaM-we-QJ5"/>
+                        <outlet property="userSelfIntroductionLabel" destination="USh-dz-Ski" id="1c9-xd-LMQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Q9-ru-uOe" userLabel="First Responder" sceneMemberID="firstResponder"/>

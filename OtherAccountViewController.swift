@@ -26,13 +26,30 @@ class OtherAccountViewController: UIViewController {
         print(user)
         userIdLabel.text = "@" + user.userName
         userProfileNameLabel.text = user.objectForKey("userFaceName") as? String
-        userProfileImageView.image = user.objectForKey("userProfileImage") as? UIImage
-        userHomeImageView.image = user.objectForKey("userHomeImage") as? UIImage
-        userSelfIntroductionLabel.text = user.objectForKey("userSelfIntroduction") as? String
-
-        userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
-
         
+        userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
+        let userProfileImageName = (user.objectForKey("userProfileImage") as? String)!
+        let userProfileImageData = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
+        userProfileImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+            if error != nil{
+                print("写真の取得失敗: \(error)")
+            } else {
+                self.userProfileImageView.image = UIImage(data: imageData!)
+            }
+        }
+        
+        let userHomeImageName = (user.objectForKey("userHomeImage") as? String)!
+        let userHomeImageData = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
+        userHomeImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+            if error != nil{
+                print("写真の取得失敗: \(error)")
+            } else {
+                self.userHomeImageView.image = UIImage(data: imageData!)
+            }
+        }
+        
+        userSelfIntroductionLabel.text = user.objectForKey("userSelfIntroduction") as? String
+        userSelfIntroductionLabel.sizeToFit()
     }
 
     override func didReceiveMemoryWarning() {
