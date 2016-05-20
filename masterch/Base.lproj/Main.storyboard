@@ -89,35 +89,62 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdY-yu-2Mj">
-                                <rect key="frame" x="177" y="556" width="60" height="30"/>
-                                <state key="normal" title="ログイン"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdY-yu-2Mj" customClass="Button_Custom" customModule="masterch" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="616" width="414" height="60"/>
+                                <color key="backgroundColor" red="0.77378030021206057" green="0.98595207929611206" blue="0.21353226344686191" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="5vg-av-ZyA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="30"/>
+                                <state key="normal" title="ログイン">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <segue destination="gfa-c3-qv3" kind="show" id="8yi-1x-f9i"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z5c-WT-Tm5">
-                                <rect key="frame" x="192" y="606" width="30" height="30"/>
-                                <state key="normal" title="登録"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z5c-WT-Tm5" customClass="Button_Custom" customModule="masterch" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="676" width="414" height="60"/>
+                                <color key="backgroundColor" red="0.58146143839834008" green="0.26859110923423607" blue="0.98595207929611206" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="pnb-Fi-1MJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="30"/>
+                                <state key="normal" title="登録">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="uBe-RG-aNI" kind="show" id="5sb-DO-8mt"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Masterch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCV-j1-kbO">
-                                <rect key="frame" x="171" y="120" width="72" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOLO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCV-j1-kbO">
+                                <rect key="frame" x="165.5" y="170" width="84" height="43.5"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="40"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="CCV-j1-kbO" firstAttribute="top" secondItem="hja-UD-dfY" secondAttribute="bottom" constant="100" id="9sy-4O-h2q"/>
-                            <constraint firstItem="igm-vf-o0g" firstAttribute="top" secondItem="Z5c-WT-Tm5" secondAttribute="bottom" constant="100" id="PTu-EC-FBu"/>
+                            <constraint firstItem="Z5c-WT-Tm5" firstAttribute="top" secondItem="JdY-yu-2Mj" secondAttribute="bottom" id="6OQ-5h-8Ip"/>
+                            <constraint firstItem="CCV-j1-kbO" firstAttribute="top" secondItem="hja-UD-dfY" secondAttribute="bottom" constant="150" id="9sy-4O-h2q"/>
+                            <constraint firstAttribute="trailing" secondItem="JdY-yu-2Mj" secondAttribute="trailing" id="Nt9-pv-jT0"/>
+                            <constraint firstItem="igm-vf-o0g" firstAttribute="top" secondItem="Z5c-WT-Tm5" secondAttribute="bottom" id="PTu-EC-FBu"/>
                             <constraint firstItem="Z5c-WT-Tm5" firstAttribute="centerX" secondItem="pE7-tz-HNf" secondAttribute="centerX" id="XQS-mv-rg1"/>
                             <constraint firstItem="JdY-yu-2Mj" firstAttribute="centerX" secondItem="pE7-tz-HNf" secondAttribute="centerX" id="bGa-9p-epX"/>
-                            <constraint firstItem="Z5c-WT-Tm5" firstAttribute="top" secondItem="JdY-yu-2Mj" secondAttribute="bottom" constant="20" id="jlj-pR-9ae"/>
+                            <constraint firstItem="JdY-yu-2Mj" firstAttribute="leading" secondItem="pE7-tz-HNf" secondAttribute="leading" id="dN1-Pi-oXy"/>
+                            <constraint firstItem="Z5c-WT-Tm5" firstAttribute="leading" secondItem="pE7-tz-HNf" secondAttribute="leading" id="e4q-iH-W9R"/>
+                            <constraint firstItem="Z5c-WT-Tm5" firstAttribute="top" secondItem="JdY-yu-2Mj" secondAttribute="bottom" id="jlj-pR-9ae"/>
                             <constraint firstItem="CCV-j1-kbO" firstAttribute="centerX" secondItem="pE7-tz-HNf" secondAttribute="centerX" id="mBU-kZ-hSM"/>
+                            <constraint firstAttribute="trailing" secondItem="Z5c-WT-Tm5" secondAttribute="trailing" id="nwc-4P-yGM"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
@@ -212,20 +239,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@userID" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKb-mw-AY1">
-                                <rect key="frame" x="128" y="147" width="266" height="21"/>
+                                <rect key="frame" x="128" y="160" width="266" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="名前を入力してください" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iiH-hf-dRJ">
-                                <rect key="frame" x="128" y="109" width="266" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="名前を入力してください" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iiH-hf-dRJ">
+                                <rect key="frame" x="128" y="108" width="266" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Dv9-2g-SiQ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
                                     <outlet property="delegate" destination="iJy-WC-FCV" id="0Hw-Xb-9Az"/>
                                 </connections>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sw8-Rl-vw6">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sw8-Rl-vw6">
                                 <rect key="frame" x="20" y="202" width="374" height="207"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -248,7 +278,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="自己紹介を入力してください" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fqo-4m-cN6">
-                                <rect key="frame" x="26" y="206" width="363" height="17"/>
+                                <rect key="frame" x="26" y="218.5" width="363" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="363" id="Nxz-Uo-apa"/>
                                     <constraint firstAttribute="width" constant="250" id="Og8-gN-5VH"/>
@@ -298,6 +328,7 @@
                             <constraint firstItem="SKb-mw-AY1" firstAttribute="leading" secondItem="G4O-ws-LgW" secondAttribute="trailing" constant="8" id="seu-uk-739"/>
                             <constraint firstItem="iiH-hf-dRJ" firstAttribute="centerX" secondItem="xKN-Mf-HM1" secondAttribute="centerX" id="taD-fE-11E"/>
                             <constraint firstItem="sw8-Rl-vw6" firstAttribute="leading" secondItem="Fqo-4m-cN6" secondAttribute="trailing" constant="-250" id="wjk-GN-zdT"/>
+                            <constraint firstItem="iiH-hf-dRJ" firstAttribute="top" secondItem="gQC-BY-GiF" secondAttribute="bottom" constant="44" id="zok-Xr-qWQ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -308,6 +339,7 @@
                                 <exclude reference="brV-40-BBd"/>
                                 <exclude reference="8Ow-ni-eX7"/>
                                 <exclude reference="Ala-wm-equ"/>
+                                <exclude reference="CoE-fW-dDP"/>
                                 <exclude reference="taD-fE-11E"/>
                                 <exclude reference="iCX-l9-ChW"/>
                                 <exclude reference="mhh-8D-WRf"/>
@@ -426,7 +458,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jqx-SR-M5T" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Yza-nR-Xt8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-530" y="1049"/>
+            <point key="canvasLocation" x="-1018" y="2039"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IVL-Sd-cH8">
@@ -473,6 +505,6 @@
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="L8J-Kv-eM2"/>
+        <segue reference="d3l-QJ-9PL"/>
     </inferredMetricsTieBreakers>
 </document>

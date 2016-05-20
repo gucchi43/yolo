@@ -38,6 +38,7 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate, UITextVie
         
         //userIdTextField入力画面を呼び出し
         userNameTextField.becomeFirstResponder()
+        userNameTextField.addUnderline(1.0, color: UIColor.lightGrayColor())
 
         selfIntroductionTextView.layer.borderWidth = 1.0
         selfIntroductionTextView.layer.borderColor = UIColor.lightGrayColor().CGColor
