@@ -30,29 +30,23 @@ class OtherAccountViewController: UIViewController {
         let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship")
         relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
         relationshipQuery.whereKey("follower", equalTo: user)
-        relationshipQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
-            if (error != nil) {
+        relationshipQuery.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
+            if let error = error{
                 print(error.localizedDescription)
-            } else {
-                if objects != nil {
-                    if objects as NSObject != [] {
-                        //                        フォロー/フォロワー関係の時
-                        print("フォローしてる")
-                        self.followingRelationshipObject = objects[0] as! NCMBObject
-                        self.isFollowing = true
-                        self.otherAccountFollowButton.setTitle("フォロー中", forState: UIControlState.Normal)
-                    } else {
-                        print("フォローしてない")
-                        self.isFollowing = false
-                        self.otherAccountFollowButton.setTitle("フォロー", forState: UIControlState.Normal)
-                    }
-                } else {
+            }else {
+                if object != nil {
+                    print("フォローしてる")
+                    self.followingRelationshipObject = object as NCMBObject
+                    self.isFollowing = true
+                    self.otherAccountFollowButton.setTitle("フォロー中", forState: UIControlState.Normal)
+                }else{
                     print("フォローしてない")
                     self.isFollowing = false
                     self.otherAccountFollowButton.setTitle("フォロー", forState: UIControlState.Normal)
                 }
             }
-        })
+            
+        }
         
         print(user)
         userIdLabel.text = "@" + user.userName
@@ -82,7 +76,8 @@ class OtherAccountViewController: UIViewController {
         userSelfIntroductionLabel.text = user.objectForKey("userSelfIntroduction") as? String
         userSelfIntroductionLabel.sizeToFit()
     }
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -91,21 +86,27 @@ class OtherAccountViewController: UIViewController {
 
     @IBAction func selectOtherAccountFollowButton(sender: AnyObject) {
         print("followButton押した。")
-        
-        
         if isFollowing == false {
             print("フォローする")
             let relationObject = NCMBObject(className: "Relationship")
             relationObject.setObject(NCMBUser.currentUser(), forKey: "followed")
             relationObject.setObject(user, forKey: "follower")
-            followingRelationshipObject.objectId = relationObject.objectId
-            relationObject.save(nil)
-            self.isFollowing = true
-            print("フォローした")
-            otherAccountFollowButton.setTitle("フォロー中", forState: UIControlState.Normal)
+            relationObject.saveInBackgroundWithBlock({ (error) -> Void in
+                if let error = error{
+                    print("error", error.localizedDescription)
+                }else {
+                    self.isFollowing = true
+                    print("フォローした", NCMBUser.currentUser().userName, "→", self.user.userName)
+                    self.otherAccountFollowButton.setTitle("フォロー中", forState: UIControlState.Normal)
+                    self.followingRelationshipObject.objectId = relationObject.objectId
+                    self.followingRelationshipObject = relationObject as NCMBObject
+
+                }
+            })
         } else {
             print("フォローをやめる")
-            followingRelationshipObject.fetchInBackgroundWithBlock({(NSError error) in
+            print("followingRelationshipObject", followingRelationshipObject)
+            followingRelationshipObject.fetchInBackgroundWithBlock({ (error) -> Void in
                 if (error != nil) {
                     print(error)
                 } else {
@@ -125,5 +126,5 @@ class OtherAccountViewController: UIViewController {
         
         
     }
-
+    
 }
