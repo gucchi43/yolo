@@ -55,6 +55,7 @@
 		EDA4DC701C82F163005FE126 /* CalendarWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */; };
 		EDA4DC721C82F190005FE126 /* CalendarAnotherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC711C82F190005FE126 /* CalendarAnotherView.swift */; };
 		EDA866781CBC93050074A71D /* SetProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA866771CBC93050074A71D /* SetProfileViewController.swift */; };
+		EDA94FD31CEEC48700A42E8A /* UIExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA94FD21CEEC48700A42E8A /* UIExtension.swift */; };
 		EDB04C751CC5190500FDEB14 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C741CC5190500FDEB14 /* UserData.swift */; };
 		EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */; };
 		EDB4AF581CE37AE2002781F3 /* ContainerSnsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4AF571CE37AE2002781F3 /* ContainerSnsViewController.swift */; };
@@ -154,6 +155,7 @@
 		EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarWeekView.swift; sourceTree = "<group>"; };
 		EDA4DC711C82F190005FE126 /* CalendarAnotherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarAnotherView.swift; sourceTree = "<group>"; };
 		EDA866771CBC93050074A71D /* SetProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetProfileViewController.swift; sourceTree = "<group>"; };
+		EDA94FD21CEEC48700A42E8A /* UIExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIExtension.swift; sourceTree = "<group>"; };
 		EDB04C741CC5190500FDEB14 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
 		EDB4AF571CE37AE2002781F3 /* ContainerSnsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerSnsViewController.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		32C0A33C1C5DF8ED009657B9 /* masterch */ = {
 			isa = PBXGroup;
 			children = (
+				EDA94FD21CEEC48700A42E8A /* UIExtension.swift */,
 				EDE355F11CB284CD006C7C0A /* CommentFile.swift */,
 				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
 				32E6CF761C76F4F500904B74 /* takigutihikari.jpg */,
@@ -605,6 +608,7 @@
 				3289D23C1C6A1C8000B4C65A /* SearchViewController.swift in Sources */,
 				EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */,
 				EDB4FEFE1CBBFAFE00A318EA /* EditProfileTableViewController.swift in Sources */,
+				EDA94FD31CEEC48700A42E8A /* UIExtension.swift in Sources */,
 				3289D23E1C6A1CA300B4C65A /* NotificationViewController.swift in Sources */,
 				ED4830731CE8148100D29A2F /* SearchUserTableViewController.swift in Sources */,
 				3289D2381C6A1C6000B4C65A /* LogViewController.swift in Sources */,

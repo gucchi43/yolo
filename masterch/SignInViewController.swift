@@ -20,6 +20,9 @@ class SignInViewController: UIViewController {
         
         //userIdTextField入力画面を呼び出し
         userIdTextField.becomeFirstResponder()
+        userIdTextField.addUnderline(1.0, color: UIColor.lightGrayColor())
+        passwordTextField.addUnderline(1.0, color: UIColor.lightGrayColor())
+        
     }
     
     //textfieldのreturnkey押した時の動作
