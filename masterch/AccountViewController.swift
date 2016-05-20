@@ -70,6 +70,9 @@ class AccountViewController: UIViewController {
             }
         }
         
+        getFllowerNumbar()
+        getFllowNumber()
+        
     }
     
     @IBAction func selectEditProfileButton(sender: AnyObject) {
@@ -99,6 +102,33 @@ class AccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func getFllowNumber() {
+        let myFllowQuery: NCMBQuery = NCMBQuery(className: "Relationship")
+        myFllowQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
+        myFllowQuery.countObjectsInBackgroundWithBlock { (count , error) -> Void in
+            if let error = error{
+                print("error", error)
+            }else {
+                print(NCMBUser.currentUser(),"の, フォロー数: ", count)
+                self.followNumberButton.setTitle(String(count) + "フォロー", forState: .Normal)
+            }
+        }
+    }
+    
+    func getFllowerNumbar() {
+        let myFllowerQuery: NCMBQuery = NCMBQuery(className: "Relationship")
+        myFllowerQuery.whereKey("follower", equalTo: NCMBUser.currentUser())
+        myFllowerQuery.countObjectsInBackgroundWithBlock { (count , error) -> Void in
+            if let error = error{
+                print("error", error)
+            }else {
+                print(NCMBUser.currentUser(),"の, フォロワー数: ", count)
+                self.followerNumberButton.setTitle(String(count) + "フォロワー", forState: .Normal)
+            }
+        }
+    }
+
+
     
     @IBAction func didValueChanged(sender: AnyObject) {
         

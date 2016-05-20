@@ -100,40 +100,6 @@
                                             <action selector="selectEditProfileButton:" destination="ghQ-yp-AG1" eventType="touchUpInside" id="jk6-su-qVv"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UwH-k2-bCe">
-                                        <rect key="frame" x="224" y="122" width="100" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="CpP-Fv-Xsz"/>
-                                            <constraint firstAttribute="height" constant="28" id="Z7G-Uc-HWj"/>
-                                            <constraint firstAttribute="height" constant="27" id="vOj-hZ-rAw"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <state key="normal" title="80 フォロワー">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="vOj-hZ-rAw"/>
-                                            </mask>
-                                        </variation>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFU-Je-0lS">
-                                        <rect key="frame" x="116" y="122" width="100" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="64n-wT-oDp"/>
-                                            <constraint firstAttribute="height" constant="28" id="gKH-B3-Twr"/>
-                                            <constraint firstAttribute="height" constant="27" id="hF7-QM-0e2"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <state key="normal" title="100 フォロー">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="hF7-QM-0e2"/>
-                                            </mask>
-                                        </variation>
-                                    </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="74b-xo-zhR">
                                         <rect key="frame" x="8" y="50" width="100" height="100"/>
                                         <constraints>
@@ -157,27 +123,45 @@
                                             </mask>
                                         </variation>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dce-t7-JIX">
+                                        <rect key="frame" x="116" y="123" width="100" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="6xL-wt-ZPK"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="フォロー">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEa-0t-jfu">
+                                        <rect key="frame" x="226" y="122" width="100" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="RR9-1I-wrr"/>
+                                        </constraints>
+                                        <state key="normal" title="フォロワー">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="74b-xo-zhR" firstAttribute="leading" secondItem="HO7-xh-3Xl" secondAttribute="leading" constant="8" id="2xd-fy-2Vz"/>
-                                    <constraint firstItem="qFU-Je-0lS" firstAttribute="top" secondItem="c70-gh-oqz" secondAttribute="bottom" constant="9" id="3Mv-W4-8RP"/>
                                     <constraint firstAttribute="trailing" secondItem="c70-gh-oqz" secondAttribute="trailing" constant="116" id="6dM-ml-ryC"/>
+                                    <constraint firstItem="dce-t7-JIX" firstAttribute="top" secondItem="c70-gh-oqz" secondAttribute="bottom" constant="10" id="Cms-kl-KVD"/>
                                     <constraint firstItem="c70-gh-oqz" firstAttribute="top" secondItem="pO5-t8-8n7" secondAttribute="bottom" constant="1" id="Dnq-z1-qF0"/>
                                     <constraint firstAttribute="trailing" secondItem="EBU-fE-Uer" secondAttribute="trailing" constant="306" id="Ejg-AN-HBE"/>
                                     <constraint firstAttribute="width" constant="414" id="JhZ-sq-J2u"/>
                                     <constraint firstAttribute="bottom" secondItem="EBU-fE-Uer" secondAttribute="bottom" constant="13" id="MKa-ny-DRl"/>
-                                    <constraint firstItem="UwH-k2-bCe" firstAttribute="leading" secondItem="qFU-Je-0lS" secondAttribute="trailing" constant="8" id="MRk-A7-nhH"/>
                                     <constraint firstItem="pO5-t8-8n7" firstAttribute="leading" secondItem="74b-xo-zhR" secondAttribute="trailing" constant="8" id="Mlt-XU-DZs"/>
                                     <constraint firstItem="pO5-t8-8n7" firstAttribute="top" secondItem="HO7-xh-3Xl" secondAttribute="top" constant="56" id="P6K-DP-jv2"/>
-                                    <constraint firstItem="qFU-Je-0lS" firstAttribute="leading" secondItem="74b-xo-zhR" secondAttribute="trailing" constant="8" id="XnR-0Y-xVR"/>
+                                    <constraint firstItem="KEa-0t-jfu" firstAttribute="bottom" secondItem="dce-t7-JIX" secondAttribute="bottom" id="Pvj-YP-1RI"/>
+                                    <constraint firstItem="KEa-0t-jfu" firstAttribute="leading" secondItem="dce-t7-JIX" secondAttribute="trailing" constant="10" id="U6V-Nb-K4m"/>
                                     <constraint firstAttribute="width" constant="414" id="a7R-IA-8om"/>
                                     <constraint firstAttribute="width" secondItem="HO7-xh-3Xl" secondAttribute="height" multiplier="207:100" id="a8m-d6-xeW"/>
                                     <constraint firstItem="74b-xo-zhR" firstAttribute="top" secondItem="HO7-xh-3Xl" secondAttribute="top" constant="50" id="b5i-1I-edX"/>
                                     <constraint firstItem="EBU-fE-Uer" firstAttribute="leading" secondItem="HO7-xh-3Xl" secondAttribute="leading" constant="8" id="fFW-CN-pVI"/>
-                                    <constraint firstAttribute="trailing" secondItem="UwH-k2-bCe" secondAttribute="trailing" constant="90" id="fmo-nM-vhd"/>
                                     <constraint firstItem="c70-gh-oqz" firstAttribute="leading" secondItem="74b-xo-zhR" secondAttribute="trailing" constant="8" id="hoj-me-jv7"/>
-                                    <constraint firstItem="UwH-k2-bCe" firstAttribute="top" secondItem="c70-gh-oqz" secondAttribute="bottom" constant="9" id="o17-zU-vYo"/>
+                                    <constraint firstItem="dce-t7-JIX" firstAttribute="leading" secondItem="74b-xo-zhR" secondAttribute="trailing" constant="8" id="ppr-Ly-M8f"/>
                                     <constraint firstAttribute="trailing" secondItem="pO5-t8-8n7" secondAttribute="trailing" constant="116" id="q61-sQ-ojS"/>
                                     <constraint firstItem="EBU-fE-Uer" firstAttribute="top" secondItem="74b-xo-zhR" secondAttribute="bottom" constant="7" id="rOv-GI-H5r"/>
                                 </constraints>
@@ -250,8 +234,8 @@
                     <connections>
                         <outlet property="containerProfileView" destination="5c7-5d-Duw" id="PxZ-L7-3Z3"/>
                         <outlet property="containerSnsView" destination="FQx-6S-hf5" id="0OZ-cw-50c"/>
-                        <outlet property="followNumberButton" destination="qFU-Je-0lS" id="efW-E3-akN"/>
-                        <outlet property="followerNumberButton" destination="UwH-k2-bCe" id="hjk-Yt-EMs"/>
+                        <outlet property="followNumberButton" destination="dce-t7-JIX" id="tZ4-1T-QA2"/>
+                        <outlet property="followerNumberButton" destination="KEa-0t-jfu" id="EpH-az-OP0"/>
                         <outlet property="segmentedController" destination="7ar-vc-jce" id="6dE-wl-8xA"/>
                         <outlet property="userHomeImageView" destination="Wpb-j7-z7O" id="CgZ-ez-ipT"/>
                         <outlet property="userIdLabel" destination="c70-gh-oqz" id="GAe-up-MyO"/>

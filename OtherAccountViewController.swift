@@ -17,6 +17,9 @@ class OtherAccountViewController: UIViewController {
     @IBOutlet weak var userHomeImageView: UIImageView!
     @IBOutlet weak var userSelfIntroductionLabel: UILabel!
     
+    @IBOutlet weak var userFollowButton: UIButton!
+    @IBOutlet weak var userFollowerButton: UIButton!
+    
     @IBOutlet var otherAccountFollowButton: UIButton!
     
     var user: NCMBUser!
@@ -75,12 +78,42 @@ class OtherAccountViewController: UIViewController {
         
         userSelfIntroductionLabel.text = user.objectForKey("userSelfIntroduction") as? String
         userSelfIntroductionLabel.sizeToFit()
+        
+        getFllowerNumbar()
+        getFllowNumber()
     }
     
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func getFllowNumber() {
+        let myFllowQuery: NCMBQuery = NCMBQuery(className: "Relationship")
+        myFllowQuery.whereKey("followed", equalTo: self.user)
+        myFllowQuery.countObjectsInBackgroundWithBlock { (count , error) -> Void in
+            if let error = error{
+                print("error", error)
+            }else {
+                print(self.user,"の, フォロー数: ", count)
+                self.userFollowButton.setTitle(String(count) + "フォロワー", forState: .Normal)
+
+            }
+        }
+    }
+    
+    func getFllowerNumbar() {
+        let myFllowerQuery: NCMBQuery = NCMBQuery(className: "Relationship")
+        myFllowerQuery.whereKey("follower", equalTo: self.user)
+        myFllowerQuery.countObjectsInBackgroundWithBlock { (count , error) -> Void in
+            if let error = error{
+                print("error", error)
+            }else {
+                print(self.user,"の, フォロワー数: ", count)
+                self.userFollowerButton.setTitle(String(count) + "フォロワー", forState: .Normal)
+            }
+        }
     }
     
 
