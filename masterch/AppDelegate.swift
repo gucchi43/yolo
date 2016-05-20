@@ -49,6 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                 }else {
                     print("error: \(error)")
+                    let virginViewController = storyboard.instantiateViewControllerWithIdentifier("virginViewController") as UIViewController
+                    self.window?.rootViewController = virginViewController
                 }
             })
         } else {
