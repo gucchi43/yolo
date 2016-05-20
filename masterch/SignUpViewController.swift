@@ -9,19 +9,29 @@
 import UIKit
 import TwitterKit
 
-class SignUpViewController: UIViewController, UITextFieldDelegate {
+class SignUpViewController: UIViewController {
+    
+    @IBOutlet weak var userId2TextField: UITextField!
+    @IBOutlet weak var password2TextField: UITextField!
     
     @IBOutlet weak var userIdTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    
+    
+    
+    
+    @IBOutlet weak var testTextFiled: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //userIdTextField入力画面を呼び出し
         userIdTextField.becomeFirstResponder()
+        userIdTextField.addUnderline(1.0, color: UIColor.lightGrayColor())
+        passwordTextField.addUnderline(1.0, color: UIColor.lightGrayColor())
         
         //戻るボタンを隠す（効いていない）
-        self.navigationItem.hidesBackButton = true
+//        self.navigationItem.hidesBackButton = true
     }
     
     //textfieldのreturnkey押した時の動作

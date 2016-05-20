@@ -21,17 +21,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        
         // Override point for customization after application launch.
         //********** SDKの初期化 **********
         NCMB.setApplicationKey(applicationkey, clientKey: clientkey)
         
-//        NCMBTwitterUtils.initializeWithConsumerKey("BC5FOGIUpi7cPUnuG9JUgtnwD", consumerSecret: "1GBwujSqH10INkqiaPfhO6IyncFc30CrwT8TNHUChgm1zV0dXq")
+        //        NCMBTwitterUtils.initializeWithConsumerKey("BC5FOGIUpi7cPUnuG9JUgtnwD", consumerSecret: "1GBwujSqH10INkqiaPfhO6IyncFc30CrwT8TNHUChgm1zV0dXq")
         
         NCMBTwitterUtils.initializeWithConsumerKey("2qY7CYrPfZrvSo8AcMZwMify9", consumerSecret: "qLBkQ9ATbpz8Ym6pWcNqRrzINceW0IaszxYWLFy46Zjy9O3VQc")
         
         let storyboard:UIStoryboard =  UIStoryboard(name: "Main",bundle:nil)
         var viewController:UIViewController
         let user = NCMBUser.currentUser()
+        
+        //表示するビューコントローラーを指定
+        if user != nil {
+            print("appDelegate by ログイン済み")
+            print("ユーザー情報: \(NCMBUser.currentUser())")
+            //ユーザー情報を取ってくる
+            user.fetchInBackgroundWithBlock({ (error: NSError!) -> Void in
+                if error == nil {
+                    let firsrtViewController :UIViewController
+                    firsrtViewController = storyboard.instantiateViewControllerWithIdentifier("firstViewController") as UIViewController
+                    self.window?.rootViewController = firsrtViewController
+                    if let tabvc = self.window!.rootViewController as? UITabBarController  {
+                        tabvc.selectedIndex = 0 // 0 が一番左のタブ (0＝Log画面)
+                    }
+                }else {
+                    print("error: \(error)")
+                }
+            })
+        } else {
+            print("appDelegate by ログインしてない")
+            viewController = storyboard.instantiateViewControllerWithIdentifier("virginViewController") as UIViewController
+            window?.rootViewController = viewController
+        }
         
         /** Fabric連携 **/
         let consumerKey = "2qY7CYrPfZrvSo8AcMZwMify9"
@@ -45,27 +69,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         //表示するビューコントローラーを指定
-        if user != nil {
-            print("appDelegate by ログイン済み")
-            print("ユーザー情報: \(NCMBUser.currentUser())")
-            //ユーザー情報を取ってくる
-            user.fetchInBackgroundWithBlock({ (error: NSError!) -> Void in
-                if error == nil {
-                    let firsrtViewController :UIViewController
-                    firsrtViewController = storyboard.instantiateViewControllerWithIdentifier("firstViewController") as UIViewController
-                    self.window?.rootViewController = firsrtViewController
-                    if let tabvc = self.window!.rootViewController as? UITabBarController  {
-                        tabvc.selectedIndex = 2 // 0 が一番左のタブ (２＝Log画面)
-                    }
-                }else {
-                    print("error: \(error)")
-                }
-            })
-        } else {
-            print("appDelegate by ログインしてない")
-            viewController = storyboard.instantiateViewControllerWithIdentifier("virginViewController") as UIViewController
-            window?.rootViewController = viewController
-        }
     }
     
 

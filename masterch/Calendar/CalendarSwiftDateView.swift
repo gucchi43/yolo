@@ -55,11 +55,6 @@ class CalendarSwiftDateView: UIView{
             dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
         }
         
-        if array != []{
-            print("投稿があったあああああああああああああああ", date, array)
-            mutchArraytoLogDate(date, array: array)
-        }
-        
         if date.year == NSDate().year && date.month == NSDate().month && date.day == NSDate().day{
             //今日だけ黒
                     dayButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -79,6 +74,12 @@ class CalendarSwiftDateView: UIView{
             //普通はグレー
             dayButton.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         }
+        
+        if array != []{
+            print("投稿があったあああああああああああああああ", date, array)
+            mutchArraytoLogDate(date, array: array)
+        }
+        
         self.addSubview(dayButton)
     }
         
@@ -121,7 +122,6 @@ class CalendarSwiftDateView: UIView{
     //その日の色を、決定する
     func selectDateColor(dateColor: String){
         self.dayButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        
         switch dateColor {
         case "red" :
             self.dayButton.backgroundColor =  UIColor.redColor()
