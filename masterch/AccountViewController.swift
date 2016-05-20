@@ -17,8 +17,11 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var userHomeImageView: UIImageView!
     
     //フォロー数、フォロワー数
-    @IBOutlet weak var followNumberButton: UIButton!
-    @IBOutlet weak var followerNumberButton: UIButton!
+//    @IBOutlet weak var followNumberButton: UIButton!
+//    @IBOutlet weak var followerNumberButton: UIButton!
+    
+    @IBOutlet weak var followNumberLabel: UILabel!
+    @IBOutlet weak var followerNumberLabel: UILabel!
     
     @IBOutlet weak var segmentedController: UISegmentedControl!
     @IBOutlet weak var containerSnsView: UIView!
@@ -70,6 +73,9 @@ class AccountViewController: UIViewController {
             }
         }
         
+        getFllowerNumbar()
+        getFllowNumber()
+        
     }
     
     @IBAction func selectEditProfileButton(sender: AnyObject) {
@@ -99,6 +105,33 @@ class AccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func getFllowNumber() {
+        let myFllowQuery: NCMBQuery = NCMBQuery(className: "Relationship")
+        myFllowQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
+        myFllowQuery.countObjectsInBackgroundWithBlock { (count , error) -> Void in
+            if let error = error{
+                print("error", error)
+            }else {
+                print(NCMBUser.currentUser(),"の, フォロー数: ", count)
+                self.followNumberLabel.text = String(count) + "フォロー"
+            }
+        }
+    }
+    
+    func getFllowerNumbar() {
+        let myFllowerQuery: NCMBQuery = NCMBQuery(className: "Relationship")
+        myFllowerQuery.whereKey("follower", equalTo: NCMBUser.currentUser())
+        myFllowerQuery.countObjectsInBackgroundWithBlock { (count , error) -> Void in
+            if let error = error{
+                print("error", error)
+            }else {
+                print(NCMBUser.currentUser(),"の, フォロワー数: ", count)
+                self.followerNumberLabel.text = String(count) + "フォロワー"
+            }
+        }
+    }
+
+
     
     @IBAction func didValueChanged(sender: AnyObject) {
         
