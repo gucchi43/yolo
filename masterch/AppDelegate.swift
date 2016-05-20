@@ -21,28 +21,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        
         // Override point for customization after application launch.
         //********** SDKの初期化 **********
         NCMB.setApplicationKey(applicationkey, clientKey: clientkey)
         
-//        NCMBTwitterUtils.initializeWithConsumerKey("BC5FOGIUpi7cPUnuG9JUgtnwD", consumerSecret: "1GBwujSqH10INkqiaPfhO6IyncFc30CrwT8TNHUChgm1zV0dXq")
+        //        NCMBTwitterUtils.initializeWithConsumerKey("BC5FOGIUpi7cPUnuG9JUgtnwD", consumerSecret: "1GBwujSqH10INkqiaPfhO6IyncFc30CrwT8TNHUChgm1zV0dXq")
         
         NCMBTwitterUtils.initializeWithConsumerKey("2qY7CYrPfZrvSo8AcMZwMify9", consumerSecret: "qLBkQ9ATbpz8Ym6pWcNqRrzINceW0IaszxYWLFy46Zjy9O3VQc")
         
         let storyboard:UIStoryboard =  UIStoryboard(name: "Main",bundle:nil)
         var viewController:UIViewController
         let user = NCMBUser.currentUser()
-        
-        /** Fabric連携 **/
-        let consumerKey = "2qY7CYrPfZrvSo8AcMZwMify9"
-        let consumerSecret = "qLBkQ9ATbpz8Ym6pWcNqRrzINceW0IaszxYWLFy46Zjy9O3VQc"
-        Twitter.sharedInstance().startWithConsumerKey(consumerKey, consumerSecret: consumerSecret)
-//        Fabric.with([Twitter.sharedInstance()])
-        Fabric.with([Twitter()])
-        
-        
-        /** Facebook連携 **/
-        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         //表示するビューコントローラーを指定
         if user != nil {
@@ -66,6 +56,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             viewController = storyboard.instantiateViewControllerWithIdentifier("virginViewController") as UIViewController
             window?.rootViewController = viewController
         }
+        
+        /** Fabric連携 **/
+        let consumerKey = "2qY7CYrPfZrvSo8AcMZwMify9"
+        let consumerSecret = "qLBkQ9ATbpz8Ym6pWcNqRrzINceW0IaszxYWLFy46Zjy9O3VQc"
+        Twitter.sharedInstance().startWithConsumerKey(consumerKey, consumerSecret: consumerSecret)
+//        Fabric.with([Twitter.sharedInstance()])
+        Fabric.with([Twitter()])
+        
+        
+        /** Facebook連携 **/
+        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        //表示するビューコントローラーを指定
     }
     
 

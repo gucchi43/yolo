@@ -126,8 +126,8 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOLO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCV-j1-kbO">
-                                <rect key="frame" x="165.5" y="170" width="84" height="43.5"/>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="40"/>
+                                <rect key="frame" x="155.5" y="150" width="104.5" height="54.5"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="50"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -136,6 +136,7 @@
                         <constraints>
                             <constraint firstItem="Z5c-WT-Tm5" firstAttribute="top" secondItem="JdY-yu-2Mj" secondAttribute="bottom" id="6OQ-5h-8Ip"/>
                             <constraint firstItem="CCV-j1-kbO" firstAttribute="top" secondItem="hja-UD-dfY" secondAttribute="bottom" constant="150" id="9sy-4O-h2q"/>
+                            <constraint firstItem="CCV-j1-kbO" firstAttribute="top" secondItem="pE7-tz-HNf" secondAttribute="top" constant="150" id="ESe-dj-nsx"/>
                             <constraint firstAttribute="trailing" secondItem="JdY-yu-2Mj" secondAttribute="trailing" id="Nt9-pv-jT0"/>
                             <constraint firstItem="igm-vf-o0g" firstAttribute="top" secondItem="Z5c-WT-Tm5" secondAttribute="bottom" id="PTu-EC-FBu"/>
                             <constraint firstItem="Z5c-WT-Tm5" firstAttribute="centerX" secondItem="pE7-tz-HNf" secondAttribute="centerX" id="XQS-mv-rg1"/>
@@ -146,6 +147,11 @@
                             <constraint firstItem="CCV-j1-kbO" firstAttribute="centerX" secondItem="pE7-tz-HNf" secondAttribute="centerX" id="mBU-kZ-hSM"/>
                             <constraint firstAttribute="trailing" secondItem="Z5c-WT-Tm5" secondAttribute="trailing" id="nwc-4P-yGM"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="9sy-4O-h2q"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </viewController>
