@@ -19,11 +19,11 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var twitterButton: UIButton!
     @IBOutlet weak var facebookButton: UIButton!
-    @IBOutlet weak var secretButton: UIButton!
+    @IBOutlet weak var secretKeyButton: UIButton!
     
     @IBOutlet weak var twitterBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var facebookBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var secretBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var secretKeyBottomConstraint: NSLayoutConstraint!
     
     let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
     let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
@@ -47,7 +47,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     var twitterToggle: Bool = false
     var facebookToggle: Bool = false
-    var secretToggle:Bool = false
+    var secretKeyToggle:Bool = false
     
     let user = NCMBUser.currentUser()
     
@@ -122,7 +122,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         let duration : NSTimeInterval = userInfo[UIKeyboardAnimationDurationUserInfoKey]! as! NSTimeInterval
         self.twitterBottomConstraint.constant = keyboardHeight + 5
         self.facebookBottomConstraint.constant = keyboardHeight + 5
-        self.secretBottomConstraint.constant = keyboardHeight + 5
+        self.secretKeyBottomConstraint.constant = keyboardHeight + 5
         UIView.animateWithDuration(duration, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
@@ -135,7 +135,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         
         self.twitterBottomConstraint.constant = 5
         self.facebookBottomConstraint.constant = 5
-        self.secretBottomConstraint.constant = 5
+        self.secretKeyBottomConstraint.constant = 5
         
         let duration : NSTimeInterval = userInfo[UIKeyboardAnimationDurationUserInfoKey]! as! NSTimeInterval
         UIView.animateWithDuration(duration, animations: { () -> Void in
@@ -179,85 +179,6 @@ extension SubmitViewController {
     
     func textViewDidChange(textView: UITextView) {
     }
-}
-
-//SNSシェアセレクトボタン
-extension SubmitViewController {
-    //Twitterシェア
-        @IBAction func selectShareTwitter(sender: AnyObject) {
-        print("twitterボタン押した")
-        print("初期状態だぞおおおおお", twitterToggle)
-        //Twitterと連携しているか？
-        if let userID = user.objectForKey("twitterID") {
-            if userID.isKindOfClass(NSNull) != true {//「userID」がnullじゃないか？
-                if let userLink = Twitter.sharedInstance().sessionStore.sessionForUserID(userID as! String){
-                    print("Twitter連携済 userID:", userLink.userID)//Twitter連携している
-                    twitterToggle = !twitterToggle //連携済みの場合の切り替えToggle
-                    if twitterToggle == true{
-                        twitterButton.setImage(imgTwitterOn, forState: .Normal)
-                        //ツイッターシェアはtrue
-                        print("シェアする", twitterToggle)
-                    }else {
-                        twitterButton.setImage(imgTwitterOff, forState: .Normal)
-                        //ツイッターシェアはtrue
-                        print("シェアしない" , twitterToggle)
-                    }
-                }else {
-                    print("ありえないはず: twitterIDは登録してるのにTwitterSessionがsaveできていない")
-                    self.postTextView.endEditing(true)
-                    let containerSnsViewController = ContainerSnsViewController()
-                    containerSnsViewController.addSnsToTwitter(user)
-//                                        twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
-//                                        shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-//                                        print("シェアする", twitterToggle)
-                }
-            }else {
-                print("Twitter未連携（外した状態） userID", userID)//Twitter連携をはずして、空っぽの状態
-                //Twitter未連携
-                self.postTextView.endEditing(true)
-                let containerSnsViewController = ContainerSnsViewController()
-                containerSnsViewController.addSnsToTwitter(user)
-                //                twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
-                //                shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-                //                print("シェアする", twitterToggle)
-            }
-        }else {
-            print("Twitter未連携")//Twitter連携は今まで一度もしていない
-            //Twitter未連携
-            self.postTextView.endEditing(true)
-            let containerSnsViewController = ContainerSnsViewController()
-            containerSnsViewController.addSnsToTwitter(user)
-            //            twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
-            //            shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-            //            print("シェアする", twitterToggle)
-        }
-    }
-    
-    //Facebookシェア
-    @IBAction func selectShareFacebook(sender: AnyObject) {
-        print("Facebookボタン押した")
-        facebookToggle = !facebookToggle
-        if facebookToggle == true{
-            facebookButton.setImage(imgFacebookOn, forState: .Normal)
-            print(facebookToggle)
-        }else {
-            facebookButton.setImage(imgFacebookOff, forState: .Normal)
-            print(facebookToggle)
-        }
-    }
-    
-    
-    //secret切り替え
-    @IBAction func selectSeacret(sender: AnyObject) {
-        secretToggle = !secretToggle
-        if secretToggle == true {
-            print("Secret投稿")
-        }else {
-            print("Secret投稿無し")
-        }
-
-    }
-    
 }
 
 // toolBar設定
@@ -487,6 +408,7 @@ extension SubmitViewController {
         
         postObject.setObject(self.postTextView.text, forKey: "text")
         postObject.setObject(postPickerDate, forKey: "postDate")
+        postObject.setObject(secretKeyToggle, forKey: "secretKey")
         //        保存対象の画像ファイルを作成する
         if postImage1 != nil {
             
@@ -541,18 +463,85 @@ extension SubmitViewController {
 //        }
         
         //Secretモードかの判断
-        if secretToggle == false {
+        if secretKeyToggle == false {
+            print("Secret投稿なし, 普通に公開")
+        } else {
             print("Secret投稿")
-        }else {
+        }
+    }
+}
+
+//Secretモード
+extension SubmitViewController {
+    //secret切り替え
+    @IBAction func selectSecretKeyButton(sender: AnyObject) {
+        selectSecret()
+    }
+    
+    func selectSecret(){
+        secretKeyToggle = !secretKeyToggle
+        if secretKeyToggle == true {
+            secretKeyButton.setImage(UIImage(named: "key_origin"), forState: .Normal)
+            print("Secret投稿")
+        } else if secretKeyToggle == false {
+            secretKeyButton.setImage(UIImage(named: "key_gray"), forState: .Normal)
             print("Secret投稿無し")
         }
     }
 }
 
 
-
 //Twitterシェア
 extension SubmitViewController {
+    @IBAction func selectShareTwitter(sender: AnyObject) {
+        print("twitterボタン押した")
+        print("初期状態だぞおおおおお", twitterToggle)
+        //Twitterと連携しているか？
+        if let userID = user.objectForKey("twitterID") {
+            if userID.isKindOfClass(NSNull) != true {//「userID」がnullじゃないか？
+                if let userLink = Twitter.sharedInstance().sessionStore.sessionForUserID(userID as! String){
+                    print("Twitter連携済 userID:", userLink.userID)//Twitter連携している
+                    twitterToggle = !twitterToggle //連携済みの場合の切り替えToggle
+                    if twitterToggle == true{
+                        twitterButton.setImage(imgTwitterOn, forState: .Normal)
+                        //ツイッターシェアはtrue
+                        print("シェアする", twitterToggle)
+                    }else {
+                        twitterButton.setImage(imgTwitterOff, forState: .Normal)
+                        //ツイッターシェアはtrue
+                        print("シェアしない" , twitterToggle)
+                    }
+                }else {
+                    print("ありえないはず: twitterIDは登録してるのにTwitterSessionがsaveできていない")
+                    self.postTextView.endEditing(true)
+                    let containerSnsViewController = ContainerSnsViewController()
+                    containerSnsViewController.addSnsToTwitter(user)
+                    //                                        twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+                    //                                        shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+                    //                                        print("シェアする", twitterToggle)
+                }
+            }else {
+                print("Twitter未連携（外した状態） userID", userID)//Twitter連携をはずして、空っぽの状態
+                //Twitter未連携
+                self.postTextView.endEditing(true)
+                let containerSnsViewController = ContainerSnsViewController()
+                containerSnsViewController.addSnsToTwitter(user)
+                //                twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+                //                shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+                //                print("シェアする", twitterToggle)
+            }
+        }else {
+            print("Twitter未連携")//Twitter連携は今まで一度もしていない
+            //Twitter未連携
+            self.postTextView.endEditing(true)
+            let containerSnsViewController = ContainerSnsViewController()
+            containerSnsViewController.addSnsToTwitter(user)
+            //            twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
+            //            shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
+            //            print("シェアする", twitterToggle)
+        }
+    }
+    
     func shareTwitterPost(mediaID: String? = nil){//mediaIDの初期値をnilに（複数にすると多分Arrayになる）
         if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
             let client = TWTRAPIClient(userID: userID)
@@ -623,19 +612,25 @@ extension SubmitViewController {
 
 }
 
-//Facebookシェア
 extension SubmitViewController {
+    //Facebookシェア
+    @IBAction func selectShareFacebook(sender: AnyObject) {
+        print("Facebookボタン押した")
+        facebookToggle = !facebookToggle
+        if facebookToggle == true{
+            facebookButton.setImage(imgFacebookOn, forState: .Normal)
+            print(facebookToggle)
+        }else {
+            facebookButton.setImage(imgFacebookOff, forState: .Normal)
+            print(facebookToggle)
+        }
+    }
+
     func shareFacebookPost(){
     }
 }
 
-
-//Secretモード
-extension SubmitViewController {
-    func secretPost(){
-    }
-}
-
+// LogColor
 extension SubmitViewController {
     func setLogColor(){
         let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）

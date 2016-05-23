@@ -102,6 +102,8 @@ class LogViewController: UIViewController {
         postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
         postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
         postQuery.includeKey("user")
+        
+        postQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないものを表示(nil, false)
 
         postQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
             if let error = error {
