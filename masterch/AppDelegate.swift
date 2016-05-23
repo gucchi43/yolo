@@ -9,6 +9,7 @@
 import UIKit
 //import NCMB
 import Fabric
+import Crashlytics
 import TwitterKit
 
 
@@ -64,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let consumerSecret = "qLBkQ9ATbpz8Ym6pWcNqRrzINceW0IaszxYWLFy46Zjy9O3VQc"
         Twitter.sharedInstance().startWithConsumerKey(consumerKey, consumerSecret: consumerSecret)
 //        Fabric.with([Twitter.sharedInstance()])
-        Fabric.with([Twitter()])
+        Fabric.with([Twitter.self, Crashlytics.self])
         
         
         /** Facebook連携 **/

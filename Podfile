@@ -11,6 +11,8 @@ target 'masterch' do
   pod 'TwitterKit'
   pod 'TwitterCore'
 
+  pod 'Crashlytics'
+
   pod 'RMUniversalAlert'
 
 end

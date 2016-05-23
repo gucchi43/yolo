@@ -35,6 +35,8 @@ class CalendarAnotherView : UIView, UIScrollViewDelegate {
         
         horizontalScrollView.delegate = self
         
+        horizontalScrollView.showsHorizontalScrollIndicator = false
+        
         
         // horizontalにaddする
         currentWeekView = CalendarWeekView(frame: CGRect(origin:CGPoint (x: CGRectGetWidth(frame), y: 0), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days)
