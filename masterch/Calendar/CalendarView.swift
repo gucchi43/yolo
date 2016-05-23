@@ -38,6 +38,9 @@ class CalendarView: UIView, UIScrollViewDelegate {
         horizontalScrollView.delegate = self
         verticalScrollView.delegate = self
         
+        horizontalScrollView.showsHorizontalScrollIndicator = false
+        verticalScrollView.showsVerticalScrollIndicator = false
+        
         // horizontalにaddする
         
         //翌月
