@@ -29,7 +29,7 @@ class CalendarSwiftDateView: UIView{
         print("ここにきてるdateは？→", date)
         self.date = date
         
-        let w = Int((UIScreen.mainScreen().bounds.size.width) / 7)
+        let w = Int((UIScreen.mainScreen().bounds.size.width) / 8)
         let h = 30
         
         dayButton = UIButton(frame: CGRect(x: 0, y: 0, width: w, height: w))
