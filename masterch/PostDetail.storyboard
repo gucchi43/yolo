@@ -145,15 +145,19 @@
                                                     </mask>
                                                 </variation>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVH-Po-2if">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVH-Po-2if">
                                                 <rect key="frame" x="8" y="547" width="146" height="29"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="CYm-vJ-FvQ"/>
                                                     <constraint firstAttribute="height" constant="29" id="EEs-ez-hui"/>
                                                     <constraint firstAttribute="width" constant="120" id="oIu-LM-vxM"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <state key="normal" title="Like !"/>
+                                                <state key="normal" image="hartButton_Off.png">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="selected" image="hartButton_On.png"/>
+                                                <state key="highlighted" image="hartButton_On.png"/>
+                                                <state key="focused" image="hartButton_On.png"/>
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="CYm-vJ-FvQ"/>
@@ -170,7 +174,9 @@
                                                     <constraint firstAttribute="height" constant="30" id="zWh-BH-6md"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <state key="normal" title="Comment"/>
+                                                <state key="normal" title="Comment">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="zWh-BH-6md"/>
@@ -180,7 +186,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uIf-an-X1h">
                                                 <rect key="frame" x="300" y="547" width="146" height="29"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <state key="normal" title="フォロー"/>
+                                                <state key="normal" title="フォロー">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="selectFollow:" destination="Qi4-d8-ecB" eventType="touchUpInside" id="sNW-85-K1m"/>
                                                 </connections>
@@ -191,7 +199,9 @@
                                                     <constraint firstAttribute="height" constant="30" id="0qo-Tt-7EQ"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <state key="normal" title="その他"/>
+                                                <state key="normal" title="その他">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="0qo-Tt-7EQ"/>
@@ -199,8 +209,11 @@
                                                 </variation>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dSV-fk-93H">
-                                                <rect key="frame" x="66" y="515" width="30" height="30"/>
-                                                <state key="normal" title="3件"/>
+                                                <rect key="frame" x="54" y="515" width="55" height="30"/>
+                                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <state key="normal" title="0いいね">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -327,6 +340,7 @@
                         <outlet property="commentButton" destination="DAZ-3m-Ume" id="x6w-2K-3sW"/>
                         <outlet property="followButton" destination="uIf-an-X1h" id="9aW-XJ-bGs"/>
                         <outlet property="likeButton" destination="eVH-Po-2if" id="NaJ-fj-Gzd"/>
+                        <outlet property="likeNumberButton" destination="dSV-fk-93H" id="Ezi-ln-GUi"/>
                         <outlet property="postDateLabel" destination="edR-GE-wib" id="F4u-qp-2Wd"/>
                         <outlet property="postImageView" destination="UAO-I1-QGB" id="TKY-3H-Cr8"/>
                         <outlet property="postImageViewHeightConstraint" destination="nDs-yp-WP6" id="ESe-bA-rhc"/>
@@ -342,6 +356,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="hartButton_Off.png" width="23" height="21"/>
+        <image name="hartButton_On.png" width="23" height="21"/>
         <image name="noprofile.png" width="500" height="500"/>
     </resources>
 </document>

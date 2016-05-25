@@ -290,10 +290,8 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         
         if postData.objectForKey("likeUser") != nil{//一度もいいねが来たことがないかも 分岐
             let postLikeUserString = postData.objectForKey("likeUser")
-            print("postLikeUserString", postLikeUserString)
                 let cleanLikeUserString = String(postLikeUserString!).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                 let superCleanLinkUserString = cleanLikeUserString.stringByReplacingOccurrencesOfString("(\n)", withString: "")
-                print("cleanLikeUserString", cleanLikeUserString)
                 print("superCleanLinkUserString", superCleanLinkUserString)
             if superCleanLinkUserString.isEmpty == false{//いいねを取り消されて空かも 分岐
                 let postLikeUserArray = superCleanLinkUserString.componentsSeparatedByString(",")
@@ -303,9 +301,8 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.likeCounts = postLikeUserCount
                 cell.likeNumberButton.setTitle(String(cell.likeCounts!), forState: .Normal)
                 for i in postLikeUserArray{
-                    print("これってどうなるんじゃあああああああああああああああ",i)
                     if i.rangeOfString(NCMBUser.currentUser().objectId) != nil{//自分がいいねしている
-                        print("私はすでにいいねをおしているるるうパート２")
+                        print("私はすでにいいねをおしている")
                         cell.likeButton.setImage(likeOnImage, forState: .Normal)
                         cell.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
                         cell.isLikeToggle = true
@@ -345,7 +342,7 @@ extension LogViewController{
 //        let likeButton = cell.likeButton
 //        let likeNumberButon = cell.likeNumberButton
         
-        testChangeLike(postData, cell: cell)
+        changeLikeStatus(postData, cell: cell)
         
 //        if let likeCounts = cell.likeCounts{
 //            changeLikeStatus(postData, likeButton: likeButton, likeNumberButton: likeNumberButon, likeCounts: likeCounts)
@@ -355,7 +352,7 @@ extension LogViewController{
 //        }
     }
     
-    func testChangeLike(postData: NCMBObject, cell: TimelineCell){
+    func changeLikeStatus(postData: NCMBObject, cell: TimelineCell){
         if cell.isLikeToggle == false {//いいねしてない時
             cell.likeButton.setImage(likeOnImage, forState: .Normal)
             
@@ -409,59 +406,7 @@ extension LogViewController{
             
         }
     }
-    
-    
-//    func changeLikeStatus(postData: AnyObject, cell: TimelineCell){
-//    func changeLikeStatus(postData: AnyObject, likeButton: UIButton, likeNumberButton: UIButton,  likeCounts: Int){
-//        let likeRelation = postData.relationforKey("like")
-//         print("投稿情報 ",likeCounts, likeNumberButton.titleLabel?.text)
-//        
-//        if isLikeToggle == false{//いいねしていないとき→ONに切り替える
-//            likeRelation.addObject(NCMBUser.currentUser())
-//            postData.saveInBackgroundWithBlock({ (error) -> Void in
-//                if let error = error{
-//                    print(error.localizedDescription)
-//                }else{
-//                    likeButton.setImage(self.likeOnImage, forState: .Normal)
-//                    if likeCounts > 0{
-//                        var likeCounts = likeCounts
-//                        likeNumberButton.titleLabel?.text = String(likeCounts + 1)
-////                        likeNumberButton.setTitle(String(likeCount++), forState: .Normal)
-////                        cell.likeNumberButton.setTitle("本じゃんまいか", forState: .Normal)
-//                    }else{
-//                        var likeCounts = 0
-//                        likeNumberButton.titleLabel?.text = String(likeCounts + 1)
-////                        likeNumberButton.setTitle(String(likeCount++), forState: .Normal)
-////                        cell.likeNumberButton.setTitle("本じゃんまいか", forState: .Normal)
-//                    }
-//                    self.isLikeToggle = true
-//                }
-//            })
-//        }else{//いいね状態のとき→OFFに切り替える
-//            likeRelation.removeObject(NCMBUser.currentUser())
-//            postData.saveInBackgroundWithBlock({ (error) -> Void in
-//                if let error = error {
-//                    print(error.localizedDescription)
-//                }else{
-//                    likeButton.setImage(self.likeOffImage, forState: .Normal)
-//                    if likeCounts > 0{
-//                        var likeCounts = likeCounts
-//                        likeNumberButton.titleLabel?.text = String(likeCounts - 1)
-////                        likeNumberButton.setTitle("\(String(likeCount--))", forState: .Normal)
-//                        print("なんでなのおおおおおおおお", String(likeCounts - 1))
-//                        print("なんでなのおおおおおおおおその２", String(likeCounts - 1))
-////                        cell.likeNumberButton.setTitle("本じゃんまいか", forState: .Normal)
-//                    }else{
-//                        var likeCounts = 0
-//                        likeNumberButton.titleLabel?.text = String(likeCounts - 1)
-////                        likeNumberButton.setTitle(String(likeCount--), forState: .Normal)
-////                        cell.likeNumberButton.setTitle("本じゃんまいか", forState: .Normal)
-//                    }
-//                    self.isLikeToggle = false
-//                }
-//            })
-//        }
-//    }
+
 }
 
 //コメントボタンアクション
