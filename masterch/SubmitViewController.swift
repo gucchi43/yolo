@@ -112,11 +112,9 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
 //    キーボードが表示された時
     func showKeyboard(notification: NSNotification) {
         let userInfo = notification.userInfo ?? [:]
-        let keyboardHeight = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue().size.height //キーボードサイズの取得
+        let keyboardHeight = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().size.height //キーボードサイズの取得
         
         self.postTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight+40, right: 0) // 下からの高さ(+60は、30がシェアアイコンのサイズの高さでプラス10余裕持っている)
-        
-        
         
         self.postTextView.scrollIndicatorInsets = self.postTextView.contentInset // キーボードがある時は、一番下の部分をキーボードのしたから10の位置に指定
         let duration : NSTimeInterval = userInfo[UIKeyboardAnimationDurationUserInfoKey]! as! NSTimeInterval
@@ -347,8 +345,8 @@ extension SubmitViewController {
 extension SubmitViewController {
     func selectToolBarColorButton(sender:UIBarButtonItem) {
         print("カラーボタンを押した")
-        let snsKeyboardview:UIView = UINib(nibName: "ColorKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
-        self.postTextView.inputView = snsKeyboardview
+        let colorKeyboardview:UIView = UINib(nibName: "ColorKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+        self.postTextView.inputView = colorKeyboardview
         self.postTextView.reloadInputViews()
     }
     
