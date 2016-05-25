@@ -128,7 +128,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUm-qe-xvs">
-                                                    <rect key="frame" x="164" y="278" width="148" height="30"/>
+                                                    <rect key="frame" x="205" y="278" width="67" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="ksB-b6-rgV"/>
                                                         <constraint firstAttribute="width" constant="100" id="nNg-tw-TuM"/>
@@ -140,6 +140,9 @@
                                                             <exclude reference="nNg-tw-TuM"/>
                                                         </mask>
                                                     </variation>
+                                                    <connections>
+                                                        <action selector="pushCommentButton:" destination="FJA-Vb-RO4" eventType="touchUpInside" id="Hnc-ol-mfV"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ポストのテキストを表示する。ポストのテキストを表示する。ポストのテキストを表示する。ポストのテキストを表示する。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3V-7m-S14">
                                                     <rect key="frame" x="8" y="58" width="304" height="54"/>
@@ -166,19 +169,27 @@
                                                         <constraint firstAttribute="width" constant="40" id="eiC-Zk-x0T"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGz-eO-Vmi">
-                                                    <rect key="frame" x="8" y="278" width="148" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGz-eO-Vmi">
+                                                    <rect key="frame" x="48" y="282" width="23" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="8hp-hj-cgb"/>
                                                         <constraint firstAttribute="width" constant="100" id="X3s-Ra-1cX"/>
                                                     </constraints>
-                                                    <state key="normal" title="Like"/>
+                                                    <state key="normal" image="hartButton_Off.png">
+                                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" image="hartButton_On.png"/>
+                                                    <state key="highlighted" image="hartButton_On.png"/>
+                                                    <state key="focused" image="hartButton_On.png"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="8hp-hj-cgb"/>
                                                             <exclude reference="X3s-Ra-1cX"/>
                                                         </mask>
                                                     </variation>
+                                                    <connections>
+                                                        <action selector="pushLikeButton:" destination="FJA-Vb-RO4" eventType="touchUpInside" id="OTE-bX-OfU"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gm-Fv-HJZ">
                                                     <rect key="frame" x="54" y="18" width="76" height="20.5"/>
@@ -186,13 +197,34 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dlF-jG-gM4">
+                                                    <rect key="frame" x="71" y="278" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="6nT-8e-zjX"/>
+                                                        <constraint firstAttribute="height" constant="30" id="RK9-dU-H1x"/>
+                                                    </constraints>
+                                                    <state key="normal" title="0">
+                                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="6nT-8e-zjX"/>
+                                                            <exclude reference="RK9-dU-H1x"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <connections>
+                                                        <action selector="pushCommentButton:" destination="FJA-Vb-RO4" eventType="touchUpInside" id="65C-Nq-UmR"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="eEx-X2-0YL" firstAttribute="leading" secondItem="8gM-WE-b7p" secondAttribute="leading" constant="8" id="3Jy-JP-hob"/>
-                                                <constraint firstAttribute="trailing" secondItem="qUm-qe-xvs" secondAttribute="trailing" constant="8" id="4MW-U3-PBT"/>
+                                                <constraint firstAttribute="trailing" secondItem="qUm-qe-xvs" secondAttribute="trailing" constant="48" id="4MW-U3-PBT"/>
                                                 <constraint firstAttribute="trailing" secondItem="EL9-md-m6U" secondAttribute="trailing" constant="8" id="6VQ-HK-QZK"/>
                                                 <constraint firstItem="7gm-Fv-HJZ" firstAttribute="leading" secondItem="eEx-X2-0YL" secondAttribute="trailing" constant="6" id="8TN-5G-Db4"/>
+                                                <constraint firstItem="dlF-jG-gM4" firstAttribute="centerY" secondItem="kGz-eO-Vmi" secondAttribute="centerY" id="9yR-A4-l31"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kGz-eO-Vmi" secondAttribute="bottom" constant="8" id="JhB-Dw-aVf"/>
+                                                <constraint firstItem="qUm-qe-xvs" firstAttribute="top" secondItem="dlF-jG-gM4" secondAttribute="top" id="NKA-FO-Oaj"/>
                                                 <constraint firstItem="bHn-we-dr0" firstAttribute="centerY" secondItem="7gm-Fv-HJZ" secondAttribute="centerY" id="Nhe-t7-SWQ"/>
                                                 <constraint firstItem="EL9-md-m6U" firstAttribute="leading" secondItem="8gM-WE-b7p" secondAttribute="leading" constant="8" id="OtU-tN-EdX"/>
                                                 <constraint firstItem="qUm-qe-xvs" firstAttribute="centerY" secondItem="kGz-eO-Vmi" secondAttribute="centerY" id="Tbf-Wq-tmd"/>
@@ -201,17 +233,28 @@
                                                 <constraint firstAttribute="trailing" secondItem="Y3V-7m-S14" secondAttribute="trailing" constant="8" id="i1H-aO-edD"/>
                                                 <constraint firstItem="7gm-Fv-HJZ" firstAttribute="centerY" secondItem="eEx-X2-0YL" secondAttribute="centerY" id="l1h-UL-wnO"/>
                                                 <constraint firstItem="Y3V-7m-S14" firstAttribute="leading" secondItem="8gM-WE-b7p" secondAttribute="leading" constant="8" id="lV3-W4-Ubp"/>
-                                                <constraint firstItem="kGz-eO-Vmi" firstAttribute="top" secondItem="EL9-md-m6U" secondAttribute="bottom" constant="8" id="ml9-do-08t"/>
+                                                <constraint firstItem="dlF-jG-gM4" firstAttribute="leading" secondItem="kGz-eO-Vmi" secondAttribute="trailing" id="m1x-Yz-qkG"/>
+                                                <constraint firstItem="kGz-eO-Vmi" firstAttribute="top" secondItem="EL9-md-m6U" secondAttribute="bottom" constant="12" id="ml9-do-08t"/>
                                                 <constraint firstItem="bHn-we-dr0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7gm-Fv-HJZ" secondAttribute="trailing" constant="8" id="oCd-1r-uWz"/>
                                                 <constraint firstItem="Y3V-7m-S14" firstAttribute="top" secondItem="eEx-X2-0YL" secondAttribute="bottom" constant="10" id="pQh-vf-hGI"/>
                                                 <constraint firstItem="EL9-md-m6U" firstAttribute="top" secondItem="Y3V-7m-S14" secondAttribute="bottom" constant="8" id="pkJ-cn-OUE"/>
-                                                <constraint firstItem="kGz-eO-Vmi" firstAttribute="leading" secondItem="8gM-WE-b7p" secondAttribute="leading" constant="8" id="po0-fT-gKX"/>
+                                                <constraint firstItem="kGz-eO-Vmi" firstAttribute="leading" secondItem="8gM-WE-b7p" secondAttribute="leading" constant="48" id="po0-fT-gKX"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="bHn-we-dr0" secondAttribute="trailing" constant="8" id="qk8-oD-akb"/>
                                                 <constraint firstItem="eEx-X2-0YL" firstAttribute="top" secondItem="8gM-WE-b7p" secondAttribute="top" constant="8" id="yoY-Rd-K07"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="Tbf-Wq-tmd"/>
+                                                    <exclude reference="Ugb-0G-BUJ"/>
+                                                    <exclude reference="fhc-je-wIJ"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="commentButton" destination="qUm-qe-xvs" id="kka-UH-VqW"/>
                                             <outlet property="imageViewHeightConstraint" destination="tyc-5F-3XU" id="PXy-mf-1Cx"/>
+                                            <outlet property="likeButton" destination="kGz-eO-Vmi" id="KDm-gg-u6E"/>
+                                            <outlet property="likeNumberButton" destination="dlF-jG-gM4" id="h9e-De-Kss"/>
                                             <outlet property="postDateLabel" destination="bHn-we-dr0" id="iCr-jb-iGl"/>
                                             <outlet property="postImageView" destination="EL9-md-m6U" id="abU-Bh-4Rr"/>
                                             <outlet property="postTextLabel" destination="Y3V-7m-S14" id="0Zp-Za-GZy"/>
@@ -450,6 +493,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="hartButton_Off.png" width="23" height="21"/>
+        <image name="hartButton_On.png" width="23" height="21"/>
         <image name="noprofile.png" width="500" height="500"/>
         <image name="takigutihikari.jpg" width="561" height="567"/>
     </resources>

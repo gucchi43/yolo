@@ -24,10 +24,15 @@ class PostDetailViewController: UIViewController {
     
     var postObject: NCMBObject!
     var isFollowing: Bool = false
+    var isLikeed: Bool = false
+    var likeCount: Int?
     var followingRelationshipObject: NCMBObject = NCMBObject()
     
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         // Do any additional setup after loading the view, typically from a nib.
         
         if let author = postObject.objectForKey("user") as? NCMBUser {
@@ -82,19 +87,23 @@ class PostDetailViewController: UIViewController {
             self.postImageViewHeightConstraint.constant = 0.0
             print(self.postImageViewHeightConstraint.constant)
         }
-        
-        self.checkFollowing()
     }
 }
 
 
-//  拡張: Likeボタン用
+//  拡張: Commentボタン用
 extension PostDetailViewController {
+    
+    
     
 }
 
-//  拡張: Commentボタン用
+//  拡張: Likeボタン用
 extension PostDetailViewController {
+    
+    @IBAction func pushLikeButton(sender: AnyObject) {
+        print("Likeボタン押してやったぜ")
+    }
     
 }
 

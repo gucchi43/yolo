@@ -18,6 +18,15 @@ class TimelineCell: UITableViewCell {
     @IBOutlet var postTextLabel: UILabel!
     @IBOutlet var postImageView: UIImageView!
     
+    
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
+    
+    
+    @IBOutlet weak var likeNumberButton: UIButton!
+    var likeCounts: Int?
+    var isLikeToggle: Bool = false
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
