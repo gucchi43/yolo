@@ -53,13 +53,15 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     var logDate: String?
     var dateColor: String = "normal"
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("SubmitViewController")
+    }
         
+//     Viewが画面に表示される度に呼ばれるメソッド
+    override func viewWillAppear(animated: Bool) {
         self.setToolBar()
         
         self.postTextView.delegate = self
@@ -82,10 +84,6 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         
         self.postDateTextField.inputAccessoryView = toolBar
         
-    }
-    
-//     Viewが画面に表示される度に呼ばれるメソッド
-    override func viewWillAppear(animated: Bool) {
 //             NSNotificationCenterへの登録処理
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "showKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
@@ -93,15 +91,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     }
     
     override func viewDidLayoutSubviews() {
-        if postImage1 != nil {
-            //        非表示領域の設定 & imageViewの表示位置
-            let exclusionRect = CGRectMake(self.postTextView.contentSize.width/2, 10, self.postTextView.contentSize.width/2, self.postTextView.contentSize.width/2)
-            let path = UIBezierPath(rect: exclusionRect)
-            self.postTextView.textContainer.exclusionPaths = [path]
-            self.postImageView.frame = exclusionRect // 画像の表示する座標を指定する.
-            self.postImageView.contentMode = UIViewContentMode.ScaleAspectFit
-            self.postTextView.addSubview(postImageView)
-        }
+        
     }
     
     deinit {
@@ -114,7 +104,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         let userInfo = notification.userInfo ?? [:]
         let keyboardHeight = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().size.height //キーボードサイズの取得
         
-        self.postTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight+40, right: 0) // 下からの高さ(+60は、30がシェアアイコンのサイズの高さでプラス10余裕持っている)
+        self.postTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight+40, right: 0) // 下からの高さ(+40は、30がシェアアイコンのサイズの高さでプラス10余裕持っている)
         
         self.postTextView.scrollIndicatorInsets = self.postTextView.contentInset // キーボードがある時は、一番下の部分をキーボードのしたから10の位置に指定
         let duration : NSTimeInterval = userInfo[UIKeyboardAnimationDurationUserInfoKey]! as! NSTimeInterval
@@ -145,6 +135,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     @IBAction func selectCancelButton(sender: AnyObject) {
         print("キャンセルボタンを押した")
         postTextView.resignFirstResponder() // 先にキーボードを下ろす
+        postDateTextField.resignFirstResponder()
         dismissViewControllerAnimated(true, completion: nil)
     }
 }
@@ -157,10 +148,15 @@ extension SubmitViewController {
 
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
 
+        if postImage1 != nil {
+            // imageViewの表示位置
+            self.postImageView.frame.origin = CGPointMake(0, textView.contentSize.height + 10)
+        }
         let string: NSMutableString = NSMutableString(string: textView.text)
         string.replaceCharactersInRange(range, withString: text)
+        print(string.length)
         
-        postTextCharactersLabel.text = String(141-string.length)
+        postTextCharactersLabel.text = String(140-string.length)
         
         if string.length > 140 {
             let alert: UIAlertController = UIAlertController(title: "文字数制限", message: "140文字までで入力してください。", preferredStyle: .Alert)
@@ -207,9 +203,10 @@ extension SubmitViewController {
 
 // カメラ周り
 extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
-    
+
     func selectToolBarCameraButton(sender: UIBarButtonItem) {
         print("カメラ&カメラロール呼び出しボタン押した")
+
         //カメラかカメラロールの分岐
         RMUniversalAlert.showActionSheetInViewController(self,
             withTitle: nil,
@@ -235,10 +232,6 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
                 }
         })
     }
-    
-    func selectCameraOrPictureAlert(){
-    }
-    
     
     // ライブラリから写真を選択する
     func pickImageFromLibrary() {
@@ -278,9 +271,13 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
             
             self.postImage1 = image
             self.postImageView.image = image
-            self.postTextView.endOfDocument
 
+            postImageView.frame = CGRectMake(0, postTextView.contentSize.height+10, self.postTextView.contentSize.width, self.postTextView.contentSize.width/2)
+            self.postImageView.contentMode = UIViewContentMode.ScaleAspectFit
+            self.postTextView.addSubview(postImageView)
+            self.postTextView.endOfDocument
         }
+
         picker.dismissViewControllerAnimated(true, completion: nil)
         self.postTextView.becomeFirstResponder()
     }
