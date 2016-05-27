@@ -338,18 +338,9 @@ extension LogViewController{
         let row = tableView.indexPathForCell(cell)?.row
         print("row", row)
         let postData = postArray[row!] as! NCMBObject
-//        postData.addObject(NCMBUser.currentUser(), forKey: "likeUser")
-//        let likeButton = cell.likeButton
-//        let likeNumberButon = cell.likeNumberButton
         
         changeLikeStatus(postData, cell: cell)
         
-//        if let likeCounts = cell.likeCounts{
-//            changeLikeStatus(postData, likeButton: likeButton, likeNumberButton: likeNumberButon, likeCounts: likeCounts)
-//        }else{
-//            let likeCounts = 0
-//            changeLikeStatus(postData, likeButton: likeButton, likeNumberButton: likeNumberButon, likeCounts: likeCounts)
-//        }
     }
     
     func changeLikeStatus(postData: NCMBObject, cell: TimelineCell){
