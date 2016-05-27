@@ -16,6 +16,8 @@
 		3289D23C1C6A1C8000B4C65A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */; };
 		3289D23E1C6A1CA300B4C65A /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D23D1C6A1CA300B4C65A /* NotificationViewController.swift */; };
 		32A088A81CED9EEE00BECCA5 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A088A71CED9EEE00BECCA5 /* SignInViewController.swift */; };
+		32AF85491CF2FED900757E5F /* key_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 32AF85471CF2FED900757E5F /* key_gray.png */; };
+		32AF854A1CF2FED900757E5F /* key_origin.png in Resources */ = {isa = PBXBuildFile; fileRef = 32AF85481CF2FED900757E5F /* key_origin.png */; };
 		32C0A33E1C5DF8ED009657B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */; };
 		32C0A3401C5DF8ED009657B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A33F1C5DF8ED009657B9 /* ViewController.swift */; };
 		32C0A3431C5DF8ED009657B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32C0A3411C5DF8ED009657B9 /* Main.storyboard */; };
@@ -114,6 +116,8 @@
 		328BF13C1CED546B00B99CBF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		328BF13D1CED546B00B99CBF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		32A088A71CED9EEE00BECCA5 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		32AF85471CF2FED900757E5F /* key_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_gray.png; sourceTree = "<group>"; };
+		32AF85481CF2FED900757E5F /* key_origin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key_origin.png; sourceTree = "<group>"; };
 		32C0A33A1C5DF8ED009657B9 /* masterch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = masterch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		32C0A33F1C5DF8ED009657B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -377,6 +381,8 @@
 				EDF7FDEF1CF52F8400BBC1F1 /* hartButton_Off@3x.png */,
 				EDF7FDF01CF52F8400BBC1F1 /* hartButton_On@2x.png */,
 				EDF7FDF11CF52F8400BBC1F1 /* hartButton_On@3x.png */,
+				32AF85471CF2FED900757E5F /* key_gray.png */,
+				32AF85481CF2FED900757E5F /* key_origin.png */,
 				ED9158661CC7BB540038F26F /* facebook_logo_640*480_gray.png */,
 				ED9158671CC7BB540038F26F /* twitter_logo_640*480_gray.png */,
 				ED9158681CC7BB540038F26F /* facebook_logo_640*480_origin.png */,
@@ -511,6 +517,7 @@
 				3219A2381C70468900D1A6AF /* CustomTableViewCell.xib in Resources */,
 				ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */,
 				ED7DB14F1C9365250028C986 /* fb_login_small.png in Resources */,
+				32AF85491CF2FED900757E5F /* key_gray.png in Resources */,
 				ED3644581C9D658A00C6676C /* Search.storyboard in Resources */,
 				EDCBEE721CCA793700317BCE /* PostDetail.storyboard in Resources */,
 				EDF7FDF21CF52F8400BBC1F1 /* hartButton_Off@2x.png in Resources */,
@@ -524,6 +531,7 @@
 				ED36445C1C9D65AA00C6676C /* Account.storyboard in Resources */,
 				ED91586D1CC7BB540038F26F /* twitter_logo_640*480_origin.png in Resources */,
 				ED91586A1CC7BB540038F26F /* facebook_logo_640*480_gray.png in Resources */,
+				32AF854A1CF2FED900757E5F /* key_origin.png in Resources */,
 				ED7DB1501C9365250028C986 /* tw_login_big.png in Resources */,
 				ED36445A1C9D659A00C6676C /* Log.storyboard in Resources */,
 				ED36445E1C9D65C000C6676C /* Notification.storyboard in Resources */,

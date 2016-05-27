@@ -102,12 +102,14 @@ class LogViewController: UIViewController {
         
         let followingQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分がフォローしている人の投稿クエリ
         followingQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)
+        followingQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
 
         let postQuery: NCMBQuery = NCMBQuery.orQueryWithSubqueries([myPostQuery, followingQuery]) // クエリの合成
         postQuery.orderByDescending("postDate") // cellの並べ方
         postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
         postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
         postQuery.includeKey("user")
+        
 
         postQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
             if let error = error {
