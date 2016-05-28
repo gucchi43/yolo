@@ -150,9 +150,6 @@ class TimeLineTableViewController: UITableViewController {
         if segue.identifier == "toPostDetailViewController" {
             let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
 
-//            postDetailVC.postDateText = selectedPostDate
-//            postDetailVC.postText = selectedPostText
-//            postDetailVC.postImage = selectedPostImage
         }
     }
     

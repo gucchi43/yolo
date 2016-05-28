@@ -18,16 +18,25 @@ class PostDetailViewController: UIViewController {
     @IBOutlet var postImageView: UIImageView!
     @IBOutlet var postImageViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var likeNumberButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var followButton: UIButton!
     
     var postObject: NCMBObject!
     var isFollowing: Bool = false
+    var isLikeToggle: Bool = false
+    var likeCounts: Int?
     var followingRelationshipObject: NCMBObject = NCMBObject()
     
-    override func viewDidLoad() {
+    let likeOnImage = UIImage(named: "hartButton_On")
+    let likeOffImage = UIImage(named: "hartButton_Off")
+    
+    override func viewDidLoad(){
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         // Do any additional setup after loading the view, typically from a nib.
         
         if let author = postObject.objectForKey("user") as? NCMBUser {
@@ -83,18 +92,112 @@ class PostDetailViewController: UIViewController {
             print(self.postImageViewHeightConstraint.constant)
         }
         
-        self.checkFollowing()
+        if postObject.objectForKey("likeUser") != nil{//一度もいいねが来たことがないかも 分岐
+            let postLikeUserString = postObject.objectForKey("likeUser")
+            let cleanLikeUserString = String(postLikeUserString!).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            let superCleanLinkUserString = cleanLikeUserString.stringByReplacingOccurrencesOfString("(\n)", withString: "")
+            print("superCleanLinkUserString", superCleanLinkUserString)
+            if superCleanLinkUserString.isEmpty == false{//いいねを取り消されて空かも 分岐
+                let postLikeUserArray = superCleanLinkUserString.componentsSeparatedByString(",")
+                print("postLikeUserArray", postLikeUserArray)
+                let postLikeUserCount = postLikeUserArray.count
+                print("postLikeUserCount", postLikeUserCount)
+                self.likeCounts = postLikeUserCount
+                self.likeNumberButton.setTitle(String(self.likeCounts!) + "いいね", forState: .Normal)
+                for i in postLikeUserArray{
+                    if i.rangeOfString(NCMBUser.currentUser().objectId) != nil{//自分がいいねしている
+                        print("私はすでにいいねをおしている")
+                        self.likeButton.setImage(likeOnImage, forState: .Normal)
+                        self.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
+                        self.isLikeToggle = true
+                    }
+                }
+            }else {//いいねを取り消されて「空」状態
+                self.likeButton.setImage(likeOffImage, forState: .Normal)
+                self.likeNumberButton.setTitle("", forState: .Normal)
+            }
+        }else{//一度もいいねが来たことがない
+            self.likeButton.setImage(likeOffImage, forState: .Normal)
+            self.likeNumberButton.setTitle("", forState: .Normal)
+        }
     }
 }
 
 
-//  拡張: Likeボタン用
+//  拡張: Commentボタン用
 extension PostDetailViewController {
+    
+    
     
 }
 
-//  拡張: Commentボタン用
+//  拡張: Likeボタン用
 extension PostDetailViewController {
+    
+    @IBAction func pushLikeButton(sender: AnyObject) {
+        print("Likeボタン押してやったぜ")
+        let postData = postObject
+        changeLikeStatus(postData)
+        
+    }
+    
+    func changeLikeStatus(postData: NCMBObject){
+        if self.isLikeToggle == false {//いいねしてない時
+            self.likeButton.setImage(likeOnImage, forState: .Normal)
+            
+            if let likeCounts = self.likeCounts{
+                let oldLinkCounts = Int(self.likeNumberButton.currentTitle!.stringByReplacingOccurrencesOfString("いいね", withString: ""))
+                let newLikeCounts = oldLinkCounts! + 1
+                self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
+                self.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
+            }else{
+                let newLikeCounts = 1
+                self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
+                self.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
+            }
+            
+            self.isLikeToggle = true
+            
+            postData.addUniqueObject(NCMBUser.currentUser().objectId, forKey: "likeUser")
+            postData.saveInBackgroundWithBlock({ (error) -> Void in
+                if let error = error{
+                    print(error.localizedDescription)
+                }else {
+                    print("save成功 いいね保存")
+                }
+            })
+            
+            
+        }else {//いいねしている時
+            self.likeButton.setImage(likeOffImage, forState: .Normal)
+            
+            if let likeCounts = self.likeCounts{
+                let oldLinkCounts = Int(self.likeNumberButton.currentTitle!.stringByReplacingOccurrencesOfString("いいね", withString: ""))
+                let newLikeCounts = oldLinkCounts! - 1
+                self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
+                self.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+            }else{
+                let newLikeCounts = ""
+                self.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+                self.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+            }
+            
+            self.isLikeToggle = false
+            
+            postData.removeObject(NCMBUser.currentUser().objectId, forKey: "likeUser")
+            postData.saveInBackgroundWithBlock({ (error) -> Void in
+                if let error = error{
+                    print(error.localizedDescription)
+                }else {
+                    print("save成功 いいね取り消し")
+                }
+            })
+            
+        }
+    }
+
+    
+    
     
 }
 

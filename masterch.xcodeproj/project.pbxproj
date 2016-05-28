@@ -66,6 +66,10 @@
 		EDCBEE721CCA793700317BCE /* PostDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDCBEE711CCA793700317BCE /* PostDetail.storyboard */; };
 		EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE355F11CB284CD006C7C0A /* CommentFile.swift */; };
 		EDEF991E1C9EC13500B6D69D /* ContainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */; };
+		EDF7FDF21CF52F8400BBC1F1 /* hartButton_Off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDF7FDEE1CF52F8400BBC1F1 /* hartButton_Off@2x.png */; };
+		EDF7FDF31CF52F8400BBC1F1 /* hartButton_Off@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDF7FDEF1CF52F8400BBC1F1 /* hartButton_Off@3x.png */; };
+		EDF7FDF41CF52F8400BBC1F1 /* hartButton_On@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDF7FDF01CF52F8400BBC1F1 /* hartButton_On@2x.png */; };
+		EDF7FDF51CF52F8400BBC1F1 /* hartButton_On@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDF7FDF11CF52F8400BBC1F1 /* hartButton_On@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,6 +172,10 @@
 		EDCBEE711CCA793700317BCE /* PostDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PostDetail.storyboard; sourceTree = "<group>"; };
 		EDE355F11CB284CD006C7C0A /* CommentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFile.swift; sourceTree = "<group>"; };
 		EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerProfileViewController.swift; sourceTree = "<group>"; };
+		EDF7FDEE1CF52F8400BBC1F1 /* hartButton_Off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hartButton_Off@2x.png"; sourceTree = "<group>"; };
+		EDF7FDEF1CF52F8400BBC1F1 /* hartButton_Off@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hartButton_Off@3x.png"; sourceTree = "<group>"; };
+		EDF7FDF01CF52F8400BBC1F1 /* hartButton_On@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hartButton_On@2x.png"; sourceTree = "<group>"; };
+		EDF7FDF11CF52F8400BBC1F1 /* hartButton_On@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hartButton_On@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -369,6 +377,10 @@
 		ED7DB14D1C9365250028C986 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EDF7FDEE1CF52F8400BBC1F1 /* hartButton_Off@2x.png */,
+				EDF7FDEF1CF52F8400BBC1F1 /* hartButton_Off@3x.png */,
+				EDF7FDF01CF52F8400BBC1F1 /* hartButton_On@2x.png */,
+				EDF7FDF11CF52F8400BBC1F1 /* hartButton_On@3x.png */,
 				32AF85471CF2FED900757E5F /* key_gray.png */,
 				32AF85481CF2FED900757E5F /* key_origin.png */,
 				ED9158661CC7BB540038F26F /* facebook_logo_640*480_gray.png */,
@@ -495,6 +507,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32C0A3481C5DF8ED009657B9 /* LaunchScreen.storyboard in Resources */,
+				EDF7FDF31CF52F8400BBC1F1 /* hartButton_Off@3x.png in Resources */,
 				ED3282ED1CDEE52A009602C9 /* ColorKeyboard.xib in Resources */,
 				ED3644561C9D657600C6676C /* TimeLine.storyboard in Resources */,
 				ED91586C1CC7BB540038F26F /* facebook_logo_640*480_origin.png in Resources */,
@@ -507,7 +520,10 @@
 				32AF85491CF2FED900757E5F /* key_gray.png in Resources */,
 				ED3644581C9D658A00C6676C /* Search.storyboard in Resources */,
 				EDCBEE721CCA793700317BCE /* PostDetail.storyboard in Resources */,
+				EDF7FDF21CF52F8400BBC1F1 /* hartButton_Off@2x.png in Resources */,
+				EDF7FDF51CF52F8400BBC1F1 /* hartButton_On@3x.png in Resources */,
 				ED7DB1511C9365250028C986 /* tw_login_small.png in Resources */,
+				EDF7FDF41CF52F8400BBC1F1 /* hartButton_On@2x.png in Resources */,
 				32C0A3431C5DF8ED009657B9 /* Main.storyboard in Resources */,
 				ED9158631CC7B29B0038F26F /* noprofile.png in Resources */,
 				ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */,
