@@ -346,15 +346,20 @@ extension LogViewController{
     }
     
     func changeLikeStatus(postData: NCMBObject, cell: TimelineCell){
-        if cell.isLikeToggle == false {//いいねしてない時
+        if cell.isLikeToggle == false {//いいねしてない時→いいね
             cell.likeButton.setImage(likeOnImage, forState: .Normal)
             
-            if let likeCounts = cell.likeCounts{
-                let oldLinkCounts = Int(cell.likeNumberButton.currentTitle!)
-                let newLikeCounts = oldLinkCounts! + 1
-                cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
-                cell.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-            }else{
+            if let likeCounts = cell.likeCounts{//likeCountが追加で変更される時（2回目以降）
+                if let oldLinkCounts = Int(cell.likeNumberButton.currentTitle!){
+                    let newLikeCounts = oldLinkCounts + 1
+                    cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+                    cell.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
+                }else {//oldCountがない場合（初めてのいいねじゃないけど、いいね１になる場合）
+                    let newLikeCounts = 1
+                    cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+                    cell.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
+                }
+            }else{//likeCountが初めて変更される時
                 let newLikeCounts = 1
                 cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
                 cell.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
@@ -372,15 +377,21 @@ extension LogViewController{
             })
             
             
-        }else {//いいねしている時
+        }else {//いいねしている時→いいねしてない
             cell.likeButton.setImage(likeOffImage, forState: .Normal)
             
             if let likeCounts = cell.likeCounts{
                 let oldLinkCounts = Int(cell.likeNumberButton.currentTitle!)
                 let newLikeCounts = oldLinkCounts! - 1
-                cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
-                cell.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-            }else{
+                if newLikeCounts > 0{//変更後のlikeCountが0より上の場合（1~）
+                    cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+                    cell.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+                }else {//変更後のlikeCountが0を含むそれ以下の場合(~0)
+                    let newLikeCounts = ""
+                    cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+                    cell.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+                }
+            }else {//likeCountが今までついたことがなかった場合
                 let newLikeCounts = ""
                 cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
                 cell.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)

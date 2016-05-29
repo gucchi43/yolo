@@ -142,15 +142,20 @@ extension PostDetailViewController {
     }
     
     func changeLikeStatus(postData: NCMBObject){
-        if self.isLikeToggle == false {//いいねしてない時
+        if self.isLikeToggle == false {//いいねしてない時→いいね
             self.likeButton.setImage(likeOnImage, forState: .Normal)
             
-            if let likeCounts = self.likeCounts{
-                let oldLinkCounts = Int(self.likeNumberButton.currentTitle!.stringByReplacingOccurrencesOfString("いいね", withString: ""))
-                let newLikeCounts = oldLinkCounts! + 1
-                self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
+            if let likeCounts = self.likeCounts{//likeCountが追加で変更される時（2回目以降）
+                if let oldLinkCounts = Int(self.likeNumberButton.currentTitle!.stringByReplacingOccurrencesOfString("いいね", withString: "")){
+                    let newLikeCounts = oldLinkCounts + 1
+                    self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
+                    self.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
+                }else {//oldCountがない場合（初めてのいいねじゃないけど、いいね１になる場合）
+                let newLikeCounts = 1
+                self.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
                 self.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-            }else{
+                }
+            }else{//likeCountが初めて変更される時
                 let newLikeCounts = 1
                 self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
                 self.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
@@ -174,9 +179,15 @@ extension PostDetailViewController {
             if let likeCounts = self.likeCounts{
                 let oldLinkCounts = Int(self.likeNumberButton.currentTitle!.stringByReplacingOccurrencesOfString("いいね", withString: ""))
                 let newLikeCounts = oldLinkCounts! - 1
-                self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
-                self.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-            }else{
+                if newLikeCounts > 0{//変更後のlikeCountが0より上の場合（1~）
+                    let newLikeCounts = ""
+                    self.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+                    self.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+                }else {//変更後のlikeCountが0を含むそれ以下の場合(~0)
+                    self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
+                    self.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+                }
+            }else{//likeCountが今までついたことがなかった場合
                 let newLikeCounts = ""
                 self.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
                 self.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
