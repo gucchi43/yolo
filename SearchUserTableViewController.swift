@@ -58,7 +58,7 @@ class SearchUserTableViewController: UITableViewController {
     func loadAllUser(){
         let userListQuery: NCMBQuery = NCMBQuery(className: "user")
         userListQuery.orderByAscending("updateDate")
-        userListQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
+        userListQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error {
                 print(error.localizedDescription)
             } else {

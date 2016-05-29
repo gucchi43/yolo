@@ -59,11 +59,11 @@ class SignUpViewController: UIViewController {
         
         if ((self.userIdTextField.text?.dataUsingEncoding(NSASCIIStringEncoding, allowLossyConversion: false)) == nil) {
             RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "ユーザーIDは半角英数字で入力してください", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
-        }else if self.passwordTextField.text?.utf16.count <= 6 {
+        }else if self.passwordTextField.text?.utf16.count < 6 {
             print("６文字以下")
             RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "パスワードは6文字以上入力してください", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
         }else {
-            newUser.signUpInBackgroundWithBlock({(NSError error) in
+            newUser.signUpInBackgroundWithBlock({(error) in
                 if error != nil  {
                     // SignUp失敗
                     print("SignUp失敗", error)

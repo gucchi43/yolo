@@ -166,7 +166,7 @@ class TimeLineTableViewController: UITableViewController {
         let postQuery: NCMBQuery = NCMBQuery(className: "Post")
         postQuery.orderByDescending("postDate") // cellの並べ方
         postQuery.includeKey("user")
-        postQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
+        postQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             
             if error == nil {
                 if objects.count > 0 {

@@ -231,11 +231,11 @@ extension PostDetailViewController {
             followButton.titleLabel?.font = UIFont.systemFontOfSize(12)
         } else {
             print("フォローをやめる")
-            followingRelationshipObject.fetchInBackgroundWithBlock({(NSError error) in
+            followingRelationshipObject.fetchInBackgroundWithBlock({(error) in
                 if (error != nil) {
                     print(error)
                 } else {
-                    self.followingRelationshipObject.deleteInBackgroundWithBlock({(NSError error) in
+                    self.followingRelationshipObject.deleteInBackgroundWithBlock({(error) in
                         if (error != nil) {
                             print(error)
                         } else {
@@ -258,7 +258,7 @@ extension PostDetailViewController {
         relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
         relationshipQuery.whereKey("follower", equalTo: postObject.objectForKey("user"))
         
-        relationshipQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
+        relationshipQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if (error != nil) {
                 print(error.localizedDescription)
             } else {
