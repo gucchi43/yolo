@@ -70,7 +70,7 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
         myLogColorQuery.whereKey("user", equalTo: NCMBUser.currentUser())
         myLogColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
         myLogColorQuery.orderByAscending("logDate")
-        myLogColorQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
+        myLogColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error{
                 print("getLogColorerrorr", error.localizedDescription)
                 self.setUpDays(date)

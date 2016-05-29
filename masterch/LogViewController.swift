@@ -111,7 +111,7 @@ class LogViewController: UIViewController {
         postQuery.includeKey("user")
         
 
-        postQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
+        postQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error {
                 print(error.localizedDescription)
             } else {

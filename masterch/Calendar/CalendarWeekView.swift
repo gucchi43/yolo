@@ -70,7 +70,7 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
         myLogColorQuery.whereKey("logDate", greaterThanOrEqualTo: CalendarManager.getDateWeekOfMin(date))
         myLogColorQuery.whereKey("logDate", lessThanOrEqualTo: CalendarManager.getDateWeekOfMax(date))
         myLogColorQuery.orderByAscending("logDate")
-        myLogColorQuery.findObjectsInBackgroundWithBlock({(NSArray objects, NSError error) in
+        myLogColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error{
                 print("getLogColorerrorr", error.localizedDescription)
                 self.setUpDays(date)

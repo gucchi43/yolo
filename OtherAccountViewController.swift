@@ -143,7 +143,7 @@ class OtherAccountViewController: UIViewController {
                 if (error != nil) {
                     print(error)
                 } else {
-                    self.followingRelationshipObject.deleteInBackgroundWithBlock({(NSError error) in
+                    self.followingRelationshipObject.deleteInBackgroundWithBlock({(error) in
                         if (error != nil) {
                             print(error)
                         } else {
