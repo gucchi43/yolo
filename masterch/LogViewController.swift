@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class LogViewController: UIViewController {
     
     var toggleWeek: Bool = false
@@ -18,7 +17,7 @@ class LogViewController: UIViewController {
     @IBOutlet weak var calendarWeekView: UIView!
     
     @IBOutlet weak var tableView: UITableView!
-    
+
     var calendarView: CalendarView?
     var calendarAnotherView: CalendarAnotherView?
 
@@ -217,9 +216,11 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
         
+        cell.commentButton.addTarget(self, action: #selector(LogViewController.pushCommentButton(_:)), forControlEvents: .TouchUpInside)
+
         //プロフィール写真の形を円形にする
         cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
-        
+
         let author = postData.objectForKey("user") as? NCMBUser
         if let author = author {
             cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
@@ -415,8 +416,14 @@ extension LogViewController{
 
 //コメントボタンアクション
 extension LogViewController{
-    @IBAction func pushCommentButton(sender: AnyObject) {
+    @IBAction func pushCommentButton(sender: UIButton) {
+        // 押されたボタンを取得
+        let cell = sender.superview?.superview as! TimelineCell
+        let row = tableView.indexPathForCell(cell)?.row
+        selectedPostObject = self.postArray[row!] as! NCMBObject
+
+        performSegueWithIdentifier("toPostDetailViewController", sender: nil)
     }
-    
+
 }
 

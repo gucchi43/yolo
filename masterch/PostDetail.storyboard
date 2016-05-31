@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Qi4-d8-ecB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jT1-4s-Pcr">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Post Detail View Controller-->
+        <!--View Controller-->
         <scene sceneID="wFe-a7-jsY">
             <objects>
-                <viewController id="Qi4-d8-ecB" customClass="PostDetailViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Qi4-d8-ecB" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Mk-cp-XR9"/>
                         <viewControllerLayoutGuide type="bottom" id="5NA-LF-V5V"/>
@@ -353,6 +353,43 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="raw-uL-hyl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="332" y="139"/>
+        </scene>
+        <!--Post Detail View Controller-->
+        <scene sceneID="7yB-E5-Fse">
+            <objects>
+                <viewController id="jT1-4s-Pcr" customClass="PostDetailViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nu8-dA-Hpe"/>
+                        <viewControllerLayoutGuide type="bottom" id="e1M-0C-Bx4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xUd-5k-T9C">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MX3-uz-BXf">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="jT1-4s-Pcr" id="3cP-Tx-0yg"/>
+                                    <outlet property="delegate" destination="jT1-4s-Pcr" id="xSt-UA-1PF"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="MX3-uz-BXf" firstAttribute="top" secondItem="xUd-5k-T9C" secondAttribute="top" id="9Ar-Q2-CdH"/>
+                            <constraint firstItem="e1M-0C-Bx4" firstAttribute="top" secondItem="MX3-uz-BXf" secondAttribute="bottom" id="Wd5-fm-C2d"/>
+                            <constraint firstItem="MX3-uz-BXf" firstAttribute="leading" secondItem="xUd-5k-T9C" secondAttribute="leading" id="pR8-gM-6pp"/>
+                            <constraint firstAttribute="trailing" secondItem="MX3-uz-BXf" secondAttribute="trailing" id="rXd-8X-vbW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="postDetailTableView" destination="MX3-uz-BXf" id="9ZJ-dm-sYJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="53r-f7-h4n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1053" y="139"/>
         </scene>
     </scenes>
     <resources>
