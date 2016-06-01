@@ -138,6 +138,7 @@ extension PostDetailTableViewCell {
     
     @IBAction func pushCommentButton(sender: UIButton) {
         print("コメントボタンプッシュ")
+//        キーボードが出るようにしたい
     }
     
 }

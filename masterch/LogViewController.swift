@@ -55,6 +55,8 @@ class LogViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+//        self.navigationController?.setToolbarHidden(true, animated: true) // ViewWillAppearは表示の度に呼ばれるので何度も消してくれる
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didSelectDayView:", name: "didSelectDayView", object: nil)
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
@@ -153,7 +155,7 @@ class LogViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toPostDetailViewController" {
             let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
-            
+//            postDetailVC.hidesBottomBarWhenPushed = true // trueならtabBar隠す
             postDetailVC.postObject = self.selectedPostObject
         }
     }
@@ -421,7 +423,7 @@ extension LogViewController{
         let cell = sender.superview?.superview as! TimelineCell
         let row = tableView.indexPathForCell(cell)?.row
         selectedPostObject = self.postArray[row!] as! NCMBObject
-
+        //キーボードを表示したい
         performSegueWithIdentifier("toPostDetailViewController", sender: nil)
     }
 
