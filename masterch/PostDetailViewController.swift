@@ -124,12 +124,21 @@ extension PostDetailViewController: UITextViewDelegate {
         commentTextView.text = ""
         commentTextView.resignFirstResponder()
         self.view.endEditing(true)
-
-        
     }
     
     func sendComment() {
 //        実質コメント投稿機能
+        let commentObject = NCMBObject(className: "Comment")
+        commentObject.setObject(NCMBUser.currentUser(), forKey: "user")
+        commentObject.setObject(commentTextView.text, forKey: "text")
+        commentObject.save(nil)
+        
+        // commentsフィールドにNCMBRelationを作成
+        let relation = NCMBRelation(className: postObject, key: "comments")
+        
+        relation.addObject(commentObject)
+        postObject.save(nil)
+        print("コメント保存完了 \(commentObject)")
     }
 
 }
