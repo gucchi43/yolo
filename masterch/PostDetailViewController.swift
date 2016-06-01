@@ -26,7 +26,8 @@ class PostDetailViewController: UIViewController {
     
     var isObserving = false
     
-    var commentTextBar: UIToolbar!
+    var commentArray:[AnyObject] = []
+
     
     deinit {
         //        notificationCenterの初期化, 必須
@@ -46,6 +47,8 @@ class PostDetailViewController: UIViewController {
         
         let commentNib = UINib(nibName: "CommentTableViewCell", bundle: nil)
         postDetailTableView.registerNib(commentNib, forCellReuseIdentifier: "commentCell")
+        
+        self.loadComments()
 
     }
     
@@ -112,6 +115,25 @@ class PostDetailViewController: UIViewController {
         textView.scrollRangeToVisible(textView.selectedRange)
         return true
     }
+
+    func loadComments() {
+        let commentRelation = postObject.relationforKey("comments") as NCMBRelation
+        let commentQuery = commentRelation.query()
+        commentQuery.findObjectsInBackgroundWithBlock({(objects, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if let commentObjects = objects as? [NCMBObject] {
+                    for commentObject in commentObjects {
+                        let commentItem = commentObject
+                        self.commentArray.append(commentItem)
+                    }
+                }
+                self.postDetailTableView.reloadData()
+            }
+        })
+        
+    }
 }
 
 //---------------------コメント投稿機能----------------------
@@ -148,9 +170,7 @@ extension PostDetailViewController: UITableViewDataSource{
 
 //        cellの数
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-//        コメント＋１返す
-        //        return comment.count + 1
+        return commentArray.count + 1
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -160,11 +180,12 @@ extension PostDetailViewController: UITableViewDataSource{
             cell.setPostDetailCell()
             return cell
         } else {
-        
             let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentTableViewCell
-            cell.setCommentCell()
+            cell.setCommentCell(commentArray[indexPath.row-1] as! NCMBObject)
+
 //            コメントの数-1返す
             return cell
         }
     }
+    
 }

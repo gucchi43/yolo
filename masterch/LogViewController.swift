@@ -66,7 +66,7 @@ class LogViewController: UIViewController {
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        print("LogViewController viewWillAppear")
+        print("LogViewController viewDidDisappear")
     }
     
     //関数で受け取った時のアクションを定義
@@ -226,7 +226,6 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         let author = postData.objectForKey("user") as? NCMBUser
         if let author = author {
             cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
-            
             
             let postImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
             postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in

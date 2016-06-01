@@ -25,6 +25,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="吉高由里子" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2i-Bl-mrj">
                         <rect key="frame" x="61" y="8" width="143" height="21"/>
                         <constraints>
+                            <constraint firstAttribute="width" constant="143" id="Pt8-v5-y2e"/>
                             <constraint firstAttribute="height" constant="21" id="UeW-Ni-rED"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -37,10 +38,10 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016年 6/01  " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLk-gb-vyf">
-                        <rect key="frame" x="192" y="8" width="120" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016 6/01 21:29" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLk-gb-vyf">
+                        <rect key="frame" x="212" y="8" width="100" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="120" id="Mhf-hj-eMz"/>
+                            <constraint firstAttribute="width" constant="100" id="Mhf-hj-eMz"/>
                             <constraint firstAttribute="height" constant="21" id="rgy-Xs-q9q"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -61,14 +62,14 @@
                     <constraint firstItem="x2i-Bl-mrj" firstAttribute="leading" secondItem="kI1-Og-aXM" secondAttribute="trailing" constant="8" id="frT-N6-1I1"/>
                     <constraint firstAttribute="leadingMargin" secondItem="kI1-Og-aXM" secondAttribute="leading" id="lCv-H6-Xhc"/>
                     <constraint firstAttribute="bottomMargin" secondItem="kI1-Og-aXM" secondAttribute="bottom" constant="18" id="nRg-uS-rdd"/>
-                    <constraint firstItem="lLk-gb-vyf" firstAttribute="leading" secondItem="x2i-Bl-mrj" secondAttribute="trailing" constant="-12" id="yqe-M8-ZIy"/>
+                    <constraint firstItem="lLk-gb-vyf" firstAttribute="leading" secondItem="x2i-Bl-mrj" secondAttribute="trailing" constant="8" id="yqe-M8-ZIy"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="commentDateLabel" destination="lLk-gb-vyf" id="wsM-bz-kWc"/>
                 <outlet property="commentTextLabel" destination="OHa-WC-0Pw" id="9PB-5I-Kyd"/>
-                <outlet property="userProfileImageView" destination="kI1-Og-aXM" id="7gE-sg-sKZ"/>
-                <outlet property="userProfileNameLabel" destination="x2i-Bl-mrj" id="zjg-a2-pIE"/>
+                <outlet property="userProfileImageView" destination="kI1-Og-aXM" id="AsQ-ab-LwM"/>
+                <outlet property="userProfileNameLabel" destination="x2i-Bl-mrj" id="tdz-3m-1u9"/>
             </connections>
             <point key="canvasLocation" x="188" y="305"/>
         </tableViewCell>
