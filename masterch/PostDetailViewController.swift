@@ -50,6 +50,8 @@ class PostDetailViewController: UIViewController {
         
         self.loadComments()
 
+        sendCommentButton.enabled = false // 初期ではコメントできないように
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -108,6 +110,11 @@ class PostDetailViewController: UIViewController {
             commentTextViewHeight.constant = size.height
         }
         
+        if textView.hasText() {
+            sendCommentButton.enabled = true
+        } else {
+            sendCommentButton.enabled = false
+        }
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
