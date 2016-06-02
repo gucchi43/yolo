@@ -33,7 +33,7 @@ class CommentTableViewCell: UITableViewCell {
         
         let date = comment.createDate
         let commentDateFormatter: NSDateFormatter = NSDateFormatter()
-        commentDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+        commentDateFormatter.dateFormat = "yyyy MM/dd HH:mm"
         commentDateLabel.text = commentDateFormatter.stringFromDate(date)
         
         let author = comment.objectForKey("user") as? NCMBUser

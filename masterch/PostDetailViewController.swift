@@ -55,6 +55,7 @@ class PostDetailViewController: UIViewController {
         postDetailTableView.tableFooterView = clearView // 上下の余計なセル消し
 
         sendCommentButton.enabled = false // 初期ではコメントできないように
+        sendCommentButton.tintColor = UIColor.lightTextColor()
 
     }
     
@@ -115,8 +116,10 @@ class PostDetailViewController: UIViewController {
         
         if textView.hasText() {
             sendCommentButton.enabled = true
+            sendCommentButton.titleLabel!.font = UIFont.boldSystemFontOfSize(15)
         } else {
             sendCommentButton.enabled = false
+            sendCommentButton.titleLabel!.font = UIFont.systemFontOfSize(15)
         }
     }
     
@@ -157,6 +160,8 @@ extension PostDetailViewController: UITextViewDelegate {
         commentTextView.text = ""
         commentTextView.resignFirstResponder()
         self.view.endEditing(true)
+        commentTextViewHeight.constant = 30
+        sendCommentButton.titleLabel!.font = UIFont.systemFontOfSize(15)
 
         commentArray.removeAll()
         loadComments()
@@ -195,7 +200,7 @@ extension PostDetailViewController: UITableViewDataSource{
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentTableViewCell
-            cell.setCommentCell(commentArray[indexPath.row-1] as! NCMBObject)
+            cell.setCommentCell((commentArray[indexPath.row-1] as? NCMBObject)!)
 
 //            コメントの数-1返す
             return cell

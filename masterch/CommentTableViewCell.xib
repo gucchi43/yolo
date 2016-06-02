@@ -8,11 +8,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="80" id="KGk-i7-Jjw" customClass="CommentTableViewCell" customModule="masterch" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="72" id="KGk-i7-Jjw" customClass="CommentTableViewCell" customModule="masterch" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="73"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="kI1-Og-aXM">
@@ -28,13 +28,18 @@
                             <constraint firstAttribute="width" constant="143" id="Pt8-v5-y2e"/>
                             <constraint firstAttribute="height" constant="21" id="UeW-Ni-rED"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Pt8-v5-y2e"/>
+                            </mask>
+                        </variation>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="コメント内容表示！！" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHa-WC-0Pw">
-                        <rect key="frame" x="61" y="37" width="251" height="34"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <rect key="frame" x="61" y="37" width="251" height="27"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -44,7 +49,7 @@
                             <constraint firstAttribute="width" constant="100" id="Mhf-hj-eMz"/>
                             <constraint firstAttribute="height" constant="21" id="rgy-Xs-q9q"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -61,17 +66,22 @@
                     <constraint firstAttribute="trailingMargin" secondItem="lLk-gb-vyf" secondAttribute="trailing" id="bBk-DV-G1i"/>
                     <constraint firstItem="x2i-Bl-mrj" firstAttribute="leading" secondItem="kI1-Og-aXM" secondAttribute="trailing" constant="8" id="frT-N6-1I1"/>
                     <constraint firstAttribute="leadingMargin" secondItem="kI1-Og-aXM" secondAttribute="leading" id="lCv-H6-Xhc"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="kI1-Og-aXM" secondAttribute="bottom" constant="18" id="nRg-uS-rdd"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="kI1-Og-aXM" secondAttribute="bottom" constant="11" id="nRg-uS-rdd"/>
                     <constraint firstItem="lLk-gb-vyf" firstAttribute="leading" secondItem="x2i-Bl-mrj" secondAttribute="trailing" constant="8" id="yqe-M8-ZIy"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="nRg-uS-rdd"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="commentDateLabel" destination="lLk-gb-vyf" id="wsM-bz-kWc"/>
                 <outlet property="commentTextLabel" destination="OHa-WC-0Pw" id="9PB-5I-Kyd"/>
                 <outlet property="userProfileImageView" destination="kI1-Og-aXM" id="AsQ-ab-LwM"/>
-                <outlet property="userProfileNameLabel" destination="x2i-Bl-mrj" id="tdz-3m-1u9"/>
+                <outlet property="userProfileNameLabel" destination="x2i-Bl-mrj" id="ldA-nF-ehK"/>
             </connections>
-            <point key="canvasLocation" x="188" y="305"/>
+            <point key="canvasLocation" x="188" y="300.5"/>
         </tableViewCell>
     </objects>
     <resources>
