@@ -12,7 +12,7 @@ class PostDetailViewController: UIViewController {
     
     @IBOutlet weak var postDetailTableView: UITableView!
     
-    @IBOutlet weak var commentToolView: UIView!
+    @IBOutlet weak var commentView: UIView!
     @IBOutlet var commentTextView: UITextView!
     @IBOutlet var commentTextViewHeight: NSLayoutConstraint!
     @IBOutlet var sendCommentButton: UIButton!
@@ -49,6 +49,10 @@ class PostDetailViewController: UIViewController {
         postDetailTableView.registerNib(commentNib, forCellReuseIdentifier: "commentCell")
         
         self.loadComments()
+        
+        let clearView: UIView = UIView(frame: CGRectZero)
+        clearView.backgroundColor = UIColor.clearColor()
+        postDetailTableView.tableFooterView = clearView // 上下の余計なセル消し
 
         sendCommentButton.enabled = false // 初期ではコメントできないように
 
@@ -88,9 +92,8 @@ class PostDetailViewController: UIViewController {
         let duration:NSTimeInterval = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as! Double
         UIView.animateWithDuration(duration, animations: {
             let transform = CGAffineTransformMakeTranslation(0, -rect.size.height+tabHeight! )
-            self.view.transform = transform
+            self.commentView.transform = transform
             },completion:nil)
-//         self.automaticallyAdjustsScrollViewInsets = false
     }
     
     //    キーボード閉じたとき
@@ -98,7 +101,7 @@ class PostDetailViewController: UIViewController {
         // キーボード消滅時の動作をここに記述する
         let duration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as! Double)
         UIView.animateWithDuration(duration, animations:{
-            self.view.transform = CGAffineTransformIdentity
+            self.commentView.transform = CGAffineTransformIdentity
             },completion:nil)
     }
     

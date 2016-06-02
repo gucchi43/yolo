@@ -366,7 +366,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MX3-uz-BXf">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MX3-uz-BXf">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -374,7 +374,7 @@
                                     <outlet property="delegate" destination="jT1-4s-Pcr" id="xSt-UA-1PF"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="06I-nz-qTI" userLabel="Comment Tool View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="06I-nz-qTI">
                                 <rect key="frame" x="0.0" y="555" width="600" height="45"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Mj4-1I-Vp5">
@@ -456,7 +456,7 @@
                     <connections>
                         <outlet property="commentTextView" destination="Mj4-1I-Vp5" id="5x6-uC-vsz"/>
                         <outlet property="commentTextViewHeight" destination="uA5-NX-bkx" id="cBN-xo-Gc0"/>
-                        <outlet property="commentToolView" destination="06I-nz-qTI" id="f5E-pi-MBs"/>
+                        <outlet property="commentView" destination="06I-nz-qTI" id="QGc-yA-2Ad"/>
                         <outlet property="postDetailTableView" destination="MX3-uz-BXf" id="9ZJ-dm-sYJ"/>
                         <outlet property="sendCommentButton" destination="Fkt-a2-dLA" id="ZqF-4G-uMO"/>
                     </connections>
