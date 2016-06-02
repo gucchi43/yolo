@@ -126,6 +126,7 @@ class PostDetailViewController: UIViewController {
     func loadComments() {
         let commentRelation = postObject.relationforKey("comments") as NCMBRelation
         let commentQuery = commentRelation.query()
+        commentQuery.orderByAscending("createDate")
         commentQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -153,6 +154,9 @@ extension PostDetailViewController: UITextViewDelegate {
         commentTextView.text = ""
         commentTextView.resignFirstResponder()
         self.view.endEditing(true)
+
+        commentArray.removeAll()
+        loadComments()
     }
     
     func sendComment() {
