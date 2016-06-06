@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol PostDetailTableViewCellDelegate {
+    func didSelectCommentButton()
+}
+
 class PostDetailTableViewCell: UITableViewCell {
     
     @IBOutlet var userProfileNameLabel: UILabel!
@@ -28,6 +32,8 @@ class PostDetailTableViewCell: UITableViewCell {
 
     let likeOnImage = UIImage(named: "hartButton_On")
     let likeOffImage = UIImage(named: "hartButton_Off")
+    
+    var delegate: PostDetailTableViewCellDelegate!
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -139,6 +145,7 @@ extension PostDetailTableViewCell {
     @IBAction func pushCommentButton(sender: UIButton) {
         print("コメントボタンプッシュ")
 //        キーボードが出るようにしたい
+        delegate.didSelectCommentButton()
     }
     
 }

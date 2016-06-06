@@ -20,6 +20,7 @@ class PostDetailViewController: UIViewController {
     var postObject: NCMBObject!
     var isLikeToggle: Bool = false
     var likeCounts: Int?
+    var isSelectedCommentButton: Bool = false
     
     let likeOnImage = UIImage(named: "hartButton_On")
     let likeOffImage = UIImage(named: "hartButton_Off")
@@ -57,6 +58,9 @@ class PostDetailViewController: UIViewController {
         sendCommentButton.enabled = false // 初期ではコメントできないように
         sendCommentButton.tintColor = UIColor.lightTextColor()
 
+        if isSelectedCommentButton {
+            commentTextView.becomeFirstResponder()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -133,6 +137,7 @@ class PostDetailViewController: UIViewController {
         let commentRelation = postObject.relationforKey("comments") as NCMBRelation
         let commentQuery = commentRelation.query()
         commentQuery.orderByAscending("createDate")
+        commentQuery.includeKey("user")
         commentQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -195,6 +200,7 @@ extension PostDetailViewController: UITableViewDataSource{
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("postDetailCell") as! PostDetailTableViewCell
+            cell.delegate = self
             cell.postObject = postObject
             cell.setPostDetailCell()
             return cell
@@ -207,4 +213,10 @@ extension PostDetailViewController: UITableViewDataSource{
         }
     }
     
+}
+
+extension PostDetailViewController: PostDetailTableViewCellDelegate {
+    func didSelectCommentButton() {
+        commentTextView.becomeFirstResponder()
+    }
 }

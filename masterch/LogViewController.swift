@@ -157,6 +157,9 @@ class LogViewController: UIViewController {
             let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
 //            postDetailVC.hidesBottomBarWhenPushed = true // trueならtabBar隠す
             postDetailVC.postObject = self.selectedPostObject
+            if let sender = sender {
+                postDetailVC.isSelectedCommentButton = sender as! Bool
+            }
         }
     }
     
@@ -423,7 +426,7 @@ extension LogViewController{
         let row = tableView.indexPathForCell(cell)?.row
         selectedPostObject = self.postArray[row!] as! NCMBObject
         //---------------画面遷移したらキーボードを表示をしていたい--------------
-        performSegueWithIdentifier("toPostDetailViewController", sender: nil)
+        performSegueWithIdentifier("toPostDetailViewController", sender: true)
     }
 
 }
