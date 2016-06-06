@@ -35,6 +35,10 @@ class SearchUserTableViewController: UITableViewController {
         print("SearchUserTableViewController viewDidload")
 //        loadAllUser()
         
+        
+        let nib = UINib(nibName: "UserListTableViewCell", bundle: nil)
+        tableView.registerNib(nib, forCellReuseIdentifier: "userCell")
+        
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
@@ -49,10 +53,6 @@ class SearchUserTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func unwindToTop(segue: UIStoryboardSegue) {
-        print("back to SearchView")
     }
 
     func loadAllUser(){
@@ -92,7 +92,7 @@ class SearchUserTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! SearchUserTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UserListTableViewCell
         let userData: AnyObject?
         
         if searchController.active && searchController.searchBar.text != "" {
