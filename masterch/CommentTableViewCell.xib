@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="72" id="KGk-i7-Jjw" customClass="CommentTableViewCell" customModule="masterch" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="73"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="kI1-Og-aXM">
+                        <rect key="frame" x="8" y="8" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="gsp-dw-YCi"/>
+                            <constraint firstAttribute="width" constant="45" id="nJT-wP-8rg"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="吉高由里子" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2i-Bl-mrj">
+                        <rect key="frame" x="61" y="8" width="143" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="143" id="Pt8-v5-y2e"/>
+                            <constraint firstAttribute="height" constant="21" id="UeW-Ni-rED"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Pt8-v5-y2e"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="コメント内容表示！！" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHa-WC-0Pw">
+                        <rect key="frame" x="61" y="37" width="251" height="27"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016 6/01 21:29" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLk-gb-vyf">
+                        <rect key="frame" x="212" y="8" width="100" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="Mhf-hj-eMz"/>
+                            <constraint firstAttribute="height" constant="21" id="rgy-Xs-q9q"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="topMargin" secondItem="lLk-gb-vyf" secondAttribute="top" id="2eq-o6-As8"/>
+                    <constraint firstAttribute="topMargin" secondItem="x2i-Bl-mrj" secondAttribute="top" id="3dV-W5-ZZz"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="OHa-WC-0Pw" secondAttribute="bottom" id="4FM-dN-eDe"/>
+                    <constraint firstAttribute="topMargin" secondItem="kI1-Og-aXM" secondAttribute="top" id="9af-LS-nYL"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="OHa-WC-0Pw" secondAttribute="trailing" id="9hM-c5-UoA"/>
+                    <constraint firstItem="OHa-WC-0Pw" firstAttribute="top" secondItem="lLk-gb-vyf" secondAttribute="bottom" constant="8" id="BAc-h0-erP"/>
+                    <constraint firstItem="OHa-WC-0Pw" firstAttribute="leading" secondItem="kI1-Og-aXM" secondAttribute="trailing" constant="8" id="NOK-iC-ZYu"/>
+                    <constraint firstItem="OHa-WC-0Pw" firstAttribute="top" secondItem="x2i-Bl-mrj" secondAttribute="bottom" constant="8" id="WgH-8f-8sN"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="lLk-gb-vyf" secondAttribute="trailing" id="bBk-DV-G1i"/>
+                    <constraint firstItem="x2i-Bl-mrj" firstAttribute="leading" secondItem="kI1-Og-aXM" secondAttribute="trailing" constant="8" id="frT-N6-1I1"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="kI1-Og-aXM" secondAttribute="leading" id="lCv-H6-Xhc"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="kI1-Og-aXM" secondAttribute="bottom" constant="11" id="nRg-uS-rdd"/>
+                    <constraint firstItem="lLk-gb-vyf" firstAttribute="leading" secondItem="x2i-Bl-mrj" secondAttribute="trailing" constant="8" id="yqe-M8-ZIy"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="nRg-uS-rdd"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="commentDateLabel" destination="lLk-gb-vyf" id="wsM-bz-kWc"/>
+                <outlet property="commentTextLabel" destination="OHa-WC-0Pw" id="9PB-5I-Kyd"/>
+                <outlet property="userProfileImageView" destination="kI1-Og-aXM" id="AsQ-ab-LwM"/>
+                <outlet property="userProfileNameLabel" destination="x2i-Bl-mrj" id="ldA-nF-ehK"/>
+            </connections>
+            <point key="canvasLocation" x="188" y="300.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="noprofile.png" width="500" height="500"/>
+    </resources>
+</document>

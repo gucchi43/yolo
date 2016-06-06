@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class LogViewController: UIViewController {
     
     var toggleWeek: Bool = false
@@ -18,7 +17,7 @@ class LogViewController: UIViewController {
     @IBOutlet weak var calendarWeekView: UIView!
     
     @IBOutlet weak var tableView: UITableView!
-    
+
     var calendarView: CalendarView?
     var calendarAnotherView: CalendarAnotherView?
 
@@ -56,6 +55,8 @@ class LogViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+//        self.navigationController?.setToolbarHidden(true, animated: true) // ViewWillAppearは表示の度に呼ばれるので何度も消してくれる
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didSelectDayView:", name: "didSelectDayView", object: nil)
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
@@ -65,7 +66,7 @@ class LogViewController: UIViewController {
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        print("LogViewController viewWillAppear")
+        print("LogViewController viewDidDisappear")
     }
     
     //関数で受け取った時のアクションを定義
@@ -154,8 +155,11 @@ class LogViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toPostDetailViewController" {
             let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
-            
+//            postDetailVC.hidesBottomBarWhenPushed = true // trueならtabBar隠す
             postDetailVC.postObject = self.selectedPostObject
+            if let sender = sender {
+                postDetailVC.isSelectedCommentButton = sender as! Bool
+            }
         }
     }
     
@@ -217,13 +221,14 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
         
+        cell.commentButton.addTarget(self, action: #selector(LogViewController.pushCommentButton(_:)), forControlEvents: .TouchUpInside)
+
         //プロフィール写真の形を円形にする
         cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
-        
+
         let author = postData.objectForKey("user") as? NCMBUser
         if let author = author {
             cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
-            
             
             let postImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
             postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
@@ -415,8 +420,14 @@ extension LogViewController{
 
 //コメントボタンアクション
 extension LogViewController{
-    @IBAction func pushCommentButton(sender: AnyObject) {
+    @IBAction func pushCommentButton(sender: UIButton) {
+        // 押されたボタンを取得
+        let cell = sender.superview?.superview as! TimelineCell
+        let row = tableView.indexPathForCell(cell)?.row
+        selectedPostObject = self.postArray[row!] as! NCMBObject
+        //---------------画面遷移したらキーボードを表示をしていたい--------------
+        performSegueWithIdentifier("toPostDetailViewController", sender: true)
     }
-    
+
 }
 
