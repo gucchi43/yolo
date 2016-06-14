@@ -7,12 +7,13 @@ target 'masterch' do
   pod 'FBSDKCoreKit', '~> 4.1.0'
   pod 'FBSDKLoginKit', '~> 4.1.0'
 
-  pod 'Fabric'
+  pod 'Fabric', '~> 1.6.7'
   pod 'TwitterKit', '~> 2.1.1'
-  pod 'TwitterCore', '~>2.1.1'
+  pod 'TwitterCore', '~> 2.1.1'
+  pod 'Crashlytics', '~> 3.7.0' 
 
-  pod 'Crashlytics'
+  pod 'RMUniversalAlert', '~> 0.7'
 
-  pod 'RMUniversalAlert'
+  pod 'NSDate+TimeAgo', '~> 1.0.6'
 
 end
