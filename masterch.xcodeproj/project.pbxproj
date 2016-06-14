@@ -14,7 +14,6 @@
 		3289D2381C6A1C6000B4C65A /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2371C6A1C6000B4C65A /* LogViewController.swift */; };
 		3289D23A1C6A1C6F00B4C65A /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2391C6A1C6F00B4C65A /* AccountViewController.swift */; };
 		3289D23C1C6A1C8000B4C65A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */; };
-		3289D23E1C6A1CA300B4C65A /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D23D1C6A1CA300B4C65A /* NotificationViewController.swift */; };
 		32A088A81CED9EEE00BECCA5 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A088A71CED9EEE00BECCA5 /* SignInViewController.swift */; };
 		32AF85491CF2FED900757E5F /* key_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 32AF85471CF2FED900757E5F /* key_gray.png */; };
 		32AF854A1CF2FED900757E5F /* key_origin.png in Resources */ = {isa = PBXBuildFile; fileRef = 32AF85481CF2FED900757E5F /* key_origin.png */; };
@@ -38,6 +37,10 @@
 		ED3107F31D101D3700FE3D32 /* SearchUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3107F21D101D3700FE3D32 /* SearchUserTableViewCell.swift */; };
 		ED3107F51D101D4F00FE3D32 /* SearchUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3107F41D101D4F00FE3D32 /* SearchUserTableViewController.swift */; };
 		ED3107F71D101D5A00FE3D32 /* OtherAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3107F61D101D5A00FE3D32 /* OtherAccountViewController.swift */; };
+		ED3107F91D102A9800FE3D32 /* NotificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3107F81D102A9800FE3D32 /* NotificationTableViewController.swift */; };
+		ED3107FB1D102ACA00FE3D32 /* NotificationCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3107FA1D102ACA00FE3D32 /* NotificationCommentTableViewCell.swift */; };
+		ED3107FD1D102AF800FE3D32 /* NotificationFollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3107FC1D102AF800FE3D32 /* NotificationFollowTableViewCell.swift */; };
+		ED3107FF1D102B2100FE3D32 /* NotificationLikeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3107FE1D102B2100FE3D32 /* NotificationLikeTableViewCell.swift */; };
 		ED3282ED1CDEE52A009602C9 /* ColorKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED3282EC1CDEE52A009602C9 /* ColorKeyboard.xib */; };
 		ED3644561C9D657600C6676C /* TimeLine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED3644551C9D657600C6676C /* TimeLine.storyboard */; };
 		ED3644581C9D658A00C6676C /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED3644571C9D658A00C6676C /* Search.storyboard */; };
@@ -115,7 +118,6 @@
 		3289D2371C6A1C6000B4C65A /* LogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		3289D2391C6A1C6F00B4C65A /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = masterch/SearchViewController.swift; sourceTree = "<group>"; };
-		3289D23D1C6A1CA300B4C65A /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationViewController.swift; path = masterch/NotificationViewController.swift; sourceTree = "<group>"; };
 		3289D2791C6BA1B300B4C65A /* masterch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "masterch-Bridging-Header.h"; sourceTree = "<group>"; };
 		328BF13C1CED546B00B99CBF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		328BF13D1CED546B00B99CBF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -149,6 +151,10 @@
 		ED3107F21D101D3700FE3D32 /* SearchUserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchUserTableViewCell.swift; path = masterch/SearchUserTableViewCell.swift; sourceTree = "<group>"; };
 		ED3107F41D101D4F00FE3D32 /* SearchUserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchUserTableViewController.swift; path = masterch/SearchUserTableViewController.swift; sourceTree = "<group>"; };
 		ED3107F61D101D5A00FE3D32 /* OtherAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OtherAccountViewController.swift; path = masterch/OtherAccountViewController.swift; sourceTree = "<group>"; };
+		ED3107F81D102A9800FE3D32 /* NotificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationTableViewController.swift; path = masterch/NotificationTableViewController.swift; sourceTree = "<group>"; };
+		ED3107FA1D102ACA00FE3D32 /* NotificationCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCommentTableViewCell.swift; sourceTree = "<group>"; };
+		ED3107FC1D102AF800FE3D32 /* NotificationFollowTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationFollowTableViewCell.swift; sourceTree = "<group>"; };
+		ED3107FE1D102B2100FE3D32 /* NotificationLikeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationLikeTableViewCell.swift; sourceTree = "<group>"; };
 		ED3282EC1CDEE52A009602C9 /* ColorKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorKeyboard.xib; sourceTree = "<group>"; };
 		ED3644551C9D657600C6676C /* TimeLine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TimeLine.storyboard; sourceTree = "<group>"; };
 		ED3644571C9D658A00C6676C /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = masterch/Search.storyboard; sourceTree = "<group>"; };
@@ -356,7 +362,10 @@
 		ED3644641C9D744100C6676C /* Notification */ = {
 			isa = PBXGroup;
 			children = (
-				3289D23D1C6A1CA300B4C65A /* NotificationViewController.swift */,
+				ED3107F81D102A9800FE3D32 /* NotificationTableViewController.swift */,
+				ED3107FA1D102ACA00FE3D32 /* NotificationCommentTableViewCell.swift */,
+				ED3107FE1D102B2100FE3D32 /* NotificationLikeTableViewCell.swift */,
+				ED3107FC1D102AF800FE3D32 /* NotificationFollowTableViewCell.swift */,
 				ED36445D1C9D65C000C6676C /* Notification.storyboard */,
 			);
 			name = Notification;
@@ -641,17 +650,19 @@
 				EDB4AF581CE37AE2002781F3 /* ContainerSnsViewController.swift in Sources */,
 				EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */,
 				32C0A3401C5DF8ED009657B9 /* ViewController.swift in Sources */,
+				ED3107FF1D102B2100FE3D32 /* NotificationLikeTableViewCell.swift in Sources */,
 				ED3107EB1D101A2100FE3D32 /* CommentTableViewCell.swift in Sources */,
 				32A088A81CED9EEE00BECCA5 /* SignInViewController.swift in Sources */,
 				ED8322D41C8EFDF700122BA2 /* SignUpViewController.swift in Sources */,
+				ED3107FD1D102AF800FE3D32 /* NotificationFollowTableViewCell.swift in Sources */,
 				3289D23C1C6A1C8000B4C65A /* SearchViewController.swift in Sources */,
 				EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */,
 				EDB4FEFE1CBBFAFE00A318EA /* EditProfileTableViewController.swift in Sources */,
 				EDA94FD31CEEC48700A42E8A /* UIExtension.swift in Sources */,
-				3289D23E1C6A1CA300B4C65A /* NotificationViewController.swift in Sources */,
 				ED3107F71D101D5A00FE3D32 /* OtherAccountViewController.swift in Sources */,
 				ED3107F31D101D3700FE3D32 /* SearchUserTableViewCell.swift in Sources */,
 				ED3107EF1D101A7E00FE3D32 /* PostDetailTableViewCell.swift in Sources */,
+				ED3107F91D102A9800FE3D32 /* NotificationTableViewController.swift in Sources */,
 				3289D2381C6A1C6000B4C65A /* LogViewController.swift in Sources */,
 				3289D23A1C6A1C6F00B4C65A /* AccountViewController.swift in Sources */,
 				3289D2361C6A1C5300B4C65A /* TimeLineViewController.swift in Sources */,
@@ -664,6 +675,7 @@
 				EDEF991E1C9EC13500B6D69D /* ContainerProfileViewController.swift in Sources */,
 				ED3107F51D101D4F00FE3D32 /* SearchUserTableViewController.swift in Sources */,
 				EDA866781CBC93050074A71D /* SetProfileViewController.swift in Sources */,
+				ED3107FB1D102ACA00FE3D32 /* NotificationCommentTableViewCell.swift in Sources */,
 				ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
