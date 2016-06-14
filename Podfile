@@ -8,8 +8,8 @@ target 'masterch' do
   pod 'FBSDKLoginKit', '~> 4.1.0'
 
   pod 'Fabric'
-  pod 'TwitterKit'
-  pod 'TwitterCore'
+  pod 'TwitterKit', '~> 2.1.1'
+  pod 'TwitterCore', '~>2.1.1'
 
   pod 'Crashlytics'
 
