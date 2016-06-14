@@ -1,7 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ugi-nT-J9l">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--User List View Controller-->
+        <scene sceneID="X98-w6-cNx">
+            <objects>
+                <viewController id="Ugi-nT-J9l" customClass="UserListViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Sq2-Zq-Hws"/>
+                        <viewControllerLayoutGuide type="bottom" id="2WU-0q-0He"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iad-xy-XkA">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="swD-ep-i3O">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Ugi-nT-J9l" id="hlr-Nq-Fop"/>
+                                    <outlet property="delegate" destination="Ugi-nT-J9l" id="ALO-6v-E9m"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="swD-ep-i3O" firstAttribute="top" secondItem="Sq2-Zq-Hws" secondAttribute="bottom" constant="-20" id="1Ve-bV-ZJ8"/>
+                            <constraint firstItem="swD-ep-i3O" firstAttribute="leading" secondItem="iad-xy-XkA" secondAttribute="leading" id="K3P-YJ-jTZ"/>
+                            <constraint firstItem="2WU-0q-0He" firstAttribute="top" secondItem="swD-ep-i3O" secondAttribute="bottom" id="T9B-Xs-Bdn"/>
+                            <constraint firstAttribute="trailing" secondItem="swD-ep-i3O" secondAttribute="trailing" id="UNa-ww-Kuh"/>
+                            <constraint firstItem="swD-ep-i3O" firstAttribute="top" secondItem="Sq2-Zq-Hws" secondAttribute="bottom" constant="-20" id="Ua6-pr-LBf"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="1Ve-bV-ZJ8"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="24z-ms-VxF"/>
+                    <connections>
+                        <outlet property="userListTableView" destination="swD-ep-i3O" id="HWa-gw-MqJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pmh-R7-FZ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1212" y="257"/>
+        </scene>
+    </scenes>
 </document>

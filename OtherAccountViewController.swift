@@ -23,9 +23,11 @@ class OtherAccountViewController: UIViewController {
     @IBOutlet var otherAccountFollowButton: UIButton!
     
     var user: NCMBUser!
+    var userArray = [NCMBUser]()
+    var userQuery = NCMBUser.query()
     var isFollowing: Bool = false
     var followingRelationshipObject: NCMBObject = NCMBObject()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -97,7 +99,7 @@ class OtherAccountViewController: UIViewController {
                 print("error", error)
             }else {
                 print(self.user,"の, フォロー数: ", count)
-                self.userFollowButton.setTitle(String(count) + "フォロワー", forState: .Normal)
+                self.userFollowButton.setTitle(String(count) + "フォロー", forState: .Normal)
 
             }
         }
@@ -115,7 +117,6 @@ class OtherAccountViewController: UIViewController {
             }
         }
     }
-    
 
     @IBAction func selectOtherAccountFollowButton(sender: AnyObject) {
         print("followButton押した。")
@@ -133,7 +134,6 @@ class OtherAccountViewController: UIViewController {
                     self.otherAccountFollowButton.setTitle("フォロー中", forState: UIControlState.Normal)
                     self.followingRelationshipObject.objectId = relationObject.objectId
                     self.followingRelationshipObject = relationObject as NCMBObject
-
                 }
             })
         } else {
@@ -156,8 +156,51 @@ class OtherAccountViewController: UIViewController {
                 }
             })
         }
-        
-        
     }
     
+    @IBAction func pushUserFollowButton(sender: UIButton) {
+        print("フォローボタンタップ")
+        performSegueWithIdentifier("toUserList", sender: "follow")
+    }
+    
+    @IBAction func pushUserFollowerButton(sender: UIButton) {
+        print("フォロワ～ボタンタップ")
+        performSegueWithIdentifier("toUserList", sender: "follower")
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toUserList" {
+            
+            let relationshipQuery = NCMBQuery(className: "Relationship")
+            let userListVC = segue.destinationViewController as! UserListViewController
+            
+            guard let sender = sender as? String else { return }
+            if sender == "follow" {
+                relationshipQuery.whereKey("followed", equalTo: self.user)
+                relationshipQuery.includeKey("follower")
+                relationshipQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+                    if error == nil {
+                        guard let relationships = objects as? [NCMBObject] else { return }
+                        for relationship in relationships {
+                            userListVC.userArray.append(relationship.objectForKey("follower") as! NCMBUser)
+                        }
+                        userListVC.userListTableView.reloadData()
+                    }
+                }
+            } else if sender == "follower" {
+                relationshipQuery.whereKey("follower", equalTo: self.user)
+                relationshipQuery.includeKey("followed")
+                relationshipQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+                    if error == nil {
+                        guard let relationships = objects as? [NCMBObject] else { return }
+                        for relationship in relationships {
+                            userListVC.userArray.append(relationship.objectForKey("followed") as! NCMBUser)
+                        }
+                        userListVC.userListTableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+
 }

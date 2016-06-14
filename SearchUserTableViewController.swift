@@ -106,14 +106,14 @@ class SearchUserTableViewController: UITableViewController {
         let userFaceName = userData!.objectForKey("userFaceName") as? String
         let userName = userData!.objectForKey("userName") as? String
         cell.userFaceNameLabel.text = userFaceName!
-        cell.userName.text = "@" + userName!
+        cell.userNameLabel.text = "@" + userName!
 //        userFaceNameArray.append(userFaceName!)
 //        userNameArray.append(userName!)
 //        
 //        print("userNameArray", userNameArray, "userFaceName", userFaceNameArray, "userArray", userArray)
 
         cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
-        let userImageData = NCMBFile.fileWithName("userImageProfile", data: nil) as! NCMBFile
+        let userImageData = NCMBFile.fileWithName(userData!.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
         userImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
             if let error = error {
                 print("プロフィール画像の取得失敗： ", error)

@@ -9,21 +9,23 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="userCell" id="Ubx-Ge-ErL" customClass="UserListTableViewCell" customModule="masterch" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="userCell" rowHeight="50" id="Ubx-Ge-ErL" customClass="UserListTableViewCell" customModule="masterch" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ubx-Ge-ErL" id="hlo-An-pXe">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pp4-zr-heN">
-                        <rect key="frame" x="8" y="2" width="40" height="40"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pp4-zr-heN">
+                        <rect key="frame" x="8" y="5" width="40" height="40"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="40" id="YOG-al-7gc"/>
+                            <constraint firstAttribute="width" constant="40" id="gLE-ic-JAa"/>
                             <constraint firstAttribute="width" secondItem="Pp4-zr-heN" secondAttribute="height" multiplier="1:1" id="gSK-RZ-ESG"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ベッキー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OB5-jr-KXJ">
-                        <rect key="frame" x="56" y="3" width="68" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="ベッキー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OB5-jr-KXJ">
+                        <rect key="frame" x="56" y="3" width="282" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="OB5-jr-KXJ" secondAttribute="height" multiplier="68:21" id="TSQ-Nr-7ad"/>
                         </constraints>
@@ -37,28 +39,33 @@
                         </variation>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@furindamezettai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6I-2Y-hJn">
-                        <rect key="frame" x="56" y="25" width="107" height="16"/>
+                        <rect key="frame" x="56" y="25" width="282" height="22"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UIC-sf-HEd">
-                        <rect key="frame" x="346" y="7" width="60" height="30"/>
+                        <rect key="frame" x="346" y="10" width="60" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="2CE-AM-3Sg"/>
+                        </constraints>
                         <state key="normal" title="フォロー"/>
                     </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="OB5-jr-KXJ" firstAttribute="top" secondItem="hlo-An-pXe" secondAttribute="top" constant="3" id="2fb-XU-KgO"/>
+                    <constraint firstItem="UIC-sf-HEd" firstAttribute="leading" secondItem="OB5-jr-KXJ" secondAttribute="trailing" constant="8" id="4CM-4u-a34"/>
                     <constraint firstAttribute="bottom" secondItem="x6I-2Y-hJn" secondAttribute="bottom" id="EaF-R7-KZa"/>
+                    <constraint firstItem="UIC-sf-HEd" firstAttribute="leading" secondItem="x6I-2Y-hJn" secondAttribute="trailing" constant="8" id="Ffu-6F-eTP"/>
                     <constraint firstItem="UIC-sf-HEd" firstAttribute="centerY" secondItem="hlo-An-pXe" secondAttribute="centerY" id="Hfh-Fd-ejb"/>
                     <constraint firstItem="x6I-2Y-hJn" firstAttribute="top" secondItem="OB5-jr-KXJ" secondAttribute="bottom" constant="1" id="Ngf-Bq-9OV"/>
                     <constraint firstItem="OB5-jr-KXJ" firstAttribute="leading" secondItem="Pp4-zr-heN" secondAttribute="trailing" constant="8" id="PYP-fH-cki"/>
                     <constraint firstItem="UIC-sf-HEd" firstAttribute="top" secondItem="hlo-An-pXe" secondAttribute="topMargin" constant="-1" id="RUs-l3-i1s"/>
-                    <constraint firstAttribute="bottom" secondItem="Pp4-zr-heN" secondAttribute="bottom" constant="1.5" id="aYP-op-sZz"/>
+                    <constraint firstAttribute="bottom" secondItem="Pp4-zr-heN" secondAttribute="bottom" constant="4" id="aYP-op-sZz"/>
                     <constraint firstAttribute="trailingMargin" secondItem="UIC-sf-HEd" secondAttribute="trailing" id="cTb-WD-Nnq"/>
                     <constraint firstItem="x6I-2Y-hJn" firstAttribute="leading" secondItem="Pp4-zr-heN" secondAttribute="trailing" constant="8" id="hH2-nU-9xS"/>
                     <constraint firstItem="Pp4-zr-heN" firstAttribute="leading" secondItem="hlo-An-pXe" secondAttribute="leading" constant="8" id="lja-8K-3cu"/>
-                    <constraint firstItem="Pp4-zr-heN" firstAttribute="top" secondItem="hlo-An-pXe" secondAttribute="top" constant="2" id="tfi-YR-YkO"/>
+                    <constraint firstItem="Pp4-zr-heN" firstAttribute="top" secondItem="hlo-An-pXe" secondAttribute="top" constant="5" id="tfi-YR-YkO"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
@@ -67,11 +74,15 @@
                     </mask>
                 </variation>
             </tableViewCellContentView>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="x6I-2Y-hJn" secondAttribute="bottom" constant="3" id="63A-rc-i7Y"/>
+            </constraints>
             <connections>
                 <outlet property="userFaceNameLabel" destination="OB5-jr-KXJ" id="VCt-9x-qJL"/>
                 <outlet property="userImageView" destination="Pp4-zr-heN" id="eeV-cE-FLH"/>
-                <outlet property="userName" destination="x6I-2Y-hJn" id="2Qs-01-n1s"/>
+                <outlet property="userNameLabel" destination="x6I-2Y-hJn" id="qge-9m-Dpo"/>
             </connections>
+            <point key="canvasLocation" x="282" y="244"/>
         </tableViewCell>
     </objects>
     <resources>

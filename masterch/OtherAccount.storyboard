@@ -59,6 +59,9 @@
                                         <state key="normal" title="フォロー ">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="pushUserFollowButton:" destination="V9g-Jm-hbM" eventType="touchUpInside" id="ZkF-iR-IsQ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVJ-ci-jfG">
                                         <rect key="frame" x="264" y="123" width="140" height="27"/>
@@ -66,6 +69,9 @@
                                         <state key="normal" title="フォロワー ">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="pushUserFollowerButton:" destination="V9g-Jm-hbM" eventType="touchUpInside" id="hVr-rO-aRq"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLu-G6-KTu">
                                         <rect key="frame" x="8" y="148" width="100" height="30"/>
@@ -173,11 +179,20 @@
                         <outlet property="userProfileImageView" destination="8fo-zD-fNz" id="pGz-CA-C1X"/>
                         <outlet property="userProfileNameLabel" destination="CfC-d0-jqr" id="0Xy-3h-mXJ"/>
                         <outlet property="userSelfIntroductionLabel" destination="UK5-2u-tKo" id="8b1-Ev-ent"/>
+                        <segue destination="cKS-1D-5vu" kind="show" identifier="toUserList" id="0hE-bL-Jyq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EkG-LK-nKT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1025" y="313"/>
+        </scene>
+        <!--UserList-->
+        <scene sceneID="mpM-yq-BPq">
+            <objects>
+                <viewControllerPlaceholder storyboardName="UserList" id="cKS-1D-5vu" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uPf-e8-aFP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1349.5" y="-56"/>
         </scene>
     </scenes>
     <resources>

@@ -104,6 +104,8 @@ class PostDetailViewController: UIViewController {
     //    キーボード閉じたとき
     func hideKeyboard(notification: NSNotification) {
         // キーボード消滅時の動作をここに記述する
+        commentTextView.frame.size.height = 30
+        commentTextViewHeight.constant = 30
         let duration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as! Double)
         UIView.animateWithDuration(duration, animations:{
             self.commentView.transform = CGAffineTransformIdentity

@@ -9,27 +9,55 @@
 import UIKit
 
 class UserListViewController: UIViewController {
+    
+    @IBOutlet var userListTableView: UITableView!
+
+    var userArray = [NCMBUser]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        print("UserListViewController ViewDidLoad")
+        
+        userListTableView.estimatedRowHeight = 50
+        userListTableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        let nib = UINib(nibName: "UserListTableViewCell", bundle: nil)
+        userListTableView.registerNib(nib, forCellReuseIdentifier: "userCell")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension UserListViewController: UITableViewDataSource {
+    //        cellの数
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return userArray.count
     }
-    */
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("userCell") as! UserListTableViewCell
+        
+        cell.userNameLabel.text = userArray[indexPath.row].userName
+        cell.userFaceNameLabel.text = userArray[indexPath.row].objectForKey("userFaceName") as? String
+
+        let userImageData = NCMBFile.fileWithName(userArray[indexPath.row].objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+        userImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+            if let error = error {
+                print("プロフィール画像の取得失敗： ", error)
+                cell.userImageView.image = UIImage(named: "noprofile")
+            } else {
+                cell.userImageView.image = UIImage(data: imageData!)
+                
+            }
+        })
+        return cell
+    }
+    
 
 }
