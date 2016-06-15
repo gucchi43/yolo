@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" rowHeight="50" id="Ubx-Ge-ErL" customClass="UserListTableViewCell" customModule="masterch" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ubx-Ge-ErL" id="hlo-An-pXe">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pp4-zr-heN">
+                        <rect key="frame" x="8" y="5" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="YOG-al-7gc"/>
+                            <constraint firstAttribute="width" constant="40" id="gLE-ic-JAa"/>
+                            <constraint firstAttribute="width" secondItem="Pp4-zr-heN" secondAttribute="height" multiplier="1:1" id="gSK-RZ-ESG"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="ベッキー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OB5-jr-KXJ">
+                        <rect key="frame" x="56" y="3" width="68" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="OB5-jr-KXJ" secondAttribute="height" multiplier="68:21" id="TSQ-Nr-7ad"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="TSQ-Nr-7ad"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@furindamezettai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6I-2Y-hJn">
+                        <rect key="frame" x="56" y="25" width="107" height="22"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="OB5-jr-KXJ" firstAttribute="top" secondItem="hlo-An-pXe" secondAttribute="top" constant="3" id="2fb-XU-KgO"/>
+                    <constraint firstAttribute="bottom" secondItem="x6I-2Y-hJn" secondAttribute="bottom" id="EaF-R7-KZa"/>
+                    <constraint firstItem="x6I-2Y-hJn" firstAttribute="top" secondItem="OB5-jr-KXJ" secondAttribute="bottom" constant="1" id="Ngf-Bq-9OV"/>
+                    <constraint firstItem="OB5-jr-KXJ" firstAttribute="leading" secondItem="Pp4-zr-heN" secondAttribute="trailing" constant="8" id="PYP-fH-cki"/>
+                    <constraint firstAttribute="bottom" secondItem="Pp4-zr-heN" secondAttribute="bottom" constant="4" id="aYP-op-sZz"/>
+                    <constraint firstItem="x6I-2Y-hJn" firstAttribute="leading" secondItem="Pp4-zr-heN" secondAttribute="trailing" constant="8" id="hH2-nU-9xS"/>
+                    <constraint firstItem="Pp4-zr-heN" firstAttribute="leading" secondItem="hlo-An-pXe" secondAttribute="leading" constant="8" id="lja-8K-3cu"/>
+                    <constraint firstItem="Pp4-zr-heN" firstAttribute="top" secondItem="hlo-An-pXe" secondAttribute="top" constant="5" id="tfi-YR-YkO"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="EaF-R7-KZa"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="x6I-2Y-hJn" secondAttribute="bottom" constant="3" id="63A-rc-i7Y"/>
+            </constraints>
+            <connections>
+                <outlet property="userFaceNameLabel" destination="OB5-jr-KXJ" id="VCt-9x-qJL"/>
+                <outlet property="userImageView" destination="Pp4-zr-heN" id="eeV-cE-FLH"/>
+                <outlet property="userNameLabel" destination="x6I-2Y-hJn" id="qge-9m-Dpo"/>
+            </connections>
+            <point key="canvasLocation" x="282" y="244"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="noprofile.png" width="500" height="500"/>
+    </resources>
+</document>
