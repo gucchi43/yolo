@@ -37,8 +37,7 @@ class AccountViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         
         currentUser = NCMBUser.currentUser()
-        
-        
+
         //ユーザーネームを表示
         self.userProfileNameLabel.text = currentUser.objectForKey("userFaceName") as? String
         self.userIdLabel.text = "@" + currentUser.userName
@@ -87,11 +86,44 @@ class AccountViewController: UIViewController {
         if let editProfileVC = destination as? EditProfileTableViewController {
             if segue.identifier == "toEditProfile" {
                 editProfileVC.userProfileName = userProfileNameLabel.text
-                editProfileVC.userSelfIntroduction = NCMBUser.currentUser().objectForKey("userSelfIntroduction") as! String
+                editProfileVC.userSelfIntroduction = currentUser.objectForKey("userSelfIntroduction") as! String
                 editProfileVC.profileImage = userProfileImageView.image
                 editProfileVC.homeImage = userHomeImageView.image
             }
         }
+        if segue.identifier == "toUserList" {
+            
+            let relationshipQuery = NCMBQuery(className: "Relationship")
+            let userListVC = segue.destinationViewController as! UserListViewController
+            
+            guard let sender = sender as? String else { return }
+            if sender == "follow" {
+                relationshipQuery.whereKey("followed", equalTo: currentUser)
+                relationshipQuery.includeKey("follower")
+                relationshipQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+                    if error == nil {
+                        guard let relationships = objects as? [NCMBObject] else { return }
+                        for relationship in relationships {
+                            userListVC.userArray.append(relationship.objectForKey("follower") as! NCMBUser)
+                        }
+                        userListVC.userListTableView.reloadData()
+                    }
+                }
+            } else if sender == "follower" {
+                relationshipQuery.whereKey("follower", equalTo: currentUser)
+                relationshipQuery.includeKey("followed")
+                relationshipQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+                    if error == nil {
+                        guard let relationships = objects as? [NCMBObject] else { return }
+                        for relationship in relationships {
+                            userListVC.userArray.append(relationship.objectForKey("followed") as! NCMBUser)
+                        }
+                        userListVC.userListTableView.reloadData()
+                    }
+                }
+            }
+        }
+
         
     
     }
@@ -126,6 +158,14 @@ class AccountViewController: UIViewController {
                 self.followerNumberButton.setTitle(String(count) + "フォロワー", forState: .Normal)
             }
         }
+    }
+    
+    @IBAction func pushFollowNumberButton(sender: UIButton) {
+        performSegueWithIdentifier("toUserList", sender: "follow")
+    }
+    
+    @IBAction func pushFollowerNumberButton(sender: AnyObject) {
+        performSegueWithIdentifier("toUserList", sender: "follower")
     }
 
 
