@@ -7,18 +7,58 @@
 //
 
 import UIKit
+import SwiftDate
+
 
 class NotificationTableViewController: UITableViewController {
-
+    var notification2Array = [[String: AnyObject]]()
+    var notificationArray: NSArray = NSArray()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.tableView.estimatedRowHeight = 200
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        
+        //仮のデータ（コメントのNotification実装まで残しとく）
+        let postObject1 = NCMBObject(className: "Post")
+        let postObject2 = NCMBObject(className: "Post")
+        postObject1.objectId = "dk5pFHpWntLhWUGm"
+        postObject2.objectId = "fFBEVh7HxVW1JxxY"
+        print("postObjectだおおおおおおおおおお", postObject1)
+        
+        notification2Array = [
+            ["type": "follow", "user": NCMBUser.currentUser(), "time": NSDate() - 7.days - 10.hours, "post": ""],
+            ["type": "like", "user": NCMBUser.currentUser(), "time": NSDate() - 4.hours, "post": postObject1],
+            ["type": "comment", "user": NCMBUser.currentUser(), "time": NSDate() - 12.days - 9.hours, "post": postObject2]
+        ]
+        
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        loadArray()
+        self.tableView.reloadData()
+    }
+    
+    func loadArray() {
+        
+        let notificationQuery: NCMBQuery = NCMBQuery(className: "Notification") // 自分がフォローしている人かどうかのクエリ
+        notificationQuery.whereKey("ownerUser", equalTo: NCMBUser.currentUser())
+        notificationQuery.orderByDescending("updateDate") // cellの並べ方
+        notificationQuery.limit = 20
+        do {
+            let objects:[AnyObject] = try notificationQuery.findObjects()
+            if objects.count > 0{
+                self.notificationArray = objects
+                print("通知テーブルセルの数", objects.count)
+            }else {
+                self.notificationArray = []
+                print("通知は０だおん…")
+            }
+        } catch {
+            print("多分error")
+        }
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -28,24 +68,141 @@ class NotificationTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        //Arrayの頭からMAX20個にしたい
+        let numberOfRow = notificationArray.count
+        return numberOfRow
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let type = (notificationArray[indexPath.row] as! NCMBObject).objectForKey("type") as! String
+        print("type", type)
+        
+        switch type{
+        case "follow":
+            let cell = tableView.dequeueReusableCellWithIdentifier("followdCell", forIndexPath: indexPath) as! NotificationFollowTableViewCell
+            let followerInfo = notificationArray[indexPath.row]
+            print("followerInfo", followerInfo)
+            let timeDate = followerInfo.objectForKey("date") as! NSDate
+            print("timeDate", timeDate)
+            //本当はtimeAgoを使いたい
+//            let agoTime = timeDate.timeAgo
+//            print("agoTime", agoTime)
+            
+            //仮で"yyyy MM/dd HH:mm"で表示している
+            let dateFormatter: NSDateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy MM/dd HH:mm"
+            let agoTime = dateFormatter.stringFromDate(timeDate)
+            
+            cell.postLabel.text = ""
+            cell.agoTimeLabel.text = agoTime
+            cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
+            let user = followerInfo.objectForKey("actionUser") as? NCMBUser
+            print("userは取れてんの？", user)
+            if let user = user {
+                var postError: NSError?
+                user.fetch(&postError)
+                if postError == nil{
+                    print("userFaceName", user.objectForKey("userFaceName") as? String)
+                    cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
+                    let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+                    userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
+                        if let error = error {
+                            print("error", error.localizedDescription)
+                            cell.userImageView.image = UIImage(named: "noprofile")
+                        } else {
+                            cell.userImageView.image = UIImage(data: imageData!)
+                        }
+                    })
+                }else {
+                    print(postError!.localizedDescription)
+                }
+            }
+            cell.layoutIfNeeded()
+            return cell
+            
+        case "like":
+            let cell = tableView.dequeueReusableCellWithIdentifier("likedCell", forIndexPath: indexPath) as! NotificationLikeTableViewCell
+            let likeInfo = notificationArray[indexPath.row]
+            print("likeInfo", likeInfo)
+            
+            let timeDate = likeInfo.objectForKey("date") as! NSDate
+            print("timeDate", timeDate)
+            
+            //本当はtimeAgoを使いたい
+            //            let agoTime = timeDate.timeAgo
+            //            print("agoTime", agoTime)
+            
+            //仮で"yyyy MM/dd HH:mm"で表示している
+            let dateFormatter: NSDateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy MM/dd HH:mm"
+            let agoTime = dateFormatter.stringFromDate(timeDate)
 
-        // Configure the cell...
+            cell.postLabel.text = ""
+            cell.agoTimeLabel.text = agoTime
+            cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
+            let user = likeInfo.objectForKey("actionUser") as? NCMBUser
+            print("userは取れてんの？", user)
+            if let user = user {
+                var postError: NSError?
+                user.fetch(&postError)
+                if postError == nil{
+                    print("userFaceName", user.objectForKey("userFaceName") as? String)
+                    cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
+                    let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+                    userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                        if let error = error {
+                            print("error", error.localizedDescription)
+                            cell.userImageView.image = UIImage(named: "noprofile")
+                        } else {
+                            print("ああああああああああああ", imageData!)
+                            cell.userImageView.image = UIImage(data: imageData!)
+                        }
+                        }, progressBlock: { (percentDone: Int32) -> Void in
+                            print("進捗状況: \(percentDone)% 読み込み済み")
+                    })
+                    //                    userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
+                    //                        if let error = error {
+                    //                            print("error", error.localizedDescription)
+                    //                            cell.userImageView.image = UIImage(named: "noprofile")
+                    //                        } else {
+                    //                            cell.userImageView.image = UIImage(data: imageData!)
+                    //                        }
+                    //                    })
+                }else {
+                    print(postError!.localizedDescription)
+                }
+            }
+            let post = likeInfo.objectForKey("post") as? NCMBObject
+            if let post = post {
+                var postError: NSError?
+                post.fetch(&postError)
+                if postError == nil {
+                    print("postText", post.objectForKey("text") as? String)
+                    cell.postLabel.text = post.objectForKey("text") as? String
+                }else {
+                    print(postError!.localizedDescription)
+                }
+            }
+            
+            cell.layoutIfNeeded()
+            return cell
+            
+        default:
+            print("default")
+            let cell = tableView.dequeueReusableCellWithIdentifier("followdCell", forIndexPath: indexPath) as! NotificationFollowTableViewCell
+            return cell
+        }
 
-        return cell
     }
-    */
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("何個めのCell選択", indexPath.row)
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
