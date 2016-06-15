@@ -136,9 +136,8 @@ class SearchUserTableViewController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toOtherAccountViewController" {
-            if let OtherAccountViewController = segue.destinationViewController as? OtherAccountViewController{
-                OtherAccountViewController.user = selectedUser
-            }
+            guard let OtherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
+            OtherAccountViewController.user = selectedUser
         }
     }
 

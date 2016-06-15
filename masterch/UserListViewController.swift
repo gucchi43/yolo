@@ -13,6 +13,7 @@ class UserListViewController: UIViewController {
     @IBOutlet var userListTableView: UITableView!
 
     var userArray = [NCMBUser]()
+    var selectedUser: NCMBUser!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,5 +60,19 @@ extension UserListViewController: UITableViewDataSource {
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("セルの選択: \(indexPath.row)")
+
+        selectedUser = userArray[indexPath.row]
+        print(selectedUser)
+        performSegueWithIdentifier("toOtherAccountViewController", sender: nil)
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toOtherAccountViewController" {
+            guard let OtherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
+            OtherAccountViewController.user = selectedUser
+        }
+    }
 
 }

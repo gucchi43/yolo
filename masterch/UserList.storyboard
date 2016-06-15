@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="swD-ep-i3O">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Ugi-nT-J9l" id="hlr-Nq-Fop"/>
@@ -32,7 +32,7 @@
                             <constraint firstItem="swD-ep-i3O" firstAttribute="leading" secondItem="iad-xy-XkA" secondAttribute="leading" id="K3P-YJ-jTZ"/>
                             <constraint firstItem="2WU-0q-0He" firstAttribute="top" secondItem="swD-ep-i3O" secondAttribute="bottom" id="T9B-Xs-Bdn"/>
                             <constraint firstAttribute="trailing" secondItem="swD-ep-i3O" secondAttribute="trailing" id="UNa-ww-Kuh"/>
-                            <constraint firstItem="swD-ep-i3O" firstAttribute="top" secondItem="Sq2-Zq-Hws" secondAttribute="bottom" constant="-20" id="Ua6-pr-LBf"/>
+                            <constraint firstItem="swD-ep-i3O" firstAttribute="top" secondItem="Sq2-Zq-Hws" secondAttribute="bottom" id="Ua6-pr-LBf"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -40,14 +40,24 @@
                             </mask>
                         </variation>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="24z-ms-VxF"/>
                     <connections>
                         <outlet property="userListTableView" destination="swD-ep-i3O" id="HWa-gw-MqJ"/>
+                        <segue destination="d3d-ri-NhK" kind="show" identifier="toOtherAccountViewController" id="Oh3-NI-yOy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pmh-R7-FZ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1212" y="257"/>
+        </scene>
+        <!--OtherAccount-->
+        <scene sceneID="ljN-aX-UJs">
+            <objects>
+                <viewControllerPlaceholder storyboardName="OtherAccount" id="d3d-ri-NhK" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CXF-r5-Gen" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1630.5" y="262"/>
         </scene>
     </scenes>
 </document>
