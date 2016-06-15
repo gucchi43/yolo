@@ -27,6 +27,10 @@ class UserListViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         let nib = UINib(nibName: "UserListTableViewCell", bundle: nil)
         userListTableView.registerNib(nib, forCellReuseIdentifier: "userCell")
+        
+        if let indexPathForSelectedRow = userListTableView.indexPathForSelectedRow {
+            userListTableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
+        }
     }
 
     override func didReceiveMemoryWarning() {
