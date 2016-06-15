@@ -24,7 +24,7 @@ class NotificationTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         loadArray()
-        self.tableView.reloadData()
+//        self.tableView.reloadData()
     }
     
     func loadArray() {
@@ -33,17 +33,19 @@ class NotificationTableViewController: UITableViewController {
         notificationQuery.whereKey("ownerUser", equalTo: NCMBUser.currentUser())
         notificationQuery.orderByDescending("updateDate") // cellの並べ方
         notificationQuery.limit = 20 //取ってくるデータ最新から20
-        do {
-            let objects:[AnyObject] = try notificationQuery.findObjects()
-            if objects.count > 0{
-                self.notificationArray = objects
-                print("通知テーブルセルの数", objects.count)
+        notificationQuery.findObjectsInBackgroundWithBlock { (objects, error) in
+            if let error = error {
+                print(error.localizedDescription)
             }else {
-                self.notificationArray = []
-                print("通知はまだ０です…")
+                if objects.count > 0 {
+                    self.notificationArray = objects
+                    print("通知テーブルセルの数", objects.count)
+                    self.tableView.reloadData()
+                }else {
+                    self.notificationArray = []
+                    print("通知はまだ0です……")
+                }
             }
-        } catch {
-            print("多分error")
         }
     }
 
@@ -70,7 +72,8 @@ class NotificationTableViewController: UITableViewController {
         print("type", type)
         
         switch type{
-        case "follow":
+            
+        case "follow": //フォローのCell
             let cell = tableView.dequeueReusableCellWithIdentifier("followdCell", forIndexPath: indexPath) as! NotificationFollowTableViewCell
             let followerInfo = notificationArray[indexPath.row]
             print("followerInfo", followerInfo)
@@ -86,6 +89,7 @@ class NotificationTableViewController: UITableViewController {
             let agoTime = dateFormatter.stringFromDate(timeDate)
             
             cell.postLabel.text = ""
+            cell.userImageView.image = UIImage(named: "noprofile")
             cell.agoTimeLabel.text = agoTime
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
             let user = followerInfo.objectForKey("actionUser") as? NCMBUser
@@ -100,7 +104,6 @@ class NotificationTableViewController: UITableViewController {
                     userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
                         if let error = error {
                             print("error", error.localizedDescription)
-                            cell.userImageView.image = UIImage(named: "noprofile")
                         } else {
                             cell.userImageView.image = UIImage(data: imageData!)
                         }
@@ -112,66 +115,7 @@ class NotificationTableViewController: UITableViewController {
             cell.layoutIfNeeded()
             return cell
             
-        case "comment":
-            let cell = tableView.dequeueReusableCellWithIdentifier("commentedCell", forIndexPath: indexPath) as! NotificationCommentTableViewCell
-            let commentInfo = notificationArray[indexPath.row]
-            print("likeInfo", commentInfo)
-            
-            let timeDate = commentInfo.objectForKey("date") as! NSDate
-            print("timeDate", timeDate)
-            
-            //本当はtimeAgoを使いたい
-            //            let agoTime = timeDate.timeAgo
-            //            print("agoTime", agoTime)
-            
-            //仮で"yyyy MM/dd HH:mm"で表示している
-            let dateFormatter: NSDateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy MM/dd HH:mm"
-            let agoTime = dateFormatter.stringFromDate(timeDate)
-
-            cell.postLabel.text = ""
-            cell.agoTimeLabel.text = agoTime
-            cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
-            let user = commentInfo.objectForKey("actionUser") as? NCMBUser
-            print("userは取れてんの？", user)
-            if let user = user {
-                var postError: NSError?
-                user.fetch(&postError)
-                if postError == nil{
-                    print("userFaceName", user.objectForKey("userFaceName") as? String)
-                    cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
-                    let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-                    
-                    
-                    userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                        if let error = error {
-                            print("error", error.localizedDescription)
-                            cell.userImageView.image = UIImage(named: "noprofile")
-                        } else {
-                            print("ああああああああああああ", imageData!)
-                            cell.userImageView.image = UIImage(data: imageData!)
-                        }
-                    })
-                }else {
-                    print(postError!.localizedDescription)
-                }
-            }
-            let post = commentInfo.objectForKey("post") as? NCMBObject
-            if let post = post {
-                var postError: NSError?
-                post.fetch(&postError)
-                if postError == nil {
-                    print("postText", post.objectForKey("text") as? String)
-                    cell.postLabel.text = post.objectForKey("text") as? String
-                }else {
-                    print(postError!.localizedDescription)
-                }
-            }
-            
-            cell.layoutIfNeeded()
-            return cell
-        
-        case "like":
+        case "like": //いいねのCell
             let cell = tableView.dequeueReusableCellWithIdentifier("likedCell", forIndexPath: indexPath) as! NotificationLikeTableViewCell
             let likeInfo = notificationArray[indexPath.row]
             print("likeInfo", likeInfo)
@@ -189,6 +133,7 @@ class NotificationTableViewController: UITableViewController {
             let agoTime = dateFormatter.stringFromDate(timeDate)
             
             cell.postLabel.text = ""
+            cell.userImageView.image = UIImage(named: "noprofile")
             cell.agoTimeLabel.text = agoTime
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
             let user = likeInfo.objectForKey("actionUser") as? NCMBUser
@@ -205,9 +150,7 @@ class NotificationTableViewController: UITableViewController {
                     userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
                         if let error = error {
                             print("error", error.localizedDescription)
-                            cell.userImageView.image = UIImage(named: "noprofile")
                         } else {
-                            print("ああああああああああああ", imageData!)
                             cell.userImageView.image = UIImage(data: imageData!)
                         }
                     })
@@ -230,6 +173,64 @@ class NotificationTableViewController: UITableViewController {
             cell.layoutIfNeeded()
             return cell
 
+            
+        case "comment": //コメントのCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("commentedCell", forIndexPath: indexPath) as! NotificationCommentTableViewCell
+            let commentInfo = notificationArray[indexPath.row]
+            print("likeInfo", commentInfo)
+            
+            let timeDate = commentInfo.objectForKey("date") as! NSDate
+            print("timeDate", timeDate)
+            
+            //本当はtimeAgoを使いたい
+            //            let agoTime = timeDate.timeAgo
+            //            print("agoTime", agoTime)
+            
+            //仮で"yyyy MM/dd HH:mm"で表示している
+            let dateFormatter: NSDateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy MM/dd HH:mm"
+            let agoTime = dateFormatter.stringFromDate(timeDate)
+
+            cell.postLabel.text = ""
+            cell.userImageView.image = UIImage(named: "noprofile")
+            cell.agoTimeLabel.text = agoTime
+            cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
+            let user = commentInfo.objectForKey("actionUser") as? NCMBUser
+            print("userは取れてんの？", user)
+            if let user = user {
+                var postError: NSError?
+                user.fetch(&postError)
+                if postError == nil{
+                    print("userFaceName", user.objectForKey("userFaceName") as? String)
+                    cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
+                    let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+                    
+                    
+                    userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                        if let error = error {
+                            print("error", error.localizedDescription)
+                        } else {
+                            cell.userImageView.image = UIImage(data: imageData!)
+                        }
+                    })
+                }else {
+                    print(postError!.localizedDescription)
+                }
+            }
+            let post = commentInfo.objectForKey("post") as? NCMBObject
+            if let post = post {
+                var postError: NSError?
+                post.fetch(&postError)
+                if postError == nil {
+                    print("postText", post.objectForKey("text") as? String)
+                    cell.postLabel.text = post.objectForKey("text") as? String
+                }else {
+                    print(postError!.localizedDescription)
+                }
+            }
+            
+            cell.layoutIfNeeded()
+            return cell
             
         default:
             print("default")
