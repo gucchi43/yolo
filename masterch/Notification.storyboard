@@ -203,7 +203,7 @@
                                     <outlet property="userImageView" destination="Gr9-oD-UyB" id="Tdl-cy-86J"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" id="a2L-FY-PjM" customClass="NotificationCommentTableViewCell" customModule="masterch" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentedCell" id="a2L-FY-PjM" customClass="NotificationCommentTableViewCell" customModule="masterch" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="272" width="600" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a2L-FY-PjM" id="bvD-Mz-KgF">

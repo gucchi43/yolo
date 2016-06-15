@@ -185,6 +185,12 @@ extension PostDetailViewController: UITextViewDelegate {
         relation.addObject(commentObject)
         postObject.save(nil)
         print("コメント保存完了 \(commentObject)")
+        
+        //いいねしたことを通知画面のDBに保存
+        let auther = postObject.objectForKey("user") as! NCMBUser
+        print("auther", auther)
+        let notificationManager = NotificationManager()
+        notificationManager.commentNotification(auther, post: postObject)
     }
 
 }

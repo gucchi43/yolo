@@ -124,6 +124,65 @@ class NotificationTableViewController: UITableViewController {
             cell.layoutIfNeeded()
             return cell
             
+        case "comment":
+            let cell = tableView.dequeueReusableCellWithIdentifier("commentedCell", forIndexPath: indexPath) as! NotificationCommentTableViewCell
+            let commentInfo = notificationArray[indexPath.row]
+            print("likeInfo", commentInfo)
+            
+            let timeDate = commentInfo.objectForKey("date") as! NSDate
+            print("timeDate", timeDate)
+            
+            //本当はtimeAgoを使いたい
+            //            let agoTime = timeDate.timeAgo
+            //            print("agoTime", agoTime)
+            
+            //仮で"yyyy MM/dd HH:mm"で表示している
+            let dateFormatter: NSDateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy MM/dd HH:mm"
+            let agoTime = dateFormatter.stringFromDate(timeDate)
+
+            cell.postLabel.text = ""
+            cell.agoTimeLabel.text = agoTime
+            cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
+            let user = commentInfo.objectForKey("actionUser") as? NCMBUser
+            print("userは取れてんの？", user)
+            if let user = user {
+                var postError: NSError?
+                user.fetch(&postError)
+                if postError == nil{
+                    print("userFaceName", user.objectForKey("userFaceName") as? String)
+                    cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
+                    let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+                    
+                    
+                    userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                        if let error = error {
+                            print("error", error.localizedDescription)
+                            cell.userImageView.image = UIImage(named: "noprofile")
+                        } else {
+                            print("ああああああああああああ", imageData!)
+                            cell.userImageView.image = UIImage(data: imageData!)
+                        }
+                    })
+                }else {
+                    print(postError!.localizedDescription)
+                }
+            }
+            let post = commentInfo.objectForKey("post") as? NCMBObject
+            if let post = post {
+                var postError: NSError?
+                post.fetch(&postError)
+                if postError == nil {
+                    print("postText", post.objectForKey("text") as? String)
+                    cell.postLabel.text = post.objectForKey("text") as? String
+                }else {
+                    print(postError!.localizedDescription)
+                }
+            }
+            
+            cell.layoutIfNeeded()
+            return cell
+        
         case "like":
             let cell = tableView.dequeueReusableCellWithIdentifier("likedCell", forIndexPath: indexPath) as! NotificationLikeTableViewCell
             let likeInfo = notificationArray[indexPath.row]
@@ -140,7 +199,7 @@ class NotificationTableViewController: UITableViewController {
             let dateFormatter: NSDateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy MM/dd HH:mm"
             let agoTime = dateFormatter.stringFromDate(timeDate)
-
+            
             cell.postLabel.text = ""
             cell.agoTimeLabel.text = agoTime
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
@@ -153,6 +212,8 @@ class NotificationTableViewController: UITableViewController {
                     print("userFaceName", user.objectForKey("userFaceName") as? String)
                     cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
                     let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+                    
+                    
                     userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
                         if let error = error {
                             print("error", error.localizedDescription)
@@ -161,17 +222,7 @@ class NotificationTableViewController: UITableViewController {
                             print("ああああああああああああ", imageData!)
                             cell.userImageView.image = UIImage(data: imageData!)
                         }
-                        }, progressBlock: { (percentDone: Int32) -> Void in
-                            print("進捗状況: \(percentDone)% 読み込み済み")
                     })
-                    //                    userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
-                    //                        if let error = error {
-                    //                            print("error", error.localizedDescription)
-                    //                            cell.userImageView.image = UIImage(named: "noprofile")
-                    //                        } else {
-                    //                            cell.userImageView.image = UIImage(data: imageData!)
-                    //                        }
-                    //                    })
                 }else {
                     print(postError!.localizedDescription)
                 }
@@ -190,6 +241,7 @@ class NotificationTableViewController: UITableViewController {
             
             cell.layoutIfNeeded()
             return cell
+
             
         default:
             print("default")
