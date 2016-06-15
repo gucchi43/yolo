@@ -16,21 +16,9 @@ class NotificationTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Cellの高さを可変にする(ストーリーボードのオートレイアウトに合わしている)
         self.tableView.estimatedRowHeight = 200
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        
-        //仮のデータ（コメントのNotification実装まで残しとく）
-        let postObject1 = NCMBObject(className: "Post")
-        let postObject2 = NCMBObject(className: "Post")
-        postObject1.objectId = "dk5pFHpWntLhWUGm"
-        postObject2.objectId = "fFBEVh7HxVW1JxxY"
-        print("postObjectだおおおおおおおおおお", postObject1)
-        
-        notification2Array = [
-            ["type": "follow", "user": NCMBUser.currentUser(), "time": NSDate() - 7.days - 10.hours, "post": ""],
-            ["type": "like", "user": NCMBUser.currentUser(), "time": NSDate() - 4.hours, "post": postObject1],
-            ["type": "comment", "user": NCMBUser.currentUser(), "time": NSDate() - 12.days - 9.hours, "post": postObject2]
-        ]
         
     }
     
@@ -44,7 +32,7 @@ class NotificationTableViewController: UITableViewController {
         let notificationQuery: NCMBQuery = NCMBQuery(className: "Notification") // 自分がフォローしている人かどうかのクエリ
         notificationQuery.whereKey("ownerUser", equalTo: NCMBUser.currentUser())
         notificationQuery.orderByDescending("updateDate") // cellの並べ方
-        notificationQuery.limit = 20
+        notificationQuery.limit = 20 //取ってくるデータ最新から20
         do {
             let objects:[AnyObject] = try notificationQuery.findObjects()
             if objects.count > 0{
@@ -52,7 +40,7 @@ class NotificationTableViewController: UITableViewController {
                 print("通知テーブルセルの数", objects.count)
             }else {
                 self.notificationArray = []
-                print("通知は０だおん…")
+                print("通知はまだ０です…")
             }
         } catch {
             print("多分error")
