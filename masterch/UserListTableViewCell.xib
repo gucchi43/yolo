@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -25,7 +24,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="ベッキー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OB5-jr-KXJ">
-                        <rect key="frame" x="56" y="3" width="282" height="21"/>
+                        <rect key="frame" x="56" y="3" width="68" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="OB5-jr-KXJ" secondAttribute="height" multiplier="68:21" id="TSQ-Nr-7ad"/>
                         </constraints>
@@ -39,30 +38,18 @@
                         </variation>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@furindamezettai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6I-2Y-hJn">
-                        <rect key="frame" x="56" y="25" width="282" height="22"/>
+                        <rect key="frame" x="56" y="25" width="107" height="22"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UIC-sf-HEd">
-                        <rect key="frame" x="346" y="10" width="60" height="30"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="60" id="2CE-AM-3Sg"/>
-                        </constraints>
-                        <state key="normal" title="フォロー"/>
-                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="OB5-jr-KXJ" firstAttribute="top" secondItem="hlo-An-pXe" secondAttribute="top" constant="3" id="2fb-XU-KgO"/>
-                    <constraint firstItem="UIC-sf-HEd" firstAttribute="leading" secondItem="OB5-jr-KXJ" secondAttribute="trailing" constant="8" id="4CM-4u-a34"/>
                     <constraint firstAttribute="bottom" secondItem="x6I-2Y-hJn" secondAttribute="bottom" id="EaF-R7-KZa"/>
-                    <constraint firstItem="UIC-sf-HEd" firstAttribute="leading" secondItem="x6I-2Y-hJn" secondAttribute="trailing" constant="8" id="Ffu-6F-eTP"/>
-                    <constraint firstItem="UIC-sf-HEd" firstAttribute="centerY" secondItem="hlo-An-pXe" secondAttribute="centerY" id="Hfh-Fd-ejb"/>
                     <constraint firstItem="x6I-2Y-hJn" firstAttribute="top" secondItem="OB5-jr-KXJ" secondAttribute="bottom" constant="1" id="Ngf-Bq-9OV"/>
                     <constraint firstItem="OB5-jr-KXJ" firstAttribute="leading" secondItem="Pp4-zr-heN" secondAttribute="trailing" constant="8" id="PYP-fH-cki"/>
-                    <constraint firstItem="UIC-sf-HEd" firstAttribute="top" secondItem="hlo-An-pXe" secondAttribute="topMargin" constant="-1" id="RUs-l3-i1s"/>
                     <constraint firstAttribute="bottom" secondItem="Pp4-zr-heN" secondAttribute="bottom" constant="4" id="aYP-op-sZz"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="UIC-sf-HEd" secondAttribute="trailing" id="cTb-WD-Nnq"/>
                     <constraint firstItem="x6I-2Y-hJn" firstAttribute="leading" secondItem="Pp4-zr-heN" secondAttribute="trailing" constant="8" id="hH2-nU-9xS"/>
                     <constraint firstItem="Pp4-zr-heN" firstAttribute="leading" secondItem="hlo-An-pXe" secondAttribute="leading" constant="8" id="lja-8K-3cu"/>
                     <constraint firstItem="Pp4-zr-heN" firstAttribute="top" secondItem="hlo-An-pXe" secondAttribute="top" constant="5" id="tfi-YR-YkO"/>
@@ -70,7 +57,6 @@
                 <variation key="default">
                     <mask key="constraints">
                         <exclude reference="EaF-R7-KZa"/>
-                        <exclude reference="RUs-l3-i1s"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
