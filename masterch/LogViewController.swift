@@ -430,7 +430,7 @@ extension LogViewController{
         let cell = sender.superview?.superview as! TimelineCell
         let row = tableView.indexPathForCell(cell)?.row
         selectedPostObject = self.postArray[row!] as! NCMBObject
-        //---------------画面遷移したらキーボードを表示をしていたい--------------
+
         performSegueWithIdentifier("toPostDetailViewController", sender: true)
     }
 

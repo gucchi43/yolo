@@ -35,6 +35,10 @@ class SearchUserTableViewController: UITableViewController {
         print("SearchUserTableViewController viewDidload")
 //        loadAllUser()
         
+        
+        let nib = UINib(nibName: "UserListTableViewCell", bundle: nil)
+        tableView.registerNib(nib, forCellReuseIdentifier: "userCell")
+        
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
@@ -49,10 +53,6 @@ class SearchUserTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func unwindToTop(segue: UIStoryboardSegue) {
-        print("back to SearchView")
     }
 
     func loadAllUser(){
@@ -92,7 +92,7 @@ class SearchUserTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! SearchUserTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("userCell", forIndexPath: indexPath) as! UserListTableViewCell
         let userData: AnyObject?
         
         if searchController.active && searchController.searchBar.text != "" {
@@ -106,14 +106,14 @@ class SearchUserTableViewController: UITableViewController {
         let userFaceName = userData!.objectForKey("userFaceName") as? String
         let userName = userData!.objectForKey("userName") as? String
         cell.userFaceNameLabel.text = userFaceName!
-        cell.userName.text = "@" + userName!
+        cell.userNameLabel.text = "@" + userName!
 //        userFaceNameArray.append(userFaceName!)
 //        userNameArray.append(userName!)
 //        
 //        print("userNameArray", userNameArray, "userFaceName", userFaceNameArray, "userArray", userArray)
 
         cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
-        let userImageData = NCMBFile.fileWithName("userImageProfile", data: nil) as! NCMBFile
+        let userImageData = NCMBFile.fileWithName(userData!.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
         userImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
             if let error = error {
                 print("プロフィール画像の取得失敗： ", error)
@@ -136,9 +136,8 @@ class SearchUserTableViewController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toOtherAccountViewController" {
-            if let OtherAccountViewController = segue.destinationViewController as? OtherAccountViewController{
-                OtherAccountViewController.user = selectedUser
-            }
+            guard let OtherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
+            OtherAccountViewController.user = selectedUser
         }
     }
 

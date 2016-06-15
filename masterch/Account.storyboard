@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="wuv-Wr-XSh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="wuv-Wr-XSh">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -132,6 +132,9 @@
                                         <state key="normal" title="フォロー">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="pushFollowNumberButton:" destination="ghQ-yp-AG1" eventType="touchUpInside" id="dnG-0x-Ku4"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEa-0t-jfu">
                                         <rect key="frame" x="226" y="122" width="100" height="30"/>
@@ -141,6 +144,9 @@
                                         <state key="normal" title="フォロワー">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="pushFollowerNumberButton:" destination="ghQ-yp-AG1" eventType="touchUpInside" id="bLU-7j-9Ag"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
@@ -242,6 +248,7 @@
                         <outlet property="userProfileImageView" destination="74b-xo-zhR" id="O7g-P2-bzH"/>
                         <outlet property="userProfileNameLabel" destination="pO5-t8-8n7" id="o7P-vM-Yts"/>
                         <segue destination="Ele-pk-a1r" kind="presentation" identifier="toEditProfile" id="4Ck-1w-yEf"/>
+                        <segue destination="fE7-tN-IAs" kind="show" identifier="toUserList" id="dqx-di-Lm3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hoD-De-F3E" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -373,7 +380,15 @@
                 <viewControllerPlaceholder storyboardName="Main" id="t6h-UR-gjx" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6iZ-bB-1Mh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="502.5" y="1016"/>
+            <point key="canvasLocation" x="170" y="965"/>
+        </scene>
+        <!--UserList-->
+        <scene sceneID="e98-Aq-hDh">
+            <objects>
+                <viewControllerPlaceholder storyboardName="UserList" id="fE7-tN-IAs" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LZP-rU-ho8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="584.5" y="428"/>
         </scene>
         <!--Container Profile View Controller-->
         <scene sceneID="41u-kt-LHa">
