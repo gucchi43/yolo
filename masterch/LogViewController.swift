@@ -378,6 +378,11 @@ extension LogViewController{
                     print(error.localizedDescription)
                 }else {
                     print("save成功 いいね保存")
+                    
+                    //いいねしたことを通知画面のDBに保存
+                    let auther = postData.objectForKey("user") as! NCMBUser
+                    let notificationManager = NotificationManager()
+                    notificationManager.likeNotification(auther, post: postData)
                 }
             })
             

@@ -133,6 +133,11 @@ class OtherAccountViewController: UIViewController {
                     self.otherAccountFollowButton.setTitle("フォロー中", forState: UIControlState.Normal)
                     self.followingRelationshipObject.objectId = relationObject.objectId
                     self.followingRelationshipObject = relationObject as NCMBObject
+                    
+                    //フォローしたことを通知画面のDBに保存
+                    let notificationManager = NotificationManager()
+                    notificationManager.followNotification(self.user)
+                    
 
                 }
             })
