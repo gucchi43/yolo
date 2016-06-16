@@ -79,7 +79,7 @@
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZZ-qh-oIF" customClass="Button_Custom" customModule="masterch" customModuleProvider="target">
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZZ-qh-oIF" customClass="Button_Custom" customModule="masterch" customModuleProvider="target">
                                             <rect key="frame" x="512" y="51.5" width="80" height="30"/>
                                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
@@ -284,10 +284,30 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="7rR-R3-cOU" kind="show" identifier="toOtherAccountViewController" id="S0K-iW-jTy"/>
+                        <segue destination="ofP-1X-FKF" kind="show" identifier="toPostDetailViewController" id="Krx-EB-CB2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="syg-WZ-ANU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="789" y="-1507"/>
+        </scene>
+        <!--OtherAccount-->
+        <scene sceneID="c5e-Ux-sB6">
+            <objects>
+                <viewControllerPlaceholder storyboardName="OtherAccount" id="7rR-R3-cOU" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vU7-rz-3SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1378" y="-1604"/>
+        </scene>
+        <!--PostDetail-->
+        <scene sceneID="wKI-eA-J2n">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PostDetail" id="ofP-1X-FKF" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nN8-A6-CRg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1378.5" y="-1419"/>
         </scene>
     </scenes>
 </document>

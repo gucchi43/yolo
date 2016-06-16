@@ -11,8 +11,10 @@ import SwiftDate
 
 
 class NotificationTableViewController: UITableViewController {
-    var notification2Array = [[String: AnyObject]]()
     var notificationArray: NSArray = NSArray()
+    
+    var selectedUser: NCMBUser!
+    var selectedObject: NCMBObject!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +31,18 @@ class NotificationTableViewController: UITableViewController {
     
     func loadArray() {
         
-        let notificationQuery: NCMBQuery = NCMBQuery(className: "Notification") // 自分がフォローしている人かどうかのクエリ
+        //includeKeyで全部撮ってきたいんねん!!!!
+        
+//        let userNotifivationQuery: NCMBQuery = NCMBQuery(className: "Notification")
+//        userNotifivationQuery.includeKey("actionUser") //actionUserのポインターの中身のデータを取得する
+//        let postNotificationQuery: NCMBQuery = NCMBQuery(className: "Notification") // 自分がフォローしている人かどうかのクエリ
+//        postNotificationQuery.includeKey("post") //postのポインターの中身のデータを取得する
+        
+        let notificationQuery: NCMBQuery = NCMBQuery(className: "Notification")
         notificationQuery.whereKey("ownerUser", equalTo: NCMBUser.currentUser())
         notificationQuery.orderByDescending("updateDate") // cellの並べ方
-        notificationQuery.limit = 20 //取ってくるデータ最新から20
+        notificationQuery.includeKey("actionUser")
+        notificationQuery.limit = 20 //取ってくるデータ最新から20件
         notificationQuery.findObjectsInBackgroundWithBlock { (objects, error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -95,22 +105,16 @@ class NotificationTableViewController: UITableViewController {
             let user = followerInfo.objectForKey("actionUser") as? NCMBUser
             print("userは取れてんの？", user)
             if let user = user {
-                var postError: NSError?
-                user.fetch(&postError)
-                if postError == nil{
-                    print("userFaceName", user.objectForKey("userFaceName") as? String)
-                    cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
-                    let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-                    userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
-                        if let error = error {
-                            print("error", error.localizedDescription)
-                        } else {
-                            cell.userImageView.image = UIImage(data: imageData!)
-                        }
-                    })
-                }else {
-                    print(postError!.localizedDescription)
-                }
+                print("userFaceName", user.objectForKey("userFaceName") as? String)
+                cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
+                let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+                userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
+                    if let error = error {
+                        print("error", error.localizedDescription)
+                    } else {
+                        cell.userImageView.image = UIImage(data: imageData!)
+                    }
+                })
             }
             cell.layoutIfNeeded()
             return cell
@@ -139,24 +143,16 @@ class NotificationTableViewController: UITableViewController {
             let user = likeInfo.objectForKey("actionUser") as? NCMBUser
             print("userは取れてんの？", user)
             if let user = user {
-                var postError: NSError?
-                user.fetch(&postError)
-                if postError == nil{
-                    print("userFaceName", user.objectForKey("userFaceName") as? String)
-                    cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
-                    let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-                    
-                    
-                    userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                        if let error = error {
-                            print("error", error.localizedDescription)
-                        } else {
-                            cell.userImageView.image = UIImage(data: imageData!)
-                        }
-                    })
-                }else {
-                    print(postError!.localizedDescription)
-                }
+                print("userFaceName", user.objectForKey("userFaceName") as? String)
+                cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
+                let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+                userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                    if let error = error {
+                        print("error", error.localizedDescription)
+                    } else {
+                        cell.userImageView.image = UIImage(data: imageData!)
+                    }
+                })
             }
             let post = likeInfo.objectForKey("post") as? NCMBObject
             if let post = post {
@@ -169,7 +165,6 @@ class NotificationTableViewController: UITableViewController {
                     print(postError!.localizedDescription)
                 }
             }
-            
             cell.layoutIfNeeded()
             return cell
 
@@ -198,24 +193,16 @@ class NotificationTableViewController: UITableViewController {
             let user = commentInfo.objectForKey("actionUser") as? NCMBUser
             print("userは取れてんの？", user)
             if let user = user {
-                var postError: NSError?
-                user.fetch(&postError)
-                if postError == nil{
-                    print("userFaceName", user.objectForKey("userFaceName") as? String)
-                    cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
-                    let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-                    
-                    
-                    userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                        if let error = error {
-                            print("error", error.localizedDescription)
-                        } else {
-                            cell.userImageView.image = UIImage(data: imageData!)
-                        }
-                    })
-                }else {
-                    print(postError!.localizedDescription)
-                }
+                print("userFaceName", user.objectForKey("userFaceName") as? String)
+                cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
+                let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+                userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                    if let error = error {
+                        print("error", error.localizedDescription)
+                    } else {
+                        cell.userImageView.image = UIImage(data: imageData!)
+                    }
+                })
             }
             let post = commentInfo.objectForKey("post") as? NCMBObject
             if let post = post {
@@ -242,52 +229,61 @@ class NotificationTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("何個めのCell選択", indexPath.row)
+        let type = (notificationArray[indexPath.row] as! NCMBObject).objectForKey("type") as! String
+        print("選択したCellのtype", type)
+        
+        switch type {
+        case "follow":
+            print("followのCellを選択 → OtherAccountViewControllerに遷移")
+            selectedUser = (notificationArray[indexPath.row] as! NCMBObject).objectForKey("actionUser") as! NCMBUser
+            performSegueWithIdentifier("toOtherAccountViewController", sender: nil)
+            
+        case "like":
+            print("likeのCellを選択 → Post画面に遷移")
+            print("followのCellを選択 → OtherAccountViewControllerに遷移")
+            selectedObject = (notificationArray[indexPath.row] as! NCMBObject).objectForKey("post") as! NCMBObject
+            performSegueWithIdentifier("toPostDetailViewController", sender: nil)
+
+        case "comment":
+            print("commnetのCellを選択 → Post画面に遷移")
+            print("followのCellを選択 → OtherAccountViewControllerに遷移")
+            selectedObject = (notificationArray[indexPath.row] as! NCMBObject).objectForKey("post") as! NCMBObject
+            performSegueWithIdentifier("toPostDetailViewController", sender: nil)
+
+        default:
+            print("その他 ありえないprintなんですよ")
+        }
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        switch segue.identifier! as String {
+        case "toOtherAccountViewController": //followのCell選択時→ユーザー画面に遷移
+            guard let otherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
+            print("selectedUser", selectedUser)
+            otherAccountViewController.user = selectedUser
+        
+        case "toPostDetailViewController": //like、commentのCell選択時→投稿詳細画面に遷移
+            guard let postDetailViewController = segue.destinationViewController as? PostDetailViewController else { return }
+            print("selectedObject", selectedObject)
+            postDetailViewController.postObject = selectedObject
+            let auther = selectedObject.objectForKey("user") as? NCMBUser
+            if let auther = auther{
+                var autherError: NSError?
+                auther.fetch(&autherError)
+                if autherError == nil {
+                    print("userFaceName", auther.objectForKey("userFaceName") as? String)
+                }else {
+                    print(autherError!.localizedDescription)
+                }
+            }
+            
+            if let sender = sender {
+                postDetailViewController.isSelectedCommentButton = sender as! Bool
+            }
+            
+        default:
+            print("そのほかあああ")
+        }
     }
-    */
-
 }

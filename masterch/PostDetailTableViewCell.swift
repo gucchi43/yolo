@@ -52,7 +52,6 @@ class PostDetailTableViewCell: UITableViewCell {
     func setPostDetailCell() {
     
         if let author = postObject.objectForKey("user") as? NCMBUser {
-            
             userProfileNameLabel.text = author.objectForKey("userFaceName") as? String
             userNameIDLabel.text = "@" + author.userName
             
