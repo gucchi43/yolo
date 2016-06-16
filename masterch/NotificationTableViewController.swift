@@ -106,7 +106,7 @@ class NotificationTableViewController: UITableViewController {
             print("userは取れてんの？", user)
             if let user = user {
                 print("userFaceName", user.objectForKey("userFaceName") as? String)
-                cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
+                cell.userLabel.text = user.objectForKey("userFaceName") as? String
                 let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
                 userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
                     if let error = error {
@@ -144,7 +144,7 @@ class NotificationTableViewController: UITableViewController {
             print("userは取れてんの？", user)
             if let user = user {
                 print("userFaceName", user.objectForKey("userFaceName") as? String)
-                cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
+                cell.userLabel.text = user.objectForKey("userFaceName") as? String
                 let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
                 userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
                     if let error = error {
@@ -194,7 +194,7 @@ class NotificationTableViewController: UITableViewController {
             print("userは取れてんの？", user)
             if let user = user {
                 print("userFaceName", user.objectForKey("userFaceName") as? String)
-                cell.userButton.setTitle(user.objectForKey("userFaceName") as? String, forState: .Normal)
+                cell.userLabel.text = user.objectForKey("userFaceName") as? String
                 let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
                 userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
                     if let error = error {

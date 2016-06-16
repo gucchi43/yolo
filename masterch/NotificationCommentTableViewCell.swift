@@ -11,7 +11,7 @@ import UIKit
 class NotificationCommentTableViewCell: UITableViewCell {
     
     @IBOutlet weak var userImageView: UIImageView!
-    @IBOutlet weak var userButton: UIButton!
+    @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var agoTimeLabel: UILabel!
     @IBOutlet weak var commentMessageLabel: UILabel!
     @IBOutlet weak var postLabel: UILabel!

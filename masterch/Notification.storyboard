@@ -37,16 +37,16 @@
         <scene sceneID="HDr-Mz-Adc">
             <objects>
                 <tableViewController id="IQd-Mr-i2H" customClass="NotificationTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="2ga-hz-uVS">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="2ga-hz-uVS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="followdCell" id="hTy-dR-KPj" customClass="NotificationFollowTableViewCell" customModule="masterch" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="90"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hTy-dR-KPj" id="cOK-o6-eZQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fyo-Mc-6sK">
@@ -57,30 +57,25 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="あなたをフォローしました。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YmZ-Qd-0o0">
-                                            <rect key="frame" x="46" y="47" width="195" height="18"/>
+                                            <rect key="frame" x="46" y="37" width="195" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZb-zb-FMQ">
-                                            <rect key="frame" x="46" y="0.0" width="68" height="47.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <state key="normal" title="ベッキー"/>
-                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30分前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4o-at-dps">
-                                            <rect key="frame" x="546" y="15" width="45.5" height="17"/>
+                                            <rect key="frame" x="546" y="8" width="45.5" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ここには投稿が入ります。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57L-nr-0PU">
-                                            <rect key="frame" x="46" y="67" width="546" height="14.5"/>
+                                            <rect key="frame" x="46" y="57" width="546" height="14.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZZ-qh-oIF" customClass="Button_Custom" customModule="masterch" customModuleProvider="target">
-                                            <rect key="frame" x="512" y="51.5" width="80" height="30"/>
+                                            <rect key="frame" x="512" y="41.5" width="80" height="30"/>
                                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="CyG-Z3-wLo"/>
@@ -95,52 +90,44 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ベッキー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yn0-cu-Tku">
+                                            <rect key="frame" x="46" y="6" width="68" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="fyo-Mc-6sK" firstAttribute="leading" secondItem="cOK-o6-eZQ" secondAttribute="leading" constant="8" id="0DR-Oo-2Rg"/>
-                                        <constraint firstItem="XZZ-qh-oIF" firstAttribute="top" secondItem="cOK-o6-eZQ" secondAttribute="top" constant="7" id="3Vg-Fc-9gq"/>
-                                        <constraint firstItem="FZb-zb-FMQ" firstAttribute="top" secondItem="cOK-o6-eZQ" secondAttribute="top" id="7iu-Bp-dvn"/>
+                                        <constraint firstItem="Yn0-cu-Tku" firstAttribute="centerY" secondItem="fyo-Mc-6sK" secondAttribute="centerY" id="2MG-Xz-FC5"/>
                                         <constraint firstAttribute="bottom" secondItem="57L-nr-0PU" secondAttribute="bottom" constant="8" id="8Pf-9J-EoW"/>
                                         <constraint firstAttribute="trailing" secondItem="XZZ-qh-oIF" secondAttribute="trailing" constant="8" id="E0s-C1-xWE"/>
-                                        <constraint firstAttribute="bottom" secondItem="XZZ-qh-oIF" secondAttribute="bottom" constant="6.5" id="HgL-bA-iKK"/>
-                                        <constraint firstItem="I4o-at-dps" firstAttribute="centerY" secondItem="FZb-zb-FMQ" secondAttribute="centerY" id="IdT-fS-DEG"/>
+                                        <constraint firstItem="YmZ-Qd-0o0" firstAttribute="top" secondItem="Yn0-cu-Tku" secondAttribute="bottom" constant="10" id="JXI-Uy-kmu"/>
                                         <constraint firstAttribute="trailing" secondItem="I4o-at-dps" secondAttribute="trailing" constant="8" id="Kt6-L6-K6a"/>
                                         <constraint firstAttribute="bottom" secondItem="XZZ-qh-oIF" secondAttribute="bottom" constant="8" id="MZo-20-Kie"/>
                                         <constraint firstItem="57L-nr-0PU" firstAttribute="top" secondItem="YmZ-Qd-0o0" secondAttribute="bottom" constant="2" id="OqM-dU-FhO"/>
                                         <constraint firstAttribute="trailing" secondItem="57L-nr-0PU" secondAttribute="trailing" constant="8" id="RZv-20-xdN"/>
                                         <constraint firstItem="XZZ-qh-oIF" firstAttribute="trailing" secondItem="57L-nr-0PU" secondAttribute="trailing" id="UFw-fk-tO3"/>
-                                        <constraint firstItem="XZZ-qh-oIF" firstAttribute="centerY" secondItem="cOK-o6-eZQ" secondAttribute="centerY" id="kFr-pF-YHe"/>
-                                        <constraint firstItem="YmZ-Qd-0o0" firstAttribute="top" secondItem="FZb-zb-FMQ" secondAttribute="bottom" id="kaw-tL-dzN"/>
-                                        <constraint firstItem="FZb-zb-FMQ" firstAttribute="leading" secondItem="fyo-Mc-6sK" secondAttribute="trailing" constant="8" id="oT0-eV-6YN"/>
+                                        <constraint firstItem="Yn0-cu-Tku" firstAttribute="leading" secondItem="fyo-Mc-6sK" secondAttribute="trailing" constant="8" id="Vkk-Xf-b7A"/>
                                         <constraint firstItem="57L-nr-0PU" firstAttribute="leading" secondItem="YmZ-Qd-0o0" secondAttribute="leading" id="uDf-LS-rov"/>
                                         <constraint firstItem="YmZ-Qd-0o0" firstAttribute="leading" secondItem="fyo-Mc-6sK" secondAttribute="trailing" constant="8" id="uqi-MM-nLf"/>
-                                        <constraint firstAttribute="trailing" secondItem="XZZ-qh-oIF" secondAttribute="trailing" constant="8" id="vnf-nx-y7T"/>
-                                        <constraint firstItem="I4o-at-dps" firstAttribute="leading" secondItem="FZb-zb-FMQ" secondAttribute="trailing" constant="20" id="wPi-g3-WfJ"/>
+                                        <constraint firstItem="I4o-at-dps" firstAttribute="centerY" secondItem="fyo-Mc-6sK" secondAttribute="centerY" id="x6g-TS-ufw"/>
                                         <constraint firstItem="fyo-Mc-6sK" firstAttribute="top" secondItem="cOK-o6-eZQ" secondAttribute="top" constant="2" id="zJl-Kf-Bua"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="3Vg-Fc-9gq"/>
-                                            <exclude reference="HgL-bA-iKK"/>
-                                            <exclude reference="kFr-pF-YHe"/>
-                                            <exclude reference="vnf-nx-y7T"/>
-                                            <exclude reference="wPi-g3-WfJ"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="agoTimeLabel" destination="I4o-at-dps" id="rKc-GC-WBM"/>
                                     <outlet property="followMessageLabel" destination="YmZ-Qd-0o0" id="Kkc-29-zuK"/>
                                     <outlet property="postLabel" destination="57L-nr-0PU" id="l97-uf-Q9z"/>
-                                    <outlet property="userButton" destination="FZb-zb-FMQ" id="dsr-KN-rfr"/>
                                     <outlet property="userImageView" destination="fyo-Mc-6sK" id="biT-Zf-ACj"/>
+                                    <outlet property="userLabel" destination="Yn0-cu-Tku" id="Yba-w5-JHU"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="likedCell" id="JgS-Hb-87o" customClass="NotificationLikeTableViewCell" customModule="masterch" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="182" width="600" height="90"/>
+                                <rect key="frame" x="0.0" y="172" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JgS-Hb-87o" id="7Cc-vJ-L2P">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gr9-oD-UyB">
@@ -150,64 +137,59 @@
                                                 <constraint firstAttribute="width" secondItem="Gr9-oD-UyB" secondAttribute="height" multiplier="1:1" id="d25-LF-ai3"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="225" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vpd-je-kIL">
-                                            <rect key="frame" x="46" y="0.0" width="68" height="47"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <state key="normal" title="ベッキー"/>
-                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30分前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L79-Tp-DVq">
-                                            <rect key="frame" x="546.5" y="15" width="45.5" height="17"/>
+                                            <rect key="frame" x="546" y="8" width="45.5" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="あなたのログにいいねをしました。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVb-V8-ASH">
-                                            <rect key="frame" x="46" y="47" width="240" height="18"/>
+                                            <rect key="frame" x="46" y="37" width="240" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="ここには投稿が入ります。" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kap-X4-5qa">
-                                            <rect key="frame" x="46" y="67" width="546" height="14.5"/>
+                                            <rect key="frame" x="46" y="57" width="546" height="14.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ベッキー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Joz-UL-hWH">
+                                            <rect key="frame" x="46" y="7" width="68" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="L79-Tp-DVq" firstAttribute="leading" secondItem="Vpd-je-kIL" secondAttribute="trailing" constant="20" id="3cB-HS-4bp"/>
+                                        <constraint firstItem="Joz-UL-hWH" firstAttribute="leading" secondItem="Gr9-oD-UyB" secondAttribute="trailing" constant="8" id="3ic-x4-shd"/>
                                         <constraint firstAttribute="bottom" secondItem="Kap-X4-5qa" secondAttribute="bottom" priority="250" constant="8" id="4Ms-Up-144"/>
                                         <constraint firstAttribute="trailing" secondItem="Kap-X4-5qa" secondAttribute="trailing" constant="8" id="9gA-IK-Kcr"/>
                                         <constraint firstItem="Gr9-oD-UyB" firstAttribute="leading" secondItem="7Cc-vJ-L2P" secondAttribute="leading" constant="8" id="DcY-ax-5rT"/>
-                                        <constraint firstItem="Vpd-je-kIL" firstAttribute="leading" secondItem="Gr9-oD-UyB" secondAttribute="trailing" constant="8" id="MRo-nC-L4C"/>
+                                        <constraint firstItem="L79-Tp-DVq" firstAttribute="centerY" secondItem="Gr9-oD-UyB" secondAttribute="centerY" id="Ocp-Mz-BXL"/>
                                         <constraint firstItem="SVb-V8-ASH" firstAttribute="leading" secondItem="Gr9-oD-UyB" secondAttribute="trailing" constant="8" id="PpW-6z-Pgt"/>
-                                        <constraint firstItem="L79-Tp-DVq" firstAttribute="centerY" secondItem="Vpd-je-kIL" secondAttribute="centerY" id="PrZ-dg-HeG"/>
                                         <constraint firstItem="Kap-X4-5qa" firstAttribute="leading" secondItem="SVb-V8-ASH" secondAttribute="leading" id="Svu-0h-EYn"/>
-                                        <constraint firstItem="Vpd-je-kIL" firstAttribute="top" secondItem="7Cc-vJ-L2P" secondAttribute="top" id="Zqk-hQ-RZc"/>
+                                        <constraint firstItem="Joz-UL-hWH" firstAttribute="centerY" secondItem="Gr9-oD-UyB" secondAttribute="centerY" id="Z4B-tG-ecV"/>
                                         <constraint firstItem="Kap-X4-5qa" firstAttribute="top" secondItem="SVb-V8-ASH" secondAttribute="bottom" constant="2" id="aiW-FN-sgs"/>
-                                        <constraint firstItem="SVb-V8-ASH" firstAttribute="top" secondItem="Vpd-je-kIL" secondAttribute="bottom" id="ffU-49-HC3"/>
+                                        <constraint firstItem="SVb-V8-ASH" firstAttribute="top" secondItem="Joz-UL-hWH" secondAttribute="bottom" constant="10" id="eM3-lB-bpv"/>
                                         <constraint firstItem="Gr9-oD-UyB" firstAttribute="top" secondItem="7Cc-vJ-L2P" secondAttribute="top" constant="2" id="kW0-5t-jZh"/>
                                         <constraint firstAttribute="trailing" secondItem="L79-Tp-DVq" secondAttribute="trailing" constant="8" id="kqY-81-bBw"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="3cB-HS-4bp"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="agoTimeLabel" destination="L79-Tp-DVq" id="zaT-XF-sLF"/>
                                     <outlet property="likeMessageLabel" destination="SVb-V8-ASH" id="jUx-3k-B0R"/>
                                     <outlet property="postLabel" destination="Kap-X4-5qa" id="dM2-56-1Lg"/>
-                                    <outlet property="userButton" destination="Vpd-je-kIL" id="nyv-XX-hyR"/>
                                     <outlet property="userImageView" destination="Gr9-oD-UyB" id="Tdl-cy-86J"/>
+                                    <outlet property="userLabel" destination="Joz-UL-hWH" id="jRM-IQ-1GY"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentedCell" id="a2L-FY-PjM" customClass="NotificationCommentTableViewCell" customModule="masterch" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="272" width="600" height="90"/>
+                                <rect key="frame" x="0.0" y="252" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a2L-FY-PjM" id="bvD-Mz-KgF">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="89.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mVs-yg-cKH">
@@ -218,56 +200,51 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="あなたのログにコメントしました。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FpC-VM-qvj">
-                                            <rect key="frame" x="46" y="33" width="240" height="18"/>
+                                            <rect key="frame" x="46" y="36.5" width="240" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAi-iF-CvK">
-                                            <rect key="frame" x="46" y="0.0" width="68" height="33"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <state key="normal" title="ベッキー"/>
-                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30分前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gm4-GR-isx">
-                                            <rect key="frame" x="546.5" y="8" width="45.5" height="17"/>
+                                            <rect key="frame" x="546" y="8" width="45.5" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="ここには投稿が入ります。" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KK5-02-k9V">
-                                            <rect key="frame" x="46" y="53" width="546" height="14.5"/>
+                                            <rect key="frame" x="46" y="57" width="546" height="14.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ベッキー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efY-fi-E3r">
+                                            <rect key="frame" x="46" y="6" width="68" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="FpC-VM-qvj" firstAttribute="top" secondItem="OAi-iF-CvK" secondAttribute="bottom" id="0ff-Sj-PxW"/>
-                                        <constraint firstItem="OAi-iF-CvK" firstAttribute="top" secondItem="bvD-Mz-KgF" secondAttribute="top" id="6K7-4K-Uxp"/>
                                         <constraint firstAttribute="trailing" secondItem="KK5-02-k9V" secondAttribute="trailing" constant="8" id="6gh-ib-4Nh"/>
                                         <constraint firstItem="mVs-yg-cKH" firstAttribute="top" secondItem="bvD-Mz-KgF" secondAttribute="top" constant="2" id="Erj-tI-v5l"/>
-                                        <constraint firstItem="Gm4-GR-isx" firstAttribute="leading" secondItem="OAi-iF-CvK" secondAttribute="trailing" constant="20" id="MX5-p2-wIy"/>
+                                        <constraint firstItem="FpC-VM-qvj" firstAttribute="top" secondItem="efY-fi-E3r" secondAttribute="bottom" constant="10" id="IMB-W2-Hle"/>
+                                        <constraint firstItem="Gm4-GR-isx" firstAttribute="centerY" secondItem="mVs-yg-cKH" secondAttribute="centerY" id="TCU-ne-txO"/>
                                         <constraint firstItem="KK5-02-k9V" firstAttribute="top" secondItem="FpC-VM-qvj" secondAttribute="bottom" constant="2" id="W5P-MF-znQ"/>
                                         <constraint firstItem="mVs-yg-cKH" firstAttribute="leading" secondItem="bvD-Mz-KgF" secondAttribute="leading" constant="8" id="ZlI-XV-kiJ"/>
-                                        <constraint firstAttribute="bottom" secondItem="KK5-02-k9V" secondAttribute="bottom" priority="250" id="ctd-mE-sTB"/>
-                                        <constraint firstItem="OAi-iF-CvK" firstAttribute="leading" secondItem="mVs-yg-cKH" secondAttribute="trailing" constant="8" id="gZb-C5-msn"/>
+                                        <constraint firstAttribute="bottom" secondItem="KK5-02-k9V" secondAttribute="bottom" priority="250" constant="8" id="ctd-mE-sTB"/>
+                                        <constraint firstItem="efY-fi-E3r" firstAttribute="centerY" secondItem="mVs-yg-cKH" secondAttribute="centerY" id="dgL-g0-pR5"/>
                                         <constraint firstItem="KK5-02-k9V" firstAttribute="leading" secondItem="FpC-VM-qvj" secondAttribute="leading" id="k2d-NB-fMj"/>
                                         <constraint firstItem="FpC-VM-qvj" firstAttribute="leading" secondItem="mVs-yg-cKH" secondAttribute="trailing" constant="8" id="l08-T9-oHO"/>
-                                        <constraint firstItem="Gm4-GR-isx" firstAttribute="centerY" secondItem="OAi-iF-CvK" secondAttribute="centerY" id="uMR-8e-CXf"/>
+                                        <constraint firstItem="efY-fi-E3r" firstAttribute="leading" secondItem="mVs-yg-cKH" secondAttribute="trailing" constant="8" id="v15-m9-d6a"/>
                                         <constraint firstAttribute="trailing" secondItem="Gm4-GR-isx" secondAttribute="trailing" constant="8" id="wZ5-Uj-ynN"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="MX5-p2-wIy"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="agoTimeLabel" destination="Gm4-GR-isx" id="ckm-4M-0Tt"/>
                                     <outlet property="commentMessageLabel" destination="FpC-VM-qvj" id="dMQ-FE-Goz"/>
                                     <outlet property="postLabel" destination="KK5-02-k9V" id="cNc-HW-tmT"/>
-                                    <outlet property="userButton" destination="OAi-iF-CvK" id="lbm-Wj-wzP"/>
                                     <outlet property="userImageView" destination="mVs-yg-cKH" id="YEN-ym-SJ7"/>
+                                    <outlet property="userLabel" destination="efY-fi-E3r" id="vNG-91-sTj"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
