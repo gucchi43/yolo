@@ -25,6 +25,8 @@ class PostDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var likeNumberButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
+    
+    var auther: NCMBUser!
 
     var postObject: NCMBObject!
     var isLikeToggle: Bool = false
@@ -188,6 +190,9 @@ extension PostDetailTableViewCell {
                     print(error.localizedDescription)
                 }else {
                     print("save成功 いいね保存")
+                    //いいねしたことを通知画面のDBに保存
+                    let notificationManager = NotificationManager()
+                    notificationManager.likeNotification(self.auther, post: postData)
                 }
             })
             
@@ -225,5 +230,4 @@ extension PostDetailTableViewCell {
             
         }
     }
-
 }

@@ -128,12 +128,15 @@ class OtherAccountViewController: UIViewController {
             relationObject.setObject(user, forKey: "follower")
             relationObject.saveInBackgroundWithBlock({ (error) -> Void in
                 guard error == nil else { return }
-
                 self.isFollowing = true
                 print("フォローした", NCMBUser.currentUser().userName, "→", self.user.userName)
                 self.otherAccountFollowButton.setTitle("フォロー中", forState: UIControlState.Normal)
                 self.followingRelationshipObject.objectId = relationObject.objectId
                 self.followingRelationshipObject = relationObject as NCMBObject
+                
+                //フォローしたことを通知画面のDBに保存
+                let notificationManager = NotificationManager()
+                notificationManager.followNotification(self.user)
             })
         } else {
             print("フォローをやめる")
