@@ -10,7 +10,7 @@ import UIKit
 
 protocol PostDetailTableViewCellDelegate {
     func didSelectCommentButton()
-    func didSelectProfileImageView()
+    func didSelectPostProfileImageView()
 }
 
 class PostDetailTableViewCell: UITableViewCell {
@@ -147,7 +147,7 @@ class PostDetailTableViewCell: UITableViewCell {
 extension PostDetailTableViewCell {
     func tapImageView (recoginizer: UITapGestureRecognizer){
         print("写真押された")
-        delegate.didSelectProfileImageView()
+        delegate.didSelectPostProfileImageView()
     }
 }
 

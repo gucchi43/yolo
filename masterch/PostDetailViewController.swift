@@ -158,18 +158,21 @@ class PostDetailViewController: UIViewController {
     }
 }
 
-//---------------------投稿ユーザー経遷移機能----------------------
+//---------------------投稿&コメントユーザー経遷移機能----------------------
 extension PostDetailViewController {
+    //投稿ユーザーへの遷移
     func segueToPostAccount(){
         otherUser = postObject.objectForKey("user") as! NCMBUser
         performSegueWithIdentifier("toOtherAccountViewController", sender: nil)
     }
     
+    //コメントユーザーへの遷移
     func segueToCommentAccount(commentObject: NCMBObject){
         otherUser = commentObject.objectForKey("user") as! NCMBUser
         performSegueWithIdentifier("toOtherAccountViewController", sender: nil)
     }
     
+    //ユーザー情報を遷移先に受け渡し
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         guard let otherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
         otherAccountViewController.user = otherUser
@@ -235,25 +238,27 @@ extension PostDetailViewController: UITableViewDataSource{
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentTableViewCell
             cell.delegate = self
-            cell.setCommentCell((commentArray[indexPath.row-1] as? NCMBObject)!)
+            cell.commentObject = commentArray[indexPath.row - 1] as? NCMBObject
+            cell.setCommentCell()
 
 //            コメントの数-1返す
             return cell
         }
     }
-    
 }
 
+//PostDetailTableViewCellDelegateの受け取って実行
 extension PostDetailViewController: PostDetailTableViewCellDelegate {
     func didSelectCommentButton() {
         commentTextView.becomeFirstResponder()
     }
     
-    func didSelectProfileImageView(){
+    func didSelectPostProfileImageView(){
         segueToPostAccount()
     }
 }
 
+////CommentTableViewCellDelegateの受け取って実行
 extension PostDetailViewController: CommentTableViewCellDelegate {
     func didSelectCommentProfileImageView(commentObject: NCMBObject!){
         segueToCommentAccount(commentObject)

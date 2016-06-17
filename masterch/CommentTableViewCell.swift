@@ -37,17 +37,15 @@ class CommentTableViewCell: UITableViewCell {
         print("commentTableView")
     }
     
-    func setCommentCell(comment: NCMBObject) {
-        commentObject = comment
+    func setCommentCell() {
+        commentTextLabel.text = commentObject.objectForKey("text") as? String
         
-        commentTextLabel.text = comment.objectForKey("text") as? String
-        
-        let date = comment.createDate
+        let date = commentObject.createDate
         let commentDateFormatter: NSDateFormatter = NSDateFormatter()
         commentDateFormatter.dateFormat = "yyyy MM/dd HH:mm"
         commentDateLabel.text = commentDateFormatter.stringFromDate(date)
         
-        let author = comment.objectForKey("user") as? NCMBUser
+        let author = commentObject.objectForKey("user") as? NCMBUser
         if let author = author {
             userProfileNameLabel.text = author.objectForKey("userFaceName") as? String
             
