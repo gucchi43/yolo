@@ -352,7 +352,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="raw-uL-hyl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="332" y="139"/>
+            <point key="canvasLocation" x="-114" y="169"/>
         </scene>
         <!--Post Detail View Controller-->
         <scene sceneID="7yB-E5-Fse">
@@ -459,11 +459,20 @@
                         <outlet property="commentView" destination="06I-nz-qTI" id="QGc-yA-2Ad"/>
                         <outlet property="postDetailTableView" destination="MX3-uz-BXf" id="9ZJ-dm-sYJ"/>
                         <outlet property="sendCommentButton" destination="Fkt-a2-dLA" id="ZqF-4G-uMO"/>
+                        <segue destination="bTc-LE-Uia" kind="show" identifier="toOtherAccountViewController" id="c5W-uA-n4d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="53r-f7-h4n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1053" y="139"/>
+            <point key="canvasLocation" x="781" y="179"/>
+        </scene>
+        <!--OtherAccount-->
+        <scene sceneID="hzf-5B-gf2">
+            <objects>
+                <viewControllerPlaceholder storyboardName="OtherAccount" id="bTc-LE-Uia" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0KX-je-JQh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1426" y="68"/>
         </scene>
     </scenes>
     <resources>

@@ -28,6 +28,7 @@ class PostDetailViewController: UIViewController {
     var isObserving = false
     
     var commentArray:[AnyObject] = []
+    var auther: NCMBUser!
 
     
     deinit {
@@ -157,6 +158,20 @@ class PostDetailViewController: UIViewController {
     }
 }
 
+//---------------------投稿ユーザー経遷移機能----------------------
+extension PostDetailViewController {
+    func segueToPostAccount(){
+        auther = postObject.objectForKey("user") as! NCMBUser
+        performSegueWithIdentifier("toOtherAccountViewController", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        guard let otherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
+        otherAccountViewController.user = auther
+        
+    }
+}
+
 //---------------------コメント投稿機能----------------------
 extension PostDetailViewController: UITextViewDelegate {
     
@@ -226,5 +241,9 @@ extension PostDetailViewController: UITableViewDataSource{
 extension PostDetailViewController: PostDetailTableViewCellDelegate {
     func didSelectCommentButton() {
         commentTextView.becomeFirstResponder()
+    }
+    
+    func didSelectProfileImageView(){
+        segueToPostAccount()
     }
 }
