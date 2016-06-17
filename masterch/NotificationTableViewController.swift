@@ -93,16 +93,8 @@ class NotificationTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("followdCell", forIndexPath: indexPath) as! NotificationFollowTableViewCell
             let followerInfo = notificationArray[indexPath.row]
             print("followerInfo", followerInfo)
-            let timeDate = followerInfo.objectForKey("date") as! NSDate
-            print("timeDate", timeDate)
-            //本当はtimeAgoを使いたい
-//            let agoTime = timeDate.timeAgo
-//            print("agoTime", agoTime)
-            
-            //仮で"yyyy MM/dd HH:mm"で表示している
-            let dateFormatter: NSDateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy MM/dd HH:mm"
-            let agoTime = dateFormatter.stringFromDate(timeDate)
+            let agoTime = (followerInfo.objectForKey("date") as! NSDate).timeAgo()
+            print("agoTime", agoTime)
             
             cell.postLabel.text = ""
             cell.userImageView.image = UIImage(named: "noprofile")
@@ -128,18 +120,8 @@ class NotificationTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("likedCell", forIndexPath: indexPath) as! NotificationLikeTableViewCell
             let likeInfo = notificationArray[indexPath.row]
             print("likeInfo", likeInfo)
-            
-            let timeDate = likeInfo.objectForKey("date") as! NSDate
-            print("timeDate", timeDate)
-            
-            //本当はtimeAgoを使いたい
-            //            let agoTime = timeDate.timeAgo
-            //            print("agoTime", agoTime)
-            
-            //仮で"yyyy MM/dd HH:mm"で表示している
-            let dateFormatter: NSDateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy MM/dd HH:mm"
-            let agoTime = dateFormatter.stringFromDate(timeDate)
+            let agoTime = (likeInfo.objectForKey("date") as! NSDate).timeAgo()
+            print("agoTime", agoTime)
             
             cell.postLabel.text = ""
             cell.userImageView.image = UIImage(named: "noprofile")
@@ -171,18 +153,8 @@ class NotificationTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("commentedCell", forIndexPath: indexPath) as! NotificationCommentTableViewCell
             let commentInfo = notificationArray[indexPath.row]
             print("likeInfo", commentInfo)
-            
-            let timeDate = commentInfo.objectForKey("date") as! NSDate
-            print("timeDate", timeDate)
-            
-            //本当はtimeAgoを使いたい
-            //            let agoTime = timeDate.timeAgo
-            //            print("agoTime", agoTime)
-            
-            //仮で"yyyy MM/dd HH:mm"で表示している
-            let dateFormatter: NSDateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy MM/dd HH:mm"
-            let agoTime = dateFormatter.stringFromDate(timeDate)
+            let agoTime = (commentInfo.objectForKey("date") as! NSDate).timeAgo()
+            print("agoTime", agoTime)
 
             cell.postLabel.text = ""
             cell.userImageView.image = UIImage(named: "noprofile")
