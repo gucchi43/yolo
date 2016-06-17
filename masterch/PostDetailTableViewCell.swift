@@ -58,7 +58,7 @@ class PostDetailTableViewCell: UITableViewCell {
             
             //プロフィール写真の形を円形にする
             userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
-            let gesture = UITapGestureRecognizer(target: self, action: "tapImageView:")
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(PostDetailTableViewCell.tapImageView(_:)))
             userProfileImageView.addGestureRecognizer(gesture)
             
             let userImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
@@ -143,7 +143,7 @@ class PostDetailTableViewCell: UITableViewCell {
     
 }
 
-//userProfileImageViewを押した時
+//ユーザーの写真を押して遷移
 extension PostDetailTableViewCell {
     func tapImageView (recoginizer: UITapGestureRecognizer){
         print("写真押された")

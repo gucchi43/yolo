@@ -28,7 +28,7 @@ class PostDetailViewController: UIViewController {
     var isObserving = false
     
     var commentArray:[AnyObject] = []
-    var auther: NCMBUser!
+    var otherUser: NCMBUser!
 
     
     deinit {
@@ -161,13 +161,18 @@ class PostDetailViewController: UIViewController {
 //---------------------投稿ユーザー経遷移機能----------------------
 extension PostDetailViewController {
     func segueToPostAccount(){
-        auther = postObject.objectForKey("user") as! NCMBUser
+        otherUser = postObject.objectForKey("user") as! NCMBUser
+        performSegueWithIdentifier("toOtherAccountViewController", sender: nil)
+    }
+    
+    func segueToCommentAccount(commentObject: NCMBObject){
+        otherUser = commentObject.objectForKey("user") as! NCMBUser
         performSegueWithIdentifier("toOtherAccountViewController", sender: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         guard let otherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
-        otherAccountViewController.user = auther
+        otherAccountViewController.user = otherUser
         
     }
 }
@@ -229,6 +234,7 @@ extension PostDetailViewController: UITableViewDataSource{
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentTableViewCell
+            cell.delegate = self
             cell.setCommentCell((commentArray[indexPath.row-1] as? NCMBObject)!)
 
 //            コメントの数-1返す
@@ -245,5 +251,11 @@ extension PostDetailViewController: PostDetailTableViewCellDelegate {
     
     func didSelectProfileImageView(){
         segueToPostAccount()
+    }
+}
+
+extension PostDetailViewController: CommentTableViewCellDelegate {
+    func didSelectCommentProfileImageView(commentObject: NCMBObject!){
+        segueToCommentAccount(commentObject)
     }
 }
