@@ -26,18 +26,11 @@ class NotificationTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         loadArray()
-//        self.tableView.reloadData()
     }
     
     func loadArray() {
         
-        //includeKeyで全部撮ってきたいんねん!!!!
-        
-//        let userNotifivationQuery: NCMBQuery = NCMBQuery(className: "Notification")
-//        userNotifivationQuery.includeKey("actionUser") //actionUserのポインターの中身のデータを取得する
-//        let postNotificationQuery: NCMBQuery = NCMBQuery(className: "Notification") // 自分がフォローしている人かどうかのクエリ
-//        postNotificationQuery.includeKey("post") //postのポインターの中身のデータを取得する
-        
+        //includeKeyで全部撮ってきたいんねん!!!!ほんとのところは！
         let notificationQuery: NCMBQuery = NCMBQuery(className: "Notification")
         notificationQuery.whereKey("ownerUser", equalTo: NCMBUser.currentUser())
         notificationQuery.orderByDescending("updateDate") // cellの並べ方
@@ -50,34 +43,23 @@ class NotificationTableViewController: UITableViewController {
                 if objects.count > 0 {
                     print("通知テーブルセルの数", objects.count)
                     self.notificationArray = objects
-                    for info in self.notificationArray
-                    {
-                        let keyPost = info.objectForKey("post") as? NCMBObject
-//                        guard let relationships = objects as? [NCMBObject] else { return }
-                        guard let post = keyPost else { return }
-                        var postError: NSError?
-                        post.fetch(&postError)
-                        if postError == nil{
-                            print("postText", post.objectForKey("text") as? String)
-                            self.tableView.reloadData()
-                        }else {
-                            print(postError!.localizedDescription)
+                    for info in self.notificationArray{
+                        let post = info.objectForKey("post") as? NCMBObject
+                        if let post = post {
+                            var postError: NSError?
+                            post.fetch(&postError)
+                            if postError == nil{
+                                print("postText", post.objectForKey("text") as? String)
+                                self.tableView.reloadData()
+                            }else {
+                                print(postError!.localizedDescription)
+                            }
                         }
-                        
-//                        if let post = post {
-//                            var postError: NSError?
-//                            post.fetch(&postError)
-//                            if postError == nil {
-//                                print("postText", post.objectForKey("text") as? String)
-//                                self.tableView.reloadData()
-//                            }else {
-//                                print(postError!.localizedDescription)
-//                            }
-//                        }
                     }
                 }else {
                     self.notificationArray = []
                     print("通知はまだ0です……")
+                    self.tableView.reloadData()
                 }
             }
         }
@@ -126,20 +108,19 @@ class NotificationTableViewController: UITableViewController {
             cell.userImageView.image = UIImage(named: "noprofile")
             cell.agoTimeLabel.text = agoTime
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
-            let user = followerInfo.objectForKey("actionUser") as? NCMBUser
-            print("userは取れてんの？", user)
-            if let user = user {
-                print("userFaceName", user.objectForKey("userFaceName") as? String)
-                cell.userLabel.text = user.objectForKey("userFaceName") as? String
-                let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-                userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
-                    if let error = error {
-                        print("error", error.localizedDescription)
-                    } else {
-                        cell.userImageView.image = UIImage(data: imageData!)
-                    }
-                })
-            }
+            //"user"情報読み込み
+            let keyUser = followerInfo.objectForKey("actionUser") as? NCMBUser
+            guard let user = keyUser else { return cell } //この場合、ユーザー情報が載ってないcellがreturnされる。
+            print("userFaceName", user.objectForKey("userFaceName") as? String)
+            cell.userLabel.text = user.objectForKey("userFaceName") as? String
+            let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+            userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
+                if let error = error {
+                    print("error", error.localizedDescription)
+                } else {
+                    cell.userImageView.image = UIImage(data: imageData!)
+                }
+            })
             cell.layoutIfNeeded()
             return cell
             
@@ -164,26 +145,24 @@ class NotificationTableViewController: UITableViewController {
             cell.userImageView.image = UIImage(named: "noprofile")
             cell.agoTimeLabel.text = agoTime
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
-            let user = likeInfo.objectForKey("actionUser") as? NCMBUser
-            print("userは取れてんの？", user)
-            if let user = user {
-                print("userFaceName", user.objectForKey("userFaceName") as? String)
-                cell.userLabel.text = user.objectForKey("userFaceName") as? String
-                let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-                userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                    if let error = error {
-                        print("error", error.localizedDescription)
-                    } else {
-                        cell.userImageView.image = UIImage(data: imageData!)
-                    }
-                })
-            }
-            
-            let post = likeInfo.objectForKey("post") as? NCMBObject
-            if let post = post {
-                    print("postText", post.objectForKey("text") as? String)
-                    cell.postLabel.text = post.objectForKey("text") as? String
-            }
+            //"user"情報読み込み
+            let keyUser = likeInfo.objectForKey("actionUser") as? NCMBUser
+            guard let user = keyUser else { return cell } //この場合、ユーザー情報が載ってないcellがreturnされる。
+            print("userFaceName", user.objectForKey("userFaceName") as? String)
+            cell.userLabel.text = user.objectForKey("userFaceName") as? String
+            let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+            userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
+                if let error = error {
+                    print("error", error.localizedDescription)
+                } else {
+                    cell.userImageView.image = UIImage(data: imageData!)
+                }
+            })
+            //"post"情報読み込み
+            let keyPost = likeInfo.objectForKey("post") as? NCMBObject
+            guard let post = keyPost else { return cell } ////この場合、投稿情報が載ってないcellがreturnされる。
+            print("postText", post.objectForKey("text") as? String)
+            cell.postLabel.text = post.objectForKey("text") as? String
             cell.layoutIfNeeded()
             return cell
 
@@ -209,25 +188,24 @@ class NotificationTableViewController: UITableViewController {
             cell.userImageView.image = UIImage(named: "noprofile")
             cell.agoTimeLabel.text = agoTime
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
-            let user = commentInfo.objectForKey("actionUser") as? NCMBUser
-            print("userは取れてんの？", user)
-            if let user = user {
-                print("userFaceName", user.objectForKey("userFaceName") as? String)
-                cell.userLabel.text = user.objectForKey("userFaceName") as? String
-                let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-                userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                    if let error = error {
-                        print("error", error.localizedDescription)
-                    } else {
-                        cell.userImageView.image = UIImage(data: imageData!)
-                    }
-                })
-            }
-            let post = commentInfo.objectForKey("post") as? NCMBObject
-            if let post = post {
-                print("postText", post.objectForKey("text") as? String)
-                cell.postLabel.text = post.objectForKey("text") as? String
-            }
+            //"user"情報読み込み
+            let keyUser = commentInfo.objectForKey("actionUser") as? NCMBUser
+            guard let user = keyUser else { return cell } //この場合、ユーザー情報が載ってないcellがreturnされる。
+            print("userFaceName", user.objectForKey("userFaceName") as? String)
+            cell.userLabel.text = user.objectForKey("userFaceName") as? String
+            let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+            userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
+                if let error = error {
+                    print("error", error.localizedDescription)
+                } else {
+                    cell.userImageView.image = UIImage(data: imageData!)
+                }
+            })
+            //"post"情報読み込み
+            let keyPost = commentInfo.objectForKey("post") as? NCMBObject
+            guard let post = keyPost else { return cell } ////この場合、投稿情報が載ってないcellがreturnされる。
+            print("postText", post.objectForKey("text") as? String)
+            cell.postLabel.text = post.objectForKey("text") as? String
             cell.layoutIfNeeded()
             return cell
             
@@ -279,21 +257,16 @@ class NotificationTableViewController: UITableViewController {
             guard let postDetailViewController = segue.destinationViewController as? PostDetailViewController else { return }
             print("selectedObject", selectedObject)
             postDetailViewController.postObject = selectedObject
-            let auther = selectedObject.objectForKey("user") as? NCMBUser
-            if let auther = auther{
-                var autherError: NSError?
-                auther.fetch(&autherError)
-                if autherError == nil {
-                    print("userFaceName", auther.objectForKey("userFaceName") as? String)
-                }else {
-                    print(autherError!.localizedDescription)
-                }
+            let keyAuther = selectedObject.objectForKey("user") as? NCMBUser
+            guard let auther = keyAuther else { return }
+            var autherError: NSError?
+            auther.fetch(&autherError)
+            if autherError == nil {
+                print("userFaceName", auther.objectForKey("userFaceName") as? String)
+            }else {
+                print(autherError!.localizedDescription)
             }
-            
-            if let sender = sender {
-                postDetailViewController.isSelectedCommentButton = sender as! Bool
-            }
-            
+
         default:
             print("そのほかあああ")
         }
