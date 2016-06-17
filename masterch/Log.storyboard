@@ -79,7 +79,7 @@
                                     <constraint firstItem="nvG-ZK-mYt" firstAttribute="top" secondItem="tsQ-Wi-OFt" secondAttribute="top" constant="2" id="svQ-Gi-W8e"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2fc-Zq-whP" userLabel="Calendar Week View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fc-Zq-whP" userLabel="Calendar Week View">
                                 <rect key="frame" x="5" y="138" width="310" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
