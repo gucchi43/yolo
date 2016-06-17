@@ -48,9 +48,33 @@ class NotificationTableViewController: UITableViewController {
                 print(error.localizedDescription)
             }else {
                 if objects.count > 0 {
-                    self.notificationArray = objects
                     print("通知テーブルセルの数", objects.count)
-                    self.tableView.reloadData()
+                    self.notificationArray = objects
+                    for info in self.notificationArray
+                    {
+                        let keyPost = info.objectForKey("post") as? NCMBObject
+//                        guard let relationships = objects as? [NCMBObject] else { return }
+                        guard let post = keyPost else { return }
+                        var postError: NSError?
+                        post.fetch(&postError)
+                        if postError == nil{
+                            print("postText", post.objectForKey("text") as? String)
+                            self.tableView.reloadData()
+                        }else {
+                            print(postError!.localizedDescription)
+                        }
+                        
+//                        if let post = post {
+//                            var postError: NSError?
+//                            post.fetch(&postError)
+//                            if postError == nil {
+//                                print("postText", post.objectForKey("text") as? String)
+//                                self.tableView.reloadData()
+//                            }else {
+//                                print(postError!.localizedDescription)
+//                            }
+//                        }
+                    }
                 }else {
                     self.notificationArray = []
                     print("通知はまだ0です……")
@@ -154,16 +178,11 @@ class NotificationTableViewController: UITableViewController {
                     }
                 })
             }
+            
             let post = likeInfo.objectForKey("post") as? NCMBObject
             if let post = post {
-                var postError: NSError?
-                post.fetch(&postError)
-                if postError == nil {
                     print("postText", post.objectForKey("text") as? String)
                     cell.postLabel.text = post.objectForKey("text") as? String
-                }else {
-                    print(postError!.localizedDescription)
-                }
             }
             cell.layoutIfNeeded()
             return cell
@@ -206,16 +225,9 @@ class NotificationTableViewController: UITableViewController {
             }
             let post = commentInfo.objectForKey("post") as? NCMBObject
             if let post = post {
-                var postError: NSError?
-                post.fetch(&postError)
-                if postError == nil {
-                    print("postText", post.objectForKey("text") as? String)
-                    cell.postLabel.text = post.objectForKey("text") as? String
-                }else {
-                    print(postError!.localizedDescription)
-                }
+                print("postText", post.objectForKey("text") as? String)
+                cell.postLabel.text = post.objectForKey("text") as? String
             }
-            
             cell.layoutIfNeeded()
             return cell
             
