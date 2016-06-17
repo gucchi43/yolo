@@ -10,6 +10,7 @@ import UIKit
 
 protocol PostDetailTableViewCellDelegate {
     func didSelectCommentButton()
+    func didSelectPostProfileImageView()
 }
 
 class PostDetailTableViewCell: UITableViewCell {
@@ -57,6 +58,8 @@ class PostDetailTableViewCell: UITableViewCell {
             
             //プロフィール写真の形を円形にする
             userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(PostDetailTableViewCell.tapImageView(_:)))
+            userProfileImageView.addGestureRecognizer(gesture)
             
             let userImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
             userImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
@@ -138,6 +141,14 @@ class PostDetailTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+}
+
+//ユーザーの写真を押して遷移
+extension PostDetailTableViewCell {
+    func tapImageView (recoginizer: UITapGestureRecognizer){
+        print("写真押された")
+        delegate.didSelectPostProfileImageView()
+    }
 }
 
 // コメント

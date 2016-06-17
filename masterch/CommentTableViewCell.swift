@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol CommentTableViewCellDelegate {
+    func didSelectCommentProfileImageView(commentObject: NCMBObject!)
+}
+
 class CommentTableViewCell: UITableViewCell {
 
     @IBOutlet weak var userProfileImageView: UIImageView!
@@ -15,9 +19,15 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var commentDateLabel: UILabel!
     @IBOutlet weak var commentTextLabel: UILabel!
     
+    var commentObject: NCMBObject!
+    
+    var delegate: CommentTableViewCellDelegate!
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         userProfileImageView.layer.cornerRadius = userProfileImageView.layer.bounds.width/2
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(CommentTableViewCell.tapImageView(_:)))
+        userProfileImageView.addGestureRecognizer(gesture)
     }
     
     override func awakeFromNib() {
@@ -27,16 +37,15 @@ class CommentTableViewCell: UITableViewCell {
         print("commentTableView")
     }
     
-    func setCommentCell(comment: NCMBObject) {
+    func setCommentCell() {
+        commentTextLabel.text = commentObject.objectForKey("text") as? String
         
-        commentTextLabel.text = comment.objectForKey("text") as? String
-        
-        let date = comment.createDate
+        let date = commentObject.createDate
         let commentDateFormatter: NSDateFormatter = NSDateFormatter()
         commentDateFormatter.dateFormat = "yyyy MM/dd HH:mm"
         commentDateLabel.text = commentDateFormatter.stringFromDate(date)
         
-        let author = comment.objectForKey("user") as? NCMBUser
+        let author = commentObject.objectForKey("user") as? NCMBUser
         if let author = author {
             userProfileNameLabel.text = author.objectForKey("userFaceName") as? String
             
@@ -62,4 +71,13 @@ class CommentTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+}
+
+//ユーザーの写真を押して遷移
+extension CommentTableViewCell {
+    func tapImageView (recoginizer: UITapGestureRecognizer){
+        print("写真押された")
+        print("これはどうなななんあんんんんんんんｎ",commentObject)
+        delegate.didSelectCommentProfileImageView(commentObject)
+    }
 }
