@@ -65,8 +65,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         self.setToolBar()
         
         self.postTextView.delegate = self
-        
-        self.postTextView.text = ""
+
         self.postTextView.textContainerInset = UIEdgeInsetsMake(5,5,5,5) //postTExtViewに5pxのpaddingを設定する
         self.postTextView.becomeFirstResponder() // 最初からキーボードを表示させる
         self.postTextView.inputAccessoryView = toolBar // キーボード上にツールバーを表示
@@ -152,9 +151,10 @@ extension SubmitViewController {
             // imageViewの表示位置
             self.postImageView.frame.origin = CGPointMake(0, textView.contentSize.height + 10)
         }
+        
+//        文字数カウント
         let string: NSMutableString = NSMutableString(string: textView.text)
         string.replaceCharactersInRange(range, withString: text)
-        print(string.length)
         
         postTextCharactersLabel.text = String(140-string.length)
         
@@ -171,8 +171,7 @@ extension SubmitViewController {
         return true
     }
     
-    func textViewDidChange(textView: UITextView) {
-    }
+    
 }
 
 // toolBar設定
