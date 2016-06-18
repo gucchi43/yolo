@@ -16,7 +16,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var postDateTextField: UITextField!
     
     @IBOutlet weak var postDateLabel: UILabel!
-    
+    @IBOutlet weak var submitButton: UIBarButtonItem!
     @IBOutlet weak var twitterButton: UIButton!
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var secretKeyButton: UIButton!
@@ -392,7 +392,7 @@ extension SubmitViewController {
 // 投稿アクション周り
 extension SubmitViewController {
 //    投稿ボタンプッシュ, 投稿機能メソッド
-    @IBAction func selectPostButton(sender: AnyObject) {
+    @IBAction func selectSubmitButton(sender: AnyObject) {
         print("投稿ボタン押した")
         //        object作成
         let postObject = NCMBObject(className: "Post")
