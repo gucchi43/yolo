@@ -274,43 +274,46 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
     
     //　写真を選択した時に呼ばれるメソッド
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        if info[UIImagePickerControllerOriginalImage] != nil {
-            var image = info[UIImagePickerControllerOriginalImage] as! UIImage
-            
-            // 画像をリサイズしてUIImageViewにセット
-            let resizeImage = resize(image, width: 480, height: 320)
-            image = resizeImage
-            
-            self.postImage1 = image
-            self.postImageView.image = image
+        guard let image: UIImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        let resizedImage = resize(image)
+        self.postImage1 = resizedImage
+        self.postImageView.image = resizedImage
 
-            postImageView.frame = CGRectMake(0, postTextView.contentSize.height+10, self.postTextView.contentSize.width, self.postTextView.contentSize.width/2)
-            self.postImageView.contentMode = UIViewContentMode.ScaleAspectFit
-            self.postTextView.addSubview(postImageView)
-            self.postTextView.endOfDocument
-        }
+        postImageView.frame = CGRectMake(0, postTextView.contentSize.height+10, self.postTextView.contentSize.width, self.postTextView.contentSize.width/2)
+        self.postImageView.contentMode = UIViewContentMode.ScaleAspectFit
+        self.postTextView.addSubview(postImageView)
+        self.postTextView.endOfDocument
 
         picker.dismissViewControllerAnimated(true, completion: nil)
         self.postTextView.becomeFirstResponder()
     }
     
+    // 画像リサイズメソッド
+    func resize(image: UIImage) -> UIImage {
+
+        var scale:CGFloat!
+        if image.size.height > image.size.width {
+            scale = 1000.0 / image.size.height
+        } else if image.size.height < image.size.width {
+            scale = 1000.0 / image.size.width
+        }
+
+        let resizedSize = CGSizeMake(image.size.width*scale, image.size.height*scale)
+        print(resizedSize)
+        UIGraphicsBeginImageContext(resizedSize)
+        image.drawInRect(CGRectMake(0, 0, resizedSize.width, resizedSize.height))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return resizedImage
+    }
+
     //    画像選択がキャンセルされた時に呼ばれる.
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         // モーダルビューを閉じる
         self.dismissViewControllerAnimated(true, completion: nil)
         self.postTextView.becomeFirstResponder()
         print("カメラキャンセル")
-    }
-    
-    // 画像リサイズメソッド
-    func resize(image: UIImage, width: Int, height: Int) -> UIImage {
-        let size: CGSize = CGSize(width: width, height: height)
-        UIGraphicsBeginImageContext(size)
-        image.drawInRect(CGRectMake(0, 0, size.width, size.height))
-        
-        let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return resizeImage
     }
 }
 
