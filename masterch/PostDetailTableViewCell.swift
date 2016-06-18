@@ -183,8 +183,9 @@ extension PostDetailTableViewCell {
         self.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
         if self.likeCounts != nil{
             //likeCountが追加で変更される時（2回目以降）
-            if let oldLinkCounts = Int(self.likeNumberButton.currentTitle!){
+            if let oldLinkCounts = Int(self.likeNumberButton.currentTitle!.stringByReplacingOccurrencesOfString("いいね", withString: "")){
                 //普通にいいねを１追加（2~）
+                print("oldLinkCounts", oldLinkCounts)
                 let newLikeCounts = oldLinkCounts + 1
                 self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
             }else {
@@ -220,7 +221,8 @@ extension PostDetailTableViewCell {
         self.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
         if self.likeCounts != nil{
             //likeCountがある時（1~）
-            let oldLinkCounts = Int(self.likeNumberButton.currentTitle!)
+            let oldLinkCounts = Int(self.likeNumberButton.currentTitle!.stringByReplacingOccurrencesOfString("いいね", withString: ""))
+            print("oldLinkCounts", oldLinkCounts)
             let newLikeCounts = oldLinkCounts! - 1
             if newLikeCounts > 0{
                 //変更後のlikeCountが0より上の場合（1~）
