@@ -279,8 +279,11 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
         self.postImage1 = resizedImage
         self.postImageView.image = resizedImage
 
-        postImageView.frame = CGRectMake(0, postTextView.contentSize.height+10, self.postTextView.contentSize.width, self.postTextView.contentSize.width/2)
-        self.postImageView.contentMode = UIViewContentMode.ScaleAspectFit
+        postImageView.frame = CGRectMake(0, postTextView.contentSize.height+10, self.postTextView.contentSize.width*0.9, self.postTextView.contentSize.width*0.9)
+        postImageView.center.x = self.view.bounds.width/2
+        self.postImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        postImageView.layer.cornerRadius = 5.0
+        postImageView.clipsToBounds = true
         self.postTextView.addSubview(postImageView)
         self.postTextView.endOfDocument
 
@@ -290,7 +293,9 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
     
     // 画像リサイズメソッド
     func resize(image: UIImage) -> UIImage {
-
+        if image.size.height < 1000 || image.size.width < 1000  {
+            return image
+        }
         var scale:CGFloat!
         if image.size.height > image.size.width {
             scale = 1000.0 / image.size.height
