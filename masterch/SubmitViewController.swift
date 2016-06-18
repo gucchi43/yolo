@@ -156,6 +156,7 @@ extension SubmitViewController {
         if postImage1 != nil {
             // imageViewの表示位置
             self.postImageView.frame.origin = CGPointMake(0, textView.contentSize.height + 10)
+            postImageView.center.x = self.postTextView.bounds.width/2
         }
         
 //        文字数カウント
@@ -280,7 +281,7 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
         self.postImageView.image = resizedImage
 
         postImageView.frame = CGRectMake(0, postTextView.contentSize.height+10, self.postTextView.contentSize.width*0.9, self.postTextView.contentSize.width*0.9)
-        postImageView.center.x = self.view.bounds.width/2
+        postImageView.center.x = self.postTextView.bounds.width/2
         self.postImageView.contentMode = UIViewContentMode.ScaleAspectFill
         postImageView.layer.cornerRadius = 5.0
         postImageView.clipsToBounds = true
@@ -296,8 +297,8 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
         if image.size.height < 1000 || image.size.width < 1000  {
             return image
         }
-        var scale:CGFloat!
-        if image.size.height > image.size.width {
+        var scale:CGFloat = 1.0
+        if image.size.height >= image.size.width {
             scale = 1000.0 / image.size.height
         } else if image.size.height < image.size.width {
             scale = 1000.0 / image.size.width
