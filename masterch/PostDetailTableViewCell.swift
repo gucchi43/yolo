@@ -168,7 +168,20 @@ extension PostDetailTableViewCell {
     @IBAction func pushLikeButton(sender: AnyObject) {
         print("Likeボタン押してやったぜ")
         let postData = postObject
-        changeLikeStatus(postData)
+        //いいねアクション実行
+        if self.isLikeToggle == true{
+            disLike(postData)
+        } else {
+            like(postData)
+        }
+        
+    }
+    
+    func like(postData: NCMBObject){
+        
+    }
+    
+    func disLike(postData: NCMBObject){
         
     }
     
