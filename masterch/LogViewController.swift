@@ -330,7 +330,7 @@ extension LogViewController{
         cell.likeButton.setImage(likeOnImage, forState: .Normal)
         cell.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
         
-        if let likeCounts = cell.likeCounts{
+        if cell.likeCounts != nil{
             //likeCountが追加で変更される時（2回目以降）
             if let oldLinkCounts = Int(cell.likeNumberButton.currentTitle!){
                 //普通にいいねを１追加（2~）
@@ -369,7 +369,7 @@ extension LogViewController{
         cell.likeButton.setImage(likeOffImage, forState: .Normal)
         cell.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
         
-        if let likeCounts = cell.likeCounts{
+        if cell.likeCounts != nil{
             //likeCountがある時（1~）
             let oldLinkCounts = Int(cell.likeNumberButton.currentTitle!)
             let newLikeCounts = oldLinkCounts! - 1
