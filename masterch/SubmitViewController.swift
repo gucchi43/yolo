@@ -80,14 +80,14 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         //        日本の日付表示形式にする
         postDatePicker.timeZone = NSTimeZone.localTimeZone()
         //        UIDatePickerにイベントを設定。
-        postDatePicker.addTarget(self, action: "onDidChangeDate:", forControlEvents: .ValueChanged)
+        postDatePicker.addTarget(self, action: #selector(SubmitViewController.onDidChangeDate(_:)), forControlEvents: .ValueChanged)
         
         self.postDateTextField.inputAccessoryView = toolBar
         
 //             NSNotificationCenterへの登録処理
         let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: "showKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "hideKeyboard:", name: UIKeyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(SubmitViewController.showKeyboard(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(SubmitViewController.hideKeyboard(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -184,11 +184,11 @@ extension SubmitViewController {
         toolBar.barStyle = .Default
         //        toolBar.tintColor = UIColor.whiteColor()
         //        toolBar.backgroundColor = UIColor.blackColor()
-        let toolBarCameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "selectToolBarCameraButton:")
+        let toolBarCameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: #selector(SubmitViewController.selectToolBarCameraButton(_:)))
 //        let toolBarDateSelectButton = UIBarButtonItem(title: "日付", style: .Plain, target: self, action: "selectToolBarDateSelectButton:") 一旦なし
-        let toolBarPencilButton = UIBarButtonItem(title: "テキスト", style: .Plain, target: self, action: "selectToolBarPencilButton:")
-        let toolBarColorButton = UIBarButtonItem(title: "カラー", style: .Plain, target: self, action: "selectToolBarColorButton:")
-        let toolBarPostButton = UIBarButtonItem(title: "完了", style: .Done, target: self, action: "selectToolBarDoneButton:")
+        let toolBarPencilButton = UIBarButtonItem(title: "テキスト", style: .Plain, target: self, action: #selector(SubmitViewController.selectToolBarPencilButton(_:)))
+        let toolBarColorButton = UIBarButtonItem(title: "カラー", style: .Plain, target: self, action: #selector(SubmitViewController.selectToolBarColorButton(_:)))
+        let toolBarPostButton = UIBarButtonItem(title: "完了", style: .Done, target: self, action: #selector(SubmitViewController.selectToolBarDoneButton(_:)))
 
         postTextCharactersLabel.frame = CGRectMake(0, 0, 30, 35)
         postTextCharactersLabel.text = "140"
@@ -317,7 +317,7 @@ extension SubmitViewController {
         postDatePicker.timeZone = NSTimeZone.localTimeZone()
         
         //        UIDatePickerにイベントを設定。
-        postDatePicker.addTarget(self, action: "onDidChangeDate:", forControlEvents: .ValueChanged)
+        postDatePicker.addTarget(self, action: #selector(SubmitViewController.onDidChangeDate(_:)), forControlEvents: .ValueChanged)
 //        self.view.addSubview(postDatePicker)
     }
     
