@@ -26,7 +26,7 @@ class TimelineCell: UITableViewCell {
     @IBOutlet weak var likeNumberButton: UIButton!
     var likeCounts: Int?
     var isLikeToggle: Bool = false
-    
+    var likedUserIds = [String]()
 
     override func awakeFromNib() {
         super.awakeFromNib()

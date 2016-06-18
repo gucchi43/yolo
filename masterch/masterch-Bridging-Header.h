@@ -5,5 +5,4 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <RMUniversalAlert/RMUniversalAlert.h>
-#import "UIView+MotionBlur.h"
 #import "NSDate+TimeAgo.h"
