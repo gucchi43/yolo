@@ -83,6 +83,12 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         
         self.postDateTextField.inputAccessoryView = toolBar
         
+        if postImage1 == nil {
+            submitButton.enabled = false
+        } else {
+            submitButton.enabled = true
+        }
+
 //             NSNotificationCenterへの登録処理
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: #selector(SubmitViewController.showKeyboard(_:)), name: UIKeyboardWillShowNotification, object: nil)
@@ -156,6 +162,14 @@ extension SubmitViewController {
         let string: NSMutableString = NSMutableString(string: textView.text)
         string.replaceCharactersInRange(range, withString: text)
         
+        if string.length > 0 {
+            submitButton.enabled = true
+        } else {
+            if postImage1 == nil {
+                submitButton.enabled = false
+            }
+        }
+
         postTextCharactersLabel.text = String(140-string.length)
         
         if string.length > 140 {
