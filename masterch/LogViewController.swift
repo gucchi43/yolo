@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MotionBlur
 
 class LogViewController: UIViewController {
     

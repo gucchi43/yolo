@@ -16,4 +16,6 @@ target 'masterch' do
 
   pod 'NSDate+TimeAgo', '~> 1.0.6'
 
+  pod "MotionBlur", '~> 0.2.0'
+
 end
