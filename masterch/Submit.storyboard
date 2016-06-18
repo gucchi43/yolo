@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="c8c-V5-aA3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="c8c-V5-aA3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -49,7 +49,7 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="投稿" id="AVM-Fw-GDt">
                                             <connections>
-                                                <action selector="selectPostButton:" destination="c8c-V5-aA3" id="Db3-LS-B7n"/>
+                                                <action selector="selectSubmitButton:" destination="c8c-V5-aA3" id="wnY-E6-meK"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -134,6 +134,7 @@
                         <outlet property="postTextView" destination="G5n-mi-4Qq" id="dbL-yE-rob"/>
                         <outlet property="secretKeyBottomConstraint" destination="Zf7-Ob-c8G" id="5r5-pm-Qe8"/>
                         <outlet property="secretKeyButton" destination="S1u-eP-Yn4" id="clA-Fx-DRX"/>
+                        <outlet property="submitButton" destination="AVM-Fw-GDt" id="NzE-uI-ySd"/>
                         <outlet property="twitterBottomConstraint" destination="OX0-zb-2ZC" id="BoR-WI-RB3"/>
                         <outlet property="twitterButton" destination="s6L-6H-DX6" id="oFY-HL-bJa"/>
                     </connections>

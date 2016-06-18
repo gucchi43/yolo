@@ -16,7 +16,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var postDateTextField: UITextField!
     
     @IBOutlet weak var postDateLabel: UILabel!
-    
+    @IBOutlet weak var submitButton: UIBarButtonItem!
     @IBOutlet weak var twitterButton: UIButton!
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var secretKeyButton: UIButton!
@@ -65,8 +65,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         self.setToolBar()
         
         self.postTextView.delegate = self
-        
-        self.postTextView.text = ""
+
         self.postTextView.textContainerInset = UIEdgeInsetsMake(5,5,5,5) //postTExtViewに5pxのpaddingを設定する
         self.postTextView.becomeFirstResponder() // 最初からキーボードを表示させる
         self.postTextView.inputAccessoryView = toolBar // キーボード上にツールバーを表示
@@ -80,14 +79,20 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         //        日本の日付表示形式にする
         postDatePicker.timeZone = NSTimeZone.localTimeZone()
         //        UIDatePickerにイベントを設定。
-        postDatePicker.addTarget(self, action: "onDidChangeDate:", forControlEvents: .ValueChanged)
+        postDatePicker.addTarget(self, action: #selector(SubmitViewController.onDidChangeDate(_:)), forControlEvents: .ValueChanged)
         
         self.postDateTextField.inputAccessoryView = toolBar
         
+        if postImage1 == nil {
+            submitButton.enabled = false
+        } else {
+            submitButton.enabled = true
+        }
+
 //             NSNotificationCenterへの登録処理
         let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: "showKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "hideKeyboard:", name: UIKeyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(SubmitViewController.showKeyboard(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(SubmitViewController.hideKeyboard(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -151,11 +156,21 @@ extension SubmitViewController {
         if postImage1 != nil {
             // imageViewの表示位置
             self.postImageView.frame.origin = CGPointMake(0, textView.contentSize.height + 10)
+            postImageView.center.x = self.postTextView.bounds.width/2
         }
+        
+//        文字数カウント
         let string: NSMutableString = NSMutableString(string: textView.text)
         string.replaceCharactersInRange(range, withString: text)
-        print(string.length)
         
+        if string.length > 0 {
+            submitButton.enabled = true
+        } else {
+            if postImage1 == nil {
+                submitButton.enabled = false
+            }
+        }
+
         postTextCharactersLabel.text = String(140-string.length)
         
         if string.length > 140 {
@@ -171,8 +186,7 @@ extension SubmitViewController {
         return true
     }
     
-    func textViewDidChange(textView: UITextView) {
-    }
+    
 }
 
 // toolBar設定
@@ -184,11 +198,10 @@ extension SubmitViewController {
         toolBar.barStyle = .Default
         //        toolBar.tintColor = UIColor.whiteColor()
         //        toolBar.backgroundColor = UIColor.blackColor()
-        let toolBarCameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "selectToolBarCameraButton:")
-//        let toolBarDateSelectButton = UIBarButtonItem(title: "日付", style: .Plain, target: self, action: "selectToolBarDateSelectButton:") 一旦なし
-        let toolBarPencilButton = UIBarButtonItem(title: "テキスト", style: .Plain, target: self, action: "selectToolBarPencilButton:")
-        let toolBarColorButton = UIBarButtonItem(title: "カラー", style: .Plain, target: self, action: "selectToolBarColorButton:")
-        let toolBarPostButton = UIBarButtonItem(title: "完了", style: .Done, target: self, action: "selectToolBarDoneButton:")
+        let toolBarCameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: #selector(SubmitViewController.selectToolBarCameraButton(_:)))
+        let toolBarPencilButton = UIBarButtonItem(title: "テキスト", style: .Plain, target: self, action: #selector(SubmitViewController.selectToolBarPencilButton(_:)))
+        let toolBarColorButton = UIBarButtonItem(title: "カラー", style: .Plain, target: self, action: #selector(SubmitViewController.selectToolBarColorButton(_:)))
+        let toolBarDoneButton = UIBarButtonItem(title: "完了", style: .Done, target: self, action: #selector(SubmitViewController.selectToolBarDoneButton(_:)))
 
         postTextCharactersLabel.frame = CGRectMake(0, 0, 30, 35)
         postTextCharactersLabel.text = "140"
@@ -197,7 +210,7 @@ extension SubmitViewController {
         // Flexible Space Bar Button Item
         let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         
-        toolBar.items = [toolBarCameraButton, toolBarPencilButton, toolBarColorButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarPostButton]
+        toolBar.items = [toolBarCameraButton, toolBarPencilButton, toolBarColorButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarDoneButton]
     }
 }
 
@@ -262,43 +275,51 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
     
     //　写真を選択した時に呼ばれるメソッド
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        if info[UIImagePickerControllerOriginalImage] != nil {
-            var image = info[UIImagePickerControllerOriginalImage] as! UIImage
-            
-            // 画像をリサイズしてUIImageViewにセット
-            let resizeImage = resize(image, width: 480, height: 320)
-            image = resizeImage
-            
-            self.postImage1 = image
-            self.postImageView.image = image
+        guard let image: UIImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        let resizedImage = resize(image)
+        self.postImage1 = resizedImage
+        self.postImageView.image = resizedImage
 
-            postImageView.frame = CGRectMake(0, postTextView.contentSize.height+10, self.postTextView.contentSize.width, self.postTextView.contentSize.width/2)
-            self.postImageView.contentMode = UIViewContentMode.ScaleAspectFit
-            self.postTextView.addSubview(postImageView)
-            self.postTextView.endOfDocument
-        }
+        postImageView.frame = CGRectMake(0, postTextView.contentSize.height+10, self.postTextView.contentSize.width*0.9, self.postTextView.contentSize.width*0.9)
+        postImageView.center.x = self.postTextView.bounds.width/2
+        self.postImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        postImageView.layer.cornerRadius = 5.0
+        postImageView.clipsToBounds = true
+        self.postTextView.addSubview(postImageView)
+        self.postTextView.endOfDocument
 
         picker.dismissViewControllerAnimated(true, completion: nil)
         self.postTextView.becomeFirstResponder()
     }
     
+    // 画像リサイズメソッド
+    func resize(image: UIImage) -> UIImage {
+        if image.size.height < 1000 || image.size.width < 1000  {
+            return image
+        }
+        var scale:CGFloat = 1.0
+        if image.size.height >= image.size.width {
+            scale = 1000.0 / image.size.height
+        } else if image.size.height < image.size.width {
+            scale = 1000.0 / image.size.width
+        }
+
+        let resizedSize = CGSizeMake(image.size.width*scale, image.size.height*scale)
+        print(resizedSize)
+        UIGraphicsBeginImageContext(resizedSize)
+        image.drawInRect(CGRectMake(0, 0, resizedSize.width, resizedSize.height))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return resizedImage
+    }
+
     //    画像選択がキャンセルされた時に呼ばれる.
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         // モーダルビューを閉じる
         self.dismissViewControllerAnimated(true, completion: nil)
         self.postTextView.becomeFirstResponder()
         print("カメラキャンセル")
-    }
-    
-    // 画像リサイズメソッド
-    func resize(image: UIImage, width: Int, height: Int) -> UIImage {
-        let size: CGSize = CGSize(width: width, height: height)
-        UIGraphicsBeginImageContext(size)
-        image.drawInRect(CGRectMake(0, 0, size.width, size.height))
-        
-        let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return resizeImage
     }
 }
 
@@ -317,7 +338,7 @@ extension SubmitViewController {
         postDatePicker.timeZone = NSTimeZone.localTimeZone()
         
         //        UIDatePickerにイベントを設定。
-        postDatePicker.addTarget(self, action: "onDidChangeDate:", forControlEvents: .ValueChanged)
+        postDatePicker.addTarget(self, action: #selector(SubmitViewController.onDidChangeDate(_:)), forControlEvents: .ValueChanged)
 //        self.view.addSubview(postDatePicker)
     }
     
@@ -394,7 +415,7 @@ extension SubmitViewController {
 // 投稿アクション周り
 extension SubmitViewController {
 //    投稿ボタンプッシュ, 投稿機能メソッド
-    @IBAction func selectPostButton(sender: AnyObject) {
+    @IBAction func selectSubmitButton(sender: AnyObject) {
         print("投稿ボタン押した")
         //        object作成
         let postObject = NCMBObject(className: "Post")
