@@ -105,31 +105,33 @@ class PostDetailTableViewCell: UITableViewCell {
             self.postImageViewHeightConstraint.constant = 0.0
         }
         
-        if postObject.objectForKey("likeUser") != nil{//一度もいいねが来たことがないかも 分岐
+        if postObject.objectForKey("likeUser") != nil{
+            //今までで、消されたかもだけど、必ずいいねされたことはある
             let postLikeUserString = postObject.objectForKey("likeUser")
-            let cleanLikeUserString = String(postLikeUserString!).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-            let superCleanLinkUserString = cleanLikeUserString.stringByReplacingOccurrencesOfString("(\n)", withString: "")
-            print("superCleanLinkUserString", superCleanLinkUserString)
-            if superCleanLinkUserString.isEmpty == false{//いいねを取り消されて空かも 分岐
-                let postLikeUserArray = superCleanLinkUserString.componentsSeparatedByString(",")
-                print("postLikeUserArray", postLikeUserArray)
-                let postLikeUserCount = postLikeUserArray.count
-                print("postLikeUserCount", postLikeUserCount)
+            //StringをNSArrayに変換
+            let postLikeUserArray = postLikeUserString as! NSArray
+            let postLikeUserCount = postLikeUserArray.count
+            if postLikeUserCount > 0 {
+                //いいねをしたユーザーが１人以上いる
                 self.likeCounts = postLikeUserCount
-                self.likeNumberButton.setTitle(String(self.likeCounts!) + "いいね", forState: .Normal)
-                for i in postLikeUserArray{
-                    if i.rangeOfString(NCMBUser.currentUser().objectId) != nil{//自分がいいねしている
-                        print("私はすでにいいねをおしている")
-                        self.likeButton.setImage(likeOnImage, forState: .Normal)
-                        self.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-                        self.isLikeToggle = true
-                    }
+                if postLikeUserArray.containsObject(NCMBUser.currentUser().objectId) == true{
+                    //自分がいいねしている
+                    print("私はすでにいいねをおしている")
+                    self.likeButton.setImage(likeOnImage, forState: .Normal)
+                    self.likeNumberButton.setTitle(String(self.likeCounts!) + "いいね", forState: .Normal)
+                    self.isLikeToggle = true
+                }else{
+                    //いいねはあるけど、自分がいいねしていない
+                    self.likeButton.setImage(likeOffImage, forState: .Normal)
+                    self.likeNumberButton.setTitle(String(self.likeCounts!), forState: .Normal)
                 }
-            }else {//いいねを取り消されて「空」状態
+            }else{
+                //いいねしたユーザーはいない
                 self.likeButton.setImage(likeOffImage, forState: .Normal)
                 self.likeNumberButton.setTitle("", forState: .Normal)
             }
-        }else{//一度もいいねが来たことがない
+        }else{
+            //今まで一度もいいねされたことはない
             self.likeButton.setImage(likeOffImage, forState: .Normal)
             self.likeNumberButton.setTitle("", forState: .Normal)
         }
@@ -288,7 +290,7 @@ extension PostDetailTableViewCell {
         }else {//いいねしている時
             self.likeButton.setImage(likeOffImage, forState: .Normal)
             
-            if let likeCounts = self.likeCounts{
+            if self.likeCounts != nil{
                 let oldLinkCounts = Int(self.likeNumberButton.currentTitle!.stringByReplacingOccurrencesOfString("いいね", withString: ""))
                 let newLikeCounts = oldLinkCounts! - 1
                 if newLikeCounts > 0{//変更後のlikeCountが0より上の場合（1~）

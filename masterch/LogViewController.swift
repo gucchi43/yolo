@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LogViewController: UIViewController {
+class LogViewController: UIViewController, addPostDetailDelegate {
     
     var toggleWeek: Bool = false
     var postArray: NSArray = NSArray()
@@ -41,8 +41,6 @@ class LogViewController: UIViewController {
     let likeOnImage = UIImage(named: "hartButton_On")
     let likeOffImage = UIImage(named: "hartButton_Off")
     
-//    var likeCount: Int?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -50,17 +48,16 @@ class LogViewController: UIViewController {
         
         tableView.estimatedRowHeight = 370
         tableView.rowHeight = UITableViewAutomaticDimension
-//        viewdidloadでは呼ばないでいい
-//        monthLabel.text! = CalendarManager.selectLabel()
     }
     
     override func viewWillAppear(animated: Bool) {
 //        self.navigationController?.setToolbarHidden(true, animated: true) // ViewWillAppearは表示の度に呼ばれるので何度も消してくれる
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didSelectDayView:", name: "didSelectDayView", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.didSelectDayView(_:)), name: "didSelectDayView", object: nil)
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
         }
+//        let postDetileViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PostDetail") as? PostDetailViewController
+//        postDetileViewController!.delegate = self
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -90,6 +87,11 @@ class LogViewController: UIViewController {
             loadItems()
             monthLabel.text = CalendarManager.selectLabel()
         }
+    }
+    
+    func postDetailDismissionAction() {
+        print("postDetailDismissionAction")
+        tableView.reloadData()
     }
     
     func loadItems() {
@@ -158,6 +160,7 @@ class LogViewController: UIViewController {
             let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
 //            postDetailVC.hidesBottomBarWhenPushed = true // trueならtabBar隠す
             postDetailVC.postObject = self.selectedPostObject
+            postDetailVC.delegate = self
             if let sender = sender {
                 postDetailVC.isSelectedCommentButton = sender as! Bool
             }
@@ -203,6 +206,7 @@ class LogViewController: UIViewController {
         }
     }
 }
+
 
 extension LogViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -268,7 +272,6 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
             //今までで、消されたかもだけど、必ずいいねされたことはある
             let postLikeUserString = postData.objectForKey("likeUser")
             //StringをNSArrayに変換
-            print("postLikeUserStringgggggggggggggggggggggggggggg", postLikeUserString)
             let postLikeUserArray = postLikeUserString as! NSArray
             let postLikeUserCount = postLikeUserArray.count
             if postLikeUserCount > 0 {
