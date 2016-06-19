@@ -22,7 +22,6 @@ class PostDetailViewController: UIViewController {
     @IBOutlet var sendCommentButton: UIButton!
 
     var postObject: NCMBObject!
-    var isLikeToggle: Bool = false
     var likeCounts: Int?
     var isSelectedCommentButton: Bool = false
     

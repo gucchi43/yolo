@@ -37,7 +37,6 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     
     var animationFinished = true
     
-//    var isLikeToggle: Bool = false
     let likeOnImage = UIImage(named: "hartButton_On")
     let likeOffImage = UIImage(named: "hartButton_Off")
     
@@ -177,7 +176,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         if (self.calendarBaseView != nil){
             calendarView?.getNow()
         }
-            calendarAnotherView?.getNow()
+        calendarAnotherView?.getNow()
     }
     
     @IBAction func toggle(sender: AnyObject) {
@@ -282,7 +281,7 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
                     print("私はすでにいいねをおしている")
                     cell.likeButton.setImage(likeOnImage, forState: .Normal)
                     cell.likeNumberButton.setTitle(String(cell.likeCounts!), forState: .Normal)
-                    cell.isLikeToggle = true
+                    likedManager.sharedSingleton.isLikedToggle = true
                 }else{
                     //いいねはあるけど、自分がいいねしていない
                     cell.likeButton.setImage(likeOffImage, forState: .Normal)
@@ -321,7 +320,7 @@ extension LogViewController{
         let postData = postArray[row!] as! NCMBObject
         
         //いいねアクション実行
-        if cell.isLikeToggle == true{
+        if likedManager.sharedSingleton.isLikedToggle == true{
             disLike(postData, cell: cell)
         } else {
             like(postData, cell: cell)
@@ -355,7 +354,7 @@ extension LogViewController{
                 print(error.localizedDescription)
             }else {
                 print("save成功 いいね保存")
-                cell.isLikeToggle = true
+                likedManager.sharedSingleton.isLikedToggle = true
                 
                 //いいねしたことを通知画面のDBに保存
                 let auther = postData.objectForKey("user") as! NCMBUser
@@ -397,7 +396,7 @@ extension LogViewController{
                 print(error.localizedDescription)
             }else {
                 print("save成功 いいね取り消し")
-                cell.isLikeToggle = false
+                likedManager.sharedSingleton.isLikedToggle = false
             }
         })
         
