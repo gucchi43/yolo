@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol addPostDetailDelegate {
+    func postDetailDismissionAction()
+}
+
 class PostDetailViewController: UIViewController {
     
     @IBOutlet weak var postDetailTableView: UITableView!
@@ -18,7 +22,6 @@ class PostDetailViewController: UIViewController {
     @IBOutlet var sendCommentButton: UIButton!
 
     var postObject: NCMBObject!
-    var isLikeToggle: Bool = false
     var likeCounts: Int?
     var isSelectedCommentButton: Bool = false
     
@@ -29,6 +32,8 @@ class PostDetailViewController: UIViewController {
     
     var commentArray:[AnyObject] = []
     var otherUser: NCMBUser!
+    
+    var delegate: addPostDetailDelegate?
 
     
     deinit {
@@ -87,6 +92,15 @@ class PostDetailViewController: UIViewController {
             notification.removeObserver(self
                 , name: UIKeyboardWillHideNotification, object: nil)
             isObserving = false
+        }
+    }
+    
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        super.willMoveToParentViewController(parent)
+        print("parent", parent)
+        if parent == nil {
+            print("ログに戻る")
+            self.delegate?.postDetailDismissionAction()
         }
     }
     

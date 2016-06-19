@@ -9,7 +9,7 @@
 import UIKit
 import DropdownMenu
 
-class LogViewController: UIViewController {
+class LogViewController: UIViewController, addPostDetailDelegate {
     
     var toggleWeek: Bool = false
     var postArray: NSArray = NSArray()
@@ -41,11 +41,8 @@ class LogViewController: UIViewController {
     
     var animationFinished = true
     
-//    var isLikeToggle: Bool = false
     let likeOnImage = UIImage(named: "hartButton_On")
     let likeOffImage = UIImage(named: "hartButton_Off")
-    
-//    var likeCount: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,6 +119,11 @@ class LogViewController: UIViewController {
         menuView.delegate = self
         menuView.showMenu(onNavigaitionView: true)
     }
+
+        func postDetailDismissionAction() {
+        print("postDetailDismissionAction")
+        tableView.reloadData()
+    }
     
     func loadItems() {
         
@@ -188,6 +190,7 @@ class LogViewController: UIViewController {
             let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
 //            postDetailVC.hidesBottomBarWhenPushed = true // trueならtabBar隠す
             postDetailVC.postObject = self.selectedPostObject
+            postDetailVC.delegate = self
             if let sender = sender {
                 postDetailVC.isSelectedCommentButton = sender as! Bool
             }
@@ -204,7 +207,7 @@ class LogViewController: UIViewController {
         if (self.calendarBaseView != nil){
             calendarView?.getNow()
         }
-            calendarAnotherView?.getNow()
+        calendarAnotherView?.getNow()
     }
     
     @IBAction func toggle(sender: AnyObject) {
@@ -233,6 +236,7 @@ class LogViewController: UIViewController {
         }
     }
 }
+
 
 extension LogViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -293,31 +297,34 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
             cell.imageViewHeightConstraint.constant = 0.0
         }
         
-        if postData.objectForKey("likeUser") != nil{//一度もいいねが来たことがないかも 分岐
+        //いいね
+        if postData.objectForKey("likeUser") != nil{
+            //今までで、消されたかもだけど、必ずいいねされたことはある
             let postLikeUserString = postData.objectForKey("likeUser")
-                let cleanLikeUserString = String(postLikeUserString!).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-                let superCleanLinkUserString = cleanLikeUserString.stringByReplacingOccurrencesOfString("(\n)", withString: "")
-                print("superCleanLinkUserString", superCleanLinkUserString)
-            if superCleanLinkUserString.isEmpty == false{//いいねを取り消されて空かも 分岐
-                let postLikeUserArray = superCleanLinkUserString.componentsSeparatedByString(",")
-                print("postLikeUserArray", postLikeUserArray)
-                let postLikeUserCount = postLikeUserArray.count
-                print("postLikeUserCount", postLikeUserCount)
+            //StringをNSArrayに変換
+            let postLikeUserArray = postLikeUserString as! NSArray
+            let postLikeUserCount = postLikeUserArray.count
+            if postLikeUserCount > 0 {
+                //いいねをしたユーザーが１人以上いる
                 cell.likeCounts = postLikeUserCount
-                cell.likeNumberButton.setTitle(String(cell.likeCounts!), forState: .Normal)
-                for i in postLikeUserArray{
-                    if i.rangeOfString(NCMBUser.currentUser().objectId) != nil{//自分がいいねしている
-                        print("私はすでにいいねをおしている")
-                        cell.likeButton.setImage(likeOnImage, forState: .Normal)
-                        cell.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-                        cell.isLikeToggle = true
-                    }
+                if postLikeUserArray.containsObject(NCMBUser.currentUser().objectId) == true{
+                    //自分がいいねしている
+                    print("私はすでにいいねをおしている")
+                    cell.likeButton.setImage(likeOnImage, forState: .Normal)
+                    cell.likeNumberButton.setTitle(String(cell.likeCounts!), forState: .Normal)
+                    likedManager.sharedSingleton.isLikedToggle = true
+                }else{
+                    //いいねはあるけど、自分がいいねしていない
+                    cell.likeButton.setImage(likeOffImage, forState: .Normal)
+                    cell.likeNumberButton.setTitle(String(cell.likeCounts!), forState: .Normal)
                 }
-            }else {//いいねを取り消されて「空」状態
+            }else{
+                //いいねしたユーザーはいない
                 cell.likeButton.setImage(likeOffImage, forState: .Normal)
                 cell.likeNumberButton.setTitle("", forState: .Normal)
             }
-        }else{//一度もいいねが来たことがない
+        }else{
+            //今まで一度もいいねされたことはない
             cell.likeButton.setImage(likeOffImage, forState: .Normal)
             cell.likeNumberButton.setTitle("", forState: .Normal)
         }
@@ -341,84 +348,90 @@ extension LogViewController{
         let cell = button.superview?.superview as! TimelineCell
         print("投稿内容", cell.postTextLabel.text)
         let row = tableView.indexPathForCell(cell)?.row
-        print("row", row)
         let postData = postArray[row!] as! NCMBObject
         
-        changeLikeStatus(postData, cell: cell)
+        //いいねアクション実行
+        if likedManager.sharedSingleton.isLikedToggle == true{
+            disLike(postData, cell: cell)
+        } else {
+            like(postData, cell: cell)
+        }
+    }
+    
+    func like(postData: NCMBObject, cell: TimelineCell) {
+        //いいねONボタン
+        cell.likeButton.setImage(likeOnImage, forState: .Normal)
+        
+        if cell.likeCounts != nil{
+            //likeCountが追加で変更される時（2回目以降）
+            if let oldLinkCounts = Int(cell.likeNumberButton.currentTitle!){
+                print("oldLinkCounts", oldLinkCounts)
+                //普通にいいねを１追加（2~）
+                let newLikeCounts = oldLinkCounts + 1
+                cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+            }else {
+                //oldCountがない場合（以前いいねされたけど、削除されて0になってlikeCountがnullの場合）
+                let newLikeCounts = 1
+                cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+            }
+        }else{
+            //likeCountが初めて変更される時
+            let newLikeCounts = 1
+            cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+        }
+        postData.addUniqueObject(NCMBUser.currentUser().objectId, forKey: "likeUser")
+        postData.saveEventually ({ (error) -> Void in
+            if let error = error{
+                print(error.localizedDescription)
+            }else {
+                print("save成功 いいね保存")
+                likedManager.sharedSingleton.isLikedToggle = true
+                
+                //いいねしたことを通知画面のDBに保存
+                let auther = postData.objectForKey("user") as! NCMBUser
+                let notificationManager = NotificationManager()
+                notificationManager.likeNotification(auther, post: postData)
+            }
+        })
         
     }
     
-    func changeLikeStatus(postData: NCMBObject, cell: TimelineCell){
-        if cell.isLikeToggle == false {//いいねしてない時→いいね
-            cell.likeButton.setImage(likeOnImage, forState: .Normal)
-            
-            if let likeCounts = cell.likeCounts{//likeCountが追加で変更される時（2回目以降）
-                if let oldLinkCounts = Int(cell.likeNumberButton.currentTitle!){
-                    let newLikeCounts = oldLinkCounts + 1
-                    cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
-                    cell.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-                }else {//oldCountがない場合（初めてのいいねじゃないけど、いいね１になる場合）
-                    let newLikeCounts = 1
-                    cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
-                    cell.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-                }
-            }else{//likeCountが初めて変更される時
-                let newLikeCounts = 1
+    
+    func disLike(postData: NCMBObject, cell: TimelineCell) {
+        //いいねOFFボタン
+        cell.likeButton.setImage(likeOffImage, forState: .Normal)
+        cell.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+        
+        if cell.likeCounts != nil{
+            //likeCountがある時（1~）
+            let oldLinkCounts = Int(cell.likeNumberButton.currentTitle!)
+            print("oldLinkCounts", oldLinkCounts)
+            let newLikeCounts = oldLinkCounts! - 1
+            if newLikeCounts > 0{
+                //変更後のlikeCountが0より上の場合（1~）
                 cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
-                cell.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-            }
-            
-            cell.isLikeToggle = true
-            
-            postData.addUniqueObject(NCMBUser.currentUser().objectId, forKey: "likeUser")
-            postData.saveInBackgroundWithBlock({ (error) -> Void in
-                if let error = error{
-                    print(error.localizedDescription)
-                }else {
-                    print("save成功 いいね保存")
-                    
-                    //いいねしたことを通知画面のDBに保存
-                    let auther = postData.objectForKey("user") as! NCMBUser
-                    let notificationManager = NotificationManager()
-                    notificationManager.likeNotification(auther, post: postData)
-                }
-            })
-            
-            
-        }else {//いいねしている時→いいねしてない
-            cell.likeButton.setImage(likeOffImage, forState: .Normal)
-            
-            if let likeCounts = cell.likeCounts{
-                let oldLinkCounts = Int(cell.likeNumberButton.currentTitle!)
-                let newLikeCounts = oldLinkCounts! - 1
-                if newLikeCounts > 0{//変更後のlikeCountが0より上の場合（1~）
-                    cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
-                    cell.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-                }else {//変更後のlikeCountが0を含むそれ以下の場合(~0)
-                    let newLikeCounts = ""
-                    cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
-                    cell.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-                }
-            }else {//likeCountが今までついたことがなかった場合
+            }else {
+                //変更後のlikeCountが0を含むそれ以下の場合(~0)
                 let newLikeCounts = ""
                 cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
-                cell.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
             }
-            
-            cell.isLikeToggle = false
-            
-            postData.removeObject(NCMBUser.currentUser().objectId, forKey: "likeUser")
-            postData.saveInBackgroundWithBlock({ (error) -> Void in
-                if let error = error{
-                    print(error.localizedDescription)
-                }else {
-                    print("save成功 いいね取り消し")
-                }
-            })
-            
+        }else {
+            //likeCountが今までついたことがなかった場合
+            let newLikeCounts = ""
+            cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
         }
+        
+        postData.removeObject(NCMBUser.currentUser().objectId, forKey: "likeUser")
+        postData.saveEventually ({ (error) -> Void in
+            if let error = error{
+                print(error.localizedDescription)
+            }else {
+                print("save成功 いいね取り消し")
+                likedManager.sharedSingleton.isLikedToggle = false
+            }
+        })
+        
     }
-
 }
 
 //コメントボタンアクション

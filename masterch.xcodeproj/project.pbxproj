@@ -81,6 +81,7 @@
 		EDB4AF581CE37AE2002781F3 /* ContainerSnsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4AF571CE37AE2002781F3 /* ContainerSnsViewController.swift */; };
 		EDB4FEFE1CBBFAFE00A318EA /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */; };
 		EDCBEE721CCA793700317BCE /* PostDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDCBEE711CCA793700317BCE /* PostDetail.storyboard */; };
+		EDDE7C7C1D16417500632A7F /* likedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDE7C7B1D16417500632A7F /* likedManager.swift */; };
 		EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE355F11CB284CD006C7C0A /* CommentFile.swift */; };
 		EDEF991E1C9EC13500B6D69D /* ContainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */; };
 		EDF7FDF21CF52F8400BBC1F1 /* hartButton_Off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDF7FDEE1CF52F8400BBC1F1 /* hartButton_Off@2x.png */; };
@@ -204,6 +205,7 @@
 		EDB4AF571CE37AE2002781F3 /* ContainerSnsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerSnsViewController.swift; sourceTree = "<group>"; };
 		EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		EDCBEE711CCA793700317BCE /* PostDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PostDetail.storyboard; sourceTree = "<group>"; };
+		EDDE7C7B1D16417500632A7F /* likedManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = likedManager.swift; sourceTree = "<group>"; };
 		EDE355F11CB284CD006C7C0A /* CommentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFile.swift; sourceTree = "<group>"; };
 		EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerProfileViewController.swift; sourceTree = "<group>"; };
 		EDF7FDEE1CF52F8400BBC1F1 /* hartButton_Off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hartButton_Off@2x.png"; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				ED2152451D1188390027AFC4 /* UserListTableViewCell.swift */,
 				ED2152471D11883A0027AFC4 /* UserListViewController.swift */,
 				32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */,
+				EDDE7C7B1D16417500632A7F /* likedManager.swift */,
 				ED3107EE1D101A7E00FE3D32 /* PostDetailTableViewCell.swift */,
 				ED3107EA1D101A2100FE3D32 /* CommentTableViewCell.swift */,
 				3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */,
@@ -708,6 +711,7 @@
 				ED3108051D10322600FE3D32 /* NotificationLikeTableViewCell.swift in Sources */,
 				ED2152491D11883A0027AFC4 /* UserListTableViewCell.swift in Sources */,
 				ED3108031D10322600FE3D32 /* NotificationCommentTableViewCell.swift in Sources */,
+				EDDE7C7C1D16417500632A7F /* likedManager.swift in Sources */,
 				EDB04C751CC5190500FDEB14 /* UserData.swift in Sources */,
 				EDEF991E1C9EC13500B6D69D /* ContainerProfileViewController.swift in Sources */,
 				ED3107F51D101D4F00FE3D32 /* SearchUserTableViewController.swift in Sources */,
