@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DropdownMenu
 
 class LogViewController: UIViewController {
     
@@ -23,6 +24,9 @@ class LogViewController: UIViewController {
 
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var monthLabel: UILabel!
+    
+    var selectedRow: Int = 0
+    var Dropitems: [DropdownItem]!
     
 //    セル選択時の変数
     var selectedPostObject: NCMBObject!
@@ -50,6 +54,16 @@ class LogViewController: UIViewController {
         
         tableView.estimatedRowHeight = 370
         tableView.rowHeight = UITableViewAutomaticDimension
+        let label = UILabel()
+        label.text = "ログ"
+        label.sizeToFit()
+        
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.tapped(_:)))
+        label.addGestureRecognizer(gesture)
+        label.userInteractionEnabled = true
+        navigationItem.titleView = label
+        
 //        viewdidloadでは呼ばないでいい
 //        monthLabel.text! = CalendarManager.selectLabel()
     }
@@ -57,7 +71,7 @@ class LogViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
 //        self.navigationController?.setToolbarHidden(true, animated: true) // ViewWillAppearは表示の度に呼ばれるので何度も消してくれる
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didSelectDayView:", name: "didSelectDayView", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.didSelectDayView(_:)), name: "didSelectDayView", object: nil)
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
         }
@@ -90,6 +104,23 @@ class LogViewController: UIViewController {
             loadItems()
             monthLabel.text = CalendarManager.selectLabel()
         }
+    }
+    
+    //NavigationTitleをタップ
+    func tapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        print("ナビゲーションタイトルをタップ")
+        let item1 = DropdownItem(title: "自分")
+        let item2 = DropdownItem(title: "フォロワー")
+//        let item3 = DropdownItem(title: "フォロワー")
+//        let item4 = DropdownItem(title: "フォロワー")
+//        let item2 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "File")
+//        let item3 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "Post", style: .Highlight)
+//        let item4 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "Event", style: .Highlight, accessoryImage: UIImage(named: "accessory")!)
+        
+        Dropitems = [item1, item2]
+        let menuView = DropdownMenu(navigationController: navigationController!, items: Dropitems, selectedRow: selectedRow)
+        menuView.delegate = self
+        menuView.showMenu(onNavigaitionView: true)
     }
     
     func loadItems() {
@@ -262,39 +293,6 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
             cell.imageViewHeightConstraint.constant = 0.0
         }
         
-//        let likeUser = postData.relationforKey("like")
-//        likeUser.query().findObjectsInBackgroundWithBlock{ (objects, error) -> Void in
-//            if let error = error{
-//                print("error", error.localizedDescription)
-//            }else{
-//                if objects != nil && objects.isEmpty == false{
-//                    let likeUserArray = objects as! [NCMBUser]
-//                    let likeCounts = likeUserArray.count
-//                    print("投稿の中のぶんしょうううううううううう", cell.postTextLabel.text)
-//                    print("likeUserArray & likeCounts", likeUserArray, likeCounts)
-//                    
-//                    for i in 0 ... likeCounts - 1{
-//                        if likeUserArray[i].objectId == NCMBUser.currentUser().objectId{
-//                            print("やっっっっっっっっっっっっほおい", likeCounts)
-//                            cell.likeButton.setImage(self.likeOnImage, forState: .Normal)
-//                            cell.likeCounts = likeCounts
-//                            cell.likeNumberButton.setTitle("\(likeCounts)", forState: .Normal)
-////                            cell.likeButton.setTitleColor(UIColor.redColor(), forState: .Normal)
-//                            self.isLikeToggle = true
-//                        }else{
-////                            cell.likeButton.setImage(self.likeOffImage, forState: .Normal)
-//                            cell.likeCounts = likeCounts
-//                            cell.likeNumberButton.setTitle("\(likeCounts)", forState: .Normal)
-//                        }
-//                    }
-//                }else{
-//                    print("投稿の中のぶんしょうううううううううう likeがないパターンのヤツ", cell.postTextLabel.text)
-//                    print("likeがまだない、またはとりけれされた")
-//                }
-//            }
-//        }
-        
-        
         if postData.objectForKey("likeUser") != nil{//一度もいいねが来たことがないかも 分岐
             let postLikeUserString = postData.objectForKey("likeUser")
                 let cleanLikeUserString = String(postLikeUserString!).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
@@ -436,3 +434,19 @@ extension LogViewController{
 
 }
 
+//DropdownMenuDelegateのDelegate
+extension LogViewController: DropdownMenuDelegate {
+    func dropdownMenu(dropdownMenu: DropdownMenu, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("DropdownMenu didselect \(indexPath.row) text:\(Dropitems[indexPath.row].title)")
+        if indexPath.row != Dropitems.count - 1 {
+            self.selectedRow = indexPath.row
+        }
+        
+//        let alertConroller = UIAlertController(title: "Nice", message: "You choose \(Dropitems[indexPath.row].title)", preferredStyle: .Alert)
+//        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+//        alertConroller.addAction(okAction)
+//        presentViewController(alertConroller, animated: true) {
+//            print("Display success")
+//        }
+    }
+}
