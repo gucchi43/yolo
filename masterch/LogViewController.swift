@@ -331,7 +331,6 @@ extension LogViewController{
     func like(postData: NCMBObject, cell: TimelineCell) {
         //いいねONボタン
         cell.likeButton.setImage(likeOnImage, forState: .Normal)
-        cell.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
         
         if cell.likeCounts != nil{
             //likeCountが追加で変更される時（2回目以降）

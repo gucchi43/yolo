@@ -182,7 +182,6 @@ extension PostDetailTableViewCell {
     func like(postData: NCMBObject){
         //いいねONボタン
         self.likeButton.setImage(likeOnImage, forState: .Normal)
-        self.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
         if self.likeCounts != nil{
             //likeCountが追加で変更される時（2回目以降）
             if let oldLinkCounts = Int(self.likeNumberButton.currentTitle!.stringByReplacingOccurrencesOfString("いいね", withString: "")){
@@ -260,16 +259,13 @@ extension PostDetailTableViewCell {
                 if let oldLinkCounts = Int(self.likeNumberButton.currentTitle!.stringByReplacingOccurrencesOfString("いいね", withString: "")){
                     let newLikeCounts = oldLinkCounts + 1
                     self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
-                    self.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
                 }else {//oldCountがない場合（初めてのいいねじゃないけど、いいね１になる場合）
                     let newLikeCounts = 1
                     self.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
-                    self.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
                 }
             }else{//likeCountが初めて変更される時
                 let newLikeCounts = 1
                 self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
-                self.likeNumberButton.setTitleColor(UIColor.redColor(), forState: .Normal)
             }
             
             self.isLikeToggle = true
