@@ -27,6 +27,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     
     var selectedRow: Int = 0
     var Dropitems: [DropdownItem]!
+    var logNumber: Int = 0
     
 //    セル選択時の変数
     var selectedPostObject: NCMBObject!
@@ -84,7 +85,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     func didSelectDayView(notification: NSNotification) {
 //        let loadItemsManager = LoadItemsManager()
 //        loadItemsManager.loadItems(0)
-        loadItemsFinish(0)
+        loadItemsFinish(logNumber)
         monthLabel.text = CalendarManager.selectLabel()
     }
     
@@ -102,7 +103,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             }
 //            let loadItemsManager = LoadItemsManager()
 //            loadItemsManager.loadItems(0)
-            loadItemsFinish(0)
+            loadItemsFinish(logNumber)
             monthLabel.text = CalendarManager.selectLabel()
         }
     }
@@ -122,7 +123,9 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         menuView.delegate = self
         menuView.showMenu(onNavigaitionView: true)
     }
+    
 
+    //投稿画面から戻った時にリロード
         func postDetailDismissionAction() {
         print("postDetailDismissionAction")
         tableView.reloadData()
@@ -600,28 +603,32 @@ extension LogViewController: DropdownMenuDelegate {
         if indexPath.row != Dropitems.count - 1 {
             self.selectedRow = indexPath.row
         }
-        switch indexPath.row {
-        case 0:
-            print("0", Dropitems[indexPath.row].title)
-//            let loadItemsManager = LoadItemsManager()
-//            loadItemsManager.loadItems(0)
-            loadItemsFinish(0)
-        case 1:
-            print("1", Dropitems[indexPath.row].title)
-//            let loadItemsManager = LoadItemsManager()
-//            loadItemsManager.loadItems(1)
-            loadItemsFinish(1)
-        case 2:
-            print("2", Dropitems[indexPath.row].title)
-//            let loadItemsManager = LoadItemsManager()
-//            loadItemsManager.loadItems(2)
-            loadItemsFinish(2)
-        default:
-            print("default", Dropitems[indexPath.row].title)
-//            let loadItemsManager = LoadItemsManager()
-//            loadItemsManager.loadItems(0)
-            loadItemsFinish(0)
-        }
+        logNumber = indexPath.row
+        print("logNumber", logNumber, Dropitems[indexPath.row].title)
+        loadItemsFinish(logNumber)
+//        
+//        switch indexPath.row {
+//        case 0:
+//            print("0", Dropitems[indexPath.row].title)
+////            let loadItemsManager = LoadItemsManager()
+////            loadItemsManager.loadItems(0)
+//            loadItemsFinish(0)
+//        case 1:
+//            print("1", Dropitems[indexPath.row].title)
+////            let loadItemsManager = LoadItemsManager()
+////            loadItemsManager.loadItems(1)
+//            loadItemsFinish(1)
+//        case 2:
+//            print("2", Dropitems[indexPath.row].title)
+////            let loadItemsManager = LoadItemsManager()
+////            loadItemsManager.loadItems(2)
+//            loadItemsFinish(2)
+//        default:
+//            print("default", Dropitems[indexPath.row].title)
+////            let loadItemsManager = LoadItemsManager()
+////            loadItemsManager.loadItems(0)
+//            loadItemsFinish(0)
+//        }
         
 //        
 //        let alertConroller = UIAlertController(title: "Nice", message: "You choose \(Dropitems[indexPath.row].title)", preferredStyle: .Alert)
