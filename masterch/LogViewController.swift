@@ -27,7 +27,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     
     var selectedRow: Int = 0
     var Dropitems: [DropdownItem]!
-    var logNumber: Int = 0
+//    var logNumber: Int = 0
     
 //    セル選択時の変数
     var selectedPostObject: NCMBObject!
@@ -85,6 +85,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     func didSelectDayView(notification: NSNotification) {
 //        let loadItemsManager = LoadItemsManager()
 //        loadItemsManager.loadItems(0)
+        let logNumber = logManager.sharedSingleton.logNumber
         loadItemsFinish(logNumber)
         monthLabel.text = CalendarManager.selectLabel()
     }
@@ -103,6 +104,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             }
 //            let loadItemsManager = LoadItemsManager()
 //            loadItemsManager.loadItems(0)
+            let logNumber = logManager.sharedSingleton.logNumber
             loadItemsFinish(logNumber)
             monthLabel.text = CalendarManager.selectLabel()
         }
@@ -605,7 +607,9 @@ extension LogViewController: DropdownMenuDelegate {
         if indexPath.row != Dropitems.count - 1 {
             self.selectedRow = indexPath.row
         }
-        logNumber = indexPath.row
+        logManager.sharedSingleton.logNumber = indexPath.row
+        let logNumber = logManager.sharedSingleton.logNumber
+        loadItemsFinish(logNumber)
         print("logNumber", logNumber, Dropitems[indexPath.row].title)
         loadItemsFinish(logNumber)
 //        

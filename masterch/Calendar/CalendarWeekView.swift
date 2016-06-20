@@ -67,7 +67,8 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
     func getLogColorDate(date: NSDate) {
         
         let calendarLogCollerManager = CalendarLogCollerManager()
-        let logColorQuery = calendarLogCollerManager.weekLogColorDate(date)
+        let logNumber = logManager.sharedSingleton.logNumber
+        let logColorQuery = calendarLogCollerManager.weekLogColorDate(date, range: logNumber)
         logColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error{
                 print("getLogColorerrorr", error.localizedDescription)
