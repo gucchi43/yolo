@@ -52,65 +52,15 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         
         tableView.estimatedRowHeight = 370
         tableView.rowHeight = UITableViewAutomaticDimension
-//        let label = UILabel()
-//        label.text = "ログ"
-//        label.sizeToFit()
-//        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.tapped(_:)))
-//        label.addGestureRecognizer(gesture)
-//        label.userInteractionEnabled = true
-//        navigationItem.titleView = label
         
+        //NavigationBarのタイトルになる配列を読み込む
+        //（今は定数のためViewDidLoadに書いている）
+        let item1 = DropdownItem(title: "自分")
+        let item2 = DropdownItem(title: "フォロー")
+        //将来的には可変になる、アプリないで変更可能に…
+        Dropitems = [item1, item2]
         
-        
-        
-        //スタックビューを作成
-        let stackView = UIStackView()
-        stackView.axis = .Vertical
-        stackView.alignment = .Center
-        stackView.frame = CGRectMake(0,0,100,40)
-        
-        //タイトルのラベルを作成する。
-        let testLabel1 = UILabel(frame:CGRectMake(0,0,100,20))
-        testLabel1.text = "ログ"
-        
-        //サブタイトルを作成する。
-        let testLabel2 = UILabel(frame:CGRectMake(0,0,100,20))
-        let logNumber = logManager.sharedSingleton.logNumber
-        switch logNumber {
-        case 0:
-            if let Dropitems = Dropitems {
-                testLabel2.text = Dropitems[0].title
-            }else {
-                testLabel2.text = "自分"
-            }
-        case 1:
-            if let Dropitems = Dropitems {
-                testLabel2.text = Dropitems[1].title
-            }else {
-                testLabel2.text = "フォロー"
-            }
-        default:
-            testLabel2.text = "その他"
-        }
-        
-        //スタックビューに追加する。
-        stackView.addArrangedSubview(testLabel1)
-        stackView.addArrangedSubview(testLabel2)
-        
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.tapped(_:)))
-        stackView.addGestureRecognizer(gesture)
-        stackView.userInteractionEnabled = true
-        
-        
-        
-        //ナビゲーションバーのタイトルに設定する。
-        navigationController!.navigationBar.topItem!.titleView = stackView
-        
-        
-        
-        
-//        viewdidloadでは呼ばないでいい
-//        monthLabel.text! = CalendarManager.selectLabel()
+        changeTitle(logManager.sharedSingleton.logNumber)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -153,23 +103,51 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }
     }
     
+    
 //    NavigationTitleをタップ
     func tapped(tapGestureRecognizer: UITapGestureRecognizer) {
         print("ナビゲーションタイトルをタップ")
-        let item1 = DropdownItem(title: "自分")
-        let item2 = DropdownItem(title: "フォロー")
-//        let item3 = DropdownItem(title: "オール")
-//        let item2 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "File")
-//        let item3 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "Post", style: .Highlight)
-//        let item4 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "Event", style: .Highlight, accessoryImage: UIImage(named: "accessory")!)
-        
-        
-        //将来的には可変になる、アプリないで変更可能に…
-        Dropitems = [item1, item2]
         let menuView = DropdownMenu(navigationController: navigationController!, items: Dropitems, selectedRow: selectedRow)
         menuView.delegate = self
         menuView.showMenu(onNavigaitionView: true)
     }
+    
+    //NavigatoinBarのタイトルを設定
+    func changeTitle(logNumber: Int) {
+        //スタックビューを作成
+        let stackView = UIStackView()
+        stackView.axis = .Vertical
+        stackView.alignment = .Center
+        stackView.frame = CGRectMake(0,0,100,40)
+        
+        //タイトルのラベルを作成する。
+        let testLabel1 = UILabel(frame:CGRectMake(0,0,100,26))
+        testLabel1.text = "ログ"
+        
+        //サブタイトルを作成する。
+        let testLabel2 = UILabel(frame:CGRectMake(0,0,100,14))
+        testLabel2.textColor = UIColor.lightGrayColor()
+        let logNumber = logManager.sharedSingleton.logNumber
+        switch logNumber {
+        case 0:
+            testLabel2.text = Dropitems[0].title
+        case 1:
+            testLabel2.text = Dropitems[1].title
+        default:
+            testLabel2.text = "その他"
+        }
+        
+        //スタックビューに追加する。
+        stackView.addArrangedSubview(testLabel1)
+        stackView.addArrangedSubview(testLabel2)
+        //タッチできるようにする
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.tapped(_:)))
+        stackView.addGestureRecognizer(gesture)
+        stackView.userInteractionEnabled = true
+        //ナビゲーションバーのタイトルに設定する。
+        navigationController!.navigationBar.topItem!.titleView = stackView
+    }
+    
     
 
     //投稿画面から戻った時にリロード
@@ -178,10 +156,13 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         tableView.reloadData()
     }
     
+    
     func ChangeloadQuery(logNumber: Int) {
         loadQuery(logNumber)
     }
     
+    
+    //tableViewに表示するその日の投稿のQueryから取ってくる
     func loadQuery(logNumber: Int){
         let logQueryManager = LogQueryManager()
         let postQuery: NCMBQuery = logQueryManager.loadItems(logNumber)
@@ -512,6 +493,8 @@ extension LogViewController: DropdownMenuDelegate {
         logManager.sharedSingleton.logNumber = indexPath.row
         let logNumber = logManager.sharedSingleton.logNumber
         print("logNumber", logNumber, Dropitems[indexPath.row].title)
+        
+        changeTitle(logManager.sharedSingleton.logNumber)
         
         //これでLogColorDateが読み込まれてカレンダーが更新されるはずなのに
         //なんでできないのおおおお（HELP）
