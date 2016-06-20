@@ -46,7 +46,7 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
         let daySize = CGSize(width: Int(frame.size.width / 7.0), height: Int(frame.size.width / 7.0))
         let lastDay = date.monthDays
         
-        for var i = 0; i < lastDay; i++ {
+        for i in 0 ..< lastDay {
             let mDate = date + i.days
             let week = mDate.weekOfMonth  // 何週目か
             let x = (mDate.weekday - 1) * Int(daySize.width)  // 曜日ごとにxの位置をずらす
@@ -66,11 +66,10 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
     
     //LogViewの日にちごとの色を決める実行部分２
     func getLogColorDate(date: NSDate) {
-        let myLogColorQuery: NCMBQuery = NCMBQuery(className: "LogColor") // 自分の投稿クエリ
-        myLogColorQuery.whereKey("user", equalTo: NCMBUser.currentUser())
-        myLogColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
-        myLogColorQuery.orderByAscending("logDate")
-        myLogColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
+        let calendarLogCollerManager = CalendarLogCollerManager()
+        let logColorQuery = calendarLogCollerManager.monthLogColorDate(date)
+
+        logColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error{
                 print("getLogColorerrorr", error.localizedDescription)
                 self.setUpDays(date)

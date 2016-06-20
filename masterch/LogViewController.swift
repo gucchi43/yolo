@@ -118,6 +118,8 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 //        let item3 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "Post", style: .Highlight)
 //        let item4 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "Event", style: .Highlight, accessoryImage: UIImage(named: "accessory")!)
         
+        
+        //将来的には可変になる、アプリないで変更可能に…
         Dropitems = [item1, item2,item3]
         let menuView = DropdownMenu(navigationController: navigationController!, items: Dropitems, selectedRow: selectedRow)
         menuView.delegate = self

@@ -46,7 +46,7 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
         
         //今日を含む週の先頭（日曜日）の日にちをゲット
         // dayViewをaddする
-        for var i = 0; i < 7; i++ {
+        for i in 0 ..< 7 {
             let x = i * Int(daySize.width)
             let frame = CGRect(origin: CGPoint(x: x, y: 0), size: daySize)
             
@@ -65,12 +65,10 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
     
     //LogViewの日にちごとの色を決める実行部分２
     func getLogColorDate(date: NSDate) {
-        let myLogColorQuery: NCMBQuery = NCMBQuery(className: "LogColor") // 自分の投稿クエリ
-        myLogColorQuery.whereKey("user", equalTo: NCMBUser.currentUser())
-        myLogColorQuery.whereKey("logDate", greaterThanOrEqualTo: CalendarManager.getDateWeekOfMin(date))
-        myLogColorQuery.whereKey("logDate", lessThanOrEqualTo: CalendarManager.getDateWeekOfMax(date))
-        myLogColorQuery.orderByAscending("logDate")
-        myLogColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
+        
+        let calendarLogCollerManager = CalendarLogCollerManager()
+        let logColorQuery = calendarLogCollerManager.weekLogColorDate(date)
+        logColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error{
                 print("getLogColorerrorr", error.localizedDescription)
                 self.setUpDays(date)

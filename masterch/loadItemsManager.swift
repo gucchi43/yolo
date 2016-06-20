@@ -10,6 +10,7 @@ import UIKit
 
 class LoadItemsManager: NSObject {
     
+
     
     
     func loadItems(range: Int) -> NCMBQuery {
