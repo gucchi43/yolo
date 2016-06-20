@@ -82,7 +82,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     
     //関数で受け取った時のアクションを定義
     func didSelectDayView(notification: NSNotification) {
-        loadItems()
+        loadItems(0)
         monthLabel.text = CalendarManager.selectLabel()
     }
     
@@ -98,7 +98,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             if let calendarView = calendarView {
                 calendarBaseView.addSubview(calendarView)
             }
-            loadItems()
+            loadItems(0)
             monthLabel.text = CalendarManager.selectLabel()
         }
     }
@@ -106,15 +106,14 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     //NavigationTitleをタップ
     func tapped(tapGestureRecognizer: UITapGestureRecognizer) {
         print("ナビゲーションタイトルをタップ")
-        let item1 = DropdownItem(title: "自分")
-        let item2 = DropdownItem(title: "フォロワー")
-//        let item3 = DropdownItem(title: "フォロワー")
-//        let item4 = DropdownItem(title: "フォロワー")
+        let item1 = DropdownItem(title: "オール")
+        let item2 = DropdownItem(title: "自分")
+        let item3 = DropdownItem(title: "フォロワー")
 //        let item2 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "File")
 //        let item3 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "Post", style: .Highlight)
 //        let item4 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "Event", style: .Highlight, accessoryImage: UIImage(named: "accessory")!)
         
-        Dropitems = [item1, item2]
+        Dropitems = [item1, item2,item3]
         let menuView = DropdownMenu(navigationController: navigationController!, items: Dropitems, selectedRow: selectedRow)
         menuView.delegate = self
         menuView.showMenu(onNavigaitionView: true)
@@ -125,30 +124,54 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         tableView.reloadData()
     }
     
-    func loadItems() {
-        
-        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分の投稿クエリ
-        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
-        
-        let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship") // 自分がフォローしている人かどうかのクエリ
-        relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
-        relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "Post"))
-        
-        let followingQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分がフォローしている人の投稿クエリ
-        followingQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)
-        followingQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
+    func loadItems(range: Int) {
+        var postQuery: NCMBQuery = NCMBQuery(className: "Post")
+        switch range {
+        case 1:
+            postQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+            postQuery.orderByDescending("postDate") // cellの並べ方
+            postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+            postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+            postQuery.includeKey("user")
 
-        let postQuery: NCMBQuery = NCMBQuery.orQueryWithSubqueries([myPostQuery, followingQuery]) // クエリの合成
-        postQuery.orderByDescending("postDate") // cellの並べ方
-        postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
-        postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
-        postQuery.includeKey("user")
-        
 
+        case 2:
+            let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship") // 自分がフォローしている人かどうかのクエリ
+            relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
+            relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "Post"))
+            postQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)// 自分がフォローしている人の投稿クエリ
+            postQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
+            postQuery.whereKey("user", notEqualTo: NCMBUser.currentUser())//自分がフォロワーに含まれてたら自分は表示しない
+            postQuery.orderByDescending("postDate") // cellの並べ方
+            postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+            postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+            postQuery.includeKey("user")
+
+
+        default:
+            let myPostQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分の投稿クエリ
+            myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+            
+            let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship") // 自分がフォローしている人かどうかのクエリ
+            relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
+            relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "Post"))
+            
+            let followingQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分がフォローしている人の投稿クエリ
+            followingQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)
+            followingQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
+            
+            postQuery = NCMBQuery.orQueryWithSubqueries([myPostQuery, followingQuery]) // クエリの合成
+            postQuery.orderByDescending("postDate") // cellの並べ方
+            postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+            postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+            postQuery.includeKey("user")
+
+        }
         postQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error {
                 print(error.localizedDescription)
             } else {
+                print("投稿数", objects.count)
                 if objects.count > 0 {
                     self.postArray = objects
                 } else {
@@ -158,6 +181,42 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             }
         })
     }
+    
+    
+    
+//    func loadItems() {
+//        
+//        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分の投稿クエリ
+//        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+//        
+//        let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship") // 自分がフォローしている人かどうかのクエリ
+//        relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
+//        relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "Post"))
+//        
+//        let followingQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分がフォローしている人の投稿クエリ
+//        followingQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)
+//        followingQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
+//
+//        let postQuery: NCMBQuery = NCMBQuery.orQueryWithSubqueries([myPostQuery, followingQuery]) // クエリの合成
+//        postQuery.orderByDescending("postDate") // cellの並べ方
+//        postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+//        postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+//        postQuery.includeKey("user")
+//        
+//
+//        postQuery.findObjectsInBackgroundWithBlock({(objects, error) in
+//            if let error = error {
+//                print(error.localizedDescription)
+//            } else {
+//                if objects.count > 0 {
+//                    self.postArray = objects
+//                } else {
+//                    self.postArray = []
+//                }
+//                self.tableView.reloadData()
+//            }
+//        })
+//    }
     
     // スクロール感知用の変数
     var scrollBeginingPoint: CGPoint!
@@ -248,10 +307,13 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! TimelineCell
         // 各値をセルに入れる
         let postData = postArray[indexPath.row]
+        print("postData", postData)
         // postTextLabelには(key: "text")の値を入れる
         cell.postTextLabel.text = postData.objectForKey("text") as? String
+        print("投稿内容", cell.postTextLabel.text)
         // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
         let date = postData.objectForKey("postDate") as? NSDate
+        print("NSDateの内容", date)
         let postDateFormatter: NSDateFormatter = NSDateFormatter()
         postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
@@ -454,7 +516,22 @@ extension LogViewController: DropdownMenuDelegate {
         if indexPath.row != Dropitems.count - 1 {
             self.selectedRow = indexPath.row
         }
+        switch indexPath.row {
+        case 0:
+            print("0", Dropitems[indexPath.row].title)
+            loadItems(0)
+        case 1:
+            print("1", Dropitems[indexPath.row].title)
+            loadItems(1)
+        case 2:
+            print("2", Dropitems[indexPath.row].title)
+            loadItems(2)
+        default:
+            print("default", Dropitems[indexPath.row].title)
+            loadItems(0)
+        }
         
+//        
 //        let alertConroller = UIAlertController(title: "Nice", message: "You choose \(Dropitems[indexPath.row].title)", preferredStyle: .Alert)
 //        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
 //        alertConroller.addAction(okAction)
