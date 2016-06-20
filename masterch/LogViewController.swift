@@ -28,7 +28,6 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     
     var selectedRow: Int = 0
     var Dropitems: [DropdownItem]!
-//    var logNumber: Int = 0
     
 //    セル選択時の変数
     var selectedPostObject: NCMBObject!
@@ -53,15 +52,62 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         
         tableView.estimatedRowHeight = 370
         tableView.rowHeight = UITableViewAutomaticDimension
-        let label = UILabel()
-        label.text = "ログ"
-        label.sizeToFit()
+//        let label = UILabel()
+//        label.text = "ログ"
+//        label.sizeToFit()
+//        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.tapped(_:)))
+//        label.addGestureRecognizer(gesture)
+//        label.userInteractionEnabled = true
+//        navigationItem.titleView = label
         
+        
+        
+        
+        //スタックビューを作成
+        let stackView = UIStackView()
+        stackView.axis = .Vertical
+        stackView.alignment = .Center
+        stackView.frame = CGRectMake(0,0,100,40)
+        
+        //タイトルのラベルを作成する。
+        let testLabel1 = UILabel(frame:CGRectMake(0,0,100,20))
+        testLabel1.text = "ログ"
+        
+        //サブタイトルを作成する。
+        let testLabel2 = UILabel(frame:CGRectMake(0,0,100,20))
+        let logNumber = logManager.sharedSingleton.logNumber
+        switch logNumber {
+        case 0:
+            if let Dropitems = Dropitems {
+                testLabel2.text = Dropitems[0].title
+            }else {
+                testLabel2.text = "自分"
+            }
+        case 1:
+            if let Dropitems = Dropitems {
+                testLabel2.text = Dropitems[1].title
+            }else {
+                testLabel2.text = "フォロー"
+            }
+        default:
+            testLabel2.text = "その他"
+        }
+        
+        //スタックビューに追加する。
+        stackView.addArrangedSubview(testLabel1)
+        stackView.addArrangedSubview(testLabel2)
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.tapped(_:)))
-        label.addGestureRecognizer(gesture)
-        label.userInteractionEnabled = true
-        navigationItem.titleView = label
+        stackView.addGestureRecognizer(gesture)
+        stackView.userInteractionEnabled = true
+        
+        
+        
+        //ナビゲーションバーのタイトルに設定する。
+        navigationController!.navigationBar.topItem!.titleView = stackView
+        
+        
+        
         
 //        viewdidloadでは呼ばないでいい
 //        monthLabel.text! = CalendarManager.selectLabel()
@@ -84,8 +130,6 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     
     //関数で受け取った時のアクションを定義
     func didSelectDayView(notification: NSNotification) {
-//        let loadItemsManager = LoadItemsManager()
-//        loadItemsManager.loadItems(0)
         let logNumber = logManager.sharedSingleton.logNumber
         loadQuery(logNumber)
         monthLabel.text = CalendarManager.selectLabel()
@@ -103,15 +147,13 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             if let calendarView = calendarView {
                 calendarBaseView.addSubview(calendarView)
             }
-//            let loadItemsManager = LoadItemsManager()
-//            loadItemsManager.loadItems(0)
             let logNumber = logManager.sharedSingleton.logNumber
             loadQuery(logNumber)
             monthLabel.text = CalendarManager.selectLabel()
         }
     }
     
-    //NavigationTitleをタップ
+//    NavigationTitleをタップ
     func tapped(tapGestureRecognizer: UITapGestureRecognizer) {
         print("ナビゲーションタイトルをタップ")
         let item1 = DropdownItem(title: "自分")
@@ -136,9 +178,13 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         tableView.reloadData()
     }
     
+    func ChangeloadQuery(logNumber: Int) {
+        loadQuery(logNumber)
+    }
+    
     func loadQuery(logNumber: Int){
-        let loadItemsManager = LoadItemsManager()
-        let postQuery: NCMBQuery = loadItemsManager.loadItems(logNumber)
+        let logQueryManager = LogQueryManager()
+        let postQuery: NCMBQuery = logQueryManager.loadItems(logNumber)
         postQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -149,6 +195,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
                 } else {
                     self.postArray = []
                 }
+
                 self.tableView.reloadData()
             }
         })
@@ -466,6 +513,8 @@ extension LogViewController: DropdownMenuDelegate {
         let logNumber = logManager.sharedSingleton.logNumber
         print("logNumber", logNumber, Dropitems[indexPath.row].title)
         
+        //これでLogColorDateが読み込まれてカレンダーが更新されるはずなのに
+        //なんでできないのおおおお（HELP）
         let a = CalendarView()
         a.resetMonthView()
         

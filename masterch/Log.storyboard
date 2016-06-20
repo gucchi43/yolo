@@ -385,7 +385,7 @@
         <!--ログ-->
         <scene sceneID="ORA-vr-x22">
             <objects>
-                <navigationController storyboardIdentifier="Log" automaticallyAdjustsScrollViewInsets="NO" id="QJZ-Br-eeV" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Log" automaticallyAdjustsScrollViewInsets="NO" id="QJZ-Br-eeV" customClass="LogNavigationController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="ログ" id="Dgp-Bp-UTR"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YYb-tB-q7j">
