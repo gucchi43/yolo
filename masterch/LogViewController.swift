@@ -113,16 +113,16 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     //NavigationTitleをタップ
     func tapped(tapGestureRecognizer: UITapGestureRecognizer) {
         print("ナビゲーションタイトルをタップ")
-        let item1 = DropdownItem(title: "オール")
-        let item2 = DropdownItem(title: "自分")
-        let item3 = DropdownItem(title: "フォロー")
+        let item1 = DropdownItem(title: "自分")
+        let item2 = DropdownItem(title: "フォロー")
+//        let item3 = DropdownItem(title: "オール")
 //        let item2 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "File")
 //        let item3 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "Post", style: .Highlight)
 //        let item4 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "Event", style: .Highlight, accessoryImage: UIImage(named: "accessory")!)
         
         
         //将来的には可変になる、アプリないで変更可能に…
-        Dropitems = [item1, item2,item3]
+        Dropitems = [item1, item2]
         let menuView = DropdownMenu(navigationController: navigationController!, items: Dropitems, selectedRow: selectedRow)
         menuView.delegate = self
         menuView.showMenu(onNavigaitionView: true)
@@ -194,9 +194,9 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 //        })
 //    }
     
-    func loadItemsFinish(range: Int){
+    func loadItemsFinish(logNumber: Int){
         let loadItemsManager = LoadItemsManager()
-        let postQuery: NCMBQuery = loadItemsManager.loadItems(range)
+        let postQuery: NCMBQuery = loadItemsManager.loadItems(logNumber)
         postQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -604,7 +604,13 @@ extension LogViewController{
 extension LogViewController: DropdownMenuDelegate {
     func dropdownMenu(dropdownMenu: DropdownMenu, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("DropdownMenu didselect \(indexPath.row) text:\(Dropitems[indexPath.row].title)")
+        
+        print("Dropitems.count", Dropitems.count)
+        //
         if indexPath.row != Dropitems.count - 1 {
+            self.selectedRow = indexPath.row
+        }else {
+            //絶対ありえないと思うが…
             self.selectedRow = indexPath.row
         }
         logManager.sharedSingleton.logNumber = indexPath.row
@@ -612,36 +618,5 @@ extension LogViewController: DropdownMenuDelegate {
         loadItemsFinish(logNumber)
         print("logNumber", logNumber, Dropitems[indexPath.row].title)
         loadItemsFinish(logNumber)
-//        
-//        switch indexPath.row {
-//        case 0:
-//            print("0", Dropitems[indexPath.row].title)
-////            let loadItemsManager = LoadItemsManager()
-////            loadItemsManager.loadItems(0)
-//            loadItemsFinish(0)
-//        case 1:
-//            print("1", Dropitems[indexPath.row].title)
-////            let loadItemsManager = LoadItemsManager()
-////            loadItemsManager.loadItems(1)
-//            loadItemsFinish(1)
-//        case 2:
-//            print("2", Dropitems[indexPath.row].title)
-////            let loadItemsManager = LoadItemsManager()
-////            loadItemsManager.loadItems(2)
-//            loadItemsFinish(2)
-//        default:
-//            print("default", Dropitems[indexPath.row].title)
-////            let loadItemsManager = LoadItemsManager()
-////            loadItemsManager.loadItems(0)
-//            loadItemsFinish(0)
-//        }
-        
-//        
-//        let alertConroller = UIAlertController(title: "Nice", message: "You choose \(Dropitems[indexPath.row].title)", preferredStyle: .Alert)
-//        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
-//        alertConroller.addAction(okAction)
-//        presentViewController(alertConroller, animated: true) {
-//            print("Display success")
-//        }
     }
 }

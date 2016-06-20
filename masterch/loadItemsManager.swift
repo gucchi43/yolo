@@ -23,15 +23,20 @@ final class logManager {
 
 class LoadItemsManager: NSObject {
 
-    func loadItems(range: Int) -> NCMBQuery {
+    func loadItems(logNumber: Int) -> NCMBQuery {
         //クエリの作成
         var postQuery: NCMBQuery = NCMBQuery(className: "Post")
-        switch range { //絞っていくよーーーーーーーーーーーーー
-        case 1:
+        switch logNumber { //絞っていくよーーーーーーーーーーーーー
+        case 0:
             //自分のみ
             postQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+            postQuery.orderByDescending("postDate") // cellの並べ方
+            postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+            postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+            postQuery.includeKey("user")
+
             
-        case 2:
+        case 1:
             //フォローのみ
             let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship") // 自分がフォローしている人かどうかのクエリ
             relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
@@ -39,6 +44,11 @@ class LoadItemsManager: NSObject {
             postQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)// 自分がフォローしている人の投稿クエリ
             postQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
             postQuery.whereKey("user", notEqualTo: NCMBUser.currentUser())//自分がフォロワーに含まれてたら自分は表示しない
+            postQuery.orderByDescending("postDate") // cellの並べ方
+            postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+            postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+            postQuery.includeKey("user")
+
             
         default:
             //オール
@@ -54,14 +64,19 @@ class LoadItemsManager: NSObject {
             followingQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
             
             postQuery = NCMBQuery.orQueryWithSubqueries([myPostQuery, followingQuery]) // クエリの合成
+            postQuery.orderByDescending("postDate") // cellの並べ方
+            postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+            postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+            postQuery.includeKey("user")
+
             
         }
         
         //共通のクエリの範囲指定、順番と日にちの範囲指定とincludeKey
-        postQuery.orderByDescending("postDate") // cellの並べ方
-        postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
-        postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
-        postQuery.includeKey("user")
+//        postQuery.orderByDescending("postDate") // cellの並べ方
+//        postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+//        postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+//        postQuery.includeKey("user")
         return postQuery
     }
 
