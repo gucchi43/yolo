@@ -16,6 +16,7 @@ class LoadItemsManager: NSObject {
         var postQuery: NCMBQuery = NCMBQuery(className: "Post")
         switch range {
         case 1:
+            //自分のみ
             postQuery.whereKey("user", equalTo: NCMBUser.currentUser())
             postQuery.orderByDescending("postDate") // cellの並べ方
             postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
@@ -24,6 +25,7 @@ class LoadItemsManager: NSObject {
             
             
         case 2:
+            //フォローのみ
             let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship") // 自分がフォローしている人かどうかのクエリ
             relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
             relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "Post"))
@@ -37,6 +39,7 @@ class LoadItemsManager: NSObject {
             
             
         default:
+            //オール
             let myPostQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分の投稿クエリ
             myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
             
@@ -55,28 +58,7 @@ class LoadItemsManager: NSObject {
             postQuery.includeKey("user")
             
         }
-        
         return postQuery
-        
-        
-//        postQuery.findObjectsInBackgroundWithBlock({(objects, error) in
-//            if let error = error {
-//                print(error.localizedDescription)
-//            } else {
-//                let logViewController = LogViewController()
-//                print("投稿数", objects.count)
-//                if objects.count > 0 {
-//                    logViewController.postArray = objects
-////                    self.postArray = objects
-//                } else {
-//                    logViewController.postArray = []
-////                    self.postArray = []
-//                }
-//                let a = logViewController.tableView
-//                a!.reloadData()
-////                self.tableView.reloadData()
-//            }
-//        })
     }
 
     

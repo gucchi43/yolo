@@ -113,7 +113,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         print("ナビゲーションタイトルをタップ")
         let item1 = DropdownItem(title: "オール")
         let item2 = DropdownItem(title: "自分")
-        let item3 = DropdownItem(title: "フォロワー")
+        let item3 = DropdownItem(title: "フォロー")
 //        let item2 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "File")
 //        let item3 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "Post", style: .Highlight)
 //        let item4 = DropdownItem(image: UIImage(named: "takigutihikari")!, title: "Event", style: .Highlight, accessoryImage: UIImage(named: "accessory")!)
