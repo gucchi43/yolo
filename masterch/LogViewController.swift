@@ -121,11 +121,11 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         stackView.frame = CGRectMake(0,0,100,40)
         
         //タイトルのラベルを作成する。
-        let testLabel1 = UILabel(frame:CGRectMake(0,0,100,26))
+        let testLabel1 = UILabel(frame:CGRectMake(0,0,100,28))
         testLabel1.text = "ログ"
         
         //サブタイトルを作成する。
-        let testLabel2 = UILabel(frame:CGRectMake(0,0,100,14))
+        let testLabel2 = UILabel(frame:CGRectMake(0,0,100,12))
         testLabel2.textColor = UIColor.lightGrayColor()
         let logNumber = logManager.sharedSingleton.logNumber
         switch logNumber {
@@ -499,9 +499,20 @@ extension LogViewController: DropdownMenuDelegate {
         //これでLogColorDateが読み込まれてカレンダーが更新されるはずなのに
         //なんでできないのおおおお（HELP）
         //        let a = CalendarView()
-        if let calendarView = calendarView {
-            calendarView.resetMonthView()
-            loadQuery(logNumber)
+        
+        switch toggleWeek {
+        case false:
+            print("week表示")
+            if let calendarView = calendarView {
+                calendarView.resetMonthView()
+                loadQuery(logNumber)
+            }
+        default:
+            print("month表示")
+            if let calendarAnotherView = calendarAnotherView {
+                calendarAnotherView.resetWeekView()
+                loadQuery(logNumber)
+            }
         }
         
 //        let b = CalendarMonthView(frame: calendarBaseView.bounds, date: CalendarManager.currentDate)
