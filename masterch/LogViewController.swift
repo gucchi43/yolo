@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import DropdownMenu
+import SwiftDate
 
-class LogViewController: UIViewController, addPostDetailDelegate {
+class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDelegate {
     
     var toggleWeek: Bool = false
     var postArray: NSArray = NSArray()
@@ -23,6 +25,9 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var monthLabel: UILabel!
+    
+    var selectedRow: Int = 0
+    var Dropitems: [DropdownItem]!
     
 //    セル選択時の変数
     var selectedPostObject: NCMBObject!
@@ -47,16 +52,24 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         
         tableView.estimatedRowHeight = 370
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        //NavigationBarのタイトルになる配列を読み込む
+        //（今は定数のためViewDidLoadに書いている）
+        let item1 = DropdownItem(title: "自分")
+        let item2 = DropdownItem(title: "フォロー")
+        //将来的には可変になる、アプリないで変更可能に…
+        Dropitems = [item1, item2]
+        
+        changeTitle(logManager.sharedSingleton.logNumber)
     }
     
     override func viewWillAppear(animated: Bool) {
 //        self.navigationController?.setToolbarHidden(true, animated: true) // ViewWillAppearは表示の度に呼ばれるので何度も消してくれる
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.didSelectDayView(_:)), name: "didSelectDayView", object: nil)
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
         }
-//        let postDetileViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PostDetail") as? PostDetailViewController
-//        postDetileViewController!.delegate = self
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -67,7 +80,8 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     
     //関数で受け取った時のアクションを定義
     func didSelectDayView(notification: NSNotification) {
-        loadItems()
+        let logNumber = logManager.sharedSingleton.logNumber
+        loadQuery(logNumber)
         monthLabel.text = CalendarManager.selectLabel()
     }
     
@@ -83,41 +97,101 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             if let calendarView = calendarView {
                 calendarBaseView.addSubview(calendarView)
             }
-            loadItems()
+            let logNumber = logManager.sharedSingleton.logNumber
+            loadQuery(logNumber)
             monthLabel.text = CalendarManager.selectLabel()
         }
     }
     
-    func postDetailDismissionAction() {
+    
+//    NavigationTitleをタップ
+    func tapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        print("ナビゲーションタイトルをタップ")
+        let menuView = DropdownMenu(navigationController: navigationController!, items: Dropitems, selectedRow: selectedRow)
+        menuView.delegate = self
+        menuView.showMenu(onNavigaitionView: true)
+    }
+    
+    //NavigatoinBarのタイトルを設定
+    func changeTitle(logNumber: Int) {
+        //スタックビューを作成
+        let stackView = UIStackView()
+        stackView.axis = .Vertical
+        stackView.alignment = .Center
+        stackView.frame = CGRectMake(0,0,100,40)
+        
+        //タイトルのラベルを作成する。
+        let testLabel1 = UILabel(frame:CGRectMake(0,0,100,28))
+        testLabel1.text = "ログ"
+        
+        //サブタイトルを作成する。
+        let testLabel2 = UILabel(frame:CGRectMake(0,0,100,12))
+        testLabel2.textColor = UIColor.lightGrayColor()
+        let logNumber = logManager.sharedSingleton.logNumber
+        switch logNumber {
+        case 0:
+            testLabel2.text = Dropitems[0].title
+        case 1:
+            testLabel2.text = Dropitems[1].title
+        default:
+            testLabel2.text = "その他"
+        }
+        
+        //スタックビューに追加する。
+        stackView.addArrangedSubview(testLabel1)
+        stackView.addArrangedSubview(testLabel2)
+        //タッチできるようにする
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.tapped(_:)))
+        stackView.addGestureRecognizer(gesture)
+        stackView.userInteractionEnabled = true
+        //ナビゲーションバーのタイトルに設定する。
+        navigationController!.navigationBar.topItem!.titleView = stackView
+    }
+    
+    
+    func submitFinish() {
+        print("submitFinish")
+        let logNumber = logManager.sharedSingleton.logNumber
+        switch toggleWeek {
+        case false:
+            print("week表示")
+            if let calendarView = calendarView {
+                calendarView.resetMonthView()
+                loadQuery(logNumber)
+            }
+        default:
+            print("month表示")
+            if let calendarAnotherView = calendarAnotherView {
+                calendarAnotherView.resetWeekView()
+                loadQuery(logNumber)
+            }
+        }
+        tableView.reloadData()
+        
+    }
+    
+
+    //投稿画面から戻った時にリロード
+        func postDetailDismissionAction() {
         print("postDetailDismissionAction")
         tableView.reloadData()
     }
     
-    func loadItems() {
-        
-        let myPostQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分の投稿クエリ
-        myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
-        
-        let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship") // 自分がフォローしている人かどうかのクエリ
-        relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
-        relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "Post"))
-        
-        let followingQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分がフォローしている人の投稿クエリ
-        followingQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)
-        followingQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
-        
-
-        let postQuery: NCMBQuery = NCMBQuery.orQueryWithSubqueries([myPostQuery, followingQuery]) // クエリの合成
-        postQuery.orderByDescending("postDate") // cellの並べ方
-        postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
-        postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
-        postQuery.includeKey("user")
-        
-
+    
+    func ChangeloadQuery(logNumber: Int) {
+        loadQuery(logNumber)
+    }
+    
+    
+    //tableViewに表示するその日の投稿のQueryから取ってくる
+    func loadQuery(logNumber: Int){
+        let logQueryManager = LogQueryManager()
+        let postQuery: NCMBQuery = logQueryManager.loadItems(logNumber)
         postQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error {
                 print(error.localizedDescription)
             } else {
+                print("投稿数", objects.count)
                 if objects.count > 0 {
                     self.postArray = objects
                 } else {
@@ -127,10 +201,11 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             }
         })
     }
+
     
     // スクロール感知用の変数
     var scrollBeginingPoint: CGPoint!
-    
+
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         scrollBeginingPoint = scrollView.contentOffset;
     }
@@ -164,6 +239,12 @@ class LogViewController: UIViewController, addPostDetailDelegate {
                 postDetailVC.isSelectedCommentButton = sender as! Bool
             }
         }
+        if segue.identifier == "toSubmitViewController" {
+            let submitVC: SubmitViewController = segue.destinationViewController as! SubmitViewController
+            submitVC.delegate = self
+            print("これはどうなる")
+        }
+        
     }
     
     //月週の切り替わりのアウトレイアウトの紐付け
@@ -217,10 +298,13 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! TimelineCell
         // 各値をセルに入れる
         let postData = postArray[indexPath.row]
+        print("postData", postData)
         // postTextLabelには(key: "text")の値を入れる
         cell.postTextLabel.text = postData.objectForKey("text") as? String
+        print("投稿内容", cell.postTextLabel.text)
         // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
         let date = postData.objectForKey("postDate") as? NSDate
+        print("NSDateの内容", date)
         let postDateFormatter: NSDateFormatter = NSDateFormatter()
         postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
@@ -416,3 +500,51 @@ extension LogViewController{
 
 }
 
+//DropdownMenuDelegateのDelegate
+extension LogViewController: DropdownMenuDelegate {
+    func dropdownMenu(dropdownMenu: DropdownMenu, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("DropdownMenu didselect \(indexPath.row) text:\(Dropitems[indexPath.row].title)")
+        
+        self.selectedRow = indexPath.row
+        
+//        if indexPath.row != Dropitems.count - 1 {
+//            //一番上選んだ時
+//            self.selectedRow = indexPath.row
+//        }else {
+//            //それ意外
+//            self.selectedRow = indexPath.row
+//        }
+        logManager.sharedSingleton.logNumber = indexPath.row
+        let logNumber = logManager.sharedSingleton.logNumber
+        print("logNumber", logNumber, Dropitems[indexPath.row].title)
+        
+        changeTitle(logManager.sharedSingleton.logNumber)
+        
+        //これでLogColorDateが読み込まれてカレンダーが更新されるはずなのに
+        //なんでできないのおおおお（HELP）
+        //        let a = CalendarView()
+        
+        switch toggleWeek {
+        case false:
+            print("week表示")
+            if let calendarView = calendarView {
+                calendarView.resetMonthView()
+                loadQuery(logNumber)
+            }
+        default:
+            print("month表示")
+            if let calendarAnotherView = calendarAnotherView {
+                calendarAnotherView.resetWeekView()
+                loadQuery(logNumber)
+            }
+        }
+        
+//        let b = CalendarMonthView(frame: calendarBaseView.bounds, date: CalendarManager.currentDate)
+//        CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: CGRectGetHeight(frame)), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days)
+        
+        
+//        b.startSetUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days)
+//        b.getLogColorDate(CalendarManager.currentDate)
+        
+    }
+}

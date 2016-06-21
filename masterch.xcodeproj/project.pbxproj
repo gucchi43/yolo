@@ -55,6 +55,13 @@
 		ED36445E1C9D65C000C6676C /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445D1C9D65C000C6676C /* Notification.storyboard */; };
 		ED3644601C9D6DBA00C6676C /* Submit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445F1C9D6DBA00C6676C /* Submit.storyboard */; };
 		ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED4512AF1CEF33CB0071FA58 /* Title.storyboard */; };
+		ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */; };
+		ED6AF8CB1D16B535003FBC5C /* DropdownMenu.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */; };
+		ED6AF8CE1D16B577003FBC5C /* SVProgressHUD.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ED720CD11D180B2400477608 /* CalendarLogCollerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720CD01D180B2400477608 /* CalendarLogCollerManager.swift */; };
+		ED720CD31D188D6500477608 /* LogNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720CD21D188D6500477608 /* LogNavigationController.swift */; };
+		ED720CD51D18A8CA00477608 /* LogQueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720CD41D18A8CA00477608 /* LogQueryManager.swift */; };
 		ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; };
 		ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB1491C9365250028C986 /* fb_login_big.png */; };
@@ -110,6 +117,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				ED6AF8CE1D16B577003FBC5C /* SVProgressHUD.framework in CopyFiles */,
+				ED6AF8CB1D16B535003FBC5C /* DropdownMenu.framework in CopyFiles */,
 				ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,6 +185,11 @@
 		ED36445D1C9D65C000C6676C /* Notification.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Notification.storyboard; path = masterch/Notification.storyboard; sourceTree = "<group>"; };
 		ED36445F1C9D6DBA00C6676C /* Submit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Submit.storyboard; sourceTree = "<group>"; };
 		ED4512AF1CEF33CB0071FA58 /* Title.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Title.storyboard; sourceTree = "<group>"; };
+		ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropdownMenu.framework; path = Carthage/Build/iOS/DropdownMenu.framework; sourceTree = "<group>"; };
+		ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
+		ED720CD01D180B2400477608 /* CalendarLogCollerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarLogCollerManager.swift; sourceTree = "<group>"; };
+		ED720CD21D188D6500477608 /* LogNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogNavigationController.swift; sourceTree = "<group>"; };
+		ED720CD41D18A8CA00477608 /* LogQueryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogQueryManager.swift; sourceTree = "<group>"; };
 		ED779B091C8DCB9100C3027C /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		ED7DB1491C9365250028C986 /* fb_login_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_big.png; sourceTree = "<group>"; };
 		ED7DB14A1C9365250028C986 /* fb_login_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_small.png; sourceTree = "<group>"; };
@@ -213,6 +227,8 @@
 			files = (
 				ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */,
 				E0B7E0BA07F94C20BB5A1280 /* libPods-masterch.a in Frameworks */,
+				ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */,
+				ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +332,8 @@
 		B831727C3E3CF2E5ED6388D9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */,
+				ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */,
 				ED779B091C8DCB9100C3027C /* SwiftDate.framework */,
 				2256E15F2038E12B35758EC6 /* libPods-masterch.a */,
 			);
@@ -329,6 +347,7 @@
 				ED23B7A11C7B475B009AEDA5 /* CalendarView.swift */,
 				EDA4DC711C82F190005FE126 /* CalendarAnotherView.swift */,
 				EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */,
+				ED720CD01D180B2400477608 /* CalendarLogCollerManager.swift */,
 				EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */,
 				ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */,
 			);
@@ -338,9 +357,7 @@
 		ED3644611C9D72F700C6676C /* TimeLine */ = {
 			isa = PBXGroup;
 			children = (
-				ED2152441D1188390027AFC4 /* UserList.storyboard */,
 				ED2152451D1188390027AFC4 /* UserListTableViewCell.swift */,
-				ED2152461D11883A0027AFC4 /* UserListTableViewCell.xib */,
 				ED2152471D11883A0027AFC4 /* UserListViewController.swift */,
 				32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */,
 				EDDE7C7B1D16417500632A7F /* likedManager.swift */,
@@ -348,6 +365,8 @@
 				ED3107EA1D101A2100FE3D32 /* CommentTableViewCell.swift */,
 				3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */,
 				3219A2351C70468900D1A6AF /* TimelineCell.swift */,
+				ED2152461D11883A0027AFC4 /* UserListTableViewCell.xib */,
+				ED2152441D1188390027AFC4 /* UserList.storyboard */,
 				ED3107F01D101B0B00FE3D32 /* PostDetailTableViewCell.xib */,
 				ED3107EC1D101A4500FE3D32 /* CommentTableViewCell.xib */,
 				EDCBEE711CCA793700317BCE /* PostDetail.storyboard */,
@@ -373,7 +392,9 @@
 			isa = PBXGroup;
 			children = (
 				ED3644591C9D659A00C6676C /* Log.storyboard */,
+				ED720CD41D18A8CA00477608 /* LogQueryManager.swift */,
 				3289D2371C6A1C6000B4C65A /* LogViewController.swift */,
+				ED720CD21D188D6500477608 /* LogNavigationController.swift */,
 			);
 			name = Log;
 			sourceTree = "<group>";
@@ -653,6 +674,7 @@
 			files = (
 			);
 			inputPaths = (
+				"",
 			);
 			outputPaths = (
 			);
@@ -668,9 +690,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDA4DC721C82F190005FE126 /* CalendarAnotherView.swift in Sources */,
+				ED720CD11D180B2400477608 /* CalendarLogCollerManager.swift in Sources */,
 				3219A2371C70468900D1A6AF /* TimelineCell.swift in Sources */,
+				ED720CD51D18A8CA00477608 /* LogQueryManager.swift in Sources */,
 				EDA4DC6E1C82F0FB005FE126 /* CalendarSwiftDateView.swift in Sources */,
 				EDA4DC701C82F163005FE126 /* CalendarWeekView.swift in Sources */,
+				ED720CD31D188D6500477608 /* LogNavigationController.swift in Sources */,
 				EDB4AF581CE37AE2002781F3 /* ContainerSnsViewController.swift in Sources */,
 				EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */,
 				32C0A3401C5DF8ED009657B9 /* ViewController.swift in Sources */,

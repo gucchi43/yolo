@@ -1,3 +1,5 @@
 github "malcommac/SwiftDate" == 3.0.9
 
 github "SVProgressHUD/SVProgressHUD" == 2.0.3
+
+github "teambition/DropdownMenu"

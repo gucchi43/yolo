@@ -10,6 +10,11 @@ import UIKit
 import TwitterKit
 import Fabric
 
+
+protocol addSubmitlDelegate {
+    func submitFinish()
+}
+
 class SubmitViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet var postTextView: UITextView!
@@ -53,6 +58,8 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     var logDate: String?
     var dateColor: String = "normal"
+    
+    var delegate: addSubmitlDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -453,7 +460,8 @@ extension SubmitViewController {
         })
 
         postTextView.resignFirstResponder() // 先にキーボードを下ろす
-        self.dismissViewControllerAnimated(true, completion: nil)
+//        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: {self.delegate?.submitFinish()})
         print("投稿完了")
         
         
