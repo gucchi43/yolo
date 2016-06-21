@@ -10,7 +10,7 @@ import UIKit
 import DropdownMenu
 import SwiftDate
 
-class LogViewController: UIViewController, addPostDetailDelegate {
+class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDelegate {
     
     var toggleWeek: Bool = false
     var postArray: NSArray = NSArray()
@@ -149,6 +149,27 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     }
     
     
+    func submitFinish() {
+        print("submitFinish")
+        let logNumber = logManager.sharedSingleton.logNumber
+        switch toggleWeek {
+        case false:
+            print("week表示")
+            if let calendarView = calendarView {
+                calendarView.resetMonthView()
+                loadQuery(logNumber)
+            }
+        default:
+            print("month表示")
+            if let calendarAnotherView = calendarAnotherView {
+                calendarAnotherView.resetWeekView()
+                loadQuery(logNumber)
+            }
+        }
+        tableView.reloadData()
+        
+    }
+    
 
     //投稿画面から戻った時にリロード
         func postDetailDismissionAction() {
@@ -176,18 +197,15 @@ class LogViewController: UIViewController, addPostDetailDelegate {
                 } else {
                     self.postArray = []
                 }
-
                 self.tableView.reloadData()
             }
         })
-        
     }
 
     
-    
     // スクロール感知用の変数
     var scrollBeginingPoint: CGPoint!
-    
+
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         scrollBeginingPoint = scrollView.contentOffset;
     }
@@ -221,6 +239,12 @@ class LogViewController: UIViewController, addPostDetailDelegate {
                 postDetailVC.isSelectedCommentButton = sender as! Bool
             }
         }
+        if segue.identifier == "toSubmitViewController" {
+            let submitVC: SubmitViewController = segue.destinationViewController as! SubmitViewController
+            submitVC.delegate = self
+            print("これはどうなる")
+        }
+        
     }
     
     //月週の切り替わりのアウトレイアウトの紐付け
