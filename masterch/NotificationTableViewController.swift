@@ -81,7 +81,8 @@ class NotificationTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("followdCell", forIndexPath: indexPath) as! NotificationFollowTableViewCell
             let followerInfo = notificationArray[indexPath.row]
             print("followerInfo", followerInfo)
-            let agoTime = (followerInfo.objectForKey("date") as! NSDate).timeAgo()
+//            let agoTime = (followerInfo.objectForKey("date") as! NSDate).timeAgo()
+            let agoTime = (followerInfo.createDate as NSDate).timeAgo()
             print("agoTime", agoTime)
             
             cell.postLabel.text = ""
@@ -108,7 +109,7 @@ class NotificationTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("likedCell", forIndexPath: indexPath) as! NotificationLikeTableViewCell
             let likeInfo = notificationArray[indexPath.row]
             print("likeInfo", likeInfo)
-            let agoTime = (likeInfo.objectForKey("date") as! NSDate).timeAgo()
+            let agoTime = (likeInfo.createDate as NSDate).timeAgo()
             print("agoTime", agoTime)
             
             cell.postLabel.text = ""
@@ -138,7 +139,7 @@ class NotificationTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("commentedCell", forIndexPath: indexPath) as! NotificationCommentTableViewCell
             let commentInfo = notificationArray[indexPath.row]
             print("likeInfo", commentInfo)
-            let agoTime = (commentInfo.objectForKey("date") as! NSDate).timeAgo()
+            let agoTime = (commentInfo.createDate as NSDate).timeAgo()
             print("agoTime", agoTime)
 
             cell.postLabel.text = ""
@@ -158,10 +159,6 @@ class NotificationTableViewController: UITableViewController {
                     cell.userImageView.image = UIImage(data: imageData!)
                 }
             })
-            //"post"情報読み込み
-//            let keyPost = commentInfo.objectForKey("post") as? NCMBObject
-//            guard let post = keyPost else { return cell } ////この場合、投稿情報が載ってないcellがreturnされる。
-//            print("postText", post.objectForKey("text") as? String)
             cell.postLabel.text = commentInfo.objectForKey("postHeader") as? String
             cell.layoutIfNeeded()
             return cell

@@ -16,15 +16,14 @@ class NotificationManager: NSObject {
         notificationObject.setObject(user, forKey: "ownerUser")
         notificationObject.setObject("like", forKey: "type")
         notificationObject.setObject(NCMBUser.currentUser(), forKey: "actionUser")
-        notificationObject.setObject(NSDate(), forKey: "date")
         let postRelation: NCMBRelation = NCMBRelation(className: notificationObject, key: "post")
         postRelation.addObject(post)
         notificationObject.setObject(postHeader, forKey: "postHeader")
-        notificationObject.saveInBackgroundWithBlock({ (error) -> Void in
+        notificationObject.fetchInBackgroundWithBlock({ (error) -> Void in
             if let error = error {
                 print("error", error.localizedDescription)
             }else {
-                print("like: Notificationへの保存成功")
+                print("follow: Notificationへの保存成功")
             }
         })
     }
@@ -35,9 +34,8 @@ class NotificationManager: NSObject {
         notificationObject.setObject(user, forKey: "ownerUser")
         notificationObject.setObject("follow", forKey: "type")
         notificationObject.setObject(NCMBUser.currentUser(), forKey: "actionUser")
-        notificationObject.setObject(NSDate(), forKey: "date")
         notificationObject.setObject(nil, forKey: "post")
-        notificationObject.saveInBackgroundWithBlock({ (error) -> Void in
+        notificationObject.fetchInBackgroundWithBlock({ (error) -> Void in
             if let error = error {
                 print("error", error.localizedDescription)
             }else {
@@ -53,18 +51,17 @@ class NotificationManager: NSObject {
         notificationObject.setObject(user, forKey: "ownerUser")
         notificationObject.setObject("comment", forKey: "type")
         notificationObject.setObject(NCMBUser.currentUser(), forKey: "actionUser")
-        notificationObject.setObject(NSDate(), forKey: "date")
         let postRelation: NCMBRelation = NCMBRelation(className: notificationObject, key: "post")
         postRelation.addObject(post)
         notificationObject.setObject(postHeader, forKey: "postHeader")
-        notificationObject.saveInBackgroundWithBlock({ (error) -> Void in
+        notificationObject.fetchInBackgroundWithBlock({ (error) -> Void in
             if let error = error {
                 print("error", error.localizedDescription)
             }else {
                 print("comment: Notificationへの保存成功")
             }
         })
+
     }
-    
 
 }
