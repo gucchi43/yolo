@@ -227,12 +227,18 @@ extension PostDetailViewController: UITextViewDelegate {
         
         //コメントしたことを通知画面のDBに保存
         let auther = postObject.objectForKey("user") as! NCMBUser
-        print("auther", auther)
         let allPostText = postObject.objectForKey("text") as! String
-        let postHeader = allPostText.substringToIndex(allPostText.startIndex.advancedBy(5))
-        print("Notificatoinに保存する最初の５０文字", postHeader)
+        let allPostTextCount = allPostText.characters.count
+        print("allPostTextCount", allPostTextCount)
+        let postHeader: String?
+        if allPostTextCount > 100{
+            postHeader = allPostText.substringToIndex(allPostText.startIndex.advancedBy(100))
+        }else {
+            postHeader = allPostText
+        }
+        print("Notificatoinに保存する最初の５０文字", postHeader!)
         let notificationManager = NotificationManager()
-        notificationManager.commentNotification(auther, post: postObject, postHeader: postHeader)
+        notificationManager.commentNotification(auther, post: postObject, postHeader: postHeader!)
     }
 
 }
