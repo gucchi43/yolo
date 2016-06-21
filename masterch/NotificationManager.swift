@@ -11,13 +11,15 @@ import UIKit
 class NotificationManager: NSObject {
     
     //いいねしたことを通知画面のデータに保存
-    func likeNotification(user: NCMBUser, post: NCMBObject){
+    func likeNotification(user: NCMBUser, post: NCMBObject, postHeader: String){
         let notificationObject = NCMBObject(className: "Notification")
         notificationObject.setObject(user, forKey: "ownerUser")
         notificationObject.setObject("like", forKey: "type")
         notificationObject.setObject(NCMBUser.currentUser(), forKey: "actionUser")
         notificationObject.setObject(NSDate(), forKey: "date")
-        notificationObject.setObject(post, forKey: "post")
+        let postRelation: NCMBRelation = NCMBRelation(className: notificationObject, key: "post")
+        postRelation.addObject(post)
+        notificationObject.setObject(postHeader, forKey: "postHeader")
         notificationObject.saveInBackgroundWithBlock({ (error) -> Void in
             if let error = error {
                 print("error", error.localizedDescription)
@@ -46,13 +48,15 @@ class NotificationManager: NSObject {
     
     
     //commentしたことを通知画面のデータに保存
-    func commentNotification(user: NCMBUser, post: NCMBObject){
+    func commentNotification(user: NCMBUser, post: NCMBObject, postHeader: String){
         let notificationObject = NCMBObject(className: "Notification")
         notificationObject.setObject(user, forKey: "ownerUser")
         notificationObject.setObject("comment", forKey: "type")
         notificationObject.setObject(NCMBUser.currentUser(), forKey: "actionUser")
         notificationObject.setObject(NSDate(), forKey: "date")
-        notificationObject.setObject(post, forKey: "post")
+        let postRelation: NCMBRelation = NCMBRelation(className: notificationObject, key: "post")
+        postRelation.addObject(post)
+        notificationObject.setObject(postHeader, forKey: "postHeader")
         notificationObject.saveInBackgroundWithBlock({ (error) -> Void in
             if let error = error {
                 print("error", error.localizedDescription)

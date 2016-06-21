@@ -358,8 +358,11 @@ extension LogViewController{
                 
                 //いいねしたことを通知画面のDBに保存
                 let auther = postData.objectForKey("user") as! NCMBUser
+                let allPostText = postData.objectForKey("text") as! String
+                let postHeader = allPostText.substringToIndex(allPostText.startIndex.advancedBy(5))
+                print("Notificatoinに保存する最初の５０文字", postHeader)
                 let notificationManager = NotificationManager()
-                notificationManager.likeNotification(auther, post: postData)
+                notificationManager.likeNotification(auther, post: postData, postHeader: postHeader)
             }
         })
         

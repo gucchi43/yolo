@@ -225,11 +225,14 @@ extension PostDetailViewController: UITextViewDelegate {
         postObject.save(nil)
         print("コメント保存完了 \(commentObject)")
         
-        //いいねしたことを通知画面のDBに保存
+        //コメントしたことを通知画面のDBに保存
         let auther = postObject.objectForKey("user") as! NCMBUser
         print("auther", auther)
+        let allPostText = postObject.objectForKey("text") as! String
+        let postHeader = allPostText.substringToIndex(allPostText.startIndex.advancedBy(5))
+        print("Notificatoinに保存する最初の５０文字", postHeader)
         let notificationManager = NotificationManager()
-        notificationManager.commentNotification(auther, post: postObject)
+        notificationManager.commentNotification(auther, post: postObject, postHeader: postHeader)
     }
 
 }
@@ -247,6 +250,7 @@ extension PostDetailViewController: UITableViewDataSource{
             let cell = tableView.dequeueReusableCellWithIdentifier("postDetailCell") as! PostDetailTableViewCell
             cell.delegate = self
             cell.postObject = postObject
+            cell.auther = otherUser
             cell.setPostDetailCell()
             return cell
         } else {
