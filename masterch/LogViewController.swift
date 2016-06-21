@@ -498,12 +498,11 @@ extension LogViewController: DropdownMenuDelegate {
         
         //これでLogColorDateが読み込まれてカレンダーが更新されるはずなのに
         //なんでできないのおおおお（HELP）
-        let a = CalendarView()
-        a.resetMonthView()
-        
-        loadQuery(logNumber)
-        
-        
+        //        let a = CalendarView()
+        if let calendarView = calendarView {
+            calendarView.resetMonthView()
+            loadQuery(logNumber)
+        }
         
 //        let b = CalendarMonthView(frame: calendarBaseView.bounds, date: CalendarManager.currentDate)
 //        CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: CGRectGetHeight(frame)), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days)
