@@ -43,19 +43,7 @@ class NotificationTableViewController: UITableViewController {
                 if objects.count > 0 {
                     print("通知テーブルセルの数", objects.count)
                     self.notificationArray = objects
-                    for info in self.notificationArray{
-                        let post = info.objectForKey("post") as? NCMBObject
-                        if let post = post {
-                            var postError: NSError?
-                            post.fetch(&postError)
-                            if postError == nil{
-                                print("postText", post.objectForKey("text") as? String)
-                                self.tableView.reloadData()
-                            }else {
-                                print(postError!.localizedDescription)
-                            }
-                        }
-                    }
+                    self.tableView.reloadData()
                 }else {
                     self.notificationArray = []
                     print("通知はまだ0です……")
@@ -93,7 +81,8 @@ class NotificationTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("followdCell", forIndexPath: indexPath) as! NotificationFollowTableViewCell
             let followerInfo = notificationArray[indexPath.row]
             print("followerInfo", followerInfo)
-            let agoTime = (followerInfo.objectForKey("date") as! NSDate).timeAgo()
+//            let agoTime = (followerInfo.objectForKey("date") as! NSDate).timeAgo()
+            let agoTime = (followerInfo.createDate as NSDate).timeAgo()
             print("agoTime", agoTime)
             
             cell.postLabel.text = ""
@@ -120,7 +109,7 @@ class NotificationTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("likedCell", forIndexPath: indexPath) as! NotificationLikeTableViewCell
             let likeInfo = notificationArray[indexPath.row]
             print("likeInfo", likeInfo)
-            let agoTime = (likeInfo.objectForKey("date") as! NSDate).timeAgo()
+            let agoTime = (likeInfo.createDate as NSDate).timeAgo()
             print("agoTime", agoTime)
             
             cell.postLabel.text = ""
@@ -140,11 +129,8 @@ class NotificationTableViewController: UITableViewController {
                     cell.userImageView.image = UIImage(data: imageData!)
                 }
             })
-            //"post"情報読み込み
-            let keyPost = likeInfo.objectForKey("post") as? NCMBObject
-            guard let post = keyPost else { return cell } ////この場合、投稿情報が載ってないcellがreturnされる。
-            print("postText", post.objectForKey("text") as? String)
-            cell.postLabel.text = post.objectForKey("text") as? String
+            cell.postLabel.text = likeInfo.objectForKey("postHeader") as? String
+            
             cell.layoutIfNeeded()
             return cell
 
@@ -153,7 +139,7 @@ class NotificationTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("commentedCell", forIndexPath: indexPath) as! NotificationCommentTableViewCell
             let commentInfo = notificationArray[indexPath.row]
             print("likeInfo", commentInfo)
-            let agoTime = (commentInfo.objectForKey("date") as! NSDate).timeAgo()
+            let agoTime = (commentInfo.createDate as NSDate).timeAgo()
             print("agoTime", agoTime)
 
             cell.postLabel.text = ""
@@ -173,11 +159,7 @@ class NotificationTableViewController: UITableViewController {
                     cell.userImageView.image = UIImage(data: imageData!)
                 }
             })
-            //"post"情報読み込み
-            let keyPost = commentInfo.objectForKey("post") as? NCMBObject
-            guard let post = keyPost else { return cell } ////この場合、投稿情報が載ってないcellがreturnされる。
-            print("postText", post.objectForKey("text") as? String)
-            cell.postLabel.text = post.objectForKey("text") as? String
+            cell.postLabel.text = commentInfo.objectForKey("postHeader") as? String
             cell.layoutIfNeeded()
             return cell
             
@@ -203,13 +185,13 @@ class NotificationTableViewController: UITableViewController {
         case "like":
             print("likeのCellを選択 → Post画面に遷移")
             print("followのCellを選択 → OtherAccountViewControllerに遷移")
-            selectedObject = (notificationArray[indexPath.row] as! NCMBObject).objectForKey("post") as! NCMBObject
+            selectedObject = notificationArray[indexPath.row] as! NCMBObject
             performSegueWithIdentifier("toPostDetailViewController", sender: nil)
 
         case "comment":
             print("commnetのCellを選択 → Post画面に遷移")
             print("followのCellを選択 → OtherAccountViewControllerに遷移")
-            selectedObject = (notificationArray[indexPath.row] as! NCMBObject).objectForKey("post") as! NCMBObject
+            selectedObject = notificationArray[indexPath.row] as! NCMBObject
             performSegueWithIdentifier("toPostDetailViewController", sender: nil)
 
         default:
@@ -228,17 +210,23 @@ class NotificationTableViewController: UITableViewController {
         case "toPostDetailViewController": //like、commentのCell選択時→投稿詳細画面に遷移
             guard let postDetailViewController = segue.destinationViewController as? PostDetailViewController else { return }
             print("selectedObject", selectedObject)
-            postDetailViewController.postObject = selectedObject
-            let keyAuther = selectedObject.objectForKey("user") as? NCMBUser
-            guard let auther = keyAuther else { return }
-            var autherError: NSError?
-            auther.fetch(&autherError)
-            if autherError == nil {
-                print("userFaceName", auther.objectForKey("userFaceName") as? String)
-            }else {
-                print(autherError!.localizedDescription)
+            
+            
+            let postRelation = selectedObject.relationforKey("post") as NCMBRelation
+            let postQuery = postRelation.query()
+            postQuery.orderByAscending("createDate")
+            postQuery.includeKey("user")
+            do{
+                let object = try postQuery.getFirstObject()
+                
+                postDetailViewController.postObject = object as! NCMBObject
+                print("投稿object", postDetailViewController.postObject)
+                print("投稿User", postDetailViewController.postObject.objectForKey("user") as! NCMBUser)
+                
+            }catch let error as NSError{
+                print(error.localizedDescription)
             }
-
+            
         default:
             print("そのほかあああ")
         }
