@@ -400,6 +400,7 @@ extension LogViewController{
             cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
         }
         
+        let auther = postData.objectForKey("user") as! NCMBUser
         postData.removeObject(NCMBUser.currentUser().objectId, forKey: "likeUser")
         postData.saveEventually ({ (error) -> Void in
             if let error = error{
@@ -407,6 +408,8 @@ extension LogViewController{
             }else {
                 print("save成功 いいね取り消し")
                 likedManager.sharedSingleton.isLikedToggle = false
+                let notificationManager = NotificationManager()
+                notificationManager.deletelikeNotification(auther, post: postData)
             }
         })
         

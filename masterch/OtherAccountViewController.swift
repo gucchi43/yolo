@@ -151,6 +151,10 @@ class OtherAccountViewController: UIViewController {
                     self.otherAccountFollowButton.setTitle("フォロー", forState: UIControlState.Normal)
                     self.isFollowing = false
                     self.followingRelationshipObject.objectId = "dummy"
+                    
+                    //フォローしたデータを通知画面のDBから削除
+                    let notificationManager = NotificationManager()
+                    notificationManager.deleteFollowNotification(self.user)
                 })
             })
         }
