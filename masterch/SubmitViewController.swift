@@ -50,9 +50,9 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     let postImageView = UIImageView()
     
-    var twitterToggle: Bool = false
-    var facebookToggle: Bool = false
-    var secretKeyToggle:Bool = false
+    var twitterToggle = false
+    var facebookToggle = false
+    var secretKeyToggle = false
     
     let user = NCMBUser.currentUser()
     
@@ -479,12 +479,12 @@ extension SubmitViewController {
         }
         
         //Facebookシェアかの判断
-//        if twitterToggle == true {
-//            shareFacebookPost()
-//            print("twitterシェア完了")
-//        }else {
-//            print("twitterシェアなし")
-//        }
+        if facebookToggle == true {
+            shareFacebookPost()
+            print("facebbokシェア完了")
+        }else {
+            print("facebookシェアなし")
+        }
         
         //Secretモードかの判断
         if secretKeyToggle == false {
@@ -601,7 +601,7 @@ extension SubmitViewController {
         }
     }
     
-    //twitterメディア添付シェア
+    //twitterメディア添付シェア(写真があった場合imageをjsonの型に変換して、shareTwitterPostを呼び出す)
     func shareTwitterMedia(){
         if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
             let client = TWTRAPIClient(userID: userID)
@@ -650,8 +650,25 @@ extension SubmitViewController {
         }
     }
 
-    func shareFacebookPost(){
+    func shareFacebookPost(mediaID: String? = nil){
+        let post = self.postTextView.text
+        print("投稿する文章", post)
+        let graphRequest = FBSDKGraphRequest(graphPath: "me/feed", parameters: ["message": post], HTTPMethod: "post")
+        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            if error == nil {
+                print("connection", connection)
+                print("result", result)
+            }else {
+                print(error.localizedDescription)
+            }
+        })
     }
+    func shareFacebookMedia(){
+        let imageData = UIImagePNGRepresentation(self.postImage1!)
+        let media = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.EncodingEndLineWithLineFeed)
+        
+    }
+    
 }
 
 // LogColor

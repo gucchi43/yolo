@@ -257,33 +257,56 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
     
     //Facebookリンク
     func addSnsToFacebook(user: NCMBUser) {
-        NCMBFacebookUtils.linkUser(user, withPublishingPermission: nil) { (user: NCMBUser!, error: NSError!) -> Void in
+        NCMBFacebookUtils.linkUser(user, withReadPermission: ["public_profile", "email", "user_friends"]) { (user: NCMBUser!, error: NSError!) -> Void in
+//        NCMBFacebookUtils.linkUser(user, withPublishingPermission:["publish_actions"]) { (user: NCMBUser!, error: NSError!) -> Void in
             if error == nil{
                 print("facebookリンク開始")
-                let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id,email,gender,link,locale,name,timezone,updated_time,verified,last_name,first_name,middle_name"])
-                graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+                NCMBFacebookUtils.linkUser(user, withPublishingPermission:["publish_actions"]) { (user: NCMBUser!, error: NSError!) -> Void in
                     if error == nil{
-                        print("facebookリンク情報ゲット")
-                        let name = result.valueForKey("name") as! NSString
-                        print("facebookユーザー名 : \(name)")
-                        user.setObject(name, forKey: "facebookName")
-                        user.saveInBackgroundWithBlock({ (error) -> Void in
-                            if error != nil {
-                                print("Facebookリンク失敗", error)
-                            }else {
-                                print("Facebookリンク成功")
-                                self.conectSnsTabelView.reloadData()
+                        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id,email,gender,link,locale,name,timezone,updated_time,verified,last_name,first_name,middle_name"])
+                        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+                            if error == nil{
+                                print("facebookリンク情報ゲット")
+                                let name = result.valueForKey("name") as! NSString
+                                print("facebookユーザー名 : \(name)")
+                                user.setObject(name, forKey: "facebookName")
+                                user.saveInBackgroundWithBlock({ (error) -> Void in
+                                    if error != nil {
+                                        print("Facebookリンク失敗", error)
+                                    }else {
+                                        print("Facebookリンク成功")
+                                        print("FBデータ", result)
+                                        self.conectSnsTabelView.reloadData()
+                                        
+                                        
+                                        
+                                        
+                                    }
+                                })
+                            }else{
+                                print("facebook情報ゲット失敗その２", error.localizedDescription)
                             }
                         })
-                    }else{
-                        print("facebook情報ゲット失敗", error)
+                    }else {
+                        print(error.localizedDescription)
+                        
                     }
-                })
+                }
             }else {
-                print("facebookアカウントリンク失敗", error)
+                print(error.localizedDescription)
             }
         }
     }
+
+
+//                let graphRequest = FBSDKGraphRequest(graphPath: "me/feed", parameters: ["message": "おはようFacebook"], HTTPMethod: "post")
+//                let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "public_profile"])
+//                let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "public_profile"])
+//            }else {
+//                print("facebookアカウントリンク失敗その１", error.localizedDescription)
+//            }
+//        }
+//    }
     
     
     
