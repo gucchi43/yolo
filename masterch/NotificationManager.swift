@@ -20,6 +20,7 @@ class NotificationManager: NSObject {
         notificationObject.setObject(user, forKey: "ownerUser")
         notificationObject.setObject("like", forKey: "type")
         notificationObject.setObject(NCMBUser.currentUser(), forKey: "actionUser")
+        notificationObject.setObject(post.objectId, forKey: "postId")
         let postRelation: NCMBRelation = NCMBRelation(className: notificationObject, key: "post")
         postRelation.addObject(post)
         notificationObject.setObject(postHeader, forKey: "postHeader")

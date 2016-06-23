@@ -258,6 +258,10 @@ extension PostDetailTableViewCell {
             }else {
                 print("save成功 いいね取り消し")
                 likedManager.sharedSingleton.isLikedToggle = false
+                let auther = postData.objectForKey("user") as! NCMBUser
+                let notificationManager = NotificationManager()
+                notificationManager.deletelikeNotification(auther, post: postData)
+
             }
         })
         
