@@ -371,6 +371,7 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
                     NCMBFacebookUtils.unLinkUser(user, withBlock: { (user, error) -> Void in
                         if error == nil {
                             print("Facebookアンリンク開始")
+                            print("user情報", user)
                             user.removeObjectForKey("facebookName")
                             user.saveInBackgroundWithBlock({ (error) -> Void in
                                 if error == nil {

@@ -480,7 +480,11 @@ extension SubmitViewController {
         
         //Facebookシェアかの判断
         if facebookToggle == true {
-            shareFacebookPost()
+            if self.postImage1 != nil {
+                shareFacebookMedia()
+            }else {
+                shareFacebookPost()
+            }
             print("facebbokシェア完了")
         }else {
             print("facebookシェアなし")
@@ -650,22 +654,38 @@ extension SubmitViewController {
         }
     }
 
-    func shareFacebookPost(mediaID: String? = nil){
+    func shareFacebookPost() {
         let post = self.postTextView.text
         print("投稿する文章", post)
-        let graphRequest = FBSDKGraphRequest(graphPath: "me/feed", parameters: ["message": post], HTTPMethod: "post")
+        let params = ["message": post]
+        let graphRequest = FBSDKGraphRequest(graphPath: "me/feed", parameters: params, HTTPMethod: "post")
         graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
-            if error == nil {
-                print("connection", connection)
-                print("result", result)
-            }else {
-                print(error.localizedDescription)
-            }
+            guard let response = result else {
+                print("No response received")
+                if let error = error {
+                    print("errorInfo:", error.localizedDescription)
+                }
+                return }
+            
+            print(response)
         })
     }
     func shareFacebookMedia(){
-        let imageData = UIImagePNGRepresentation(self.postImage1!)
-        let media = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.EncodingEndLineWithLineFeed)
+        let post = self.postTextView.text
+        let image1 = self.postImage1!
+        print("投稿する文章", post)
+        let params = ["message": post, "sourceImage": UIImagePNGRepresentation(image1)!]
+        let graphRequest = FBSDKGraphRequest(graphPath: "me/photos", parameters: params, HTTPMethod: "post")
+        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            guard let response = result else {
+                print("No response received")
+                if let error = error {
+                    print("errorInfo:", error.localizedDescription)
+                }
+                return }
+            
+            print(response)
+        })
         
     }
     
