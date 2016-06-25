@@ -257,13 +257,13 @@
                     <navigationItem key="navigationItem" title="通知" id="GO5-ad-qbb">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="9Uj-wb-UJj">
                             <connections>
-                                <segue destination="zEI-mb-efy" kind="presentation" id="59W-S1-ihH"/>
+                                <segue destination="zEI-mb-efy" kind="presentation" identifier="toSubmitVC" id="59W-S1-ihH"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="7rR-R3-cOU" kind="show" identifier="toOtherAccountViewController" id="S0K-iW-jTy"/>
-                        <segue destination="ofP-1X-FKF" kind="show" identifier="toPostDetailViewController" id="Krx-EB-CB2"/>
+                        <segue destination="7rR-R3-cOU" kind="show" identifier="toOtherAccountVC" id="S0K-iW-jTy"/>
+                        <segue destination="ofP-1X-FKF" kind="show" identifier="toPostDetailVC" id="Krx-EB-CB2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="syg-WZ-ANU" userLabel="First Responder" sceneMemberID="firstResponder"/>
