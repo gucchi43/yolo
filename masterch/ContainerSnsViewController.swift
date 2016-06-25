@@ -276,7 +276,9 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
                                     }else {
                                         print("Facebookリンク成功")
                                         print("FBデータ", result)
-                                        self.conectSnsTabelView.reloadData()
+                                        if let a = self.conectSnsTabelView{
+                                            a.reloadData()
+                                        }
                                         
                                         
                                         
@@ -297,18 +299,7 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
             }
         }
     }
-
-
-//                let graphRequest = FBSDKGraphRequest(graphPath: "me/feed", parameters: ["message": "おはようFacebook"], HTTPMethod: "post")
-//                let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "public_profile"])
-//                let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "public_profile"])
-//            }else {
-//                print("facebookアカウントリンク失敗その１", error.localizedDescription)
-//            }
-//        }
-//    }
-    
-    
+        
     
     /***SNSアンリンクメソッド***/
      
@@ -377,6 +368,7 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
                                 if error == nil {
                                     self.conectSnsTabelView.reloadData()
                                     print("Facebookアンリンク成功")
+                                    print("user情報その２", user)
                                 }else{
                                     print("Facebookアンリンク失敗", error)
                                 }

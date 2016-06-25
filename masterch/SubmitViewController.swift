@@ -524,6 +524,8 @@ extension SubmitViewController {
     @IBAction func selectShareTwitter(sender: AnyObject) {
         print("twitterボタン押した")
         print("初期状態だぞおおおおお", twitterToggle)
+        print(NCMBTwitterUtils.isLinkedWithUser(user))
+        
         //Twitterと連携しているか？
         if let userID = user.objectForKey("twitterID") {
             if userID.isKindOfClass(NSNull) != true {//「userID」がnullじゃないか？
@@ -644,14 +646,27 @@ extension SubmitViewController {
     //Facebookシェア
     @IBAction func selectShareFacebook(sender: AnyObject) {
         print("Facebookボタン押した")
-        facebookToggle = !facebookToggle
-        if facebookToggle == true{
-            facebookButton.setImage(imgFacebookOn, forState: .Normal)
-            print(facebookToggle)
+        if NCMBFacebookUtils.isLinkedWithUser(user) == true {
+            //Facebook連携済み
+            facebookToggle = !facebookToggle
+            if facebookToggle == true{
+                print("Facebookリンクしているか？", NCMBFacebookUtils.isLinkedWithUser(user))
+                
+                facebookButton.setImage(imgFacebookOn, forState: .Normal)
+                print(facebookToggle)
+            }else {
+                
+                facebookButton.setImage(imgFacebookOff, forState: .Normal)
+                print(facebookToggle)
+                print("Facebookリンクしているか？", NCMBFacebookUtils.isLinkedWithUser(user))
+            }
+            
         }else {
-            facebookButton.setImage(imgFacebookOff, forState: .Normal)
-            print(facebookToggle)
+            //Facebook未連携
+            let containerSnsVC = ContainerSnsViewController()
+            containerSnsVC.addSnsToFacebook(user)
         }
+        
     }
 
     func shareFacebookPost() {
