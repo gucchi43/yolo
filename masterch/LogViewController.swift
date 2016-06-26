@@ -445,7 +445,7 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("セルの選択: \(indexPath.row)")
         selectedPostObject = self.postArray[indexPath.row] as! NCMBObject
-        performSegueWithIdentifier("toPostDetailViewController", sender: nil)
+        performSegueWithIdentifier("toPostDetailVC", sender: nil)
     }
 
 }
@@ -566,7 +566,7 @@ extension LogViewController{
         let row = tableView.indexPathForCell(cell)?.row
         selectedPostObject = self.postArray[row!] as! NCMBObject
 
-        performSegueWithIdentifier("toPostDetailViewController", sender: true)
+        performSegueWithIdentifier("toPostDetailVC", sender: true)
     }
 
 }
