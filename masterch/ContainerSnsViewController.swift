@@ -13,15 +13,16 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet weak var conectSnsTabelView: UITableView!
     
-    //    sectionのタイトル
-    let sectionTitle: NSArray = ["連携SNS"]
-    
     let imgArray: NSArray = ["noprofile.png","noprofile.png"]
     let label1Array: NSArray = ["Twitter", "Facebook"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        conectSnsTabelView.reloadData()
     }
     
     
@@ -57,6 +58,10 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
             let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
             
             let labelOnOff = table.viewWithTag(5) as! UILabel
+            
+            print("user情報", user)
+            print("true or false", NCMBTwitterUtils.isLinkedWithUser(user))
+            
             
             if let userID = user.objectForKey("twitterID") {
                 if userID.isKindOfClass(NSNull) != true{
@@ -108,6 +113,7 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
             let imgFacebookOff = UIImage(named: "facebook_logo_640*480_gray")
             
             let labelOnOff = table.viewWithTag(5) as! UILabel
+            print("user情報", user)
             let facebookDid = NCMBFacebookUtils.isLinkedWithUser(user)
             if facebookDid == true {
                 //facebook連携済み
@@ -239,8 +245,8 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
                                     print("twitterリンク失敗", error)
                                 }else {
                                     print("twitterリンク成功")
-                                    if let a = self.conectSnsTabelView{
-                                        a.reloadData()
+                                    if let conectSnsTV = self.conectSnsTabelView{
+                                        conectSnsTV.reloadData()
                                     }
                                 }
                             })
@@ -258,7 +264,6 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
     //Facebookリンク
     func addSnsToFacebook(user: NCMBUser) {
         NCMBFacebookUtils.linkUser(user, withReadPermission: ["public_profile", "email", "user_friends"]) { (user: NCMBUser!, error: NSError!) -> Void in
-//        NCMBFacebookUtils.linkUser(user, withPublishingPermission:["publish_actions"]) { (user: NCMBUser!, error: NSError!) -> Void in
             if error == nil{
                 print("facebookリンク開始")
                 NCMBFacebookUtils.linkUser(user, withPublishingPermission:["publish_actions"]) { (user: NCMBUser!, error: NSError!) -> Void in
@@ -276,13 +281,9 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
                                     }else {
                                         print("Facebookリンク成功")
                                         print("FBデータ", result)
-                                        if let a = self.conectSnsTabelView{
-                                            a.reloadData()
+                                        if let conectSnsTV = self.conectSnsTabelView{
+                                            conectSnsTV.reloadData()
                                         }
-                                        
-                                        
-                                        
-                                        
                                     }
                                 })
                             }else{
@@ -291,7 +292,6 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
                         })
                     }else {
                         print(error.localizedDescription)
-                        
                     }
                 }
             }else {
@@ -364,16 +364,15 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
                             print("Facebookアンリンク開始")
                             print("user情報", user)
                             user.removeObjectForKey("facebookName")
-                            user.saveInBackgroundWithBlock({ (error) -> Void in
-                                if error == nil {
-                                    self.conectSnsTabelView.reloadData()
-                                    print("Facebookアンリンク成功")
-                                    print("user情報その２", user)
-                                }else{
-                                    print("Facebookアンリンク失敗", error)
-                                }
-                            })
-                            
+                                user.saveInBackgroundWithBlock({ (error) -> Void in
+                                    if error == nil {
+                                        self.conectSnsTabelView.reloadData()
+                                        print("Facebookアンリンク成功")
+                                        print("user情報その２", user)
+                                    }else{
+                                        print("Facebookアンリンク失敗", error)
+                                    }
+                                })
                         }else {
                             print("Facebookアンリンクできず", error)
                         }
