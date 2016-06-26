@@ -50,9 +50,9 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     let postImageView = UIImageView()
     
-    var twitterToggle: Bool = false
-    var facebookToggle: Bool = false
-    var secretKeyToggle:Bool = false
+    var twitterToggle = false
+    var facebookToggle = false
+    var secretKeyToggle = false
     
     let user = NCMBUser.currentUser()
     
@@ -479,12 +479,16 @@ extension SubmitViewController {
         }
         
         //Facebookシェアかの判断
-//        if twitterToggle == true {
-//            shareFacebookPost()
-//            print("twitterシェア完了")
-//        }else {
-//            print("twitterシェアなし")
-//        }
+        if facebookToggle == true {
+            if self.postImage1 != nil {
+                shareFacebookMedia()
+            }else {
+                shareFacebookPost()
+            }
+            print("facebbokシェア完了")
+        }else {
+            print("facebookシェアなし")
+        }
         
         //Secretモードかの判断
         if secretKeyToggle == false {
@@ -520,6 +524,8 @@ extension SubmitViewController {
     @IBAction func selectShareTwitter(sender: AnyObject) {
         print("twitterボタン押した")
         print("初期状態だぞおおおおお", twitterToggle)
+        print(NCMBTwitterUtils.isLinkedWithUser(user))
+        
         //Twitterと連携しているか？
         if let userID = user.objectForKey("twitterID") {
             if userID.isKindOfClass(NSNull) != true {//「userID」がnullじゃないか？
@@ -601,7 +607,7 @@ extension SubmitViewController {
         }
     }
     
-    //twitterメディア添付シェア
+    //twitterメディア添付シェア(写真があった場合imageをjsonの型に変換して、shareTwitterPostを呼び出す)
     func shareTwitterMedia(){
         if let userID = Twitter.sharedInstance().sessionStore.session()?.userID{
             let client = TWTRAPIClient(userID: userID)
@@ -640,18 +646,64 @@ extension SubmitViewController {
     //Facebookシェア
     @IBAction func selectShareFacebook(sender: AnyObject) {
         print("Facebookボタン押した")
-        facebookToggle = !facebookToggle
-        if facebookToggle == true{
-            facebookButton.setImage(imgFacebookOn, forState: .Normal)
-            print(facebookToggle)
+        if NCMBFacebookUtils.isLinkedWithUser(user) == true {
+            //Facebook連携済み
+            facebookToggle = !facebookToggle
+            if facebookToggle == true{
+                print("Facebookリンクしているか？", NCMBFacebookUtils.isLinkedWithUser(user))
+                
+                facebookButton.setImage(imgFacebookOn, forState: .Normal)
+                print(facebookToggle)
+            }else {
+                
+                facebookButton.setImage(imgFacebookOff, forState: .Normal)
+                print(facebookToggle)
+                print("Facebookリンクしているか？", NCMBFacebookUtils.isLinkedWithUser(user))
+            }
+            
         }else {
-            facebookButton.setImage(imgFacebookOff, forState: .Normal)
-            print(facebookToggle)
+            //Facebook未連携
+            let containerSnsVC = ContainerSnsViewController()
+            containerSnsVC.addSnsToFacebook(user)
         }
+        
     }
 
-    func shareFacebookPost(){
+    func shareFacebookPost() {
+        let post = self.postTextView.text
+        print("投稿する文章", post)
+        let params = ["message": post]
+        let graphRequest = FBSDKGraphRequest(graphPath: "me/feed", parameters: params, HTTPMethod: "post")
+        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            guard let response = result else {
+                print("No response received")
+                if let error = error {
+                    print("errorInfo:", error.localizedDescription)
+                }
+                return }
+            
+            print(response)
+        })
     }
+    func shareFacebookMedia(){
+        let post = self.postTextView.text
+        let image1 = self.postImage1!
+        print("投稿する文章", post)
+        let params = ["message": post, "sourceImage": UIImagePNGRepresentation(image1)!]
+        let graphRequest = FBSDKGraphRequest(graphPath: "me/photos", parameters: params, HTTPMethod: "post")
+        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            guard let response = result else {
+                print("No response received")
+                if let error = error {
+                    print("errorInfo:", error.localizedDescription)
+                }
+                return }
+            
+            print(response)
+        })
+        
+    }
+    
 }
 
 // LogColor

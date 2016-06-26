@@ -180,19 +180,19 @@ class NotificationTableViewController: UITableViewController {
         case "follow":
             print("followのCellを選択 → OtherAccountViewControllerに遷移")
             selectedUser = (notificationArray[indexPath.row] as! NCMBObject).objectForKey("actionUser") as! NCMBUser
-            performSegueWithIdentifier("toOtherAccountViewController", sender: nil)
+            performSegueWithIdentifier("toOtherAccountVC", sender: nil)
             
         case "like":
             print("likeのCellを選択 → Post画面に遷移")
-            print("followのCellを選択 → OtherAccountViewControllerに遷移")
+            print("followのCellを選択 → PostDetailViewControllerに遷移")
             selectedObject = notificationArray[indexPath.row] as! NCMBObject
-            performSegueWithIdentifier("toPostDetailViewController", sender: nil)
+            performSegueWithIdentifier("toPostDetailVC", sender: nil)
 
         case "comment":
             print("commnetのCellを選択 → Post画面に遷移")
-            print("followのCellを選択 → OtherAccountViewControllerに遷移")
+            print("followのCellを選択 → PostDetailViewControllerに遷移")
             selectedObject = notificationArray[indexPath.row] as! NCMBObject
-            performSegueWithIdentifier("toPostDetailViewController", sender: nil)
+            performSegueWithIdentifier("toPostDetailVC", sender: nil)
 
         default:
             print("その他 ありえないprintなんですよ")
@@ -202,12 +202,14 @@ class NotificationTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         switch segue.identifier! as String {
-        case "toOtherAccountViewController": //followのCell選択時→ユーザー画面に遷移
+        case "toSubmitVC":
+            break
+        case "toOtherAccountVC": //followのCell選択時→ユーザー画面に遷移
             guard let otherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
             print("selectedUser", selectedUser)
             otherAccountViewController.user = selectedUser
         
-        case "toPostDetailViewController": //like、commentのCell選択時→投稿詳細画面に遷移
+        case "toPostDetailVC": //like、commentのCell選択時→投稿詳細画面に遷移
             guard let postDetailViewController = segue.destinationViewController as? PostDetailViewController else { return }
             print("selectedObject", selectedObject)
             

@@ -4,5 +4,6 @@
 #import <NCMB/NCMB.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 #import <RMUniversalAlert/RMUniversalAlert.h>
 #import "NSDate+TimeAgo.h"
