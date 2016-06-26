@@ -345,7 +345,7 @@
                     <navigationItem key="navigationItem" id="Efw-Us-mcx">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="nX5-CA-M3Q">
                             <connections>
-                                <segue destination="r7X-aC-6JR" kind="modal" identifier="toSubmitViewController" id="ypQ-t5-ztA"/>
+                                <segue destination="r7X-aC-6JR" kind="modal" identifier="toSubmitVC" id="ypQ-t5-ztA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -359,7 +359,7 @@
                         <outlet property="monthLabel" destination="89B-Y5-p8t" id="URo-jl-8fj"/>
                         <outlet property="tableView" destination="oiO-Cz-3yC" id="kCe-xA-4dL"/>
                         <outlet property="weekConstraint" destination="lIa-MT-J6l" id="q78-Pm-gIa"/>
-                        <segue destination="0JH-uJ-YQS" kind="show" identifier="toPostDetailViewController" id="rKn-Ya-qJZ"/>
+                        <segue destination="0JH-uJ-YQS" kind="show" identifier="toPostDetailVC" id="rKn-Ya-qJZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jjh-ct-ER1" userLabel="First Responder" sceneMemberID="firstResponder"/>
