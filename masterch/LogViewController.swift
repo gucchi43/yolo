@@ -365,7 +365,7 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
                     print("私はすでにいいねをおしている")
                     cell.likeButton.setImage(likeOnImage, forState: .Normal)
                     cell.likeNumberButton.setTitle(String(cell.likeCounts!), forState: .Normal)
-                    likedManager.sharedSingleton.isLikedToggle = true
+                    cell.isLikeToggle = true
                 }else{
                     //いいねはあるけど、自分がいいねしていない
                     cell.likeButton.setImage(likeOffImage, forState: .Normal)
@@ -404,7 +404,7 @@ extension LogViewController{
         let postData = postArray[row!] as! NCMBObject
         
         //いいねアクション実行
-        if likedManager.sharedSingleton.isLikedToggle == true{
+        if cell.isLikeToggle == true{
             disLike(postData, cell: cell)
         } else {
             like(postData, cell: cell)
@@ -438,8 +438,7 @@ extension LogViewController{
                 print(error.localizedDescription)
             }else {
                 print("save成功 いいね保存")
-                likedManager.sharedSingleton.isLikedToggle = true
-                
+                cell.isLikeToggle = true
                 //いいねしたことを通知画面のDBに保存
                 let auther = postData.objectForKey("user") as! NCMBUser
                 let allPostText = postData.objectForKey("text") as! String
@@ -491,7 +490,7 @@ extension LogViewController{
                 print(error.localizedDescription)
             }else {
                 print("save成功 いいね取り消し")
-                likedManager.sharedSingleton.isLikedToggle = false
+                cell.isLikeToggle = false
                 let notificationManager = NotificationManager()
                 notificationManager.deletelikeNotification(auther, post: postData)
             }
@@ -551,13 +550,5 @@ extension LogViewController: DropdownMenuDelegate {
                 loadQuery(logNumber)
             }
         }
-        
-//        let b = CalendarMonthView(frame: calendarBaseView.bounds, date: CalendarManager.currentDate)
-//        CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: CGRectGetHeight(frame)), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days)
-        
-        
-//        b.startSetUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days)
-//        b.getLogColorDate(CalendarManager.currentDate)
-        
     }
 }
