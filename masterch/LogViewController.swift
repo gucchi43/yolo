@@ -181,11 +181,6 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
     }
     
     
-    func ChangeloadQuery(logNumber: Int) {
-        loadQuery(logNumber)
-    }
-    
-    
     //tableViewに表示するその日の投稿のQueryから取ってくる
     func loadQuery(logNumber: Int){
         let logQueryManager = LogQueryManager()
@@ -250,6 +245,7 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
             let submitVC: SubmitViewController = segue.destinationViewController as! SubmitViewController
             submitVC.delegate = self
             print("これはどうなる")
+            submitVC.postDate = CalendarManager.currentDate
         }
         
     }
