@@ -64,6 +64,8 @@
 		ED720CD51D18A8CA00477608 /* LogQueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720CD41D18A8CA00477608 /* LogQueryManager.swift */; };
 		ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; };
 		ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ED7A79051D2027220087BCCD /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */; };
+		ED7A79061D2027220087BCCD /* DZNEmptyDataSet.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB1491C9365250028C986 /* fb_login_big.png */; };
 		ED7DB14F1C9365250028C986 /* fb_login_small.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB14A1C9365250028C986 /* fb_login_small.png */; };
 		ED7DB1501C9365250028C986 /* tw_login_big.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB14B1C9365250028C986 /* tw_login_big.png */; };
@@ -119,6 +121,7 @@
 			files = (
 				ED6AF8CE1D16B577003FBC5C /* SVProgressHUD.framework in CopyFiles */,
 				ED6AF8CB1D16B535003FBC5C /* DropdownMenu.framework in CopyFiles */,
+				ED7A79061D2027220087BCCD /* DZNEmptyDataSet.framework in CopyFiles */,
 				ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,6 +194,7 @@
 		ED720CD21D188D6500477608 /* LogNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogNavigationController.swift; sourceTree = "<group>"; };
 		ED720CD41D18A8CA00477608 /* LogQueryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogQueryManager.swift; sourceTree = "<group>"; };
 		ED779B091C8DCB9100C3027C /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
+		ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DZNEmptyDataSet.framework; path = Carthage/Build/iOS/DZNEmptyDataSet.framework; sourceTree = "<group>"; };
 		ED7DB1491C9365250028C986 /* fb_login_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_big.png; sourceTree = "<group>"; };
 		ED7DB14A1C9365250028C986 /* fb_login_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_small.png; sourceTree = "<group>"; };
 		ED7DB14B1C9365250028C986 /* tw_login_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tw_login_big.png; sourceTree = "<group>"; };
@@ -228,6 +232,7 @@
 				ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */,
 				E0B7E0BA07F94C20BB5A1280 /* libPods-masterch.a in Frameworks */,
 				ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */,
+				ED7A79051D2027220087BCCD /* DZNEmptyDataSet.framework in Frameworks */,
 				ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -252,6 +257,7 @@
 		32C0A3311C5DF8ED009657B9 = {
 			isa = PBXGroup;
 			children = (
+				ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */,
 				32C0A33C1C5DF8ED009657B9 /* masterch */,
 				32C0A3511C5DF8EE009657B9 /* masterchTests */,
 				32C0A35C1C5DF8EE009657B9 /* masterchUITests */,
