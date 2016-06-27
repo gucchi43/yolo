@@ -36,7 +36,7 @@ class PostDetailTableViewCell: UITableViewCell {
     let likeOnImage = UIImage(named: "hartButton_On")
     let likeOffImage = UIImage(named: "hartButton_Off")
     
-    var isLikeToggl = false
+    var isLikeToggle = false
     
     var delegate: PostDetailTableViewCellDelegate!
     
@@ -123,7 +123,7 @@ class PostDetailTableViewCell: UITableViewCell {
                     print("私はすでにいいねをおしている")
                     self.likeButton.setImage(likeOnImage, forState: .Normal)
                     self.likeNumberButton.setTitle(String(self.likeCounts!) + "いいね", forState: .Normal)
-                    self.isLikeToggl = true
+                    self.isLikeToggle = true
                 }else{
                     //いいねはあるけど、自分がいいねしていない
                     self.likeButton.setImage(likeOffImage, forState: .Normal)
@@ -175,7 +175,7 @@ extension PostDetailTableViewCell {
         print("Likeボタン押してやったぜ")
         let postData = postObject
         //いいねアクション実行
-        if self.isLikeToggl == true{
+        if self.isLikeToggle == true{
             disLike(postData)
         } else {
             like(postData)
@@ -209,7 +209,7 @@ extension PostDetailTableViewCell {
                 print(error.localizedDescription)
             }else {
                 print("save成功 いいね保存")
-                self.isLikeToggl = true
+                self.isLikeToggle = true
                 
                 //いいねしたことを通知画面のDBに保存
                 let auther = postData.objectForKey("user") as! NCMBUser
@@ -259,7 +259,7 @@ extension PostDetailTableViewCell {
                 print(error.localizedDescription)
             }else {
                 print("save成功 いいね取り消し")
-                self.isLikeToggl = false
+                self.isLikeToggle = false
                 let auther = postData.objectForKey("user") as! NCMBUser
                 let notificationManager = NotificationManager()
                 notificationManager.deletelikeNotification(auther, post: postData)
