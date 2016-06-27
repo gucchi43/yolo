@@ -32,6 +32,7 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
     
 //    セル選択時の変数
     var selectedPostObject: NCMBObject!
+    var selectedIsLikeToggle: Bool!
 
 //    それぞれを変数にして渡す場合に使用。その方が早いけど、何故かずれたりする原因がわからないのでNMCBObjectをそのまま渡している
 //    var selectedPostUserFaceName: String!

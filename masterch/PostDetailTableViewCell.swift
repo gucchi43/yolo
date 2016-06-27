@@ -36,6 +36,8 @@ class PostDetailTableViewCell: UITableViewCell {
     let likeOnImage = UIImage(named: "hartButton_On")
     let likeOffImage = UIImage(named: "hartButton_Off")
     
+    var isLikeToggl = false
+    
     var delegate: PostDetailTableViewCellDelegate!
     
     override func layoutSubviews() {
@@ -121,7 +123,7 @@ class PostDetailTableViewCell: UITableViewCell {
                     print("私はすでにいいねをおしている")
                     self.likeButton.setImage(likeOnImage, forState: .Normal)
                     self.likeNumberButton.setTitle(String(self.likeCounts!) + "いいね", forState: .Normal)
-                    likedManager.sharedSingleton.isLikedToggle = true
+                    self.isLikeToggl = true
                 }else{
                     //いいねはあるけど、自分がいいねしていない
                     self.likeButton.setImage(likeOffImage, forState: .Normal)
@@ -173,7 +175,7 @@ extension PostDetailTableViewCell {
         print("Likeボタン押してやったぜ")
         let postData = postObject
         //いいねアクション実行
-        if likedManager.sharedSingleton.isLikedToggle == true{
+        if self.isLikeToggl == true{
             disLike(postData)
         } else {
             like(postData)
@@ -207,7 +209,7 @@ extension PostDetailTableViewCell {
                 print(error.localizedDescription)
             }else {
                 print("save成功 いいね保存")
-                likedManager.sharedSingleton.isLikedToggle = true
+                self.isLikeToggl = true
                 
                 //いいねしたことを通知画面のDBに保存
                 let auther = postData.objectForKey("user") as! NCMBUser
@@ -257,7 +259,7 @@ extension PostDetailTableViewCell {
                 print(error.localizedDescription)
             }else {
                 print("save成功 いいね取り消し")
-                likedManager.sharedSingleton.isLikedToggle = false
+                self.isLikeToggl = false
                 let auther = postData.objectForKey("user") as! NCMBUser
                 let notificationManager = NotificationManager()
                 notificationManager.deletelikeNotification(auther, post: postData)
@@ -266,69 +268,4 @@ extension PostDetailTableViewCell {
         })
         
     }
-    
-//    func changeLikeStatus(postData: NCMBObject){
-//        if likedManager.sharedSingleton.isLikedToggle == false {//いいねしてない時→いいね
-//            self.likeButton.setImage(likeOnImage, forState: .Normal)
-//            
-//            if self.likeCounts != nil{//likeCountが追加で変更される時（2回目以降）
-//                if let oldLinkCounts = Int(self.likeNumberButton.currentTitle!.stringByReplacingOccurrencesOfString("いいね", withString: "")){
-//                    let newLikeCounts = oldLinkCounts + 1
-//                    self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
-//                }else {//oldCountがない場合（初めてのいいねじゃないけど、いいね１になる場合）
-//                    let newLikeCounts = 1
-//                    self.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
-//                }
-//            }else{//likeCountが初めて変更される時
-//                let newLikeCounts = 1
-//                self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
-//            }
-//            
-//            likedManager.sharedSingleton.isLikedToggle = true
-//            postData.addUniqueObject(NCMBUser.currentUser().objectId, forKey: "likeUser")
-//            postData.saveInBackgroundWithBlock({ (error) -> Void in
-//                if let error = error{
-//                    print(error.localizedDescription)
-//                }else {
-//                    print("save成功 いいね保存")
-//                    //いいねしたことを通知画面のDBに保存
-//                    let notificationManager = NotificationManager()
-//                    notificationManager.likeNotification(self.auther, post: postData)
-//                }
-//            })
-//            
-//            
-//        }else {//いいねしている時
-//            self.likeButton.setImage(likeOffImage, forState: .Normal)
-//            
-//            if self.likeCounts != nil{
-//                let oldLinkCounts = Int(self.likeNumberButton.currentTitle!.stringByReplacingOccurrencesOfString("いいね", withString: ""))
-//                let newLikeCounts = oldLinkCounts! - 1
-//                if newLikeCounts > 0{//変更後のlikeCountが0より上の場合（1~）
-//                    let newLikeCounts = ""
-//                    self.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
-//                    self.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-//                }else {//変更後のlikeCountが0を含むそれ以下の場合(~0)
-//                    self.likeNumberButton.setTitle(String(newLikeCounts) + "いいね", forState: .Normal)
-//                    self.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-//                }
-//            }else{//likeCountが今までついたことがなかった場合
-//                let newLikeCounts = ""
-//                self.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
-//                self.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-//            }
-//            
-//            likedManager.sharedSingleton.isLikedToggle = false
-//            
-//            postData.removeObject(NCMBUser.currentUser().objectId, forKey: "likeUser")
-//            postData.saveInBackgroundWithBlock({ (error) -> Void in
-//                if let error = error{
-//                    print(error.localizedDescription)
-//                }else {
-//                    print("save成功 いいね取り消し")
-//                }
-//            })
-//            
-//        }
-//    }
 }
