@@ -59,6 +59,8 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     var logDate: String?
     var dateColor: String = "normal"
     
+    var postDate : NSDate?
+    
     var delegate: addSubmitlDelegate?
 
     override func viewDidLoad() {
@@ -77,8 +79,15 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         self.postTextView.becomeFirstResponder() // 最初からキーボードを表示させる
         self.postTextView.inputAccessoryView = toolBar // キーボード上にツールバーを表示
         
-        //NSDate()で現在時刻をあらかじめ表示する。
-        setDate(NSDate())
+        
+        if let postDate = postDate {
+            //選択されたNSDateを表示する。®
+            setDate(postDate)
+        }else {
+            //NSDate()で現在時刻をあらかじめ表示する。
+            setDate(NSDate())
+        }
+
         
         //テキストフィールドにDatePickerを表示する
         let postDatePicker = UIDatePicker()
