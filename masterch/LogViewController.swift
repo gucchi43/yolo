@@ -115,42 +115,6 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
         menuView.showMenu(onNavigaitionView: true)
     }
     
-//    //NavigatoinBarのタイトルを設定
-//    func changeTitle(logNumber: Int) {
-//        //スタックビューを作成
-//        let stackView = UIStackView()
-//        stackView.axis = .Vertical
-//        stackView.alignment = .Center
-//        stackView.frame = CGRectMake(0,0,100,40)
-//        
-//        //タイトルのラベルを作成する。
-//        let testLabel1 = UILabel(frame:CGRectMake(0,0,100,28))
-//        testLabel1.text = "ログ"
-//        
-//        //サブタイトルを作成する。
-//        let testLabel2 = UILabel(frame:CGRectMake(0,0,100,12))
-//        testLabel2.textColor = UIColor.lightGrayColor()
-//        let logNumber = logManager.sharedSingleton.logNumber
-//        switch logNumber {
-//        case 0:
-//            testLabel2.text = Dropitems[0].title
-//        case 1:
-//            testLabel2.text = Dropitems[1].title
-//        default:
-//            testLabel2.text = "その他"
-//        }
-//        
-//        //スタックビューに追加する。
-//        stackView.addArrangedSubview(testLabel1)
-//        stackView.addArrangedSubview(testLabel2)
-//        //タッチできるようにする
-//        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.tapped(_:)))
-//        stackView.addGestureRecognizer(gesture)
-//        stackView.userInteractionEnabled = true
-//        //ナビゲーションバーのタイトルに設定する。
-//        navigationController!.navigationBar.topItem!.titleView = stackView
-//    }
-    
     
     func submitFinish() {
         print("submitFinish")
@@ -419,7 +383,7 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
                     print("私はすでにいいねをおしている")
                     cell.likeButton.setImage(likeOnImage, forState: .Normal)
                     cell.likeNumberButton.setTitle(String(cell.likeCounts!), forState: .Normal)
-                    likedManager.sharedSingleton.isLikedToggle = true
+                    cell.isLikeToggle = true
                 }else{
                     //いいねはあるけど、自分がいいねしていない
                     cell.likeButton.setImage(likeOffImage, forState: .Normal)
@@ -458,7 +422,7 @@ extension LogViewController{
         let postData = postArray[row!] as! NCMBObject
         
         //いいねアクション実行
-        if likedManager.sharedSingleton.isLikedToggle == true{
+        if cell.isLikeToggle == true{
             disLike(postData, cell: cell)
         } else {
             like(postData, cell: cell)
@@ -492,8 +456,7 @@ extension LogViewController{
                 print(error.localizedDescription)
             }else {
                 print("save成功 いいね保存")
-                likedManager.sharedSingleton.isLikedToggle = true
-                
+                cell.isLikeToggle = true
                 //いいねしたことを通知画面のDBに保存
                 let auther = postData.objectForKey("user") as! NCMBUser
                 let allPostText = postData.objectForKey("text") as! String
@@ -545,7 +508,7 @@ extension LogViewController{
                 print(error.localizedDescription)
             }else {
                 print("save成功 いいね取り消し")
-                likedManager.sharedSingleton.isLikedToggle = false
+                cell.isLikeToggle = false
                 let notificationManager = NotificationManager()
                 notificationManager.deletelikeNotification(auther, post: postData)
             }

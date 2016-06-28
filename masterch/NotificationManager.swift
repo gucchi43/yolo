@@ -43,13 +43,13 @@ class NotificationManager: NSObject {
             if let error = error {
                 print(error.localizedDescription)
             }else {
-                print("オブジェクト", object)
-                print("objectId", object.objectId)
-                print("object", object)
-                object.deleteEventually({ (error) in
+                guard let deleteObjct = object else { return }
+                print("objectId", deleteObjct.objectId)
+                print("object", deleteObjct)
+                deleteObjct.deleteEventually({ (error) in
                     if let error = error {
                         print("error", error.localizedDescription)
-                        print("notificationObject", object)
+                        print("notificationObject", deleteObjct)
                     }else {
                         
                         print("follow: Notificationへの削除成功")
