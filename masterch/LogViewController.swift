@@ -239,6 +239,7 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
             calendarWeekView.addSubview(calendarView)
         }
         
+        //ここをいじれば切替時にAPI節約できるかも・・・
         if toggleWeek {
             calendarAnotherView?.resetWeekView()
         } else {
