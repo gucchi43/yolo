@@ -314,6 +314,11 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellId = "TimelineCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! TimelineCell
+        
+        //ImageViewの初期化的な
+        cell.userProfileImageView.image = UIImage(named: "noprofile")
+        cell.postImageView.image = nil
+        
         // 各値をセルに入れる
         let postData = postArray[indexPath.row]
         print("postData", postData)
@@ -407,7 +412,6 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         selectedPostObject = self.postArray[indexPath.row] as! NCMBObject
         performSegueWithIdentifier("toPostDetailVC", sender: nil)
     }
-
 }
 
 
