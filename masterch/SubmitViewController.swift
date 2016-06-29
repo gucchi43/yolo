@@ -13,6 +13,7 @@ import Fabric
 
 protocol addSubmitlDelegate {
     func submitFinish()
+    func savePostProgressBar(percentDone: CGFloat)
 }
 
 class SubmitViewController: UIViewController, UITextViewDelegate {
@@ -459,6 +460,14 @@ extension SubmitViewController {
             }, progressBlock: { (percentDone: Int32) -> Void in
                     //                    進捗状況を取得します。保存完了まで何度も呼ばれます
                     print("進捗状況: \(percentDone)% アップロード済み")
+                
+                
+                let logViewVC = LogViewController()
+                let postProgress = CGFloat(percentDone)/CGFloat(100)
+                print("postProgress", postProgress)
+                self.delegate?.savePostProgressBar(postProgress)
+//                logViewVC.savePostProgressBar(postProgress)
+//                logViewVC.progressBar.setProgress((CGFloat(percentDone)/CGFloat(100)), animated: true)
             })
         }
         self.setLogColor() //"logColor"クラスへのセット

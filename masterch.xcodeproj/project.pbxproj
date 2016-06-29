@@ -55,6 +55,7 @@
 		ED36445E1C9D65C000C6676C /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445D1C9D65C000C6676C /* Notification.storyboard */; };
 		ED3644601C9D6DBA00C6676C /* Submit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445F1C9D6DBA00C6676C /* Submit.storyboard */; };
 		ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED4512AF1CEF33CB0071FA58 /* Title.storyboard */; };
+		ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */; };
 		ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */; };
 		ED6AF8CB1D16B535003FBC5C /* DropdownMenu.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */; };
@@ -187,6 +188,7 @@
 		ED36445D1C9D65C000C6676C /* Notification.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Notification.storyboard; path = masterch/Notification.storyboard; sourceTree = "<group>"; };
 		ED36445F1C9D6DBA00C6676C /* Submit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Submit.storyboard; sourceTree = "<group>"; };
 		ED4512AF1CEF33CB0071FA58 /* Title.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Title.storyboard; sourceTree = "<group>"; };
+		ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogPostedProgressBar.swift; sourceTree = "<group>"; };
 		ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropdownMenu.framework; path = Carthage/Build/iOS/DropdownMenu.framework; sourceTree = "<group>"; };
 		ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
 		ED720CD01D180B2400477608 /* CalendarLogCollerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarLogCollerManager.swift; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 			children = (
 				ED3644591C9D659A00C6676C /* Log.storyboard */,
 				ED720CD41D18A8CA00477608 /* LogQueryManager.swift */,
+				ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */,
 				3289D2371C6A1C6000B4C65A /* LogViewController.swift */,
 				ED720CD21D188D6500477608 /* LogNavigationController.swift */,
 			);
@@ -702,6 +705,7 @@
 			files = (
 				EDA4DC721C82F190005FE126 /* CalendarAnotherView.swift in Sources */,
 				ED720CD11D180B2400477608 /* CalendarLogCollerManager.swift in Sources */,
+				ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */,
 				3219A2371C70468900D1A6AF /* TimelineCell.swift in Sources */,
 				ED720CD51D18A8CA00477608 /* LogQueryManager.swift in Sources */,
 				EDA4DC6E1C82F0FB005FE126 /* CalendarSwiftDateView.swift in Sources */,
