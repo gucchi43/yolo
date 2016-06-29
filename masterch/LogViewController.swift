@@ -27,6 +27,9 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var monthLabel: UILabel!
     
+    
+    @IBOutlet weak var progressBar: LogPostedProgressBar!
+    
     var selectedRow: Int = 0
     var Dropitems: [DropdownItem]!
     
@@ -64,10 +67,14 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
         Dropitems = [item1, item2]
         changeTitle(logManager.sharedSingleton.logNumber)
         
+        let logPostPB = LogPostedProgressBar()
+        logPostPB.setProgressBar()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
 //        self.navigationController?.setToolbarHidden(true, animated: true) // ViewWillAppearは表示の度に呼ばれるので何度も消してくれる
+        setLogProgressBar()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.didSelectDayView(_:)), name: "didSelectDayView", object: nil)
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
@@ -607,4 +614,21 @@ extension LogViewController: DropdownMenuDelegate {
         navigationController!.navigationBar.topItem!.titleView = stackView
     }
 
+}
+
+//----------------------progressBar-------------------------------
+extension LogViewController {
+    func savePostProgressBar(percentDone: CGFloat) {
+        //percentDoneに合わしてprogressBarが動く
+        progressBar.setProgress(percentDone, animated: true)
+        //100%になったら、progressを消す（0.5秒後に設定）
+        if percentDone == CGFloat(1.0){
+            let delay = 1.0 * Double(NSEC_PER_SEC)
+            let time  = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+            dispatch_after(time, dispatch_get_main_queue(), {
+                self.progressBar.setProgress(0.00, animated: false)
+            })
+        }
+    }
+    
 }
