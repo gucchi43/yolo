@@ -618,14 +618,7 @@ extension LogViewController: DropdownMenuDelegate {
 
 //----------------------progressBar-------------------------------
 extension LogViewController {
-    func setLogProgressBar() {
-//        self.progressBar.type = YLProgressBarType.Flat
-//        self.progressBar.tintColor = UIColor.orangeColor()
-//        self.progressBar.hideStripes = false
-    }
-    
     func savePostProgressBar(percentDone: CGFloat) {
-        
         //percentDoneに合わしてprogressBarが動く
         progressBar.setProgress(percentDone, animated: true)
         //100%になったら、progressを消す（0.5秒後に設定）
