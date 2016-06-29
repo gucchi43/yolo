@@ -17,7 +17,6 @@ target 'masterch' do
 
   pod 'NSDate+TimeAgo', '~> 1.0.6'
 
-  pod "FMAssetStream", '~> 0.1.1'
   pod 'YLProgressBar', '~> 3.8.1'
 
 end
