@@ -24,18 +24,16 @@ class CalendarSwiftDateView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect, date: NSDate, array: NSArray = [])  {
+    init(frame: CGRect, date: NSDate)  {
         super.init(frame: frame)
-        print("ここにきてるdateは？→", date)
         self.date = date
+        self.tag = Int(date.toString(DateFormat.Custom("yyyyMMdd"))!)!
+        let w = Int((UIScreen.mainScreen().bounds.size.width) / 7) - 5
         
-        let w = Int((UIScreen.mainScreen().bounds.size.width) / 8)
-        let h = 30
-        
-        dayButton = UIButton(frame: CGRect(x: 0, y: 0, width: w, height: w))
+        dayButton = UIButton(frame: CGRect(x: 5, y: 5, width: w, height: w))
         dayButton.setTitle(String(format: "%02d", date.day), forState: UIControlState.Normal)
         dayButton.titleLabel?.font = UIFont.systemFontOfSize(10)
-        dayButton.layer.cornerRadius = CGFloat(w/2)
+        dayButton.layer.cornerRadius = CGFloat(w / 2)
         dayButton.layer.borderColor = UIColor.clearColor().CGColor
         dayButton.layer.borderWidth = 3
         
@@ -45,13 +43,9 @@ class CalendarSwiftDateView: UIView{
 //        dayButton.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         
         dayButton.addTarget(self, action: "onTapCalendarDayButton:", forControlEvents: .TouchUpInside)
-        print("day", date.day, "weekday", date.weekday)
-
-        //投稿があったかを調べる
         
         if date == CalendarManager.currentDate {
             dayButton.layer.borderColor = UIColor.grayColor().CGColor
-            dayButton.layer.borderWidth = 3
             dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
         }
         
@@ -75,11 +69,6 @@ class CalendarSwiftDateView: UIView{
             dayButton.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         }
         
-        if array != []{
-            print("投稿があったあああああああああああああああ", date, array)
-            mutchArraytoLogDate(date, array: array)
-        }
-        
         self.addSubview(dayButton)
     }
         
@@ -90,33 +79,6 @@ class CalendarSwiftDateView: UIView{
             let n = NSNotification(name: "didSelectDayView", object: self, userInfo: nil)
             NSNotificationCenter.defaultCenter().postNotification(n)
         }
-    }
-    
-    func mutchArraytoLogDate(date: NSDate, array: NSArray) {
-        searchMutchLogColorDate(date)//その日の"yyyy/MM/dd"
-        let mutchObject = array.filter { array -> Bool in
-            let logDateArray = array.objectForKey("logDate") as! String
-            if logDateArray == searchMutchLogColorDate(date){
-                //投稿があった日
-                let logColor = array.objectForKey("dateColor") as! String
-                print("logColorあるんじゃないのおおおおおおおおおおおおおお", logColor)
-                selectDateColor(logColor)
-                return true
-            }else{
-                //投稿がなかった日
-                return false
-            }
-        }
-    }
-        
-    
-    
-    //その日の"yyyy/MM/dd"
-    func searchMutchLogColorDate(date: NSDate) -> String{
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
-        let logDate = formatter.stringFromDate(date)
-        return logDate
     }
     
     //その日の色を、決定する
