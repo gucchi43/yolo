@@ -235,7 +235,7 @@ extension SetProfileViewController {
                 print("Save error : ",error)
                 SVProgressHUD.dismiss()
             }else {
-//                self.performSegueWithIdentifier("signUpSegue", sender: self)
+                self.performSegueWithIdentifier("signUpSegue", sender: self)
                 SVProgressHUD.dismiss()
             }
         })

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class EditProfileTableViewController: UITableViewController {
     
@@ -24,21 +25,20 @@ class EditProfileTableViewController: UITableViewController {
     var profileImage: UIImage!
     var homeImage: UIImage!
 
+    var user: NCMBUser!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        userName.text = userProfileName
-        userSelfIntroductionTextView.text = userSelfIntroduction
-        
         //プロフィール写真の形を整える
         userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
         changeProfileButton.layer.cornerRadius = changeProfileButton.frame.width/2
         
-        userProfileImageView.image = profileImage
-        userHomeImageView.image = homeImage
-        
-        
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        loadUser()
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,9 +46,34 @@ class EditProfileTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    
+    func loadUser(){
+        userName.text = user.objectForKey("userFaceName") as? String
+        userSelfIntroductionTextView.text = user.objectForKey("userSelfIntroduction") as? String
+        //プロフィール写真
+        let userProfileImageName = (user.objectForKey("userProfileImage") as? String)!
+        let userProfileImageData = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
+        userProfileImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+            if error != nil{
+                print("写真の取得失敗なんでnoprofileを入れる", error.localizedDescription)
+                self.userProfileImageView.image = UIImage(named: "noprofile")
+            } else {
+                self.userProfileImageView.image = UIImage(data: imageData!)
+            }
+        }
+        //ホーム写真
+        let userHomeImageName = (user.objectForKey("userHomeImage") as? String)!
+        let userHomeImageData = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
+        userHomeImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+            if error != nil{
+                print("写真の取得失敗なんでnoprofileを入れる", error.localizedDescription)
+                self.userHomeImageView.image = UIImage(named: "noprofile")
+            } else {
+                self.userHomeImageView.image = UIImage(data: imageData!)
+            }
+        }
+    }
 
-    
+
 //    キャンセルボタンアクション
     @IBAction func selectCancelButton(sender: AnyObject) {
         print("キャンセルボタンを押した")
@@ -56,6 +81,22 @@ class EditProfileTableViewController: UITableViewController {
     }
 }
 
+extension EditProfileTableViewController{
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("セルの選択: \(indexPath.row)")
+        switch indexPath.row {
+        case 5:
+            SVProgressHUD.show()
+            print("ユーザー情報", user)
+            NCMBUser.logOut()
+            print("ユーザー情報", user)
+            SVProgressHUD.dismiss()
+        default:
+            break
+        }
+        
+    }
+}
 
 
 // カメラ周り

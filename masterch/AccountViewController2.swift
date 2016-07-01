@@ -1,0 +1,210 @@
+//
+//  AccountViewController.swift
+//  masterch
+//
+//  Created by Fumiya Yamanaka on 2016/02/09.
+//  Copyright © 2016年 Fumiya Yamanaka. All rights reserved.
+//
+
+import UIKit
+import TwitterKit
+
+class AccountViewController2: UIViewController {
+    
+    @IBOutlet weak var userProfileImageView: UIImageView!
+    @IBOutlet weak var userProfileNameLabel: UILabel!
+    @IBOutlet weak var userIdLabel: UILabel!
+    @IBOutlet weak var userHomeImageView: UIImageView!
+    
+    //フォロー数、フォロワー数
+    @IBOutlet weak var followNumberButton: UIButton!
+    @IBOutlet weak var followerNumberButton: UIButton!
+    
+    @IBOutlet weak var segmentedController: UISegmentedControl!
+    @IBOutlet weak var containerSnsView: UIView!
+    @IBOutlet weak var containerProfileView: UIView!
+    
+    
+    var currentUser: NCMBUser!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        print("AccountViewController")
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        currentUser = NCMBUser.currentUser()
+
+        //ユーザーネームを表示
+        self.userProfileNameLabel.text = currentUser.objectForKey("userFaceName") as? String
+        self.userIdLabel.text = "@" + currentUser.userName
+        
+        //プロフィール写真の形を円形にする
+        userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
+        
+        //プロフィール写真を表示
+        let userProfileImageName = (currentUser.objectForKey("userProfileImage") as? String)!
+        let userProfileImageData = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
+        
+        userProfileImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+            if error != nil{
+                print("写真の取得失敗: \(error)")
+            } else {
+                self.userProfileImageView.image = UIImage(data: imageData!)
+            }
+        }
+        
+        //ホーム写真を表示
+        let userHomeImageName = (currentUser.objectForKey("userHomeImage") as? String)!
+        let userHomeImageData = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
+        
+        userHomeImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+            if error != nil{
+                print("写真の取得失敗: \(error)")
+            } else {
+                self.userHomeImageView.image = UIImage(data: imageData!)
+            }
+        }
+        
+        getFllowerNumbar()
+        getFllowNumber()
+        
+    }
+    
+    @IBAction func selectEditProfileButton(sender: AnyObject) {
+        performSegueWithIdentifier("toEditProfile", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var destination = segue.destinationViewController as UIViewController
+        if let naviC = destination as? UINavigationController {
+            destination = naviC.visibleViewController!
+        } // storyboard上でnavigaitonControllerを使ってる時の変数の渡し方
+        if let editProfileVC = destination as? EditProfileTableViewController {
+            if segue.identifier == "toEditProfile" {
+                editProfileVC.userProfileName = userProfileNameLabel.text
+                editProfileVC.userSelfIntroduction = currentUser.objectForKey("userSelfIntroduction") as! String
+                editProfileVC.profileImage = userProfileImageView.image
+                editProfileVC.homeImage = userHomeImageView.image
+            }
+        }
+        if segue.identifier == "toUserList" {
+            
+            let relationshipQuery = NCMBQuery(className: "Relationship")
+            let userListVC = segue.destinationViewController as! UserListViewController
+            
+            guard let sender = sender as? String else { return }
+            if sender == "follow" {
+                relationshipQuery.whereKey("followed", equalTo: currentUser)
+                relationshipQuery.includeKey("follower")
+                relationshipQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+                    if error == nil {
+                        guard let relationships = objects as? [NCMBObject] else { return }
+                        for relationship in relationships {
+                            userListVC.userArray.append(relationship.objectForKey("follower") as! NCMBUser)
+                        }
+                        userListVC.userListTableView.reloadData()
+                    }
+                }
+            } else if sender == "follower" {
+                relationshipQuery.whereKey("follower", equalTo: currentUser)
+                relationshipQuery.includeKey("followed")
+                relationshipQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+                    if error == nil {
+                        guard let relationships = objects as? [NCMBObject] else { return }
+                        for relationship in relationships {
+                            userListVC.userArray.append(relationship.objectForKey("followed") as! NCMBUser)
+                        }
+                        userListVC.userListTableView.reloadData()
+                    }
+                }
+            }
+        }
+
+        
+    
+    }
+
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func getFllowNumber() {
+        let myFllowQuery: NCMBQuery = NCMBQuery(className: "Relationship")
+        myFllowQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
+        myFllowQuery.countObjectsInBackgroundWithBlock { (count , error) -> Void in
+            if let error = error{
+                print("error", error)
+            }else {
+                print(NCMBUser.currentUser(),"の, フォロー数: ", count)
+                self.followNumberButton.setTitle(String(count) + "フォロー", forState: .Normal)
+            }
+        }
+    }
+    
+    func getFllowerNumbar() {
+        let myFllowerQuery: NCMBQuery = NCMBQuery(className: "Relationship")
+        myFllowerQuery.whereKey("follower", equalTo: NCMBUser.currentUser())
+        myFllowerQuery.countObjectsInBackgroundWithBlock { (count , error) -> Void in
+            if let error = error{
+                print("error", error)
+            }else {
+                print(NCMBUser.currentUser(),"の, フォロワー数: ", count)
+                self.followerNumberButton.setTitle(String(count) + "フォロワー", forState: .Normal)
+            }
+        }
+    }
+    
+    @IBAction func pushFollowNumberButton(sender: UIButton) {
+        performSegueWithIdentifier("toUserList", sender: "follow")
+    }
+    
+    @IBAction func pushFollowerNumberButton(sender: AnyObject) {
+        performSegueWithIdentifier("toUserList", sender: "follower")
+    }
+
+
+    
+    @IBAction func didValueChanged(sender: AnyObject) {
+        
+        switch sender.selectedSegmentIndex{
+        case 0:
+            //valueChanged: 0の時の実装（containerProfileView表示）
+            print("case = 0(プロフィール)")
+            UIView.animateWithDuration(0.1, animations: {
+                self.containerSnsView.alpha = 0
+                self.containerProfileView.alpha = 1
+            })
+        case 1:
+            //valueChanged: 1の時の実装（containerSnsView表示）
+            print("case = 1(連携SNS)")
+            UIView.animateWithDuration(0.1, animations: {
+                self.containerSnsView.alpha = 1
+                self.containerProfileView.alpha = 0
+            })
+        default:
+            print("segmentedControllerd: 原因不明のエラー")
+        }
+    }
+    
+    @IBAction func logOutBtn(sender: AnyObject) {
+        print("ログイン画面に戻る")
+        print("ログアウト前: \(NCMBUser.currentUser())")
+        NCMBUser.logOut()
+        print("ログアウト後: \(NCMBUser.currentUser())")
+    }
+    
+    @IBAction func userInfoBtn(sender: AnyObject) {
+        let twitterArray = Twitter.sharedInstance().sessionStore.existingUserSessions()
+        print("ユーザー情報:", currentUser, twitterArray)
+    }
+    
+}
+
+
+
