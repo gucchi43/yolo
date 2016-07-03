@@ -95,6 +95,10 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         self.postDateTextField.inputView = postDatePicker
         //        日本の日付表示形式にする
         postDatePicker.timeZone = NSTimeZone.localTimeZone()
+        //指定された日付があれば代入する（無ければ現在のNSDate）
+        if let postDate = postDate{
+            postDatePicker.date = postDate
+        }
         //        UIDatePickerにイベントを設定。
         postDatePicker.addTarget(self, action: #selector(SubmitViewController.onDidChangeDate(_:)), forControlEvents: .ValueChanged)
         
@@ -472,7 +476,10 @@ extension SubmitViewController {
         })
         
         postTextView.resignFirstResponder() // 先にキーボードを下ろす
-//        self.dismissViewControllerAnimated(true, completion: nil)
+        postDateTextField.resignFirstResponder()
+        if let tab = self.presentingViewController as? UITabBarController {
+            tab.selectedIndex = 0 // Logに遷移する.
+        }
         self.dismissViewControllerAnimated(true, completion: {self.delegate?.submitFinish()})
         print("投稿完了")
         
