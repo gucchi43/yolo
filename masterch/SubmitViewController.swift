@@ -95,6 +95,10 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         self.postDateTextField.inputView = postDatePicker
         //        日本の日付表示形式にする
         postDatePicker.timeZone = NSTimeZone.localTimeZone()
+        //指定された日付があれば代入する（無ければ現在のNSDate）
+        if let postDate = postDate{
+            postDatePicker.date = postDate
+        }
         //        UIDatePickerにイベントを設定。
         postDatePicker.addTarget(self, action: #selector(SubmitViewController.onDidChangeDate(_:)), forControlEvents: .ValueChanged)
         
