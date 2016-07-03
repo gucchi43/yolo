@@ -68,7 +68,15 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
         
         let calendarLogCollerManager = CalendarLogCollerManager()
         let logNumber = logManager.sharedSingleton.logNumber
-        let logColorQuery = calendarLogCollerManager.weekLogColorDate(date, logNumber: logNumber)
+        let logColorQuery: NCMBQuery
+        let user = logManager.sharedSingleton.logUser
+        if user == NCMBUser.currentUser(){
+            print("user情報 in monthVC", user.userName)
+            logColorQuery = calendarLogCollerManager.weekLogColorDate(date, logNumber: logNumber)
+        }else {
+            print("user情報 in monthVC", user.userName)
+            logColorQuery = calendarLogCollerManager.weekLogColorDate(date, logNumber: logNumber, user: user)
+        }
         logColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error{
                 print("getLogColorerrorr", error.localizedDescription)

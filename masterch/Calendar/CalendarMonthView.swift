@@ -12,7 +12,7 @@ import SwiftDate
 class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
     var selectedButton: UIButton!
     var logColorArray: NSArray?
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -68,7 +68,15 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
     func getLogColorDate(date: NSDate) {
         let calendarLogCollerManager = CalendarLogCollerManager()
         let logNumber = logManager.sharedSingleton.logNumber
-        let logColorQuery = calendarLogCollerManager.monthLogColorDate(date, logNumber: logNumber)
+        let logColorQuery: NCMBQuery
+        let user = logManager.sharedSingleton.logUser
+        if user == NCMBUser.currentUser(){
+            print("user情報 in monthVC", user.userName)
+            logColorQuery = calendarLogCollerManager.monthLogColorDate(date, logNumber: logNumber)
+        }else {
+            print("user情報 in monthVC", user.userName)
+            logColorQuery = calendarLogCollerManager.monthLogColorDate(date, logNumber: logNumber, user: user)
+        }
 
         logColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error{

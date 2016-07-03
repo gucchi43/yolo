@@ -7,10 +7,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Log View Controller-->
+        <!--ログ-->
         <scene sceneID="3Xa-fM-zBO">
             <objects>
-                <viewController id="FJA-Vb-RO4" customClass="LogViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LogView" id="FJA-Vb-RO4" customClass="LogViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gOC-96-N27"/>
                         <viewControllerLayoutGuide type="bottom" id="C7T-ML-Ska"/>
@@ -370,7 +370,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="Efw-Us-mcx">
+                    <navigationItem key="navigationItem" title="ログ" id="Efw-Us-mcx">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="nX5-CA-M3Q">
                             <connections>
                                 <segue destination="r7X-aC-6JR" kind="modal" identifier="toSubmitVC" id="ypQ-t5-ztA"/>

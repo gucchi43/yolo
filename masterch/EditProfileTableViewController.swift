@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import TwitterKit
 
 class EditProfileTableViewController: UITableViewController {
     
@@ -32,8 +33,7 @@ class EditProfileTableViewController: UITableViewController {
         super.viewDidLoad()
         //プロフィール写真の形を整える
         userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
-        changeProfileButton.layer.cornerRadius = changeProfileButton.frame.width/2
-        
+        changeProfileButton.layer.cornerRadius = changeProfileButton.frame.width/2        
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -81,22 +81,112 @@ class EditProfileTableViewController: UITableViewController {
     }
 }
 
-extension EditProfileTableViewController{
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("セルの選択: \(indexPath.row)")
-        switch indexPath.row {
-        case 5:
-            SVProgressHUD.show()
-            print("ユーザー情報", user)
-            NCMBUser.logOut()
-            print("ユーザー情報", user)
-            SVProgressHUD.dismiss()
-        default:
-            break
-        }
-        
-    }
-}
+//extension EditProfileTableViewController{
+//
+//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        switch indexPath.row {
+//        case 0:
+//            //画像変更
+//            let cell = tableView.dequeueReusableCellWithIdentifier("editUserImageCell", forIndexPath: indexPath)
+//
+//            userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
+//            changeProfileButton.layer.cornerRadius = changeProfileButton.frame.width/2
+//            return cell
+//        case 1:
+//            //ユーザーネーム変更
+//            let cell = tableView.dequeueReusableCellWithIdentifier("editUserNameCell", forIndexPath: indexPath)
+//            return cell
+//        case 2:
+//            //自己紹介変更
+//            let cell = tableView.dequeueReusableCellWithIdentifier("editUserSelfIntroductionCell", forIndexPath: indexPath)
+//            return cell
+//        case 3:
+//            //Twitter連携
+//            print("Twitter連携確認cell")
+//            let cell = tableView.dequeueReusableCellWithIdentifier("connectTwitterCell", forIndexPath: indexPath)
+//            return cell
+//
+//            let user = NCMBUser.currentUser()
+//
+//            // Tag番号 ２ （連携SNS名）
+////            let label1 = tableView.viewWithTag(2) as! UILabel
+////            label1.text = "\(label1Array[indexPath.row])"
+//
+//            // Tag番号 ４ （連携SNSのロゴImage）
+//
+//            //　Tag番号 ３、４、５ （SNSでのユーザー名、SNSのロゴ、連携済 or 未連携）
+//
+//            let connectAccontName = tableView.viewWithTag(3) as! UILabel
+//            let logoImage = tableView.viewWithTag(4) as! UIImageView
+//            let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
+//            let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
+//            let labelOnOff = tableView.viewWithTag(5) as! UILabel
+//
+//            print("user情報", user)
+//            print("true or false", NCMBTwitterUtils.isLinkedWithUser(user))
+//
+//
+//            if let userID = user.objectForKey("twitterID") {
+//                if userID.isKindOfClass(NSNull) != true{
+//                    if let userLink = Twitter.sharedInstance().sessionStore.sessionForUserID(userID as! String){
+//                        print("Twitter連携済 userID:", userLink.userID)//Twitter連携している
+//                        let snsName = user.objectForKey("twitterName")
+//                        print("snsName:", snsName)
+//                        connectAccontName.text = String(snsName)
+//                        labelOnOff.text = "連携中"
+//                        logoImage.image = imgTwitterOn
+//                    }else{
+//                        print("ありえないはず: twitterIDは登録してるのにTwitterSessionがsaveできていない")
+//                        connectAccontName.text = ""
+//                        labelOnOff.text = "未連携"
+//                        logoImage.image = imgTwitterOff
+//
+//                    }
+//                }else {
+//                    print("Twitter未連携（外した状態） userID", userID)//Twitter連携をはずして、空っぽの状態
+//                    //Twitter未連携
+//                    connectAccontName.text = ""
+//                    labelOnOff.text = "未連携"
+//                    logoImage.image = imgTwitterOff
+//                }
+//            }else {
+//                print("Twitter未連携")//Twitter連携は今まで一度もしていない
+//                //Twitter未連携
+//                connectAccontName.text = ""
+//                labelOnOff.text = "未連携"
+//                logoImage.image = imgTwitterOff
+//            }
+//            return cell
+//            
+//        case 4:
+//            //Facebook連携
+//            print("Facebok連携確認cell")
+//            let cell = tableView.dequeueReusableCellWithIdentifier("connectFacebookCell", forIndexPath: indexPath)
+//            return cell
+//        default:
+//            //ログアウト
+//            let cell = tableView.dequeueReusableCellWithIdentifier("logOutCell", forIndexPath: indexPath)
+//            return cell
+//
+//        }
+//    }
+//
+//
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        print("セルの選択: \(indexPath.row)")
+//        switch indexPath.row {
+//        case 5:
+//            SVProgressHUD.show()
+//            print("ユーザー情報", user)
+//            NCMBUser.logOut()
+//            print("ユーザー情報", user)
+//            SVProgressHUD.dismiss()
+//        default:
+//            print("これでも落ちるんすか？", indexPath.row)
+//        }
+//        
+//    }
+//}
 
 
 // カメラ周り

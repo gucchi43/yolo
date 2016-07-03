@@ -37,11 +37,20 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <segue destination="jzC-8X-s9L" kind="show" identifier="toOtherAccountViewController" id="D1J-xc-fFD"/>
+                        <segue destination="XOz-Qj-yRm" kind="show" identifier="toAccountViewController" id="iSK-hf-eYw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tfO-zm-Biy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1500" y="470"/>
+            <point key="canvasLocation" x="1524" y="286"/>
+        </scene>
+        <!--AccountView-->
+        <scene sceneID="DrJ-ws-1Oq">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Account" referencedIdentifier="AccountView" id="XOz-Qj-yRm" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8pu-D6-bfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1953.5" y="-43"/>
         </scene>
         <!--OtherAccount-->
         <scene sceneID="Qig-qp-Wrz">
@@ -49,7 +58,7 @@
                 <viewControllerPlaceholder storyboardName="OtherAccount" id="jzC-8X-s9L" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u9c-aE-m4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1902.5" y="420"/>
+            <point key="canvasLocation" x="1969" y="530"/>
         </scene>
         <!--検索-->
         <scene sceneID="ZzT-P1-Ax9">

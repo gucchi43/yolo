@@ -13,7 +13,7 @@ import SVProgressHUD
 class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    var currentUser: NCMBUser!
+    var user: NCMBUser?
     var selectedPostObject: NCMBObject!
 
     var postArray: NSArray = NSArray()
@@ -27,14 +27,21 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
     }
 
     override func viewWillAppear(animated: Bool) {
-        currentUser = NCMBUser.currentUser()
+        if let user = user{
+            print("OtherAccountみたいなはず")
+            print("アカウントのユーザー名(自分じゃないはず)", user.userName)
+        }else {
+            user = NCMBUser.currentUser()!
+            print("OtherAccountみたいなはず")
+            print("アカウントのユーザー名(自分じゃないはず)", user!.userName)
+        }
         //自分の投稿をとってくるQUeryを投げる
         myAccountQuery()
     }
 
     func myAccountQuery () {
         let postQuery: NCMBQuery = NCMBQuery(className: "Post")
-        postQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+        postQuery.whereKey("user", equalTo: user)
         postQuery.orderByDescending("postDate") // cellの並べ方
         postQuery.limit = 20
         postQuery.includeKey("user")
@@ -68,8 +75,7 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
         }
         if let editProfileVC = destination as? EditProfileTableViewController {
             if segue.identifier == "toEditProfile" {
-                editProfileVC.user = currentUser
-                
+                editProfileVC.user = user
             }
         }
         if segue.identifier == "toPostDetail" {
@@ -83,13 +89,15 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
         }
         if segue.identifier == "toSubmit" {
             let submitVC = segue.destinationViewController as! SubmitViewController
-            //今のところsubmitとのdelegateは設定しない
-//            submitVC.delegate = self
             print("これはどうなる")
             submitVC.postDate = CalendarManager.currentDate
         }
         if segue.identifier == "toLog" {
-//            let logVC = segue.destinationViewController as! LogViewController
+            let logVC = segue.destinationViewController as! LogViewController
+//            logVC.user = user
+            logManager.sharedSingleton.logUser = user!
+            logVC.userName = user!.objectForKey("userFaceName") as? String
+            logManager.sharedSingleton.logNumber = 2
         }
         if segue.identifier == "toUserList" {
             let relationshipQuery = NCMBQuery(className: "Relationship")
@@ -97,7 +105,7 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
 
             guard let sender = sender as? String else { return }
             if sender == "follow" {
-                relationshipQuery.whereKey("followed", equalTo: currentUser)
+                relationshipQuery.whereKey("followed", equalTo: user)
                 relationshipQuery.includeKey("follower")
                 relationshipQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
                     if error == nil {
@@ -108,7 +116,7 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
                     }
                 }
             } else if sender == "follower" {
-                relationshipQuery.whereKey("follower", equalTo: currentUser)
+                relationshipQuery.whereKey("follower", equalTo: user)
                 relationshipQuery.includeKey("followed")
                 relationshipQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
                     if error == nil {
@@ -149,17 +157,18 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             //プロフィールCell
             let cell = tableView.dequeueReusableCellWithIdentifier("ProfileCell", forIndexPath: indexPath) as! ProfileCell
 
+
             //ユーザーネームを表示
-            cell.userProfileNameLabel.text = currentUser.objectForKey("userFaceName") as? String
-            cell.userIdLabel.text = "@" + currentUser.userName
-            cell.userSelfIntroductionTextView.text = currentUser.objectForKey("userSelfIntroduction") as? String
+            cell.userProfileNameLabel.text = user!.objectForKey("userFaceName") as? String
+            cell.userIdLabel.text = "@" + user!.userName
+            cell.userSelfIntroductionTextView.text = user!.objectForKey("userSelfIntroduction") as? String
             cell.userSelfIntroductionTextView.textColor = UIColor.whiteColor()
 
             //プロフィール写真の形を円形にする
             cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
 
             //プロフィール写真を表示
-            let userProfileImageName = (currentUser.objectForKey("userProfileImage") as? String)!
+            let userProfileImageName = (user!.objectForKey("userProfileImage") as? String)!
             let userProfileImageData = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
 
             userProfileImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
@@ -171,7 +180,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             }
 
             //ホーム写真を表示
-            let userHomeImageName = (currentUser.objectForKey("userHomeImage") as? String)!
+            let userHomeImageName = (user!.objectForKey("userHomeImage") as? String)!
             let userHomeImageData = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
 
             userHomeImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
@@ -188,13 +197,14 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             //３つボタンCell(ログ、フォロー、フォロワー)
             let cell = tableView.dequeueReusableCellWithIdentifier("ThreeCircleCell", forIndexPath: indexPath) as! ThreeCircleCell
 
+            getFllowNumber(cell)
+            getFllowerNumbar(cell)
+
             cell.toLogButton.layer.cornerRadius = cell.toLogButton.frame.width/2
             cell.followNumbarButton.layer.cornerRadius = cell.followNumbarButton.frame.width/2
             cell.followerNumbarButton.layer.cornerRadius = cell.followerNumbarButton.frame.width/2
 
-            getFllowNumber(cell)
-            getFllowerNumbar(cell)
-//            cell.layoutIfNeeded()
+            cell.layoutIfNeeded()
             return cell
 
         default:
@@ -293,6 +303,18 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
     }
+    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        switch indexPath.row {
+        case 0:
+            //Profileのcell
+            return nil
+        case 1:
+            //ThreeCircleのCell
+            return nil
+        default:
+            return indexPath
+        }
+    }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("セルの選択: \(indexPath.row)")
@@ -302,26 +324,31 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
 
     func getFllowNumber(cell: ThreeCircleCell) {
         let myFllowQuery: NCMBQuery = NCMBQuery(className: "Relationship")
-        myFllowQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
+        myFllowQuery.whereKey("followed", equalTo: user)
         myFllowQuery.countObjectsInBackgroundWithBlock { (count , error) -> Void in
             if let error = error{
                 print("error", error)
             }else {
-                print(NCMBUser.currentUser(),"の, フォロー数: ", count)
-                cell.followNumbarButton.setTitle(String(count) + "フォロー", forState: .Normal)
+                print(self.user,"の, フォロー数: ", count)
+                cell.followNumbarButton.setTitle("フォロー\n" + String(count), forState: .Normal)
+                cell.followNumbarButton.titleLabel?.textAlignment = NSTextAlignment.Center
+                cell.followNumbarButton.titleLabel?.adjustsFontSizeToFitWidth = true
+
             }
         }
     }
 
     func getFllowerNumbar(cell: ThreeCircleCell) {
         let myFllowerQuery: NCMBQuery = NCMBQuery(className: "Relationship")
-        myFllowerQuery.whereKey("follower", equalTo: NCMBUser.currentUser())
+        myFllowerQuery.whereKey("follower", equalTo: user)
         myFllowerQuery.countObjectsInBackgroundWithBlock { (count , error) -> Void in
             if let error = error{
                 print("error", error)
             }else {
-                print(NCMBUser.currentUser(),"の, フォロワー数: ", count)
-                cell.followerNumbarButton.setTitle(String(count) + "フォロワー", forState: .Normal)
+                print(self.user,"の, フォロワー数: ", count)
+                cell.followerNumbarButton.setTitle("フォロワー\n" + String(count), forState: .Normal)
+                cell.followerNumbarButton.titleLabel?.textAlignment = NSTextAlignment.Center
+                cell.followerNumbarButton.titleLabel?.adjustsFontSizeToFitWidth = true
             }
         }
     }

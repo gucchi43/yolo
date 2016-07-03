@@ -17,6 +17,7 @@ final class logManager {
     static let sharedSingleton = logManager()
     
     var logNumber: Int = 0
+    var logUser: NCMBUser = NCMBUser.currentUser()
 }
 
 
@@ -24,7 +25,9 @@ final class logManager {
 
 class LogQueryManager: NSObject {
     
-    func loadItems(logNumber: Int) -> NCMBQuery {
+    func loadItems(logNumber: Int, user: NCMBUser = NCMBUser.currentUser()) -> NCMBQuery {
+        print("userName", user.userName)
+
         //クエリの作成
         var postQuery: NCMBQuery = NCMBQuery(className: "Post")
         switch logNumber { //絞っていくよーーーーーーーーーーーーー
@@ -49,10 +52,18 @@ class LogQueryManager: NSObject {
             postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
             postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
             postQuery.includeKey("user")
-            
-            
+
+        case 2:
+            //特定のアカウントのみ
+            postQuery.whereKey("user", equalTo: user)
+            postQuery.orderByDescending("postDate") // cellの並べ方
+            postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+            postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+            postQuery.includeKey("user")
+
+
         default:
-            //オール
+            //オール(自分＆フォローしているユーザー)
             let myPostQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分の投稿クエリ
             myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
             
