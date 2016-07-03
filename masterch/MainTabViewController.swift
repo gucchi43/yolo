@@ -22,12 +22,16 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
             if let currentVC = self.selectedViewController {
                 let storyboard = UIStoryboard(name: "Submit", bundle: nil)
                 let modalVC = storyboard.instantiateViewControllerWithIdentifier("Submit") as? SubmitViewController
-                modalVC?.postDate = CalendarManager.currentDate
+                //選択しているタブが０番目（logVC）の場合、選択している日付を受け渡す
+                if self.selectedIndex as Int == 0{
+                    modalVC?.postDate = CalendarManager.currentDate
+                }else {
+                    print("何番目",self.selectedIndex as Int)
+                }
                 currentVC.presentViewController(modalVC!, animated: true, completion: nil)
             }
             return false
         }
         return true
     }
-
 }
