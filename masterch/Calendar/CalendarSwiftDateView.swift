@@ -28,9 +28,9 @@ class CalendarSwiftDateView: UIView{
         super.init(frame: frame)
         self.date = date
         self.tag = Int(date.toString(DateFormat.Custom("yyyyMMdd"))!)!
-        let w = Int((UIScreen.mainScreen().bounds.size.width) / 7) - 5
+        let w = Int((UIScreen.mainScreen().bounds.size.width) / 7) - 6
         
-        dayButton = UIButton(frame: CGRect(x: 5, y: 5, width: w, height: w))
+        dayButton = UIButton(frame: CGRect(x: 3, y: 3, width: w, height: w))
         dayButton.setTitle(String(format: "%02d", date.day), forState: UIControlState.Normal)
         dayButton.titleLabel?.font = UIFont.systemFontOfSize(10)
         dayButton.layer.cornerRadius = CGFloat(w / 2)

@@ -13,6 +13,7 @@ import Fabric
 
 protocol addSubmitlDelegate {
     func submitFinish()
+    func savePostProgressBar(percentDone: CGFloat)
 }
 
 class SubmitViewController: UIViewController, UITextViewDelegate {
@@ -437,16 +438,13 @@ extension SubmitViewController {
         let postObject = NCMBObject(className: "Post")
 //         ユーザーを関連づけ
         postObject.setObject(NCMBUser.currentUser(), forKey: "user")
-        
         postObject.setObject(self.postTextView.text, forKey: "text")
         postObject.setObject(postPickerDate, forKey: "postDate")
         postObject.setObject(secretKeyToggle, forKey: "secretKey")
         //        保存対象の画像ファイルを作成する
         if postImage1 != nil {
-            
             let imageData = UIImagePNGRepresentation(self.postImage1!)! as NSData
             let imageFile: NCMBFile = NCMBFile.fileWithData(imageData) as! NCMBFile
-            
             postObject.setObject(imageFile.name, forKey: "image1")
             
             //            ファイルはバックグラウンド実行をする
@@ -459,20 +457,24 @@ extension SubmitViewController {
             }, progressBlock: { (percentDone: Int32) -> Void in
                     //                    進捗状況を取得します。保存完了まで何度も呼ばれます
                     print("進捗状況: \(percentDone)% アップロード済み")
+                let postProgress = CGFloat(percentDone)/CGFloat(100)
+                print("postProgress", postProgress)
+                self.delegate?.savePostProgressBar(postProgress)
             })
         }
         self.setLogColor() //"logColor"クラスへのセット
         
+        
 //        非同期通信の保存処理
+        
         postObject.saveInBackgroundWithBlock({(error) in
             if error != nil {print("Save error : ",error)}
         })
-
+        
         postTextView.resignFirstResponder() // 先にキーボードを下ろす
 //        self.dismissViewControllerAnimated(true, completion: nil)
         self.dismissViewControllerAnimated(true, completion: {self.delegate?.submitFinish()})
         print("投稿完了")
-        
         
         //Twitterシェアかの判断
         if twitterToggle == true {
