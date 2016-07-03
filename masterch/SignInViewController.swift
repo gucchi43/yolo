@@ -8,6 +8,7 @@
 
 import UIKit
 import TwitterKit
+import SVProgressHUD
 
 class SignInViewController: UIViewController {
     @IBOutlet weak var userIdTextField: UITextField!
@@ -43,14 +44,18 @@ class SignInViewController: UIViewController {
     }
     
     func signIn() {
+//        SVProgressHUD.showWithStatus("読み込み中")
+        SVProgressHUD.show()
         NCMBUser.logInWithUsernameInBackground(userIdTextField.text, password: passwordTextField.text) { (user, error) -> Void in
             if error != nil {
                 //Login失敗
                 print("Login失敗", error)
+                SVProgressHUD.dismiss()
                 self.showErrorAlert(error)
             }else {
                 //Login成功
                 print("Login成功", user)
+                SVProgressHUD.dismiss()
                 self.performSegueWithIdentifier("signUpedSegue", sender: self)
             }
         }

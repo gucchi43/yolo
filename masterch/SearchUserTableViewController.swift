@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class SearchUserTableViewController: UITableViewController {
     
@@ -33,9 +34,7 @@ class SearchUserTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("SearchUserTableViewController viewDidload")
-//        loadAllUser()
-        
-        
+                
         let nib = UINib(nibName: "UserListTableViewCell", bundle: nil)
         tableView.registerNib(nib, forCellReuseIdentifier: "userCell")
         
@@ -59,16 +58,18 @@ class SearchUserTableViewController: UITableViewController {
         let userListQuery: NCMBQuery = NCMBQuery(className: "user")
         userListQuery.orderByAscending("updateDate")
         userListQuery.findObjectsInBackgroundWithBlock({(objects, error) in
+            SVProgressHUD.show()
             if let error = error {
                 print(error.localizedDescription)
+                SVProgressHUD.dismiss()
             } else {
                 if objects.count > 0 {
                     self.userArray = objects
-                    
                     print(self.userArray)
                 } else {
                     self.userArray = []
                 }
+                SVProgressHUD.dismiss()
                 self.tableView.reloadData()
             }
         })

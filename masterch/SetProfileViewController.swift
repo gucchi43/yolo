@@ -212,21 +212,32 @@ extension SetProfileViewController {
             //ファイルはバックグラウンド実行をする
             userProfileImageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error == nil {
+                    SVProgressHUD.dismiss()
                     print("画像データ保存完了: \(userProfileImageFile.name)")
+                    self.performSegueWithIdentifier("signUpSegue", sender: self)
                 } else {
                     print("アップロード中にエラーが発生しました: \(error)")
+                    SVProgressHUD.dismiss()
                 }
                 }, progressBlock: { (percentDone: Int32) -> Void in
                     //                    進捗状況を取得します。保存完了まで何度も呼ばれます
+//                    SVProgressHUD.showProgress(Float(percentDone)/Float(100), status: "登録中")
                     print("進捗状況: \(percentDone)% アップロード済み")
+                    print("進捗状況SVProgressHUD用: \((Float(percentDone)/Float(100))) アップロード済み")
             })
         }else {
             print("profileImageはnil")
         }
         
         user.saveInBackgroundWithBlock({(error) in
-            if error != nil { print("Save error : ",error)}
-            else { self.performSegueWithIdentifier("signUpSegue", sender: self) }
+            SVProgressHUD.show()
+            if error != nil {
+                print("Save error : ",error)
+                SVProgressHUD.dismiss()
+            }else {
+//                self.performSegueWithIdentifier("signUpSegue", sender: self)
+                SVProgressHUD.dismiss()
+            }
         })
         
        
