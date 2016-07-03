@@ -472,7 +472,10 @@ extension SubmitViewController {
         })
         
         postTextView.resignFirstResponder() // 先にキーボードを下ろす
-//        self.dismissViewControllerAnimated(true, completion: nil)
+        postDateTextField.resignFirstResponder()
+        if let tab = self.presentingViewController as? UITabBarController {
+            tab.selectedIndex = 0 // Logに遷移する.
+        }
         self.dismissViewControllerAnimated(true, completion: {self.delegate?.submitFinish()})
         print("投稿完了")
         
