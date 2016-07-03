@@ -21,8 +21,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
 
             if let currentVC = self.selectedViewController {
                 let storyboard = UIStoryboard(name: "Submit", bundle: nil)
-                let modalVC = storyboard.instantiateViewControllerWithIdentifier("Submit")
-                currentVC.presentViewController(modalVC, animated: true, completion: nil)
+                let modalVC = storyboard.instantiateViewControllerWithIdentifier("Submit") as? SubmitViewController
+                modalVC?.postDate = CalendarManager.currentDate
+                currentVC.presentViewController(modalVC!, animated: true, completion: nil)
             }
             return false
         }
