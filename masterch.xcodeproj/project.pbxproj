@@ -56,6 +56,8 @@
 		ED3644601C9D6DBA00C6676C /* Submit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445F1C9D6DBA00C6676C /* Submit.storyboard */; };
 		ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED4512AF1CEF33CB0071FA58 /* Title.storyboard */; };
 		ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */; };
+		ED652C4C1D29C2B60004BE9F /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */; };
+		ED652C4E1D29C2C70004BE9F /* SubmitDummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED652C4D1D29C2C70004BE9F /* SubmitDummyViewController.swift */; };
 		ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */; };
 		ED6AF8CB1D16B535003FBC5C /* DropdownMenu.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */; };
@@ -189,6 +191,8 @@
 		ED36445F1C9D6DBA00C6676C /* Submit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Submit.storyboard; sourceTree = "<group>"; };
 		ED4512AF1CEF33CB0071FA58 /* Title.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Title.storyboard; sourceTree = "<group>"; };
 		ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogPostedProgressBar.swift; sourceTree = "<group>"; };
+		ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
+		ED652C4D1D29C2C70004BE9F /* SubmitDummyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitDummyViewController.swift; sourceTree = "<group>"; };
 		ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropdownMenu.framework; path = Carthage/Build/iOS/DropdownMenu.framework; sourceTree = "<group>"; };
 		ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
 		ED720CD01D180B2400477608 /* CalendarLogCollerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarLogCollerManager.swift; sourceTree = "<group>"; };
@@ -284,6 +288,7 @@
 				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
 				32E6CF761C76F4F500904B74 /* takigutihikari.jpg */,
 				32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */,
+				ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */,
 				ED4512AF1CEF33CB0071FA58 /* Title.storyboard */,
 				EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */,
 				EDB04C741CC5190500FDEB14 /* UserData.swift */,
@@ -445,6 +450,7 @@
 			children = (
 				32C0A3411C5DF8ED009657B9 /* Main.storyboard */,
 				EDA866771CBC93050074A71D /* SetProfileViewController.swift */,
+				ED652C4D1D29C2C70004BE9F /* SubmitDummyViewController.swift */,
 				ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */,
 				32A088A71CED9EEE00BECCA5 /* SignInViewController.swift */,
 			);
@@ -708,9 +714,11 @@
 				ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */,
 				3219A2371C70468900D1A6AF /* TimelineCell.swift in Sources */,
 				ED720CD51D18A8CA00477608 /* LogQueryManager.swift in Sources */,
+				ED652C4C1D29C2B60004BE9F /* MainTabViewController.swift in Sources */,
 				EDA4DC6E1C82F0FB005FE126 /* CalendarSwiftDateView.swift in Sources */,
 				EDA4DC701C82F163005FE126 /* CalendarWeekView.swift in Sources */,
 				ED720CD31D188D6500477608 /* LogNavigationController.swift in Sources */,
+				ED652C4E1D29C2C70004BE9F /* SubmitDummyViewController.swift in Sources */,
 				EDB4AF581CE37AE2002781F3 /* ContainerSnsViewController.swift in Sources */,
 				EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */,
 				32C0A3401C5DF8ED009657B9 /* ViewController.swift in Sources */,
