@@ -11,7 +11,6 @@ import SwiftDate
 
 class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
     var selectedButton: UIButton!
-    var logColorArray: NSArray?
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -24,13 +23,9 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
     
     //setUpDaysの前に呼ぶ（真ん中の月だけgetLogColorを呼び出す）
     func startSetUpDays(date:NSDate) {
-        if date.year == CalendarManager.currentDate.year && date.month == CalendarManager.currentDate.month{
-            print("getLogColor呼び出し月" ,date)
+        setUpDays(date)
+        if date.year == CalendarManager.currentDate.year && date.month == CalendarManager.currentDate.month {
             getLogColorDate(date)
-            setUpDays(date)
-        }else {
-            print("getLogColor呼び出しなし", date)
-            setUpDays(date)
         }
     }
     
@@ -43,24 +38,18 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
             }
         }
         
-        let daySize = CGSize(width: Int(frame.size.width / 7.0), height: Int(frame.size.width / 7.0))
+        let dayViewSize = CGSize(width: Int(frame.size.width / 7.0), height: Int(frame.size.width / 7.0))
         let lastDay = date.monthDays
         
         for i in 0 ..< lastDay {
             let mDate = date + i.days
             let week = mDate.weekOfMonth  // 何週目か
-            let x = (mDate.weekday - 1) * Int(daySize.width)  // 曜日ごとにxの位置をずらす
-            let y = (week - 1) * Int(daySize.height)  // 週毎にyの位置をずらす
-            let frame = CGRect(origin: CGPoint(x: x, y: y), size: daySize)// frameの確定
-            if let array = self.logColorArray{ //logColorがあった場合(真ん中の月のみ)
-                let dayView = CalendarSwiftDateView(frame: frame, date: mDate, array: array)
-                dayView.delegate = self
-                self.addSubview(dayView)
-            }else {//logColorがない場合(真ん中の月以外)
-                let dayView = CalendarSwiftDateView(frame: frame, date: mDate)
-                dayView.delegate = self
-                self.addSubview(dayView)
-            }
+            let x = (mDate.weekday - 1) * Int(dayViewSize.width)  // 曜日ごとにxの位置をずらす
+            let y = (week - 1) * Int(dayViewSize.height)  // 週毎にyの位置をずらす
+            let frame = CGRect(origin: CGPoint(x: x, y: y), size: dayViewSize)// frameの確定
+            let dayView = CalendarSwiftDateView(frame: frame, date: mDate)
+            dayView.delegate = self
+            self.addSubview(dayView)
         }
     }
     
@@ -81,17 +70,21 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
             logColorQuery = calendarLogCollerManager.monthLogColorDate(date, logNumber: logNumber, user: logUser)
         }
         logColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
-            if let error = error{
-                print("getLogColorerrorr", error.localizedDescription)
-                self.setUpDays(date)
+            if let error = error {
+                print("getLogColorError", error.localizedDescription)
             }else{
                 if objects != nil {
-                    self.logColorArray = objects
-                    print("今月の投稿",date, self.logColorArray)
-                    self.setUpDays(date)
+                    print("今月の投稿",date, objects)
+                    // 色乗せ処理
+                    for object in objects {
+                        let logDate = object.objectForKey("logDate") as! String
+                        let logColor = object.objectForKey("dateColor") as! String
+                        let logDateTag = Int(logDate.stringByReplacingOccurrencesOfString("/", withString: ""))!
+                        let dayView = self.viewWithTag(logDateTag) as! CalendarSwiftDateView
+                        dayView.selectDateColor(logColor)
+                    }
                 }else{
                     print("今月の投稿はまだない")
-                    self.setUpDays(date)
                 }
             }
         })

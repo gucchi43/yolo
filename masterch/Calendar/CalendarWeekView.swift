@@ -11,7 +11,6 @@ import SwiftDate
 
 class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
     var selectedDay: UIButton?
-    var logColorArray: NSArray?
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -24,13 +23,9 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
     
     //setUpDaysの前に呼ぶ（真ん中の週だけgetLogColorを呼び出す）
     func startSetUpDays(date:NSDate) {
-        if date.yearForWeekOfYear == CalendarManager.currentDate.yearForWeekOfYear && date.weekOfYear == CalendarManager.currentDate.weekOfYear{
-            print("getLogColor呼び出し週", date)
+        setUpDays(date)
+        if date.yearForWeekOfYear == CalendarManager.currentDate.yearForWeekOfYear && date.weekOfYear == CalendarManager.currentDate.weekOfYear {
             getLogColorDate(date)
-            setUpDays(date)
-        }else {
-            print("getLogColor呼び出しなし")
-            setUpDays(date)
         }
     }
     
@@ -49,16 +44,9 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
         for i in 0 ..< 7 {
             let x = i * Int(daySize.width)
             let frame = CGRect(origin: CGPoint(x: x, y: 0), size: daySize)
-            
-            if let array = self.logColorArray{ //logColorがあった場合(真ん中の月のみ)
-                let dayView = CalendarSwiftDateView(frame: frame, date: date + i.days, array: array)
-                dayView.delegate = self
-                self.addSubview(dayView)
-            }else {//logColorがない場合(真ん中の月以外)
-                let dayView = CalendarSwiftDateView(frame: frame, date: date + i.days)
-                dayView.delegate = self
-                self.addSubview(dayView)
-            }
+            let dayView = CalendarSwiftDateView(frame: frame, date: date + i.days)
+            dayView.delegate = self
+            self.addSubview(dayView)
         }
     }
     
@@ -81,15 +69,20 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
         logColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error{
                 print("getLogColorerrorr", error.localizedDescription)
-                self.setUpDays(date)
             }else{
                 if objects != nil{
-                    self.logColorArray = objects
-                    print("今週の投稿",date, self.logColorArray)
-                    self.setUpDays(date)
+                    print("今週の投稿",date, objects)
+                    // 色乗せ処理
+                    for object in objects {
+                        let logDate = object.objectForKey("logDate") as! String
+                        let logColor = object.objectForKey("dateColor") as! String
+                        let logDateTag = Int(logDate.stringByReplacingOccurrencesOfString("/", withString: ""))!
+                        if let dayView = self.viewWithTag(logDateTag) as? CalendarSwiftDateView {
+                            dayView.selectDateColor(logColor)
+                        }
+                    }
                 }else{
                     print("今月の投稿はまだない")
-                    self.setUpDays(date)
                 }
             }
         })
@@ -104,20 +97,13 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
                 if dateView.date == CalendarManager.currentDate {
                     dateView.dayButton.layer.borderColor = UIColor.grayColor().CGColor
                     dateView.dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
-//                    dateView.dayButton.backgroundColor = UIColor.yellowColor()
-//                    dateView.dayButton.selected = true
-//                    print("true")
                     print(dateView.date)
                 } else {
                     dateView.dayButton.layer.borderColor = UIColor.clearColor().CGColor
                     dateView.dayButton.titleLabel?.font = UIFont.systemFontOfSize(10)
-//                    dateView.dayButton.backgroundColor = UIColor.clearColor()
-//                    dateView.dayButton.selected = false
-//                    print("false")
                 }
             }
         }
-        
     }
 }
 

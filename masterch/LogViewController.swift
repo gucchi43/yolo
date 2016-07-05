@@ -11,6 +11,11 @@ import DropdownMenu
 import SwiftDate
 import DZNEmptyDataSet
 
+protocol LogViewControlloerDelegate {
+    func updateLogView()
+}
+
+
 class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     var toggleWeek: Bool = false
@@ -139,23 +144,38 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
         menuView.delegate = self
         menuView.showMenu(onNavigaitionView: true)
     }
-    
-    
+
+    func openSubmitViewController(){
+        print("openSubmitViewController")
+        let submitVC = SubmitViewController()
+        submitVC.delegate = self
+    }
+
     func submitFinish() {
         print("submitFinish")
         let logNumber = logManager.sharedSingleton.logNumber
         switch toggleWeek {
         case false:
-            print("week表示")
+            print("month表示")
             if let calendarView = calendarView {
                 calendarView.resetMonthView()
                 loadQuery(logNumber)
+            }else {
+                print("calendarAnotherViewがないだって!?")
+                calendarView?.resetMonthView()
+                loadQuery(logNumber)
+
             }
         default:
-            print("month表示")
+            print("week表示")
             if let calendarAnotherView = calendarAnotherView {
                 calendarAnotherView.resetWeekView()
                 loadQuery(logNumber)
+            }else {
+                print("calendarAnotherViewがないだって!?")
+                calendarAnotherView?.resetWeekView()
+                loadQuery(logNumber)
+
             }
         }
         tableView.reloadData()
