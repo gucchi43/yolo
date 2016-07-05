@@ -68,16 +68,18 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
     func getLogColorDate(date: NSDate) {
         let calendarLogCollerManager = CalendarLogCollerManager()
         let logNumber = logManager.sharedSingleton.logNumber
+        let logUser = logManager.sharedSingleton.logUser
         let logColorQuery: NCMBQuery
-        let user = logManager.sharedSingleton.logUser
-        if user == NCMBUser.currentUser(){
-            print("user情報 in monthVC", user.userName)
+//        let logVC = LogViewController()
+//        let user = logVC.user
+        if logUser == NCMBUser.currentUser(){
+            print("user情報 in monthVC", logUser.userName)
+            //weekLogColorDateはuserを引数に取らない場合userにはNCMBUser.currentUser()が自動で入る
             logColorQuery = calendarLogCollerManager.monthLogColorDate(date, logNumber: logNumber)
         }else {
-            print("user情報 in monthVC", user.userName)
-            logColorQuery = calendarLogCollerManager.monthLogColorDate(date, logNumber: logNumber, user: user)
+            print("user情報 in monthVC", logUser.userName)
+            logColorQuery = calendarLogCollerManager.monthLogColorDate(date, logNumber: logNumber, user: logUser)
         }
-
         logColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error{
                 print("getLogColorerrorr", error.localizedDescription)

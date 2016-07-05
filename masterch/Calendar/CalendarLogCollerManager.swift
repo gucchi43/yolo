@@ -10,8 +10,8 @@ import UIKit
 
 class CalendarLogCollerManager: NSObject {
 
-    var user: NCMBUser? = NCMBUser.currentUser()
-    
+//    var user: NCMBUser? = NCMBUser.currentUser()
+
     //LogViewの日にちごとの色を決める実行部分２ (week)
     func weekLogColorDate(date: NSDate, logNumber: Int, user: NCMBUser = NCMBUser.currentUser()) -> NCMBQuery {
         //クエリの作成
@@ -19,8 +19,8 @@ class CalendarLogCollerManager: NSObject {
         
         switch logNumber { //絞っていくよーーーーーーーーーーーーー
         case 0:
-            //自分のみ
-            logColorQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+            //特定のuserのみ
+            logColorQuery.whereKey("user", equalTo: user)
             logColorQuery.whereKey("logDate", greaterThanOrEqualTo: CalendarManager.getDateWeekOfMin(date))
             logColorQuery.whereKey("logDate", lessThanOrEqualTo: CalendarManager.getDateWeekOfMax(date))
             logColorQuery.orderByAscending("logDate")
@@ -37,12 +37,12 @@ class CalendarLogCollerManager: NSObject {
             logColorQuery.whereKey("logDate", lessThanOrEqualTo: CalendarManager.getDateWeekOfMax(date))
             logColorQuery.orderByAscending("logDate")
 
-        case 2:
-            //特定のアカウントのみ
-            logColorQuery.whereKey("user", equalTo: user)
-            logColorQuery.whereKey("logDate", greaterThanOrEqualTo: CalendarManager.getDateWeekOfMin(date))
-            logColorQuery.whereKey("logDate", lessThanOrEqualTo: CalendarManager.getDateWeekOfMax(date))
-            logColorQuery.orderByAscending("logDate")
+//        case 2:
+//            //特定のアカウントのみ
+//            logColorQuery.whereKey("user", equalTo: user)
+//            logColorQuery.whereKey("logDate", greaterThanOrEqualTo: CalendarManager.getDateWeekOfMin(date))
+//            logColorQuery.whereKey("logDate", lessThanOrEqualTo: CalendarManager.getDateWeekOfMax(date))
+//            logColorQuery.orderByAscending("logDate")
 
         default:
             //オール
@@ -68,8 +68,8 @@ class CalendarLogCollerManager: NSObject {
         
         switch logNumber { //絞っていくよーーーーーーーーーーーーー
         case 0:
-            //自分のみ
-            logColorQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+            //特定のuserのみ
+            logColorQuery.whereKey("user", equalTo: user)
             logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
             logColorQuery.orderByAscending("logDate")
 
@@ -83,11 +83,11 @@ class CalendarLogCollerManager: NSObject {
             logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
             logColorQuery.orderByAscending("logDate")
 
-        case 2:
-            //特定のアカウントのみ
-            logColorQuery.whereKey("user", equalTo: user)
-            logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
-            logColorQuery.orderByAscending("logDate")
+//        case 2:
+//            //特定のアカウントのみ
+//            logColorQuery.whereKey("user", equalTo: user)
+//            logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
+//            logColorQuery.orderByAscending("logDate")
 
         default:
             //オール

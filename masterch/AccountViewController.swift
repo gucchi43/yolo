@@ -94,10 +94,11 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
         }
         if segue.identifier == "toLog" {
             let logVC = segue.destinationViewController as! LogViewController
-//            logVC.user = user
+//            logVC.user = user!
+//                        let calendarMonthVC = UIViewController as! CalendarMonthView
             logManager.sharedSingleton.logUser = user!
-            logVC.userName = user!.objectForKey("userFaceName") as? String
-            logManager.sharedSingleton.logNumber = 2
+            logManager.sharedSingleton.logNumber = 0
+//            logVC.userName = user!.objectForKey("userFaceName") as? String
         }
         if segue.identifier == "toUserList" {
             let relationshipQuery = NCMBQuery(className: "Relationship")

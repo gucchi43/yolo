@@ -32,7 +32,8 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
     
     var selectedRow: Int = 0
     var Dropitems: [DropdownItem]!
-    var user: NCMBUser?
+//    var user: NCMBUser = NCMBUser.currentUser()
+
     var userName: String?
     
 //    セル選択時の変数
@@ -83,14 +84,18 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
 
         //NavigationBarのタイトルになる配列を読み込む
         //（今は定数のためViewDidLoadに書いている）
-        let item1 = DropdownItem(title: "自分")
+//        let userName = user.userName
+        let logUser = logManager.sharedSingleton.logUser
+        let userName = logUser.userName
+        let item1 = DropdownItem(title: userName)
         let item2 = DropdownItem(title: "フォロー")
-        if let userName = userName{
-            let item3 = DropdownItem(title: userName)
-            Dropitems = [item1, item2, item3]
-        }else {
-            Dropitems = [item1, item2]
-        }
+        Dropitems = [item1, item2]
+//        if let userName = userName{
+//            let item3 = DropdownItem(title: userName)
+//            Dropitems = [item1, item2, item3]
+//        }else {
+//            Dropitems = [item1, item2]
+//        }
         changeTitle(logManager.sharedSingleton.logNumber)
 
     }
@@ -154,9 +159,7 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
             }
         }
         tableView.reloadData()
-        
     }
-    
 
     //投稿画面から戻った時にリロード
         func postDetailDismissionAction() {
@@ -169,13 +172,14 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
         let logQueryManager = LogQueryManager()
         let postQuery: NCMBQuery
 
-        let user = logManager.sharedSingleton.logUser
-        if user == NCMBUser.currentUser(){
-            print("user情報", user.userName)
+        let logUser = logManager.sharedSingleton.logUser
+        if logUser == NCMBUser.currentUser(){
+            print("user情報", logUser.userName)
+            //loadItemsuserはuserを引数に取らない場合userにはNCMBUser.currentUser()が自動で入る
             postQuery = logQueryManager.loadItems(logNumber)
         }else {
-            print("user情報", user.userName)
-            postQuery = logQueryManager.loadItems(logNumber, user: user)
+            print("user情報", logUser.userName)
+            postQuery = logQueryManager.loadItems(logNumber, user: logUser)
         }
 
         postQuery.findObjectsInBackgroundWithBlock({(objects, error) in
@@ -623,8 +627,6 @@ extension LogViewController: DropdownMenuDelegate {
             testLabel2.text = Dropitems[0].title
         case 1:
             testLabel2.text = Dropitems[1].title
-        case 2:
-            testLabel2.text = Dropitems[2].title
         default:
             testLabel2.text = "その他"
         }
@@ -637,11 +639,15 @@ extension LogViewController: DropdownMenuDelegate {
         stackView.addGestureRecognizer(gesture)
         stackView.userInteractionEnabled = true
         //ナビゲーションバーのタイトルに設定する。
-        if logNumber != 2{
+//        if logNumber != 2{
+//            navigationController!.navigationBar.topItem!.titleView = stackView
+//        }
+
+        if logManager.sharedSingleton.logNumber == 0 && logManager.sharedSingleton.logUser  == NCMBUser.currentUser(){
+        }else {
             navigationController!.navigationBar.topItem!.titleView = stackView
         }
     }
-
 }
 
 //----------------------progressBar-------------------------------

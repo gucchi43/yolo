@@ -848,7 +848,7 @@
                 <viewControllerPlaceholder storyboardName="Log" referencedIdentifier="LogView" id="eXu-Qx-9Ux" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kII-Pa-unA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="602.5" y="114"/>
+            <point key="canvasLocation" x="667" y="31"/>
         </scene>
         <!--UserList-->
         <scene sceneID="e98-Aq-hDh">
