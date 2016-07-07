@@ -64,7 +64,7 @@
         <scene sceneID="ZzT-P1-Ax9">
             <objects>
                 <navigationController storyboardIdentifier="Search" automaticallyAdjustsScrollViewInsets="NO" id="vnO-Ry-kCf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="検索" id="DRh-jO-88a"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="検索" id="DRh-jO-88a"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LTR-u0-YxE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

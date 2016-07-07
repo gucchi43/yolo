@@ -96,8 +96,13 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
             let logVC = segue.destinationViewController as! LogViewController
 //            logVC.user = user!
 //                        let calendarMonthVC = UIViewController as! CalendarMonthView
-            logManager.sharedSingleton.logUser = user!
-            logManager.sharedSingleton.logNumber = 0
+            if user! == NCMBUser.currentUser(){
+//                logManager.sharedSingleton.logUser = user!
+                logManager.sharedSingleton.logNumber = 0
+            }else {
+                logManager.sharedSingleton.logUser = user!
+                logManager.sharedSingleton.logNumber = 2
+            }
 //            logVC.userName = user!.objectForKey("userFaceName") as? String
         }
         if segue.identifier == "toUserList" {

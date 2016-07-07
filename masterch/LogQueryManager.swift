@@ -15,6 +15,7 @@ final class logManager {
     static let sharedSingleton = logManager()
     var logNumber: Int = 0
     var logUser: NCMBUser = NCMBUser.currentUser()
+    var logTitleToggle: Bool = true
 
 }
 
@@ -31,7 +32,7 @@ class LogQueryManager: NSObject {
         switch logNumber { //絞っていくよーーーーーーーーーーーーー
         case 0:
             //自分のみ
-            postQuery.whereKey("user", equalTo: user)
+            postQuery.whereKey("user", equalTo: NCMBUser.currentUser())
             postQuery.orderByDescending("postDate") // cellの並べ方
             postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
             postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
@@ -51,13 +52,13 @@ class LogQueryManager: NSObject {
             postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
             postQuery.includeKey("user")
 
-//        case 2:
-//            //特定のアカウントのみ
-//            postQuery.whereKey("user", equalTo: user)
-//            postQuery.orderByDescending("postDate") // cellの並べ方
-//            postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
-//            postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
-//            postQuery.includeKey("user")
+        case 2:
+            //特定のアカウントのみ
+            postQuery.whereKey("user", equalTo: user)
+            postQuery.orderByDescending("postDate") // cellの並べ方
+            postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
+            postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
+            postQuery.includeKey("user")
 
 
         default:

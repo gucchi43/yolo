@@ -20,7 +20,7 @@ class CalendarLogCollerManager: NSObject {
         switch logNumber { //絞っていくよーーーーーーーーーーーーー
         case 0:
             //特定のuserのみ
-            logColorQuery.whereKey("user", equalTo: user)
+            logColorQuery.whereKey("user", equalTo: NCMBUser.currentUser())
             logColorQuery.whereKey("logDate", greaterThanOrEqualTo: CalendarManager.getDateWeekOfMin(date))
             logColorQuery.whereKey("logDate", lessThanOrEqualTo: CalendarManager.getDateWeekOfMax(date))
             logColorQuery.orderByAscending("logDate")
@@ -37,12 +37,12 @@ class CalendarLogCollerManager: NSObject {
             logColorQuery.whereKey("logDate", lessThanOrEqualTo: CalendarManager.getDateWeekOfMax(date))
             logColorQuery.orderByAscending("logDate")
 
-//        case 2:
-//            //特定のアカウントのみ
-//            logColorQuery.whereKey("user", equalTo: user)
-//            logColorQuery.whereKey("logDate", greaterThanOrEqualTo: CalendarManager.getDateWeekOfMin(date))
-//            logColorQuery.whereKey("logDate", lessThanOrEqualTo: CalendarManager.getDateWeekOfMax(date))
-//            logColorQuery.orderByAscending("logDate")
+        case 2:
+            //特定のアカウントのみ
+            logColorQuery.whereKey("user", equalTo: user)
+            logColorQuery.whereKey("logDate", greaterThanOrEqualTo: CalendarManager.getDateWeekOfMin(date))
+            logColorQuery.whereKey("logDate", lessThanOrEqualTo: CalendarManager.getDateWeekOfMax(date))
+            logColorQuery.orderByAscending("logDate")
 
         default:
             //オール
@@ -83,11 +83,11 @@ class CalendarLogCollerManager: NSObject {
             logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
             logColorQuery.orderByAscending("logDate")
 
-//        case 2:
-//            //特定のアカウントのみ
-//            logColorQuery.whereKey("user", equalTo: user)
-//            logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
-//            logColorQuery.orderByAscending("logDate")
+        case 2:
+            //特定のアカウントのみ
+            logColorQuery.whereKey("user", equalTo: user)
+            logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
+            logColorQuery.orderByAscending("logDate")
 
         default:
             //オール

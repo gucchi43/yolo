@@ -253,7 +253,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hoD-De-F3E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-201" y="1355"/>
+            <point key="canvasLocation" x="-157" y="2093"/>
         </scene>
         <!--アカウント-->
         <scene sceneID="vt1-NW-cbc">
@@ -719,7 +719,7 @@
         <scene sceneID="rgb-Qn-47p">
             <objects>
                 <navigationController storyboardIdentifier="Account" automaticallyAdjustsScrollViewInsets="NO" id="wuv-Wr-XSh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="アカウント" id="emU-TY-VlA"/>
+                    <tabBarItem key="tabBarItem" tag="5" title="アカウント" id="emU-TY-VlA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="68v-yl-ptu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -824,7 +824,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e0c-5w-jeg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1641" y="397"/>
+            <point key="canvasLocation" x="1761" y="2069"/>
         </scene>
         <!--Main-->
         <scene sceneID="VfL-jw-TX9">
@@ -848,7 +848,7 @@
                 <viewControllerPlaceholder storyboardName="Log" referencedIdentifier="LogView" id="eXu-Qx-9Ux" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kII-Pa-unA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="667" y="31"/>
+            <point key="canvasLocation" x="915" y="83"/>
         </scene>
         <!--UserList-->
         <scene sceneID="e98-Aq-hDh">
@@ -915,7 +915,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7w2-kU-ywp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="971" y="272"/>
+            <point key="canvasLocation" x="1659" y="1720"/>
         </scene>
         <!--プロフィール変更-->
         <scene sceneID="nXs-HD-ktY">
@@ -1290,7 +1290,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wjv-PI-Mx6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="768" y="-298"/>
+            <point key="canvasLocation" x="758" y="-440"/>
         </scene>
     </scenes>
     <resources>
@@ -1299,9 +1299,9 @@
         <image name="noprofile.png" width="500" height="500"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OnZ-Mg-baj"/>
-        <segue reference="BEM-Ov-hbA"/>
-        <segue reference="cke-zh-9wf"/>
-        <segue reference="SYA-SM-kkT"/>
+        <segue reference="dqx-di-Lm3"/>
+        <segue reference="RPw-od-GfG"/>
+        <segue reference="d7U-cz-cqx"/>
+        <segue reference="4Ck-1w-yEf"/>
     </inferredMetricsTieBreakers>
 </document>

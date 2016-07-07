@@ -90,8 +90,9 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
         //NavigationBarのタイトルになる配列を読み込む
         //（今は定数のためViewDidLoadに書いている）
 //        let userName = user.userName
-        let logUser = logManager.sharedSingleton.logUser
-        let userName = logUser.userName
+//        let logUser = logManager.sharedSingleton.logUser
+//        let userName = logUser.userName
+        let userName = NCMBUser.currentUser().userName
         let item1 = DropdownItem(title: userName)
         let item2 = DropdownItem(title: "フォロー")
         Dropitems = [item1, item2]
@@ -642,15 +643,23 @@ extension LogViewController: DropdownMenuDelegate {
         let testLabel2 = UILabel(frame:CGRectMake(0,0,100,12))
         testLabel2.textColor = UIColor.lightGrayColor()
         let logNumber = logManager.sharedSingleton.logNumber
-        switch logNumber {
-        case 0:
-            testLabel2.text = Dropitems[0].title
-        case 1:
-            testLabel2.text = Dropitems[1].title
-        default:
-            testLabel2.text = "その他"
-        }
-        
+        testLabel2.text = Dropitems[selectedRow].title
+
+//        if selectedRow == logNumber {
+//            testLabel2.text = Dropitems[selectedRow].title
+//        }
+
+//        switch logNumber {
+//        case 0:
+//            testLabel2.text = Dropitems[0].title
+//        case 1:
+//            testLabel2.text = Dropitems[1].title
+//        case 2:
+//            testLabel2.text = "logNumber = 2"
+//        default:
+//            testLabel2.text = "その他"
+//        }
+
         //スタックビューに追加する。
         stackView.addArrangedSubview(testLabel1)
         stackView.addArrangedSubview(testLabel2)
@@ -662,11 +671,20 @@ extension LogViewController: DropdownMenuDelegate {
 //        if logNumber != 2{
 //            navigationController!.navigationBar.topItem!.titleView = stackView
 //        }
-
-        if logManager.sharedSingleton.logNumber == 0 && logManager.sharedSingleton.logUser  == NCMBUser.currentUser(){
-        }else {
+//        if logManager.sharedSingleton.logNumber == 0 && logManager.sharedSingleton.logUser  == NCMBUser.currentUser() && maintabBarVC.selectedIndex as Int == 0{
+//            navigationController!.navigationBar.topItem!.titleView = stackView
+//        }
+//        if maintabBarVC.selectedIndex as Int == 0 {
+//        }
+        if logManager.sharedSingleton.logTitleToggle == true{
+            print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
             navigationController!.navigationBar.topItem!.titleView = stackView
+        }else {
+            print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
+
         }
+
+
     }
 }
 

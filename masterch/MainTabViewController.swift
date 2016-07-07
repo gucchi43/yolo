@@ -37,4 +37,36 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
         }
         return true
     }
+
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+//        if selectedIndex as Int == 0{
+//            print("selectedIndex as Int",selectedIndex as Int)
+//            logManager.sharedSingleton.logNumber = 0
+//            logManager.sharedSingleton.logUser = NCMBUser.currentUser()
+//        }else {
+//            print("selectedIndex as Int",selectedIndex as Int)
+//        }
+
+        switch item.tag {
+        case 1://ログ
+            print("tag ID = 1")
+//            logManager.sharedSingleton.logUser = NCMBUser.currentUser()
+            logManager.sharedSingleton.logNumber = 0
+            logManager.sharedSingleton.logTitleToggle = true
+        case 2://検索
+            print("tag ID = 2")
+//            logManager.sharedSingleton.logNumber = 2
+            logManager.sharedSingleton.logTitleToggle = false
+        case 3://投稿
+            print("tag ID = 3")
+        case 4://通知
+            print("tag ID = 4")
+        case 5://アカウント
+            print("tag ID = 5")
+            logManager.sharedSingleton.logTitleToggle = false
+        default:
+            print("tag ID = デフォルトじゃいぼけい", item.tag)
+        }
+    }
+
 }
