@@ -116,7 +116,7 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
                 relationshipQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
                     if error == nil {
                         guard let relationships = objects as? [NCMBObject] else { return }
-                        for relationship in relationships {                            userListVC.userArray.append(relationship.objectForKey("follower") as! NCMBUser)
+                        for relationship in relationships{                            userListVC.userArray.append(relationship.objectForKey("follower") as! NCMBUser)
                         }
                         userListVC.userListTableView.reloadData()
                     }

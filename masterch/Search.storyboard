@@ -11,7 +11,7 @@
                 <viewControllerPlaceholder storyboardName="Submit" id="YW9-Co-wLb" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U5U-xy-XIh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1330" y="1752"/>
+            <point key="canvasLocation" x="1524.5" y="822"/>
         </scene>
         <!--ユーザー検索-->
         <scene sceneID="w6M-Ng-YSG">
@@ -36,7 +36,6 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <segue destination="jzC-8X-s9L" kind="show" identifier="toOtherAccountViewController" id="D1J-xc-fFD"/>
                         <segue destination="XOz-Qj-yRm" kind="show" identifier="toAccountViewController" id="iSK-hf-eYw"/>
                     </connections>
                 </tableViewController>
@@ -50,15 +49,7 @@
                 <viewControllerPlaceholder storyboardName="Account" referencedIdentifier="AccountView" id="XOz-Qj-yRm" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8pu-D6-bfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1953.5" y="-43"/>
-        </scene>
-        <!--OtherAccount-->
-        <scene sceneID="Qig-qp-Wrz">
-            <objects>
-                <viewControllerPlaceholder storyboardName="OtherAccount" id="jzC-8X-s9L" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="u9c-aE-m4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1969" y="530"/>
+            <point key="canvasLocation" x="2015" y="286"/>
         </scene>
         <!--検索-->
         <scene sceneID="ZzT-P1-Ax9">
@@ -77,7 +68,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CN5-tG-kC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="542" y="486"/>
+            <point key="canvasLocation" x="816" y="286"/>
         </scene>
     </scenes>
 </document>
