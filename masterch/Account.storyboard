@@ -283,6 +283,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="fxR-sU-wRY" secondAttribute="height" multiplier="207:100" id="LJv-ZM-pEU"/>
                                                         <constraint firstAttribute="width" secondItem="fxR-sU-wRY" secondAttribute="height" multiplier="2:1" id="fxB-XD-r2F"/>
+                                                        <constraint firstAttribute="height" constant="250" id="hvN-mw-oit"/>
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -384,7 +385,7 @@
                                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="twitterOFF_40px.png" translatesAutoresizingMaskIntoConstraints="NO" id="aZR-Ia-ehg">
                                                             <rect key="frame" x="16" y="116" width="40" height="33"/>
                                                         </imageView>
-                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="facebookOff_40px.png" translatesAutoresizingMaskIntoConstraints="NO" id="rqH-BO-Fpg">
+                                                        <imageView hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="facebookOff_40px.png" translatesAutoresizingMaskIntoConstraints="NO" id="rqH-BO-Fpg">
                                                             <rect key="frame" x="72" y="116" width="40" height="40"/>
                                                         </imageView>
                                                     </subviews>
@@ -394,6 +395,7 @@
                                                         <constraint firstItem="cnj-DZ-nI1" firstAttribute="leading" secondItem="j6Z-12-yQF" secondAttribute="leading" constant="8" id="6v6-kv-RER"/>
                                                         <constraint firstItem="55Q-QB-USz" firstAttribute="top" secondItem="lZS-Gt-IuD" secondAttribute="bottom" constant="1" id="7Fy-Za-aJV"/>
                                                         <constraint firstAttribute="trailing" secondItem="rsH-hp-GpR" secondAttribute="trailing" constant="8" id="7qO-3s-eXE"/>
+                                                        <constraint firstAttribute="height" constant="250" id="BVJ-Op-S9b"/>
                                                         <constraint firstItem="YXB-4q-zzl" firstAttribute="leading" secondItem="55Q-QB-USz" secondAttribute="leading" id="DgB-FH-DT1"/>
                                                         <constraint firstItem="65x-ok-NqO" firstAttribute="top" secondItem="55Q-QB-USz" secondAttribute="bottom" constant="8" id="DrU-PP-3Aj"/>
                                                         <constraint firstItem="cnj-DZ-nI1" firstAttribute="top" secondItem="j6Z-12-yQF" secondAttribute="top" constant="8" id="Gsn-qY-fnU"/>
@@ -447,9 +449,11 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="facebookConnectButton" destination="rqH-BO-Fpg" id="Jp8-lA-Sit"/>
                                             <outlet property="followButton" destination="65x-ok-NqO" id="J0g-vw-ADo"/>
                                             <outlet property="profileChangeButton" destination="YXB-4q-zzl" id="f64-sL-Hmq"/>
                                             <outlet property="settingButton" destination="rsH-hp-GpR" id="NhO-eA-Sd2"/>
+                                            <outlet property="twitterConnectButton" destination="aZR-Ia-ehg" id="J05-bw-eOu"/>
                                             <outlet property="userHomeImageView" destination="fxR-sU-wRY" id="Zr8-Dg-Gbj"/>
                                             <outlet property="userIdLabel" destination="55Q-QB-USz" id="tpp-DP-cWh"/>
                                             <outlet property="userProfileImageView" destination="cnj-DZ-nI1" id="HgF-PM-EFo"/>
@@ -743,7 +747,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EPc-ye-ngK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-180" y="-15"/>
+            <point key="canvasLocation" x="-77" y="-264"/>
         </scene>
         <!--Submit-->
         <scene sceneID="hDV-Nk-Zxl">
@@ -870,7 +874,7 @@
                 <viewControllerPlaceholder storyboardName="Main" id="t6h-UR-gjx" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6iZ-bB-1Mh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1511" y="-56"/>
+            <point key="canvasLocation" x="1293" y="-63"/>
         </scene>
         <!--PostDetail-->
         <scene sceneID="nAR-Fn-567">
@@ -1246,21 +1250,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ログアウト" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wt-84-eVT">
-                                                    <rect key="frame" x="117.5" y="11" width="85" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fys-Qh-apw">
+                                                    <rect key="frame" x="123" y="7" width="75" height="30"/>
+                                                    <state key="normal" title="ログアウト"/>
+                                                    <connections>
+                                                        <action selector="tapLogoutButton:" destination="b0e-HZ-ON1" eventType="touchUpInside" id="Okr-yx-BFc"/>
+                                                        <segue destination="t6h-UR-gjx" kind="presentation" identifier="toMainVC" id="Drk-US-dsq"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="4wt-84-eVT" firstAttribute="centerX" secondItem="RX6-eX-kpM" secondAttribute="centerX" id="DFa-rw-fpm"/>
-                                                <constraint firstItem="4wt-84-eVT" firstAttribute="centerY" secondItem="RX6-eX-kpM" secondAttribute="centerY" id="bRC-a7-Prm"/>
+                                                <constraint firstItem="Fys-Qh-apw" firstAttribute="centerX" secondItem="RX6-eX-kpM" secondAttribute="centerX" id="Gh3-wQ-hG6"/>
+                                                <constraint firstItem="Fys-Qh-apw" firstAttribute="centerY" secondItem="RX6-eX-kpM" secondAttribute="centerY" id="VgG-if-HuT"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="t6h-UR-gjx" kind="presentation" id="SYA-SM-kkT"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="nMC-oI-hY0">
                                         <rect key="frame" x="0.0" y="547" width="320" height="44"/>
@@ -1339,9 +1342,9 @@
         <image name="twitterOFF_40px.png" width="40" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="OnZ-Mg-baj"/>
         <segue reference="cke-zh-9wf"/>
         <segue reference="BEM-Ov-hbA"/>
-        <segue reference="OnZ-Mg-baj"/>
-        <segue reference="SYA-SM-kkT"/>
+        <segue reference="Drk-US-dsq"/>
     </inferredMetricsTieBreakers>
 </document>

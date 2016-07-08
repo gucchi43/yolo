@@ -18,4 +18,7 @@ class ProfileCell: UITableViewCell {
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var settingButton: UIButton!
     @IBOutlet weak var profileChangeButton: UIButton!
+    @IBOutlet weak var twitterConnectButton: UIImageView!
+    @IBOutlet weak var facebookConnectButton: UIImageView!
+
 }

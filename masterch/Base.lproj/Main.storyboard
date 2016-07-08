@@ -143,6 +143,13 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pD5-Qk-LzA">
+                                <rect key="frame" x="324" y="20" width="90" height="30"/>
+                                <state key="normal" title="ユーザー情報"/>
+                                <connections>
+                                    <action selector="userInfo:" destination="Slq-0H-g6t" eventType="touchUpInside" id="69r-wS-pME"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -151,10 +158,12 @@
                             <constraint firstItem="CCV-j1-kbO" firstAttribute="top" secondItem="pE7-tz-HNf" secondAttribute="top" constant="150" id="ESe-dj-nsx"/>
                             <constraint firstAttribute="trailing" secondItem="JdY-yu-2Mj" secondAttribute="trailing" id="Nt9-pv-jT0"/>
                             <constraint firstItem="igm-vf-o0g" firstAttribute="top" secondItem="Z5c-WT-Tm5" secondAttribute="bottom" id="PTu-EC-FBu"/>
+                            <constraint firstItem="pD5-Qk-LzA" firstAttribute="top" secondItem="hja-UD-dfY" secondAttribute="bottom" id="Ppm-tu-8c7"/>
                             <constraint firstItem="Z5c-WT-Tm5" firstAttribute="centerX" secondItem="pE7-tz-HNf" secondAttribute="centerX" id="XQS-mv-rg1"/>
                             <constraint firstItem="JdY-yu-2Mj" firstAttribute="centerX" secondItem="pE7-tz-HNf" secondAttribute="centerX" id="bGa-9p-epX"/>
                             <constraint firstItem="JdY-yu-2Mj" firstAttribute="leading" secondItem="pE7-tz-HNf" secondAttribute="leading" id="dN1-Pi-oXy"/>
                             <constraint firstItem="Z5c-WT-Tm5" firstAttribute="leading" secondItem="pE7-tz-HNf" secondAttribute="leading" id="e4q-iH-W9R"/>
+                            <constraint firstAttribute="trailing" secondItem="pD5-Qk-LzA" secondAttribute="trailing" id="jHR-ux-74C"/>
                             <constraint firstItem="Z5c-WT-Tm5" firstAttribute="top" secondItem="JdY-yu-2Mj" secondAttribute="bottom" id="jlj-pR-9ae"/>
                             <constraint firstItem="CCV-j1-kbO" firstAttribute="centerX" secondItem="pE7-tz-HNf" secondAttribute="centerX" id="mBU-kZ-hSM"/>
                             <constraint firstAttribute="trailing" secondItem="Z5c-WT-Tm5" secondAttribute="trailing" id="nwc-4P-yGM"/>

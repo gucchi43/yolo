@@ -78,6 +78,12 @@ class EditProfileTableViewController: UITableViewController {
         print("キャンセルボタンを押した")
         dismissViewControllerAnimated(true, completion: nil)
     }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toMainVC"{
+            print("ログアウト遷移開始")
+        }
+    }
 }
 
 //extension EditProfileTableViewController{
@@ -344,5 +350,15 @@ extension EditProfileTableViewController {
         
         self.dismissViewControllerAnimated(true, completion: nil)
         print("保存完了")
+    }
+}
+
+
+extension EditProfileTableViewController{
+
+    @IBAction func tapLogoutButton(sender: AnyObject) {
+        print("ログアウト前", NCMBUser.currentUser())
+        NCMBUser.logOut()
+//        print("ログアウト後", NCMBUser.currentUser())
     }
 }

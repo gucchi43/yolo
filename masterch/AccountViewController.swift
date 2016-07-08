@@ -9,6 +9,7 @@
 import UIKit
 import DZNEmptyDataSet
 import SVProgressHUD
+import TwitterKit
 
 class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
@@ -23,6 +24,9 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
 
 
     var isFollowing: Bool = false
+    var isTwitterConnecting: Bool = false
+    var isFacebookConnecting: Bool = false
+
     var followingRelationshipObject = NCMBObject()
 
 
@@ -179,10 +183,20 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.followButton.hidden = true
                 cell.settingButton.hidden = false
                 cell.profileChangeButton.hidden = false
+
+                checkConnectTwitter(user!, cell:cell)
+                checkConnectFacebook(user!, cell: cell)
+
+
+
+                cell.twitterConnectButton.hidden = false
+                cell.facebookConnectButton.hidden = false
             }else {//自分じゃない時
                 cell.followButton.hidden = false
                 cell.settingButton.hidden = true
                 cell.profileChangeButton.hidden = true
+                cell.twitterConnectButton.hidden = true
+                cell.facebookConnectButton.hidden = true
                 if isFollowing == true {//フォローしてる時
                     cell.followButton.setTitle("フォロー中", forState: .Normal)
                 }else {//フォローしてない時
@@ -222,6 +236,22 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.userHomeImageView.image = UIImage(data: imageData!)
                 }
             }
+            //Twiiter連携しているか？
+            if isTwitterConnecting == true {
+                cell.twitterConnectButton.image = UIImage(named: "twitterON_40px")
+            }else {
+                cell.twitterConnectButton.image = UIImage(named: "twitterOFF_40px")
+            }
+
+            //Facebook連携しているか？
+            if isFacebookConnecting == true {
+                cell.facebookConnectButton.image = UIImage(named: "facebookON_40px")
+            }else {
+                cell.facebookConnectButton.image = UIImage(named: "facebookOff_40px")
+            }
+
+
+
 //            cell.layoutIfNeeded()
             return cell
 
@@ -466,8 +496,203 @@ extension AccountViewController {
 
     @IBAction func tapProfileChangeButton(sender: AnyObject) {
         performSegueWithIdentifier("toEditProfile", sender: nil)
+
     }
 
+    func checkConnectTwitter(user: NCMBUser, cell: ProfileCell){
+        if NCMBTwitterUtils.isLinkedWithUser(user) == false{
+            print("Twitter未連携")
+            isTwitterConnecting = false
+            cell.twitterConnectButton.image = UIImage(named: "twitterOFF_40px")
+        }else {
+            print("Twitter連携済み")
+            isTwitterConnecting = true
+            cell.twitterConnectButton.image = UIImage(named: "twitterON_40px")
+        }
+    }
+
+
+    func checkConnectFacebook(user: NCMBUser, cell: ProfileCell){
+        if NCMBFacebookUtils.isLinkedWithUser(user) == false{
+            print("Facebook未連携")
+            isFacebookConnecting = false
+            cell.facebookConnectButton.image = UIImage(named: "facebookOff_40px")
+
+        }else{
+            print("Facebook連携済み")
+            isFacebookConnecting = true
+            cell.facebookConnectButton.image = UIImage(named: "facebookON_40px")
+
+        }
+    }
+
+
+    //Twitterリンク(NCMBとの連携もできる)
+    func addSnsToTwitter(user: NCMBUser){
+        NCMBTwitterUtils.linkUser(user) { (error) -> Void in
+            if error == nil {
+                if let authToken = NCMBTwitterUtils.twitter().authToken{
+                    let authTokenSecret = NCMBTwitterUtils.twitter().authTokenSecret
+                    let userName = NCMBTwitterUtils.twitter().screenName
+                    let userID = NCMBTwitterUtils.twitter().userId
+                    print("userName", userName)
+                    print(authToken)
+                    print(authTokenSecret)
+                    user.setObject(userName, forKey: "twitterName")
+                    user.setObject(userID, forKey: "twitterID")
+                    let store = Twitter.sharedInstance().sessionStore
+
+                    print(store)
+                    store.saveSessionWithAuthToken(authToken, authTokenSecret: authTokenSecret, completion: { (session, error) -> Void in
+                        if error == nil {
+                            print("sessionセーブ開始")
+                            user.saveInBackgroundWithBlock({ (error) -> Void in
+                                if error != nil {
+                                    print("twitterリンク失敗", error)
+                                }else {
+                                    print("twitterリンク成功")
+                                    self.isTwitterConnecting = true
+//                                    if let conectSnsTV = self.conectSnsTabelView{
+////                                        conectSnsTV.reloadData()
+//                                    }
+                                }
+                            })
+                        }else {
+                            print("error", error)
+                        }
+                    })
+                }else{
+                    print("error: authTokenなどが取得できなかった")
+                }
+            }
+        }
+    }
+
+    //Facebookリンク
+    func addSnsToFacebook(user: NCMBUser) {
+        NCMBFacebookUtils.linkUser(user, withReadPermission: ["public_profile", "email", "user_friends"]) { (user: NCMBUser!, error: NSError!) -> Void in
+            if error == nil{
+                print("facebookリンク開始")
+                NCMBFacebookUtils.linkUser(user, withPublishingPermission:["publish_actions"]) { (user: NCMBUser!, error: NSError!) -> Void in
+                    if error == nil{
+                        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id,email,gender,link,locale,name,timezone,updated_time,verified,last_name,first_name,middle_name"])
+                        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+                            if error == nil{
+                                print("facebookリンク情報ゲット")
+                                let name = result.valueForKey("name") as! NSString
+                                print("facebookユーザー名 : \(name)")
+                                user.setObject(name, forKey: "facebookName")
+                                user.saveInBackgroundWithBlock({ (error) -> Void in
+                                    if error != nil {
+                                        print("Facebookリンク失敗", error)
+                                    }else {
+                                        print("Facebookリンク成功")
+                                        print("FBデータ", result)
+                                        self.isFacebookConnecting = true
+//                                        if let conectSnsTV = self.conectSnsTabelView{
+//                                            conectSnsTV.reloadData()
+//                                        }
+                                    }
+                                })
+                            }else{
+                                print("facebook情報ゲット失敗その２", error.localizedDescription)
+                            }
+                        })
+                    }else {
+                        print(error.localizedDescription)
+                    }
+                }
+            }else {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+
+    /***SNSアンリンクメソッド***/
+
+    //Twitterアンリンク
+    func deleteTwitterAccount(user: NCMBUser) {
+        //「解除しますか？」アラート呼び出し
+        print("userじょうほう", user)
+        RMUniversalAlert.showAlertInViewController(self,
+                                                   withTitle: "このアカウントはすでにTwitterと連携しています。",
+                                                   message: "連携を解除する場合は、解除するボタンを押してください",
+                                                   cancelButtonTitle: "完了",
+                                                   destructiveButtonTitle: "解除する",
+                                                   otherButtonTitles:nil,
+                                                   tapBlock: {(alert, buttonIndex) in
+                                                    if (buttonIndex == alert.cancelButtonIndex) {
+                                                        print("完了 Tapped")
+                                                    } else if (buttonIndex == alert.destructiveButtonIndex) {
+                                                        print("解除する Tapped")
+                                                        let store = Twitter.sharedInstance().sessionStore
+                                                        if let userID = store.session()?.userID {
+                                                            print(userID)
+                                                            store.logOutUserID(userID)
+                                                            NCMBTwitterUtils.unlinkUserInBackground(user, block: { (error) -> Void in
+                                                                if error == nil {
+                                                                    user.removeObjectForKey("twitterName")
+                                                                    user.removeObjectForKey("twitterID")
+                                                                    user.saveInBackgroundWithBlock({ (error) -> Void in
+                                                                        if error == nil {
+                                                                            self.isTwitterConnecting = false
+//                                                                            self.conectSnsTabelView.reloadData()
+                                                                            print("Twitterアンリンク成功")
+                                                                        }else{
+                                                                            print("Twitterアンリンク失敗", error)
+                                                                        }
+                                                                    })
+                                                                }else {
+                                                                    print(error)
+                                                                }
+                                                            })
+                                                        } else if (buttonIndex >= alert.firstOtherButtonIndex) {
+                                                            print("Other Button Index \(buttonIndex - alert.firstOtherButtonIndex)")
+                                                        }
+                                                    }
+        })
+    }
+
+
+    //Facebookアンリンク
+    func deleteFacebookAccount(user: NCMBUser) {
+        //「解除しますか？」アラート呼び出し
+        RMUniversalAlert.showAlertInViewController(self,
+                                                   withTitle: "このアカウントはすでにFacebookと連携しています。",
+                                                   message: "連携を解除する場合は、解除するボタンを押してください",
+                                                   cancelButtonTitle: "完了",
+                                                   destructiveButtonTitle: "解除する",
+                                                   otherButtonTitles:nil,
+                                                   tapBlock: {(alert, buttonIndex) in
+                                                    if (buttonIndex == alert.cancelButtonIndex) {
+                                                        print("完了 Tapped")
+                                                    } else if (buttonIndex == alert.destructiveButtonIndex) {
+                                                        print("解除する Tapped")
+                                                        NCMBFacebookUtils.unLinkUser(user, withBlock: { (user, error) -> Void in
+                                                            if error == nil {
+                                                                print("Facebookアンリンク開始")
+                                                                print("user情報", user)
+                                                                user.removeObjectForKey("facebookName")
+                                                                user.saveInBackgroundWithBlock({ (error) -> Void in
+                                                                    if error == nil {
+                                                                        self.isFacebookConnecting = false
+//                                                                        self.conectSnsTabelView.reloadData()
+                                                                        print("Facebookアンリンク成功")
+                                                                        print("user情報その２", user)
+                                                                    }else{
+                                                                        print("Facebookアンリンク失敗", error)
+                                                                    }
+                                                                })
+                                                            }else {
+                                                                print("Facebookアンリンクできず", error)
+                                                            }
+                                                        })
+                                                    }
+        })
+    }
+    
+    
 
 }
 

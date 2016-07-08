@@ -25,6 +25,13 @@ class TopViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
+
+
+    @IBAction func userInfo(sender: AnyObject) {
+        if let user = NCMBUser.currentUser(){
+            print("ユーザー情報", user)
+        }else {
+            print("currentUserは無し")
+        }
+    }
 }
