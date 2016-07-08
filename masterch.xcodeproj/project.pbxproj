@@ -552,7 +552,7 @@
 				TargetAttributes = {
 					32C0A3391C5DF8ED009657B9 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = LZVK55AH8Y;
+						DevelopmentTeam = GCXLS66975;
 					};
 					32C0A34D1C5DF8EE009657B9 = {
 						CreatedOnToolsVersion = 7.2;
@@ -904,7 +904,7 @@
 				INFOPLIST_FILE = masterch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yamanakafumiya.masterch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yamanakafumiya.yolo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "masterch/masterch-Bridging-Header.h";
@@ -928,7 +928,7 @@
 				INFOPLIST_FILE = masterch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yamanakafumiya.masterch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yamanakafumiya.yolo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "masterch/masterch-Bridging-Header.h";

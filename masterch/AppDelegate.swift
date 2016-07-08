@@ -21,12 +21,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let clientkey = "ba1432ddcd33638afa4075ab527183c5e0a056e6a0441342be264dc8dd50fdd6"
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        
         // Override point for customization after application launch.
         //********** SDKの初期化 **********
         NCMB.setApplicationKey(applicationkey, clientKey: clientkey)
-        
+
+//        push通知の設定
+        if NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1 {
+            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: nil))
+            application.registerForRemoteNotifications()
+        }
+        // アプリ起動時のプッシュ通知
+        if let remoteNotification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
+            print("Remote Notification \(remoteNotification)")
+        }
+
         //        NCMBTwitterUtils.initializeWithConsumerKey("BC5FOGIUpi7cPUnuG9JUgtnwD", consumerSecret: "1GBwujSqH10INkqiaPfhO6IyncFc30CrwT8TNHUChgm1zV0dXq")
         
         NCMBTwitterUtils.initializeWithConsumerKey("2qY7CYrPfZrvSo8AcMZwMify9", consumerSecret: "qLBkQ9ATbpz8Ym6pWcNqRrzINceW0IaszxYWLFy46Zjy9O3VQc")
@@ -42,9 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //ユーザー情報を取ってくる
             user.fetchInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error == nil {
-                    let firsrtViewController :UIViewController
-                    firsrtViewController = storyboard.instantiateViewControllerWithIdentifier("firstViewController") as UIViewController
-                    self.window?.rootViewController = firsrtViewController
+                    self.window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier("firstViewController") as UIViewController
                     if let tabvc = self.window!.rootViewController as? UITabBarController  {
                         tabvc.selectedIndex = 0 // 0 が一番左のタブ (0＝Log画面)
                     }
@@ -70,8 +76,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         /** Facebook連携 **/
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
-        //表示するビューコントローラーを指定
+    }
+
+//    デバイストークン取得時の処理
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let installation = NCMBInstallation.currentInstallation()
+        installation.setDeviceTokenFromData(deviceToken)
+        installation.saveInBackgroundWithBlock(nil)
+    }
+
+// Push通知受信時とPush通知をタッチして起動したときに呼ばれる
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        print("起動中に受け取ったプッシュ通知: " + userInfo.description)
     }
     
 
