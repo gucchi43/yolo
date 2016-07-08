@@ -317,6 +317,7 @@
                                                                 <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
                                                             <connections>
+                                                                <action selector="tapSettingButton:" destination="zkA-KH-TI3" eventType="touchUpInside" id="uBo-bN-Zrq"/>
                                                                 <segue destination="Ele-pk-a1r" kind="presentation" identifier="toEditProfile" id="cke-zh-9wf"/>
                                                             </connections>
                                                         </button>
@@ -366,16 +367,34 @@
                                                                 </mask>
                                                             </variation>
                                                         </view>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="65x-ok-NqO">
+                                                            <rect key="frame" x="116" y="72" width="90" height="30"/>
+                                                            <state key="normal" title="フォローする"/>
+                                                            <connections>
+                                                                <action selector="tapFollowButton:" destination="zkA-KH-TI3" eventType="touchUpInside" id="vgz-kh-pFt"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YXB-4q-zzl">
+                                                            <rect key="frame" x="116" y="72" width="120" height="30"/>
+                                                            <state key="normal" title="プロフィール変更"/>
+                                                            <connections>
+                                                                <action selector="tapProfileChangeButton:" destination="zkA-KH-TI3" eventType="touchUpInside" id="3Na-kb-TXs"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                                                     <constraints>
+                                                        <constraint firstItem="YXB-4q-zzl" firstAttribute="top" secondItem="55Q-QB-USz" secondAttribute="bottom" constant="8" id="096-cB-YuC"/>
                                                         <constraint firstItem="cnj-DZ-nI1" firstAttribute="leading" secondItem="j6Z-12-yQF" secondAttribute="leading" constant="8" id="6v6-kv-RER"/>
                                                         <constraint firstItem="55Q-QB-USz" firstAttribute="top" secondItem="lZS-Gt-IuD" secondAttribute="bottom" constant="1" id="7Fy-Za-aJV"/>
                                                         <constraint firstAttribute="trailing" secondItem="rsH-hp-GpR" secondAttribute="trailing" constant="8" id="7qO-3s-eXE"/>
+                                                        <constraint firstItem="YXB-4q-zzl" firstAttribute="leading" secondItem="55Q-QB-USz" secondAttribute="leading" id="DgB-FH-DT1"/>
+                                                        <constraint firstItem="65x-ok-NqO" firstAttribute="top" secondItem="55Q-QB-USz" secondAttribute="bottom" constant="8" id="DrU-PP-3Aj"/>
                                                         <constraint firstItem="cnj-DZ-nI1" firstAttribute="top" secondItem="j6Z-12-yQF" secondAttribute="top" constant="8" id="Gsn-qY-fnU"/>
                                                         <constraint firstAttribute="bottom" secondItem="1AE-8W-yKT" secondAttribute="bottom" id="JNU-7B-7TX"/>
                                                         <constraint firstItem="lZS-Gt-IuD" firstAttribute="leading" secondItem="cnj-DZ-nI1" secondAttribute="trailing" constant="8" id="JnE-Hg-sLx"/>
                                                         <constraint firstItem="rsH-hp-GpR" firstAttribute="top" secondItem="j6Z-12-yQF" secondAttribute="top" constant="8" id="Jz7-jX-rmf"/>
+                                                        <constraint firstItem="65x-ok-NqO" firstAttribute="leading" secondItem="55Q-QB-USz" secondAttribute="leading" id="WeV-Au-y3c"/>
                                                         <constraint firstAttribute="trailing" secondItem="1AE-8W-yKT" secondAttribute="trailing" id="hW7-rL-uZF"/>
                                                         <constraint firstItem="lZS-Gt-IuD" firstAttribute="top" secondItem="j6Z-12-yQF" secondAttribute="top" constant="16" id="i96-bP-tUj"/>
                                                         <constraint firstItem="55Q-QB-USz" firstAttribute="leading" secondItem="cnj-DZ-nI1" secondAttribute="trailing" constant="8" id="lEa-Lo-YgQ"/>
@@ -412,6 +431,9 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="followButton" destination="65x-ok-NqO" id="J0g-vw-ADo"/>
+                                            <outlet property="profileChangeButton" destination="YXB-4q-zzl" id="f64-sL-Hmq"/>
+                                            <outlet property="settingButton" destination="rsH-hp-GpR" id="NhO-eA-Sd2"/>
                                             <outlet property="userHomeImageView" destination="fxR-sU-wRY" id="Zr8-Dg-Gbj"/>
                                             <outlet property="userIdLabel" destination="55Q-QB-USz" id="tpp-DP-cWh"/>
                                             <outlet property="userProfileImageView" destination="cnj-DZ-nI1" id="HgF-PM-EFo"/>
@@ -705,7 +727,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EPc-ye-ngK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="69" y="-15"/>
+            <point key="canvasLocation" x="-180" y="-15"/>
         </scene>
         <!--Submit-->
         <scene sceneID="hDV-Nk-Zxl">
@@ -1272,7 +1294,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Stw-qP-Q6L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1236" y="-195"/>
+            <point key="canvasLocation" x="1184" y="-466"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LXo-3r-y60">
@@ -1290,7 +1312,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wjv-PI-Mx6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="758" y="-440"/>
+            <point key="canvasLocation" x="668" y="-466"/>
         </scene>
     </scenes>
     <resources>
@@ -1299,9 +1321,9 @@
         <image name="noprofile.png" width="500" height="500"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dqx-di-Lm3"/>
-        <segue reference="RPw-od-GfG"/>
-        <segue reference="d7U-cz-cqx"/>
-        <segue reference="4Ck-1w-yEf"/>
+        <segue reference="cke-zh-9wf"/>
+        <segue reference="BEM-Ov-hbA"/>
+        <segue reference="OnZ-Mg-baj"/>
+        <segue reference="SYA-SM-kkT"/>
     </inferredMetricsTieBreakers>
 </document>

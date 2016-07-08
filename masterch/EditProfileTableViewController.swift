@@ -16,7 +16,6 @@ class EditProfileTableViewController: UITableViewController {
     @IBOutlet weak var userHomeImageView: UIImageView!
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var userSelfIntroductionTextView: UITextView!
-    
     @IBOutlet weak var changeProfileButton: UIButton!
     
     var userProfileName: String!

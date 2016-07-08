@@ -90,19 +90,25 @@ class NotificationManager: NSObject {
             if let error = error {
                 print(error.localizedDescription)
             }else {
-                print("オブジェクト", object)
-                print("objectId", object.objectId)
-                print("object", object)
-                object.deleteEventually({ (error) in
-                    if let error = error {
-                        print("error", error.localizedDescription)
-                        print("notificationObject", object)
-                    }else {
-                        
-                        print("follow: Notificationへの削除成功")
-//                        print("notificationObject", object)
-                    }
-                })
+                if object != nil {
+                    //followされていたが通知データはなかった場合（管理画面空削除しているパターンと思われる）
+                    print("followのnotificationがありません")
+                }else {
+                    print("オブジェクト", object)
+                    print("objectId", object.objectId)
+                    print("object", object)
+                    object.deleteEventually({ (error) in
+                        if let error = error {
+                            print("error", error.localizedDescription)
+                            print("notificationObject", object)
+                        }else {
+
+                            print("follow: Notificationへの削除成功")
+                            //                        print("notificationObject", object)
+                        }
+                    })
+                }
+
             }
         }
     }

@@ -15,5 +15,7 @@ class ProfileCell: UITableViewCell {
     @IBOutlet weak var userIdLabel: UILabel!
     @IBOutlet weak var userHomeImageView: UIImageView!
     @IBOutlet weak var userSelfIntroductionTextView: UITextView!
-    
+    @IBOutlet weak var followButton: UIButton!
+    @IBOutlet weak var settingButton: UIButton!
+    @IBOutlet weak var profileChangeButton: UIButton!
 }

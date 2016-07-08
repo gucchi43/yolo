@@ -47,7 +47,7 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate, UITextVie
         
 //        文字数カウントのために入力後の通知を受け取れるようにする
         NSNotificationCenter.defaultCenter().addObserver(self,
-            selector:"userNameTextFieldDidChange:",
+            selector:#selector(SetProfileViewController.userNameTextFieldDidChange(_:)),
             name: UITextFieldTextDidChangeNotification,
             object: nil)
     }
