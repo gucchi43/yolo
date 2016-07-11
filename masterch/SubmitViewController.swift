@@ -480,6 +480,7 @@ extension SubmitViewController {
         if let tab = self.presentingViewController as? UITabBarController {
             tab.selectedIndex = 0 // Logに遷移する.
         }
+        //現在タブバーから投稿に飛んだ場合はdelegateが空で機能しません（HELP）
         self.dismissViewControllerAnimated(true, completion: {self.delegate?.submitFinish()})
         print("投稿完了")
         

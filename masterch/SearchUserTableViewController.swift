@@ -132,13 +132,15 @@ class SearchUserTableViewController: UITableViewController {
 
         selectedUser = self.filterUsers[indexPath.row] as! NCMBUser
         print(selectedUser)
-        performSegueWithIdentifier("toOtherAccountViewController", sender: nil)
+        performSegueWithIdentifier("toAccountVC", sender: nil)
+
+
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "toOtherAccountViewController" {
-            guard let OtherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
-            OtherAccountViewController.user = selectedUser
+        if segue.identifier == "toAccountVC" {
+            guard let accountVC = segue.destinationViewController as? AccountViewController else { return }
+            accountVC.user = selectedUser
         }
     }
 

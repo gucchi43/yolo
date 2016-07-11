@@ -191,9 +191,9 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
         
         switch type {
         case "follow":
-            print("followのCellを選択 → OtherAccountViewControllerに遷移")
+            print("followのCellを選択 → AccountViewControllerに遷移")
             selectedUser = (notificationArray[indexPath.row] as! NCMBObject).objectForKey("actionUser") as! NCMBUser
-            performSegueWithIdentifier("toOtherAccountVC", sender: nil)
+            performSegueWithIdentifier("toAccountVC", sender: nil)
             
         case "like":
             print("likeのCellを選択 → Post画面に遷移")
@@ -217,16 +217,16 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
         switch segue.identifier! as String {
         case "toSubmitVC":
             break
-        case "toOtherAccountVC": //followのCell選択時→ユーザー画面に遷移
-            guard let otherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
+
+        case "toAccountVC": //followのCell選択時→ユーザー画面に遷移
+            guard let accountVC = segue.destinationViewController as? AccountViewController else { return }
             print("selectedUser", selectedUser)
-            otherAccountViewController.user = selectedUser
+            accountVC.user = selectedUser
         
         case "toPostDetailVC": //like、commentのCell選択時→投稿詳細画面に遷移
-            guard let postDetailViewController = segue.destinationViewController as? PostDetailViewController else { return }
+            guard let postDetailVC = segue.destinationViewController as? PostDetailViewController else { return }
             print("selectedObject", selectedObject)
-            
-            
+
             let postRelation = selectedObject.relationforKey("post") as NCMBRelation
             let postQuery = postRelation.query()
             postQuery.orderByAscending("createDate")
@@ -234,9 +234,9 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
             do{
                 let object = try postQuery.getFirstObject()
                 
-                postDetailViewController.postObject = object as! NCMBObject
-                print("投稿object", postDetailViewController.postObject)
-                print("投稿User", postDetailViewController.postObject.objectForKey("user") as! NCMBUser)
+                postDetailVC.postObject = object as! NCMBObject
+                print("投稿object", postDetailVC.postObject)
+                print("投稿User", postDetailVC.postObject.objectForKey("user") as! NCMBUser)
                 
             }catch let error as NSError{
                 print(error.localizedDescription)

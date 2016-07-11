@@ -177,20 +177,21 @@ extension PostDetailViewController {
     //投稿ユーザーへの遷移
     func segueToPostAccount(){
         otherUser = postObject.objectForKey("user") as! NCMBUser
-        performSegueWithIdentifier("toOtherAccountViewController", sender: nil)
+        performSegueWithIdentifier("toAccountVC", sender: nil)
     }
     
     //コメントユーザーへの遷移
     func segueToCommentAccount(commentObject: NCMBObject){
         otherUser = commentObject.objectForKey("user") as! NCMBUser
-        performSegueWithIdentifier("toOtherAccountViewController", sender: nil)
+        performSegueWithIdentifier("toAccountVC", sender: nil)
     }
     
     //ユーザー情報を遷移先に受け渡し
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        guard let otherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
-        otherAccountViewController.user = otherUser
-        
+        if segue.identifier == "toAccountVC" {
+            guard let accountVC = segue.destinationViewController as? AccountViewController else { return }
+            accountVC.user = otherUser
+        }
     }
 }
 

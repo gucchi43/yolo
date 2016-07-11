@@ -306,6 +306,7 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
      //Twitterアンリンク
     func deleteTwitterAccount(user: NCMBUser) {
         //「解除しますか？」アラート呼び出し
+        print("userじょうほう", user)
         RMUniversalAlert.showAlertInViewController(self,
             withTitle: "このアカウントはすでにTwitterと連携しています。",
             message: "連携を解除する場合は、解除するボタンを押してください",

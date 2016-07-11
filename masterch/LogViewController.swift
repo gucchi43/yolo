@@ -11,6 +11,11 @@ import DropdownMenu
 import SwiftDate
 import DZNEmptyDataSet
 
+protocol LogViewControlloerDelegate {
+    func updateLogView()
+}
+
+
 class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     var toggleWeek: Bool = false
@@ -32,6 +37,9 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
     
     var selectedRow: Int = 0
     var Dropitems: [DropdownItem]!
+//    var user: NCMBUser = NCMBUser.currentUser()
+
+    var userName: String?
     
 //    セル選択時の変数
     var selectedPostObject: NCMBObject!
@@ -58,15 +66,15 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
         
-        //NavigationBarのタイトルになる配列を読み込む
-        //（今は定数のためViewDidLoadに書いている）
-        let item1 = DropdownItem(title: "自分")
-        let item2 = DropdownItem(title: "フォロー")
-        
-        //将来的には可変になる、アプリ内で変更可能に…
-        Dropitems = [item1, item2]
-        changeTitle(logManager.sharedSingleton.logNumber)
-        
+//        //NavigationBarのタイトルになる配列を読み込む
+//        //（今は定数のためViewDidLoadに書いている）
+//        let item1 = DropdownItem(title: "自分")
+//        let item2 = DropdownItem(title: "フォロー")
+//        
+//        //将来的には可変になる、アプリ内で変更可能に…
+//        Dropitems = [item1, item2]
+//        changeTitle(logManager.sharedSingleton.logNumber)
+
         let logPostPB = LogPostedProgressBar()
         logPostPB.setProgressBar()
         
@@ -74,11 +82,28 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
     
     override func viewWillAppear(animated: Bool) {
 //        self.navigationController?.setToolbarHidden(true, animated: true) // ViewWillAppearは表示の度に呼ばれるので何度も消してくれる
-
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.didSelectDayView(_:)), name: "didSelectDayView", object: nil)
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
         }
+
+        //NavigationBarのタイトルになる配列を読み込む
+        //（今は定数のためViewDidLoadに書いている）
+//        let userName = user.userName
+//        let logUser = logManager.sharedSingleton.logUser
+//        let userName = logUser.userName
+        let userName = NCMBUser.currentUser().userName
+        let item1 = DropdownItem(title: userName)
+        let item2 = DropdownItem(title: "フォロー")
+        Dropitems = [item1, item2]
+//        if let userName = userName{
+//            let item3 = DropdownItem(title: userName)
+//            Dropitems = [item1, item2, item3]
+//        }else {
+//            Dropitems = [item1, item2]
+//        }
+        changeTitle(logManager.sharedSingleton.logNumber)
+
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -120,29 +145,42 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
         menuView.delegate = self
         menuView.showMenu(onNavigaitionView: true)
     }
-    
-    
+
+    func openSubmitViewController(){
+        print("openSubmitViewController")
+        let submitVC = SubmitViewController()
+        submitVC.delegate = self
+    }
+
     func submitFinish() {
         print("submitFinish")
         let logNumber = logManager.sharedSingleton.logNumber
         switch toggleWeek {
         case false:
-            print("week表示")
+            print("month表示")
             if let calendarView = calendarView {
                 calendarView.resetMonthView()
                 loadQuery(logNumber)
+            }else {
+                print("calendarAnotherViewがないだって!?")
+                calendarView?.resetMonthView()
+                loadQuery(logNumber)
+
             }
         default:
-            print("month表示")
+            print("week表示")
             if let calendarAnotherView = calendarAnotherView {
                 calendarAnotherView.resetWeekView()
                 loadQuery(logNumber)
+            }else {
+                print("calendarAnotherViewがないだって!?")
+                calendarAnotherView?.resetWeekView()
+                loadQuery(logNumber)
+
             }
         }
         tableView.reloadData()
-        
     }
-    
 
     //投稿画面から戻った時にリロード
         func postDetailDismissionAction() {
@@ -150,21 +188,33 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
         tableView.reloadData()
     }
     
-    
     //tableViewに表示するその日の投稿のQueryから取ってくる
     func loadQuery(logNumber: Int){
         let logQueryManager = LogQueryManager()
-        let postQuery: NCMBQuery = logQueryManager.loadItems(logNumber)
+        let postQuery: NCMBQuery
+
+        let logUser = logManager.sharedSingleton.logUser
+        if logUser == NCMBUser.currentUser(){
+            print("user情報", logUser.userName)
+            //loadItemsuserはuserを引数に取らない場合userにはNCMBUser.currentUser()が自動で入る
+            postQuery = logQueryManager.loadItems(logNumber)
+        }else {
+            print("user情報", logUser.userName)
+            postQuery = logQueryManager.loadItems(logNumber, user: logUser)
+        }
+
         postQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error {
                 print(error.localizedDescription)
             } else {
-                print("投稿数", objects.count)
                 if objects.count > 0 {
+                    print("その日に投稿があるパターン")
+                    print("投稿数", objects.count)
                     self.postArray = objects
                     self.tableView.emptyDataSetSource = nil
                     self.tableView.emptyDataSetDelegate = nil
                 } else {
+                    print("その日に投稿がないパターン")
                     self.postArray = []
                     self.tableView.emptyDataSetSource = self
                     self.tableView.emptyDataSetDelegate = self
@@ -541,20 +591,20 @@ extension LogViewController{
 
 }
 
-//DropdownMenuDelegateのDelegate
+//--------------NavigatoinBarの管理 (DropdownMenuDelegateのDelegate)----------------------------
 extension LogViewController: DropdownMenuDelegate {
     func dropdownMenu(dropdownMenu: DropdownMenu, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("DropdownMenu didselect \(indexPath.row) text:\(Dropitems[indexPath.row].title)")
         
         self.selectedRow = indexPath.row
         
-//        if indexPath.row != Dropitems.count - 1 {
-//            //一番上選んだ時
-//            self.selectedRow = indexPath.row
-//        }else {
-//            //それ意外
-//            self.selectedRow = indexPath.row
-//        }
+        if indexPath.row != Dropitems.count - 1 {
+            //一番上選んだ時
+            self.selectedRow = indexPath.row
+        }else {
+            //それ意外
+            self.selectedRow = indexPath.row
+        }
         logManager.sharedSingleton.logNumber = indexPath.row
         let logNumber = logManager.sharedSingleton.logNumber
         print("logNumber", logNumber, Dropitems[indexPath.row].title)
@@ -593,15 +643,23 @@ extension LogViewController: DropdownMenuDelegate {
         let testLabel2 = UILabel(frame:CGRectMake(0,0,100,12))
         testLabel2.textColor = UIColor.lightGrayColor()
         let logNumber = logManager.sharedSingleton.logNumber
-        switch logNumber {
-        case 0:
-            testLabel2.text = Dropitems[0].title
-        case 1:
-            testLabel2.text = Dropitems[1].title
-        default:
-            testLabel2.text = "その他"
-        }
-        
+        testLabel2.text = Dropitems[selectedRow].title
+
+//        if selectedRow == logNumber {
+//            testLabel2.text = Dropitems[selectedRow].title
+//        }
+
+//        switch logNumber {
+//        case 0:
+//            testLabel2.text = Dropitems[0].title
+//        case 1:
+//            testLabel2.text = Dropitems[1].title
+//        case 2:
+//            testLabel2.text = "logNumber = 2"
+//        default:
+//            testLabel2.text = "その他"
+//        }
+
         //スタックビューに追加する。
         stackView.addArrangedSubview(testLabel1)
         stackView.addArrangedSubview(testLabel2)
@@ -610,9 +668,24 @@ extension LogViewController: DropdownMenuDelegate {
         stackView.addGestureRecognizer(gesture)
         stackView.userInteractionEnabled = true
         //ナビゲーションバーのタイトルに設定する。
-        navigationController!.navigationBar.topItem!.titleView = stackView
-    }
+//        if logNumber != 2{
+//            navigationController!.navigationBar.topItem!.titleView = stackView
+//        }
+//        if logManager.sharedSingleton.logNumber == 0 && logManager.sharedSingleton.logUser  == NCMBUser.currentUser() && maintabBarVC.selectedIndex as Int == 0{
+//            navigationController!.navigationBar.topItem!.titleView = stackView
+//        }
+//        if maintabBarVC.selectedIndex as Int == 0 {
+//        }
+        if logManager.sharedSingleton.logTitleToggle == true{
+            print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
+            navigationController!.navigationBar.topItem!.titleView = stackView
+        }else {
+            print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
 
+        }
+
+
+    }
 }
 
 //----------------------progressBar-------------------------------

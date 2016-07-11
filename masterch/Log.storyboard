@@ -7,10 +7,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Log View Controller-->
+        <!--ログ-->
         <scene sceneID="3Xa-fM-zBO">
             <objects>
-                <viewController id="FJA-Vb-RO4" customClass="LogViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LogView" id="FJA-Vb-RO4" customClass="LogViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gOC-96-N27"/>
                         <viewControllerLayoutGuide type="bottom" id="C7T-ML-Ska"/>
@@ -396,7 +396,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="Efw-Us-mcx">
+                    <navigationItem key="navigationItem" title="ログ" id="Efw-Us-mcx">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="nX5-CA-M3Q">
                             <connections>
                                 <segue destination="r7X-aC-6JR" kind="modal" identifier="toSubmitVC" id="ypQ-t5-ztA"/>
@@ -441,7 +441,7 @@
         <scene sceneID="ORA-vr-x22">
             <objects>
                 <navigationController storyboardIdentifier="Log" automaticallyAdjustsScrollViewInsets="NO" id="QJZ-Br-eeV" customClass="LogNavigationController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="ログ" id="Dgp-Bp-UTR"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="ログ" id="Dgp-Bp-UTR"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YYb-tB-q7j">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
