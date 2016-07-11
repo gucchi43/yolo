@@ -72,10 +72,6 @@
 		ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED7A79051D2027220087BCCD /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */; };
 		ED7A79061D2027220087BCCD /* DZNEmptyDataSet.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB1491C9365250028C986 /* fb_login_big.png */; };
-		ED7DB14F1C9365250028C986 /* fb_login_small.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB14A1C9365250028C986 /* fb_login_small.png */; };
-		ED7DB1501C9365250028C986 /* tw_login_big.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB14B1C9365250028C986 /* tw_login_big.png */; };
-		ED7DB1511C9365250028C986 /* tw_login_small.png in Resources */ = {isa = PBXBuildFile; fileRef = ED7DB14C1C9365250028C986 /* tw_login_small.png */; };
 		ED8322D41C8EFDF700122BA2 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */; };
 		ED9158631CC7B29B0038F26F /* noprofile.png in Resources */ = {isa = PBXBuildFile; fileRef = ED91585E1CC7B29B0038F26F /* noprofile.png */; };
 		ED91586A1CC7BB540038F26F /* facebook_logo_640*480_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = ED9158661CC7BB540038F26F /* facebook_logo_640*480_gray.png */; };
@@ -209,10 +205,6 @@
 		ED720CD41D18A8CA00477608 /* LogQueryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogQueryManager.swift; sourceTree = "<group>"; };
 		ED779B091C8DCB9100C3027C /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DZNEmptyDataSet.framework; path = Carthage/Build/iOS/DZNEmptyDataSet.framework; sourceTree = "<group>"; };
-		ED7DB1491C9365250028C986 /* fb_login_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_big.png; sourceTree = "<group>"; };
-		ED7DB14A1C9365250028C986 /* fb_login_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_login_small.png; sourceTree = "<group>"; };
-		ED7DB14B1C9365250028C986 /* tw_login_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tw_login_big.png; sourceTree = "<group>"; };
-		ED7DB14C1C9365250028C986 /* tw_login_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tw_login_small.png; sourceTree = "<group>"; };
 		ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		ED91585E1CC7B29B0038F26F /* noprofile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noprofile.png; sourceTree = "<group>"; };
 		ED9158661CC7BB540038F26F /* facebook_logo_640*480_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook_logo_640*480_gray.png"; sourceTree = "<group>"; };
@@ -489,10 +481,6 @@
 				ED9158681CC7BB540038F26F /* facebook_logo_640*480_origin.png */,
 				ED9158691CC7BB540038F26F /* twitter_logo_640*480_origin.png */,
 				ED91585E1CC7B29B0038F26F /* noprofile.png */,
-				ED7DB1491C9365250028C986 /* fb_login_big.png */,
-				ED7DB14A1C9365250028C986 /* fb_login_small.png */,
-				ED7DB14B1C9365250028C986 /* tw_login_big.png */,
-				ED7DB14C1C9365250028C986 /* tw_login_small.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -618,8 +606,6 @@
 				ED3644601C9D6DBA00C6676C /* Submit.storyboard in Resources */,
 				3219A2381C70468900D1A6AF /* CustomTableViewCell.xib in Resources */,
 				ED3A83931D33DAE70054F004 /* twitterON_40px.png in Resources */,
-				ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */,
-				ED7DB14F1C9365250028C986 /* fb_login_small.png in Resources */,
 				ED402DCC1D34460C0098F843 /* images.xcassets in Resources */,
 				32AF85491CF2FED900757E5F /* key_gray.png in Resources */,
 				ED3644581C9D658A00C6676C /* Search.storyboard in Resources */,
@@ -627,7 +613,6 @@
 				EDF7FDF21CF52F8400BBC1F1 /* hartButton_Off@2x.png in Resources */,
 				EDF7FDF51CF52F8400BBC1F1 /* hartButton_On@3x.png in Resources */,
 				ED3107F11D101B0B00FE3D32 /* PostDetailTableViewCell.xib in Resources */,
-				ED7DB1511C9365250028C986 /* tw_login_small.png in Resources */,
 				EDF7FDF41CF52F8400BBC1F1 /* hartButton_On@2x.png in Resources */,
 				32C0A3431C5DF8ED009657B9 /* Main.storyboard in Resources */,
 				ED3107ED1D101A4500FE3D32 /* CommentTableViewCell.xib in Resources */,
@@ -641,7 +626,6 @@
 				ED91586D1CC7BB540038F26F /* twitter_logo_640*480_origin.png in Resources */,
 				ED91586A1CC7BB540038F26F /* facebook_logo_640*480_gray.png in Resources */,
 				32AF854A1CF2FED900757E5F /* key_origin.png in Resources */,
-				ED7DB1501C9365250028C986 /* tw_login_big.png in Resources */,
 				ED36445A1C9D659A00C6676C /* Log.storyboard in Resources */,
 				ED36445E1C9D65C000C6676C /* Notification.storyboard in Resources */,
 				ED3A83911D33DAE70054F004 /* facebookOff_40px.png in Resources */,

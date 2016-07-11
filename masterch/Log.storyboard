@@ -441,7 +441,7 @@
         <scene sceneID="ORA-vr-x22">
             <objects>
                 <navigationController storyboardIdentifier="Log" automaticallyAdjustsScrollViewInsets="NO" id="QJZ-Br-eeV" customClass="LogNavigationController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="1" title="ログ" id="Dgp-Bp-UTR"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="ログ" image="tabLog" id="Dgp-Bp-UTR"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YYb-tB-q7j">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -553,6 +553,7 @@
         <image name="hartButton_Off.png" width="23" height="21"/>
         <image name="hartButton_On.png" width="23" height="21"/>
         <image name="noprofile.png" width="500" height="500"/>
+        <image name="tabLog" width="28" height="25"/>
         <image name="takigutihikari.jpg" width="561" height="567"/>
     </resources>
 </document>

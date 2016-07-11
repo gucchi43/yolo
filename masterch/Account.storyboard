@@ -769,7 +769,7 @@
         <scene sceneID="rgb-Qn-47p">
             <objects>
                 <navigationController storyboardIdentifier="Account" automaticallyAdjustsScrollViewInsets="NO" id="wuv-Wr-XSh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="5" title="アカウント" id="emU-TY-VlA"/>
+                    <tabBarItem key="tabBarItem" tag="5" title="アカウント" image="tabAccount" id="emU-TY-VlA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="68v-yl-ptu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1245,12 +1245,13 @@
         <image name="hartButton_Off.png" width="23" height="21"/>
         <image name="hartButton_On.png" width="23" height="21"/>
         <image name="noprofile.png" width="500" height="500"/>
+        <image name="tabAccount" width="29" height="26"/>
         <image name="twitterOFF_40px.png" width="40" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OnZ-Mg-baj"/>
-        <segue reference="cke-zh-9wf"/>
-        <segue reference="BEM-Ov-hbA"/>
         <segue reference="RPw-od-GfG"/>
+        <segue reference="cke-zh-9wf"/>
+        <segue reference="OnZ-Mg-baj"/>
+        <segue reference="BEM-Ov-hbA"/>
     </inferredMetricsTieBreakers>
 </document>
