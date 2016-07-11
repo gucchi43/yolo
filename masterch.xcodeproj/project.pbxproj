@@ -12,7 +12,6 @@
 		3289D2341C6A1C3000B4C65A /* SubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */; };
 		3289D2361C6A1C5300B4C65A /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */; };
 		3289D2381C6A1C6000B4C65A /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2371C6A1C6000B4C65A /* LogViewController.swift */; };
-		3289D23A1C6A1C6F00B4C65A /* AccountViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2391C6A1C6F00B4C65A /* AccountViewController2.swift */; };
 		3289D23C1C6A1C8000B4C65A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */; };
 		32A088A81CED9EEE00BECCA5 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A088A71CED9EEE00BECCA5 /* SignInViewController.swift */; };
 		32AF85491CF2FED900757E5F /* key_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 32AF85471CF2FED900757E5F /* key_gray.png */; };
@@ -58,6 +57,10 @@
 		ED3CB3B71D2FBAD600335F1C /* facebookOff_40px.png in Resources */ = {isa = PBXBuildFile; fileRef = ED3CB3B31D2FBAD600335F1C /* facebookOff_40px.png */; };
 		ED3CB3B81D2FBAD600335F1C /* twitterOFF_40px.png in Resources */ = {isa = PBXBuildFile; fileRef = ED3CB3B41D2FBAD600335F1C /* twitterOFF_40px.png */; };
 		ED3CB3B91D2FBAD600335F1C /* twitterON_40px.png in Resources */ = {isa = PBXBuildFile; fileRef = ED3CB3B51D2FBAD600335F1C /* twitterON_40px.png */; };
+		ED3CB3BE1D301C6B00335F1C /*  facebookON_40px.png in Resources */ = {isa = PBXBuildFile; fileRef = ED3CB3BA1D301C6B00335F1C /*  facebookON_40px.png */; };
+		ED3CB3BF1D301C6B00335F1C /* facebookOff_40px.png in Resources */ = {isa = PBXBuildFile; fileRef = ED3CB3BB1D301C6B00335F1C /* facebookOff_40px.png */; };
+		ED3CB3C01D301C6B00335F1C /* twitterOFF_40px.png in Resources */ = {isa = PBXBuildFile; fileRef = ED3CB3BC1D301C6B00335F1C /* twitterOFF_40px.png */; };
+		ED3CB3C11D301C6B00335F1C /* twitterON_40px.png in Resources */ = {isa = PBXBuildFile; fileRef = ED3CB3BD1D301C6B00335F1C /* twitterON_40px.png */; };
 		ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED4512AF1CEF33CB0071FA58 /* Title.storyboard */; };
 		ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */; };
 		ED652C4C1D29C2B60004BE9F /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */; };
@@ -144,7 +147,6 @@
 		3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitViewController.swift; sourceTree = "<group>"; };
 		3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
 		3289D2371C6A1C6000B4C65A /* LogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
-		3289D2391C6A1C6F00B4C65A /* AccountViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController2.swift; sourceTree = "<group>"; };
 		3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = masterch/SearchViewController.swift; sourceTree = "<group>"; };
 		3289D2791C6BA1B300B4C65A /* masterch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "masterch-Bridging-Header.h"; sourceTree = "<group>"; };
 		328BF13C1CED546B00B99CBF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
@@ -200,6 +202,10 @@
 		ED3CB3B31D2FBAD600335F1C /* facebookOff_40px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookOff_40px.png; sourceTree = "<group>"; };
 		ED3CB3B41D2FBAD600335F1C /* twitterOFF_40px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitterOFF_40px.png; sourceTree = "<group>"; };
 		ED3CB3B51D2FBAD600335F1C /* twitterON_40px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitterON_40px.png; sourceTree = "<group>"; };
+		ED3CB3BA1D301C6B00335F1C /*  facebookON_40px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = " facebookON_40px.png"; sourceTree = "<group>"; };
+		ED3CB3BB1D301C6B00335F1C /* facebookOff_40px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookOff_40px.png; sourceTree = "<group>"; };
+		ED3CB3BC1D301C6B00335F1C /* twitterOFF_40px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitterOFF_40px.png; sourceTree = "<group>"; };
+		ED3CB3BD1D301C6B00335F1C /* twitterON_40px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitterON_40px.png; sourceTree = "<group>"; };
 		ED4512AF1CEF33CB0071FA58 /* Title.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Title.storyboard; sourceTree = "<group>"; };
 		ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogPostedProgressBar.swift; sourceTree = "<group>"; };
 		ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
@@ -402,7 +408,6 @@
 			children = (
 				ED36445B1C9D65AA00C6676C /* Account.storyboard */,
 				EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */,
-				3289D2391C6A1C6F00B4C65A /* AccountViewController2.swift */,
 				EDBADE2D1D2483FB0048957A /* AccountViewController.swift */,
 				EDBADE2F1D2489490048957A /* ProfileCell.swift */,
 				EDBADE311D2489690048957A /* ThreeCircleCell.swift */,
@@ -477,6 +482,10 @@
 		ED7DB14D1C9365250028C986 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				ED3CB3BA1D301C6B00335F1C /*  facebookON_40px.png */,
+				ED3CB3BB1D301C6B00335F1C /* facebookOff_40px.png */,
+				ED3CB3BC1D301C6B00335F1C /* twitterOFF_40px.png */,
+				ED3CB3BD1D301C6B00335F1C /* twitterON_40px.png */,
 				ED3CB3B21D2FBAD600335F1C /*  facebookON_40px.png */,
 				ED3CB3B31D2FBAD600335F1C /* facebookOff_40px.png */,
 				ED3CB3B41D2FBAD600335F1C /* twitterOFF_40px.png */,
@@ -611,6 +620,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32C0A3481C5DF8ED009657B9 /* LaunchScreen.storyboard in Resources */,
+				ED3CB3BE1D301C6B00335F1C /*  facebookON_40px.png in Resources */,
 				EDF7FDF31CF52F8400BBC1F1 /* hartButton_Off@3x.png in Resources */,
 				ED3282ED1CDEE52A009602C9 /* ColorKeyboard.xib in Resources */,
 				ED3644561C9D657600C6676C /* TimeLine.storyboard in Resources */,
@@ -624,6 +634,7 @@
 				3219A2381C70468900D1A6AF /* CustomTableViewCell.xib in Resources */,
 				ED7DB14E1C9365250028C986 /* fb_login_big.png in Resources */,
 				ED7DB14F1C9365250028C986 /* fb_login_small.png in Resources */,
+				ED3CB3BF1D301C6B00335F1C /* facebookOff_40px.png in Resources */,
 				32AF85491CF2FED900757E5F /* key_gray.png in Resources */,
 				ED3644581C9D658A00C6676C /* Search.storyboard in Resources */,
 				EDCBEE721CCA793700317BCE /* PostDetail.storyboard in Resources */,
@@ -638,6 +649,7 @@
 				ED21524A1D11883A0027AFC4 /* UserListTableViewCell.xib in Resources */,
 				ED3CB3B61D2FBAD600335F1C /*  facebookON_40px.png in Resources */,
 				ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */,
+				ED3CB3C11D301C6B00335F1C /* twitterON_40px.png in Resources */,
 				ED21524D1D1188E80027AFC4 /* OtherAccount.storyboard in Resources */,
 				ED91586B1CC7BB540038F26F /* twitter_logo_640*480_gray.png in Resources */,
 				ED36445C1C9D65AA00C6676C /* Account.storyboard in Resources */,
@@ -648,6 +660,7 @@
 				ED7DB1501C9365250028C986 /* tw_login_big.png in Resources */,
 				ED36445A1C9D659A00C6676C /* Log.storyboard in Resources */,
 				ED36445E1C9D65C000C6676C /* Notification.storyboard in Resources */,
+				ED3CB3C01D301C6B00335F1C /* twitterOFF_40px.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -763,7 +776,6 @@
 				ED3107EF1D101A7E00FE3D32 /* PostDetailTableViewCell.swift in Sources */,
 				ED3107F91D102A9800FE3D32 /* NotificationTableViewController.swift in Sources */,
 				3289D2381C6A1C6000B4C65A /* LogViewController.swift in Sources */,
-				3289D23A1C6A1C6F00B4C65A /* AccountViewController2.swift in Sources */,
 				3289D2361C6A1C5300B4C65A /* TimeLineViewController.swift in Sources */,
 				3289D2341C6A1C3000B4C65A /* SubmitViewController.swift in Sources */,
 				ED23B7A51C7B475B009AEDA5 /* CalendarView.swift in Sources */,

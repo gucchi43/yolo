@@ -29,6 +29,15 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
 
     var followingRelationshipObject = NCMBObject()
 
+    var profileCell: ProfileCell!
+    var threeCircleCell: ThreeCircleCell!
+    var timelineCell: TimelineCell!
+
+    var myProfileImage: UIImage?
+    var myProfileHomeImage: UIImage?
+    var myProfileName: String?
+    var myProfileSelfintroduction: String?
+
 
 
     override func viewDidLoad() {
@@ -40,19 +49,14 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
         if let user = user{
             print("OtherAccountみたいなはず")
             print("アカウントのユーザー名(自分じゃないはず)", user.userName)
-            //フォローしているかを判断
-            checkFollowing()
-
         }else {
             user = NCMBUser.currentUser()!
             print("OtherAccountみたいなはず")
             print("アカウントのユーザー名(自分のはず)", user!.userName)
 
         }
-        //自分の投稿をとってくるQUeryを投げる
+        //投稿をとってくるQUeryを投げる
         myAccountQuery()
-//        //フォローしているかを判断
-//        checkFollowing()
     }
 
     func myAccountQuery () {
@@ -91,7 +95,11 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
         }
         if let editProfileVC = destination as? EditProfileTableViewController {
             if segue.identifier == "toEditProfile" {
-                editProfileVC.user = user
+                editProfileVC.profileImage = myProfileImage
+                editProfileVC.profileHomeImage
+                    = myProfileHomeImage
+                editProfileVC.ProfileName = myProfileName
+                editProfileVC.profileSelfIntroduction = myProfileSelfintroduction
             }
         }
         if segue.identifier == "toPostDetail" {
@@ -110,16 +118,16 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
         }
         if segue.identifier == "toLog" {
             let logVC = segue.destinationViewController as! LogViewController
-//            logVC.user = user!
-//                        let calendarMonthVC = UIViewController as! CalendarMonthView
+            //            logVC.user = user!
+            //                        let calendarMonthVC = UIViewController as! CalendarMonthView
             if user! == NCMBUser.currentUser(){
-//                logManager.sharedSingleton.logUser = user!
+                //                logManager.sharedSingleton.logUser = user!
                 logManager.sharedSingleton.logNumber = 0
             }else {
                 logManager.sharedSingleton.logUser = user!
                 logManager.sharedSingleton.logNumber = 2
             }
-//            logVC.userName = user!.objectForKey("userFaceName") as? String
+            //            logVC.userName = user!.objectForKey("userFaceName") as? String
         }
         if segue.identifier == "toUserList" {
             let relationshipQuery = NCMBQuery(className: "Relationship")
@@ -183,12 +191,8 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.followButton.hidden = true
                 cell.settingButton.hidden = false
                 cell.profileChangeButton.hidden = false
-
                 checkConnectTwitter(user!, cell:cell)
                 checkConnectFacebook(user!, cell: cell)
-
-
-
                 cell.twitterConnectButton.hidden = false
                 cell.facebookConnectButton.hidden = false
             }else {//自分じゃない時
@@ -197,9 +201,9 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.profileChangeButton.hidden = true
                 cell.twitterConnectButton.hidden = true
                 cell.facebookConnectButton.hidden = true
-                if isFollowing == true {//フォローしてる時
+                if checkFollowing() == true{
                     cell.followButton.setTitle("フォロー中", forState: .Normal)
-                }else {//フォローしてない時
+                }else {
                     cell.followButton.setTitle("フォロー", forState: .Normal)
                 }
             }
@@ -216,12 +220,15 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             //プロフィール写真を表示
             let userProfileImageName = (user!.objectForKey("userProfileImage") as? String)!
             let userProfileImageData = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
-
             userProfileImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
                 if error != nil{
                     print("写真の取得失敗: \(error)")
                 } else {
                     cell.userProfileImageView.image = UIImage(data: imageData!)
+                    //EditProfileVCへの遷移のデータ
+                    if self.user == NCMBUser.currentUser() {
+                        self.myProfileImage = cell.userProfileImageView.image
+                    }
                 }
             }
 
@@ -234,25 +241,34 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                     print("写真の取得失敗: \(error)")
                 } else {
                     cell.userHomeImageView.image = UIImage(data: imageData!)
+                    //EditProfileVCへの遷移のデータ
+                    if self.user == NCMBUser.currentUser() {
+                        self.myProfileHomeImage = cell.userHomeImageView.image
+                    }
                 }
             }
             //Twiiter連携しているか？
             if isTwitterConnecting == true {
-                cell.twitterConnectButton.image = UIImage(named: "twitterON_40px")
+                cell.twitterConnectButton.setImage(UIImage(named: "twitterON_40px"), forState: .Normal)
             }else {
-                cell.twitterConnectButton.image = UIImage(named: "twitterOFF_40px")
+                cell.twitterConnectButton.setImage(UIImage(named: "twitterOFF_40px"), forState: .Normal)
             }
 
             //Facebook連携しているか？
             if isFacebookConnecting == true {
-                cell.facebookConnectButton.image = UIImage(named: "facebookON_40px")
+                cell.facebookConnectButton.setImage(UIImage(named: "facebookON_40px"), forState: .Normal)
             }else {
-                cell.facebookConnectButton.image = UIImage(named: "facebookOff_40px")
+                cell.facebookConnectButton.setImage(UIImage(named: "facebookOff_40px"), forState: .Normal)
+            }
+            //EditProfileVCへ渡すデータ
+            if user == NCMBUser.currentUser(){
+                myProfileName = cell.userProfileNameLabel.text
+                myProfileSelfintroduction = cell.userSelfIntroductionTextView.text
+                myProfileImage = cell.userProfileImageView.image
+                myProfileHomeImage = cell.userHomeImageView.image
             }
 
-
-
-//            cell.layoutIfNeeded()
+            //            cell.layoutIfNeeded()
             return cell
 
         case 1:
@@ -386,7 +402,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
         performSegueWithIdentifier("toPostDetail", sender: nil)
     }
 
-    func checkFollowing() {
+    func checkFollowing() -> Bool{
         //フォロー/フォロワーが合致してたらフォローしてるってことでRelationshipクラスのインスタンスを検索
         let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship")
         relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
@@ -400,11 +416,10 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 print("フォローしてる")
                 self.followingRelationshipObject = object as NCMBObject
                 self.isFollowing = true
-
             }
         }
+        return isFollowing
     }
-
 
     func getFllowNumber(cell: ThreeCircleCell) {
         let myFllowQuery: NCMBQuery = NCMBQuery(className: "Relationship")
@@ -435,6 +450,21 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
+
+    func testFollower(cell: ThreeCircleCell) {
+        let myFllowerQuery: NCMBQuery = NCMBQuery(className: "Relationship")
+        myFllowerQuery.whereKey("follower", equalTo: user)
+        myFllowerQuery.countObjectsInBackgroundWithBlock { (count , error) -> Void in
+            if let error = error{
+                print("error", error)
+            }else {
+                print(self.user,"の, フォロワー数: ", count)
+                cell.followerNumbarButton.setTitle("フォロワー\n" + String(10), forState: .Normal)
+                cell.followerNumbarButton.titleLabel?.textAlignment = NSTextAlignment.Center
+                cell.followerNumbarButton.titleLabel?.adjustsFontSizeToFitWidth = true
+            }
+        }
+    }
 }
 
 //---------------＜1行目＞プロフィールのメソッド--------------------
@@ -447,47 +477,45 @@ extension AccountViewController {
         }else {
             followON(followButton)
         }
-        //佐藤くん質問???
-        let cell = tableView.dequeueReusableCellWithIdentifier("ThreeCircleCell", forIndexPath:NSIndexPath(forRow: 0, inSection: 1)) as! ThreeCircleCell
-        cell.backgroundColor = UIColor.redColor()
-        self.getFllowerNumbar(cell)
-//        let cell = tableView.indexPath
-//        self.getFllowerNumbar()
+        //特定のcellだけreloadかける（２行目）
+        let indexPaths = NSIndexPath(forRow: 1, inSection: 0)
+        tableView.reloadRowsAtIndexPaths([indexPaths], withRowAnimation: UITableViewRowAnimation.Fade)
     }
-        func followON(followButton: UIButton){
-            print("フォローする")
-            let relationObject = NCMBObject(className: "Relationship")
-            relationObject.setObject(NCMBUser.currentUser(), forKey: "followed")
-            relationObject.setObject(user, forKey: "follower")
-            relationObject.saveInBackgroundWithBlock({ (error) -> Void in
-                guard error == nil else { return }
-                self.isFollowing = true
-                print("フォローした", NCMBUser.currentUser().userName, "→", self.user!.userName)
-                followButton.setTitle("フォロー中", forState: UIControlState.Normal)
-                self.followingRelationshipObject.objectId = relationObject.objectId
-                self.followingRelationshipObject = relationObject as NCMBObject
-                //フォローしたことを通知画面のDBに保存
-                let notificationManager = NotificationManager()
-                notificationManager.followNotification(self.user!)
-            })
-        }
 
-        func followOFF(followButton: UIButton){
-            print("フォローをやめる")
-            print("followingRelationshipObject", followingRelationshipObject)
-            followingRelationshipObject.fetchInBackgroundWithBlock({ (error) -> Void in
+    func followON(followButton: UIButton){
+        print("フォローする")
+        let relationObject = NCMBObject(className: "Relationship")
+        relationObject.setObject(NCMBUser.currentUser(), forKey: "followed")
+        relationObject.setObject(user, forKey: "follower")
+        relationObject.saveInBackgroundWithBlock({ (error) -> Void in
+            guard error == nil else { return }
+            self.isFollowing = true
+            print("フォローした", NCMBUser.currentUser().userName, "→", self.user!.userName)
+            followButton.setTitle("フォロー中", forState: UIControlState.Normal)
+            self.followingRelationshipObject.objectId = relationObject.objectId
+            self.followingRelationshipObject = relationObject as NCMBObject
+            //フォローしたことを通知画面のDBに保存
+            let notificationManager = NotificationManager()
+            notificationManager.followNotification(self.user!)
+        })
+    }
+
+    func followOFF(followButton: UIButton){
+        print("フォローをやめる")
+        print("followingRelationshipObject", followingRelationshipObject)
+        followingRelationshipObject.fetchInBackgroundWithBlock({ (error) -> Void in
+            guard error == nil else { return }
+            self.followingRelationshipObject.deleteInBackgroundWithBlock({(error) in
                 guard error == nil else { return }
-                self.followingRelationshipObject.deleteInBackgroundWithBlock({(error) in
-                    guard error == nil else { return }
-                    print("フォローをやめました")
-                    followButton.setTitle("フォロー", forState: UIControlState.Normal)
-                    self.isFollowing = false
-                    self.followingRelationshipObject.objectId = "dummy"
-                    //フォローしたデータを通知画面のDBから削除
-                    let notificationManager = NotificationManager()
-                    notificationManager.deleteFollowNotification(self.user!)
-                })
+                print("フォローをやめました")
+                followButton.setTitle("フォロー", forState: UIControlState.Normal)
+                self.isFollowing = false
+                self.followingRelationshipObject.objectId = "dummy"
+                //フォローしたデータを通知画面のDBから削除
+                let notificationManager = NotificationManager()
+                notificationManager.deleteFollowNotification(self.user!)
             })
+        })
 
     }
 
@@ -499,33 +527,48 @@ extension AccountViewController {
 
     }
 
+    @IBAction func tapConnectTwitterButton(sender: AnyObject) {
+        if isTwitterConnecting == true{
+            testDeleteLinkAccount(user!)
+//            deleteTwitterAccount(user!)
+        }else {
+            addSnsToTwitter(user!)
+        }
+    }
+
+    @IBAction func tapConnectFacebookButton(sender: AnyObject) {
+        if isFacebookConnecting == true{
+            testDeleteLinkAccount(user!)
+//            deleteFacebookAccount(user!)
+        }else {
+            addSnsToFacebook(user!)
+        }
+    }
+
     func checkConnectTwitter(user: NCMBUser, cell: ProfileCell){
         if NCMBTwitterUtils.isLinkedWithUser(user) == false{
             print("Twitter未連携")
             isTwitterConnecting = false
-            cell.twitterConnectButton.image = UIImage(named: "twitterOFF_40px")
+            cell.twitterConnectButton.setImage(UIImage(named: "twitterOFF_40px"), forState: .Normal)
         }else {
             print("Twitter連携済み")
             isTwitterConnecting = true
-            cell.twitterConnectButton.image = UIImage(named: "twitterON_40px")
+            cell.twitterConnectButton.setImage(UIImage(named: "twitterON_40px"), forState: .Normal)
         }
     }
-
 
     func checkConnectFacebook(user: NCMBUser, cell: ProfileCell){
         if NCMBFacebookUtils.isLinkedWithUser(user) == false{
             print("Facebook未連携")
             isFacebookConnecting = false
-            cell.facebookConnectButton.image = UIImage(named: "facebookOff_40px")
+            cell.facebookConnectButton.setImage(UIImage(named: "facebookOff_40px"), forState: .Normal)
 
         }else{
             print("Facebook連携済み")
             isFacebookConnecting = true
-            cell.facebookConnectButton.image = UIImage(named: "facebookON_40px")
-
+            cell.facebookConnectButton.setImage(UIImage(named: "facebookON_40px"), forState: .Normal)
         }
     }
-
 
     //Twitterリンク(NCMBとの連携もできる)
     func addSnsToTwitter(user: NCMBUser){
@@ -552,9 +595,9 @@ extension AccountViewController {
                                 }else {
                                     print("twitterリンク成功")
                                     self.isTwitterConnecting = true
-//                                    if let conectSnsTV = self.conectSnsTabelView{
-////                                        conectSnsTV.reloadData()
-//                                    }
+                                    //特定のcellだけreloadかける（1行目）
+                                    let indexPaths = NSIndexPath(forRow: 0, inSection: 0)
+                                    self.tableView.reloadRowsAtIndexPaths([indexPaths], withRowAnimation: UITableViewRowAnimation.Fade)
                                 }
                             })
                         }else {
@@ -589,10 +632,9 @@ extension AccountViewController {
                                         print("Facebookリンク成功")
                                         print("FBデータ", result)
                                         self.isFacebookConnecting = true
-//                                        if let conectSnsTV = self.conectSnsTabelView{
-//                                            conectSnsTV.reloadData()
-//                                        }
-                                    }
+                                        //特定のcellだけreloadかける（1行目）
+                                        let indexPaths = NSIndexPath(forRow: 0, inSection: 0)
+                                        self.tableView.reloadRowsAtIndexPaths([indexPaths], withRowAnimation: UITableViewRowAnimation.Fade)                                    }
                                 })
                             }else{
                                 print("facebook情報ゲット失敗その２", error.localizedDescription)
@@ -608,9 +650,7 @@ extension AccountViewController {
         }
     }
 
-
     /***SNSアンリンクメソッド***/
-
     //Twitterアンリンク
     func deleteTwitterAccount(user: NCMBUser) {
         //「解除しますか？」アラート呼び出し
@@ -637,7 +677,7 @@ extension AccountViewController {
                                                                     user.saveInBackgroundWithBlock({ (error) -> Void in
                                                                         if error == nil {
                                                                             self.isTwitterConnecting = false
-//                                                                            self.conectSnsTabelView.reloadData()
+                                                                            //                                                                            self.conectSnsTabelView.reloadData()
                                                                             print("Twitterアンリンク成功")
                                                                         }else{
                                                                             print("Twitterアンリンク失敗", error)
@@ -677,7 +717,7 @@ extension AccountViewController {
                                                                 user.saveInBackgroundWithBlock({ (error) -> Void in
                                                                     if error == nil {
                                                                         self.isFacebookConnecting = false
-//                                                                        self.conectSnsTabelView.reloadData()
+                                                                        //                                                                        self.conectSnsTabelView.reloadData()
                                                                         print("Facebookアンリンク成功")
                                                                         print("user情報その２", user)
                                                                     }else{
@@ -691,9 +731,27 @@ extension AccountViewController {
                                                     }
         })
     }
-    
-    
 
+    func testDeleteLinkAccount(user: NCMBUser) {
+        //「解除しますか？」アラート呼び出し
+        print("userじょうほう", user)
+        RMUniversalAlert.showAlertInViewController(self,
+                                                   withTitle: "このアカウントはすでに連携されています",
+                                                   message: "現在、連携を解除することが出来ません",
+                                                   cancelButtonTitle: "閉じる",
+                                                   destructiveButtonTitle: nil,
+                                                   otherButtonTitles: nil) { (alert, buttonIndex) in
+                                                    if (buttonIndex == alert.cancelButtonIndex) {
+                                                        print("完了 Tapped")
+                                                    }else {
+                                                        print("何かを Tapped")
+                                                    }
+        }
+    }
+    
+    
+    
+    
 }
 
 
@@ -805,7 +863,7 @@ extension AccountViewController {
             let newLikeCounts = ""
             cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
         }
-
+        
         let auther = postData.objectForKey("user") as! NCMBUser
         postData.removeObject(NCMBUser.currentUser().objectId, forKey: "likeUser")
         postData.saveEventually ({ (error) -> Void in
@@ -818,7 +876,7 @@ extension AccountViewController {
                 notificationManager.deletelikeNotification(auther, post: postData)
             }
         })
-
+        
     }
 }
 
@@ -830,7 +888,7 @@ extension AccountViewController {
         let cell = sender.superview?!.superview as! TimelineCell
         let row = tableView.indexPathForCell(cell)?.row
         selectedPostObject = self.postArray[row! - 2] as! NCMBObject
-
+        
         performSegueWithIdentifier("toPostDetail", sender: true)
     }
     

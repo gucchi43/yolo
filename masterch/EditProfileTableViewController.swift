@@ -17,15 +17,21 @@ class EditProfileTableViewController: UITableViewController {
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var userSelfIntroductionTextView: UITextView!
     @IBOutlet weak var changeProfileButton: UIButton!
-    
-    var userProfileName: String!
-    var userSelfIntroduction: String!
-    
-    var changeImageButtonFrag: Int = 0 // 1 -> プロフィール, 2 -> ホーム
-    var profileImage: UIImage!
-    var homeImage: UIImage!
 
-    var user: NCMBUser!
+    var changeImageButtonFrag: Int = 0 // 1 -> プロフィール, 2 -> ホーム
+    
+    var profileImageToggle = false
+    var homeImageToggle = false
+    
+    var profileImage: UIImage!
+    var profileHomeImage: UIImage!
+    var ProfileName: String!
+    var profileSelfIntroduction: String!
+
+    var user: NCMBUser?
+
+
+    private var onceTokenViewWillAppear: dispatch_once_t = 0
 
     
     override func viewDidLoad() {
@@ -35,8 +41,16 @@ class EditProfileTableViewController: UITableViewController {
         changeProfileButton.layer.cornerRadius = changeProfileButton.frame.width/2        
     }
 
+    override func viewWillAppear(animated: Bool) {
+         super.viewWillAppear(animated)
+        dispatch_once(&onceTokenViewWillAppear) {
+            print("ViewWillApperar読んでる")
+            self.loadUser()
+        }
+    }
+
     override func viewDidAppear(animated: Bool) {
-        loadUser()
+//        loadUser()
 
     }
     
@@ -46,30 +60,10 @@ class EditProfileTableViewController: UITableViewController {
     }
 
     func loadUser(){
-        userName.text = user.objectForKey("userFaceName") as? String
-        userSelfIntroductionTextView.text = user.objectForKey("userSelfIntroduction") as? String
-        //プロフィール写真
-        let userProfileImageName = (user.objectForKey("userProfileImage") as? String)!
-        let userProfileImageData = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
-        userProfileImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
-            if error != nil{
-                print("写真の取得失敗なんでnoprofileを入れる", error.localizedDescription)
-                self.userProfileImageView.image = UIImage(named: "noprofile")
-            } else {
-                self.userProfileImageView.image = UIImage(data: imageData!)
-            }
-        }
-        //ホーム写真
-        let userHomeImageName = (user.objectForKey("userHomeImage") as? String)!
-        let userHomeImageData = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
-        userHomeImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
-            if error != nil{
-                print("写真の取得失敗なんでnoprofileを入れる", error.localizedDescription)
-                self.userHomeImageView.image = UIImage(named: "noprofile")
-            } else {
-                self.userHomeImageView.image = UIImage(data: imageData!)
-            }
-        }
+        userProfileImageView.image = profileImage
+        userHomeImageView.image = profileHomeImage
+        userName.text = ProfileName
+        userSelfIntroductionTextView.text = profileSelfIntroduction
     }
 
 
@@ -257,11 +251,13 @@ extension EditProfileTableViewController: UIImagePickerControllerDelegate, UINav
                 let resizeImage = resize(image, width: 500, height: 500)
                 image = resizeImage
 
+//                userProfileImageView.image = image
                 userProfileImageView.image = image
                 
             } else if changeImageButtonFrag == 2 {
                 let resizeImage = resize(image, width: 800, height: 400)
                 image = resizeImage
+//                userHomeImageView.image = image
                 userHomeImageView.image = image
             }
         }
@@ -311,47 +307,87 @@ extension EditProfileTableViewController {
             let userProfileImageFile: NCMBFile = NCMBFile.fileWithData(userProfileImageData) as! NCMBFile
             
             user.setObject(userProfileImageFile.name, forKey: "userProfileImage")
-            
+            //
             //            ファイルはバックグラウンド実行をする
+            SVProgressHUD.show()
             userProfileImageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error == nil {
-                    print("画像データ保存完了: \(userProfileImageFile.name)")
+                    SVProgressHUD.dismiss()
+                    print("プロフィール画像保存完了")
+                    self.profileImageToggle = true
+                    self.dismissViewController()
                 } else {
+                    SVProgressHUD.showErrorWithStatus("アップロード中にエラーが発生しました")
                     print("アップロード中にエラーが発生しました: \(error)")
+                    self.profileImageToggle = true
+                    self.dismissViewController()
                 }
                 }, progressBlock: { (percentDone: Int32) -> Void in
                     //                    進捗状況を取得します。保存完了まで何度も呼ばれます
                     print("進捗状況: \(percentDone)% アップロード済み")
             })
+        }else {
+            profileImageToggle = true
         }
 //        変更があればホーム画像を保存
-        if userHomeImageView.image != homeImage {
+        if userHomeImageView.image != profileHomeImage {
             let userHomeImageData = UIImagePNGRepresentation(self.userHomeImageView.image!)! as NSData
             let userHomeImageFile: NCMBFile = NCMBFile.fileWithData(userHomeImageData) as! NCMBFile
             
             user.setObject(userHomeImageFile.name, forKey: "userHomeImage")
             
             //            ファイルはバックグラウンド実行をする
+            SVProgressHUD.show()
             userHomeImageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error == nil {
-                    print("画像データ保存完了: \(userHomeImageFile.name)")
+                    SVProgressHUD.dismiss()
+                    print("ホーム画像保存完了")
+                    self.homeImageToggle = true
+                    self.dismissViewController()
+
                 } else {
+                    SVProgressHUD.showErrorWithStatus("アップロード中にエラーが発生しました")
                     print("アップロード中にエラーが発生しました: \(error)")
+                    self.homeImageToggle = true
+                    self.dismissViewController()
                 }
                 }, progressBlock: { (percentDone: Int32) -> Void in
                     //                    進捗状況を取得します。保存完了まで何度も呼ばれます
                     print("進捗状況: \(percentDone)% アップロード済み")
             })
+        }else {
+            homeImageToggle = true
+            dismissViewController()
         }
-        
-        user.saveInBackgroundWithBlock({(error) in
-            if error != nil {print("Save error : ",error)}
-        })
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
-        print("保存完了")
+
+        user.saveEventually { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+
+//        user.saveInBackgroundWithBlock({(error) in
+//            if error != nil {print("Save error : ",error)}
+//        })
+//        dismissViewController()
+
+//        self.dismissViewControllerAnimated(true, completion: nil)
+//        print("保存完了")
+    }
+
+    //非同期処理が終わった後に遷移（それまでプログレスビュー）
+    //二つのboolがすべてtrueになったら通れる
+    func dismissViewController() {
+        print("homeImageToggle", homeImageToggle)
+        print("profileImage", profileImageToggle)
+        if homeImageToggle == true && profileImageToggle == true {
+            print("AccountVCに戻ります")
+            dismissViewControllerAnimated(true, completion: nil)
+
+        }
     }
 }
+
 
 
 extension EditProfileTableViewController{
@@ -359,6 +395,5 @@ extension EditProfileTableViewController{
     @IBAction func tapLogoutButton(sender: AnyObject) {
         print("ログアウト前", NCMBUser.currentUser())
         NCMBUser.logOut()
-//        print("ログアウト後", NCMBUser.currentUser())
     }
 }
