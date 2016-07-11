@@ -2,18 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:masterch/Images/ facebookON_40px.png">
-   </FileRef>
-   <FileRef
-      location = "group:masterch/Images/facebookOff_40px.png">
-   </FileRef>
-   <FileRef
-      location = "group:masterch/Images/twitterOFF_40px.png">
-   </FileRef>
-   <FileRef
-      location = "group:masterch/Images/twitterON_40px.png">
-   </FileRef>
-   <FileRef
       location = "group:masterch.xcodeproj">
    </FileRef>
    <FileRef
