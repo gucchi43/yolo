@@ -262,7 +262,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="7rR-R3-cOU" kind="show" identifier="toOtherAccountVC" id="S0K-iW-jTy"/>
                         <segue destination="ofP-1X-FKF" kind="show" identifier="toPostDetailVC" id="Krx-EB-CB2"/>
                         <segue destination="rrg-kQ-QrQ" kind="show" identifier="toAccountVC" id="mI6-tR-TZP"/>
                     </connections>
@@ -278,14 +277,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ERQ-9B-AEr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1402.5" y="-1683"/>
-        </scene>
-        <!--OtherAccount-->
-        <scene sceneID="c5e-Ux-sB6">
-            <objects>
-                <viewControllerPlaceholder storyboardName="OtherAccount" id="7rR-R3-cOU" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vU7-rz-3SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1509" y="-1539"/>
         </scene>
         <!--PostDetail-->
         <scene sceneID="wKI-eA-J2n">

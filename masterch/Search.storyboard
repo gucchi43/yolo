@@ -36,7 +36,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <segue destination="XOz-Qj-yRm" kind="show" identifier="toAccountViewController" id="iSK-hf-eYw"/>
+                        <segue destination="XOz-Qj-yRm" kind="show" identifier="toAccountVC" id="iSK-hf-eYw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tfO-zm-Biy" userLabel="First Responder" sceneMemberID="firstResponder"/>

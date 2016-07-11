@@ -47,11 +47,11 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
 
     override func viewWillAppear(animated: Bool) {
         if let user = user{
-            print("OtherAccountみたいなはず")
+            print("自分じゃないAccountなはず")
             print("アカウントのユーザー名(自分じゃないはず)", user.userName)
         }else {
             user = NCMBUser.currentUser()!
-            print("OtherAccountみたいなはず")
+            print("自分のAccountなはず")
             print("アカウントのユーザー名(自分のはず)", user!.userName)
 
         }

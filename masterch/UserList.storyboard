@@ -44,7 +44,7 @@
                     <navigationItem key="navigationItem" id="24z-ms-VxF"/>
                     <connections>
                         <outlet property="userListTableView" destination="swD-ep-i3O" id="HWa-gw-MqJ"/>
-                        <segue destination="KoB-nb-MIo" kind="show" identifier="toAccountViewController" id="xnN-Qr-ecn"/>
+                        <segue destination="KoB-nb-MIo" kind="show" identifier="toAccountVC" id="xnN-Qr-ecn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pmh-R7-FZ4" userLabel="First Responder" sceneMemberID="firstResponder"/>

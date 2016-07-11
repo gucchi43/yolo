@@ -191,7 +191,7 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
         
         switch type {
         case "follow":
-            print("followのCellを選択 → OtherAccountViewControllerに遷移")
+            print("followのCellを選択 → AccountViewControllerに遷移")
             selectedUser = (notificationArray[indexPath.row] as! NCMBObject).objectForKey("actionUser") as! NCMBUser
             performSegueWithIdentifier("toAccountVC", sender: nil)
             
@@ -217,15 +217,11 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
         switch segue.identifier! as String {
         case "toSubmitVC":
             break
-//        case "toOtherAccountVC": //followのCell選択時→ユーザー画面に遷移
-//            guard let otherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
-//            print("selectedUser", selectedUser)
-//            otherAccountViewController.user = selectedUser
 
         case "toAccountVC": //followのCell選択時→ユーザー画面に遷移
-            guard let accountViewController = segue.destinationViewController as? AccountViewController else { return }
+            guard let accountVC = segue.destinationViewController as? AccountViewController else { return }
             print("selectedUser", selectedUser)
-            accountViewController.user = selectedUser
+            accountVC.user = selectedUser
         
         case "toPostDetailVC": //like、commentのCell選択時→投稿詳細画面に遷移
             guard let postDetailVC = segue.destinationViewController as? PostDetailViewController else { return }
