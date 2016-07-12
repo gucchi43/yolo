@@ -19,7 +19,10 @@ class CalendarSwiftDateView: UIView{
     var dayButton: UIButton!
     var selectedButton: UIButton!
     var dateColorArray: [NSArray]?
-    
+
+    let logGoodImage = UIImage(named: "logGood")
+    let logBadImage = UIImage(named: "logBad")
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -80,11 +83,17 @@ class CalendarSwiftDateView: UIView{
             NSNotificationCenter.defaultCenter().postNotification(n)
         }
     }
-    
+
     //その日の色を、決定する
     func selectDateColor(dateColor: String){
         self.dayButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         switch dateColor {
+        case "good" :
+            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
+//            self.dayButton.backgroundColor =  UIColor.redColor()
+        case "bad" :
+            self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
+//            self.dayButton.backgroundColor =  UIColor.redColor()
         case "red" :
             self.dayButton.backgroundColor =  UIColor.redColor()
         case "yellow" :
