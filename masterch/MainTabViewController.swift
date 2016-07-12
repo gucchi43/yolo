@@ -16,23 +16,23 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
     }
 
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-
         if viewController is SubmitDummyViewController {
-
-            if let currentVC = self.selectedViewController {
+            if let selectedViewController = self.selectedViewController {
                 let storyboard = UIStoryboard(name: "Submit", bundle: nil)
-                let modalVC = storyboard.instantiateViewControllerWithIdentifier("Submit") as? SubmitViewController
-                //選択しているタブが０番目（logVC）の場合、選択している日付を受け渡す
-                if self.selectedIndex as Int == 0{
-                    modalVC?.postDate = CalendarManager.currentDate
-                    modalVC?.postPickerDate = CalendarManager.currentDate
-//                    modalVC?.delegate = LogViewController()
-
+                let submitViewController = storyboard.instantiateViewControllerWithIdentifier("Submit") as! SubmitViewController
+                
+                //選択しているタブが0番目（LogViewController）の場合、選択している日付を受け渡す
+                if self.selectedIndex as Int == 0 {
+                    let navigation = selectedViewController as! UINavigationController
+                    submitViewController.delegate = navigation.topViewController as! LogViewController
+                    submitViewController.postDate = CalendarManager.currentDate
+                    submitViewController.postPickerDate = CalendarManager.currentDate
                 }else {
                     print("何番目",self.selectedIndex as Int)
                 }
-                currentVC.presentViewController(modalVC!, animated: true, completion: nil)
+                selectedViewController.presentViewController(submitViewController, animated: true, completion: nil)
             }
+            
             return false
         }
         return true

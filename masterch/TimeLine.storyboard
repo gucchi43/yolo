@@ -162,13 +162,7 @@
                             <outlet property="delegate" destination="lGI-zp-6eX" id="TDY-hD-0iT"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="タイムライン" id="Bx2-Bs-is5">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="wLb-ZO-uoL">
-                            <connections>
-                                <segue destination="0Ko-1k-urb" kind="modal" id="iYf-g7-vFf"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="タイムライン" id="Bx2-Bs-is5"/>
                     <connections>
                         <outlet property="postTableView" destination="IuW-aA-4aS" id="3pi-wQ-NTM"/>
                         <segue destination="jqR-bt-Mus" kind="show" identifier="toPostDetailViewController" id="hoY-Us-ad8"/>
@@ -177,14 +171,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="deC-G1-D3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1208" y="-216"/>
-        </scene>
-        <!--Submit-->
-        <scene sceneID="i6C-mb-Fc2">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Submit" id="0Ko-1k-urb" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="R26-kS-GIn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1208" y="599"/>
         </scene>
         <!--Post Detail View Controller-->
         <scene sceneID="YKf-eo-C9f">

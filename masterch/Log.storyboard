@@ -51,19 +51,19 @@
                                         <rect key="frame" x="5" y="2" width="310" height="21"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="日" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiX-kn-XmQ">
-                                                <rect key="frame" x="0.0" y="4" width="44.5" height="17"/>
+                                                <rect key="frame" x="0.0" y="4" width="45" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="月" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ls9-il-zMK">
-                                                <rect key="frame" x="44.5" y="4" width="44" height="17"/>
+                                                <rect key="frame" x="45" y="4" width="44" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="火" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gP6-Na-cf2">
-                                                <rect key="frame" x="88.5" y="4" width="44.5" height="17"/>
+                                                <rect key="frame" x="89" y="4" width="45" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -75,19 +75,19 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="木" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ib2-IB-urJ">
-                                                <rect key="frame" x="177" y="4" width="44.5" height="17"/>
+                                                <rect key="frame" x="177" y="4" width="45" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="金" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBK-fV-FbH">
-                                                <rect key="frame" x="221.5" y="4" width="44" height="17"/>
+                                                <rect key="frame" x="222" y="4" width="44" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="土" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xko-XU-yGl">
-                                                <rect key="frame" x="265.5" y="4" width="44.5" height="17"/>
+                                                <rect key="frame" x="266" y="4" width="45" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -396,13 +396,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="ログ" id="Efw-Us-mcx">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="nX5-CA-M3Q">
-                            <connections>
-                                <segue destination="r7X-aC-6JR" kind="modal" identifier="toSubmitVC" id="ypQ-t5-ztA"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="ログ" id="Efw-Us-mcx"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="1136"/>
                     <connections>
@@ -429,14 +423,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jVE-0Q-TX9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-14.5" y="369"/>
-        </scene>
-        <!--Submit-->
-        <scene sceneID="gEy-ZW-ThF">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Submit" id="r7X-aC-6JR" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="otE-uK-M07" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-296" y="1910"/>
         </scene>
         <!--ログ-->
         <scene sceneID="ORA-vr-x22">

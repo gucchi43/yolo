@@ -5,14 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Submit-->
-        <scene sceneID="yop-KY-ycB">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Submit" id="YW9-Co-wLb" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="U5U-xy-XIh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1524.5" y="822"/>
-        </scene>
         <!--ユーザー検索-->
         <scene sceneID="w6M-Ng-YSG">
             <objects>
@@ -27,13 +19,7 @@
                             <outlet property="delegate" destination="Qep-Bb-oeh" id="M65-Jb-eeM"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="ユーザー検索" id="iV6-7p-hky">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="oUw-pN-UqO">
-                            <connections>
-                                <segue destination="YW9-Co-wLb" kind="presentation" id="9rY-Jd-WVI"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="ユーザー検索" id="iV6-7p-hky"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <segue destination="XOz-Qj-yRm" kind="show" identifier="toAccountVC" id="iSK-hf-eYw"/>
