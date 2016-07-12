@@ -9,6 +9,7 @@
 import UIKit
 import SwiftDate
 import DZNEmptyDataSet
+import SVProgressHUD
 
 
 class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
@@ -36,7 +37,7 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
     
     
     func loadArray() {
-        
+        SVProgressHUD.show()
         //includeKeyで全部撮ってきたいんねん!!!!ほんとのところは！
         let notificationQuery: NCMBQuery = NCMBQuery(className: "Notification")
         notificationQuery.whereKey("ownerUser", equalTo: NCMBUser.currentUser())
@@ -46,22 +47,21 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
         notificationQuery.findObjectsInBackgroundWithBlock { (objects, error) in
             if let error = error {
                 print(error.localizedDescription)
+                SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
             }else {
                 if objects.count > 0 {
                     print("通知テーブルセルの数", objects.count)
                     self.notificationArray = objects
                     self.tableView.emptyDataSetSource = nil
                     self.tableView.emptyDataSetDelegate = nil
-                    self.tableView.reloadData()
-                    
-                    
                 }else {
                     self.notificationArray = []
                     print("通知はまだ0です……")
                     self.tableView.emptyDataSetSource = self
                     self.tableView.emptyDataSetDelegate = self
-                    self.tableView.reloadData()
                 }
+                self.tableView.reloadData()
+                SVProgressHUD.dismiss()
             }
         }
     }
