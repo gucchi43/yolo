@@ -21,7 +21,6 @@
 		32C0A3531C5DF8EE009657B9 /* masterchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A3521C5DF8EE009657B9 /* masterchTests.swift */; };
 		32C0A35E1C5DF8EE009657B9 /* masterchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A35D1C5DF8EE009657B9 /* masterchUITests.swift */; };
 		32E6CF751C76DD4F00904B74 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */; };
-		32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32E6CF761C76F4F500904B74 /* takigutihikari.jpg */; };
 		E0B7E0BA07F94C20BB5A1280 /* libPods-masterch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2256E15F2038E12B35758EC6 /* libPods-masterch.a */; };
 		ED21521F1D11565C0027AFC4 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED21521E1D11565C0027AFC4 /* NotificationManager.swift */; };
 		ED2152481D11883A0027AFC4 /* UserList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED2152441D1188390027AFC4 /* UserList.storyboard */; };
@@ -142,7 +141,6 @@
 		32C0A35D1C5DF8EE009657B9 /* masterchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = masterchUITests.swift; sourceTree = "<group>"; };
 		32C0A35F1C5DF8EE009657B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
-		32E6CF761C76F4F500904B74 /* takigutihikari.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = takigutihikari.jpg; sourceTree = "<group>"; };
 		3CC6FA301452F9BE8446E0CB /* Pods-masterch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.release.xcconfig"; sourceTree = "<group>"; };
 		DDDA2AF98486C953A99F98DB /* Pods-masterch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.debug.xcconfig"; sourceTree = "<group>"; };
 		ED21521E1D11565C0027AFC4 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationManager.swift; path = masterch/NotificationManager.swift; sourceTree = "<group>"; };
@@ -260,7 +258,6 @@
 				EDA94FD21CEEC48700A42E8A /* UIExtension.swift */,
 				EDE355F11CB284CD006C7C0A /* CommentFile.swift */,
 				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
-				32E6CF761C76F4F500904B74 /* takigutihikari.jpg */,
 				32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */,
 				ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */,
 				ED4512AF1CEF33CB0071FA58 /* Title.storyboard */,
@@ -554,7 +551,6 @@
 				ED3282ED1CDEE52A009602C9 /* ColorKeyboard.xib in Resources */,
 				ED3644561C9D657600C6676C /* TimeLine.storyboard in Resources */,
 				ED2152481D11883A0027AFC4 /* UserList.storyboard in Resources */,
-				32E6CF771C76F4F500904B74 /* takigutihikari.jpg in Resources */,
 				ED3644601C9D6DBA00C6676C /* Submit.storyboard in Resources */,
 				3219A2381C70468900D1A6AF /* CustomTableViewCell.xib in Resources */,
 				ED402DCC1D34460C0098F843 /* images.xcassets in Resources */,
