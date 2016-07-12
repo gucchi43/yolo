@@ -11,7 +11,7 @@ import TwitterKit
 import Fabric
 
 
-protocol addSubmitlDelegate {
+protocol SubmitViewControllerDelegate {
     func submitFinish()
     func savePostProgressBar(percentDone: CGFloat)
 }
@@ -62,7 +62,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     var postDate : NSDate?
     
-    var delegate: addSubmitlDelegate?
+    var delegate: SubmitViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()

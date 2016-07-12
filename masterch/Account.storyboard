@@ -230,11 +230,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="アカウント" id="841-ZB-Lth">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="9XV-8G-zyi">
-                            <connections>
-                                <segue destination="c9d-ll-Bc7" kind="modal" id="d7U-cz-cqx"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="9XV-8G-zyi"/>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
@@ -738,13 +734,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="アカウント" id="1qz-7G-zej">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="S8Z-fe-PwE">
-                            <connections>
-                                <segue destination="c9d-ll-Bc7" kind="presentation" id="OnZ-Mg-baj"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="アカウント" id="1qz-7G-zej"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="NMC-kz-Ez9" id="MuT-GQ-beC"/>
@@ -756,14 +746,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EPc-ye-ngK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-77" y="-264"/>
-        </scene>
-        <!--Submit-->
-        <scene sceneID="hDV-Nk-Zxl">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Submit" id="c9d-ll-Bc7" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ga8-3j-v6s" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="229.5" y="449"/>
         </scene>
         <!--アカウント-->
         <scene sceneID="rgb-Qn-47p">
@@ -1261,9 +1243,8 @@
         <image name="twitterWhite" width="40" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="d7U-cz-cqx"/>
+        <segue reference="cke-zh-9wf"/>
+        <segue reference="BEM-Ov-hbA"/>
         <segue reference="RPw-od-GfG"/>
-        <segue reference="4Ck-1w-yEf"/>
-        <segue reference="dqx-di-Lm3"/>
     </inferredMetricsTieBreakers>
 </document>
