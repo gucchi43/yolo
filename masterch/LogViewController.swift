@@ -31,8 +31,9 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
 
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var monthLabel: UILabel!
-    
-    
+
+    @IBOutlet weak var changeWeekOrMonthToggle: UIButton!
+
     @IBOutlet weak var progressBar: LogPostedProgressBar!
     
     var selectedRow: Int = 0
@@ -40,7 +41,7 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
 //    var user: NCMBUser = NCMBUser.currentUser()
 
     var userName: String?
-    
+
 //    セル選択時の変数
     var selectedPostObject: NCMBObject!
 
@@ -51,11 +52,14 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
 //    var selectedPostText: String!
 //    var selectedPostDate: String!
 //    var selectedPostImage: UIImage!
-    
+
     var animationFinished = true
-    
-    let likeOnImage = UIImage(named: "hartButton_On")
-    let likeOffImage = UIImage(named: "hartButton_Off")
+
+    let toWeekImage = UIImage(named: "toWeek")
+    let toMonthImage = UIImage(named: "toMonth")
+
+    let likeOnImage = UIImage(named: "hartON")
+    let likeOffImage = UIImage(named: "hartOFF")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +78,12 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
 //        //将来的には可変になる、アプリ内で変更可能に…
 //        Dropitems = [item1, item2]
 //        changeTitle(logManager.sharedSingleton.logNumber)
+
+        if toggleWeek == false {
+            changeWeekOrMonthToggle.setImage(toWeekImage, forState: UIControlState.Normal)
+        }else {
+            changeWeekOrMonthToggle.setImage(toMonthImage, forState: UIControlState.Normal)
+        }
 
         let logPostPB = LogPostedProgressBar()
         logPostPB.setProgressBar()
@@ -285,6 +295,13 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
     
     @IBAction func toggle(sender: AnyObject) {
         print("toggle", toggleWeek)
+
+        if toggleWeek == false {
+        changeWeekOrMonthToggle.setImage(toMonthImage, forState: UIControlState.Normal)
+        }else {
+            changeWeekOrMonthToggle.setImage(toWeekImage, forState: UIControlState.Normal)
+        }
+
         self.exchangeCalendarView()
     }
     

@@ -322,7 +322,7 @@
                                                                 <segue destination="Ele-pk-a1r" kind="presentation" identifier="toEditProfile" id="cke-zh-9wf"/>
                                                             </connections>
                                                         </button>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="cnj-DZ-nI1">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile" translatesAutoresizingMaskIntoConstraints="NO" id="cnj-DZ-nI1">
                                                             <rect key="frame" x="8" y="8" width="100" height="100"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="cnj-DZ-nI1" secondAttribute="height" multiplier="1:1" id="HW2-M4-kjj"/>
@@ -368,38 +368,38 @@
                                                                 <constraint firstAttribute="bottom" secondItem="NUc-Nb-cV0" secondAttribute="bottom" id="eDE-cW-F2j"/>
                                                             </constraints>
                                                         </view>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="65x-ok-NqO">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="65x-ok-NqO">
                                                             <rect key="frame" x="116" y="72" width="90" height="30"/>
-                                                            <state key="normal" title="フォローする"/>
+                                                            <state key="normal" image="follow"/>
                                                             <connections>
                                                                 <action selector="tapFollowButton:" destination="zkA-KH-TI3" eventType="touchUpInside" id="vgz-kh-pFt"/>
                                                             </connections>
                                                         </button>
-                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YXB-4q-zzl">
-                                                            <rect key="frame" x="116" y="104" width="120" height="30"/>
-                                                            <state key="normal" title="プロフィール変更"/>
-                                                            <connections>
-                                                                <action selector="tapProfileChangeButton:" destination="zkA-KH-TI3" eventType="touchUpInside" id="3Na-kb-TXs"/>
-                                                            </connections>
-                                                        </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1N-Bd-aWa">
                                                             <rect key="frame" x="16" y="116" width="40" height="49"/>
-                                                            <state key="normal" image="twitterOFF_40px.png"/>
+                                                            <state key="normal" image="twitterWhite"/>
                                                             <connections>
                                                                 <action selector="tapConnectTwitterButton:" destination="zkA-KH-TI3" eventType="touchUpInside" id="68m-Tf-MTm"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejv-RX-twQ">
                                                             <rect key="frame" x="72" y="116" width="40" height="40"/>
-                                                            <state key="normal" image="facebookOff_40px.png"/>
+                                                            <state key="normal" image="facebookWhite"/>
                                                             <connections>
                                                                 <action selector="tapConnectFacebookButton:" destination="zkA-KH-TI3" eventType="touchUpInside" id="z3U-bD-bK0"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YXB-4q-zzl">
+                                                            <rect key="frame" x="116" y="72" width="140" height="30"/>
+                                                            <state key="normal" image="changeProfile"/>
+                                                            <connections>
+                                                                <action selector="tapProfileChangeButton:" destination="zkA-KH-TI3" eventType="touchUpInside" id="3Na-kb-TXs"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstItem="YXB-4q-zzl" firstAttribute="top" secondItem="55Q-QB-USz" secondAttribute="bottom" constant="40" id="096-cB-YuC"/>
+                                                        <constraint firstItem="YXB-4q-zzl" firstAttribute="top" secondItem="55Q-QB-USz" secondAttribute="bottom" constant="8" id="096-cB-YuC"/>
                                                         <constraint firstItem="cnj-DZ-nI1" firstAttribute="leading" secondItem="j6Z-12-yQF" secondAttribute="leading" constant="8" id="6v6-kv-RER"/>
                                                         <constraint firstItem="55Q-QB-USz" firstAttribute="top" secondItem="lZS-Gt-IuD" secondAttribute="bottom" constant="1" id="7Fy-Za-aJV"/>
                                                         <constraint firstAttribute="trailing" secondItem="rsH-hp-GpR" secondAttribute="trailing" constant="8" id="7qO-3s-eXE"/>
@@ -601,20 +601,20 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="zhz-ld-oHe">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile" translatesAutoresizingMaskIntoConstraints="NO" id="zhz-ld-oHe">
                                                     <rect key="frame" x="8" y="8" width="40" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="LJK-Wz-pb6"/>
                                                         <constraint firstAttribute="height" constant="40" id="O9e-VV-VYH"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u0u-Dh-cvt">
-                                                    <rect key="frame" x="205" y="278" width="67" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u0u-Dh-cvt">
+                                                    <rect key="frame" x="249" y="278" width="23" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="41w-go-nzK"/>
                                                         <constraint firstAttribute="height" constant="30" id="AIO-pL-bua"/>
                                                     </constraints>
-                                                    <state key="normal" title="Comment">
+                                                    <state key="normal" image="comment">
                                                         <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <variation key="default">
@@ -627,13 +627,13 @@
                                                         <action selector="pushCommentButton:" destination="zkA-KH-TI3" eventType="touchUpInside" id="gCQ-dC-xYF"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZY-P3-doC">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZY-P3-doC">
                                                     <rect key="frame" x="48" y="282" width="23" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="XQn-bn-LVp"/>
                                                         <constraint firstAttribute="width" constant="100" id="avH-gS-JgX"/>
                                                     </constraints>
-                                                    <state key="normal" image="hartButton_Off.png">
+                                                    <state key="normal" image="hartOFF">
                                                         <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="selected" image="hartButton_On.png"/>
@@ -655,7 +655,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7C-9p-TZa">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7C-9p-TZa">
                                                     <rect key="frame" x="71" y="278" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="OmJ-cg-RvF"/>
@@ -1017,6 +1017,12 @@
                                                         <action selector="changeProfileImage:" destination="b0e-HZ-ON1" eventType="touchUpInside" id="W4S-Ws-xzy"/>
                                                     </connections>
                                                 </button>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cameraBig" translatesAutoresizingMaskIntoConstraints="NO" id="MxV-Io-U4A">
+                                                    <rect key="frame" x="143" y="54" width="150" height="100"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cameraMini" translatesAutoresizingMaskIntoConstraints="NO" id="2us-Pc-JSg">
+                                                    <rect key="frame" x="34" y="87" width="48" height="32"/>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="1RS-W3-lNE" firstAttribute="top" secondItem="96B-lI-loS" secondAttribute="bottom" constant="-100" id="0mT-pV-Eit"/>
@@ -1241,17 +1247,23 @@
         </scene>
     </scenes>
     <resources>
-        <image name="facebookOff_40px.png" width="40" height="40"/>
-        <image name="hartButton_Off.png" width="23" height="21"/>
+        <image name="cameraBig" width="95" height="68"/>
+        <image name="cameraMini" width="31" height="22"/>
+        <image name="changeProfile" width="140" height="30"/>
+        <image name="comment" width="23" height="22"/>
+        <image name="facebookWhite" width="40" height="40"/>
+        <image name="follow" width="90" height="30"/>
         <image name="hartButton_On.png" width="23" height="21"/>
+        <image name="hartOFF" width="25" height="22"/>
+        <image name="noprofile" width="400" height="400"/>
         <image name="noprofile.png" width="500" height="500"/>
-        <image name="tabAccount" width="29" height="26"/>
-        <image name="twitterOFF_40px.png" width="40" height="33"/>
+        <image name="tabAccount" width="30" height="27"/>
+        <image name="twitterWhite" width="40" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="d7U-cz-cqx"/>
         <segue reference="RPw-od-GfG"/>
-        <segue reference="cke-zh-9wf"/>
-        <segue reference="OnZ-Mg-baj"/>
-        <segue reference="BEM-Ov-hbA"/>
+        <segue reference="4Ck-1w-yEf"/>
+        <segue reference="dqx-di-Lm3"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -288,6 +288,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="tabNotification" width="25" height="25"/>
+        <image name="tabNotification" width="30" height="30"/>
     </resources>
 </document>

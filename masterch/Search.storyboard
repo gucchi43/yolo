@@ -72,6 +72,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="tabSearch" width="26" height="26"/>
+        <image name="tabSearch" width="30" height="30"/>
     </resources>
 </document>

@@ -19,8 +19,8 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
 
     var postArray: NSArray = NSArray()
 
-    let likeOnImage = UIImage(named: "hartButton_On")
-    let likeOffImage = UIImage(named: "hartButton_Off")
+    let likeOnImage = UIImage(named: "hartON")
+    let likeOffImage = UIImage(named: "hartOFF")
 
 
     var isFollowing: Bool = false
@@ -202,9 +202,11 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.twitterConnectButton.hidden = true
                 cell.facebookConnectButton.hidden = true
                 if checkFollowing() == true{
-                    cell.followButton.setTitle("フォロー中", forState: .Normal)
+                    cell.followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
+//                    cell.followButton.setTitle("フォロー中", forState: .Normal)
                 }else {
-                    cell.followButton.setTitle("フォロー", forState: .Normal)
+                    cell.followButton.setImage(UIImage(named: "follow"), forState: UIControlState.Normal)
+//                    cell.followButton.setTitle("フォロー", forState: .Normal)
                 }
             }
 
@@ -249,16 +251,16 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             }
             //Twiiter連携しているか？
             if isTwitterConnecting == true {
-                cell.twitterConnectButton.setImage(UIImage(named: "twitterON_40px"), forState: .Normal)
+                cell.twitterConnectButton.setImage(UIImage(named: "twitterON"), forState: .Normal)
             }else {
-                cell.twitterConnectButton.setImage(UIImage(named: "twitterOFF_40px"), forState: .Normal)
+                cell.twitterConnectButton.setImage(UIImage(named: "twitterWhite"), forState: .Normal)
             }
 
             //Facebook連携しているか？
             if isFacebookConnecting == true {
-                cell.facebookConnectButton.setImage(UIImage(named: "facebookON_40px"), forState: .Normal)
+                cell.facebookConnectButton.setImage(UIImage(named: "facebookON"), forState: .Normal)
             }else {
-                cell.facebookConnectButton.setImage(UIImage(named: "facebookOff_40px"), forState: .Normal)
+                cell.facebookConnectButton.setImage(UIImage(named: "facebookWhite"), forState: .Normal)
             }
             //EditProfileVCへ渡すデータ
             if user == NCMBUser.currentUser(){
@@ -491,7 +493,8 @@ extension AccountViewController {
             guard error == nil else { return }
             self.isFollowing = true
             print("フォローした", NCMBUser.currentUser().userName, "→", self.user!.userName)
-            followButton.setTitle("フォロー中", forState: UIControlState.Normal)
+            followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
+//            followButton.setTitle("フォロー中", forState: UIControlState.Normal)
             self.followingRelationshipObject.objectId = relationObject.objectId
             self.followingRelationshipObject = relationObject as NCMBObject
             //フォローしたことを通知画面のDBに保存
@@ -508,7 +511,8 @@ extension AccountViewController {
             self.followingRelationshipObject.deleteInBackgroundWithBlock({(error) in
                 guard error == nil else { return }
                 print("フォローをやめました")
-                followButton.setTitle("フォロー", forState: UIControlState.Normal)
+                followButton.setImage(UIImage(named: "follow"), forState: UIControlState.Normal)
+//                followButton.setTitle("フォロー", forState: UIControlState.Normal)
                 self.isFollowing = false
                 self.followingRelationshipObject.objectId = "dummy"
                 //フォローしたデータを通知画面のDBから削除
@@ -549,11 +553,11 @@ extension AccountViewController {
         if NCMBTwitterUtils.isLinkedWithUser(user) == false{
             print("Twitter未連携")
             isTwitterConnecting = false
-            cell.twitterConnectButton.setImage(UIImage(named: "twitterOFF_40px"), forState: .Normal)
+            cell.twitterConnectButton.setImage(UIImage(named: "twitterWhite"), forState: .Normal)
         }else {
             print("Twitter連携済み")
             isTwitterConnecting = true
-            cell.twitterConnectButton.setImage(UIImage(named: "twitterON_40px"), forState: .Normal)
+            cell.twitterConnectButton.setImage(UIImage(named: "twitterON"), forState: .Normal)
         }
     }
 
@@ -561,12 +565,12 @@ extension AccountViewController {
         if NCMBFacebookUtils.isLinkedWithUser(user) == false{
             print("Facebook未連携")
             isFacebookConnecting = false
-            cell.facebookConnectButton.setImage(UIImage(named: "facebookOff_40px"), forState: .Normal)
+            cell.facebookConnectButton.setImage(UIImage(named: "facebookWhite"), forState: .Normal)
 
         }else{
             print("Facebook連携済み")
             isFacebookConnecting = true
-            cell.facebookConnectButton.setImage(UIImage(named: "facebookON_40px"), forState: .Normal)
+            cell.facebookConnectButton.setImage(UIImage(named: "facebookON"), forState: .Normal)
         }
     }
 
