@@ -18,7 +18,7 @@
         <scene sceneID="07H-30-kZ0">
             <objects>
                 <navigationController storyboardIdentifier="Notification" automaticallyAdjustsScrollViewInsets="NO" id="LaQ-dV-R2A" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="4" title="通知" id="ijT-fj-HJ0"/>
+                    <tabBarItem key="tabBarItem" tag="4" title="通知" image="tabNotification" id="ijT-fj-HJ0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Le9-ox-MIt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -287,4 +287,7 @@
             <point key="canvasLocation" x="1378.5" y="-1419"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="tabNotification" width="30" height="30"/>
+    </resources>
 </document>

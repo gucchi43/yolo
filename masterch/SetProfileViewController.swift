@@ -35,7 +35,7 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate, UITextVie
         //!!! 写真をグレーでぼかしたい, 谷口
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         //プロフィール写真を表示
-        userImageView.image = UIImage(named: "noprofile.png")
+        userImageView.image = UIImage(named: "noprofile")
         
         //userIdTextField入力画面を呼び出し
         userNameTextField.becomeFirstResponder()

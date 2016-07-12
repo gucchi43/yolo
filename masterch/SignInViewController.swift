@@ -117,7 +117,7 @@ extension SignInViewController {
                     //プロフィール写真を設定
                     //ひとまずnoprofile.pngを設定
                     //!!! SNSのプロフィール写真を設定したい, 谷口
-                    let userImage = UIImage(named: "noprofile.png")
+                    let userImage = UIImage(named: "noprofile")
                     let userimageData = UIImagePNGRepresentation(userImage!)! as NSData
                     let userimageFile: NCMBFile = NCMBFile.fileWithData(userimageData) as! NCMBFile
                     user.setObject(userimageFile.name, forKey: "userProfileImage")

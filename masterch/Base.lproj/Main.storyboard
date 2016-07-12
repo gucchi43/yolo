@@ -71,7 +71,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="3" title="投稿" id="ZlN-Ia-SRl"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="投稿" image="tabSubmit" id="ZlN-Ia-SRl"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="200" height="100"/>
                 </viewController>
@@ -529,6 +529,7 @@
     <resources>
         <image name="fb_login_small.png" width="261" height="58"/>
         <image name="noprofile.png" width="500" height="500"/>
+        <image name="tabSubmit" width="30" height="31"/>
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>

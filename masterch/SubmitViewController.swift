@@ -31,10 +31,10 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var facebookBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var secretKeyBottomConstraint: NSLayoutConstraint!
     
-    let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
-    let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
-    let imgFacebookOn = UIImage(named: "facebook_logo_640*480_origin")
-    let imgFacebookOff = UIImage(named: "facebook_logo_640*480_gray")
+    let imgTwitterOn = UIImage(named: "twitterON")
+    let imgTwitterOff = UIImage(named: "twitterGray")
+    let imgFacebookOn = UIImage(named: "facebookON")
+    let imgFacebookOff = UIImage(named: "facebookGray")
     
     @IBOutlet weak var redButton: UIButton!
     @IBOutlet weak var yellowButton: UIButton!
@@ -528,10 +528,10 @@ extension SubmitViewController {
     func selectSecret(){
         secretKeyToggle = !secretKeyToggle
         if secretKeyToggle == true {
-            secretKeyButton.setImage(UIImage(named: "key_origin"), forState: .Normal)
+            secretKeyButton.setImage(UIImage(named: "secretON"), forState: .Normal)
             print("Secret投稿")
         } else if secretKeyToggle == false {
-            secretKeyButton.setImage(UIImage(named: "key_gray"), forState: .Normal)
+            secretKeyButton.setImage(UIImage(named: "secretOFF"), forState: .Normal)
             print("Secret投稿無し")
         }
     }
