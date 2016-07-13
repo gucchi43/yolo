@@ -6,14 +6,6 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Submit-->
-        <scene sceneID="9fT-9z-Lvc">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Submit" id="zEI-mb-efy" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KMk-uw-dDA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="792" y="-1015"/>
-        </scene>
         <!--通知-->
         <scene sceneID="07H-30-kZ0">
             <objects>
@@ -254,13 +246,7 @@
                             <outlet property="delegate" destination="IQd-Mr-i2H" id="qFb-BT-REZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="通知" id="GO5-ad-qbb">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="9Uj-wb-UJj">
-                            <connections>
-                                <segue destination="zEI-mb-efy" kind="presentation" identifier="toSubmitVC" id="59W-S1-ihH"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="通知" id="GO5-ad-qbb"/>
                     <connections>
                         <segue destination="ofP-1X-FKF" kind="show" identifier="toPostDetailVC" id="Krx-EB-CB2"/>
                         <segue destination="rrg-kQ-QrQ" kind="show" identifier="toAccountVC" id="mI6-tR-TZP"/>
