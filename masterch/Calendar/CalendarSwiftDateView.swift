@@ -53,30 +53,30 @@ class CalendarSwiftDateView: UIView{
             dayButton.layer.borderColor = UIColor.grayColor().CGColor
             dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
         }
-        
+
         if date.year == NSDate().year && date.month == NSDate().month && date.day == NSDate().day{
             //今日だけ黒
-                    dayButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        } else if date.weekday == 1 {
-            //日曜日は赤
-            dayButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
-        } else if date.weekday == 7 {
-            //土曜日は青
-            dayButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
-//        } else if date < NSDate(){
-//            //過去はオレンジ
-//            dayButton.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
-//        } else if date > NSDate(){
-//            //未来は水色
-//            dayButton.setTitleColor(UIColor.cyanColor(), forState: UIControlState.Normal)
+            dayButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+//        } else if date.weekday == 1 {
+//            //日曜日は赤
+//            dayButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+//        } else if date.weekday == 7 {
+//            //土曜日は青
+//            dayButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+//            //        } else if date < NSDate(){
+//            //            //過去はオレンジ
+//            //            dayButton.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
+//            //        } else if date > NSDate(){
+//            //            //未来は水色
+//            //            dayButton.setTitleColor(UIColor.cyanColor(), forState: UIControlState.Normal)
         } else {
-            //普通はグレー
-            dayButton.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+            //普通はダークグレー
+            dayButton.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         }
-        
+
         self.addSubview(dayButton)
     }
-        
+
     func onTapCalendarDayButton(sender: UIButton) {
         CalendarManager.currentDate = date
         if let delegate = delegate {
@@ -88,7 +88,7 @@ class CalendarSwiftDateView: UIView{
 
     //その日の色を、決定する
     func selectDateColor(dateColor: String){
-        self.dayButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.dayButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         switch dateColor {
         case "good" :
             self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)

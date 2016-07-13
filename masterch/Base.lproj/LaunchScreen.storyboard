@@ -21,10 +21,11 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOLO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8X-cI-lfi">
                                 <rect key="frame" x="154" y="150" width="104.5" height="54.5"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="50"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.77378030019999999" green="0.98595207929999995" blue="0.21353226340000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.80392156859999997" green="0.2156862745" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="S8X-cI-lfi" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" constant="150" id="EMU-ss-BgR"/>
                             <constraint firstItem="S8X-cI-lfi" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Kcd-sh-7t8"/>
