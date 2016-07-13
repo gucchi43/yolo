@@ -13,6 +13,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
+
+        //-------タブバーのデザイン------
+        //タブバーのボタンを選択した時の色を設定
+        self.tabBar.tintColor = ColorManager.sharedSingleton.mainColor()
+        //Submitのボタンだけデフォルトで色付きでのせるためオリジナルの画像を表示
+        let submitTabButton = self.tabBar.items![2]
+        submitTabButton.image = UIImage(named: "tabSubmit")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
     }
 
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {

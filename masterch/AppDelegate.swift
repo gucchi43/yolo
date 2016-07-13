@@ -12,7 +12,6 @@ import Fabric
 import Crashlytics
 import TwitterKit
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -21,8 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let clientkey = "ba1432ddcd33638afa4075ab527183c5e0a056e6a0441342be264dc8dd50fdd6"
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        
+        //---------NavigationBarのデザイン関係----------
+        //NavigationBarの色を設定（背景、タイトル、アイテム）
+        UINavigationBar.appearance().barTintColor = ColorManager.sharedSingleton.accsentColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+
         // Override point for customization after application launch.
         //********** SDKの初期化 **********
         NCMB.setApplicationKey(applicationkey, clientKey: clientkey)

@@ -71,7 +71,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="3" title="投稿" image="tabSubmit" id="ZlN-Ia-SRl"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="投稿" id="ZlN-Ia-SRl"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="200" height="100"/>
                 </viewController>
@@ -103,7 +103,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdY-yu-2Mj" customClass="Button_Custom" customModule="masterch" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="616" width="414" height="60"/>
-                                <color key="backgroundColor" red="0.77378030021206057" green="0.98595207929611206" blue="0.21353226344686191" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.2156862745" green="0.80392156859999997" blue="0.37254901959999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="5vg-av-ZyA"/>
                                 </constraints>
@@ -117,7 +117,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z5c-WT-Tm5" customClass="Button_Custom" customModule="masterch" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="676" width="414" height="60"/>
-                                <color key="backgroundColor" red="0.58146143839834008" green="0.26859110923423607" blue="0.98595207929611206" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.80392156862745101" green="0.21568627450980393" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="pnb-Fi-1MJ"/>
                                 </constraints>
@@ -140,7 +140,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOLO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCV-j1-kbO">
                                 <rect key="frame" x="155" y="150" width="105" height="55"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="50"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pD5-Qk-LzA">
@@ -151,7 +151,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.80392156859999997" green="0.2156862745" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Z5c-WT-Tm5" firstAttribute="top" secondItem="JdY-yu-2Mj" secondAttribute="bottom" id="6OQ-5h-8Ip"/>
                             <constraint firstItem="CCV-j1-kbO" firstAttribute="top" secondItem="hja-UD-dfY" secondAttribute="bottom" constant="150" id="9sy-4O-h2q"/>
@@ -529,7 +529,6 @@
     <resources>
         <image name="fb_login_small.png" width="261" height="58"/>
         <image name="noprofile.png" width="500" height="500"/>
-        <image name="tabSubmit" width="30" height="31"/>
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -34,7 +34,8 @@ class CalendarManager: NSObject {
     class func selectLabel() -> String {
         let formatter = NSDateFormatter()
         // M=0なし（M月=1月）, MM=0あり（MM月=01月）
-        formatter.dateFormat = "yyyy年M月"
+//        formatter.dateFormat = "yyyy年M月"
+        formatter.dateFormat = "yyyy / M"
         let calendarTitle :String = formatter.stringFromDate(CalendarManager.currentDate)
         return calendarTitle
     }

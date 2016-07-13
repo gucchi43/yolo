@@ -65,7 +65,7 @@ class LogViewController: UIViewController, addPostDetailDelegate, DZNEmptyDataSe
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("LogViewController")
-        
+
         tableView.estimatedRowHeight = 370
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
@@ -626,11 +626,12 @@ extension LogViewController: DropdownMenuDelegate {
         
         //タイトルのラベルを作成する。
         let testLabel1 = UILabel(frame:CGRectMake(0,0,100,28))
+        testLabel1.textColor = UIColor.whiteColor()
         testLabel1.text = "ログ"
         
         //サブタイトルを作成する。
         let testLabel2 = UILabel(frame:CGRectMake(0,0,100,12))
-        testLabel2.textColor = UIColor.lightGrayColor()
+        testLabel2.textColor = UIColor.whiteColor()
         let logNumber = logManager.sharedSingleton.logNumber
         testLabel2.text = Dropitems[selectedRow].title
         
