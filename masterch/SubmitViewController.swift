@@ -496,10 +496,9 @@ extension SubmitViewController {
         }
         self.setLogColor() //"logColor"クラスへのセット
         
-        
 //        非同期通信の保存処理
         
-        postObject.saveInBackgroundWithBlock({(error) in
+    postObject.saveInBackgroundWithBlock({(error) in
             if error != nil {print("Save error : ",error)}
         })
         
@@ -802,8 +801,10 @@ extension SubmitViewController {
     func updateLogColor(object: AnyObject){
         let secondObject = object as! NCMBObject
         secondObject.incrementKey("postCount")
-        secondObject.setObject(self.dateColor, forKey: "dateColor")
-        
+        //色を選択しているだけ色を更新する
+        if self.dateColor != "normal"{
+            secondObject.setObject(self.dateColor, forKey: "dateColor")
+        }
         secondObject.saveInBackgroundWithBlock { (error) -> Void in
             object.saveInBackgroundWithBlock { (error) -> Void in
                 if error != nil {

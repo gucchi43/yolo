@@ -47,7 +47,7 @@ class CalendarSwiftDateView: UIView{
 //        dayButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
 //        dayButton.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         
-        dayButton.addTarget(self, action: "onTapCalendarDayButton:", forControlEvents: .TouchUpInside)
+        dayButton.addTarget(self, action: #selector(CalendarSwiftDateView.onTapCalendarDayButton(_:)), forControlEvents: .TouchUpInside)
         
         if date == CalendarManager.currentDate {
             dayButton.layer.borderColor = UIColor.grayColor().CGColor
