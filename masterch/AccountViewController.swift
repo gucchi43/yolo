@@ -530,6 +530,11 @@ extension AccountViewController {
         })
         
     }
+
+    @IBAction func tapFeedBackButton(sender: AnyObject) {
+        let feedBackUrlString = "http://goo.gl/forms/uSG7WoORa3kaxFBs2"
+        toSafariBrowser(feedBackUrlString)
+    }
     
     @IBAction func tapSettingButton(sender: AnyObject) {
     }
@@ -556,7 +561,13 @@ extension AccountViewController {
             addSnsToFacebook(user!)
         }
     }
-    
+
+    func toSafariBrowser (url: String){
+        //            let url = NSURL(string:"http://qiita.com")
+        let app:UIApplication = UIApplication.sharedApplication()
+        app.openURL(NSURL(string: url)!)
+    }
+
     func checkConnectTwitter(user: NCMBUser, cell: ProfileCell){
         if NCMBTwitterUtils.isLinkedWithUser(user) == false{
             print("Twitter未連携")
