@@ -81,8 +81,6 @@
 		EDBADE301D2489490048957A /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBADE2F1D2489490048957A /* ProfileCell.swift */; };
 		EDBADE321D2489690048957A /* ThreeCircleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBADE311D2489690048957A /* ThreeCircleCell.swift */; };
 		EDCBEE721CCA793700317BCE /* PostDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDCBEE711CCA793700317BCE /* PostDetail.storyboard */; };
-		EDD145FC1D35F419000EBD55 /* Chameleon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD145FB1D35F419000EBD55 /* Chameleon.framework */; };
-		EDD145FD1D35F419000EBD55 /* Chameleon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EDD145FB1D35F419000EBD55 /* Chameleon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE355F11CB284CD006C7C0A /* CommentFile.swift */; };
 		EDEF991E1C9EC13500B6D69D /* ContainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */; };
 /* End PBXBuildFile section */
@@ -115,7 +113,6 @@
 				ED6AF8CB1D16B535003FBC5C /* DropdownMenu.framework in CopyFiles */,
 				ED7A79061D2027220087BCCD /* DZNEmptyDataSet.framework in CopyFiles */,
 				ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */,
-				EDD145FD1D35F419000EBD55 /* Chameleon.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +200,6 @@
 		EDBADE2F1D2489490048957A /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		EDBADE311D2489690048957A /* ThreeCircleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeCircleCell.swift; sourceTree = "<group>"; };
 		EDCBEE711CCA793700317BCE /* PostDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PostDetail.storyboard; sourceTree = "<group>"; };
-		EDD145FB1D35F419000EBD55 /* Chameleon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Chameleon.framework; path = Carthage/Build/iOS/Chameleon.framework; sourceTree = "<group>"; };
 		EDE355F11CB284CD006C7C0A /* CommentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFile.swift; sourceTree = "<group>"; };
 		EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,7 +214,6 @@
 				ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */,
 				ED7A79051D2027220087BCCD /* DZNEmptyDataSet.framework in Frameworks */,
 				ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */,
-				EDD145FC1D35F419000EBD55 /* Chameleon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +237,6 @@
 		32C0A3311C5DF8ED009657B9 = {
 			isa = PBXGroup;
 			children = (
-				EDD145FB1D35F419000EBD55 /* Chameleon.framework */,
 				32C0A33C1C5DF8ED009657B9 /* masterch */,
 				32C0A3511C5DF8EE009657B9 /* masterchTests */,
 				32C0A35C1C5DF8EE009657B9 /* masterchUITests */,

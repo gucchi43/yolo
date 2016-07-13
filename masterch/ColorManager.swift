@@ -12,11 +12,15 @@ final class ColorManager {
     private init() {
     }
     static let sharedSingleton = ColorManager()
-        func mainColor() -> UIColor {
-            return UIColor.init(hexString: "37CD5F", withAlpha: 1.0)
-        }
+    //緑系の色
+    func mainColor() -> UIColor {
+        return UIColor.init(fromHexString: "37CD5F")
+        //            return UIColor.init(hexString: "37CD5F", withAlpha: 1.0)
+    }
+    //紫系の色（mainColorの補色）
     func accsentColor() -> UIColor {
-        return UIColor.init(hexString: "cd37a5", withAlpha: 1.0)
+        return UIColor.init(fromHexString: "cd37a5")
+        //        return UIColor.init(hexString: "cd37a5", withAlpha: 1.0)
     }
 
 }
