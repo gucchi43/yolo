@@ -42,6 +42,10 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var blueButton: UIButton!
     @IBOutlet weak var greenButton: UIButton!
     @IBOutlet weak var grayButton: UIButton!
+
+    @IBOutlet weak var goodButton: UIButton!
+    @IBOutlet weak var badButton: UIButton!
+    
     
     var postImage1: UIImage? = nil
     var toolBar: UIToolbar!
@@ -221,7 +225,9 @@ extension SubmitViewController {
         //        toolBar.backgroundColor = UIColor.blackColor()
         let toolBarCameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: #selector(SubmitViewController.selectToolBarCameraButton(_:)))
         let toolBarPencilButton = UIBarButtonItem(title: "テキスト", style: .Plain, target: self, action: #selector(SubmitViewController.selectToolBarPencilButton(_:)))
-        let toolBarColorButton = UIBarButtonItem(title: "カラー", style: .Plain, target: self, action: #selector(SubmitViewController.selectToolBarColorButton(_:)))
+        let toolBarGoodOrBadButton = UIBarButtonItem(title: "どんな日？", style: .Plain, target: self, action: #selector(SubmitViewController.selectToolBarGoodOrBadButton(_:)))
+        //ColorKeyboardを使う時のボタン
+//        let toolBarColorButton = UIBarButtonItem(title: "カラー", style: .Plain, target: self, action: #selector(SubmitViewController.selectToolBarColorButton(_:)))
         let toolBarDoneButton = UIBarButtonItem(title: "完了", style: .Done, target: self, action: #selector(SubmitViewController.selectToolBarDoneButton(_:)))
 
         postTextCharactersLabel.frame = CGRectMake(0, 0, 30, 35)
@@ -231,7 +237,7 @@ extension SubmitViewController {
         // Flexible Space Bar Button Item
         let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         
-        toolBar.items = [toolBarCameraButton, toolBarPencilButton, toolBarColorButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarDoneButton]
+        toolBar.items = [toolBarCameraButton, toolBarPencilButton, toolBarGoodOrBadButton, flexibleItem, toolBarPostTextcharacterLabelItem, toolBarDoneButton]
     }
 }
 
@@ -380,6 +386,28 @@ extension SubmitViewController {
     }
 }
 
+extension SubmitViewController {
+    func selectToolBarGoodOrBadButton(sender:UIBarButtonItem) {
+        print("カラーボタンを押した")
+        let goodOrBadKeyboardview:UIView = UINib(nibName: "GoodOrBadKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+        self.postTextView.inputView = goodOrBadKeyboardview
+        self.postTextView.reloadInputViews()
+    }
+
+    @IBAction func selectGood(sender: AnyObject) {
+        print("Goodボタン押した")
+        self.dateColor = "good"
+        toolBar.backgroundColor = UIColor.redColor()
+    }
+
+    @IBAction func selectBad(sender: AnyObject) {
+        print("Badボタン押した")
+        self.dateColor = "bad"
+        toolBar.backgroundColor = UIColor.blueColor()
+    }
+}
+
+
 // DateColor設定
 extension SubmitViewController {
     func selectToolBarColorButton(sender:UIBarButtonItem) {
@@ -468,10 +496,9 @@ extension SubmitViewController {
         }
         self.setLogColor() //"logColor"クラスへのセット
         
-        
 //        非同期通信の保存処理
         
-        postObject.saveInBackgroundWithBlock({(error) in
+    postObject.saveInBackgroundWithBlock({(error) in
             if error != nil {print("Save error : ",error)}
         })
         
@@ -774,8 +801,10 @@ extension SubmitViewController {
     func updateLogColor(object: AnyObject){
         let secondObject = object as! NCMBObject
         secondObject.incrementKey("postCount")
-        secondObject.setObject(self.dateColor, forKey: "dateColor")
-        
+        //色を選択しているだけ色を更新する
+        if self.dateColor != "normal"{
+            secondObject.setObject(self.dateColor, forKey: "dateColor")
+        }
         secondObject.saveInBackgroundWithBlock { (error) -> Void in
             object.saveInBackgroundWithBlock { (error) -> Void in
                 if error != nil {

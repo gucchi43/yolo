@@ -52,6 +52,7 @@
 		ED402DCC1D34460C0098F843 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED402DCB1D34460C0098F843 /* images.xcassets */; };
 		ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED4512AF1CEF33CB0071FA58 /* Title.storyboard */; };
 		ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */; };
+		ED53BAFD1D35176F0089A03A /* GoodOrBadKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED53BAFC1D35176F0089A03A /* GoodOrBadKeyboard.xib */; };
 		ED652C4C1D29C2B60004BE9F /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */; };
 		ED652C4E1D29C2C70004BE9F /* SubmitDummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED652C4D1D29C2C70004BE9F /* SubmitDummyViewController.swift */; };
 		ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */; };
@@ -173,6 +174,7 @@
 		ED402DCB1D34460C0098F843 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		ED4512AF1CEF33CB0071FA58 /* Title.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Title.storyboard; sourceTree = "<group>"; };
 		ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogPostedProgressBar.swift; sourceTree = "<group>"; };
+		ED53BAFC1D35176F0089A03A /* GoodOrBadKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodOrBadKeyboard.xib; sourceTree = "<group>"; };
 		ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		ED652C4D1D29C2C70004BE9F /* SubmitDummyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitDummyViewController.swift; sourceTree = "<group>"; };
 		ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropdownMenu.framework; path = Carthage/Build/iOS/DropdownMenu.framework; sourceTree = "<group>"; };
@@ -413,6 +415,7 @@
 			children = (
 				3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */,
 				ED3282EC1CDEE52A009602C9 /* ColorKeyboard.xib */,
+				ED53BAFC1D35176F0089A03A /* GoodOrBadKeyboard.xib */,
 				ED36445F1C9D6DBA00C6676C /* Submit.storyboard */,
 			);
 			name = Submit;
@@ -560,6 +563,7 @@
 				32C0A3431C5DF8ED009657B9 /* Main.storyboard in Resources */,
 				ED3107ED1D101A4500FE3D32 /* CommentTableViewCell.xib in Resources */,
 				ED21524A1D11883A0027AFC4 /* UserListTableViewCell.xib in Resources */,
+				ED53BAFD1D35176F0089A03A /* GoodOrBadKeyboard.xib in Resources */,
 				ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */,
 				ED21524D1D1188E80027AFC4 /* OtherAccount.storyboard in Resources */,
 				ED36445C1C9D65AA00C6676C /* Account.storyboard in Resources */,
