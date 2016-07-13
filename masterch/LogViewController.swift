@@ -10,7 +10,6 @@ import UIKit
 import DropdownMenu
 import SwiftDate
 import DZNEmptyDataSet
-import Chameleon
 
 protocol LogViewControlloerDelegate {
     func updateLogView()

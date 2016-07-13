@@ -11,8 +11,6 @@ import UIKit
 import Fabric
 import Crashlytics
 import TwitterKit
-import Chameleon
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
