@@ -5,14 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Submit-->
-        <scene sceneID="yop-KY-ycB">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Submit" id="YW9-Co-wLb" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="U5U-xy-XIh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1330" y="1752"/>
-        </scene>
         <!--ユーザー検索-->
         <scene sceneID="w6M-Ng-YSG">
             <objects>
@@ -27,35 +19,29 @@
                             <outlet property="delegate" destination="Qep-Bb-oeh" id="M65-Jb-eeM"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="ユーザー検索" id="iV6-7p-hky">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="oUw-pN-UqO">
-                            <connections>
-                                <segue destination="YW9-Co-wLb" kind="presentation" id="9rY-Jd-WVI"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="ユーザー検索" id="iV6-7p-hky"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <segue destination="jzC-8X-s9L" kind="show" identifier="toOtherAccountViewController" id="D1J-xc-fFD"/>
+                        <segue destination="XOz-Qj-yRm" kind="show" identifier="toAccountVC" id="iSK-hf-eYw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tfO-zm-Biy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1500" y="470"/>
+            <point key="canvasLocation" x="1524" y="286"/>
         </scene>
-        <!--OtherAccount-->
-        <scene sceneID="Qig-qp-Wrz">
+        <!--AccountView-->
+        <scene sceneID="DrJ-ws-1Oq">
             <objects>
-                <viewControllerPlaceholder storyboardName="OtherAccount" id="jzC-8X-s9L" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="u9c-aE-m4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Account" referencedIdentifier="AccountView" id="XOz-Qj-yRm" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8pu-D6-bfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1902.5" y="420"/>
+            <point key="canvasLocation" x="2015" y="286"/>
         </scene>
         <!--検索-->
         <scene sceneID="ZzT-P1-Ax9">
             <objects>
                 <navigationController storyboardIdentifier="Search" automaticallyAdjustsScrollViewInsets="NO" id="vnO-Ry-kCf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="検索" id="DRh-jO-88a"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="検索" image="tabSearch" id="DRh-jO-88a"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LTR-u0-YxE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -68,7 +54,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CN5-tG-kC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="542" y="486"/>
+            <point key="canvasLocation" x="816" y="286"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="tabSearch" width="30" height="30"/>
+    </resources>
 </document>

@@ -52,9 +52,20 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
     
     //LogViewの日にちごとの色を決める実行部分２
     func getLogColorDate(date: NSDate) {
-        let colorManager = CalendarLogCollerManager()
+        let calendarLogCollerManager = CalendarLogCollerManager()
         let logNumber = logManager.sharedSingleton.logNumber
-        let logColorQuery = colorManager.weekLogColorDate(date, logNumber: logNumber)
+        let logUser = logManager.sharedSingleton.logUser
+        let logColorQuery: NCMBQuery
+//        let logVC = LogViewController()
+//        let user = logVC.user
+        if logUser == NCMBUser.currentUser(){
+            print("user情報 in monthVC", logUser.userName)
+            //weekLogColorDateはuserを引数に取らない場合userにはNCMBUser.currentUser()が自動で入る
+            logColorQuery = calendarLogCollerManager.weekLogColorDate(date, logNumber: logNumber)
+        }else {
+            print("user情報 in monthVC", logUser.userName)
+            logColorQuery = calendarLogCollerManager.weekLogColorDate(date, logNumber: logNumber, user: logUser)
+        }
         logColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error{
                 print("getLogColorerrorr", error.localizedDescription)
@@ -76,7 +87,7 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
             }
         })
     }
-    
+
     //日にち押すと
     func updateDayViewSelectedStatus() {
         let subViews:[UIView] = self.subviews as [UIView]

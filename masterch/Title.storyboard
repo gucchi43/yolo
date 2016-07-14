@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Igi-lJ-1h9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Igi-lJ-1h9">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,23 +17,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOLO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dhp-eE-3IF">
-                                <rect key="frame" x="155" y="150" width="104.5" height="54.5"/>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="50"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="logoTitle" translatesAutoresizingMaskIntoConstraints="NO" id="fM4-fv-nK7">
+                                <rect key="frame" x="128" y="160" width="158" height="42"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.77378030019999999" green="0.98595207929999995" blue="0.21353226340000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Dhp-eE-3IF" firstAttribute="top" secondItem="h5A-Wf-MXG" secondAttribute="bottom" constant="150" id="2Qd-ol-Tdm"/>
-                            <constraint firstItem="Dhp-eE-3IF" firstAttribute="top" secondItem="Fjk-KJ-5Zt" secondAttribute="topMargin" constant="150" id="XCQ-in-eds"/>
-                            <constraint firstItem="Dhp-eE-3IF" firstAttribute="centerX" secondItem="Fjk-KJ-5Zt" secondAttribute="centerX" id="xDS-06-J8j"/>
+                            <constraint firstItem="fM4-fv-nK7" firstAttribute="top" secondItem="h5A-Wf-MXG" secondAttribute="bottom" constant="140" id="Hm0-e0-bBg"/>
+                            <constraint firstItem="fM4-fv-nK7" firstAttribute="centerX" secondItem="Fjk-KJ-5Zt" secondAttribute="centerX" id="vNv-eE-VqL"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="2Qd-ol-Tdm"/>
-                            </mask>
-                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </viewController>
@@ -43,4 +34,7 @@
             <point key="canvasLocation" x="-1741" y="872"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logoTitle" width="158" height="42"/>
+    </resources>
 </document>

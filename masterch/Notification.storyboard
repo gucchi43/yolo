@@ -6,19 +6,11 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Submit-->
-        <scene sceneID="9fT-9z-Lvc">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Submit" id="zEI-mb-efy" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KMk-uw-dDA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="792" y="-1015"/>
-        </scene>
         <!--通知-->
         <scene sceneID="07H-30-kZ0">
             <objects>
                 <navigationController storyboardIdentifier="Notification" automaticallyAdjustsScrollViewInsets="NO" id="LaQ-dV-R2A" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="通知" id="ijT-fj-HJ0"/>
+                    <tabBarItem key="tabBarItem" tag="4" title="通知" image="tabNotification" id="ijT-fj-HJ0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Le9-ox-MIt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -254,29 +246,23 @@
                             <outlet property="delegate" destination="IQd-Mr-i2H" id="qFb-BT-REZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="通知" id="GO5-ad-qbb">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="9Uj-wb-UJj">
-                            <connections>
-                                <segue destination="zEI-mb-efy" kind="presentation" identifier="toSubmitVC" id="59W-S1-ihH"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="通知" id="GO5-ad-qbb"/>
                     <connections>
-                        <segue destination="7rR-R3-cOU" kind="show" identifier="toOtherAccountVC" id="S0K-iW-jTy"/>
                         <segue destination="ofP-1X-FKF" kind="show" identifier="toPostDetailVC" id="Krx-EB-CB2"/>
+                        <segue destination="rrg-kQ-QrQ" kind="show" identifier="toAccountVC" id="mI6-tR-TZP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="syg-WZ-ANU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="789" y="-1507"/>
         </scene>
-        <!--OtherAccount-->
-        <scene sceneID="c5e-Ux-sB6">
+        <!--AccountView-->
+        <scene sceneID="bHl-L1-x28">
             <objects>
-                <viewControllerPlaceholder storyboardName="OtherAccount" id="7rR-R3-cOU" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vU7-rz-3SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Account" referencedIdentifier="AccountView" id="rrg-kQ-QrQ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ERQ-9B-AEr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1378" y="-1604"/>
+            <point key="canvasLocation" x="1402.5" y="-1683"/>
         </scene>
         <!--PostDetail-->
         <scene sceneID="wKI-eA-J2n">
@@ -287,4 +273,7 @@
             <point key="canvasLocation" x="1378.5" y="-1419"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="tabNotification" width="30" height="30"/>
+    </resources>
 </document>

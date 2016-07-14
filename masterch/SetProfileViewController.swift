@@ -35,7 +35,7 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate, UITextVie
         //!!! 写真をグレーでぼかしたい, 谷口
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         //プロフィール写真を表示
-        userImageView.image = UIImage(named: "noprofile.png")
+        userImageView.image = UIImage(named: "noprofile")
         
         //userIdTextField入力画面を呼び出し
         userNameTextField.becomeFirstResponder()
@@ -47,7 +47,7 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate, UITextVie
         
 //        文字数カウントのために入力後の通知を受け取れるようにする
         NSNotificationCenter.defaultCenter().addObserver(self,
-            selector:"userNameTextFieldDidChange:",
+            selector:#selector(SetProfileViewController.userNameTextFieldDidChange(_:)),
             name: UITextFieldTextDidChangeNotification,
             object: nil)
     }
@@ -235,7 +235,7 @@ extension SetProfileViewController {
                 print("Save error : ",error)
                 SVProgressHUD.dismiss()
             }else {
-//                self.performSegueWithIdentifier("signUpSegue", sender: self)
+                self.performSegueWithIdentifier("signUpSegue", sender: self)
                 SVProgressHUD.dismiss()
             }
         })

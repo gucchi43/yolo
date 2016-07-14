@@ -33,8 +33,8 @@ class PostDetailTableViewCell: UITableViewCell {
     var postObject: NCMBObject!
     var likeCounts: Int?
 
-    let likeOnImage = UIImage(named: "hartButton_On")
-    let likeOffImage = UIImage(named: "hartButton_Off")
+    let likeOnImage = UIImage(named: "hartON")
+    let likeOffImage = UIImage(named: "hartOFF")
     
     var isLikeToggle = false
     

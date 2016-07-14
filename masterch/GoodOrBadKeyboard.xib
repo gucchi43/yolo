@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SubmitViewController" customModule="masterch" customModuleProvider="target">
+            <connections>
+                <outlet property="badButton" destination="1LY-A6-2mn" id="aAF-8b-zsg"/>
+                <outlet property="goodButton" destination="pZM-15-9uv" id="cYK-hC-UqI"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="goodOrBadKeyboardview">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZM-15-9uv">
+                    <rect key="frame" x="0.0" y="1" width="137" height="150"/>
+                    <state key="normal" image="keyboardGood"/>
+                    <connections>
+                        <action selector="selectGood:" destination="-1" eventType="touchUpInside" id="2wZ-gK-Sfb"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1LY-A6-2mn">
+                    <rect key="frame" x="180" y="61" width="140" height="155"/>
+                    <state key="normal" image="keyboardBad"/>
+                    <connections>
+                        <action selector="selectBad:" destination="-1" eventType="touchUpInside" id="X0l-Is-idz"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="pZM-15-9uv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Lrb-mQ-BTH"/>
+                <constraint firstAttribute="bottom" secondItem="1LY-A6-2mn" secondAttribute="bottom" id="MfZ-l2-xnF"/>
+                <constraint firstAttribute="trailing" secondItem="1LY-A6-2mn" secondAttribute="trailing" id="rnH-YT-7l7"/>
+                <constraint firstItem="pZM-15-9uv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="wTW-Nh-673"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="keyboardBad" width="140" height="155"/>
+        <image name="keyboardGood" width="137" height="150"/>
+    </resources>
+</document>

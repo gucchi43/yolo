@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SVProgressHUD
+import TwitterKit
 
 class EditProfileTableViewController: UITableViewController {
     
@@ -14,31 +16,42 @@ class EditProfileTableViewController: UITableViewController {
     @IBOutlet weak var userHomeImageView: UIImageView!
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var userSelfIntroductionTextView: UITextView!
-    
     @IBOutlet weak var changeProfileButton: UIButton!
-    
-    var userProfileName: String!
-    var userSelfIntroduction: String!
-    
+
     var changeImageButtonFrag: Int = 0 // 1 -> プロフィール, 2 -> ホーム
+    
+    var profileImageToggle = false
+    var homeImageToggle = false
+    
     var profileImage: UIImage!
-    var homeImage: UIImage!
+    var profileHomeImage: UIImage!
+    var ProfileName: String!
+    var profileSelfIntroduction: String!
+
+    var user: NCMBUser?
+
+
+    private var onceTokenViewWillAppear: dispatch_once_t = 0
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        userName.text = userProfileName
-        userSelfIntroductionTextView.text = userSelfIntroduction
-        
         //プロフィール写真の形を整える
         userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
-        changeProfileButton.layer.cornerRadius = changeProfileButton.frame.width/2
-        
-        userProfileImageView.image = profileImage
-        userHomeImageView.image = homeImage
-        
-        
+        changeProfileButton.layer.cornerRadius = changeProfileButton.frame.width/2        
+    }
+
+    override func viewWillAppear(animated: Bool) {
+         super.viewWillAppear(animated)
+        dispatch_once(&onceTokenViewWillAppear) {
+            print("ViewWillApperar読んでる")
+            self.loadUser()
+        }
+    }
+
+    override func viewDidAppear(animated: Bool) {
+//        loadUser()
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,16 +59,133 @@ class EditProfileTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    
+    func loadUser(){
+        userProfileImageView.image = profileImage
+        userHomeImageView.image = profileHomeImage
+        userName.text = ProfileName
+        userSelfIntroductionTextView.text = profileSelfIntroduction
+    }
 
-    
+
 //    キャンセルボタンアクション
     @IBAction func selectCancelButton(sender: AnyObject) {
         print("キャンセルボタンを押した")
         dismissViewControllerAnimated(true, completion: nil)
     }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toMainVC"{
+            print("ログアウト遷移開始")
+        }
+    }
 }
 
+//extension EditProfileTableViewController{
+//
+//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        switch indexPath.row {
+//        case 0:
+//            //画像変更
+//            let cell = tableView.dequeueReusableCellWithIdentifier("editUserImageCell", forIndexPath: indexPath)
+//
+//            userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
+//            changeProfileButton.layer.cornerRadius = changeProfileButton.frame.width/2
+//            return cell
+//        case 1:
+//            //ユーザーネーム変更
+//            let cell = tableView.dequeueReusableCellWithIdentifier("editUserNameCell", forIndexPath: indexPath)
+//            return cell
+//        case 2:
+//            //自己紹介変更
+//            let cell = tableView.dequeueReusableCellWithIdentifier("editUserSelfIntroductionCell", forIndexPath: indexPath)
+//            return cell
+//        case 3:
+//            //Twitter連携
+//            print("Twitter連携確認cell")
+//            let cell = tableView.dequeueReusableCellWithIdentifier("connectTwitterCell", forIndexPath: indexPath)
+//            return cell
+//
+//            let user = NCMBUser.currentUser()
+//
+//            // Tag番号 ２ （連携SNS名）
+////            let label1 = tableView.viewWithTag(2) as! UILabel
+////            label1.text = "\(label1Array[indexPath.row])"
+//
+//            // Tag番号 ４ （連携SNSのロゴImage）
+//
+//            //　Tag番号 ３、４、５ （SNSでのユーザー名、SNSのロゴ、連携済 or 未連携）
+//
+//            let connectAccontName = tableView.viewWithTag(3) as! UILabel
+//            let logoImage = tableView.viewWithTag(4) as! UIImageView
+//            let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
+//            let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
+//            let labelOnOff = tableView.viewWithTag(5) as! UILabel
+//
+//            print("user情報", user)
+//            print("true or false", NCMBTwitterUtils.isLinkedWithUser(user))
+//
+//
+//            if let userID = user.objectForKey("twitterID") {
+//                if userID.isKindOfClass(NSNull) != true{
+//                    if let userLink = Twitter.sharedInstance().sessionStore.sessionForUserID(userID as! String){
+//                        print("Twitter連携済 userID:", userLink.userID)//Twitter連携している
+//                        let snsName = user.objectForKey("twitterName")
+//                        print("snsName:", snsName)
+//                        connectAccontName.text = String(snsName)
+//                        labelOnOff.text = "連携中"
+//                        logoImage.image = imgTwitterOn
+//                    }else{
+//                        print("ありえないはず: twitterIDは登録してるのにTwitterSessionがsaveできていない")
+//                        connectAccontName.text = ""
+//                        labelOnOff.text = "未連携"
+//                        logoImage.image = imgTwitterOff
+//
+//                    }
+//                }else {
+//                    print("Twitter未連携（外した状態） userID", userID)//Twitter連携をはずして、空っぽの状態
+//                    //Twitter未連携
+//                    connectAccontName.text = ""
+//                    labelOnOff.text = "未連携"
+//                    logoImage.image = imgTwitterOff
+//                }
+//            }else {
+//                print("Twitter未連携")//Twitter連携は今まで一度もしていない
+//                //Twitter未連携
+//                connectAccontName.text = ""
+//                labelOnOff.text = "未連携"
+//                logoImage.image = imgTwitterOff
+//            }
+//            return cell
+//            
+//        case 4:
+//            //Facebook連携
+//            print("Facebok連携確認cell")
+//            let cell = tableView.dequeueReusableCellWithIdentifier("connectFacebookCell", forIndexPath: indexPath)
+//            return cell
+//        default:
+//            //ログアウト
+//            let cell = tableView.dequeueReusableCellWithIdentifier("logOutCell", forIndexPath: indexPath)
+//            return cell
+//
+//        }
+//    }
+//
+//
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        print("セルの選択: \(indexPath.row)")
+//        switch indexPath.row {
+//        case 5:
+//            SVProgressHUD.show()
+//            print("ユーザー情報", user)
+//            NCMBUser.logOut()
+//            print("ユーザー情報", user)
+//            SVProgressHUD.dismiss()
+//        default:
+//            print("これでも落ちるんすか？", indexPath.row)
+//        }
+//        
+//    }
+//}
 
 
 // カメラ周り
@@ -121,11 +251,13 @@ extension EditProfileTableViewController: UIImagePickerControllerDelegate, UINav
                 let resizeImage = resize(image, width: 500, height: 500)
                 image = resizeImage
 
+//                userProfileImageView.image = image
                 userProfileImageView.image = image
                 
             } else if changeImageButtonFrag == 2 {
                 let resizeImage = resize(image, width: 800, height: 400)
                 image = resizeImage
+//                userHomeImageView.image = image
                 userHomeImageView.image = image
             }
         }
@@ -175,44 +307,93 @@ extension EditProfileTableViewController {
             let userProfileImageFile: NCMBFile = NCMBFile.fileWithData(userProfileImageData) as! NCMBFile
             
             user.setObject(userProfileImageFile.name, forKey: "userProfileImage")
-            
+            //
             //            ファイルはバックグラウンド実行をする
+            SVProgressHUD.show()
             userProfileImageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error == nil {
-                    print("画像データ保存完了: \(userProfileImageFile.name)")
+                    SVProgressHUD.dismiss()
+                    print("プロフィール画像保存完了")
+                    self.profileImageToggle = true
+                    self.dismissViewController()
                 } else {
+                    SVProgressHUD.showErrorWithStatus("アップロード中にエラーが発生しました")
                     print("アップロード中にエラーが発生しました: \(error)")
+                    self.profileImageToggle = true
+                    self.dismissViewController()
                 }
                 }, progressBlock: { (percentDone: Int32) -> Void in
                     //                    進捗状況を取得します。保存完了まで何度も呼ばれます
                     print("進捗状況: \(percentDone)% アップロード済み")
             })
+        }else {
+            profileImageToggle = true
         }
 //        変更があればホーム画像を保存
-        if userHomeImageView.image != homeImage {
+        if userHomeImageView.image != profileHomeImage {
             let userHomeImageData = UIImagePNGRepresentation(self.userHomeImageView.image!)! as NSData
             let userHomeImageFile: NCMBFile = NCMBFile.fileWithData(userHomeImageData) as! NCMBFile
             
             user.setObject(userHomeImageFile.name, forKey: "userHomeImage")
             
             //            ファイルはバックグラウンド実行をする
+            SVProgressHUD.show()
             userHomeImageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error == nil {
-                    print("画像データ保存完了: \(userHomeImageFile.name)")
+                    SVProgressHUD.dismiss()
+                    print("ホーム画像保存完了")
+                    self.homeImageToggle = true
+                    self.dismissViewController()
+
                 } else {
+                    SVProgressHUD.showErrorWithStatus("アップロード中にエラーが発生しました")
                     print("アップロード中にエラーが発生しました: \(error)")
+                    self.homeImageToggle = true
+                    self.dismissViewController()
                 }
                 }, progressBlock: { (percentDone: Int32) -> Void in
                     //                    進捗状況を取得します。保存完了まで何度も呼ばれます
                     print("進捗状況: \(percentDone)% アップロード済み")
             })
+        }else {
+            homeImageToggle = true
+            dismissViewController()
         }
-        
-        user.saveInBackgroundWithBlock({(error) in
-            if error != nil {print("Save error : ",error)}
-        })
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
-        print("保存完了")
+
+        user.saveEventually { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+
+//        user.saveInBackgroundWithBlock({(error) in
+//            if error != nil {print("Save error : ",error)}
+//        })
+//        dismissViewController()
+
+//        self.dismissViewControllerAnimated(true, completion: nil)
+//        print("保存完了")
+    }
+
+    //非同期処理が終わった後に遷移（それまでプログレスビュー）
+    //二つのboolがすべてtrueになったら通れる
+    func dismissViewController() {
+        print("homeImageToggle", homeImageToggle)
+        print("profileImage", profileImageToggle)
+        if homeImageToggle == true && profileImageToggle == true {
+            print("AccountVCに戻ります")
+            dismissViewControllerAnimated(true, completion: nil)
+
+        }
+    }
+}
+
+
+
+extension EditProfileTableViewController{
+
+    @IBAction func tapLogoutButton(sender: AnyObject) {
+        print("ログアウト前", NCMBUser.currentUser())
+        NCMBUser.logOut()
     }
 }

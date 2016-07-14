@@ -54,8 +54,8 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
             let logoImage1 = table.viewWithTag(4) as! UIImageView
             
             let label2 = table.viewWithTag(3) as! UILabel
-            let imgTwitterOn = UIImage(named: "twitter_logo_640*480_origin")
-            let imgTwitterOff = UIImage(named: "twitter_logo_640*480_gray")
+            let imgTwitterOn = UIImage(named: "twitterON")
+            let imgTwitterOff = UIImage(named: "twitterGray")
             
             let labelOnOff = table.viewWithTag(5) as! UILabel
             
@@ -109,8 +109,8 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
             let label2 = table.viewWithTag(3) as! UILabel
             
             let logoImage1 = table.viewWithTag(4) as! UIImageView
-            let imgFacebookOn = UIImage(named: "facebook_logo_640*480_origin")
-            let imgFacebookOff = UIImage(named: "facebook_logo_640*480_gray")
+            let imgFacebookOn = UIImage(named: "facebookON")
+            let imgFacebookOff = UIImage(named: "facebookGray")
             
             let labelOnOff = table.viewWithTag(5) as! UILabel
             print("user情報", user)
@@ -306,6 +306,7 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
      //Twitterアンリンク
     func deleteTwitterAccount(user: NCMBUser) {
         //「解除しますか？」アラート呼び出し
+        print("userじょうほう", user)
         RMUniversalAlert.showAlertInViewController(self,
             withTitle: "このアカウントはすでにTwitterと連携しています。",
             message: "連携を解除する場合は、解除するボタンを押してください",

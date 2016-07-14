@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import DZNEmptyDataSet
 
 class SearchUserTableViewController: UITableViewController {
     
@@ -42,7 +43,10 @@ class SearchUserTableViewController: UITableViewController {
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
-        
+        tableView.tableFooterView = UIView()
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -98,8 +102,12 @@ class SearchUserTableViewController: UITableViewController {
         
         if searchController.active && searchController.searchBar.text != "" {
             userData = filterUsers[indexPath.row]
+            tableView.emptyDataSetSource = self
+            tableView.emptyDataSetDelegate = self
         }else {
             userData = filterUsers[indexPath.row]
+            tableView.emptyDataSetSource = self
+            tableView.emptyDataSetDelegate = self
             //こっちの場合は最初に全ユーザー表示
 //            userData = userArray[indexPath.row]
         }
@@ -132,13 +140,15 @@ class SearchUserTableViewController: UITableViewController {
 
         selectedUser = self.filterUsers[indexPath.row] as! NCMBUser
         print(selectedUser)
-        performSegueWithIdentifier("toOtherAccountViewController", sender: nil)
+        performSegueWithIdentifier("toAccountVC", sender: nil)
+
+
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "toOtherAccountViewController" {
-            guard let OtherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
-            OtherAccountViewController.user = selectedUser
+        if segue.identifier == "toAccountVC" {
+            guard let accountVC = segue.destinationViewController as? AccountViewController else { return }
+            accountVC.user = selectedUser
         }
     }
 
@@ -147,6 +157,43 @@ class SearchUserTableViewController: UITableViewController {
 extension SearchUserTableViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         filterContextSearchText(searchController.searchBar.text!)
+    }
+    
+}
+
+extension SearchUserTableViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
+    //------------------DZNEmptyDataSet(セルが無い時に表示するViewの設定--------------------
+
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "😎新しい友だちを見つけよう😎"
+        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "一致するユーザーがいないっす…"
+        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+//
+//        func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+//            return UIImage(named: "noprofile")
+//        }
+
+    func emptyDataSetShouldDisplay(scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+
+    func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
+        return false
+    }
+
+    func emptyDataSetShouldAllowScroll(scrollView: UIScrollView!) -> Bool {
+        return false
+    }
+
+    func emptyDataSetShouldAnimateImageView(scrollView: UIScrollView!) -> Bool {
+        return false
     }
     
 }

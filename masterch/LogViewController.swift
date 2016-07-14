@@ -11,7 +11,12 @@ import DropdownMenu
 import SwiftDate
 import DZNEmptyDataSet
 
-class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+protocol LogViewControlloerDelegate {
+    func updateLogView()
+}
+
+
+class LogViewController: UIViewController, addPostDetailDelegate {
     
     var toggleWeek: Bool = false
     var postArray: NSArray = NSArray()
@@ -20,52 +25,65 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
     @IBOutlet weak var calendarWeekView: UIView!
     
     @IBOutlet weak var tableView: UITableView!
-
+    
     var calendarView: CalendarView?
     var calendarAnotherView: CalendarAnotherView?
-
+    
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var monthLabel: UILabel!
     
+    @IBOutlet weak var changeWeekOrMonthToggle: UIButton!
     
     @IBOutlet weak var progressBar: LogPostedProgressBar!
     
     var selectedRow: Int = 0
     var Dropitems: [DropdownItem]!
+    //    var user: NCMBUser = NCMBUser.currentUser()
     
-//    セル選択時の変数
+    var userName: String?
+    
+    //    セル選択時の変数
     var selectedPostObject: NCMBObject!
-
-//    それぞれを変数にして渡す場合に使用。その方が早いけど、何故かずれたりする原因がわからないのでNMCBObjectをそのまま渡している
-//    var selectedPostUserFaceName: String!
-//    var selectedPostUserName: String!
-//    var selectedPostUserProfileImage: UIImage!
-//    var selectedPostText: String!
-//    var selectedPostDate: String!
-//    var selectedPostImage: UIImage!
+    
+    //    それぞれを変数にして渡す場合に使用。その方が早いけど、何故かずれたりする原因がわからないのでNMCBObjectをそのまま渡している
+    //    var selectedPostUserFaceName: String!
+    //    var selectedPostUserName: String!
+    //    var selectedPostUserProfileImage: UIImage!
+    //    var selectedPostText: String!
+    //    var selectedPostDate: String!
+    //    var selectedPostImage: UIImage!
     
     var animationFinished = true
     
-    let likeOnImage = UIImage(named: "hartButton_On")
-    let likeOffImage = UIImage(named: "hartButton_Off")
+    let toWeekImage = UIImage(named: "toWeek")
+    let toMonthImage = UIImage(named: "toMonth")
+    
+    let likeOnImage = UIImage(named: "hartON")
+    let likeOffImage = UIImage(named: "hartOFF")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("LogViewController")
-        
+
         tableView.estimatedRowHeight = 370
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
         
-        //NavigationBarのタイトルになる配列を読み込む
-        //（今は定数のためViewDidLoadに書いている）
-        let item1 = DropdownItem(title: "自分")
-        let item2 = DropdownItem(title: "フォロー")
+        //        //NavigationBarのタイトルになる配列を読み込む
+        //        //（今は定数のためViewDidLoadに書いている）
+        //        let item1 = DropdownItem(title: "自分")
+        //        let item2 = DropdownItem(title: "フォロー")
+        //
+        //        //将来的には可変になる、アプリ内で変更可能に…
+        //        Dropitems = [item1, item2]
+        //        changeTitle(logManager.sharedSingleton.logNumber)
         
-        //将来的には可変になる、アプリ内で変更可能に…
-        Dropitems = [item1, item2]
-        changeTitle(logManager.sharedSingleton.logNumber)
+        if toggleWeek == false {
+            changeWeekOrMonthToggle.setImage(toWeekImage, forState: UIControlState.Normal)
+        }else {
+            changeWeekOrMonthToggle.setImage(toMonthImage, forState: UIControlState.Normal)
+        }
         
         let logPostPB = LogPostedProgressBar()
         logPostPB.setProgressBar()
@@ -73,12 +91,29 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
     }
     
     override func viewWillAppear(animated: Bool) {
-//        self.navigationController?.setToolbarHidden(true, animated: true) // ViewWillAppearは表示の度に呼ばれるので何度も消してくれる
-
+        //        self.navigationController?.setToolbarHidden(true, animated: true) // ViewWillAppearは表示の度に呼ばれるので何度も消してくれる
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.didSelectDayView(_:)), name: "didSelectDayView", object: nil)
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
         }
+        
+        //NavigationBarのタイトルになる配列を読み込む
+        //（今は定数のためViewDidLoadに書いている）
+        //        let userName = user.userName
+        //        let logUser = logManager.sharedSingleton.logUser
+        //        let userName = logUser.userName
+        let userName = NCMBUser.currentUser().userName
+        let item1 = DropdownItem(title: userName)
+        let item2 = DropdownItem(title: "フォロー")
+        Dropitems = [item1, item2]
+        //        if let userName = userName{
+        //            let item3 = DropdownItem(title: userName)
+        //            Dropitems = [item1, item2, item3]
+        //        }else {
+        //            Dropitems = [item1, item2]
+        //        }
+        changeTitle(logManager.sharedSingleton.logNumber)
+        
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -113,7 +148,7 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
     }
     
     
-//    NavigationTitleをタップ
+    //    NavigationTitleをタップ
     func tapped(tapGestureRecognizer: UITapGestureRecognizer) {
         print("ナビゲーションタイトルをタップ")
         let menuView = DropdownMenu(navigationController: navigationController!, items: Dropitems, selectedRow: selectedRow)
@@ -121,50 +156,47 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
         menuView.showMenu(onNavigaitionView: true)
     }
     
-    
-    func submitFinish() {
-        print("submitFinish")
-        let logNumber = logManager.sharedSingleton.logNumber
-        switch toggleWeek {
-        case false:
-            print("week表示")
-            if let calendarView = calendarView {
-                calendarView.resetMonthView()
-                loadQuery(logNumber)
-            }
-        default:
-            print("month表示")
-            if let calendarAnotherView = calendarAnotherView {
-                calendarAnotherView.resetWeekView()
-                loadQuery(logNumber)
-            }
-        }
-        tableView.reloadData()
-        
+    func openSubmitViewController(){
+        print("openSubmitViewController")
+        let submitVC = SubmitViewController()
+        submitVC.delegate = self
     }
     
-
+    
+    
     //投稿画面から戻った時にリロード
-        func postDetailDismissionAction() {
+    func postDetailDismissionAction() {
         print("postDetailDismissionAction")
         tableView.reloadData()
     }
     
-    
     //tableViewに表示するその日の投稿のQueryから取ってくる
     func loadQuery(logNumber: Int){
         let logQueryManager = LogQueryManager()
-        let postQuery: NCMBQuery = logQueryManager.loadItems(logNumber)
+        let postQuery: NCMBQuery
+        
+        let logUser = logManager.sharedSingleton.logUser
+        if logUser == NCMBUser.currentUser(){
+            print("user情報", logUser.userName)
+            //loadItemsuserはuserを引数に取らない場合userにはNCMBUser.currentUser()が自動で入る
+            postQuery = logQueryManager.loadItems(logNumber)
+        }else {
+            print("user情報", logUser.userName)
+            postQuery = logQueryManager.loadItems(logNumber, user: logUser)
+        }
+        
         postQuery.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error {
                 print(error.localizedDescription)
             } else {
-                print("投稿数", objects.count)
                 if objects.count > 0 {
+                    print("その日に投稿があるパターン")
+                    print("投稿数", objects.count)
                     self.postArray = objects
                     self.tableView.emptyDataSetSource = nil
                     self.tableView.emptyDataSetDelegate = nil
                 } else {
+                    print("その日に投稿がないパターン")
                     self.postArray = []
                     self.tableView.emptyDataSetSource = self
                     self.tableView.emptyDataSetDelegate = self
@@ -173,11 +205,11 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
             }
         })
     }
-
+    
     
     // スクロール感知用の変数
     var scrollBeginingPoint: CGPoint!
-
+    
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         scrollBeginingPoint = scrollView.contentOffset;
     }
@@ -194,17 +226,17 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
             }
         } else if toggleWeek == true {
             if -20 > currentPoint.y {
-                        print(currentPoint)
+                print(currentPoint)
                 self.exchangeCalendarView()
             }
         }
-
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toPostDetailVC" {
             let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
-//            postDetailVC.hidesBottomBarWhenPushed = true // trueならtabBar隠す
+            //            postDetailVC.hidesBottomBarWhenPushed = true // trueならtabBar隠す
             postDetailVC.postObject = self.selectedPostObject
             postDetailVC.delegate = self
             if let sender = sender {
@@ -235,6 +267,13 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
     
     @IBAction func toggle(sender: AnyObject) {
         print("toggle", toggleWeek)
+        
+        if toggleWeek == false {
+            changeWeekOrMonthToggle.setImage(toMonthImage, forState: UIControlState.Normal)
+        }else {
+            changeWeekOrMonthToggle.setImage(toWeekImage, forState: UIControlState.Normal)
+        }
+        
         self.exchangeCalendarView()
     }
     
@@ -259,59 +298,68 @@ class LogViewController: UIViewController, addPostDetailDelegate, addSubmitlDele
             self.view.layoutIfNeeded()
         }
     }
-    
+}
+
+extension LogViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     //------------------DZNEmptyDataSet(セルが無い時に表示するViewの設定--------------------
-    
+
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "ログはまだありません"
-        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
-        
-        return NSAttributedString(string: str, attributes: attrs)
+        switch logManager.sharedSingleton.logNumber {
+        case 0:
+            let str = "😝その日のログはまだないよ😝"
+            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
+            return NSAttributedString(string: str, attributes: attrs)
+        default:
+            let str = "😝その日のログはまだないよ😝"
+            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
+            return NSAttributedString(string: str, attributes: attrs)
+        }
     }
-    
+
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "どんどん思い出をログりましょう！"
-        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
-        return NSAttributedString(string: str, attributes: attrs)
+        switch logManager.sharedSingleton.logNumber {
+        case 0:
+            let str = "今すぐログっちゃおう"
+            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
+            return NSAttributedString(string: str, attributes: attrs)
+        default:
+            let str = "ヒマだよねー"
+            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
+            return NSAttributedString(string: str, attributes: attrs)
+        }
     }
-    
-    //    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-    //        return UIImage(named: "taylor-swift")
-    //    }
-    
-    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
-        let str = "今すぐログる"
-        
-        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout)]
-        
-        //色を設定する場合
-        //        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout), NSForegroundColorAttributeName: UIColor.blueColor()]
-        return NSAttributedString(string: str, attributes: attrs)
+
+//    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+//        return UIImage(named: "logGood")
+//    }
+
+    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
+        return UIColor.lightGrayColor()
     }
-    
-    func emptyDataSetDidTapButton(scrollView: UIScrollView!) {
-        performSegueWithIdentifier("toSubmitVC", sender: nil)
-    }
-    
+
+//    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
+//        let str = "∨"
+//        let attrs = [NSFontAttributeName: UIFont.boldSystemFontOfSize(20.0), NSForegroundColorAttributeName: UIColor.whiteColor()]
+//        return NSAttributedString(string: str, attributes: attrs)
+//    }
+
     func emptyDataSetShouldDisplay(scrollView: UIScrollView!) -> Bool {
         return true
     }
-    
+
     func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
-        return true
+        return false
     }
-    
+
     func emptyDataSetShouldAllowScroll(scrollView: UIScrollView!) -> Bool {
         return false
     }
-    
+
     func emptyDataSetShouldAnimateImageView(scrollView: UIScrollView!) -> Bool {
         return false
     }
-    
-    
-}
 
+}
 
 extension LogViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -340,10 +388,10 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
         
         cell.commentButton.addTarget(self, action: #selector(LogViewController.pushCommentButton(_:)), forControlEvents: .TouchUpInside)
-
+        
         //プロフィール写真の形を円形にする
         cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
-
+        
         let author = postData.objectForKey("user") as? NCMBUser
         if let author = author {
             cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
@@ -535,26 +583,26 @@ extension LogViewController{
         let cell = sender.superview?.superview as! TimelineCell
         let row = tableView.indexPathForCell(cell)?.row
         selectedPostObject = self.postArray[row!] as! NCMBObject
-
+        
         performSegueWithIdentifier("toPostDetailVC", sender: true)
     }
-
+    
 }
 
-//DropdownMenuDelegateのDelegate
+//--------------NavigatoinBarの管理 (DropdownMenuDelegateのDelegate)----------------------------
 extension LogViewController: DropdownMenuDelegate {
     func dropdownMenu(dropdownMenu: DropdownMenu, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("DropdownMenu didselect \(indexPath.row) text:\(Dropitems[indexPath.row].title)")
         
         self.selectedRow = indexPath.row
         
-//        if indexPath.row != Dropitems.count - 1 {
-//            //一番上選んだ時
-//            self.selectedRow = indexPath.row
-//        }else {
-//            //それ意外
-//            self.selectedRow = indexPath.row
-//        }
+        if indexPath.row != Dropitems.count - 1 {
+            //一番上選んだ時
+            self.selectedRow = indexPath.row
+        }else {
+            //それ意外
+            self.selectedRow = indexPath.row
+        }
         logManager.sharedSingleton.logNumber = indexPath.row
         let logNumber = logManager.sharedSingleton.logNumber
         print("logNumber", logNumber, Dropitems[indexPath.row].title)
@@ -587,20 +635,29 @@ extension LogViewController: DropdownMenuDelegate {
         
         //タイトルのラベルを作成する。
         let testLabel1 = UILabel(frame:CGRectMake(0,0,100,28))
+        testLabel1.textColor = UIColor.whiteColor()
         testLabel1.text = "ログ"
         
         //サブタイトルを作成する。
         let testLabel2 = UILabel(frame:CGRectMake(0,0,100,12))
-        testLabel2.textColor = UIColor.lightGrayColor()
+        testLabel2.textColor = UIColor.whiteColor()
         let logNumber = logManager.sharedSingleton.logNumber
-        switch logNumber {
-        case 0:
-            testLabel2.text = Dropitems[0].title
-        case 1:
-            testLabel2.text = Dropitems[1].title
-        default:
-            testLabel2.text = "その他"
-        }
+        testLabel2.text = Dropitems[selectedRow].title
+        
+        //        if selectedRow == logNumber {
+        //            testLabel2.text = Dropitems[selectedRow].title
+        //        }
+        
+        //        switch logNumber {
+        //        case 0:
+        //            testLabel2.text = Dropitems[0].title
+        //        case 1:
+        //            testLabel2.text = Dropitems[1].title
+        //        case 2:
+        //            testLabel2.text = "logNumber = 2"
+        //        default:
+        //            testLabel2.text = "その他"
+        //        }
         
         //スタックビューに追加する。
         stackView.addArrangedSubview(testLabel1)
@@ -610,13 +667,55 @@ extension LogViewController: DropdownMenuDelegate {
         stackView.addGestureRecognizer(gesture)
         stackView.userInteractionEnabled = true
         //ナビゲーションバーのタイトルに設定する。
-        navigationController!.navigationBar.topItem!.titleView = stackView
+        //        if logNumber != 2{
+        //            navigationController!.navigationBar.topItem!.titleView = stackView
+        //        }
+        //        if logManager.sharedSingleton.logNumber == 0 && logManager.sharedSingleton.logUser  == NCMBUser.currentUser() && maintabBarVC.selectedIndex as Int == 0{
+        //            navigationController!.navigationBar.topItem!.titleView = stackView
+        //        }
+        //        if maintabBarVC.selectedIndex as Int == 0 {
+        //        }
+        if logManager.sharedSingleton.logTitleToggle == true{
+            print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
+            navigationController!.navigationBar.topItem!.titleView = stackView
+        }else {
+            print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
+            
+        }
+        
+        
     }
-
 }
 
-//----------------------progressBar-------------------------------
-extension LogViewController {
+extension LogViewController: SubmitViewControllerDelegate {
+    func submitFinish() {
+        print("submitFinish")
+        let logNumber = logManager.sharedSingleton.logNumber
+        switch toggleWeek {
+        case false:
+            print("month表示")
+            if let calendarView = calendarView {
+                calendarView.resetMonthView()
+                loadQuery(logNumber)
+            }else {
+                print("calendarAnotherViewがないだって!?")
+                calendarView?.resetMonthView()
+                loadQuery(logNumber)
+            }
+        default:
+            print("week表示")
+            if let calendarAnotherView = calendarAnotherView {
+                calendarAnotherView.resetWeekView()
+                loadQuery(logNumber)
+            }else {
+                print("calendarAnotherViewがないだって!?")
+                calendarAnotherView?.resetWeekView()
+                loadQuery(logNumber)
+            }
+        }
+        tableView.reloadData()
+    }
+    
     func savePostProgressBar(percentDone: CGFloat) {
         //percentDoneに合わしてprogressBarが動く
         progressBar.setProgress(percentDone, animated: true)
@@ -629,5 +728,4 @@ extension LogViewController {
             })
         }
     }
-    
 }

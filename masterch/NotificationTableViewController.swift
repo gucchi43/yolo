@@ -9,9 +9,10 @@
 import UIKit
 import SwiftDate
 import DZNEmptyDataSet
+import SVProgressHUD
 
 
-class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+class NotificationTableViewController: UITableViewController {
     var notificationArray: NSArray = NSArray()
     
     var selectedUser: NCMBUser!
@@ -22,7 +23,6 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
         //Cellの高さを可変にする(ストーリーボードのオートレイアウトに合わしている)
         self.tableView.estimatedRowHeight = 200
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        
         self.tableView.tableFooterView =  UIView()
         
 //        self.tableView.emptyDataSetSource = self
@@ -36,7 +36,7 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
     
     
     func loadArray() {
-        
+        SVProgressHUD.show()
         //includeKeyで全部撮ってきたいんねん!!!!ほんとのところは！
         let notificationQuery: NCMBQuery = NCMBQuery(className: "Notification")
         notificationQuery.whereKey("ownerUser", equalTo: NCMBUser.currentUser())
@@ -46,22 +46,21 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
         notificationQuery.findObjectsInBackgroundWithBlock { (objects, error) in
             if let error = error {
                 print(error.localizedDescription)
+                SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
             }else {
                 if objects.count > 0 {
                     print("通知テーブルセルの数", objects.count)
                     self.notificationArray = objects
                     self.tableView.emptyDataSetSource = nil
                     self.tableView.emptyDataSetDelegate = nil
-                    self.tableView.reloadData()
-                    
-                    
                 }else {
                     self.notificationArray = []
                     print("通知はまだ0です……")
                     self.tableView.emptyDataSetSource = self
                     self.tableView.emptyDataSetDelegate = self
-                    self.tableView.reloadData()
                 }
+                self.tableView.reloadData()
+                SVProgressHUD.dismiss()
             }
         }
     }
@@ -191,9 +190,9 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
         
         switch type {
         case "follow":
-            print("followのCellを選択 → OtherAccountViewControllerに遷移")
+            print("followのCellを選択 → AccountViewControllerに遷移")
             selectedUser = (notificationArray[indexPath.row] as! NCMBObject).objectForKey("actionUser") as! NCMBUser
-            performSegueWithIdentifier("toOtherAccountVC", sender: nil)
+            performSegueWithIdentifier("toAccountVC", sender: nil)
             
         case "like":
             print("likeのCellを選択 → Post画面に遷移")
@@ -217,16 +216,16 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
         switch segue.identifier! as String {
         case "toSubmitVC":
             break
-        case "toOtherAccountVC": //followのCell選択時→ユーザー画面に遷移
-            guard let otherAccountViewController = segue.destinationViewController as? OtherAccountViewController else { return }
+
+        case "toAccountVC": //followのCell選択時→ユーザー画面に遷移
+            guard let accountVC = segue.destinationViewController as? AccountViewController else { return }
             print("selectedUser", selectedUser)
-            otherAccountViewController.user = selectedUser
+            accountVC.user = selectedUser
         
         case "toPostDetailVC": //like、commentのCell選択時→投稿詳細画面に遷移
-            guard let postDetailViewController = segue.destinationViewController as? PostDetailViewController else { return }
+            guard let postDetailVC = segue.destinationViewController as? PostDetailViewController else { return }
             print("selectedObject", selectedObject)
-            
-            
+
             let postRelation = selectedObject.relationforKey("post") as NCMBRelation
             let postQuery = postRelation.query()
             postQuery.orderByAscending("createDate")
@@ -234,9 +233,9 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
             do{
                 let object = try postQuery.getFirstObject()
                 
-                postDetailViewController.postObject = object as! NCMBObject
-                print("投稿object", postDetailViewController.postObject)
-                print("投稿User", postDetailViewController.postObject.objectForKey("user") as! NCMBUser)
+                postDetailVC.postObject = object as! NCMBObject
+                print("投稿object", postDetailVC.postObject)
+                print("投稿User", postDetailVC.postObject.objectForKey("user") as! NCMBUser)
                 
             }catch let error as NSError{
                 print(error.localizedDescription)
@@ -246,57 +245,52 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
             print("そのほかあああ")
         }
     }
-    
-    
-    
+}
+
+extension NotificationTableViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     //------------------DZNEmptyDataSet(セルが無い時に表示するViewの設定--------------------
-    
+
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "まだお知らせはありません"
+        let str = "😴まだお知らせはないよ😴"
         let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
-        
+
         return NSAttributedString(string: str, attributes: attrs)
     }
-    
+
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "どんどん思い出をログりましょう！"
+        let str = "まずは友達をフォローしてみよう"
         let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
         return NSAttributedString(string: str, attributes: attrs)
     }
-    
+
     //    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
     //        return UIImage(named: "taylor-swift")
     //    }
-    
-    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
-        let str = "今日の出来事をログる"
-        
-        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout)]
-        
-        //色を設定する場合
-        //        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout), NSForegroundColorAttributeName: UIColor.blueColor()]
-        return NSAttributedString(string: str, attributes: attrs)
-    }
-    
-    func emptyDataSetDidTapButton(scrollView: UIScrollView!) {
-        performSegueWithIdentifier("toSubmitVC", sender: nil)
-    }
-    
+
+//    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
+//        let str = "今日の出来事をログる"
+//
+//        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout)]
+//
+//        //色を設定する場合
+//        //        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout), NSForegroundColorAttributeName: UIColor.blueColor()]
+//        return NSAttributedString(string: str, attributes: attrs)
+//    }
+
     func emptyDataSetShouldDisplay(scrollView: UIScrollView!) -> Bool {
         return true
     }
-    
+
     func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
         return true
     }
-    
+
     func emptyDataSetShouldAllowScroll(scrollView: UIScrollView!) -> Bool {
         return false
     }
-    
+
     func emptyDataSetShouldAnimateImageView(scrollView: UIScrollView!) -> Bool {
         return false
     }
-    
 
 }
