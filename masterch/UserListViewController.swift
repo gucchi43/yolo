@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import DZNEmptyDataSet
 
 class UserListViewController: UIViewController {
     
@@ -23,6 +24,10 @@ class UserListViewController: UIViewController {
         
         userListTableView.estimatedRowHeight = 50
         userListTableView.rowHeight = UITableViewAutomaticDimension
+        userListTableView.tableFooterView = UIView()
+        userListTableView.emptyDataSetSource = self
+        userListTableView.emptyDataSetDelegate = self
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -81,3 +86,41 @@ extension UserListViewController: UITableViewDataSource {
     }
 
 }
+
+extension UserListViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
+    //------------------DZNEmptyDataSet(セルが無い時に表示するViewの設定--------------------
+
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "😳ドンマイ！😳"
+        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "まだユーザーがいないよ"
+        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    //
+    //        func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+    //            return UIImage(named: "noprofile")
+    //        }
+
+    func emptyDataSetShouldDisplay(scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+
+    func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
+        return false
+    }
+
+    func emptyDataSetShouldAllowScroll(scrollView: UIScrollView!) -> Bool {
+        return false
+    }
+
+    func emptyDataSetShouldAnimateImageView(scrollView: UIScrollView!) -> Bool {
+        return false
+    }
+    
+}
+
