@@ -626,7 +626,12 @@ extension SubmitViewController {
             let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/update.json"
             let tweetText = self.postTextView.text
             print("tweetText", tweetText)
-            var params = ["status": tweetText]
+            let encodedTweetText = tweetText.stringByReplacingOccurrencesOfString("n", withString: "nr")
+            print("encodedTweetText", encodedTweetText)
+
+            var params = ["status": encodedTweetText]
+            print("params", params)
+
             
             //写真の添付があればparamsの配列に"media_ids"のキーと値を追加
             if mediaID != nil {
