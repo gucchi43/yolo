@@ -11,7 +11,7 @@ import DZNEmptyDataSet
 import SVProgressHUD
 import TwitterKit
 
-class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+class AccountViewController: UIViewController, addPostDetailDelegate{
     
     @IBOutlet weak var tableView: UITableView!
     var user: NCMBUser?
@@ -43,8 +43,10 @@ class AccountViewController: UIViewController, addPostDetailDelegate,DZNEmptyDat
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.tableFooterView = UIView()
+
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         if let user = user{
             print("自分じゃないAccountなはず")
@@ -296,6 +298,11 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
             
         default:
+            if postArray.count == 0{
+                tableView.emptyDataSetSource = self
+                tableView.emptyDataSetDelegate = self
+            }
+
             //自分の投稿Cell
             let cell = tableView.dequeueReusableCellWithIdentifier("TimelineCell", forIndexPath: indexPath) as! TimelineCell
             //ImageViewの初期化的な
@@ -913,6 +920,56 @@ extension AccountViewController {
         selectedPostObject = self.postArray[row! - 2] as! NCMBObject
         
         performSegueWithIdentifier("toPostDetail", sender: true)
+    }
+    
+}
+
+extension AccountViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
+    //------------------DZNEmptyDataSet(セルが無い時に表示するViewの設定--------------------
+
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "😝その日のログはまだないよ😝"
+        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "今すぐログっちゃおう"
+        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+
+    //    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+    //        return UIImage(named: "logGood")
+    //    }
+
+    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
+        return UIColor.lightGrayColor()    }
+
+//    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
+//        let str = "∨"
+//        let attrs = [NSFontAttributeName: UIFont.boldSystemFontOfSize(20.0), NSForegroundColorAttributeName: UIColor.whiteColor()]
+//        return NSAttributedString(string: str, attributes: attrs)
+//    }
+
+    func emptyDataSetDidTapButton(scrollView: UIScrollView!) {
+        print("tapemptyDataSetButton")
+    }
+
+    func emptyDataSetShouldDisplay(scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+
+    func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
+        return false
+    }
+
+    func emptyDataSetShouldAllowScroll(scrollView: UIScrollView!) -> Bool {
+        return false
+    }
+
+    func emptyDataSetShouldAnimateImageView(scrollView: UIScrollView!) -> Bool {
+        return false
     }
     
 }

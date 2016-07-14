@@ -12,7 +12,7 @@ import DZNEmptyDataSet
 import SVProgressHUD
 
 
-class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+class NotificationTableViewController: UITableViewController {
     var notificationArray: NSArray = NSArray()
     
     var selectedUser: NCMBUser!
@@ -23,7 +23,6 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
         //Cellの高さを可変にする(ストーリーボードのオートレイアウトに合わしている)
         self.tableView.estimatedRowHeight = 200
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        
         self.tableView.tableFooterView =  UIView()
         
 //        self.tableView.emptyDataSetSource = self
@@ -246,57 +245,52 @@ class NotificationTableViewController: UITableViewController, DZNEmptyDataSetSou
             print("そのほかあああ")
         }
     }
-    
-    
-    
+}
+
+extension NotificationTableViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     //------------------DZNEmptyDataSet(セルが無い時に表示するViewの設定--------------------
-    
+
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "まだお知らせはありません"
+        let str = "😴まだお知らせはないよ😴"
         let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
-        
+
         return NSAttributedString(string: str, attributes: attrs)
     }
-    
+
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "どんどん思い出をログりましょう！"
+        let str = "まずは友達をフォローしてみよう"
         let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
         return NSAttributedString(string: str, attributes: attrs)
     }
-    
+
     //    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
     //        return UIImage(named: "taylor-swift")
     //    }
-    
-    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
-        let str = "今日の出来事をログる"
-        
-        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout)]
-        
-        //色を設定する場合
-        //        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout), NSForegroundColorAttributeName: UIColor.blueColor()]
-        return NSAttributedString(string: str, attributes: attrs)
-    }
-    
-    func emptyDataSetDidTapButton(scrollView: UIScrollView!) {
-        performSegueWithIdentifier("toSubmitVC", sender: nil)
-    }
-    
+
+//    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
+//        let str = "今日の出来事をログる"
+//
+//        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout)]
+//
+//        //色を設定する場合
+//        //        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout), NSForegroundColorAttributeName: UIColor.blueColor()]
+//        return NSAttributedString(string: str, attributes: attrs)
+//    }
+
     func emptyDataSetShouldDisplay(scrollView: UIScrollView!) -> Bool {
         return true
     }
-    
+
     func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
         return true
     }
-    
+
     func emptyDataSetShouldAllowScroll(scrollView: UIScrollView!) -> Bool {
         return false
     }
-    
+
     func emptyDataSetShouldAnimateImageView(scrollView: UIScrollView!) -> Bool {
         return false
     }
-    
 
 }

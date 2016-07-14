@@ -16,7 +16,7 @@ protocol LogViewControlloerDelegate {
 }
 
 
-class LogViewController: UIViewController, addPostDetailDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+class LogViewController: UIViewController, addPostDetailDelegate {
     
     var toggleWeek: Bool = false
     var postArray: NSArray = NSArray()
@@ -298,59 +298,68 @@ class LogViewController: UIViewController, addPostDetailDelegate, DZNEmptyDataSe
             self.view.layoutIfNeeded()
         }
     }
-    
+}
+
+extension LogViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     //------------------DZNEmptyDataSet(セルが無い時に表示するViewの設定--------------------
-    
+
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "ログはまだありません"
-        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
-        
-        return NSAttributedString(string: str, attributes: attrs)
+        switch logManager.sharedSingleton.logNumber {
+        case 0:
+            let str = "😝その日のログはまだないよ😝"
+            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
+            return NSAttributedString(string: str, attributes: attrs)
+        default:
+            let str = "😝その日のログはまだないよ😝"
+            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
+            return NSAttributedString(string: str, attributes: attrs)
+        }
     }
-    
+
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "どんどん思い出をログりましょう！"
-        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
-        return NSAttributedString(string: str, attributes: attrs)
+        switch logManager.sharedSingleton.logNumber {
+        case 0:
+            let str = "今すぐログっちゃおう"
+            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
+            return NSAttributedString(string: str, attributes: attrs)
+        default:
+            let str = "ヒマだよねー"
+            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
+            return NSAttributedString(string: str, attributes: attrs)
+        }
     }
-    
-    //    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-    //        return UIImage(named: "taylor-swift")
-    //    }
-    
-    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
-        let str = "今すぐログる"
-        
-        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout)]
-        
-        //色を設定する場合
-        //        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout), NSForegroundColorAttributeName: UIColor.blueColor()]
-        return NSAttributedString(string: str, attributes: attrs)
+
+//    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+//        return UIImage(named: "logGood")
+//    }
+
+    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
+        return UIColor.lightGrayColor()
     }
-    
-    func emptyDataSetDidTapButton(scrollView: UIScrollView!) {
-        performSegueWithIdentifier("toSubmitVC", sender: nil)
-    }
-    
+
+//    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
+//        let str = "∨"
+//        let attrs = [NSFontAttributeName: UIFont.boldSystemFontOfSize(20.0), NSForegroundColorAttributeName: UIColor.whiteColor()]
+//        return NSAttributedString(string: str, attributes: attrs)
+//    }
+
     func emptyDataSetShouldDisplay(scrollView: UIScrollView!) -> Bool {
         return true
     }
-    
+
     func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
-        return true
+        return false
     }
-    
+
     func emptyDataSetShouldAllowScroll(scrollView: UIScrollView!) -> Bool {
         return false
     }
-    
+
     func emptyDataSetShouldAnimateImageView(scrollView: UIScrollView!) -> Bool {
         return false
     }
-    
-    
-}
 
+}
 
 extension LogViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
