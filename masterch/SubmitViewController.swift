@@ -809,13 +809,6 @@ extension SubmitViewController {
         let secondObject = object as! NCMBObject
         secondObject.incrementKey("postCount")
         if self.dateColor != "normal"{ //色を選択している時だけ色を更新する
-//            if secondObject.objectForKey("dateColor") != nil { //dateColorがある
-//                //なにもセットしない
-//            }else {
-//                if secretKeyToggle == false {//カギつけてない時、dateColorにも登録
-//                    secondObject.setObject(self.dateColor, forKey: "dateColor")
-//                }
-//            }
             if secretKeyToggle == false {
                 secondObject.setObject(self.dateColor, forKey: "dateColor")
             }
@@ -827,18 +820,6 @@ extension SubmitViewController {
                 }
             }
         }
-//
-//
-//
-//            if secretKeyToggle == false { //鍵付きじゃない
-//                if secondObject.objectForKey("dateColor") != nil { //dateColorがある
-//                    secondObject.setObject(self.dateColor, forKey: "dateColor")
-//                }else { //dateColorがない
-//                    secondObject.setObject(self.dateColor, forKey: "dateColor")
-//                }
-//            }
-//            secondObject.setObject(self.dateColor, forKey: "secretColor")
-//        }
         secondObject.saveInBackgroundWithBlock { (error) -> Void in
             object.saveInBackgroundWithBlock { (error) -> Void in
                 if error != nil {
