@@ -790,9 +790,11 @@ extension SubmitViewController {
         logColorObject.setObject(user, forKey: "user")
         logColorObject.setObject(logDate, forKey: "logDate")
         logColorObject.setObject(logYearAndMonth, forKey: "logYearAndMonth")
-        logColorObject.setObject(self.dateColor, forKey: "dateColor")
         logColorObject.incrementKey("postCount")
-        
+        if secretKeyToggle == false {
+            logColorObject.setObject(self.dateColor, forKey: "dateColor")
+        }
+        logColorObject.setObject(self.dateColor, forKey: "secretColor")
         logColorObject.saveInBackgroundWithBlock { (error) -> Void in
             if error != nil {
                 print("error", error)
@@ -806,9 +808,17 @@ extension SubmitViewController {
     func updateLogColor(object: AnyObject){
         let secondObject = object as! NCMBObject
         secondObject.incrementKey("postCount")
-        //色を選択しているだけ色を更新する
-        if self.dateColor != "normal"{
-            secondObject.setObject(self.dateColor, forKey: "dateColor")
+        if self.dateColor != "normal"{ //色を選択している時だけ色を更新する
+            if secretKeyToggle == false {
+                secondObject.setObject(self.dateColor, forKey: "dateColor")
+            }
+            secondObject.setObject(self.dateColor, forKey: "secretColor")
+        }else {// 色を選択してない時
+            if secretKeyToggle == false {//色を選択してなくてカギ付きじゃない
+                if secondObject.objectForKey("dateColor") == nil {//色を選択してなくてカギなしで、カギなし投稿だけのフィールドが空の時
+                    secondObject.setObject(self.dateColor, forKey: "dateColor")
+                }
+            }
         }
         secondObject.saveInBackgroundWithBlock { (error) -> Void in
             object.saveInBackgroundWithBlock { (error) -> Void in
