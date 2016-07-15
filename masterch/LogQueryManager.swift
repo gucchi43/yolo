@@ -17,6 +17,11 @@ final class logManager {
     var logUser: NCMBUser = NCMBUser.currentUser()
     var logTitleToggle: Bool = true
 
+    func resetSharedSingleton() {
+        logNumber = 0
+        logUser = NCMBUser.currentUser()
+        logTitleToggle = true
+    }
 }
 
 

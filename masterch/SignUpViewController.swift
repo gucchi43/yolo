@@ -72,7 +72,9 @@ class SignUpViewController: UIViewController {
                     //SignUp成功
                     //画面遷移
                     print("SignUp成功", newUser)
-                    self.performSegueWithIdentifier("toSetProfileViewSegue", sender: self)
+                    //Log周りのシングルトンを初期化する
+                    logManager.sharedSingleton.resetSharedSingleton()
+                self.performSegueWithIdentifier("toSetProfileViewSegue", sender: self)
                 }
                 
             })
