@@ -33,6 +33,7 @@ class CalendarLogCollerManager: NSObject {
             //これはなに？
 //            relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "LogColor"))
             logColorQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)
+            logColorQuery.whereKeyExists("dateColor")
             logColorQuery.whereKey("user", notEqualTo: NCMBUser.currentUser()) //自分で自分をフォローしていた場合自分を外す
             logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
             logColorQuery.orderByAscending("logDate")
@@ -40,6 +41,7 @@ class CalendarLogCollerManager: NSObject {
         case 2:
             //特定のアカウントのみ
             logColorQuery.whereKey("user", equalTo: user)
+            logColorQuery.whereKeyExists("dateColor")
             logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
             logColorQuery.orderByAscending("logDate")
 

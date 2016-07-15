@@ -49,7 +49,7 @@ class LogQueryManager: NSObject {
             //フォローのみ
             let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship") // 自分がフォローしている人かどうかのクエリ
             relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
-            //これはなに？
+            //これはなに」？
 //            relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "Post"))
             postQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)// 自分がフォローしている人の投稿クエリ
             postQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
@@ -62,6 +62,7 @@ class LogQueryManager: NSObject {
         case 2:
             //特定のアカウントのみ
             postQuery.whereKey("user", equalTo: user)
+            postQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
             postQuery.orderByDescending("postDate") // cellの並べ方
             postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
             postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
