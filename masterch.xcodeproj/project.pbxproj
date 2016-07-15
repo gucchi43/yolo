@@ -60,6 +60,7 @@
 		ED6AF8CB1D16B535003FBC5C /* DropdownMenu.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */; };
 		ED6AF8CE1D16B577003FBC5C /* SVProgressHUD.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ED6ED06D1D387ACD005B0053 /* GCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6ED06C1D387ACD005B0053 /* GCDManager.swift */; };
 		ED720CD11D180B2400477608 /* CalendarLogCollerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720CD01D180B2400477608 /* CalendarLogCollerManager.swift */; };
 		ED720CD31D188D6500477608 /* LogNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720CD21D188D6500477608 /* LogNavigationController.swift */; };
 		ED720CD51D18A8CA00477608 /* LogQueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720CD41D18A8CA00477608 /* LogQueryManager.swift */; };
@@ -181,6 +182,7 @@
 		ED652C4D1D29C2C70004BE9F /* SubmitDummyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitDummyViewController.swift; sourceTree = "<group>"; };
 		ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropdownMenu.framework; path = Carthage/Build/iOS/DropdownMenu.framework; sourceTree = "<group>"; };
 		ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
+		ED6ED06C1D387ACD005B0053 /* GCDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDManager.swift; sourceTree = "<group>"; };
 		ED720CD01D180B2400477608 /* CalendarLogCollerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarLogCollerManager.swift; sourceTree = "<group>"; };
 		ED720CD21D188D6500477608 /* LogNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogNavigationController.swift; sourceTree = "<group>"; };
 		ED720CD41D18A8CA00477608 /* LogQueryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogQueryManager.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
+				ED6ED06C1D387ACD005B0053 /* GCDManager.swift */,
 				EDE355F11CB284CD006C7C0A /* CommentFile.swift */,
 				EDB04C741CC5190500FDEB14 /* UserData.swift */,
 				EDA94FD21CEEC48700A42E8A /* UIExtension.swift */,
@@ -728,6 +731,7 @@
 				ED21521F1D11565C0027AFC4 /* NotificationManager.swift in Sources */,
 				EDA866781CBC93050074A71D /* SetProfileViewController.swift in Sources */,
 				ED23B7A41C7B475B009AEDA5 /* CalendarMonthView.swift in Sources */,
+				ED6ED06D1D387ACD005B0053 /* GCDManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

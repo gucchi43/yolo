@@ -393,7 +393,27 @@ extension EditProfileTableViewController {
 extension EditProfileTableViewController{
 
     @IBAction func tapLogoutButton(sender: AnyObject) {
-        print("ログアウト前", NCMBUser.currentUser())
-        NCMBUser.logOut()
+        if let user = NCMBUser.currentUser(){
+            print("ログアウト前、NCMBUser.currentUser(): ", user)
+        } else {
+            print("ログアウト前、currentUser無し")
+        }
+//        NCMBUser.logOut()
+
+        //GCD入れるメソッドで挟み、本当はプログレスビュー入れるためにこう書いたのだが、プログレスは出ずに処理速度が上がったのでひとまずコレで。通信状況悪いと、プログレスビュー出るかも。
+        SVProgressHUD.show()
+        let gcdManager = GCDManager()
+        gcdManager.dispatch_async_global { 
+            NCMBUser.logOut()
+            gcdManager.dispatch_async_main({ 
+                SVProgressHUD.dismiss()
+            })
+        }
+
+        if let user = NCMBUser.currentUser(){
+            print("ログアウト後、NCMBUser.currentUser(): ", user)
+        } else {
+            print("ログアウト後、currentUser無し")
+        }
     }
 }

@@ -55,6 +55,8 @@ class SignInViewController: UIViewController {
             }else {
                 //Login成功
                 print("Login成功", user)
+                //Log周りのシングルトンを初期化する
+                logManager.sharedSingleton.resetSharedSingleton()
                 SVProgressHUD.dismiss()
                 self.performSegueWithIdentifier("signUpedSegue", sender: self)
             }

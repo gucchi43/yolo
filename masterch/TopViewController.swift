@@ -33,5 +33,8 @@ class TopViewController: UIViewController {
         }else {
             print("currentUserは無し")
         }
+        print("logUser", logManager.sharedSingleton.logUser)
+        print("logNumber", logManager.sharedSingleton.logNumber)
+        print("logTitleToggle", logManager.sharedSingleton.logTitleToggle)
     }
 }
