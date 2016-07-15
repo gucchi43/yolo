@@ -70,15 +70,6 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
         
-        //        //NavigationBarのタイトルになる配列を読み込む
-        //        //（今は定数のためViewDidLoadに書いている）
-        //        let item1 = DropdownItem(title: "自分")
-        //        let item2 = DropdownItem(title: "フォロー")
-        //
-        //        //将来的には可変になる、アプリ内で変更可能に…
-        //        Dropitems = [item1, item2]
-        //        changeTitle(logManager.sharedSingleton.logNumber)
-        
         if toggleWeek == false {
             changeWeekOrMonthToggle.setImage(toWeekImage, forState: UIControlState.Normal)
         }else {
@@ -678,9 +669,10 @@ extension LogViewController: DropdownMenuDelegate {
         if logManager.sharedSingleton.logTitleToggle == true{
             print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
             navigationController!.navigationBar.topItem!.titleView = stackView
+            print("logTitleToggleがtrueなので、ログ範囲のタイトルを表示する")
         }else {
             print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
-            
+            print("logTitleToggleがfalseなので、ログ範囲のタイトルを表示しない")
         }
         
         

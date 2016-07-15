@@ -30,7 +30,8 @@ final class logManager {
 class LogQueryManager: NSObject {
     
     func loadItems(logNumber: Int, user: NCMBUser = NCMBUser.currentUser()) -> NCMBQuery {
-        print("userName", user.userName)
+        print("LogQueryManager: userName", user.userName)
+        print("LogQueryManager: logNumber", logNumber)
 
         //クエリの作成
         var postQuery: NCMBQuery = NCMBQuery(className: "Post")
@@ -48,7 +49,8 @@ class LogQueryManager: NSObject {
             //フォローのみ
             let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship") // 自分がフォローしている人かどうかのクエリ
             relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
-            relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "Post"))
+            //これはなに？
+//            relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "Post"))
             postQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)// 自分がフォローしている人の投稿クエリ
             postQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
             postQuery.whereKey("user", notEqualTo: NCMBUser.currentUser())//自分がフォロワーに含まれてたら自分は表示しない
