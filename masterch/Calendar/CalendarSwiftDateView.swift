@@ -22,6 +22,7 @@ class CalendarSwiftDateView: UIView{
 
     let logGoodImage = UIImage(named: "logGood")
     let logBadImage = UIImage(named: "logBad")
+    let logNomalImage = UIImage(named: "logNormal")
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -114,7 +115,8 @@ class CalendarSwiftDateView: UIView{
 //            self.dayButton.backgroundColor =  UIColor.darkGrayColor()
             self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
         default :
-            self.dayButton.backgroundColor =  UIColor.lightGrayColor()
+//            self.dayButton.backgroundColor =  UIColor.lightGrayColor()
+            self.dayButton.setBackgroundImage(logNomalImage, forState: .Normal)
         }
     }
 }

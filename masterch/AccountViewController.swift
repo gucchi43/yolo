@@ -939,6 +939,7 @@ extension AccountViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
         return NSAttributedString(string: str, attributes: attrs)
     }
 
+    // 写真入れるならコメント外す
     //    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
     //        return UIImage(named: "logGood")
     //    }
