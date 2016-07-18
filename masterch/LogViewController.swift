@@ -278,8 +278,10 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         //ここをいじれば切替時にAPI節約できるかも・・・
         if toggleWeek {
             calendarAnotherView?.resetWeekView()
+            changeWeekOrMonthToggle.setImage(toMonthImage, forState: UIControlState.Normal)
         } else {
             calendarView?.resetMonthView()
+            changeWeekOrMonthToggle.setImage(toWeekImage, forState: UIControlState.Normal)
         }
         
         monthConstraint.priority = toggleWeek ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh

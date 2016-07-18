@@ -282,7 +282,7 @@
                                     <outlet property="delegate" destination="iJy-WC-FCV" id="yN6-3b-dai"/>
                                 </connections>
                             </textView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile.png" translatesAutoresizingMaskIntoConstraints="NO" id="vRb-xq-aCt">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile" translatesAutoresizingMaskIntoConstraints="NO" id="vRb-xq-aCt">
                                 <rect key="frame" x="20" y="94" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="vRb-xq-aCt" secondAttribute="height" multiplier="1:1" id="5Sk-xu-Qlj"/>
@@ -520,7 +520,8 @@
     <resources>
         <image name="fb_login_small.png" width="261" height="58"/>
         <image name="logoTitle" width="158" height="42"/>
-        <image name="noprofile.png" width="500" height="500"/>
+        <image name="noprofile" width="400" height="400"/>
+        <image name="noprofile.png" width="40" height="33"/>
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
