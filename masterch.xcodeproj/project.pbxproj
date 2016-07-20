@@ -244,7 +244,6 @@
 		32C0A3311C5DF8ED009657B9 = {
 			isa = PBXGroup;
 			children = (
-				ED390BC71D3E6A120053FABF /* PINCache.framework */,
 				32C0A33C1C5DF8ED009657B9 /* masterch */,
 				32C0A3511C5DF8EE009657B9 /* masterchTests */,
 				32C0A35C1C5DF8EE009657B9 /* masterchUITests */,
@@ -317,6 +316,7 @@
 		B831727C3E3CF2E5ED6388D9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ED390BC71D3E6A120053FABF /* PINCache.framework */,
 				ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */,
 				ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */,
 				ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */,

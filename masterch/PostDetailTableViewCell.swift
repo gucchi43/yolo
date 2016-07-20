@@ -210,6 +210,7 @@ extension PostDetailTableViewCell {
     
     func like(postData: NCMBObject){
         //いいねONボタン
+        self.likeButton.enabled = false
         self.likeButton.setImage(likeOnImage, forState: .Normal)
         if self.likeCounts != nil{
             //likeCountが追加で変更される時（2回目以降）
@@ -232,10 +233,10 @@ extension PostDetailTableViewCell {
         postData.saveEventually ({ (error) -> Void in
             if let error = error{
                 print(error.localizedDescription)
+                self.likeButton.enabled = true
             }else {
                 print("save成功 いいね保存")
                 self.isLikeToggle = true
-                
                 //いいねしたことを通知画面のDBに保存
                 let auther = postData.objectForKey("user") as! NCMBUser
                 let allPostText = postData.objectForKey("text") as! String
@@ -249,7 +250,7 @@ extension PostDetailTableViewCell {
                 }
                 print("Notificatoinに保存する最初の５０文字", postHeader!)
                 let notificationManager = NotificationManager()
-                notificationManager.likeNotification(auther, post: postData, postHeader: postHeader!)
+                notificationManager.likeNotification(auther, post: postData, postHeader: postHeader!, button: self.likeButton)
             }
         })
         
@@ -257,6 +258,7 @@ extension PostDetailTableViewCell {
     
     func disLike(postData: NCMBObject){
         //いいねOFFボタン
+        self.likeButton.enabled = false
         self.likeButton.setImage(likeOffImage, forState: .Normal)
         self.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
         if self.likeCounts != nil{
@@ -277,17 +279,17 @@ extension PostDetailTableViewCell {
             let newLikeCounts = ""
             self.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
         }
-        
         postData.removeObject(NCMBUser.currentUser().objectId, forKey: "likeUser")
         postData.saveEventually ({ (error) -> Void in
             if let error = error{
                 print(error.localizedDescription)
+                self.likeButton.enabled = true
             }else {
                 print("save成功 いいね取り消し")
                 self.isLikeToggle = false
                 let auther = postData.objectForKey("user") as! NCMBUser
                 let notificationManager = NotificationManager()
-                notificationManager.deletelikeNotification(auther, post: postData)
+                notificationManager.deletelikeNotification(auther, post: postData, button: self.likeButton)
 
             }
         })
