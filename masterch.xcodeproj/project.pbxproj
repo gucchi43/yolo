@@ -50,6 +50,8 @@
 		ED36445E1C9D65C000C6676C /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445D1C9D65C000C6676C /* Notification.storyboard */; };
 		ED3644601C9D6DBA00C6676C /* Submit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445F1C9D6DBA00C6676C /* Submit.storyboard */; };
 		ED3707931D36427E00F892B0 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3707921D36427E00F892B0 /* ColorManager.swift */; };
+		ED390BC81D3E6A120053FABF /* PINCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED390BC71D3E6A120053FABF /* PINCache.framework */; };
+		ED390BC91D3E6A120053FABF /* PINCache.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED390BC71D3E6A120053FABF /* PINCache.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED402DCC1D34460C0098F843 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED402DCB1D34460C0098F843 /* images.xcassets */; };
 		ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED4512AF1CEF33CB0071FA58 /* Title.storyboard */; };
 		ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */; };
@@ -110,6 +112,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				ED390BC91D3E6A120053FABF /* PINCache.framework in CopyFiles */,
 				ED6AF8CE1D16B577003FBC5C /* SVProgressHUD.framework in CopyFiles */,
 				ED6AF8CB1D16B535003FBC5C /* DropdownMenu.framework in CopyFiles */,
 				ED7A79061D2027220087BCCD /* DZNEmptyDataSet.framework in CopyFiles */,
@@ -174,6 +177,7 @@
 		ED36445D1C9D65C000C6676C /* Notification.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Notification.storyboard; path = masterch/Notification.storyboard; sourceTree = "<group>"; };
 		ED36445F1C9D6DBA00C6676C /* Submit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Submit.storyboard; sourceTree = "<group>"; };
 		ED3707921D36427E00F892B0 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		ED390BC71D3E6A120053FABF /* PINCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PINCache.framework; path = Carthage/Build/iOS/PINCache.framework; sourceTree = "<group>"; };
 		ED402DCB1D34460C0098F843 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		ED4512AF1CEF33CB0071FA58 /* Title.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Title.storyboard; sourceTree = "<group>"; };
 		ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogPostedProgressBar.swift; sourceTree = "<group>"; };
@@ -216,6 +220,7 @@
 				ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */,
 				ED7A79051D2027220087BCCD /* DZNEmptyDataSet.framework in Frameworks */,
 				ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */,
+				ED390BC81D3E6A120053FABF /* PINCache.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +244,7 @@
 		32C0A3311C5DF8ED009657B9 = {
 			isa = PBXGroup;
 			children = (
+				ED390BC71D3E6A120053FABF /* PINCache.framework */,
 				32C0A33C1C5DF8ED009657B9 /* masterch */,
 				32C0A3511C5DF8EE009657B9 /* masterchTests */,
 				32C0A35C1C5DF8EE009657B9 /* masterchUITests */,

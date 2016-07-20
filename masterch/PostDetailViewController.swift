@@ -273,13 +273,23 @@ extension PostDetailViewController: UITableViewDataSource{
 }
 
 //PostDetailTableViewCellDelegateの受け取って実行
-extension PostDetailViewController: PostDetailTableViewCellDelegate {
+extension PostDetailViewController: PostDetailTableViewCellDelegate, IDMPhotoBrowserDelegate {
     func didSelectCommentButton() {
         commentTextView.becomeFirstResponder()
     }
     
-    func didSelectPostProfileImageView(){
+    func didSelectPostProfileImageView() {
         segueToPostAccount()
+    }
+
+    func didSelectPostImageView(postImage: UIImage, postText: String) {
+        let photo = IDMPhoto(image: postImage)
+        photo.caption = postText
+        let photos: NSArray = [photo]
+        let browser = IDMPhotoBrowser.init(photos: photos as [AnyObject])
+        browser.delegate = self
+        self.presentViewController(browser,animated:true ,completion:nil)
+
     }
 }
 

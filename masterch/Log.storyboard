@@ -317,7 +317,7 @@
                                     <outlet property="delegate" destination="FJA-Vb-RO4" id="5VU-sp-uxd"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXs-Sa-FCf">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXs-Sa-FCf">
                                 <rect key="frame" x="-5" y="72" width="102" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="EWB-U2-iHN"/>

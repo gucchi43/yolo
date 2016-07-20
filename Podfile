@@ -20,4 +20,7 @@ target 'masterch' do
   pod 'YLProgressBar', '~> 3.8.1'
 
   pod 'Colours'
+
+  pod 'IDMPhotoBrowser'
+
 end

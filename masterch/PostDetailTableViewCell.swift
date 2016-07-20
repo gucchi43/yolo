@@ -8,10 +8,12 @@
 
 import UIKit
 import Foundation
+import SVProgressHUD
 
 protocol PostDetailTableViewCellDelegate {
     func didSelectCommentButton()
     func didSelectPostProfileImageView()
+    func didSelectPostImageView(postImage: UIImage, postText: String)
 }
 
 class PostDetailTableViewCell: UITableViewCell {
@@ -62,8 +64,8 @@ class PostDetailTableViewCell: UITableViewCell {
             
             //プロフィール写真の形を円形にする
             userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
-            let gesture = UITapGestureRecognizer(target: self, action: #selector(PostDetailTableViewCell.tapImageView(_:)))
-            userProfileImageView.addGestureRecognizer(gesture)
+            let gestureUserProfileImage = UITapGestureRecognizer(target: self, action: #selector(PostDetailTableViewCell.tapUserProfileImage(_:)))
+            userProfileImageView.addGestureRecognizer(gestureUserProfileImage)
             
             let userImageData = NCMBFile.fileWithName(auther.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
             userImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
@@ -88,21 +90,30 @@ class PostDetailTableViewCell: UITableViewCell {
         postDateLabel.text = postDateFormatter.stringFromDate(date!)
         
         // 画像データの取得
+        let gesturePostImage = UITapGestureRecognizer(target: self, action: #selector(PostDetailTableViewCell.tapPostImage(_:)))
+        postImageView.addGestureRecognizer(gesturePostImage)
         if let postImageName = postObject.objectForKey("image1") as? String {
             self.postImageViewHeightConstraint.constant = 300
-            
+
             let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
             postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
                 if let error = error {
                     print("写真の取得失敗： ", error)
+//                    SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
                     self.postImageView.image = nil
                     self.postImageViewHeightConstraint.constant = 0.0
                 } else {
                     print(UIImage(data: imageData!))
+//                    SVProgressHUD.dismiss()
                     let imageHeight = UIImage(data: imageData!)!.size.height
                     self.postImageViewHeightConstraint.constant = 300
                     self.postImageView.image = UIImage(data: imageData!)
                 }
+                }, progressBlock: { (progress) in
+//                    SVProgressHUD.show()
+//                    SVProgressHUD.showProgress(Float(progress)/100)
+                    print("postImage進行速度 %: ", Float(progress)/100)
+
             })
         } else {
             self.postImageView.image = nil
@@ -150,10 +161,25 @@ class PostDetailTableViewCell: UITableViewCell {
 }
 
 //ユーザーの写真を押して遷移
-extension PostDetailTableViewCell {
-    func tapImageView (recoginizer: UITapGestureRecognizer){
+extension PostDetailTableViewCell: IDMPhotoBrowserDelegate  {
+    func tapUserProfileImage (recoginizer: UITapGestureRecognizer){
         print("写真押された")
         delegate.didSelectPostProfileImageView()
+    }
+
+    func tapPostImage(recoginizer: UITapGestureRecognizer) {
+        print("tapPostImage")
+        if let postImage = postImageView.image{
+            delegate.didSelectPostImageView(postImage, postText: postTextLabel.text!)
+        }
+
+//        let photo = IDMPhoto(image: postImageView.image)
+//        photo.caption = "センチメンタルキッス"
+//        let photos: NSArray = [photo]
+//        let browser = IDMPhotoBrowser.init(photos: photos as [AnyObject])
+//        browser.delegate = self
+//        let postDetailVC = PostDetailViewController()
+//        postDetailVC.presentViewController(browser,animated:true ,completion:nil)
     }
 }
 
