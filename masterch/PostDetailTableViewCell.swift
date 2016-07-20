@@ -99,18 +99,18 @@ class PostDetailTableViewCell: UITableViewCell {
             postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
                 if let error = error {
                     print("写真の取得失敗： ", error)
-                    SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
+//                    SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
                     self.postImageView.image = nil
                     self.postImageViewHeightConstraint.constant = 0.0
                 } else {
                     print(UIImage(data: imageData!))
-                    SVProgressHUD.dismiss()
+//                    SVProgressHUD.dismiss()
                     let imageHeight = UIImage(data: imageData!)!.size.height
                     self.postImageViewHeightConstraint.constant = 300
                     self.postImageView.image = UIImage(data: imageData!)
                 }
                 }, progressBlock: { (progress) in
-                    SVProgressHUD.showProgress(Float(progress)/100, status: "画像読み込み中")
+//                    SVProgressHUD.showProgress(Float(progress)/100, status: "画像読み込み中")
                     print("postImage進行速度 %: ", Float(progress)/100)
 
             })
