@@ -32,6 +32,8 @@ class PostDetailViewController: UIViewController {
     
     var commentArray:[AnyObject] = []
     var otherUser: NCMBUser!
+
+    var loadPostDetailCelltoken: dispatch_once_t = 0
     
     var delegate: addPostDetailDelegate?
 
@@ -258,7 +260,9 @@ extension PostDetailViewController: UITableViewDataSource{
             cell.delegate = self
             cell.postObject = postObject
             cell.auther = otherUser
-            cell.setPostDetailCell()
+        dispatch_once(&loadPostDetailCelltoken){
+                cell.setPostDetailCell()
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentTableViewCell
