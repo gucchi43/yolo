@@ -482,6 +482,7 @@ extension LogViewController{
     
     func like(postData: NCMBObject, cell: TimelineCell) {
         //いいねONボタン
+        cell.likeButton.enabled = false
         cell.likeButton.setImage(likeOnImage, forState: .Normal)
         
         if cell.likeCounts != nil{
@@ -505,6 +506,7 @@ extension LogViewController{
         postData.saveEventually ({ (error) -> Void in
             if let error = error{
                 print(error.localizedDescription)
+                cell.likeButton.enabled = true
             }else {
                 print("save成功 いいね保存")
                 cell.isLikeToggle = true
@@ -521,7 +523,7 @@ extension LogViewController{
                 }
                 print("Notificatoinに保存する最初の５０文字", postHeader!)
                 let notificationManager = NotificationManager()
-                notificationManager.likeNotification(auther, post: postData, postHeader: postHeader!)
+                notificationManager.likeNotification(auther, post: postData, postHeader: postHeader!, button: cell.likeButton)
             }
         })
         
@@ -530,6 +532,7 @@ extension LogViewController{
     
     func disLike(postData: NCMBObject, cell: TimelineCell) {
         //いいねOFFボタン
+        cell.likeButton.enabled = false
         cell.likeButton.setImage(likeOffImage, forState: .Normal)
         cell.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
         
@@ -557,11 +560,12 @@ extension LogViewController{
         postData.saveEventually ({ (error) -> Void in
             if let error = error{
                 print(error.localizedDescription)
+                cell.likeButton.enabled = true
             }else {
                 print("save成功 いいね取り消し")
                 cell.isLikeToggle = false
                 let notificationManager = NotificationManager()
-                notificationManager.deletelikeNotification(auther, post: postData)
+                notificationManager.deletelikeNotification(auther, post: postData, button: cell.likeButton)
             }
         })
         

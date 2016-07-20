@@ -15,7 +15,8 @@ class NotificationManager: NSObject {
     //---------------いいね---------------
     
     //いいねしたことを通知画面のデータに保存
-    func likeNotification(user: NCMBUser, post: NCMBObject, postHeader: String){
+    func likeNotification(user: NCMBUser, post: NCMBObject, postHeader: String, button: UIButton){
+        button.enabled = false
         let notificationObject = NCMBObject(className: "Notification")
         notificationObject.setObject(user, forKey: "ownerUser")
         notificationObject.setObject("like", forKey: "type")
@@ -27,13 +28,16 @@ class NotificationManager: NSObject {
         notificationObject.saveEventually({ (error) -> Void in
             if let error = error {
                 print("error", error.localizedDescription)
+                button.enabled = true
             }else {
                 print("like: Notificationへの保存成功")
+                button.enabled = true
             }
         })
     }
     
-    func deletelikeNotification(user: NCMBUser, post: NCMBObject){
+    func deletelikeNotification(user: NCMBUser, post: NCMBObject, button: UIButton){
+        button.enabled = false
         let query = NCMBQuery(className: "Notification")
         query.whereKey("ownerUser", equalTo: user)
         query.whereKey("type", equalTo: "like")
@@ -50,9 +54,10 @@ class NotificationManager: NSObject {
                     if let error = error {
                         print("error", error.localizedDescription)
                         print("notificationObject", deleteObjct)
+                        button.enabled = true
                     }else {
-                        
                         print("follow: Notificationへの削除成功")
+                        button.enabled = true
                     }
                 })
             }
