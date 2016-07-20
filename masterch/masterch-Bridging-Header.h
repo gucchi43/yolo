@@ -9,5 +9,6 @@
 #import "NSDate+TimeAgo.h"
 #import "YLProgressBar.h"
 #import "Colours.h"
+#import "IDMPhotoBrowser.h"
 
 

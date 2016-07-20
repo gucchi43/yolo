@@ -32,6 +32,8 @@ class PostDetailViewController: UIViewController {
     
     var commentArray:[AnyObject] = []
     var otherUser: NCMBUser!
+
+    var loadPostDetailCelltoken: dispatch_once_t = 0
     
     var delegate: addPostDetailDelegate?
 
@@ -258,7 +260,9 @@ extension PostDetailViewController: UITableViewDataSource{
             cell.delegate = self
             cell.postObject = postObject
             cell.auther = otherUser
-            cell.setPostDetailCell()
+        dispatch_once(&loadPostDetailCelltoken){
+                cell.setPostDetailCell()
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentTableViewCell
@@ -273,13 +277,23 @@ extension PostDetailViewController: UITableViewDataSource{
 }
 
 //PostDetailTableViewCellDelegateの受け取って実行
-extension PostDetailViewController: PostDetailTableViewCellDelegate {
+extension PostDetailViewController: PostDetailTableViewCellDelegate, IDMPhotoBrowserDelegate {
     func didSelectCommentButton() {
         commentTextView.becomeFirstResponder()
     }
     
-    func didSelectPostProfileImageView(){
+    func didSelectPostProfileImageView() {
         segueToPostAccount()
+    }
+
+    func didSelectPostImageView(postImage: UIImage, postText: String) {
+        let photo = IDMPhoto(image: postImage)
+        photo.caption = postText
+        let photos: NSArray = [photo]
+        let browser = IDMPhotoBrowser.init(photos: photos as [AnyObject])
+        browser.delegate = self
+        self.presentViewController(browser,animated:true ,completion:nil)
+
     }
 }
 

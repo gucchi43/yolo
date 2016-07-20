@@ -25,7 +25,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     @IBOutlet weak var calendarWeekView: UIView!
     
     @IBOutlet weak var tableView: UITableView!
-    
+
     var calendarView: CalendarView?
     var calendarAnotherView: CalendarAnotherView?
     
@@ -295,14 +295,14 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 
 extension LogViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     //------------------DZNEmptyDataSet(セルが無い時に表示するViewの設定--------------------
-
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+
         switch logManager.sharedSingleton.logNumber {
-        case 0:
+        case 0: //自分の時
             let str = "😝その日のログはまだないよ😝"
             let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
             return NSAttributedString(string: str, attributes: attrs)
-        default:
+        default: //自分ではない時
             let str = "😝その日のログはまだないよ😝"
             let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
             return NSAttributedString(string: str, attributes: attrs)
@@ -311,11 +311,11 @@ extension LogViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
 
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
         switch logManager.sharedSingleton.logNumber {
-        case 0:
+        case 0: //自分の時
             let str = "今すぐログっちゃおう"
             let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
             return NSAttributedString(string: str, attributes: attrs)
-        default:
+        default: //自分ではない時
             let str = "ヒマだよねー"
             let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
             return NSAttributedString(string: str, attributes: attrs)
@@ -368,7 +368,7 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         cell.postImageView.image = nil
         
         // 各値をセルに入れる
-        let postData = postArray[indexPath.row]
+        let postData = postArray[indexPath.row] as! NCMBObject
         print("postData", postData)
         // postTextLabelには(key: "text")の値を入れる
         cell.postTextLabel.text = postData.objectForKey("text") as? String
@@ -384,7 +384,6 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         
         //プロフィール写真の形を円形にする
         cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
-        
         let author = postData.objectForKey("user") as? NCMBUser
         if let author = author {
             cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
