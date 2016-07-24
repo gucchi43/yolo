@@ -140,10 +140,10 @@
 		32C0A3421C5DF8ED009657B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		32C0A3471C5DF8ED009657B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		32C0A3491C5DF8ED009657B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32C0A34E1C5DF8EE009657B9 /* masterchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = masterchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		32C0A34E1C5DF8EE009657B9 /* masterch.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = masterch.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		32C0A3521C5DF8EE009657B9 /* masterchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = masterchTests.swift; sourceTree = "<group>"; };
 		32C0A3541C5DF8EE009657B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32C0A3591C5DF8EE009657B9 /* masterchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = masterchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		32C0A3591C5DF8EE009657B9 /* masterch.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = masterch.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		32C0A35D1C5DF8EE009657B9 /* masterchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = masterchUITests.swift; sourceTree = "<group>"; };
 		32C0A35F1C5DF8EE009657B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
@@ -257,8 +257,8 @@
 			isa = PBXGroup;
 			children = (
 				32C0A33A1C5DF8ED009657B9 /* masterch.app */,
-				32C0A34E1C5DF8EE009657B9 /* masterchTests.xctest */,
-				32C0A3591C5DF8EE009657B9 /* masterchUITests.xctest */,
+				32C0A34E1C5DF8EE009657B9 /* masterch.xctest */,
+				32C0A3591C5DF8EE009657B9 /* masterch.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -516,7 +516,7 @@
 			);
 			name = masterchTests;
 			productName = masterchTests;
-			productReference = 32C0A34E1C5DF8EE009657B9 /* masterchTests.xctest */;
+			productReference = 32C0A34E1C5DF8EE009657B9 /* masterch.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		32C0A3581C5DF8EE009657B9 /* masterchUITests */ = {
@@ -534,7 +534,7 @@
 			);
 			name = masterchUITests;
 			productName = masterchUITests;
-			productReference = 32C0A3591C5DF8EE009657B9 /* masterchUITests.xctest */;
+			productReference = 32C0A3591C5DF8EE009657B9 /* masterch.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -549,7 +549,7 @@
 				TargetAttributes = {
 					32C0A3391C5DF8ED009657B9 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = LZVK55AH8Y;
+						DevelopmentTeam = 84ZS9U8SU6;
 					};
 					32C0A34D1C5DF8EE009657B9 = {
 						CreatedOnToolsVersion = 7.2;
@@ -811,7 +811,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hiroki Taniguchi (RA9N5B6XBR)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -833,6 +833,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "83d9f495-3e67-40ab-8dfa-e0c50a0e0f53";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -855,7 +856,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hiroki Taniguchi (RA9N5B6XBR)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -870,6 +871,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "83d9f495-3e67-40ab-8dfa-e0c50a0e0f53";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -890,9 +892,9 @@
 				INFOPLIST_FILE = masterch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yamanakafumiya.masterch;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bfe89c00-5b89-4d72-9d45-1a8f0fa8269a";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shiosava.yolo;
+				PRODUCT_NAME = masterch;
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "masterch/masterch-Bridging-Header.h";
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "$(SRCROOT)/$(PROJECT)/masterch-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -915,9 +917,9 @@
 				INFOPLIST_FILE = masterch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yamanakafumiya.masterch;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bfe89c00-5b89-4d72-9d45-1a8f0fa8269a";
+				PRODUCT_BUNDLE_IDENTIFIER = com.shiosava.yolo;
+				PRODUCT_NAME = masterch;
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "masterch/masterch-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -929,7 +931,7 @@
 				INFOPLIST_FILE = masterchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yamanakafumiya.masterchTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = masterch;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/masterch.app/masterch";
 			};
 			name = Debug;
@@ -940,7 +942,7 @@
 				INFOPLIST_FILE = masterchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yamanakafumiya.masterchTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = masterch;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/masterch.app/masterch";
 			};
 			name = Release;
@@ -951,7 +953,7 @@
 				INFOPLIST_FILE = masterchUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yamanakafumiya.masterchUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = masterch;
 				TEST_TARGET_NAME = masterch;
 				USES_XCTRUNNER = YES;
 			};
@@ -963,7 +965,7 @@
 				INFOPLIST_FILE = masterchUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yamanakafumiya.masterchUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = masterch;
 				TEST_TARGET_NAME = masterch;
 				USES_XCTRUNNER = YES;
 			};
