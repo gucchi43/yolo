@@ -11,32 +11,32 @@ import SwiftDate
 import DZNEmptyDataSet
 import SVProgressHUD
 
-
 class NotificationTableViewController: UITableViewController {
     var notificationArray: NSArray = NSArray()
     
     var selectedUser: NCMBUser!
     var selectedObject: NCMBObject!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         //Cellの高さを可変にする(ストーリーボードのオートレイアウトに合わしている)
         self.tableView.estimatedRowHeight = 200
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.tableFooterView =  UIView()
-        
+        self.refreshControl?.addTarget(self, action: #selector(NotificationTableViewController.pullRefreshloadArray), forControlEvents: UIControlEvents.ValueChanged)
+        firstLoadArray()
 //        self.tableView.emptyDataSetSource = self
 //        self.tableView.emptyDataSetDelegate = self
 //        self.tableView.emptyDataSetSource = nil
-        
     }
+
     override func viewWillAppear(animated: Bool) {
-        loadArray()
+//        loadArray()
     }
-    
-    
-    func loadArray() {
-        SVProgressHUD.show()
+
+    //viewDidLoadの時しか呼べれない(SVProgressHUDを使う)
+    func firstLoadArray() {
+            SVProgressHUD.show()
         //includeKeyで全部撮ってきたいんねん!!!!ほんとのところは！
         let notificationQuery: NCMBQuery = NCMBQuery(className: "Notification")
         notificationQuery.whereKey("ownerUser", equalTo: NCMBUser.currentUser())
@@ -46,6 +46,39 @@ class NotificationTableViewController: UITableViewController {
         notificationQuery.findObjectsInBackgroundWithBlock { (objects, error) in
             if let error = error {
                 print(error.localizedDescription)
+                    SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
+            }else {
+                if objects.count > 0 {
+                    print("通知テーブルセルの数", objects.count)
+                    self.notificationArray = objects
+                    self.tableView.emptyDataSetSource = nil
+                    self.tableView.emptyDataSetDelegate = nil
+                    self.refreshControl?.endRefreshing()
+                }else {
+                    self.notificationArray = []
+                    print("通知はまだ0です……")
+                    self.tableView.emptyDataSetSource = self
+                    self.tableView.emptyDataSetDelegate = self
+                }
+                self.tableView.reloadData()
+                    SVProgressHUD.dismiss()
+            }
+        }
+    }
+
+
+    //pullRefreshの時呼ばれる(refreshControlを使う)
+    func pullRefreshloadArray() {
+//        //includeKeyで全部撮ってきたいんねん!!!!ほんとのところは！
+        let notificationQuery: NCMBQuery = NCMBQuery(className: "Notification")
+        notificationQuery.whereKey("ownerUser", equalTo: NCMBUser.currentUser())
+        notificationQuery.orderByDescending("updateDate") // cellの並べ方
+        notificationQuery.includeKey("actionUser")
+        notificationQuery.limit = 20 //取ってくるデータ最新から20件
+        notificationQuery.findObjectsInBackgroundWithBlock { (objects, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                self.refreshControl?.endRefreshing()
                 SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
             }else {
                 if objects.count > 0 {
@@ -58,9 +91,10 @@ class NotificationTableViewController: UITableViewController {
                     print("通知はまだ0です……")
                     self.tableView.emptyDataSetSource = self
                     self.tableView.emptyDataSetDelegate = self
+
                 }
                 self.tableView.reloadData()
-                SVProgressHUD.dismiss()
+                self.refreshControl?.endRefreshing()
             }
         }
     }
