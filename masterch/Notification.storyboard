@@ -247,6 +247,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="通知" id="GO5-ad-qbb"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="I1i-XC-ad6">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
                         <segue destination="ofP-1X-FKF" kind="show" identifier="toPostDetailVC" id="Krx-EB-CB2"/>
                         <segue destination="rrg-kQ-QrQ" kind="show" identifier="toAccountVC" id="mI6-tR-TZP"/>
