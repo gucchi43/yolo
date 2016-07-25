@@ -22,6 +22,8 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate, UITextVie
     var userId: String!
     var password: String!
 
+    var profileImageToggle = false
+
 //   テキストフィールドのplaceholder用ラベル
     @IBOutlet weak var placeHolderLabel: UILabel!
     
@@ -95,7 +97,7 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate, UITextVie
 
 
 // カメラ周り
-extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, RSKImageCropViewControllerDelegate  {
     
     //プロフィール画面のカメラ選択ボタン
     @IBAction func selectEditProfileImageButton(sender: AnyObject) {
@@ -153,12 +155,10 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if info[UIImagePickerControllerOriginalImage] != nil {
             var image = info[UIImagePickerControllerOriginalImage] as! UIImage
-            
-            // 画像をリサイズしてUIImageViewにセット
-            let resizeImage = resize(image, width: 500, height: 500)
-            image = resizeImage
-            
-            self.userImageView.image = image
+            let imageCropVC = RSKImageCropViewController.init(image: image, cropMode: .Circle)
+            imageCropVC.delegate = self
+            imageCropVC.dataSource = nil
+            self.navigationController?.pushViewController(imageCropVC, animated: true)
         }
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -169,7 +169,20 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
         self.dismissViewControllerAnimated(true, completion: nil)
         print("カメラキャンセル")
     }
-    
+
+    //写真編集画面で「キャンセル」タップした時
+    func imageCropViewControllerDidCancelCrop(controller: RSKImageCropViewController) {
+        print("imageCropViewControllerDidCancelCrop")
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+
+    //写真編集画面で「選択」タップした時
+    func imageCropViewController(controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
+        print("imageCropViewController")
+        self.userImageView.image = croppedImage
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+
     // 画像リサイズメソッド
     func resize(image: UIImage, width: Int, height: Int) -> UIImage {
         let size: CGSize = CGSize(width: width, height: height)
@@ -183,16 +196,17 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
 }
 
 
-// 投稿アクション周り
+// プロフィール保存周り
 extension SetProfileViewController {
     //保存ボタン
     @IBAction func selectSaveProfileButton(sender: AnyObject) {
         saveNewProfile()
     }
 
-    //投稿ボタンプッシュ, 投稿機能メソッド
+    //プロフィール保存
     func saveNewProfile() {
-        
+        SVProgressHUD.showWithStatus("登録中")
+
         user.ACL.setPublicWriteAccess(true)
         user.ACL.setPublicReadAccess(true)
         //ユーザーネーム保存
@@ -204,7 +218,8 @@ extension SetProfileViewController {
         if userImageView.image != nil {
             
             //設定してもらったProfileImageをユーザー情報に追加
-            let userProfileImageData = UIImagePNGRepresentation(self.userImageView.image!)! as NSData
+            let userProfileImageData = UIImageJPEGRepresentation(self.userImageView.image!, 0.8)! as NSData
+//            let userProfileImageData = UIImagePNGRepresentation(self.userImageView.image!)! as NSData
             let userProfileImageFile: NCMBFile = NCMBFile.fileWithData(userProfileImageData) as! NCMBFile
             user.setObject(userProfileImageFile.name, forKey: "userProfileImage")
             user.setObject(userProfileImageFile.name, forKey: "userHomeImage")
@@ -212,35 +227,36 @@ extension SetProfileViewController {
             //ファイルはバックグラウンド実行をする
             userProfileImageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error == nil {
-                    SVProgressHUD.dismiss()
                     print("画像データ保存完了: \(userProfileImageFile.name)")
-                    self.performSegueWithIdentifier("signUpSegue", sender: self)
+                    self.profileImageToggle = true
+                    self.goNextViewController()
                 } else {
-                    print("アップロード中にエラーが発生しました: \(error)")
-                    SVProgressHUD.dismiss()
+                    print("アップロード中にエラーが発生しました: \(error.localizedDescription)")
+                    self.profileImageToggle = true
+                    SVProgressHUD.showErrorWithStatus("プロフィール画像の保存に失敗しました")
+                    self.goNextViewController()
                 }
                 }, progressBlock: { (percentDone: Int32) -> Void in
-                    //                    進捗状況を取得します。保存完了まで何度も呼ばれます
-//                    SVProgressHUD.showProgress(Float(percentDone)/Float(100), status: "登録中")
                     print("進捗状況: \(percentDone)% アップロード済み")
-                    print("進捗状況SVProgressHUD用: \((Float(percentDone)/Float(100))) アップロード済み")
+                    SVProgressHUD.showProgress(Float(percentDone) / Float(100), status: "登録中")
             })
         }else {
             print("profileImageはnil")
         }
         
         user.saveInBackgroundWithBlock({(error) in
-            SVProgressHUD.show()
             if error != nil {
-                print("Save error : ",error)
-                SVProgressHUD.dismiss()
+                print(error.localizedDescription)
             }else {
-                self.performSegueWithIdentifier("signUpSegue", sender: self)
-                SVProgressHUD.dismiss()
+                self.goNextViewController()
             }
         })
-        
-       
-        
+    }
+
+    func goNextViewController() {
+        if profileImageToggle == true{
+            SVProgressHUD.dismiss()
+            self.performSegueWithIdentifier("signUpSegue", sender: self)
+        }
     }
 }

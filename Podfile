@@ -23,4 +23,8 @@ target 'masterch' do
 
   pod 'IDMPhotoBrowser'
 
+  pod 'NYXImagesKit'
+
+  pod 'RSKImageCropper'
+
 end

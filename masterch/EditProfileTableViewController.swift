@@ -19,7 +19,7 @@ class EditProfileTableViewController: UITableViewController {
     @IBOutlet weak var changeProfileButton: UIButton!
 
     var changeImageButtonFrag: Int = 0 // 1 -> プロフィール, 2 -> ホーム
-    
+
     var profileImageToggle = false
     var homeImageToggle = false
     
@@ -30,7 +30,6 @@ class EditProfileTableViewController: UITableViewController {
 
     var user: NCMBUser?
 
-
     private var onceTokenViewWillAppear: dispatch_once_t = 0
 
     
@@ -38,7 +37,7 @@ class EditProfileTableViewController: UITableViewController {
         super.viewDidLoad()
         //プロフィール写真の形を整える
         userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
-        changeProfileButton.layer.cornerRadius = changeProfileButton.frame.width/2        
+        changeProfileButton.layer.cornerRadius = changeProfileButton.frame.width/2
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -189,7 +188,7 @@ class EditProfileTableViewController: UITableViewController {
 
 
 // カメラ周り
-extension EditProfileTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+extension EditProfileTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate,  RSKImageCropViewControllerDelegate, RSKImageCropViewControllerDataSource  {
     //プロフィール写真変更ボタンアクション
     @IBAction func changeProfileImage(sender: AnyObject) {
         print(sender.tag)
@@ -245,41 +244,100 @@ extension EditProfileTableViewController: UIImagePickerControllerDelegate, UINav
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if info[UIImagePickerControllerOriginalImage] != nil {
             var image = info[UIImagePickerControllerOriginalImage] as! UIImage
-
             if changeImageButtonFrag == 1 {
-//                画像をリサイズしてUIImageViewにセット
-                let resizeImage = resize(image, width: 500, height: 500)
-                image = resizeImage
+                let imageCropVC = RSKImageCropViewController.init(image: image, cropMode: .Circle)
+                imageCropVC.delegate = self
+                imageCropVC.dataSource = nil
+                self.navigationController?.pushViewController(imageCropVC, animated: true)
 
-//                userProfileImageView.image = image
-                userProfileImageView.image = image
-                
             } else if changeImageButtonFrag == 2 {
-                let resizeImage = resize(image, width: 800, height: 400)
-                image = resizeImage
-//                userHomeImageView.image = image
-                userHomeImageView.image = image
+                let imageCropVC = RSKImageCropViewController.init(image: image, cropMode: .Custom)
+                imageCropVC.delegate = self
+                imageCropVC.dataSource = self
+                self.navigationController?.pushViewController(imageCropVC, animated: true)
             }
         }
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
 
     // 画像リサイズメソッド
-    func resize(image: UIImage, width: Int, height: Int) -> UIImage {
-        let size: CGSize = CGSize(width: width, height: height)
-        UIGraphicsBeginImageContext(size)
-        image.drawInRect(CGRectMake(0, 0, size.width, size.height))
-        
-        let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return resizeImage
-    }
-    
+//    func resize(image: UIImage, width: Int, height: Int) -> UIImage {
+//        let size: CGSize = CGSize(width: width, height: height)
+//        UIGraphicsBeginImageContext(size)
+//        image.drawInRect(CGRectMake(0, 0, size.width, size.height))
+//        
+//        let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        return resizeImage
+//    }
+
     //    画像選択がキャンセルされた時に呼ばれる.
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         // モーダルビューを閉じる
         self.dismissViewControllerAnimated(true, completion: nil)
         print("カメラキャンセル")
+    }
+
+    func imageCropViewControllerCustomMaskRect(controller: RSKImageCropViewController) -> CGRect {
+        print("imageCropViewControllerCustomMaskRect")
+        var maskSize: CGSize
+        var width: CGFloat!
+        var height: CGFloat!
+        width = self.view.frame.width
+        height = 250.0
+        maskSize = CGSizeMake(self.view.frame.width, height)
+        let viewWidth: CGFloat = CGRectGetWidth(controller.view.frame)
+        let viewHeight: CGFloat = CGRectGetHeight(controller.view.frame)
+
+        let maskRect: CGRect = CGRectMake((viewWidth - maskSize.width) * 0.5, (viewHeight - maskSize.height) * 0.5, maskSize.width, maskSize.height)
+        return maskRect
+    }
+
+    // トリミングしたい領域を描画（今回は四角な領域です・・・）
+    func imageCropViewControllerCustomMaskPath(controller: RSKImageCropViewController) -> UIBezierPath {
+        print("imageCropViewControllerCustomMaskPath")
+        let rect: CGRect = controller.maskRect
+
+        let point1: CGPoint = CGPointMake(CGRectGetMinX(rect), CGRectGetMaxY(rect))
+        let point2: CGPoint = CGPointMake(CGRectGetMaxX(rect), CGRectGetMaxY(rect))
+        let point3: CGPoint = CGPointMake(CGRectGetMaxX(rect), CGRectGetMinY(rect))
+        let point4: CGPoint = CGPointMake(CGRectGetMinX(rect), CGRectGetMinY(rect))
+
+        let square: UIBezierPath = UIBezierPath()
+        square.moveToPoint(point1)
+        square.addLineToPoint(point2)
+        square.addLineToPoint(point3)
+        square.addLineToPoint(point4)
+        square.closePath()
+
+        return square
+    }
+
+    func imageCropViewControllerCustomMovementRect(controller: RSKImageCropViewController) -> CGRect {
+        print("imageCropViewControllerCustomMovementRect")
+        return controller.maskRect
+    }
+
+    func imageCropViewController(controller: RSKImageCropViewController, willCropImage originalImage: UIImage) {
+        print("imageCropViewController")
+    }
+
+    //写真編集画面で「キャンセル」タップした時
+    func imageCropViewControllerDidCancelCrop(controller: RSKImageCropViewController) {
+        print("imageCropViewControllerDidCancelCrop")
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+
+
+    //写真編集画面で「選択」タップした時
+    func imageCropViewController(controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
+        print("imageCropViewController")
+        if changeImageButtonFrag == 1{
+            self.userProfileImageView.image = croppedImage
+        }else if changeImageButtonFrag == 2{
+            self.userHomeImageView.image = croppedImage
+        }
+        self.navigationController?.popViewControllerAnimated(true)
     }
 }
 
@@ -302,8 +360,9 @@ extension EditProfileTableViewController {
         
         // 変更があればプロフィール写真を保存
         if userProfileImageView.image != profileImage {
-            
-            let userProfileImageData = UIImagePNGRepresentation(self.userProfileImageView.image!)! as NSData
+
+            let userProfileImageData = UIImageJPEGRepresentation(self.userProfileImageView.image!, 0.8)! as NSData
+//            let userProfileImageData = UIImagePNGRepresentation(self.userProfileImageView.image!)! as NSData
             let userProfileImageFile: NCMBFile = NCMBFile.fileWithData(userProfileImageData) as! NCMBFile
             
             user.setObject(userProfileImageFile.name, forKey: "userProfileImage")
@@ -331,7 +390,8 @@ extension EditProfileTableViewController {
         }
 //        変更があればホーム画像を保存
         if userHomeImageView.image != profileHomeImage {
-            let userHomeImageData = UIImagePNGRepresentation(self.userHomeImageView.image!)! as NSData
+            let userHomeImageData = UIImageJPEGRepresentation(self.userHomeImageView.image!, 0.8)! as NSData
+//            let userHomeImageData = UIImagePNGRepresentation(self.userHomeImageView.image!)! as NSData
             let userHomeImageFile: NCMBFile = NCMBFile.fileWithData(userHomeImageData) as! NCMBFile
             
             user.setObject(userHomeImageFile.name, forKey: "userHomeImage")

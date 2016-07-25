@@ -8,6 +8,7 @@
 
 import UIKit
 import TwitterKit
+import SVProgressHUD
 
 class SignUpViewController: UIViewController {
     
@@ -52,7 +53,8 @@ class SignUpViewController: UIViewController {
     }
     
     func signUp() {
-        
+        SVProgressHUD.show()
+
         let newUser = NCMBUser()
         newUser.userName = userIdTextField.text
         newUser.password = passwordTextField.text
@@ -68,13 +70,15 @@ class SignUpViewController: UIViewController {
                     // SignUp失敗
                     print("SignUp失敗", error)
                     self.showErrorAlert(error)
+                    SVProgressHUD.dismiss()
                 }else{
                     //SignUp成功
                     //画面遷移
                     print("SignUp成功", newUser)
                     //Log周りのシングルトンを初期化する
                     logManager.sharedSingleton.resetSharedSingleton()
-                self.performSegueWithIdentifier("toSetProfileViewSegue", sender: self)
+                    SVProgressHUD.dismiss()
+                    self.performSegueWithIdentifier("toSetProfileViewSegue", sender: self)
                 }
                 
             })
