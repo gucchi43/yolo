@@ -72,8 +72,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         /** Fabric連携 **/
-        let consumerKey = "2qY7CYrPfZrvSo8AcMZwMify9"
-        let consumerSecret = "qLBkQ9ATbpz8Ym6pWcNqRrzINceW0IaszxYWLFy46Zjy9O3VQc"
+        let consumerKey = "TrXvBgug4dQvHd8OBhtCDe4u5"
+        let consumerSecret = "EwTwn9kg9hpzihQNWxn0Uo6OEnmJbUOebHayJBNt9jfqrZmAlR"
         Twitter.sharedInstance().startWithConsumerKey(consumerKey, consumerSecret: consumerSecret)
 //        Fabric.with([Twitter.sharedInstance()])
         Fabric.with([Twitter.self, Crashlytics.self])
