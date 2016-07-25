@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="logoTitle" translatesAutoresizingMaskIntoConstraints="NO" id="E7t-QW-1mO">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="logoTitle" translatesAutoresizingMaskIntoConstraints="NO" id="E7t-QW-1mO">
                                 <rect key="frame" x="128" y="160" width="158" height="42"/>
                             </imageView>
                         </subviews>
