@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //        NCMBTwitterUtils.initializeWithConsumerKey("BC5FOGIUpi7cPUnuG9JUgtnwD", consumerSecret: "1GBwujSqH10INkqiaPfhO6IyncFc30CrwT8TNHUChgm1zV0dXq")
         
-        NCMBTwitterUtils.initializeWithConsumerKey("2qY7CYrPfZrvSo8AcMZwMify9", consumerSecret: "qLBkQ9ATbpz8Ym6pWcNqRrzINceW0IaszxYWLFy46Zjy9O3VQc")
+        NCMBTwitterUtils.initializeWithConsumerKey("TrXvBgug4dQvHd8OBhtCDe4u5", consumerSecret: "EwTwn9kg9hpzihQNWxn0Uo6OEnmJbUOebHayJBNt9jfqrZmAlR")
         
         let storyboard:UIStoryboard =  UIStoryboard(name: "Main",bundle:nil)
         var viewController:UIViewController
