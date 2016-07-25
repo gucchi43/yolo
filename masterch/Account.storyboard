@@ -318,7 +318,7 @@
                                                                 <segue destination="Ele-pk-a1r" kind="presentation" identifier="toEditProfile" id="cke-zh-9wf"/>
                                                             </connections>
                                                         </button>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile" translatesAutoresizingMaskIntoConstraints="NO" id="cnj-DZ-nI1">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile" translatesAutoresizingMaskIntoConstraints="NO" id="cnj-DZ-nI1">
                                                             <rect key="frame" x="8" y="8" width="100" height="100"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="cnj-DZ-nI1" secondAttribute="height" multiplier="1:1" id="HW2-M4-kjj"/>
