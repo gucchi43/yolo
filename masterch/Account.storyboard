@@ -402,10 +402,18 @@
                                                                 <action selector="tapSettingButton:" destination="zkA-KH-TI3" eventType="touchUpInside" id="BKF-YO-puB"/>
                                                             </connections>
                                                         </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="inf-Hz-b4I">
+                                                            <rect key="frame" x="129" y="121" width="183" height="30"/>
+                                                            <state key="normal" title="※β版SNS連携機能について"/>
+                                                            <connections>
+                                                                <segue destination="gKe-VM-b6U" kind="show" id="VaW-be-ejf"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="YXB-4q-zzl" firstAttribute="top" secondItem="55Q-QB-USz" secondAttribute="bottom" constant="8" id="096-cB-YuC"/>
+                                                        <constraint firstAttribute="trailing" secondItem="inf-Hz-b4I" secondAttribute="trailing" constant="8" id="5VL-M2-Lgk"/>
                                                         <constraint firstItem="cnj-DZ-nI1" firstAttribute="leading" secondItem="j6Z-12-yQF" secondAttribute="leading" constant="8" id="6v6-kv-RER"/>
                                                         <constraint firstItem="55Q-QB-USz" firstAttribute="top" secondItem="lZS-Gt-IuD" secondAttribute="bottom" constant="1" id="7Fy-Za-aJV"/>
                                                         <constraint firstAttribute="trailing" secondItem="rsH-hp-GpR" secondAttribute="trailing" constant="8" id="7qO-3s-eXE"/>
@@ -414,6 +422,7 @@
                                                         <constraint firstItem="65x-ok-NqO" firstAttribute="top" secondItem="55Q-QB-USz" secondAttribute="bottom" constant="8" id="DrU-PP-3Aj"/>
                                                         <constraint firstItem="cnj-DZ-nI1" firstAttribute="top" secondItem="j6Z-12-yQF" secondAttribute="top" constant="8" id="Gsn-qY-fnU"/>
                                                         <constraint firstItem="j1N-Bd-aWa" firstAttribute="leading" secondItem="j6Z-12-yQF" secondAttribute="leading" constant="16" id="HXS-VU-zg1"/>
+                                                        <constraint firstItem="inf-Hz-b4I" firstAttribute="top" secondItem="YXB-4q-zzl" secondAttribute="bottom" constant="19" id="JMf-zt-2PJ"/>
                                                         <constraint firstAttribute="bottom" secondItem="1AE-8W-yKT" secondAttribute="bottom" id="JNU-7B-7TX"/>
                                                         <constraint firstItem="lZS-Gt-IuD" firstAttribute="leading" secondItem="cnj-DZ-nI1" secondAttribute="trailing" constant="8" id="JnE-Hg-sLx"/>
                                                         <constraint firstItem="rsH-hp-GpR" firstAttribute="top" secondItem="j6Z-12-yQF" secondAttribute="top" constant="8" id="Jz7-jX-rmf"/>
@@ -428,6 +437,7 @@
                                                         <constraint firstItem="1AE-8W-yKT" firstAttribute="top" secondItem="cnj-DZ-nI1" secondAttribute="bottom" constant="8" id="n7M-n8-TKR"/>
                                                         <constraint firstItem="ejv-RX-twQ" firstAttribute="top" secondItem="cnj-DZ-nI1" secondAttribute="bottom" constant="8" id="nLZ-33-sbd"/>
                                                         <constraint firstItem="1AE-8W-yKT" firstAttribute="top" secondItem="j1N-Bd-aWa" secondAttribute="bottom" id="se9-Pw-6wG"/>
+                                                        <constraint firstItem="inf-Hz-b4I" firstAttribute="leading" secondItem="ejv-RX-twQ" secondAttribute="trailing" constant="17" id="vMW-cD-e1E"/>
                                                         <constraint firstItem="1AE-8W-yKT" firstAttribute="leading" secondItem="j6Z-12-yQF" secondAttribute="leading" id="xyO-J2-1LJ"/>
                                                     </constraints>
                                                     <variation key="default">
@@ -893,6 +903,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kII-Pa-unA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="925" y="19"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Mge-Fo-EGS">
+            <objects>
+                <viewController id="gKe-VM-b6U" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pQ9-eC-5t1"/>
+                        <viewControllerLayoutGuide type="bottom" id="9CF-yz-uu8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tY0-DC-ayV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ke-EV-xAS">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">β版でのSNS連携での注意点について
+
+・現versionでは、一度SNSを連携すると外すことができません。
+（サーバーサイドで使っているmobilebackendのバグのため。現在修正してもらっています。）
+
+・現versionでは、FacebookのSNS連携はできません。
+（FacebookからのAPI仕様の許可がまだおりていないため。）
+
+ご迷惑をお掛けしまして申し訳ありません。
+version更新をお待ち下さい。
+</string>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9Ke-EV-xAS" firstAttribute="top" secondItem="pQ9-eC-5t1" secondAttribute="bottom" id="109-Vr-djx"/>
+                            <constraint firstItem="9Ke-EV-xAS" firstAttribute="leading" secondItem="tY0-DC-ayV" secondAttribute="leading" id="BWs-Xl-QDC"/>
+                            <constraint firstAttribute="trailing" secondItem="9Ke-EV-xAS" secondAttribute="trailing" id="RNd-Ej-ftU"/>
+                            <constraint firstItem="9CF-yz-uu8" firstAttribute="top" secondItem="9Ke-EV-xAS" secondAttribute="bottom" id="inM-Ae-wRo"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zCL-Tc-jNk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-169" y="448"/>
         </scene>
         <!--UserList-->
         <scene sceneID="e98-Aq-hDh">
