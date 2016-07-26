@@ -320,7 +320,7 @@ extension NotificationTableViewController: DZNEmptyDataSetSource, DZNEmptyDataSe
     }
 
     func emptyDataSetShouldAllowScroll(scrollView: UIScrollView!) -> Bool {
-        return false
+        return true
     }
 
     func emptyDataSetShouldAnimateImageView(scrollView: UIScrollView!) -> Bool {
