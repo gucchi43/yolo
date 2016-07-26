@@ -572,7 +572,10 @@ extension AccountViewController {
             testDeleteLinkAccount(user!)
             //            deleteFacebookAccount(user!)
         }else {
-            addSnsToFacebook(user!)
+            //β版限定
+            cannotConnectFacebookAlert(user!)
+            //β版限定
+//            addSnsToFacebook(user!)
         }
     }
 
@@ -767,6 +770,24 @@ extension AccountViewController {
                                                         })
                                                     }
         })
+    }
+
+    //β版限定
+    func cannotConnectFacebookAlert(user: NCMBUser) {
+        //「Facebookが今は連携出来ない」アラート呼び出し
+        print("userじょうほう", user)
+        RMUniversalAlert.showAlertInViewController(self,
+                                                   withTitle: "現versionではFacebook連携はできません",
+                                                   message: "versionアップデートをお待ち下さい",
+                                                   cancelButtonTitle: "閉じる",
+                                                   destructiveButtonTitle: nil,
+                                                   otherButtonTitles: nil) { (alert, buttonIndex) in
+                                                    if (buttonIndex == alert.cancelButtonIndex) {
+                                                        print("完了 Tapped")
+                                                    }else {
+                                                        print("何かを Tapped")
+                                                    }
+        }
     }
 
     func testDeleteLinkAccount(user: NCMBUser) {
