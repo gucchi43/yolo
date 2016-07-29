@@ -48,7 +48,6 @@ class CalendarView: UIView, UIScrollViewDelegate {
         nextMonthView = CalendarMonthView(frame: CGRect(origin: CGPoint(x: CGRectGetWidth(frame) * 2, y: 0), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days + 1.months)
         
         // verticalにaddするviews
-        
         lastYearMonthView = CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days - 1.years)
         currentMonthView  = CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: CGRectGetHeight(frame)), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days)
         nextYearMonthView = CalendarMonthView(frame: CGRect(origin: CGPoint(x: 0, y: CGRectGetHeight(frame) * 2), size: frame.size), date: CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days + 1.years)

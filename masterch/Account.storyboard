@@ -886,7 +886,7 @@
                 <viewControllerPlaceholder storyboardName="Main" id="t6h-UR-gjx" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6iZ-bB-1Mh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1293" y="-63"/>
+            <point key="canvasLocation" x="1184" y="209"/>
         </scene>
         <!--PostDetail-->
         <scene sceneID="nAR-Fn-567">
@@ -1021,7 +1021,7 @@ version更新をお待ち下さい。
             <objects>
                 <tableViewController id="b0e-HZ-ON1" customClass="EditProfileTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="eqE-i1-hIl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -1204,8 +1204,37 @@ version更新をお待ち下さい。
                                             </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="logOutCell" id="kKU-kn-uJh">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="connectMailCell" id="nMC-oI-hY0">
                                         <rect key="frame" x="0.0" y="415" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nMC-oI-hY0" id="YGe-Ff-KJ5">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="メールアドレス連携" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgX-93-pgv">
+                                                    <rect key="frame" x="8" y="11" width="153" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="連携済み" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPh-CE-jeA">
+                                                    <rect key="frame" x="244" y="11" width="68" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="cgX-93-pgv" firstAttribute="leading" secondItem="YGe-Ff-KJ5" secondAttribute="leading" constant="8" id="XaI-6v-bse"/>
+                                                <constraint firstAttribute="trailing" secondItem="sPh-CE-jeA" secondAttribute="trailing" constant="8" id="iJs-Js-I29"/>
+                                                <constraint firstItem="sPh-CE-jeA" firstAttribute="centerY" secondItem="YGe-Ff-KJ5" secondAttribute="centerY" id="kpC-bU-l2E"/>
+                                                <constraint firstItem="cgX-93-pgv" firstAttribute="centerY" secondItem="YGe-Ff-KJ5" secondAttribute="centerY" id="lVj-Eb-pib"/>
+                                                <constraint firstAttribute="trailing" secondItem="sPh-CE-jeA" secondAttribute="trailing" constant="8" id="t9Q-gg-Z7S"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="logOutCell" id="kKU-kn-uJh">
+                                        <rect key="frame" x="0.0" y="459" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kKU-kn-uJh" id="RX6-eX-kpM">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -1224,14 +1253,6 @@ version更新をお待ち下さい。
                                                 <constraint firstItem="Fys-Qh-apw" firstAttribute="centerX" secondItem="RX6-eX-kpM" secondAttribute="centerX" id="Gh3-wQ-hG6"/>
                                                 <constraint firstItem="Fys-Qh-apw" firstAttribute="centerY" secondItem="RX6-eX-kpM" secondAttribute="centerY" id="VgG-if-HuT"/>
                                             </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="nMC-oI-hY0">
-                                        <rect key="frame" x="0.0" y="459" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nMC-oI-hY0" id="YGe-Ff-KJ5">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="PQS-iY-KBV">
@@ -1262,19 +1283,127 @@ version更新をお待ち下さい。
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="480"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="changeProfileButton" destination="96B-lI-loS" id="1MJ-qz-cLB"/>
+                        <outlet property="statusConnectMailLabel" destination="sPh-CE-jeA" id="1Ui-Ea-bNN"/>
                         <outlet property="userHomeImageView" destination="cpc-eZ-jtG" id="7gV-2N-dc2"/>
                         <outlet property="userName" destination="faw-2S-qU3" id="YgN-2N-BBM"/>
                         <outlet property="userProfileImageView" destination="1RS-W3-lNE" id="nQ6-Bw-2oC"/>
                         <outlet property="userSelfIntroductionTextView" destination="Ao4-YZ-o6U" id="sfk-to-C4x"/>
+                        <segue destination="Bea-VK-QzL" kind="show" identifier="toConnectMailTVC" id="RDk-3X-cel"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Stw-qP-Q6L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1184" y="-466"/>
+        </scene>
+        <!--Connect Mail Table View Controller-->
+        <scene sceneID="T0Z-j7-Dfg">
+            <objects>
+                <tableViewController id="Bea-VK-QzL" customClass="ConnectMailTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="uIo-ob-gq9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ldS-lX-PJB">
+                            <rect key="frame" x="0.0" y="252" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.1843137255" green="0.75294117650000003" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="保存">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="tapchangeConnectMailButton:" destination="Bea-VK-QzL" eventType="touchUpInside" id="V0u-7B-lWE"/>
+                            </connections>
+                        </button>
+                        <sections>
+                            <tableViewSection headerTitle="現在のメールアドレス" id="ctX-rJ-VnF">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="mOL-1E-wXL">
+                                        <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mOL-1E-wXL" id="lj4-nw-KWY">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="shiosava@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95J-Qg-3OU">
+                                                    <rect key="frame" x="8" y="11" width="304" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="95J-Qg-3OU" firstAttribute="leading" secondItem="lj4-nw-KWY" secondAttribute="leading" constant="8" id="X1e-lr-H53"/>
+                                                <constraint firstItem="95J-Qg-3OU" firstAttribute="centerY" secondItem="lj4-nw-KWY" secondAttribute="centerY" id="lmM-ot-2al"/>
+                                                <constraint firstAttribute="trailing" secondItem="95J-Qg-3OU" secondAttribute="trailing" constant="8" id="vnK-Cy-TBl"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="メールアドレス変更" id="ToW-hb-ExX">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="kgN-2L-LnP">
+                                        <rect key="frame" x="0.0" y="164" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kgN-2L-LnP" id="WBR-gN-WD2">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="新しいメールアドレス" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rMg-ok-WU5">
+                                                    <rect key="frame" x="8" y="13.5" width="304" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="rMg-ok-WU5" firstAttribute="leading" secondItem="WBR-gN-WD2" secondAttribute="leading" constant="8" id="ecf-0m-mBx"/>
+                                                <constraint firstAttribute="trailing" secondItem="rMg-ok-WU5" secondAttribute="trailing" constant="8" id="rjV-xX-pCY"/>
+                                                <constraint firstItem="rMg-ok-WU5" firstAttribute="centerY" secondItem="WBR-gN-WD2" secondAttribute="centerY" id="uiy-qK-gNi"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="wa7-Zr-OaN">
+                                        <rect key="frame" x="0.0" y="208" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wa7-Zr-OaN" id="Y5N-nB-WYH">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="確認用" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Dj-1d-bJM">
+                                                    <rect key="frame" x="8" y="13.5" width="304" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="5Dj-1d-bJM" firstAttribute="centerY" secondItem="Y5N-nB-WYH" secondAttribute="centerY" id="7ih-Qx-Ikz"/>
+                                                <constraint firstItem="5Dj-1d-bJM" firstAttribute="leading" secondItem="Y5N-nB-WYH" secondAttribute="leading" constant="8" id="9gO-4y-0ok"/>
+                                                <constraint firstAttribute="trailing" secondItem="5Dj-1d-bJM" secondAttribute="trailing" constant="8" id="haG-bv-6RY"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="Bea-VK-QzL" id="fWl-Tr-te1"/>
+                            <outlet property="delegate" destination="Bea-VK-QzL" id="QEH-1c-u8s"/>
+                        </connections>
+                    </tableView>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="ConfirmNewMailTextField" destination="5Dj-1d-bJM" id="DJw-lI-Mre"/>
+                        <outlet property="changeConnectMailButton" destination="ldS-lX-PJB" id="lyT-Yc-khA"/>
+                        <outlet property="newMailTextField" destination="rMg-ok-WU5" id="pNh-6E-r6a"/>
+                        <outlet property="nowMailLabel" destination="95J-Qg-3OU" id="JKh-YO-Pfq"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ic0-Ly-pAl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1664" y="-466"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LXo-3r-y60">
@@ -1310,8 +1439,8 @@ version更新をお待ち下さい。
         <image name="twitterWhite" width="40" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cke-zh-9wf"/>
-        <segue reference="BEM-Ov-hbA"/>
-        <segue reference="RPw-od-GfG"/>
+        <segue reference="4Ck-1w-yEf"/>
+        <segue reference="dqx-di-Lm3"/>
+        <segue reference="Drk-US-dsq"/>
     </inferredMetricsTieBreakers>
 </document>
