@@ -105,6 +105,9 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
         let postQuery: NCMBQuery = NCMBQuery(className: "Post")
         postQuery.whereKey("user", equalTo: user)
         postQuery.orderByDescending("postDate") // cellの並べ方
+        if user != NCMBUser.currentUser(){ //自分じゃないアカウントの時、カギを有効にする
+            postQuery.whereKey("secretKey", notEqualTo: true)
+        }
         postQuery.limit = 20
         postQuery.includeKey("user")
         loadQuery(postQuery)
