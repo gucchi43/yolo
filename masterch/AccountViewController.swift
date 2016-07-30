@@ -67,12 +67,12 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
 
     func getFllowNumbarInt() {
         let myFllowQuery: NCMBQuery = NCMBQuery(className: "Relationship")
-        myFllowQuery.whereKey("follow", equalTo: user)
+        myFllowQuery.whereKey("followed", equalTo: user)
         myFllowQuery.countObjectsInBackgroundWithBlock { (count , error) -> Void in
             if let error = error{
                 print("error", error)
             }else {
-                print(self.user,"の, フォロワー数: ", count)
+                print(self.user,"の, フォロー数: ", count)
                 self.followNumbarInt = Int(count)
             }
         }
