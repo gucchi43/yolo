@@ -26,7 +26,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ke4-eq-fQv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="377" y="1352"/>
+            <point key="canvasLocation" x="329" y="1384"/>
         </scene>
         <!--Search-->
         <scene sceneID="8D1-oi-x1X">
@@ -205,7 +205,7 @@
                                     <outlet property="delegate" destination="0Sv-Yr-eTM" id="TyU-Sp-1ow"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flO-pg-qzH">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flO-pg-qzH">
                                 <rect key="frame" x="5" y="202" width="404" height="76.5"/>
                                 <attributedString key="attributedText">
                                     <fragment content="現">
@@ -295,6 +295,82 @@
                 <exit id="dSA-XD-Ytk" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-1018" y="1039"/>
+        </scene>
+        <!--パスワードリセット-->
+        <scene sceneID="2uw-UA-8js">
+            <objects>
+                <tableViewController id="8D4-7l-eYv" customClass="ResetPasswordTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="yE5-8n-fze">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6JW-Ev-noS">
+                            <rect key="frame" x="0.0" y="108" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.1843137255" green="0.75294117650000003" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="送信">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="tapReserPasswordButton:" destination="8D4-7l-eYv" eventType="touchUpInside" id="63k-B5-duQ"/>
+                            </connections>
+                        </button>
+                        <sections>
+                            <tableViewSection id="F4t-Di-mim">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Ceq-xP-jG0">
+                                        <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ceq-xP-jG0" id="ZyZ-TW-RfX">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="連携したメールアドレスを入力してください" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="REn-q6-tKC">
+                                                    <rect key="frame" x="8" y="13.5" width="359" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="REn-q6-tKC" secondAttribute="trailing" constant="8" id="8Br-mV-5f2"/>
+                                                <constraint firstItem="REn-q6-tKC" firstAttribute="leading" secondItem="ZyZ-TW-RfX" secondAttribute="leading" constant="8" id="8Rx-nf-Lqz"/>
+                                                <constraint firstItem="REn-q6-tKC" firstAttribute="centerY" secondItem="ZyZ-TW-RfX" secondAttribute="centerY" id="cCL-x8-wmm"/>
+                                                <constraint firstAttribute="trailing" secondItem="REn-q6-tKC" secondAttribute="trailing" constant="270" id="tdx-MM-Fxh"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="tdx-MM-Fxh"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="OgZ-jV-Qdm">
+                                <cells/>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="8D4-7l-eYv" id="1Ri-5c-KfR"/>
+                            <outlet property="delegate" destination="8D4-7l-eYv" id="bEk-d6-qTe"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="パスワードリセット" id="fcQ-nP-OyS">
+                        <barButtonItem key="leftBarButtonItem" title="戻る" id="1Oy-Cy-kSE">
+                            <connections>
+                                <action selector="selectBackToButton:" destination="8D4-7l-eYv" id="caR-dB-HA6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="mailTextField" destination="REn-q6-tKC" id="4LC-pC-VdJ"/>
+                        <outlet property="reserPasswordButton" destination="6JW-Ev-noS" id="qrP-QU-nkE"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nfK-HZ-pHp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-392.5" y="2947.5"/>
         </scene>
         <!--プロフィール設定-->
         <scene sceneID="Mpw-0u-QWC">
@@ -490,24 +566,75 @@
                                     <outlet property="delegate" destination="gvJ-cY-zuT" id="3X6-oA-XeN"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JD9-ub-hj4">
+                                <rect key="frame" x="21" y="198" width="373" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="330" id="Xaq-7Q-4zn"/>
+                                    <constraint firstAttribute="height" constant="30" id="gba-sr-v2O"/>
+                                </constraints>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="ユーザー">
+                                            <attributes>
+                                                <color key="NSColor" red="0.1843137255" green="0.75294117650000003" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="15" name="HiraginoSans-W3"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="ID">
+                                            <attributes>
+                                                <color key="NSColor" red="0.1843137255" green="0.75294117650000003" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="15" name="HelveticaNeue"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="または、パスワード忘れちまった方はこちら">
+                                            <attributes>
+                                                <color key="NSColor" red="0.1843137255" green="0.75294117650000003" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="15" name="HiraginoSans-W3"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Xaq-7Q-4zn"/>
+                                        <exclude reference="gba-sr-v2O"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="LCj-eh-nlQ" kind="presentation" id="aZ2-Ld-9bg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="nXh-40-nVZ" firstAttribute="top" secondItem="aDU-56-fdD" secondAttribute="bottom" constant="20" id="2DC-sW-CyH"/>
                             <constraint firstItem="x5R-Yi-2ih" firstAttribute="top" secondItem="nXh-40-nVZ" secondAttribute="bottom" constant="50" id="2HD-HK-alz"/>
                             <constraint firstAttribute="trailing" secondItem="kLh-2Z-Alm" secondAttribute="trailing" constant="20" id="4Ki-cY-isT"/>
+                            <constraint firstItem="JD9-ub-hj4" firstAttribute="top" secondItem="T54-R8-Q28" secondAttribute="bottom" constant="8" id="BWI-bT-OYc"/>
                             <constraint firstItem="kLh-2Z-Alm" firstAttribute="top" secondItem="ROx-NO-idw" secondAttribute="top" constant="94" id="CFX-ho-Ku8"/>
                             <constraint firstItem="aDU-56-fdD" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="Ce8-3F-sv5"/>
                             <constraint firstItem="T54-R8-Q28" firstAttribute="leading" secondItem="ROx-NO-idw" secondAttribute="leading" constant="20" id="GWg-OH-Ygy"/>
+                            <constraint firstItem="JD9-ub-hj4" firstAttribute="leading" secondItem="ROx-NO-idw" secondAttribute="leading" constant="42" id="GcH-3G-oCI"/>
+                            <constraint firstAttribute="trailing" secondItem="JD9-ub-hj4" secondAttribute="trailing" constant="42" id="HoP-Fu-g6M"/>
                             <constraint firstItem="kLh-2Z-Alm" firstAttribute="top" secondItem="GVs-fE-sp6" secondAttribute="bottom" constant="30" id="KPQ-6R-t27"/>
+                            <constraint firstItem="JD9-ub-hj4" firstAttribute="leading" secondItem="ROx-NO-idw" secondAttribute="leading" constant="16" id="LF8-i4-bA1"/>
+                            <constraint firstItem="JD9-ub-hj4" firstAttribute="leading" secondItem="ROx-NO-idw" secondAttribute="leadingMargin" constant="22" id="U51-zn-D8b"/>
                             <constraint firstItem="T54-R8-Q28" firstAttribute="top" secondItem="kLh-2Z-Alm" secondAttribute="bottom" constant="8" id="bHQ-2t-2xP"/>
                             <constraint firstAttribute="trailing" secondItem="T54-R8-Q28" secondAttribute="trailing" constant="20" id="dSt-5a-UoQ"/>
                             <constraint firstItem="nXh-40-nVZ" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="ofQ-YQ-6CR"/>
+                            <constraint firstItem="JD9-ub-hj4" firstAttribute="centerX" secondItem="ROx-NO-idw" secondAttribute="centerX" id="qfB-hz-1J2"/>
                             <constraint firstItem="kLh-2Z-Alm" firstAttribute="leading" secondItem="ROx-NO-idw" secondAttribute="leading" constant="20" id="xqm-bq-iTH"/>
+                            <constraint firstAttribute="trailing" secondItem="JD9-ub-hj4" secondAttribute="trailing" constant="16" id="yV5-Eo-WO4"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="CFX-ho-Ku8"/>
+                                <exclude reference="GcH-3G-oCI"/>
+                                <exclude reference="HoP-Fu-g6M"/>
+                                <exclude reference="U51-zn-D8b"/>
                             </mask>
                         </variation>
                     </view>
@@ -528,7 +655,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jqx-SR-M5T" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Yza-nR-Xt8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1018" y="2039"/>
+            <point key="canvasLocation" x="-1018" y="2044"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IVL-Sd-cH8">
@@ -568,6 +695,24 @@
             </objects>
             <point key="canvasLocation" x="-1682" y="2039"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qN1-TB-Foc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LCj-eh-nlQ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VNw-QO-EDK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8D4-7l-eYv" kind="relationship" relationship="rootViewController" id="FxK-bA-J1Y"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fae-ef-829" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1018" y="2948"/>
+        </scene>
     </scenes>
     <resources>
         <image name="fb_login_small.png" width="261" height="58"/>
@@ -577,6 +722,6 @@
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="d3l-QJ-9PL"/>
+        <segue reference="L8J-Kv-eM2"/>
     </inferredMetricsTieBreakers>
 </document>

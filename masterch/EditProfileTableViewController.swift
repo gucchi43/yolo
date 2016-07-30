@@ -373,9 +373,12 @@ extension EditProfileTableViewController {
 extension EditProfileTableViewController{
     func checkStatusMail() {
         if let mailAddress = NCMBUser.currentUser().objectForKey("mailAddress") as? String{
+            print(mailAddress)
             statusConnectMailLabel.text = "連携済み"
+            statusConnectMailLabel.textColor = ColorManager.sharedSingleton.mainColor()
         }else {
             statusConnectMailLabel.text = "未連携"
+            statusConnectMailLabel.textColor = UIColor.redColor()
         }
     }
 }
