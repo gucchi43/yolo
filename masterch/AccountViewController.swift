@@ -58,6 +58,8 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
             print("アカウントのユーザー名(自分のはず)", user!.userName)
             
         }
+        //
+        checkFollowing()
         //フォロー数、フォロワー数を取ってくる
         getFllowNumbarInt()
         getFllowerNumbarInt()
@@ -246,6 +248,13 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.facebookConnectButton.hidden = true
                 //フォロー中orフォローしていない
                 if checkFollowing() == true{
+                    cell.followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
+                    //                    cell.followButton.setTitle("フォロー中", forState: .Normal)
+                }else {
+                    cell.followButton.setImage(UIImage(named: "follow"), forState: UIControlState.Normal)
+                    //                    cell.followButton.setTitle("フォロー", forState: .Normal)
+                }
+                if self.isFollowing == true{
                     cell.followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
                     //                    cell.followButton.setTitle("フォロー中", forState: .Normal)
                 }else {
