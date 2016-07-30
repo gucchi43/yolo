@@ -41,10 +41,18 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
     var followNumbarInt: Int?
     var followerNumbarInt: Int?
 
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+
+        return refreshControl
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
+        self.tableView.addSubview(self.refreshControl)
 
     }
 
@@ -215,7 +223,13 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
 
 //---------------tableViewの生成やらあれこれ-------------------------
 extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        myAccountQuery()
+        tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count + 2
     }
