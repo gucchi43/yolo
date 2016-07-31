@@ -50,12 +50,12 @@
 		ED36445E1C9D65C000C6676C /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445D1C9D65C000C6676C /* Notification.storyboard */; };
 		ED3644601C9D6DBA00C6676C /* Submit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED36445F1C9D6DBA00C6676C /* Submit.storyboard */; };
 		ED3707931D36427E00F892B0 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3707921D36427E00F892B0 /* ColorManager.swift */; };
-		ED390BC81D3E6A120053FABF /* PINCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED390BC71D3E6A120053FABF /* PINCache.framework */; };
-		ED390BC91D3E6A120053FABF /* PINCache.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED390BC71D3E6A120053FABF /* PINCache.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED3994101D49F85E002E8EED /* ConnectMailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED39940F1D49F85E002E8EED /* ConnectMailTableViewController.swift */; };
 		ED3994161D4B393A002E8EED /* ResetPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3994151D4B3939002E8EED /* ResetPasswordTableViewController.swift */; };
 		ED402DCC1D34460C0098F843 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED402DCB1D34460C0098F843 /* images.xcassets */; };
 		ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED4512AF1CEF33CB0071FA58 /* Title.storyboard */; };
+		ED48C92D1D4D0120003DC586 /* TTTAttributedLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED48C92C1D4D0120003DC586 /* TTTAttributedLabel.framework */; };
+		ED48C9321D4D069E003DC586 /* TTTAttributedLabel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED48C9301D4D069E003DC586 /* TTTAttributedLabel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */; };
 		ED53BAFD1D35176F0089A03A /* GoodOrBadKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED53BAFC1D35176F0089A03A /* GoodOrBadKeyboard.xib */; };
 		ED652C4C1D29C2B60004BE9F /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */; };
@@ -114,7 +114,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				ED390BC91D3E6A120053FABF /* PINCache.framework in CopyFiles */,
+				ED48C9321D4D069E003DC586 /* TTTAttributedLabel.framework in CopyFiles */,
 				ED6AF8CE1D16B577003FBC5C /* SVProgressHUD.framework in CopyFiles */,
 				ED6AF8CB1D16B535003FBC5C /* DropdownMenu.framework in CopyFiles */,
 				ED7A79061D2027220087BCCD /* DZNEmptyDataSet.framework in CopyFiles */,
@@ -184,6 +184,8 @@
 		ED3994151D4B3939002E8EED /* ResetPasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordTableViewController.swift; sourceTree = "<group>"; };
 		ED402DCB1D34460C0098F843 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		ED4512AF1CEF33CB0071FA58 /* Title.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Title.storyboard; sourceTree = "<group>"; };
+		ED48C92C1D4D0120003DC586 /* TTTAttributedLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTTAttributedLabel.framework; path = /Users/gucchi/Desktop/masterch/masterch/TTTAttributedLabel.framework; sourceTree = "<absolute>"; };
+		ED48C9301D4D069E003DC586 /* TTTAttributedLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTTAttributedLabel.framework; path = Carthage/Build/iOS/TTTAttributedLabel.framework; sourceTree = "<group>"; };
 		ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogPostedProgressBar.swift; sourceTree = "<group>"; };
 		ED53BAFC1D35176F0089A03A /* GoodOrBadKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodOrBadKeyboard.xib; sourceTree = "<group>"; };
 		ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
@@ -219,12 +221,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */,
 				E0B7E0BA07F94C20BB5A1280 /* libPods-masterch.a in Frameworks */,
+				ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */,
+				ED48C92D1D4D0120003DC586 /* TTTAttributedLabel.framework in Frameworks */,
 				ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */,
 				ED7A79051D2027220087BCCD /* DZNEmptyDataSet.framework in Frameworks */,
 				ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */,
-				ED390BC81D3E6A120053FABF /* PINCache.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +322,7 @@
 		B831727C3E3CF2E5ED6388D9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ED48C9301D4D069E003DC586 /* TTTAttributedLabel.framework */,
 				ED390BC71D3E6A120053FABF /* PINCache.framework */,
 				ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */,
 				ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */,
@@ -897,6 +900,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/masterch",
 				);
 				INFOPLIST_FILE = masterch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
@@ -923,6 +927,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/masterch",
 				);
 				INFOPLIST_FILE = masterch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;

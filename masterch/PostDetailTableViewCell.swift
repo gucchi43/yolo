@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import SVProgressHUD
+import TTTAttributedLabel
 
 protocol PostDetailTableViewCellDelegate {
     func didSelectCommentButton()
@@ -16,13 +17,14 @@ protocol PostDetailTableViewCellDelegate {
     func didSelectPostImageView(postImage: UIImage, postText: String)
 }
 
-class PostDetailTableViewCell: UITableViewCell {
+class PostDetailTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
     
     @IBOutlet var userProfileNameLabel: UILabel!
     @IBOutlet var userNameIDLabel: UILabel!
     @IBOutlet var userProfileImageView: UIImageView!
     @IBOutlet var postDateLabel: UILabel!
-    @IBOutlet var postTextLabel: UILabel!
+    @IBOutlet weak var postTextLabel: TTTAttributedLabel!
+
     @IBOutlet var postImageView: UIImageView!
     @IBOutlet var postImageViewHeightConstraint: NSLayoutConstraint!
     
@@ -45,7 +47,6 @@ class PostDetailTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         userProfileImageView.layer.cornerRadius = userProfileImageView.layer.bounds.width/2
-        
     }
     
     override func awakeFromNib() {
@@ -81,8 +82,15 @@ class PostDetailTableViewCell: UITableViewCell {
             userProfileImageView.image = UIImage(named: "noprofile")
         }
         
+        // urlをリンクにする設定
+        let linkColor = ColorManager.sharedSingleton.mainColor()
+        let linkActiveColor = ColorManager.sharedSingleton.mainColor().darken(0.25)
+        postTextLabel.linkAttributes = [kCTForegroundColorAttributeName : linkColor]
+        postTextLabel.activeLinkAttributes = [kCTForegroundColorAttributeName : linkActiveColor]
+        postTextLabel.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
         postTextLabel.text = postObject.objectForKey("text") as? String
-        
+        postTextLabel.delegate = self
+
         // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
         let date = postObject.objectForKey("postDate") as? NSDate
         let postDateFormatter: NSDateFormatter = NSDateFormatter()
@@ -156,7 +164,16 @@ class PostDetailTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
+    // urlリンクをタップされたときの処理を記述します
+    func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!)
+    {
+        print(url)
+        if UIApplication.sharedApplication().canOpenURL(url!){
+            UIApplication.sharedApplication().openURL(url!)
+        }
+    }
+
 }
 
 //ユーザーの写真を押して遷移
@@ -205,7 +222,6 @@ extension PostDetailTableViewCell {
         } else {
             like(postData)
         }
-        
     }
     
     func like(postData: NCMBObject){
