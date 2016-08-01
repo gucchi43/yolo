@@ -155,6 +155,7 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if info[UIImagePickerControllerOriginalImage] != nil {
             var image = info[UIImagePickerControllerOriginalImage] as! UIImage
+            UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
             let imageCropVC = RSKImageCropViewController.init(image: image, cropMode: .Circle)
             imageCropVC.delegate = self
             imageCropVC.dataSource = nil
