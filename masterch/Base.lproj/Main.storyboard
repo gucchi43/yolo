@@ -144,7 +144,7 @@
                                     <action selector="userInfo:" destination="Slq-0H-g6t" eventType="touchUpInside" id="69r-wS-pME"/>
                                 </connections>
                             </button>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="logoTitle" translatesAutoresizingMaskIntoConstraints="NO" id="a4M-M9-m25">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="logoTitle" translatesAutoresizingMaskIntoConstraints="NO" id="a4M-M9-m25">
                                 <rect key="frame" x="117" y="95" width="158" height="42"/>
                             </imageView>
                         </subviews>
