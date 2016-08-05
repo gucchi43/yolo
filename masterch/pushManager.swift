@@ -20,12 +20,14 @@ class pushManager: NSObject {
                                    "badgeIncrementFlag": NSNumber(bool: true),
                                    "sound": "default"]
         push.setData(data as [NSObject : AnyObject])
-        let installationQuery = NCMBQuery(className: "installation")
+
+        let installationQuery = NCMBInstallation.query()
         installationQuery.whereKey("userObjectId", equalTo: user.objectId)
         push.setSearchCondition(installationQuery)
+
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
-        push.setMessage("あなたのログに" + NCMBUser.currentUser().userName + "がいいねしてくれたお" + postText)
+        push.setMessage("あなたのログが" + NCMBUser.currentUser().userName + "にいいねされたお😍" + "\n" + "「" + postText + "」")
         push.sendPushInBackgroundWithBlock { (error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -41,11 +43,13 @@ class pushManager: NSObject {
         let data : NSDictionary = ["contentAvailable":NSNumber(bool: false),
                                    "badgeIncrementFlag": NSNumber(bool: true),
                                    "sound": "default"]
-
         push.setData(data as [NSObject : AnyObject])
-        let installationQuery = NCMBQuery(className: "installation")
+
+        let installationQuery = NCMBInstallation.query()
         installationQuery.whereKey("userObjectId", equalTo: user.objectId)
-        push.setMessage("あなたのログに" + NCMBUser.currentUser().userName + "がコメントしたお" + postText)
+        push.setSearchCondition(installationQuery)
+
+        push.setMessage("あなたのログに" + NCMBUser.currentUser().userName + "からコメントがきたお😆" + "\n" + "「" + postText + "」")
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
         push.sendPushInBackgroundWithBlock { (error) in
@@ -60,15 +64,18 @@ class pushManager: NSObject {
     //フォローした時のプッシュ通知（受けるuser）
     func pushToFollow(user: NCMBUser) {
         print("push通知user", user)
+        print("push通知userObjectId", user.objectId)
         let push: NCMBPush = NCMBPush()
         let data : NSDictionary = ["contentAvailable":NSNumber(bool: false),
                                    "badgeIncrementFlag": NSNumber(bool: true),
                                    "sound": "default"]
-
         push.setData(data as [NSObject : AnyObject])
-        let installationQuery = NCMBQuery(className: "installation")
+
+        let installationQuery = NCMBInstallation.query()
         installationQuery.whereKey("userObjectId", equalTo: user.objectId)
-        push.setMessage(NCMBUser.currentUser().userName + "にフォローされたお")
+        push.setSearchCondition(installationQuery)
+
+        push.setMessage(NCMBUser.currentUser().userName + "にフォローされたお😏")
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
         push.sendPushInBackgroundWithBlock { (error) in
@@ -87,10 +94,12 @@ class pushManager: NSObject {
         let data : NSDictionary = ["contentAvailable":NSNumber(bool: false),
                                    "badgeIncrementFlag": NSNumber(bool: true),
                                    "sound": "default"]
-
         push.setData(data as [NSObject : AnyObject])
-        let installationQuery = NCMBQuery(className: "installation")
+
+        let installationQuery = NCMBInstallation.query()
         installationQuery.whereKey("userObjectId", equalTo: user.objectId)
+        push.setSearchCondition(installationQuery)
+
         push.setMessage("タタタターン! 一ヶ月前にこんなログをしていたお")
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
@@ -111,8 +120,11 @@ class pushManager: NSObject {
                                    "sound": "default"]
 
         push.setData(data as [NSObject : AnyObject])
-        let installationQuery = NCMBQuery(className: "installation")
-        installationQuery.whereKey("userObjectId", equalTo: user.objectId)
+
+        let installationQuery = NCMBInstallation.query()
+        installationQuery.whereKey("userObjectId", equalTo: NCMBUser.currentUser().objectId)
+        push.setSearchCondition(installationQuery)
+
         push.setMessage("パパパパーン! 一年前にこんなログをしていたお")
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
@@ -162,6 +174,23 @@ class pushManager: NSObject {
         // あとのためにIdを割り振っておく
         notification.userInfo = ["notifyId": "logre"]
         application.scheduleLocalNotification(notification)
+
+    }
+
+    func recivePushToLike() {
+        let submitSB = UIStoryboard(name: "Submit", bundle: nil)
+        let submitVC = submitSB.instantiateViewControllerWithIdentifier("Submit") as! SubmitViewController
+        self.window?.rootViewController!.presentViewController(submitVC, animated: true, completion: nil)
+        if let tabvc = self.window!.rootViewController as? UITabBarController  {
+            tabvc.selectedIndex = 0 // 0 が一番左のタブ (0＝Log画面)
+        }
+    }
+
+    func recivePushToFollow() {
+
+    }
+
+    func recivePushToComment() {
 
     }
 

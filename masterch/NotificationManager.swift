@@ -32,8 +32,8 @@ class NotificationManager: NSObject {
             }else {
                 print("like: Notificationへの保存成功")
                 button.enabled = true
-//                let pushM = pushManager()
-//                pushM.pushToLike(user, postText: postHeader)
+                let pushM = pushManager()
+                pushM.pushToLike(user, postText: postHeader)
             }
         })
     }
