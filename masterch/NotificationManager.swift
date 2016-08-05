@@ -32,6 +32,8 @@ class NotificationManager: NSObject {
             }else {
                 print("like: Notificationへの保存成功")
                 button.enabled = true
+//                let pushM = pushManager()
+//                pushM.pushToLike(user, postText: postHeader)
             }
         })
     }
@@ -80,6 +82,9 @@ class NotificationManager: NSObject {
             }else {
                 print("follow: Notificationへの保存成功")
                 print("notificationObject", notificationObject)
+                let pushM = pushManager()
+                pushM.pushToFollow(user)
+
             }
         })
     }
@@ -155,6 +160,8 @@ class NotificationManager: NSObject {
                 print("error", error.localizedDescription)
             }else {
                 print("comment: Notificationへの保存成功")
+                let pushM = pushManager()
+                pushM.pushToComment(user, postText: postHeader)
             }
         })
 
