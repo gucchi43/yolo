@@ -10,6 +10,7 @@ import UIKit
 import DZNEmptyDataSet
 import SVProgressHUD
 import TwitterKit
+import TTTAttributedLabel
 
 class AccountViewController: UIViewController, addPostDetailDelegate{
     
@@ -225,7 +226,7 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
 
 
 //---------------tableViewの生成やらあれこれ-------------------------
-extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
+extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTTAttributedLabelDelegate {
 
     func handleRefresh(refreshControl: UIRefreshControl) {
         myAccountQuery()
@@ -374,6 +375,13 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
             // 各値をセルに入れる
             let postData = postArray[indexPath.row - 2]
             print("postData", postData)
+            cell.postTextLabel.delegate = self
+            // urlをリンクにする設定
+            let linkColor = ColorManager.sharedSingleton.mainColor()
+            let linkActiveColor = ColorManager.sharedSingleton.mainColor().darken(0.25)
+            cell.postTextLabel.linkAttributes = [kCTForegroundColorAttributeName : linkColor]
+            cell.postTextLabel.activeLinkAttributes = [kCTForegroundColorAttributeName : linkActiveColor]
+            cell.postTextLabel.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
             // postTextLabelには(key: "text")の値を入れる
             cell.postTextLabel.text = postData.objectForKey("text") as? String
             print("投稿内容", cell.postTextLabel.text)
@@ -479,6 +487,13 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
         print("セルの選択: \(indexPath.row)")
         selectedPostObject = self.postArray[indexPath.row - 2] as! NCMBObject
         performSegueWithIdentifier("toPostDetail", sender: nil)
+    }
+
+    func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
+        print(url)
+        if UIApplication.sharedApplication().canOpenURL(url!){
+            UIApplication.sharedApplication().openURL(url!)
+        }
     }
     
     func checkFollowing() -> Bool{

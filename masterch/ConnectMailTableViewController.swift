@@ -24,7 +24,6 @@ class ConnectMailTableViewController: UITableViewController, UITextFieldDelegate
         loadConnctMailStatus()
         newMailTextField.delegate = self
         confirmNewMailTextField.delegate = self
-
     }
 
     func loadConnctMailStatus() {

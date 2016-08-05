@@ -7,22 +7,20 @@
 //
 
 import UIKit
+import TTTAttributedLabel
 
-class TimelineCell: UITableViewCell {
+class TimelineCell: UITableViewCell, TTTAttributedLabelDelegate {
     
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var userProfileImageView: UIImageView!
     @IBOutlet var userNameLabel: UILabel!
-    
+    @IBOutlet weak var postTextLabel: TTTAttributedLabel!
     @IBOutlet var postDateLabel: UILabel!
-    @IBOutlet var postTextLabel: UILabel!
     @IBOutlet var postImageView: UIImageView!
-    
-    
+
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
-    
-    
+
     @IBOutlet weak var likeNumberButton: UIButton!
     var likeCounts: Int?
     var isLikeToggle: Bool = false

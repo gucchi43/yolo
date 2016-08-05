@@ -73,7 +73,7 @@
                             </mask>
                         </variation>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="テキストテキストテキストテキストテキストテキストテキストテキストテキスト" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgI-7M-TQ0">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="テキストテキストテキストテキストテキストテキストテキストテキストテキスト" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgI-7M-TQ0" customClass="TTTAttributedLabel">
                         <rect key="frame" x="8" y="66" width="584" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="584" id="CYw-fT-Uv8"/>
@@ -322,7 +322,7 @@
                 <outlet property="postDateLabel" destination="tHj-ur-unf" id="cpY-1q-U8w"/>
                 <outlet property="postImageView" destination="nje-0u-yaf" id="TPv-xT-D81"/>
                 <outlet property="postImageViewHeightConstraint" destination="kkx-Mg-XQJ" id="MZd-g2-wvM"/>
-                <outlet property="postTextLabel" destination="wgI-7M-TQ0" id="GAe-af-7GU"/>
+                <outlet property="postTextLabel" destination="wgI-7M-TQ0" id="qrq-JZ-HDv"/>
                 <outlet property="userNameIDLabel" destination="pDl-n2-fJd" id="lQY-2r-r1I"/>
                 <outlet property="userProfileImageView" destination="NbS-U0-qOu" id="wNc-yV-QLm"/>
                 <outlet property="userProfileNameLabel" destination="gHT-9G-1ox" id="luR-4v-KFq"/>

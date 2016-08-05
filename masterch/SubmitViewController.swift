@@ -9,6 +9,7 @@
 import UIKit
 import TwitterKit
 import Fabric
+import TTTAttributedLabel
 
 
 protocol SubmitViewControllerDelegate {
@@ -79,7 +80,6 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         self.setToolBar()
         
         self.postTextView.delegate = self
-
         self.postTextView.textContainerInset = UIEdgeInsetsMake(5,5,5,5) //postTExtViewに5pxのpaddingを設定する
         self.postTextView.becomeFirstResponder() // 最初からキーボードを表示させる
         self.postTextView.inputAccessoryView = toolBar // キーボード上にツールバーを表示
@@ -183,7 +183,16 @@ extension SubmitViewController {
             self.postImageView.frame.origin = CGPointMake(0, textView.contentSize.height + 10)
             postImageView.center.x = self.postTextView.bounds.width/2
         }
-        
+
+        //labelを新規作成するために、textViewのCGPointをゲット
+        let labelPoint = textView.frame.origin
+        let labelWidth = textView.bounds.width
+        let labelHeigth = textView.bounds.height
+        //TTTLabel初期化
+        let TTTLabel = TTTAttributedLabel.init(frame: CGRect(origin: labelPoint, size: CGSizeMake(labelWidth, labelHeigth)))
+        //自動リンク機能つけて、text入れる
+        TTTLabel.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
+        TTTLabel.text = text
 //        文字数カウント
         let string: NSMutableString = NSMutableString(string: textView.text)
         string.replaceCharactersInRange(range, withString: text)

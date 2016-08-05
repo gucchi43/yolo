@@ -10,6 +10,7 @@ import UIKit
 import DropdownMenu
 import SwiftDate
 import DZNEmptyDataSet
+import TTTAttributedLabel
 
 protocol LogViewControlloerDelegate {
     func updateLogView()
@@ -78,7 +79,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         
         let logPostPB = LogPostedProgressBar()
         logPostPB.setProgressBar()
-        
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -354,7 +355,7 @@ extension LogViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
 
 }
 
-extension LogViewController: UITableViewDelegate, UITableViewDataSource {
+extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttributedLabelDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count
     }
@@ -371,6 +372,14 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         let postData = postArray[indexPath.row] as! NCMBObject
         print("postData", postData)
         // postTextLabelには(key: "text")の値を入れる
+        cell.postTextLabel.delegate = self
+        // urlをリンクにする設定
+        let linkColor = ColorManager.sharedSingleton.mainColor()
+        let linkActiveColor = ColorManager.sharedSingleton.mainColor().darken(0.25)
+        cell.postTextLabel.linkAttributes = [kCTForegroundColorAttributeName : linkColor]
+        cell.postTextLabel.activeLinkAttributes = [kCTForegroundColorAttributeName : linkActiveColor]
+        cell.postTextLabel.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
+        
         cell.postTextLabel.text = postData.objectForKey("text") as? String
         print("投稿内容", cell.postTextLabel.text)
         // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
@@ -458,6 +467,15 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         print("セルの選択: \(indexPath.row)")
         selectedPostObject = self.postArray[indexPath.row] as! NCMBObject
         performSegueWithIdentifier("toPostDetailVC", sender: nil)
+    }
+
+//     urlリンクをタップされたときの処理を記述します
+    func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!)
+    {
+        print(url)
+        if UIApplication.sharedApplication().canOpenURL(url!){
+            UIApplication.sharedApplication().openURL(url!)
+        }
     }
 }
 
