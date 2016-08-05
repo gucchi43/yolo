@@ -41,10 +41,18 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
     var followNumbarInt: Int?
     var followerNumbarInt: Int?
 
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+
+        return refreshControl
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
+        self.tableView.addSubview(self.refreshControl)
 
     }
 
@@ -58,6 +66,8 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
             print("アカウントのユーザー名(自分のはず)", user!.userName)
             
         }
+        //
+        checkFollowing()
         //フォロー数、フォロワー数を取ってくる
         getFllowNumbarInt()
         getFllowerNumbarInt()
@@ -67,12 +77,12 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
 
     func getFllowNumbarInt() {
         let myFllowQuery: NCMBQuery = NCMBQuery(className: "Relationship")
-        myFllowQuery.whereKey("follow", equalTo: user)
+        myFllowQuery.whereKey("followed", equalTo: user)
         myFllowQuery.countObjectsInBackgroundWithBlock { (count , error) -> Void in
             if let error = error{
                 print("error", error)
             }else {
-                print(self.user,"の, フォロワー数: ", count)
+                print(self.user,"の, フォロー数: ", count)
                 self.followNumbarInt = Int(count)
             }
         }
@@ -95,6 +105,9 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
         let postQuery: NCMBQuery = NCMBQuery(className: "Post")
         postQuery.whereKey("user", equalTo: user)
         postQuery.orderByDescending("postDate") // cellの並べ方
+        if user != NCMBUser.currentUser(){ //自分じゃないアカウントの時、カギを有効にする
+            postQuery.whereKey("secretKey", notEqualTo: true)
+        }
         postQuery.limit = 20
         postQuery.includeKey("user")
         loadQuery(postQuery)
@@ -213,7 +226,13 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
 
 //---------------tableViewの生成やらあれこれ-------------------------
 extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        myAccountQuery()
+        tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count + 2
     }
@@ -246,6 +265,13 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.facebookConnectButton.hidden = true
                 //フォロー中orフォローしていない
                 if checkFollowing() == true{
+                    cell.followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
+                    //                    cell.followButton.setTitle("フォロー中", forState: .Normal)
+                }else {
+                    cell.followButton.setImage(UIImage(named: "follow"), forState: UIControlState.Normal)
+                    //                    cell.followButton.setTitle("フォロー", forState: .Normal)
+                }
+                if self.isFollowing == true{
                     cell.followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
                     //                    cell.followButton.setTitle("フォロー中", forState: .Normal)
                 }else {
