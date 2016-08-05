@@ -23,6 +23,11 @@ final class ColorManager {
         //        return UIColor.init(hexString: "cd37a5", withAlpha: 1.0)
     }
 
+    func defaultButtonColor() -> UIColor { //skyBuleColor
+        return UIColor(red: 19/255.0, green:144/255.0, blue:255/255.0, alpha:1.0)
+
+    }
+
 }
 
 //

@@ -127,6 +127,8 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
         }
         if let editProfileVC = destination as? EditProfileTableViewController {
             if segue.identifier == "toEditProfile" {
+                print("myProfileName", myProfileName)
+                print("myProfileSelfintroduction", myProfileSelfintroduction)
                 editProfileVC.profileImage = myProfileImage
                 editProfileVC.profileHomeImage
                     = myProfileHomeImage

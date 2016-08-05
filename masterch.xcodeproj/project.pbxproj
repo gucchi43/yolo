@@ -52,6 +52,8 @@
 		ED3707931D36427E00F892B0 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3707921D36427E00F892B0 /* ColorManager.swift */; };
 		ED390BC81D3E6A120053FABF /* PINCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED390BC71D3E6A120053FABF /* PINCache.framework */; };
 		ED390BC91D3E6A120053FABF /* PINCache.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED390BC71D3E6A120053FABF /* PINCache.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ED3994101D49F85E002E8EED /* ConnectMailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED39940F1D49F85E002E8EED /* ConnectMailTableViewController.swift */; };
+		ED3994161D4B393A002E8EED /* ResetPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3994151D4B3939002E8EED /* ResetPasswordTableViewController.swift */; };
 		ED402DCC1D34460C0098F843 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED402DCB1D34460C0098F843 /* images.xcassets */; };
 		ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED4512AF1CEF33CB0071FA58 /* Title.storyboard */; };
 		ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */; };
@@ -178,6 +180,8 @@
 		ED36445F1C9D6DBA00C6676C /* Submit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Submit.storyboard; sourceTree = "<group>"; };
 		ED3707921D36427E00F892B0 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		ED390BC71D3E6A120053FABF /* PINCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PINCache.framework; path = Carthage/Build/iOS/PINCache.framework; sourceTree = "<group>"; };
+		ED39940F1D49F85E002E8EED /* ConnectMailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectMailTableViewController.swift; sourceTree = "<group>"; };
+		ED3994151D4B3939002E8EED /* ResetPasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordTableViewController.swift; sourceTree = "<group>"; };
 		ED402DCB1D34460C0098F843 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		ED4512AF1CEF33CB0071FA58 /* Title.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Title.storyboard; sourceTree = "<group>"; };
 		ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogPostedProgressBar.swift; sourceTree = "<group>"; };
@@ -366,6 +370,7 @@
 			children = (
 				ED36445B1C9D65AA00C6676C /* Account.storyboard */,
 				EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */,
+				ED39940F1D49F85E002E8EED /* ConnectMailTableViewController.swift */,
 				EDBADE2D1D2483FB0048957A /* AccountViewController.swift */,
 				EDBADE2F1D2489490048957A /* ProfileCell.swift */,
 				EDBADE311D2489690048957A /* ThreeCircleCell.swift */,
@@ -461,6 +466,7 @@
 		ED5274E71D2282150088481F /* SignUp&In */ = {
 			isa = PBXGroup;
 			children = (
+				ED3994151D4B3939002E8EED /* ResetPasswordTableViewController.swift */,
 				32C0A3411C5DF8ED009657B9 /* Main.storyboard */,
 				EDA866771CBC93050074A71D /* SetProfileViewController.swift */,
 				ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */,
@@ -694,6 +700,8 @@
 				EDA4DC721C82F190005FE126 /* CalendarAnotherView.swift in Sources */,
 				ED720CD11D180B2400477608 /* CalendarLogCollerManager.swift in Sources */,
 				EDBADE301D2489490048957A /* ProfileCell.swift in Sources */,
+				ED3994101D49F85E002E8EED /* ConnectMailTableViewController.swift in Sources */,
+				ED3994161D4B393A002E8EED /* ResetPasswordTableViewController.swift in Sources */,
 				EDBADE2E1D2483FB0048957A /* AccountViewController.swift in Sources */,
 				ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */,
 				3219A2371C70468900D1A6AF /* TimelineCell.swift in Sources */,
