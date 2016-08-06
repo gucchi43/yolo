@@ -59,6 +59,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         // アプリが起動していない時にpush通知が届き、push通知から起動した場合(リモートプッシュ通知)
         if let remoteNotification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
+            if let tabBarController = self.window?.rootViewController as? UITabBarController {
+                //バッジ数をリセット
+                NCMBAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
+                //タブバーにバッジを設置
+                if let oldTabarBadgeString = tabBarController.tabBar.items![3].badgeValue{
+                    let nawTabarBadgeNumber = Int(oldTabarBadgeString)! + 1
+                    tabBarController.tabBar.items![3].badgeValue = String(nawTabarBadgeNumber)
+                }else {
+                    tabBarController.tabBar.items![3].badgeValue = "1"
+                }
+            }
             let category = remoteNotification.objectForKey("category") as! String
             switch category {
             case "like":
@@ -120,6 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /** Facebook連携 **/
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
+
     //****** プッシュ通知設定 初め ******
 
 //    デバイストークン取得時の処理
@@ -155,9 +167,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("logre")
                 pushReciveToSubmit()
 
-            //別ファイルに書いているがエラるためひとまずコメントアウト
-                //                let pushM = pushManager()
-            //                pushM.recivePushToLogToDay()
+//                別ファイルに書いているがエラるためひとまずコメントアウト
+//                let pushM = pushManager()
+//                pushM.recivePushToLogToDay()
 
             default:
                 break
@@ -180,11 +192,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //リモートプッシュ受信
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        //バッジをリセット
+        NCMBAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
+        //タブバーにバッジを設置
+        if let tabBarController = self.window?.rootViewController as? UITabBarController {
+            if let oldTabarBadgeString = tabBarController.tabBar.items![3].badgeValue{
+                let nawTabarBadgeNumber = Int(oldTabarBadgeString)! + 1
+                tabBarController.tabBar.items![3].badgeValue = String(nawTabarBadgeNumber)
+            }else {
+                tabBarController.tabBar.items![3].badgeValue = "1"
+            }
+        }
         //アプリがactiveか、じゃないか
-        if application.applicationState != UIApplicationState.Active{//activeじゃない
+        switch application.applicationState {
+        case .Inactive:
             print("非active中にリモートプッシュ通知: " + userInfo.description)
-        }else {//active
+            if let remoteNotification = userInfo[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
+                let category = remoteNotification.objectForKey("category") as! String
+                switch category {
+                case "like":
+                    print("リモートプッシュ通知受け取り: like")
+                    let userSettingValue = remoteNotification.objectForKey("userSettingValue") as? NSDictionary
+                    let reciveInfo = userSettingValue?.objectForKey("post") as? NCMBObject
+                    let pushM = pushManager()
+                    pushM.recivePushToLike(reciveInfo!)
+                case "follow":
+                    print("リモートプッシュ通知受け取り: follow")
+                    let userSettingValue = remoteNotification.objectForKey("userSettingValue") as? NSDictionary
+                    let reciveInfo = userSettingValue?.objectForKey("user") as? NCMBUser
+                    let pushM = pushManager()
+                    pushM.recivePushToLike(reciveInfo!)
+                case "comment":
+                    print("リモートプッシュ通知受け取り: comment")
+                    let userSettingValue = remoteNotification.objectForKey("userSettingValue") as? NSDictionary
+                    let reciveInfo = userSettingValue?.objectForKey("post") as? NCMBObject
+                    let pushM = pushManager()
+                    pushM.recivePushToLike(reciveInfo!)
+                default:
+                    break
+                }
+                print("Remote Notification \(remoteNotification)")
+            }
+        case .Active:
             print("active中に受け取ったリモートプッシュ通知: " + userInfo.description)
+        default:
+            break
         }
     }
 
@@ -211,7 +263,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         /** 追加① **/
         FBSDKAppEvents.activateApp()
+        //表示上のアプリアイコンバッジリセット
         application.applicationIconBadgeNumber = 0
+        //サーバー上のアプリアイコンバッジリセット
+        let userInstallation = NCMBInstallation.currentInstallation()
+        userInstallation.badge = 0
+        userInstallation.saveInBackgroundWithBlock { (error) in
+            if let error = error {
+                //データベース内でのバッジ数リセット
+                print(error.localizedDescription)
+            }else {
+                print("userInstallation.badge", userInstallation.badge)
+            }
+        }
     }
 
     func applicationWillTerminate(application: UIApplication) {

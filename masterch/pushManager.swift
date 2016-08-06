@@ -28,6 +28,7 @@ class pushManager: NSObject {
         push.setMessage("あなたのログが" + NCMBUser.currentUser().userName + "にいいねされたお😍" + "\n" + "「" + postText + "」")
         push.setCategory("comment")
         push.setUserSettingValue(["user" : user, "post": post])
+        push.setBadgeIncrementFlag(true)
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
 
@@ -55,6 +56,7 @@ class pushManager: NSObject {
         push.setMessage("あなたのログに" + NCMBUser.currentUser().userName + "からコメントがきたお😆" + "\n" + commentText + "\n" + "「" + postText + "」")
         push.setCategory("comment")
         push.setUserSettingValue(["user" : user, "post": post])
+        push.setBadgeIncrementFlag(true)
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
         push.sendPushInBackgroundWithBlock { (error) in
@@ -83,6 +85,7 @@ class pushManager: NSObject {
         push.setMessage(NCMBUser.currentUser().userName + "にフォローされたお😏")
         push.setCategory("follow")
         push.setUserSettingValue(["user" : user])
+        push.setBadgeIncrementFlag(true)
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
         push.sendPushInBackgroundWithBlock { (error) in
