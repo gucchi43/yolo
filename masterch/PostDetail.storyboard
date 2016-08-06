@@ -8,7 +8,7 @@
         <!--Post Detail View Controller-->
         <scene sceneID="7yB-E5-Fse">
             <objects>
-                <viewController id="jT1-4s-Pcr" customClass="PostDetailViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostDetail" id="jT1-4s-Pcr" customClass="PostDetailViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Nu8-dA-Hpe"/>
                         <viewControllerLayoutGuide type="bottom" id="e1M-0C-Bx4"/>

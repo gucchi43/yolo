@@ -33,7 +33,7 @@ class NotificationManager: NSObject {
                 print("like: Notificationへの保存成功")
                 button.enabled = true
                 let pushM = pushManager()
-                pushM.pushToLike(user, postText: postHeader)
+                pushM.pushToLike(user, post: post, postText: postHeader)
             }
         })
     }
@@ -146,7 +146,7 @@ class NotificationManager: NSObject {
     //---------------コメント---------------
     
     //commentしたことを通知画面のデータに保存
-    func commentNotification(user: NCMBUser, post: NCMBObject, postHeader: String){
+    func commentNotification(user: NCMBUser, post: NCMBObject, postHeader: String, commentHeader: String){
         let notificationObject = NCMBObject(className: "Notification")
         notificationObject.setObject(user, forKey: "ownerUser")
         notificationObject.setObject("comment", forKey: "type")
@@ -155,13 +155,14 @@ class NotificationManager: NSObject {
         let postRelation: NCMBRelation = NCMBRelation(className: notificationObject, key: "post")
         postRelation.addObject(post)
         notificationObject.setObject(postHeader, forKey: "postHeader")
+        notificationObject.setObject(commentHeader, forKey: "commentHeader")
         notificationObject.saveEventually({ (error) -> Void in
             if let error = error {
                 print("error", error.localizedDescription)
             }else {
                 print("comment: Notificationへの保存成功")
                 let pushM = pushManager()
-                pushM.pushToComment(user, postText: postHeader)
+                pushM.pushToComment(user, post: post, postText: postHeader, commentText: commentHeader)
             }
         })
 

@@ -206,6 +206,7 @@ class NotificationTableViewController: UITableViewController {
                 }
             })
             cell.postLabel.text = commentInfo.objectForKey("postHeader") as? String
+            cell.commentLabel.text = commentInfo.objectForKey("commentHeader") as? String
             cell.layoutIfNeeded()
             return cell
             

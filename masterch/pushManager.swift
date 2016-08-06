@@ -14,7 +14,7 @@ class pushManager: NSObject {
     var window: UIWindow?
 
     //いいねした時のプッシュ通知（post、受けるuser）
-    func pushToLike(user: NCMBUser, postText: String) {
+    func pushToLike(user: NCMBUser, post: NCMBObject, postText: String) {
         let push: NCMBPush = NCMBPush()
         let data : NSDictionary = ["contentAvailable":NSNumber(bool: false),
                                    "badgeIncrementFlag": NSNumber(bool: true),
@@ -25,9 +25,12 @@ class pushManager: NSObject {
         installationQuery.whereKey("userObjectId", equalTo: user.objectId)
         push.setSearchCondition(installationQuery)
 
+        push.setMessage("あなたのログが" + NCMBUser.currentUser().userName + "にいいねされたお😍" + "\n" + "「" + postText + "」")
+        push.setCategory("comment")
+        push.setUserSettingValue(["user" : user, "post": post])
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
-        push.setMessage("あなたのログが" + NCMBUser.currentUser().userName + "にいいねされたお😍" + "\n" + "「" + postText + "」")
+
         push.sendPushInBackgroundWithBlock { (error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -38,7 +41,7 @@ class pushManager: NSObject {
     }
 
     //コメントした時のプッシュ通知（post、受けるuser）
-    func pushToComment(user: NCMBUser, postText: String) {
+    func pushToComment(user: NCMBUser, post: NCMBObject, postText: String, commentText: String) {
         let push: NCMBPush = NCMBPush()
         let data : NSDictionary = ["contentAvailable":NSNumber(bool: false),
                                    "badgeIncrementFlag": NSNumber(bool: true),
@@ -49,7 +52,9 @@ class pushManager: NSObject {
         installationQuery.whereKey("userObjectId", equalTo: user.objectId)
         push.setSearchCondition(installationQuery)
 
-        push.setMessage("あなたのログに" + NCMBUser.currentUser().userName + "からコメントがきたお😆" + "\n" + "「" + postText + "」")
+        push.setMessage("あなたのログに" + NCMBUser.currentUser().userName + "からコメントがきたお😆" + "\n" + commentText + "\n" + "「" + postText + "」")
+        push.setCategory("comment")
+        push.setUserSettingValue(["user" : user, "post": post])
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
         push.sendPushInBackgroundWithBlock { (error) in
@@ -76,6 +81,8 @@ class pushManager: NSObject {
         push.setSearchCondition(installationQuery)
 
         push.setMessage(NCMBUser.currentUser().userName + "にフォローされたお😏")
+        push.setCategory("follow")
+        push.setUserSettingValue(["user" : user])
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
         push.sendPushInBackgroundWithBlock { (error) in
@@ -88,8 +95,7 @@ class pushManager: NSObject {
     }
 
     //1ヶ月前に投稿があった時のプッシュ通知（受けるuser）
-    func pushToMonthkAgoPost(user: NCMBUser) {
-        print("user", user)
+    func pushToMonthkAgoPost() {
         let push: NCMBPush = NCMBPush()
         let data : NSDictionary = ["contentAvailable":NSNumber(bool: false),
                                    "badgeIncrementFlag": NSNumber(bool: true),
@@ -97,7 +103,7 @@ class pushManager: NSObject {
         push.setData(data as [NSObject : AnyObject])
 
         let installationQuery = NCMBInstallation.query()
-        installationQuery.whereKey("userObjectId", equalTo: user.objectId)
+        installationQuery.whereKey("userObjectId", equalTo: NCMBUser.currentUser().objectId)
         push.setSearchCondition(installationQuery)
 
         push.setMessage("タタタターン! 一ヶ月前にこんなログをしていたお")
@@ -113,7 +119,7 @@ class pushManager: NSObject {
     }
 
     //1年前に投稿があった時のプッシュ通知（受けるuser）
-    func pushToYearAgoPost(user: NCMBUser) {
+    func pushToYearAgoPost() {
         let push: NCMBPush = NCMBPush()
         let data : NSDictionary = ["contentAvailable":NSNumber(bool: false),
                                    "badgeIncrementFlag": NSNumber(bool: true),
@@ -177,21 +183,34 @@ class pushManager: NSObject {
 
     }
 
-    func recivePushToLike() {
-        let submitSB = UIStoryboard(name: "Submit", bundle: nil)
-        let submitVC = submitSB.instantiateViewControllerWithIdentifier("Submit") as! SubmitViewController
-        self.window?.rootViewController!.presentViewController(submitVC, animated: true, completion: nil)
+    func recivePushToLike(post: NCMBObject) {
+        let postDetailSB = UIStoryboard(name: "PostDetail", bundle: nil)
+        let postDetailVC = postDetailSB.instantiateViewControllerWithIdentifier("PostDetail") as! PostDetailViewController
+        self.window?.rootViewController!.presentViewController(postDetailVC, animated: true, completion: nil)
+        postDetailVC.postObject = post
         if let tabvc = self.window!.rootViewController as? UITabBarController  {
-            tabvc.selectedIndex = 0 // 0 が一番左のタブ (0＝Log画面)
+            tabvc.selectedIndex = 3 // 0 が一番左のタブ (0＝Log画面)
         }
     }
 
-    func recivePushToFollow() {
-
+    func recivePushToFollow(user: NCMBUser) {
+        let accountSB = UIStoryboard(name: "Account", bundle: nil)
+        let accountVC = accountSB.instantiateViewControllerWithIdentifier("AccountView") as! AccountViewController
+        self.window?.rootViewController!.presentViewController(accountVC, animated: true, completion: nil)
+        accountVC.user = user
+        if let tabvc = self.window!.rootViewController as? UITabBarController  {
+            tabvc.selectedIndex = 3 // 0 が一番左のタブ (0＝Log画面)
+        }
     }
 
-    func recivePushToComment() {
-
+    func recivePushToComment(post: NCMBObject) {
+        let postDetailSB = UIStoryboard(name: "PostDetail", bundle: nil)
+        let postDetailVC = postDetailSB.instantiateViewControllerWithIdentifier("PostDetail") as! PostDetailViewController
+        self.window?.rootViewController!.presentViewController(postDetailVC, animated: true, completion: nil)
+        postDetailVC.postObject = post
+        if let tabvc = self.window!.rootViewController as? UITabBarController  {
+            tabvc.selectedIndex = 3 // 0 が一番左のタブ (0＝Log画面)
+        }
     }
 
 

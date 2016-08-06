@@ -21,6 +21,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let clientkey = "ba1432ddcd33638afa4075ab527183c5e0a056e6a0441342be264dc8dd50fdd6"
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+        //********** SDKの初期化 **********
+        /** NCMB連携 **/
+        NCMB.setApplicationKey(applicationkey, clientKey: clientkey)
+
+
+        //        NCMBTwitterUtils.initializeWithConsumerKey("BC5FOGIUpi7cPUnuG9JUgtnwD", consumerSecret: "1GBwujSqH10INkqiaPfhO6IyncFc30CrwT8TNHUChgm1zV0dXq")
+
+        NCMBTwitterUtils.initializeWithConsumerKey("TrXvBgug4dQvHd8OBhtCDe4u5", consumerSecret: "EwTwn9kg9hpzihQNWxn0Uo6OEnmJbUOebHayJBNt9jfqrZmAlR")
+
+        /** Fabric連携 **/
+        let consumerKey = "TrXvBgug4dQvHd8OBhtCDe4u5"
+        let consumerSecret = "EwTwn9kg9hpzihQNWxn0Uo6OEnmJbUOebHayJBNt9jfqrZmAlR"
+        Twitter.sharedInstance().startWithConsumerKey(consumerKey, consumerSecret: consumerSecret)
+        //        Fabric.with([Twitter.sharedInstance()])
+        Fabric.with([Twitter.self, Crashlytics.self])
+
+
+//        /** Facebook連携 **/
+//        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+
         //---------NavigationBarのデザイン関係----------
         //NavigationBarの色を設定（背景、タイトル、アイテム）
         UINavigationBar.appearance().barTintColor = ColorManager.sharedSingleton.accsentColor()
@@ -38,6 +59,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         // アプリが起動していない時にpush通知が届き、push通知から起動した場合(リモートプッシュ通知)
         if let remoteNotification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
+            let category = remoteNotification.objectForKey("category") as! String
+            switch category {
+            case "like":
+                print("リモートプッシュ通知受け取り: like")
+                let userSettingValue = remoteNotification.objectForKey("userSettingValue") as? NSDictionary
+                let reciveInfo = userSettingValue?.objectForKey("post") as? NCMBObject
+                let pushM = pushManager()
+                pushM.recivePushToLike(reciveInfo!)
+            case "follow":
+                print("リモートプッシュ通知受け取り: follow")
+                let userSettingValue = remoteNotification.objectForKey("userSettingValue") as? NSDictionary
+                let reciveInfo = userSettingValue?.objectForKey("user") as? NCMBUser
+                let pushM = pushManager()
+                pushM.recivePushToLike(reciveInfo!)
+            case "comment":
+                print("リモートプッシュ通知受け取り: comment")
+                let userSettingValue = remoteNotification.objectForKey("userSettingValue") as? NSDictionary
+                let reciveInfo = userSettingValue?.objectForKey("post") as? NCMBObject
+                let pushM = pushManager()
+                pushM.recivePushToLike(reciveInfo!)
+            default:
+                break
+            }
             print("Remote Notification \(remoteNotification)")
         }
 
@@ -73,24 +117,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = viewController
         }
 
-
-        //********** SDKの初期化 **********
-        /** NCMB連携 **/
-        NCMB.setApplicationKey(applicationkey, clientKey: clientkey)
-
-
-        //        NCMBTwitterUtils.initializeWithConsumerKey("BC5FOGIUpi7cPUnuG9JUgtnwD", consumerSecret: "1GBwujSqH10INkqiaPfhO6IyncFc30CrwT8TNHUChgm1zV0dXq")
-
-        NCMBTwitterUtils.initializeWithConsumerKey("TrXvBgug4dQvHd8OBhtCDe4u5", consumerSecret: "EwTwn9kg9hpzihQNWxn0Uo6OEnmJbUOebHayJBNt9jfqrZmAlR")
-
-        /** Fabric連携 **/
-        let consumerKey = "TrXvBgug4dQvHd8OBhtCDe4u5"
-        let consumerSecret = "EwTwn9kg9hpzihQNWxn0Uo6OEnmJbUOebHayJBNt9jfqrZmAlR"
-        Twitter.sharedInstance().startWithConsumerKey(consumerKey, consumerSecret: consumerSecret)
-//        Fabric.with([Twitter.sharedInstance()])
-        Fabric.with([Twitter.self, Crashlytics.self])
-        
-        
         /** Facebook連携 **/
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
