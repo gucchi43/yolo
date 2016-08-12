@@ -18,8 +18,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
         //タブバーのボタンを選択した時の色を設定
         self.tabBar.tintColor = ColorManager.sharedSingleton.mainColor()
         //Submitのボタンだけデフォルトで色付きでのせるためオリジナルの画像を表示
-        let submitTabButton = self.tabBar.items![2]
-        submitTabButton.image = UIImage(named: "tabSubmit")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        let submitTabButton = self.tabBar.items?[2]
+        submitTabButton?.image = UIImage(named: "tabSubmit")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
     }
 
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
@@ -53,6 +53,18 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
 //        }else {
 //            print("selectedIndex as Int",selectedIndex as Int)
 //        }
+        //押したタブ(item)にbadgeがあった場合、アプリ上、データベース上共にリセットする
+        if item.badgeValue != nil{
+            item.badgeValue = nil
+            NCMBUser.currentUser().setObject(0, forKey: "tabBadge")
+            NCMBUser.currentUser().saveEventually({ (error) in
+                if let error = error{
+                    print(error.localizedDescription)
+                }else {
+                    print("Notificationタブボタン押す→tabBadgeデータを0にリセット")
+                }
+            })
+        }
 
         switch item.tag {
         case 1://ログ
@@ -75,5 +87,4 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
             print("tag ID = デフォルトじゃいぼけい", item.tag)
         }
     }
-
 }

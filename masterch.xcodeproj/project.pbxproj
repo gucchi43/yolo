@@ -88,6 +88,7 @@
 		EDBADE321D2489690048957A /* ThreeCircleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBADE311D2489690048957A /* ThreeCircleCell.swift */; };
 		EDCBEE721CCA793700317BCE /* PostDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDCBEE711CCA793700317BCE /* PostDetail.storyboard */; };
 		EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE355F11CB284CD006C7C0A /* CommentFile.swift */; };
+		EDE5933F1D59C565002A2826 /* TabBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE5933E1D59C565002A2826 /* TabBadgeManager.swift */; };
 		EDEF991E1C9EC13500B6D69D /* ContainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -215,6 +216,7 @@
 		EDBADE311D2489690048957A /* ThreeCircleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeCircleCell.swift; sourceTree = "<group>"; };
 		EDCBEE711CCA793700317BCE /* PostDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PostDetail.storyboard; sourceTree = "<group>"; };
 		EDE355F11CB284CD006C7C0A /* CommentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFile.swift; sourceTree = "<group>"; };
+		EDE5933E1D59C565002A2826 /* TabBadgeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBadgeManager.swift; sourceTree = "<group>"; };
 		EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -456,6 +458,7 @@
 				EDA94FD21CEEC48700A42E8A /* UIExtension.swift */,
 				ED3707921D36427E00F892B0 /* ColorManager.swift */,
 				ED48C9471D4F67B9003DC586 /* pushManager.swift */,
+				EDE5933E1D59C565002A2826 /* TabBadgeManager.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -718,6 +721,7 @@
 				EDA4DC701C82F163005FE126 /* CalendarWeekView.swift in Sources */,
 				ED720CD31D188D6500477608 /* LogNavigationController.swift in Sources */,
 				ED652C4E1D29C2C70004BE9F /* SubmitDummyViewController.swift in Sources */,
+				EDE5933F1D59C565002A2826 /* TabBadgeManager.swift in Sources */,
 				EDB4AF581CE37AE2002781F3 /* ContainerSnsViewController.swift in Sources */,
 				EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */,
 				32C0A3401C5DF8ED009657B9 /* ViewController.swift in Sources */,

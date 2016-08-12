@@ -26,8 +26,7 @@ class pushManager: NSObject {
         push.setSearchCondition(installationQuery)
 
         push.setMessage("あなたのログが" + NCMBUser.currentUser().userName + "にいいねされたお😍" + "\n" + "「" + postText + "」")
-        push.setCategory("comment")
-        push.setUserSettingValue(["user" : user, "post": post])
+        push.setUserSettingValue(["type": "like", "user" : user, "post": post])
         push.setBadgeIncrementFlag(true)
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
@@ -37,6 +36,8 @@ class pushManager: NSObject {
                 print(error.localizedDescription)
             }else {
                 print("likeプッシュ通知送信")
+                let TBManager = TabBadgeManager()
+                TBManager.setTabBadg(user)
             }
         }
     }
@@ -54,8 +55,7 @@ class pushManager: NSObject {
         push.setSearchCondition(installationQuery)
 
         push.setMessage("あなたのログに" + NCMBUser.currentUser().userName + "からコメントがきたお😆" + "\n" + commentText + "\n" + "「" + postText + "」")
-        push.setCategory("comment")
-        push.setUserSettingValue(["user" : user, "post": post])
+        push.setUserSettingValue(["type": "comment", "user" : user, "post": post])
         push.setBadgeIncrementFlag(true)
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
@@ -64,6 +64,8 @@ class pushManager: NSObject {
                 print(error.localizedDescription)
             }else {
                 print("commnetプッシュ通知送信")
+                let TBManager = TabBadgeManager()
+                TBManager.setTabBadg(user)
             }
         }
     }
@@ -84,7 +86,7 @@ class pushManager: NSObject {
 
         push.setMessage(NCMBUser.currentUser().userName + "にフォローされたお😏")
         push.setCategory("follow")
-        push.setUserSettingValue(["user" : user])
+        push.setUserSettingValue(["type": "follow", "user" : user])
         push.setBadgeIncrementFlag(true)
         push.setImmediateDeliveryFlag(true)
         push.setPushToIOS(true)
@@ -93,6 +95,8 @@ class pushManager: NSObject {
                 print(error.localizedDescription)
             }else {
                 print("followプッシュ通知送信")
+                let TBManager = TabBadgeManager()
+                TBManager.setTabBadg(user)
             }
         }
     }
@@ -174,9 +178,7 @@ class pushManager: NSObject {
         print(now2!)
         notification.fireDate = now2
         notification.repeatInterval = NSCalendarUnit.Day
-
-        //        notification.fireDate = NSDate(timeIntervalSinceNow: 10)  // Test
-
+        
         notification.soundName = UILocalNotificationDefaultSoundName
         // アイコンバッジに1を表示
         notification.applicationIconBadgeNumber = 1
@@ -186,33 +188,84 @@ class pushManager: NSObject {
 
     }
 
-    func recivePushToLike(post: NCMBObject) {
-        let postDetailSB = UIStoryboard(name: "PostDetail", bundle: nil)
-        let postDetailVC = postDetailSB.instantiateViewControllerWithIdentifier("PostDetail") as! PostDetailViewController
-        self.window?.rootViewController!.presentViewController(postDetailVC, animated: true, completion: nil)
-        postDetailVC.postObject = post
-        if let tabvc = self.window!.rootViewController as? UITabBarController  {
-            tabvc.selectedIndex = 3 // 0 が一番左のタブ (0＝Log画面)
+    func recivePushToLike(postId: String) {
+        let post = NCMBObject(className: "post")
+        post.objectId = postId
+        post.fetchInBackgroundWithBlock { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                print("likeプッシュ受け取り成功")
+                let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                if let tabBarController = appDelegate.window?.rootViewController as? UITabBarController {
+                    print("like受け取り後の遷移成功")
+                    tabBarController.selectedIndex = 3
+                    let notificationNVC = tabBarController.viewControllers![3] as! UINavigationController
+                    tabBarController.selectedViewController = notificationNVC
+                    notificationNVC.popToRootViewControllerAnimated(false)
+                    notificationNVC
+                    let notificationVC = notificationNVC.viewControllers[0] as! NotificationTableViewController
+                    notificationVC.selectedObject = post
+                    notificationVC.performSegueWithIdentifier("toPostDetailVC", sender: nil)
+
+                }else {
+                    print("like受け取り後の遷移失敗")
+                }
+            }
         }
     }
 
-    func recivePushToFollow(user: NCMBUser) {
-        let accountSB = UIStoryboard(name: "Account", bundle: nil)
-        let accountVC = accountSB.instantiateViewControllerWithIdentifier("AccountView") as! AccountViewController
-        self.window?.rootViewController!.presentViewController(accountVC, animated: true, completion: nil)
-        accountVC.user = user
-        if let tabvc = self.window!.rootViewController as? UITabBarController  {
-            tabvc.selectedIndex = 3 // 0 が一番左のタブ (0＝Log画面)
+    func recivePushToFollow(userId: String) {
+        let user = NCMBUser()
+        user.objectId = userId
+        user.fetchInBackgroundWithBlock { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                print("followプッシュ受け取り成功")
+                let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                if let tabBarController = appDelegate.window?.rootViewController as? UITabBarController {
+                    print("follow受け取り後の遷移成功")
+                    tabBarController.selectedIndex = 3
+                    let notificationNVC = tabBarController.viewControllers![3] as! UINavigationController
+                    tabBarController.selectedViewController = notificationNVC
+                    notificationNVC.popToRootViewControllerAnimated(false)
+                    notificationNVC
+                    let notificationVC = notificationNVC.viewControllers[0] as! NotificationTableViewController
+                    notificationVC.selectedUser = user
+                    notificationVC.performSegueWithIdentifier("toAccountVC", sender: nil)
+
+                }else {
+                    print("follow受け取り後のレシーブ後の遷移失敗")
+                }
+            }
         }
     }
 
-    func recivePushToComment(post: NCMBObject) {
-        let postDetailSB = UIStoryboard(name: "PostDetail", bundle: nil)
-        let postDetailVC = postDetailSB.instantiateViewControllerWithIdentifier("PostDetail") as! PostDetailViewController
-        self.window?.rootViewController!.presentViewController(postDetailVC, animated: true, completion: nil)
-        postDetailVC.postObject = post
-        if let tabvc = self.window!.rootViewController as? UITabBarController  {
-            tabvc.selectedIndex = 3 // 0 が一番左のタブ (0＝Log画面)
+    func recivePushToComment(postId: String) {
+        let post = NCMBObject(className: "post")
+        post.objectId = postId
+        post.fetchInBackgroundWithBlock { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                print("commentプッシュ受け取り成功")
+                let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                if let tabBarController = appDelegate.window?.rootViewController as? UITabBarController {
+                    print("follow受け取り後の遷移成功")
+                    tabBarController.selectedIndex = 3
+                    let notificationNVC = tabBarController.viewControllers![3] as! UINavigationController
+                    tabBarController.selectedViewController = notificationNVC
+                    notificationNVC.popToRootViewControllerAnimated(false)
+                    notificationNVC
+                    let notificationVC = notificationNVC.viewControllers[0] as! NotificationTableViewController
+                    notificationVC.selectedObject = post
+                    notificationVC.performSegueWithIdentifier("toPostDetailVC", sender: nil)
+
+                }else {
+                    print("comment受け取り後のレシーブ後の遷移失敗")
+                }
+            }
         }
     }
 
@@ -226,3 +279,4 @@ class pushManager: NSObject {
         }
     }
 }
+

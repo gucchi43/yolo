@@ -28,7 +28,7 @@
         <!--通知-->
         <scene sceneID="HDr-Mz-Adc">
             <objects>
-                <tableViewController id="IQd-Mr-i2H" customClass="NotificationTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="NotificationTableVC" id="IQd-Mr-i2H" customClass="NotificationTableViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="2ga-hz-uVS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

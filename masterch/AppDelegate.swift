@@ -48,63 +48,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
 
-        //        push通知の設定
+        // アプリアイコンのバッジをリセット
+        print("前ｒ: アイコンのバッジ数", application.applicationIconBadgeNumber)
+        application.applicationIconBadgeNumber = 0
+        print("後: アイコンのバッジ数", application.applicationIconBadgeNumber)
+
+        //push通知の設定のおまじない（通知許可を取る）
         if NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1 {
             application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: nil))
             application.registerForRemoteNotifications()
         }
-        // アプリが起動していない時にpush通知が届き、push通知から起動した場合(ローカルプッシュ通知)
+
+        //(ローカルプッシュ通知)アプリが起動していない時にpush通知が届き、push通知から起動した場合
         if let notification = launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
             localPushRecieve(application, notification: notification)
         }
-        // アプリが起動していない時にpush通知が届き、push通知から起動した場合(リモートプッシュ通知)
+        //(リモートプッシュ通知)アプリが起動していない時にpush通知が届き、push通知から起動した場合
         if let remoteNotification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
+            //アイコンバッジ数をリセット(Niftyのデータベース側)
+            NCMBAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
+            //タブバーにバッジを設置
             if let tabBarController = self.window?.rootViewController as? UITabBarController {
-                //バッジ数をリセット
-                NCMBAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
-                //タブバーにバッジを設置
-                if let oldTabarBadgeString = tabBarController.tabBar.items![3].badgeValue{
-                    let nawTabarBadgeNumber = Int(oldTabarBadgeString)! + 1
-                    tabBarController.tabBar.items![3].badgeValue = String(nawTabarBadgeNumber)
-                }else {
-                    tabBarController.tabBar.items![3].badgeValue = "1"
+                if NCMBUser.currentUser().objectForKey("tabBadge") as? Int > 0{
+                    let tabBadgeNumber = NCMBUser.currentUser().objectForKey("tabBadge") as! Int
+                    tabBarController.tabBar.items![3].badgeValue = String(tabBadgeNumber)
                 }
             }
-            let category = remoteNotification.objectForKey("category") as! String
-            switch category {
+            let payload : [NSObject : AnyObject] = launchOptions!["UIApplicationLaunchOptionsRemoteNotificationKey"] as! [NSObject : AnyObject]
+            let type = payload["type"] as! String
+            switch type {
             case "like":
                 print("リモートプッシュ通知受け取り: like")
-                let userSettingValue = remoteNotification.objectForKey("userSettingValue") as? NSDictionary
-                let reciveInfo = userSettingValue?.objectForKey("post") as? NCMBObject
+                let post = payload["post"] as? NSDictionary
+                let postObjectId = post!.objectForKey("objectId") as! String
                 let pushM = pushManager()
-                pushM.recivePushToLike(reciveInfo!)
+                pushM.recivePushToLike(postObjectId)
             case "follow":
                 print("リモートプッシュ通知受け取り: follow")
-                let userSettingValue = remoteNotification.objectForKey("userSettingValue") as? NSDictionary
-                let reciveInfo = userSettingValue?.objectForKey("user") as? NCMBUser
+                let user = payload["user"] as! NSDictionary
+                let userObjectId = user.objectForKey("objectId") as! String
                 let pushM = pushManager()
-                pushM.recivePushToLike(reciveInfo!)
+                pushM.recivePushToFollow(userObjectId)
             case "comment":
                 print("リモートプッシュ通知受け取り: comment")
-                let userSettingValue = remoteNotification.objectForKey("userSettingValue") as? NSDictionary
-                let reciveInfo = userSettingValue?.objectForKey("post") as? NCMBObject
+                let post = payload["post"] as? NSDictionary
+                let postObjectId = post!.objectForKey("objectId") as! String
                 let pushM = pushManager()
-                pushM.recivePushToLike(reciveInfo!)
+                pushM.recivePushToComment(postObjectId)
             default:
                 break
             }
             print("Remote Notification \(remoteNotification)")
         }
 
-        // アプリアイコンのバッジをリセット
-        print("前ｒ: アイコンのバッジ数", application.applicationIconBadgeNumber)
-        application.applicationIconBadgeNumber = 0
-        print("後: アイコンのバッジ数", application.applicationIconBadgeNumber)
-
+        //(プッシュ通知無し) 最初に表示するViewを切り替える（ログイン済み or 未ログイン）
         let storyboard:UIStoryboard =  UIStoryboard(name: "Main",bundle:nil)
         var viewController:UIViewController
         let user = NCMBUser.currentUser()
-        
+
         //表示するビューコントローラーを指定
         if user != nil {
             print("appDelegate by ログイン済み")
@@ -112,7 +113,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //ユーザー情報を取ってくる
             user.fetchInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error == nil {
-                    self.window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier("firstViewController") as UIViewController
+                    let firstVC = storyboard.instantiateViewControllerWithIdentifier("firstVC") as UIViewController
+                    self.window?.rootViewController = firstVC
                     if let tabvc = self.window!.rootViewController as? UITabBarController  {
                         tabvc.selectedIndex = 0 // 0 が一番左のタブ (0＝Log画面)
                     }
@@ -196,43 +198,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NCMBAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
         //タブバーにバッジを設置
         if let tabBarController = self.window?.rootViewController as? UITabBarController {
-            if let oldTabarBadgeString = tabBarController.tabBar.items![3].badgeValue{
-                let nawTabarBadgeNumber = Int(oldTabarBadgeString)! + 1
-                tabBarController.tabBar.items![3].badgeValue = String(nawTabarBadgeNumber)
-            }else {
-                tabBarController.tabBar.items![3].badgeValue = "1"
+            print("タブバー表示時のカレントユーザー", NCMBUser.currentUser().userName)
+            if NCMBUser.currentUser().objectForKey("tabBadge") as? Int > 0{
+                let tabBadgeNumber = NCMBUser.currentUser().objectForKey("tabBadge") as! Int
+                print("tabBadgeNumber", tabBadgeNumber)
+                tabBarController.tabBar.items![3].badgeValue = String(tabBadgeNumber)
             }
         }
         //アプリがactiveか、じゃないか
         switch application.applicationState {
         case .Inactive:
             print("非active中にリモートプッシュ通知: " + userInfo.description)
-            if let remoteNotification = userInfo[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
-                let category = remoteNotification.objectForKey("category") as! String
-                switch category {
+            let user = userInfo["user"] as? NSDictionary
+            let userName = user?.objectForKey("className") as! String
+            let objectId = user?.objectForKey("objectId") as! String
+            print("user\(user)")
+            print("userName\(userName)")
+            print("objectId\(objectId)")
+            let type = userInfo["type"] as! String
+            print("type", type)
+                switch type {
                 case "like":
                     print("リモートプッシュ通知受け取り: like")
-                    let userSettingValue = remoteNotification.objectForKey("userSettingValue") as? NSDictionary
-                    let reciveInfo = userSettingValue?.objectForKey("post") as? NCMBObject
+                    let post = userInfo["post"] as? NSDictionary
+                    let postObjectId = post!.objectForKey("objectId") as! String
                     let pushM = pushManager()
-                    pushM.recivePushToLike(reciveInfo!)
+                    pushM.recivePushToLike(postObjectId)
                 case "follow":
                     print("リモートプッシュ通知受け取り: follow")
-                    let userSettingValue = remoteNotification.objectForKey("userSettingValue") as? NSDictionary
-                    let reciveInfo = userSettingValue?.objectForKey("user") as? NCMBUser
+                    let user = userInfo["user"] as! NSDictionary
+                    let userObjectId = user.objectForKey("objectId") as! String
                     let pushM = pushManager()
-                    pushM.recivePushToLike(reciveInfo!)
+                    pushM.recivePushToFollow(userObjectId)
                 case "comment":
                     print("リモートプッシュ通知受け取り: comment")
-                    let userSettingValue = remoteNotification.objectForKey("userSettingValue") as? NSDictionary
-                    let reciveInfo = userSettingValue?.objectForKey("post") as? NCMBObject
+                    let post = userInfo["post"] as? NSDictionary
+                    let postObjectId = post!.objectForKey("objectId") as! String
                     let pushM = pushManager()
-                    pushM.recivePushToLike(reciveInfo!)
+                    pushM.recivePushToComment(postObjectId)
                 default:
                     break
                 }
-                print("Remote Notification \(remoteNotification)")
-            }
         case .Active:
             print("active中に受け取ったリモートプッシュ通知: " + userInfo.description)
         default:
@@ -264,6 +270,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /** 追加① **/
         FBSDKAppEvents.activateApp()
         //表示上のアプリアイコンバッジリセット
+        //バッジ数をリセット
         application.applicationIconBadgeNumber = 0
         //サーバー上のアプリアイコンバッジリセット
         let userInstallation = NCMBInstallation.currentInstallation()
@@ -274,6 +281,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print(error.localizedDescription)
             }else {
                 print("userInstallation.badge", userInstallation.badge)
+            }
+        }
+        //タブバーにバッジを設置
+        if let tabBarController = self.window?.rootViewController as? UITabBarController {
+            if NCMBUser.currentUser().objectForKey("tabBadge") as? Int > 0{
+                let tabBadgeNumber = NCMBUser.currentUser().objectForKey("tabBadge") as! Int
+                tabBarController.tabBar.items![3].badgeValue = String(tabBadgeNumber)
             }
         }
     }

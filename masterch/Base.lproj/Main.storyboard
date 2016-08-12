@@ -9,7 +9,7 @@
         <!--Main Tab View Controller-->
         <scene sceneID="aUj-n5-xjr">
             <objects>
-                <tabBarController storyboardIdentifier="firstViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="crh-pw-A6b" customClass="MainTabViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="firstVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="crh-pw-A6b" customClass="MainTabViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="wWh-eM-V9s">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -143,7 +143,7 @@
                                     <action selector="userInfo:" destination="Slq-0H-g6t" eventType="touchUpInside" id="69r-wS-pME"/>
                                 </connections>
                             </button>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="logoTitle" translatesAutoresizingMaskIntoConstraints="NO" id="a4M-M9-m25">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="logoTitle" translatesAutoresizingMaskIntoConstraints="NO" id="a4M-M9-m25">
                                 <rect key="frame" x="117" y="95" width="158" height="42"/>
                             </imageView>
                         </subviews>
