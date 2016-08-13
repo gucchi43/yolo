@@ -9,8 +9,9 @@
 import UIKit
 
 class TabBadgeManager: NSObject {
-    var window: UIWindow?
+//    var window: UIWindow?
 
+    //タブにバッジを１付与する（サーバー上のデータ）
     func setTabBadg(user: NCMBUser) {
         user.incrementKey("tabBadge")
         user.saveEventually { (error) in
@@ -21,5 +22,18 @@ class TabBadgeManager: NSObject {
             }
         }
     }
+
+    //タブのバッジ数をリセットする（サーバー上のデータ）
+    func resetTabBadge(user: NCMBUser){
+        user.setObject(0, forKey: "tabBadge")
+        user.saveEventually({ (error) in
+            if let error = error{
+                print(error.localizedDescription)
+            }else {
+                print("tabBadgeデータを0にリセット")
+            }
+        })
+    }
+
 
 }

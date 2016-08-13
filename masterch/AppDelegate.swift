@@ -105,7 +105,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard:UIStoryboard =  UIStoryboard(name: "Main",bundle:nil)
         var viewController:UIViewController
         let user = NCMBUser.currentUser()
-
         //表示するビューコントローラーを指定
         if user != nil {
             print("appDelegate by ログイン済み")
