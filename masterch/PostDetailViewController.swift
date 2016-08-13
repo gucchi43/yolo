@@ -64,7 +64,7 @@ class PostDetailViewController: UIViewController {
         postDetailTableView.tableFooterView = clearView // 上下の余計なセル消し
 
         sendCommentButton.enabled = false // 初期ではコメントできないように
-        sendCommentButton.tintColor = UIColor.lightTextColor()
+        sendCommentButton.tintColor = UIColor.darkGrayColor()
 
         if isSelectedCommentButton {
             commentTextView.becomeFirstResponder()
@@ -140,6 +140,7 @@ class PostDetailViewController: UIViewController {
         if textView.hasText() {
             sendCommentButton.enabled = true
             sendCommentButton.titleLabel!.font = UIFont.boldSystemFontOfSize(15)
+            sendCommentButton.tintColor = ColorManager.sharedSingleton.mainColor()
         } else {
             sendCommentButton.enabled = false
             sendCommentButton.titleLabel!.font = UIFont.systemFontOfSize(15)
@@ -209,6 +210,7 @@ extension PostDetailViewController: UITextViewDelegate {
         self.view.endEditing(true)
         commentTextViewHeight.constant = 30
         sendCommentButton.titleLabel!.font = UIFont.systemFontOfSize(15)
+        sendCommentButton.tintColor = ColorManager.sharedSingleton.mainColor()
 
         commentArray.removeAll()
         loadComments()
