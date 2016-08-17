@@ -165,6 +165,7 @@ extension EditProfileTableViewController: UIImagePickerControllerDelegate, UINav
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if info[UIImagePickerControllerOriginalImage] != nil {
             var image = info[UIImagePickerControllerOriginalImage] as! UIImage
+            UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
             if changeImageButtonFrag == 1 {
                 let imageCropVC = RSKImageCropViewController.init(image: image, cropMode: .Circle)
                 imageCropVC.delegate = self

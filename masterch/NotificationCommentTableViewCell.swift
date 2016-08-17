@@ -15,6 +15,7 @@ class NotificationCommentTableViewCell: UITableViewCell {
     @IBOutlet weak var agoTimeLabel: UILabel!
     @IBOutlet weak var commentMessageLabel: UILabel!
     @IBOutlet weak var postLabel: UILabel!
+    @IBOutlet weak var commentLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -312,6 +312,7 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
     //　写真を選択した時に呼ばれるメソッド
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         guard let image: UIImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
         let resizedImage = resize(image)
         self.postImage1 = resizedImage
         self.postImageView.image = resizedImage

@@ -56,6 +56,7 @@
 		ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED4512AF1CEF33CB0071FA58 /* Title.storyboard */; };
 		ED48C92D1D4D0120003DC586 /* TTTAttributedLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED48C92C1D4D0120003DC586 /* TTTAttributedLabel.framework */; };
 		ED48C9321D4D069E003DC586 /* TTTAttributedLabel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED48C9301D4D069E003DC586 /* TTTAttributedLabel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ED48C9481D4F67B9003DC586 /* pushManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED48C9471D4F67B9003DC586 /* pushManager.swift */; };
 		ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */; };
 		ED53BAFD1D35176F0089A03A /* GoodOrBadKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED53BAFC1D35176F0089A03A /* GoodOrBadKeyboard.xib */; };
 		ED652C4C1D29C2B60004BE9F /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */; };
@@ -87,6 +88,7 @@
 		EDBADE321D2489690048957A /* ThreeCircleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBADE311D2489690048957A /* ThreeCircleCell.swift */; };
 		EDCBEE721CCA793700317BCE /* PostDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDCBEE711CCA793700317BCE /* PostDetail.storyboard */; };
 		EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE355F11CB284CD006C7C0A /* CommentFile.swift */; };
+		EDE5933F1D59C565002A2826 /* TabBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE5933E1D59C565002A2826 /* TabBadgeManager.swift */; };
 		EDEF991E1C9EC13500B6D69D /* ContainerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -186,6 +188,7 @@
 		ED4512AF1CEF33CB0071FA58 /* Title.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Title.storyboard; sourceTree = "<group>"; };
 		ED48C92C1D4D0120003DC586 /* TTTAttributedLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTTAttributedLabel.framework; path = /Users/gucchi/Desktop/masterch/masterch/TTTAttributedLabel.framework; sourceTree = "<absolute>"; };
 		ED48C9301D4D069E003DC586 /* TTTAttributedLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTTAttributedLabel.framework; path = Carthage/Build/iOS/TTTAttributedLabel.framework; sourceTree = "<group>"; };
+		ED48C9471D4F67B9003DC586 /* pushManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pushManager.swift; sourceTree = "<group>"; };
 		ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogPostedProgressBar.swift; sourceTree = "<group>"; };
 		ED53BAFC1D35176F0089A03A /* GoodOrBadKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodOrBadKeyboard.xib; sourceTree = "<group>"; };
 		ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
@@ -213,6 +216,7 @@
 		EDBADE311D2489690048957A /* ThreeCircleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeCircleCell.swift; sourceTree = "<group>"; };
 		EDCBEE711CCA793700317BCE /* PostDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PostDetail.storyboard; sourceTree = "<group>"; };
 		EDE355F11CB284CD006C7C0A /* CommentFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentFile.swift; sourceTree = "<group>"; };
+		EDE5933E1D59C565002A2826 /* TabBadgeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBadgeManager.swift; sourceTree = "<group>"; };
 		EDEF991D1C9EC13500B6D69D /* ContainerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -453,6 +457,8 @@
 				EDB04C741CC5190500FDEB14 /* UserData.swift */,
 				EDA94FD21CEEC48700A42E8A /* UIExtension.swift */,
 				ED3707921D36427E00F892B0 /* ColorManager.swift */,
+				ED48C9471D4F67B9003DC586 /* pushManager.swift */,
+				EDE5933E1D59C565002A2826 /* TabBadgeManager.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -469,11 +475,11 @@
 		ED5274E71D2282150088481F /* SignUp&In */ = {
 			isa = PBXGroup;
 			children = (
-				ED3994151D4B3939002E8EED /* ResetPasswordTableViewController.swift */,
 				32C0A3411C5DF8ED009657B9 /* Main.storyboard */,
-				EDA866771CBC93050074A71D /* SetProfileViewController.swift */,
 				ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */,
+				EDA866771CBC93050074A71D /* SetProfileViewController.swift */,
 				32A088A71CED9EEE00BECCA5 /* SignInViewController.swift */,
+				ED3994151D4B3939002E8EED /* ResetPasswordTableViewController.swift */,
 			);
 			name = "SignUp&In";
 			sourceTree = "<group>";
@@ -705,6 +711,7 @@
 				EDBADE301D2489490048957A /* ProfileCell.swift in Sources */,
 				ED3994101D49F85E002E8EED /* ConnectMailTableViewController.swift in Sources */,
 				ED3994161D4B393A002E8EED /* ResetPasswordTableViewController.swift in Sources */,
+				ED48C9481D4F67B9003DC586 /* pushManager.swift in Sources */,
 				EDBADE2E1D2483FB0048957A /* AccountViewController.swift in Sources */,
 				ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */,
 				3219A2371C70468900D1A6AF /* TimelineCell.swift in Sources */,
@@ -714,6 +721,7 @@
 				EDA4DC701C82F163005FE126 /* CalendarWeekView.swift in Sources */,
 				ED720CD31D188D6500477608 /* LogNavigationController.swift in Sources */,
 				ED652C4E1D29C2C70004BE9F /* SubmitDummyViewController.swift in Sources */,
+				EDE5933F1D59C565002A2826 /* TabBadgeManager.swift in Sources */,
 				EDB4AF581CE37AE2002781F3 /* ContainerSnsViewController.swift in Sources */,
 				EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */,
 				32C0A3401C5DF8ED009657B9 /* ViewController.swift in Sources */,
@@ -903,7 +911,7 @@
 					"$(PROJECT_DIR)/masterch",
 				);
 				INFOPLIST_FILE = masterch/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shiosava.yolo;
 				PRODUCT_NAME = masterch;
@@ -930,7 +938,7 @@
 					"$(PROJECT_DIR)/masterch",
 				);
 				INFOPLIST_FILE = masterch/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.shiosava.yolo;
 				PRODUCT_NAME = masterch;

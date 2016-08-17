@@ -232,7 +232,6 @@ extension PostDetailViewController: UITextViewDelegate {
         let auther = postObject.objectForKey("user") as! NCMBUser
         let allPostText = postObject.objectForKey("text") as! String
         let allPostTextCount = allPostText.characters.count
-        print("allPostTextCount", allPostTextCount)
         let postHeader: String?
         if allPostTextCount > 100{
             postHeader = allPostText.substringToIndex(allPostText.startIndex.advancedBy(100))
@@ -240,8 +239,17 @@ extension PostDetailViewController: UITextViewDelegate {
             postHeader = allPostText
         }
         print("Notificatoinに保存する最初の５０文字", postHeader!)
+        let allCommentText = commentTextView.text
+        let allCommentTextCount = allCommentText.characters.count
+        let commentHeader: String?
+        if allCommentTextCount > 100{
+            commentHeader = allCommentText.substringToIndex(allCommentText.startIndex.advancedBy(100))
+        }else {
+            commentHeader = allCommentText
+        }
+
         let notificationManager = NotificationManager()
-        notificationManager.commentNotification(auther, post: postObject, postHeader: postHeader!)
+        notificationManager.commentNotification(auther, post: postObject, postHeader: postHeader!, commentHeader: commentHeader!)
     }
 
 }

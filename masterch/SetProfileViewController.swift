@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 
+
 class SetProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
     @IBOutlet weak var userImageView: UIImageView!
@@ -22,7 +23,9 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate, UITextVie
     var userId: String!
     var password: String!
 
+    var profilegeneralToggle = false
     var profileImageToggle = false
+    var installationToggel = false
 
 //   テキストフィールドのplaceholder用ラベル
     @IBOutlet weak var placeHolderLabel: UILabel!
@@ -155,6 +158,7 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if info[UIImagePickerControllerOriginalImage] != nil {
             var image = info[UIImagePickerControllerOriginalImage] as! UIImage
+            UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
             let imageCropVC = RSKImageCropViewController.init(image: image, cropMode: .Circle)
             imageCropVC.delegate = self
             imageCropVC.dataSource = nil
@@ -201,6 +205,31 @@ extension SetProfileViewController {
     //保存ボタン
     @IBAction func selectSaveProfileButton(sender: AnyObject) {
         saveNewProfile()
+        connectDeviceInfo()
+    }
+
+    //プッシュ通知のためにinstallationにuser情報を付与
+    func connectDeviceInfo() {
+        let installation = NCMBInstallation.currentInstallation()
+        if let deviceTokken = installation.deviceToken{
+            print("deviceTokken", deviceTokken)
+            installation.setObject(NCMBUser.currentUser().objectId, forKey: "userObjectId")
+            installation.setObject(NCMBUser.currentUser().userName, forKey: "userName")
+            installation.saveEventually { (error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "保存出来ませんでした", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
+                }else {
+                    self.installationToggel = true
+                    self.goNextViewController()
+                }
+            }
+        }else {
+            print("deviceTokkenがありません。iosシュミレーターの場合が高いです")
+            self.installationToggel = true
+            self.goNextViewController()
+        }
+
     }
 
     //プロフィール保存
@@ -226,14 +255,12 @@ extension SetProfileViewController {
                         
             //ファイルはバックグラウンド実行をする
             userProfileImageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
-                if error == nil {
+                if let error = error {
+                    print("アップロード中にエラーが発生しました: \(error.localizedDescription)")
+                    RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "保存出来ませんでした", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
+                } else {
                     print("画像データ保存完了: \(userProfileImageFile.name)")
                     self.profileImageToggle = true
-                    self.goNextViewController()
-                } else {
-                    print("アップロード中にエラーが発生しました: \(error.localizedDescription)")
-                    self.profileImageToggle = true
-                    SVProgressHUD.showErrorWithStatus("プロフィール画像の保存に失敗しました")
                     self.goNextViewController()
                 }
                 }, progressBlock: { (percentDone: Int32) -> Void in
@@ -245,16 +272,19 @@ extension SetProfileViewController {
         }
         
         user.saveInBackgroundWithBlock({(error) in
-            if error != nil {
+            if let error = error {
                 print(error.localizedDescription)
+                RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "保存出来ませんでした", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
             }else {
+                self.profilegeneralToggle = true
                 self.goNextViewController()
             }
         })
     }
 
     func goNextViewController() {
-        if profileImageToggle == true{
+        //プロフィール写真、デバイストークン、プロフィール全般が全て保存出来たら遷移する
+        if profileImageToggle == true && installationToggel == true && profilegeneralToggle == true{
             SVProgressHUD.dismiss()
             self.performSegueWithIdentifier("signUpSegue", sender: self)
         }
