@@ -19,7 +19,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MX3-uz-BXf">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="jT1-4s-Pcr" id="3cP-Tx-0yg"/>
                                     <outlet property="delegate" destination="jT1-4s-Pcr" id="xSt-UA-1PF"/>
@@ -42,17 +42,23 @@
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fkt-a2-dLA">
                                         <rect key="frame" x="532" y="8" width="60" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="dZI-Zk-21N"/>
                                             <constraint firstAttribute="height" constant="30" id="e50-zT-5kn"/>
                                         </constraints>
                                         <state key="normal" title="コメント"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="pushSendCommentButton:" destination="jT1-4s-Pcr" eventType="touchUpInside" id="HmS-oj-VIB"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.050279771959459457" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.88427241161616155" green="0.88427241161616155" blue="0.88427241161616155" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="Fkt-a2-dLA" firstAttribute="leading" secondItem="Mj4-1I-Vp5" secondAttribute="trailing" constant="8" id="3FV-XX-OFW"/>
                                     <constraint firstAttribute="bottom" secondItem="Fkt-a2-dLA" secondAttribute="bottom" constant="7" id="Ff2-TH-w06"/>

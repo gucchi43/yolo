@@ -100,6 +100,7 @@ class PostDetailTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
         // 画像データの取得
         let gesturePostImage = UITapGestureRecognizer(target: self, action: #selector(PostDetailTableViewCell.tapPostImage(_:)))
         postImageView.addGestureRecognizer(gesturePostImage)
+        postImageView.contentMode = UIViewContentMode.ScaleAspectFill
         if let postImageName = postObject.objectForKey("image1") as? String {
             self.postImageViewHeightConstraint.constant = 300
 
