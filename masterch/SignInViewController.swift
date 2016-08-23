@@ -37,7 +37,7 @@ class SignInViewController: UIViewController {
         }
         return true
     }
-    
+
     @IBAction func SignInBtn(sender: AnyObject) {
         print("SignInBtn 押した")
         signIn()
