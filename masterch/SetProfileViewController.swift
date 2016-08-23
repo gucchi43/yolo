@@ -10,7 +10,7 @@ import UIKit
 import SVProgressHUD
 
 
-class SetProfileViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class SetProfileViewController: UIViewController {
 
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameTextField: UITextField!
@@ -41,7 +41,7 @@ class SetProfileViewController: UIViewController, UITextFieldDelegate, UITextVie
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         //プロフィール写真を表示
         userImageView.image = UIImage(named: "noprofile")
-        
+
         //userIdTextField入力画面を呼び出し
         userNameTextField.becomeFirstResponder()
         userNameTextField.addUnderline(1.0, color: UIColor.lightGrayColor())

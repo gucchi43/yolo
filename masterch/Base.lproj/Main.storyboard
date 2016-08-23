@@ -190,7 +190,7 @@
                                 <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="next"/>
                                 <connections>
-                                    <outlet property="delegate" destination="0Sv-Yr-eTM" id="Uip-Ot-UNb"/>
+                                    <outlet property="delegate" destination="0Sv-Yr-eTM" id="7rB-Vc-Rhk"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="パスワード" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="An9-i5-i3l">
@@ -201,7 +201,7 @@
                                 <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="go" secureTextEntry="YES"/>
                                 <connections>
-                                    <outlet property="delegate" destination="0Sv-Yr-eTM" id="TyU-Sp-1ow"/>
+                                    <outlet property="delegate" destination="0Sv-Yr-eTM" id="x8z-fe-xtd"/>
                                 </connections>
                             </textField>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flO-pg-qzH">
@@ -389,15 +389,15 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="名前を入力してください" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iiH-hf-dRJ">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="名前を入力してください" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iiH-hf-dRJ">
                                 <rect key="frame" x="128" y="108" width="266" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Dv9-2g-SiQ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
-                                    <outlet property="delegate" destination="iJy-WC-FCV" id="0Hw-Xb-9Az"/>
+                                    <outlet property="delegate" destination="iJy-WC-FCV" id="SlP-Jh-tKN"/>
                                 </connections>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sw8-Rl-vw6">
@@ -406,7 +406,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <connections>
-                                    <outlet property="delegate" destination="iJy-WC-FCV" id="yN6-3b-dai"/>
+                                    <outlet property="delegate" destination="iJy-WC-FCV" id="gfI-eh-fHY"/>
                                 </connections>
                             </textView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile" translatesAutoresizingMaskIntoConstraints="NO" id="vRb-xq-aCt">
@@ -721,6 +721,6 @@
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="L8J-Kv-eM2"/>
+        <segue reference="d3l-QJ-9PL"/>
     </inferredMetricsTieBreakers>
 </document>
