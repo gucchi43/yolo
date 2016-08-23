@@ -1026,7 +1026,7 @@ version更新をお待ち下さい。
                         <sections>
                             <tableViewSection id="3kw-1Y-OT0">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="editUserImageCell" rowHeight="207" id="BHM-1F-WHg">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="editUserImageCell" rowHeight="207" id="BHM-1F-WHg">
                                         <rect key="frame" x="0.0" y="64" width="320" height="207"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BHM-1F-WHg" id="xie-Hh-ST3">
@@ -1113,7 +1113,7 @@ version更新をお待ち下さい。
                                             </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="editUserNameCell" id="hIe-Zk-bvW">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="editUserNameCell" id="hIe-Zk-bvW">
                                         <rect key="frame" x="0.0" y="271" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hIe-Zk-bvW" id="L9g-cq-kcN">
@@ -1152,7 +1152,7 @@ version更新をお待ち下さい。
                                             </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="editUserSelfIntroductionCell" rowHeight="100" id="bU8-bi-Cs5">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="editUserSelfIntroductionCell" rowHeight="100" id="bU8-bi-Cs5">
                                         <rect key="frame" x="0.0" y="315" width="320" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bU8-bi-Cs5" id="PUZ-Ba-lsw">
