@@ -182,30 +182,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="ユーザーID" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="zEk-h6-Ucl">
-                                <rect key="frame" x="20" y="94" width="374" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="O3M-pu-La8"/>
-                                </constraints>
-                                <attributedString key="attributedText"/>
-                                <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="next"/>
-                                <connections>
-                                    <outlet property="delegate" destination="0Sv-Yr-eTM" id="Uip-Ot-UNb"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="パスワード" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="An9-i5-i3l">
-                                <rect key="frame" x="20" y="148" width="374" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Vlw-R5-fIA"/>
-                                </constraints>
-                                <attributedString key="attributedText"/>
-                                <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="go" secureTextEntry="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="0Sv-Yr-eTM" id="TyU-Sp-1ow"/>
-                                </connections>
-                            </textField>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flO-pg-qzH">
-                                <rect key="frame" x="5" y="202" width="404" height="76.5"/>
+                                <rect key="frame" x="5" y="198" width="404" height="76.5"/>
                                 <attributedString key="attributedText">
                                     <fragment content="現">
                                         <attributes>
@@ -262,17 +240,39 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="ユーザーID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O1J-cI-IDs">
+                                <rect key="frame" x="20" y="94" width="374" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="L5M-Id-JdF"/>
+                                </constraints>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0Sv-Yr-eTM" id="PjU-mi-MY7"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="パスワード" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="845-SR-Yiq">
+                                <rect key="frame" x="20" y="146" width="374" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="fO2-6o-u5n"/>
+                                </constraints>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="go" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0Sv-Yr-eTM" id="LfT-R2-822"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="flO-pg-qzH" firstAttribute="top" secondItem="An9-i5-i3l" secondAttribute="bottom" constant="10" id="3hh-Zz-jJj"/>
-                            <constraint firstItem="zEk-h6-Ucl" firstAttribute="leading" secondItem="nz7-vn-ks1" secondAttribute="leading" constant="20" id="6DH-f7-vCs"/>
-                            <constraint firstItem="An9-i5-i3l" firstAttribute="leading" secondItem="nz7-vn-ks1" secondAttribute="leading" constant="20" id="CyZ-oD-cQg"/>
-                            <constraint firstItem="zEk-h6-Ucl" firstAttribute="top" secondItem="hn2-HA-uim" secondAttribute="bottom" constant="30" id="N6f-DW-5m3"/>
-                            <constraint firstItem="An9-i5-i3l" firstAttribute="top" secondItem="zEk-h6-Ucl" secondAttribute="bottom" constant="10" id="Ohd-iR-RKe"/>
+                            <constraint firstItem="845-SR-Yiq" firstAttribute="top" secondItem="O1J-cI-IDs" secondAttribute="bottom" constant="8" id="1VO-nX-zfR"/>
+                            <constraint firstItem="flO-pg-qzH" firstAttribute="top" secondItem="845-SR-Yiq" secondAttribute="bottom" constant="8" id="2bo-Dv-fSU"/>
+                            <constraint firstAttribute="trailing" secondItem="845-SR-Yiq" secondAttribute="trailing" constant="20" id="Ltx-zX-f8M"/>
+                            <constraint firstAttribute="trailing" secondItem="O1J-cI-IDs" secondAttribute="trailing" constant="20" id="TQo-qA-YZu"/>
                             <constraint firstItem="flO-pg-qzH" firstAttribute="leading" secondItem="nz7-vn-ks1" secondAttribute="leading" constant="5" id="UeK-W6-fsR"/>
-                            <constraint firstAttribute="trailing" secondItem="An9-i5-i3l" secondAttribute="trailing" constant="20" id="XYi-FB-tKq"/>
-                            <constraint firstAttribute="trailing" secondItem="zEk-h6-Ucl" secondAttribute="trailing" constant="20" id="bo5-lb-8B0"/>
+                            <constraint firstItem="O1J-cI-IDs" firstAttribute="leading" secondItem="nz7-vn-ks1" secondAttribute="leading" constant="20" id="UxT-m2-4Zu"/>
+                            <constraint firstItem="845-SR-Yiq" firstAttribute="leading" secondItem="nz7-vn-ks1" secondAttribute="leading" constant="20" id="Wxh-xV-lH9"/>
+                            <constraint firstItem="O1J-cI-IDs" firstAttribute="top" secondItem="hn2-HA-uim" secondAttribute="bottom" constant="30" id="YMk-44-tf3"/>
                             <constraint firstAttribute="trailing" secondItem="flO-pg-qzH" secondAttribute="trailing" constant="5" id="nDu-kv-UNi"/>
                         </constraints>
                     </view>
@@ -285,8 +285,8 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <outlet property="passwordTextField" destination="An9-i5-i3l" id="pua-Rv-GWd"/>
-                        <outlet property="userIdTextField" destination="zEk-h6-Ucl" id="eaA-Sp-peA"/>
+                        <outlet property="passwordTextField" destination="845-SR-Yiq" id="hco-L8-uPd"/>
+                        <outlet property="userIdTextField" destination="O1J-cI-IDs" id="IOm-5d-Lkz"/>
                         <segue destination="iJy-WC-FCV" kind="show" identifier="toSetProfileViewSegue" id="gvJ-hH-GZh"/>
                     </connections>
                 </viewController>
@@ -389,15 +389,15 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="名前を入力してください" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iiH-hf-dRJ">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" placeholder="名前を入力してください" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iiH-hf-dRJ">
                                 <rect key="frame" x="128" y="108" width="266" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Dv9-2g-SiQ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
-                                    <outlet property="delegate" destination="iJy-WC-FCV" id="0Hw-Xb-9Az"/>
+                                    <outlet property="delegate" destination="iJy-WC-FCV" id="SlP-Jh-tKN"/>
                                 </connections>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sw8-Rl-vw6">
@@ -406,7 +406,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <connections>
-                                    <outlet property="delegate" destination="iJy-WC-FCV" id="yN6-3b-dai"/>
+                                    <outlet property="delegate" destination="iJy-WC-FCV" id="gfI-eh-fHY"/>
                                 </connections>
                             </textView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noprofile" translatesAutoresizingMaskIntoConstraints="NO" id="vRb-xq-aCt">

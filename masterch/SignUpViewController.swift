@@ -12,17 +12,9 @@ import SVProgressHUD
 
 class SignUpViewController: UIViewController {
     
-    @IBOutlet weak var userId2TextField: UITextField!
-    @IBOutlet weak var password2TextField: UITextField!
-    
     @IBOutlet weak var userIdTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
-    
-    
-    
-    @IBOutlet weak var testTextFiled: UITextField!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

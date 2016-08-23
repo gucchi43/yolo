@@ -286,7 +286,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
             cell.userSelfIntroductionTextView.text = user!.objectForKey("userSelfIntroduction") as? String
             cell.userSelfIntroductionTextView.textColor = UIColor.whiteColor()
             cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
-            let userProfileImageName = (user!.objectForKey("userProfileImage") as? String)!
+            let userProfileImageName = user!.objectForKey("userProfileImage") as? String
             let userProfileImageData = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
             userProfileImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
                 if error != nil{
@@ -299,7 +299,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
                     }
                 }
             }
-            let userHomeImageName = (user!.objectForKey("userHomeImage") as? String)!
+            let userHomeImageName = user!.objectForKey("userHomeImage") as? String
             let userHomeImageData = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
             userHomeImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
                 if error != nil{
