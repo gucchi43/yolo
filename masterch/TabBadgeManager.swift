@@ -13,12 +13,22 @@ class TabBadgeManager: NSObject {
 
     //タブにバッジを１付与する（サーバー上のデータ）
     func setTabBadg(user: NCMBUser) {
+        let oldcurrentUserId = NCMBUser.currentUser()
         user.incrementKey("tabBadge")
         user.saveEventually { (error) in
             if let error = error {
                 print(error.localizedDescription)
             }else {
                 print("タブバーのバッジ数データ更新成功(+1)")
+                print("一時的にcurrentUserがフォロー先Userになってる", NCMBUser.currentUser())
+                //currentUserが変わっているので戻す
+                oldcurrentUserId.saveInBackgroundWithBlock({ (error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }else {
+                        print("currentUserをフォロー先ユーザーからログインしているUserに戻す", NCMBUser.currentUser())
+                    }
+                })
             }
         }
     }

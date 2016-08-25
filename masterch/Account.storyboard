@@ -408,10 +408,18 @@
                                                                 <segue destination="gKe-VM-b6U" kind="show" id="VaW-be-ejf"/>
                                                             </connections>
                                                         </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTb-bJ-eHO">
+                                                            <rect key="frame" x="282" y="53" width="30" height="30"/>
+                                                            <state key="normal" title="確認"/>
+                                                            <connections>
+                                                                <action selector="testConfirm:" destination="zkA-KH-TI3" eventType="touchUpInside" id="kQQ-yB-fBD"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="YXB-4q-zzl" firstAttribute="top" secondItem="55Q-QB-USz" secondAttribute="bottom" constant="8" id="096-cB-YuC"/>
+                                                        <constraint firstItem="rTb-bJ-eHO" firstAttribute="trailing" secondItem="j6Z-12-yQF" secondAttribute="trailingMargin" id="0wL-9q-xrT"/>
                                                         <constraint firstAttribute="trailing" secondItem="inf-Hz-b4I" secondAttribute="trailing" constant="8" id="5VL-M2-Lgk"/>
                                                         <constraint firstItem="cnj-DZ-nI1" firstAttribute="leading" secondItem="j6Z-12-yQF" secondAttribute="leading" constant="8" id="6v6-kv-RER"/>
                                                         <constraint firstItem="55Q-QB-USz" firstAttribute="top" secondItem="lZS-Gt-IuD" secondAttribute="bottom" constant="1" id="7Fy-Za-aJV"/>
@@ -427,6 +435,7 @@
                                                         <constraint firstItem="rsH-hp-GpR" firstAttribute="top" secondItem="j6Z-12-yQF" secondAttribute="top" constant="8" id="Jz7-jX-rmf"/>
                                                         <constraint firstAttribute="trailing" secondItem="MDx-KV-Kjw" secondAttribute="trailing" constant="8" id="T9N-Cv-H0S"/>
                                                         <constraint firstItem="65x-ok-NqO" firstAttribute="leading" secondItem="55Q-QB-USz" secondAttribute="leading" id="WeV-Au-y3c"/>
+                                                        <constraint firstItem="rTb-bJ-eHO" firstAttribute="top" secondItem="rsH-hp-GpR" secondAttribute="bottom" constant="15" id="WpO-ca-LhU"/>
                                                         <constraint firstItem="j1N-Bd-aWa" firstAttribute="top" secondItem="cnj-DZ-nI1" secondAttribute="bottom" constant="8" id="XTE-hJ-jrb"/>
                                                         <constraint firstAttribute="trailing" secondItem="1AE-8W-yKT" secondAttribute="trailing" id="hW7-rL-uZF"/>
                                                         <constraint firstItem="MDx-KV-Kjw" firstAttribute="top" secondItem="rsH-hp-GpR" secondAttribute="bottom" id="hjE-fR-Qaw"/>
