@@ -55,12 +55,15 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
 
     //LogViewの日にちごとの色を決める実行部分２
     func getLogColorDate(date: NSDate) {
-        let calendarLogCollerManager = CalendarLogCollerManager()
-        let logNumber = logManager.sharedSingleton.logNumber
+        let logNumber: Int
+        if logManager.sharedSingleton.logTitleToggle == true{
+            logNumber = logManager.sharedSingleton.tabLogNumber
+        }else {
+            logNumber = logManager.sharedSingleton.logNumber
+        }
         let logUser = logManager.sharedSingleton.logUser
+        let calendarLogCollerManager = CalendarLogCollerManager()
         let logColorQuery: NCMBQuery
-        //        let logVC = LogViewController()
-        //        let user = logVC.user
         if logUser == NCMBUser.currentUser(){
             print("user情報 in monthVC(自分のログの時)", logUser.userName)
             //monthLogColorDateはuserを引数に取らない場合userにはNCMBUser.currentUser()が自動で入る
@@ -79,7 +82,13 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
                     for object in objects {
                         let logDate = object.objectForKey("logDate") as! String
                         let logColor: String?
-                        if logManager.sharedSingleton.logNumber == 0 {
+                        let logNumber: Int
+                        if logManager.sharedSingleton.logTitleToggle == true{
+                            logNumber = logManager.sharedSingleton.tabLogNumber
+                        }else {
+                            logNumber = logManager.sharedSingleton.logNumber
+                        }
+                        if logNumber == 0 {
                             print("自分の投稿の時の色のせ")
                             //範囲: 自分のログ
                             if object.objectForKey("secretColor") as? String != nil {

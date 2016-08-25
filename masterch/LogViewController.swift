@@ -116,7 +116,12 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     
     //関数で受け取った時のアクションを定義
     func didSelectDayView(notification: NSNotification) {
-        let logNumber = logManager.sharedSingleton.logNumber
+        let logNumber: Int
+        if logManager.sharedSingleton.logTitleToggle == true{
+            logNumber = logManager.sharedSingleton.tabLogNumber
+        }else {
+            logNumber = logManager.sharedSingleton.logNumber
+        }
         loadQuery(logNumber)
         monthLabel.text = CalendarManager.selectLabel()
     }
@@ -133,7 +138,12 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             if let calendarView = calendarView {
                 calendarBaseView.addSubview(calendarView)
             }
-            let logNumber = logManager.sharedSingleton.logNumber
+            let logNumber: Int
+            if logManager.sharedSingleton.logTitleToggle == true{
+                logNumber = logManager.sharedSingleton.tabLogNumber
+            }else {
+                logNumber = logManager.sharedSingleton.logNumber
+            }
             loadQuery(logNumber)
             monthLabel.text = CalendarManager.selectLabel()
         }
@@ -297,8 +307,13 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 extension LogViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     //------------------DZNEmptyDataSet(セルが無い時に表示するViewの設定--------------------
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-
-        switch logManager.sharedSingleton.logNumber {
+        let logNumber: Int
+        if logManager.sharedSingleton.logTitleToggle == true{
+            logNumber = logManager.sharedSingleton.tabLogNumber
+        }else {
+            logNumber = logManager.sharedSingleton.logNumber
+        }
+        switch logNumber {
         case 0: //自分の時
             let str = "😝その日のログはまだないよ😝"
             let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
@@ -311,7 +326,13 @@ extension LogViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     }
 
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        switch logManager.sharedSingleton.logNumber {
+        let logNumber: Int
+        if logManager.sharedSingleton.logTitleToggle == true{
+            logNumber = logManager.sharedSingleton.tabLogNumber
+        }else {
+            logNumber = logManager.sharedSingleton.logNumber
+        }
+        switch logNumber {
         case 0: //自分の時
             let str = "今すぐログっちゃおう"
             let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
@@ -617,11 +638,11 @@ extension LogViewController: DropdownMenuDelegate {
             //それ意外
             self.selectedRow = indexPath.row
         }
-        logManager.sharedSingleton.logNumber = indexPath.row
-        let logNumber = logManager.sharedSingleton.logNumber
+        logManager.sharedSingleton.tabLogNumber = indexPath.row
+        let logNumber = logManager.sharedSingleton.tabLogNumber
         print("logNumber", logNumber, Dropitems[indexPath.row].title)
         
-        changeTitle(logManager.sharedSingleton.logNumber)
+        changeTitle(logNumber)
         
         switch toggleWeek {
         case false:
@@ -655,7 +676,6 @@ extension LogViewController: DropdownMenuDelegate {
         //サブタイトルを作成する。
         let testLabel2 = UILabel(frame:CGRectMake(0,0,100,12))
         testLabel2.textColor = UIColor.whiteColor()
-        let logNumber = logManager.sharedSingleton.logNumber
         testLabel2.text = Dropitems[selectedRow].title
         
         //        if selectedRow == logNumber {
@@ -705,7 +725,12 @@ extension LogViewController: DropdownMenuDelegate {
 extension LogViewController: SubmitViewControllerDelegate {
     func submitFinish() {
         print("submitFinish")
-        let logNumber = logManager.sharedSingleton.logNumber
+        let logNumber : Int
+        if logManager.sharedSingleton.logTitleToggle == true {
+            logNumber = logManager.sharedSingleton.tabLogNumber
+        }else {
+            logNumber = logManager.sharedSingleton.logNumber
+        }
         switch toggleWeek {
         case false:
             print("month表示")
