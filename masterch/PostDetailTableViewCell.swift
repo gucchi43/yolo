@@ -26,7 +26,7 @@ class PostDetailTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
     @IBOutlet weak var postTextLabel: TTTAttributedLabel!
 
     @IBOutlet var postImageView: UIImageView!
-    @IBOutlet var postImageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var postImageViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var likeNumberButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
@@ -102,7 +102,7 @@ class PostDetailTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
         postImageView.addGestureRecognizer(gesturePostImage)
         postImageView.contentMode = UIViewContentMode.ScaleAspectFill
         if let postImageName = postObject.objectForKey("image1") as? String {
-            self.postImageViewHeightConstraint.constant = 300
+            self.postImageViewHeightConstraint.constant = (UIScreen.mainScreen().bounds.size.width - 20)
 
             let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
             postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
@@ -114,8 +114,7 @@ class PostDetailTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
                 } else {
                     print(UIImage(data: imageData!))
 //                    SVProgressHUD.dismiss()
-                    let imageHeight = UIImage(data: imageData!)!.size.height
-                    self.postImageViewHeightConstraint.constant = 300
+                    self.postImageViewHeightConstraint.constant = (UIScreen.mainScreen().bounds.size.width - 20)
                     self.postImageView.image = UIImage(data: imageData!)
                 }
                 }, progressBlock: { (progress) in
