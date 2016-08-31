@@ -88,6 +88,15 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
         }
+
+        //Viewの階層で１(１階層)の時だけ、logTitleToggleをtrueにする
+        let viewCount = self.navigationController?.viewControllers.count
+        print("viewCount", viewCount)
+        if viewCount == 1{
+            logManager.sharedSingleton.logTitleToggle = true
+        }else {
+            logManager.sharedSingleton.logTitleToggle = false
+        }
         
         //NavigationBarのタイトルになる配列を読み込む
         //（今は定数のためViewDidLoadに書いている）

@@ -21,7 +21,7 @@ class CalendarLogCollerManager: NSObject {
 
         switch logNumber { //絞っていくよーーーーーーーーーーーーー
         case 0:
-            //特定のuserのみ
+            //自分のみ
             logColorQuery.whereKey("user", equalTo: NCMBUser.currentUser())
             logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
             logColorQuery.orderByAscending("logDate")
@@ -37,6 +37,7 @@ class CalendarLogCollerManager: NSObject {
             logColorQuery.whereKey("user", notEqualTo: NCMBUser.currentUser()) //自分で自分をフォローしていた場合自分を外す
             logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
             logColorQuery.orderByAscending("logDate")
+            print("チェックしなきゃlogColorQuery", logColorQuery)
 
         case 2:
             //特定のアカウントのみ
