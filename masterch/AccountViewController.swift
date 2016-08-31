@@ -17,13 +17,13 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
     @IBOutlet weak var tableView: UITableView!
     var user: NCMBUser?
     var selectedPostObject: NCMBObject!
+    var ownerUserToggle: Bool = false
     
     var postArray: NSArray = NSArray()
     
     let likeOnImage = UIImage(named: "hartON")
     let likeOffImage = UIImage(named: "hartOFF")
-    
-    
+
     var isFollowing: Bool = false
     var isTwitterConnecting: Bool = false
     var isFacebookConnecting: Bool = false
@@ -39,8 +39,8 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
     var myProfileName: String?
     var myProfileSelfintroduction: String?
 
-    var followNumbarInt: Int?
-    var followerNumbarInt: Int?
+    var followNumbarInt: Int = 0
+    var followerNumbarInt: Int = 0
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -58,15 +58,27 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
     }
 
     override func viewWillAppear(animated: Bool) {
-        if let user = user{
-            print("自分じゃないAccountなはず")
-            print("アカウントのユーザー名(自分じゃないはず)", user.userName)
+
+
+        if let user = user {
+            if user.userName == NCMBUser.currentUser().userName{
+                ownerUserToggle = true
+                print("自分のアカウント")
+                print("アカウントのユーザー名(自分)", user.userName)
+
+            }else {
+                ownerUserToggle = false
+                print("他のアカウント")
+                print("アカウントのユーザー名(他人)", user.userName)
+            }
         }else {
-            user = NCMBUser.currentUser()!
-            print("自分のAccountなはず")
-            print("アカウントのユーザー名(自分のはず)", user!.userName)
-            
+            user = NCMBUser.currentUser()
+            ownerUserToggle = true
+            print("自分のアカウント")
+            print("アカウントのユーザー名(自分)", user!.userName)
         }
+        print("アカウントのユーザーネーム" ,user!.userName)
+        print("currentUserのユーザーネーム", NCMBUser.currentUser().userName)
         //
         checkFollowing()
         //フォロー数、フォロワー数を取ってくる
@@ -106,7 +118,7 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
         let postQuery: NCMBQuery = NCMBQuery(className: "Post")
         postQuery.whereKey("user", equalTo: user)
         postQuery.orderByDescending("postDate") // cellの並べ方
-        if user != NCMBUser.currentUser(){ //自分じゃないアカウントの時、カギを有効にする
+        if ownerUserToggle == false { //自分じゃないアカウントの時、カギを有効にする
             postQuery.whereKey("secretKey", notEqualTo: true)
         }
         postQuery.limit = 20
@@ -166,16 +178,12 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
         }
         if segue.identifier == "toLog" {
             let logVC = segue.destinationViewController as! LogViewController
-            //            logVC.user = user!
-            //                        let calendarMonthVC = UIViewController as! CalendarMonthView
-            if user! == NCMBUser.currentUser(){
-                //                logManager.sharedSingleton.logUser = user!
+            if ownerUserToggle == true{
                 logManager.sharedSingleton.logNumber = 0
             }else {
                 logManager.sharedSingleton.logUser = user!
                 logManager.sharedSingleton.logNumber = 2
             }
-            //            logVC.userName = user!.objectForKey("userFaceName") as? String
         }
         if segue.identifier == "toUserList" {
             SVProgressHUD.show()
@@ -250,7 +258,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
             let cell = tableView.dequeueReusableCellWithIdentifier("ProfileCell", forIndexPath: indexPath) as! ProfileCell
 
             //アカウントのユーザーが自分or他人
-            if user == NCMBUser.currentUser(){//自分の時
+            if ownerUserToggle == true{ //自分の時
                 cell.followButton.hidden = true
                 cell.settingButton.hidden = false
                 cell.profileChangeButton.hidden = false
@@ -337,19 +345,21 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
         case 1:
             //３つボタンCell(ログ、フォロー、フォロワー)
             let cell = tableView.dequeueReusableCellWithIdentifier("ThreeCircleCell", forIndexPath: indexPath) as! ThreeCircleCell
-            if let followNumbarInt = self.followNumbarInt {
-                cell.followNumbarButton.setTitle("フォロー\n" + String(followNumbarInt), forState: .Normal)
-            }else {
-                cell.followNumbarButton.setTitle("フォロー\n" + String(""), forState: .Normal)
-            }
+            cell.followNumbarButton.setTitle("フォロー\n" + String(followNumbarInt), forState: .Normal)
+//            if let followNumbarInt = self.followNumbarInt {
+//                cell.followNumbarButton.setTitle("フォロー\n" + String(followNumbarInt), forState: .Normal)
+//            }else {
+//                cell.followNumbarButton.setTitle("フォロー\n" + String(""), forState: .Normal)
+//            }
             cell.followNumbarButton.titleLabel?.textAlignment = NSTextAlignment.Center
             cell.followNumbarButton.titleLabel?.adjustsFontSizeToFitWidth = true
 
-            if let followerNumbarInt = self.followerNumbarInt {
-                cell.followerNumbarButton.setTitle("フォロワー\n" + String(followerNumbarInt), forState: .Normal)
-            }else {
-                cell.followerNumbarButton.setTitle("フォロワー\n" + String(""), forState: .Normal)
-            }
+            cell.followerNumbarButton.setTitle("フォロワー\n" + String(followerNumbarInt), forState: .Normal)
+//            if let followerNumbarInt = self.followerNumbarInt {
+//                cell.followerNumbarButton.setTitle("フォロワー\n" + String(followerNumbarInt), forState: .Normal)
+//            }else {
+//                cell.followerNumbarButton.setTitle("フォロワー\n" + String(""), forState: .Normal)
+//            }
             cell.followerNumbarButton.titleLabel?.textAlignment = NSTextAlignment.Center
             cell.followerNumbarButton.titleLabel?.adjustsFontSizeToFitWidth = true
             
@@ -523,10 +533,10 @@ extension AccountViewController {
         print("followButton押した。")
         if isFollowing == true {
             followOFF(followButton)
-            followerNumbarInt = followerNumbarInt! - 1
+            followerNumbarInt = followerNumbarInt - 1
         }else {
             followON(followButton)
-            followerNumbarInt = followerNumbarInt! + 1
+            followerNumbarInt = followerNumbarInt + 1
         }
         //特定のcellだけreloadかける（２行目）
         let indexPaths = NSIndexPath(forRow: 1, inSection: 0)
@@ -541,6 +551,7 @@ extension AccountViewController {
         relationObject.setObject(user, forKey: "follower")
         relationObject.saveEventually({ (error) -> Void in
             if let error = error {
+                print("その3失敗", NCMBUser.currentUser())
                 print(error.localizedDescription)
                 self.isFollowing = false
                 followButton.setImage(UIImage(named: "follow"), forState: UIControlState.Normal)
@@ -1044,4 +1055,26 @@ extension AccountViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
         return false
     }
     
+}
+
+extension AccountViewController{
+
+    @IBAction func testConfirm(sender: AnyObject) {
+        RMUniversalAlert.showActionSheetInViewController(self,
+                                                         withTitle: "カレントユーザー",
+                                                         message: "NCMBUser.currentUser()",
+                                                         cancelButtonTitle: "キャンセル",
+                                                         destructiveButtonTitle: nil,
+                                                         otherButtonTitles: [NCMBUser.currentUser().userName], popoverPresentationControllerBlock: { (popover) in
+                                                            popover.sourceView = self.view
+                                                            popover.sourceRect = sender.frame
+        }) { (alert, buttonIndex) in
+            if (buttonIndex == alert.cancelButtonIndex) {
+                print("完了 Tapped")
+            }else {
+                print("何かを Tapped")
+            }
+
+        }
+    }
 }

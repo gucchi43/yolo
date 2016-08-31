@@ -74,6 +74,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
             print("tag ID = 3")
         case 4://通知
             print("tag ID = 4")
+            logManager.sharedSingleton.logTitleToggle = false
         case 5://アカウント
             print("tag ID = 5")
             logManager.sharedSingleton.logTitleToggle = false

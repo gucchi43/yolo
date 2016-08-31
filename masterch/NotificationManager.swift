@@ -100,8 +100,8 @@ class NotificationManager: NSObject {
             if let error = error {
                 print(error.localizedDescription)
             }else {
-                if object != nil {
-                    //followされていたが通知データはなかった場合（管理画面空削除しているパターンと思われる）
+                if object == nil {
+                    //followされていたが通知データはなかった場合（管理画面から削除しているパターンと思われる）
                     print("followのnotificationがありません")
                 }else {
                     print("オブジェクト", object)
