@@ -41,7 +41,8 @@ class LogQueryManager: NSObject {
         case 0:
             //自分のみ
             postQuery.whereKey("user", equalTo: NCMBUser.currentUser())
-            postQuery.orderByDescending("postDate") // cellの並べ方
+            postQuery.orderByAscending("postDate") // cellの並べ方(朝→夜)
+//            postQuery.orderByDescending("postDate") // cellの並べ方
             postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
             postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
             postQuery.includeKey("user")
@@ -56,7 +57,8 @@ class LogQueryManager: NSObject {
             postQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)// 自分がフォローしている人の投稿クエリ
             postQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
             postQuery.whereKey("user", notEqualTo: NCMBUser.currentUser())//自分がフォロワーに含まれてたら自分は表示しない
-            postQuery.orderByDescending("postDate") // cellの並べ方
+            postQuery.orderByAscending("postDate") // cellの並べ方(朝→夜)
+//            postQuery.orderByDescending("postDate") // cellの並べ方
             postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
             postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
             postQuery.includeKey("user")
@@ -65,7 +67,8 @@ class LogQueryManager: NSObject {
             //特定のアカウントのみ
             postQuery.whereKey("user", equalTo: user)
             postQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
-            postQuery.orderByDescending("postDate") // cellの並べ方
+            postQuery.orderByAscending("postDate") // cellの並べ方(朝→夜)
+//            postQuery.orderByDescending("postDate") // cellの並べ方
             postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
             postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
             postQuery.includeKey("user")
@@ -85,7 +88,8 @@ class LogQueryManager: NSObject {
             followingQuery.whereKey("secretKey", notEqualTo: true) // secretKeyがtrueではないもの(鍵が付いていないもの)を表示(nil, false)
             
             postQuery = NCMBQuery.orQueryWithSubqueries([myPostQuery, followingQuery]) // クエリの合成
-            postQuery.orderByDescending("postDate") // cellの並べ方
+            postQuery.orderByAscending("postDate") // cellの並べ方(朝→夜)
+//            postQuery.orderByDescending("postDate") // cellの並べ方
             postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
             postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
             postQuery.includeKey("user")
