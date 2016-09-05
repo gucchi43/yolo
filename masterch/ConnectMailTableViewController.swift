@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import NCMB
 
 class ConnectMailTableViewController: UITableViewController, UITextFieldDelegate{
 
@@ -78,16 +79,42 @@ class ConnectMailTableViewController: UITableViewController, UITextFieldDelegate
         if newMailTextField.text != confirmNewMailTextField.text{
             //確認用メールアドレスと一致していません
             print("確認用メールアドレスと一致していません")
-            RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "確認用メールアドレスと一致していません", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
-
+            let alert: UIAlertController = UIAlertController(title: "エラー",
+                                                             message: "確認用メールアドレスと一致していません",
+                                                             preferredStyle:  UIAlertControllerStyle.Alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                // ボタンが押された時の処理を書く（クロージャ実装）
+                (action: UIAlertAction!) -> Void in
+                print("OK")
+            })
+            alert.addAction(defaultAction)
+            presentViewController(alert, animated: true, completion: nil)
         } else if newMailTextField.text == nowMailLabel.text{
             //前回のアドレスと同じ
             print("現在のメールアドレスと同じです")
-            RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "現在のメールアドレスと同じです", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
+            let alert: UIAlertController = UIAlertController(title: "エラー",
+                                                             message: "現在のメールアドレスと同じです",
+                                                             preferredStyle:  UIAlertControllerStyle.Alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                // ボタンが押された時の処理を書く（クロージャ実装）
+                (action: UIAlertAction!) -> Void in
+                print("OK")
+            })
+            alert.addAction(defaultAction)
+            presentViewController(alert, animated: true, completion: nil)
         } else if isValidEmail(newMailTextField.text!) == false {
             //正しいメールアドレスじゃない
             print("正しいメールアドレスではありません")
-            RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "正しいメールアドレスではありません", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
+            let alert: UIAlertController = UIAlertController(title: "エラー",
+                                                             message: "正しいメールアドレスではありません",
+                                                             preferredStyle:  UIAlertControllerStyle.Alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                // ボタンが押された時の処理を書く（クロージャ実装）
+                (action: UIAlertAction!) -> Void in
+                print("OK")
+            })
+            alert.addAction(defaultAction)
+            presentViewController(alert, animated: true, completion: nil)
         }
         else {
             saveConnectMail()

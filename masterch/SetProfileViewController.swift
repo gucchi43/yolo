@@ -8,6 +8,8 @@
 
 import UIKit
 import SVProgressHUD
+import NCMB
+import RSKImageCropper
 
 
 class SetProfileViewController: UIViewController {
@@ -104,29 +106,33 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
     
     //プロフィール画面のカメラ選択ボタン
     @IBAction func selectEditProfileImageButton(sender: AnyObject) {
-        RMUniversalAlert.showActionSheetInViewController(self,
-            withTitle: nil,
-            message: nil,
-            cancelButtonTitle: "Cancel",
-            destructiveButtonTitle: nil,
-            otherButtonTitles: ["カメラ", "カメラロール"],
-            popoverPresentationControllerBlock: {(popover) in
-                popover.sourceView = self.view
-                popover.sourceRect = CGRect()
-            },
-            tapBlock: {(alert, buttonIndex) in
-                if (buttonIndex == alert.cancelButtonIndex) {
-                    print("Cancel Tapped")
-                } else if (buttonIndex == alert.destructiveButtonIndex) {
-                    print("Delete Tapped")
-                } else if (buttonIndex == alert.firstOtherButtonIndex) {
-                    print("カメラ選択 \(alert.firstOtherButtonIndex)")
-                    self.pickImageFromCamera()
-                } else {
-                    print("カメラロール選択\(alert.firstOtherButtonIndex)")
-                    self.pickImageFromLibrary()
-                }
+        let alert: UIAlertController = UIAlertController(title: nil,
+                                                         message: nil,
+                                                         preferredStyle:  UIAlertControllerStyle.ActionSheet)
+        // OKボタン
+        let cameraAction: UIAlertAction = UIAlertAction(title: "カメラ", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("カメラ選択")
+            self.pickImageFromCamera()
         })
+        let libraryAction: UIAlertAction = UIAlertAction(title: "カメラロール", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("カメラ選択")
+            self.pickImageFromLibrary()
+        })
+
+        // キャンセルボタン
+        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+        alert.addAction(cancelAction)
+        alert.addAction(cameraAction)
+        alert.addAction(libraryAction)
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     // ライブラリから写真を選択する
@@ -218,7 +224,16 @@ extension SetProfileViewController {
             installation.saveEventually { (error) in
                 if let error = error {
                     print(error.localizedDescription)
-                    RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "保存出来ませんでした", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
+                    let alert: UIAlertController = UIAlertController(title: "エラー",
+                        message: "保存できませんでした",
+                        preferredStyle:  UIAlertControllerStyle.Alert)
+                    let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                        // ボタンが押された時の処理を書く（クロージャ実装）
+                        (action: UIAlertAction!) -> Void in
+                        print("OK")
+                    })
+                    alert.addAction(defaultAction)
+                    self.presentViewController(alert, animated: true, completion: nil)
                 }else {
                     self.installationToggel = true
                     self.goNextViewController()
@@ -257,7 +272,16 @@ extension SetProfileViewController {
             userProfileImageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if let error = error {
                     print("アップロード中にエラーが発生しました: \(error.localizedDescription)")
-                    RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "保存出来ませんでした", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
+                    let alert: UIAlertController = UIAlertController(title: "エラー",
+                        message: "保存できませんでした",
+                        preferredStyle:  UIAlertControllerStyle.Alert)
+                    let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                        // ボタンが押された時の処理を書く（クロージャ実装）
+                        (action: UIAlertAction!) -> Void in
+                        print("OK")
+                    })
+                    alert.addAction(defaultAction)
+                    self.presentViewController(alert, animated: true, completion: nil)
                 } else {
                     print("画像データ保存完了: \(userProfileImageFile.name)")
                     self.profileImageToggle = true
@@ -274,7 +298,16 @@ extension SetProfileViewController {
         user.saveInBackgroundWithBlock({(error) in
             if let error = error {
                 print(error.localizedDescription)
-                RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "保存出来ませんでした", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
+                let alert: UIAlertController = UIAlertController(title: "エラー",
+                    message: "保存できませんでした",
+                    preferredStyle:  UIAlertControllerStyle.Alert)
+                let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                    // ボタンが押された時の処理を書く（クロージャ実装）
+                    (action: UIAlertAction!) -> Void in
+                    print("OK")
+                })
+                alert.addAction(defaultAction)
+                self.presentViewController(alert, animated: true, completion: nil)
             }else {
                 self.profilegeneralToggle = true
                 self.goNextViewController()

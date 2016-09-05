@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NCMB
 import TwitterKit
 import SVProgressHUD
 
@@ -45,23 +46,42 @@ class SignUpViewController: UIViewController {
     }
     
     func signUp() {
-        SVProgressHUD.show()
 
         let newUser = NCMBUser()
         newUser.userName = userIdTextField.text
         newUser.password = passwordTextField.text
-        
+
         if ((self.userIdTextField.text?.dataUsingEncoding(NSASCIIStringEncoding, allowLossyConversion: false)) == nil) {
-            RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "ユーザーIDは半角英数字で入力してください", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
+            print("ユーザーIDは半角英数字じゃないと")
+            let alert: UIAlertController = UIAlertController(title: "エラー",
+                                                             message: "ユーザーIDは半角英数字で入力してください",
+                                                             preferredStyle:  UIAlertControllerStyle.Alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                // ボタンが押された時の処理を書く（クロージャ実装）
+                (action: UIAlertAction!) -> Void in
+                print("OK")
+            })
+            alert.addAction(defaultAction)
+            presentViewController(alert, animated: true, completion: nil)
         }else if self.passwordTextField.text?.utf16.count < 6 {
             print("６文字以下")
-            RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "パスワードは6文字以上入力してください", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
+            let alert: UIAlertController = UIAlertController(title: "エラー",
+                                                             message: "パスワードは6文字以上入力してください",
+                                                             preferredStyle:  UIAlertControllerStyle.Alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                // ボタンが押された時の処理を書く（クロージャ実装）
+                (action: UIAlertAction!) -> Void in
+                print("OK")
+            })
+            alert.addAction(defaultAction)
+            presentViewController(alert, animated: true, completion: nil)
         }else {
+            SVProgressHUD.show()
             newUser.signUpInBackgroundWithBlock({(error) in
                 if error != nil  {
                     // SignUp失敗
                     print("SignUp失敗", error)
-                    self.showErrorAlert(error)
+                    self.signUpErrorAlert(error)
                     SVProgressHUD.dismiss()
                 }else{
                     //SignUp成功

@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import NCMB
 import TwitterKit
 import Fabric
+import FBSDKLoginKit
 import TTTAttributedLabel
 
 
@@ -255,31 +257,33 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
 
     func selectToolBarCameraButton(sender: UIBarButtonItem) {
         print("カメラ&カメラロール呼び出しボタン押した")
-
-        //カメラかカメラロールの分岐
-        RMUniversalAlert.showActionSheetInViewController(self,
-            withTitle: nil,
-            message: nil,
-            cancelButtonTitle: "Cancel",
-            destructiveButtonTitle: nil,
-            otherButtonTitles: ["カメラ", "カメラロール"],
-            popoverPresentationControllerBlock: {(popover) in
-                popover.sourceView = self.view
-                popover.sourceRect = CGRect()
-            },
-            tapBlock: {(alert, buttonIndex) in
-                if (buttonIndex == alert.cancelButtonIndex) {
-                    print("Cancel Tapped")
-                } else if (buttonIndex == alert.destructiveButtonIndex) {
-                    print("Delete Tapped")
-                } else if (buttonIndex == alert.firstOtherButtonIndex) {
-                    print("カメラ選択 \(alert.firstOtherButtonIndex)")
-                    self.pickImageFromCamera()
-                } else {
-                    print("カメラロール選択\(alert.firstOtherButtonIndex)")
-                    self.pickImageFromLibrary()
-                }
+        let alert: UIAlertController = UIAlertController(title: nil,
+                                                         message: nil,
+                                                         preferredStyle:  UIAlertControllerStyle.ActionSheet)
+        // OKボタン
+        let cameraAction: UIAlertAction = UIAlertAction(title: "カメラ", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("カメラ選択")
+            self.pickImageFromCamera()
         })
+        let libraryAction: UIAlertAction = UIAlertAction(title: "カメラロール", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("カメラ選択")
+            self.pickImageFromLibrary()
+        })
+
+        // キャンセルボタン
+        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+        alert.addAction(cancelAction)
+        alert.addAction(cameraAction)
+        alert.addAction(libraryAction)
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     // ライブラリから写真を選択する

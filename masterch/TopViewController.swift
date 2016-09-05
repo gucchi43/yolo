@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NCMB
 
 class TopViewController: UIViewController {
     

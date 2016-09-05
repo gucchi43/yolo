@@ -7,9 +7,10 @@
 //
 
 import UIKit
-import Foundation
+import NCMB
 import SVProgressHUD
 import TTTAttributedLabel
+import IDMPhotoBrowser
 
 protocol PostDetailTableViewCellDelegate {
     func didSelectCommentButton()

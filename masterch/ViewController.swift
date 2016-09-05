@@ -25,28 +25,32 @@ class ViewController: UIViewController {
 
 extension UIViewController {
 //    SignUP,SignInのエラー表示メソッド
-    func showErrorAlert(error:NSError){
-        var title:String!
-        var message:String?
-        var buttonTitle:String!
-        if error.localizedFailureReason == nil{
-            message = error.localizedDescription
-        }else{
-            message = error.localizedFailureReason
-        }
-        if let suggestion = error.localizedRecoverySuggestion {
-            title = suggestion
-        }else{
-            title = "エラー"
-        }
-        if let titles = error.localizedRecoveryOptions {
-            buttonTitle = titles[0]
-        }else{
-            buttonTitle = "OK"
-        }
-        
-        RMUniversalAlert.showAlertInViewController(self, withTitle: title, message: message, cancelButtonTitle: buttonTitle, destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
+    func signInErrorAlert(error:NSError){
+        let alert: UIAlertController = UIAlertController(title: "エラー",
+                                                         message: "ログインに失敗しました",
+                                                         preferredStyle:  UIAlertControllerStyle.Alert)
+        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("OK")
+        })
+        alert.addAction(defaultAction)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
+
+    func signUpErrorAlert(error:NSError){
+        let alert: UIAlertController = UIAlertController(title: "エラー",
+                                                         message: "登録に失敗しました",
+                                                         preferredStyle:  UIAlertControllerStyle.Alert)
+        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("OK")
+        })
+        alert.addAction(defaultAction)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+
 
 }
 

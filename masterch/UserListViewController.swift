@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import NCMB
 import DZNEmptyDataSet
 
 class UserListViewController: UIViewController {

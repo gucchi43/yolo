@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NCMB
 import SwiftDate
 
 class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
