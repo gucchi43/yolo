@@ -1026,8 +1026,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shiosava.yolo;
 				PRODUCT_NAME = masterch;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "masterch/masterch-Bridging-Header.h";
-				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "$(SRCROOT)/$(PROJECT)/masterch-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1053,7 +1051,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shiosava.yolo;
 				PRODUCT_NAME = masterch;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "masterch/masterch-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
