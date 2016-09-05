@@ -21,6 +21,8 @@ target 'masterch' do
   pod 'NYXImagesKit'
   pod 'RSKImageCropper'
 
+  pod 'BTNavigationDropdownMenu'
+
  # pod 'RMUniversalAlert'
 
  # pod 'UIAlertView+Blocks', '>= 0.8'

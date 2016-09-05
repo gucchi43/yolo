@@ -8,10 +8,10 @@
 
 import UIKit
 import NCMB
-import DropdownMenu
 import SwiftDate
 import DZNEmptyDataSet
 import TTTAttributedLabel
+import BTNavigationDropdownMenu
 
 protocol LogViewControlloerDelegate {
     func updateLogView()
@@ -37,13 +37,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     @IBOutlet weak var changeWeekOrMonthToggle: UIButton!
     
     @IBOutlet weak var progressBar: LogPostedProgressBar!
-    
-    var selectedRow: Int = 0
-    var Dropitems: [DropdownItem]!
-    //    var user: NCMBUser = NCMBUser.currentUser()
-    
-    var userName: String?
-    
+
     //    セル選択時の変数
     var selectedPostObject: NCMBObject!
     
@@ -62,6 +56,9 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     
     let likeOnImage = UIImage(named: "hartON")
     let likeOffImage = UIImage(named: "hartOFF")
+
+    var navigationBarView: BTNavigationDropdownMenu!
+    var dropdownNumber: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,17 +77,16 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         
         let logPostPB = LogPostedProgressBar()
         logPostPB.setProgressBar()
-
     }
+
     
     override func viewWillAppear(animated: Bool) {
-        //        self.navigationController?.setToolbarHidden(true, animated: true) // ViewWillAppearは表示の度に呼ばれるので何度も消してくれる
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.didSelectDayView(_:)), name: "didSelectDayView", object: nil)
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
         }
 
-        //Viewの階層で１(１階層)の時だけ、logTitleToggleをtrueにする
+        //Viewの階層で１(１階層,１番上,タブがログで先頭)の時だけ、logTitleToggleをtrueにする
         let viewCount = self.navigationController?.viewControllers.count
         print("viewCount", viewCount)
         if viewCount == 1{
@@ -98,24 +94,8 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }else {
             logManager.sharedSingleton.logTitleToggle = false
         }
-        
-        //NavigationBarのタイトルになる配列を読み込む
-        //（今は定数のためViewDidLoadに書いている）
-        //        let userName = user.userName
-        //        let logUser = logManager.sharedSingleton.logUser
-        //        let userName = logUser.userName
-        let userName = NCMBUser.currentUser().userName
-        let item1 = DropdownItem(title: userName)
-        let item2 = DropdownItem(title: "フォロー")
-        Dropitems = [item1, item2]
-        //        if let userName = userName{
-        //            let item3 = DropdownItem(title: userName)
-        //            Dropitems = [item1, item2, item3]
-        //        }else {
-        //            Dropitems = [item1, item2]
-        //        }
-        changeTitle(logManager.sharedSingleton.logNumber)
-        
+
+        navigationTitleToggle()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -158,16 +138,75 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             monthLabel.text = CalendarManager.selectLabel()
         }
     }
-    
-    
-    //    NavigationTitleをタップ
-    func tapped(tapGestureRecognizer: UITapGestureRecognizer) {
-        print("ナビゲーションタイトルをタップ")
-        let menuView = DropdownMenu(navigationController: navigationController!, items: Dropitems, selectedRow: selectedRow)
-        menuView.delegate = self
-        menuView.showMenu(onNavigaitionView: true)
+
+    //NavigatiaonDropMenuの生成
+    func prepareNavigationDropdownMenu() {
+        let items = ["Mine", "Follow"]
+        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+
+        navigationBarView = BTNavigationDropdownMenu(navigationController: self.navigationController, containerView: self.navigationController!.view, title: items[dropdownNumber], items: items)
+        navigationBarView.cellHeight = 50
+        navigationBarView.cellBackgroundColor = self.navigationController?.navigationBar.barTintColor
+        navigationBarView.cellSelectionColor = self.navigationController?.navigationBar.barTintColor
+        navigationBarView.shouldKeepSelectedCellColor = true
+        navigationBarView.cellTextLabelColor = UIColor.whiteColor()
+        navigationBarView.cellTextLabelFont = UIFont(name: "Avenir-Heavy", size: 17)
+        navigationBarView.cellTextLabelAlignment = .Left // .Center // .Right // .Left
+        navigationBarView.arrowPadding = 15
+        navigationBarView.animationDuration = 0.5
+        navigationBarView.maskBackgroundColor = UIColor.blackColor()
+        navigationBarView.maskBackgroundOpacity = 0.3
+        navigationBarView.didSelectItemAtIndexHandler = {(indexPath: Int) -> () in
+            print("Did select item at index: \(indexPath)")
+            print("選択範囲:", items[indexPath])
+            self.dropdownNumber = indexPath
+            self.selectedDropdownMenu(indexPath, rangeTitle: items[indexPath])
+        }
+
+        self.navigationItem.titleView = navigationBarView
     }
-    
+
+    //NavigationBarをログの時だけ、Dropdownになるように切り替える
+    func navigationTitleToggle(){
+
+        //        ナビゲーションバーのタイトルに設定する。
+        if logManager.sharedSingleton.logTitleToggle == true{
+            print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
+            prepareNavigationDropdownMenu()
+            print("logTitleToggleがtrueなので、ログ範囲のタイトルを表示する")
+        }else {
+            print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
+            let logUserName = logManager.sharedSingleton.logUser.userName
+            self.navigationItem.title = logUserName
+            print("logTitleToggleがfalseなので、ログ範囲のタイトルを表示しない")
+        }
+
+    }
+
+    //DropMenuを選択する
+    func selectedDropdownMenu(indexPath: Int, rangeTitle: String) {
+
+        logManager.sharedSingleton.tabLogNumber = indexPath
+        let logNumber = logManager.sharedSingleton.tabLogNumber
+        print("logNumber", logNumber, rangeTitle)
+
+        switch toggleWeek {
+        case false:
+            print("week表示")
+            if let calendarView = calendarView {
+                calendarView.resetMonthView()
+                loadQuery(logNumber)
+            }
+        default:
+            print("month表示")
+            if let calendarAnotherView = calendarAnotherView {
+                calendarAnotherView.resetWeekView()
+                loadQuery(logNumber)
+            }
+        }
+    }
+
     func openSubmitViewController(){
         print("openSubmitViewController")
         let submitVC = SubmitViewController()
@@ -182,7 +221,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         tableView.reloadData()
     }
     
-    //tableViewに表示するその日の投稿のQueryから取ってくる
+    //tableViewに表示するその日の投稿をQueryから取ってくる
     func loadQuery(logNumber: Int){
         let logQueryManager = LogQueryManager()
         let postQuery: NCMBQuery
@@ -313,6 +352,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }
     }
 }
+
 
 extension LogViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     //------------------DZNEmptyDataSet(セルが無い時に表示するViewの設定--------------------
@@ -632,104 +672,6 @@ extension LogViewController{
         performSegueWithIdentifier("toPostDetailVC", sender: true)
     }
     
-}
-
-//--------------NavigatoinBarの管理 (DropdownMenuDelegateのDelegate)----------------------------
-extension LogViewController: DropdownMenuDelegate {
-    func dropdownMenu(dropdownMenu: DropdownMenu, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("DropdownMenu didselect \(indexPath.row) text:\(Dropitems[indexPath.row].title)")
-        
-        self.selectedRow = indexPath.row
-        
-        if indexPath.row != Dropitems.count - 1 {
-            //一番上選んだ時
-            self.selectedRow = indexPath.row
-        }else {
-            //それ意外
-            self.selectedRow = indexPath.row
-        }
-        logManager.sharedSingleton.tabLogNumber = indexPath.row
-        let logNumber = logManager.sharedSingleton.tabLogNumber
-        print("logNumber", logNumber, Dropitems[indexPath.row].title)
-        
-        changeTitle(logNumber)
-        
-        switch toggleWeek {
-        case false:
-            print("week表示")
-            if let calendarView = calendarView {
-                calendarView.resetMonthView()
-                loadQuery(logNumber)
-            }
-        default:
-            print("month表示")
-            if let calendarAnotherView = calendarAnotherView {
-                calendarAnotherView.resetWeekView()
-                loadQuery(logNumber)
-            }
-        }
-    }
-    
-    //NavigatoinBarのタイトルを設定
-    func changeTitle(logNumber: Int) {
-        //スタックビューを作成
-        let stackView = UIStackView()
-        stackView.axis = .Vertical
-        stackView.alignment = .Center
-        stackView.frame = CGRectMake(0,0,100,40)
-        
-        //タイトルのラベルを作成する。
-        let testLabel1 = UILabel(frame:CGRectMake(0,0,100,28))
-        testLabel1.textColor = UIColor.whiteColor()
-        testLabel1.text = "ログ"
-        
-        //サブタイトルを作成する。
-        let testLabel2 = UILabel(frame:CGRectMake(0,0,100,12))
-        testLabel2.textColor = UIColor.whiteColor()
-        testLabel2.text = Dropitems[selectedRow].title
-        
-        //        if selectedRow == logNumber {
-        //            testLabel2.text = Dropitems[selectedRow].title
-        //        }
-        
-        //        switch logNumber {
-        //        case 0:
-        //            testLabel2.text = Dropitems[0].title
-        //        case 1:
-        //            testLabel2.text = Dropitems[1].title
-        //        case 2:
-        //            testLabel2.text = "logNumber = 2"
-        //        default:
-        //            testLabel2.text = "その他"
-        //        }
-        
-        //スタックビューに追加する。
-        stackView.addArrangedSubview(testLabel1)
-        stackView.addArrangedSubview(testLabel2)
-        //タッチできるようにする
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.tapped(_:)))
-        stackView.addGestureRecognizer(gesture)
-        stackView.userInteractionEnabled = true
-        //ナビゲーションバーのタイトルに設定する。
-        //        if logNumber != 2{
-        //            navigationController!.navigationBar.topItem!.titleView = stackView
-        //        }
-        //        if logManager.sharedSingleton.logNumber == 0 && logManager.sharedSingleton.logUser  == NCMBUser.currentUser() && maintabBarVC.selectedIndex as Int == 0{
-        //            navigationController!.navigationBar.topItem!.titleView = stackView
-        //        }
-        //        if maintabBarVC.selectedIndex as Int == 0 {
-        //        }
-        if logManager.sharedSingleton.logTitleToggle == true{
-            print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
-            navigationController!.navigationBar.topItem!.titleView = stackView
-            print("logTitleToggleがtrueなので、ログ範囲のタイトルを表示する")
-        }else {
-            print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
-            print("logTitleToggleがfalseなので、ログ範囲のタイトルを表示しない")
-        }
-        
-        
-    }
 }
 
 extension LogViewController: SubmitViewControllerDelegate {
