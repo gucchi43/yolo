@@ -75,7 +75,6 @@
 		ED720CD51D18A8CA00477608 /* LogQueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720CD41D18A8CA00477608 /* LogQueryManager.swift */; };
 		ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; };
 		ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		ED79F7C11D7C053B0013852D /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79F7C01D7C053B0013852D /* AlertManager.swift */; };
 		ED7A79051D2027220087BCCD /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */; };
 		ED7A79061D2027220087BCCD /* DZNEmptyDataSet.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED8322D41C8EFDF700122BA2 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */; };
@@ -139,7 +138,6 @@
 		3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
 		3289D2371C6A1C6000B4C65A /* LogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = masterch/SearchViewController.swift; sourceTree = "<group>"; };
-		3289D2791C6BA1B300B4C65A /* masterch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "masterch-Bridging-Header.h"; sourceTree = "<group>"; };
 		328BF13C1CED546B00B99CBF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		328BF13D1CED546B00B99CBF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		32A088A71CED9EEE00BECCA5 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -217,7 +215,6 @@
 		ED720CD21D188D6500477608 /* LogNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogNavigationController.swift; sourceTree = "<group>"; };
 		ED720CD41D18A8CA00477608 /* LogQueryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogQueryManager.swift; sourceTree = "<group>"; };
 		ED779B091C8DCB9100C3027C /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
-		ED79F7C01D7C053B0013852D /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DZNEmptyDataSet.framework; path = Carthage/Build/iOS/DZNEmptyDataSet.framework; sourceTree = "<group>"; };
 		ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSwiftDateView.swift; sourceTree = "<group>"; };
@@ -310,7 +307,6 @@
 				ED3644661C9D74CB00C6676C /* Submit */,
 				ED23B79D1C7B475B009AEDA5 /* Calendar */,
 				32C0A3461C5DF8ED009657B9 /* LaunchScreen.storyboard */,
-				3289D2791C6BA1B300B4C65A /* masterch-Bridging-Header.h */,
 				32C0A3491C5DF8ED009657B9 /* Info.plist */,
 				ED402DCB1D34460C0098F843 /* images.xcassets */,
 				ED7DB14D1C9365250028C986 /* Images */,
@@ -485,7 +481,6 @@
 		ED3707951D36431300F892B0 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				ED79F7C01D7C053B0013852D /* AlertManager.swift */,
 				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
 				ED6ED06C1D387ACD005B0053 /* GCDManager.swift */,
 				EDE355F11CB284CD006C7C0A /* CommentFile.swift */,
@@ -865,7 +860,6 @@
 				ED3707931D36427E00F892B0 /* ColorManager.swift in Sources */,
 				ED2152491D11883A0027AFC4 /* UserListTableViewCell.swift in Sources */,
 				ED3108031D10322600FE3D32 /* NotificationCommentTableViewCell.swift in Sources */,
-				ED79F7C11D7C053B0013852D /* AlertManager.swift in Sources */,
 				EDB04C751CC5190500FDEB14 /* UserData.swift in Sources */,
 				EDEF991E1C9EC13500B6D69D /* ContainerProfileViewController.swift in Sources */,
 				ED3107F51D101D4F00FE3D32 /* SearchUserTableViewController.swift in Sources */,
