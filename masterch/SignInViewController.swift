@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NCMB
 import TwitterKit
 import SVProgressHUD
 
@@ -51,7 +52,7 @@ class SignInViewController: UIViewController {
                 //Login失敗
                 print("Login失敗", error)
                 SVProgressHUD.dismiss()
-                self.showErrorAlert(error)
+                self.signInErrorAlert(error)
             }else {
                 //Login成功
                 print("Login成功", user)

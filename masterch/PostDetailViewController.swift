@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import NCMB
+import IDMPhotoBrowser
 
 protocol addPostDetailDelegate {
     func postDetailDismissionAction()

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NCMB
 
 
 //@@@多分シングルトン機能している

@@ -21,7 +21,11 @@
 		32C0A3531C5DF8EE009657B9 /* masterchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A3521C5DF8EE009657B9 /* masterchTests.swift */; };
 		32C0A35E1C5DF8EE009657B9 /* masterchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A35D1C5DF8EE009657B9 /* masterchUITests.swift */; };
 		32E6CF751C76DD4F00904B74 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */; };
-		E0B7E0BA07F94C20BB5A1280 /* libPods-masterch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2256E15F2038E12B35758EC6 /* libPods-masterch.a */; };
+		577FFC5D5ED256C1CBCA09CD /* Pods_masterchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9031CE22FE04A8B989382F94 /* Pods_masterchUITests.framework */; };
+		9324B91B2ECCF81986071528 /* Pods_masterchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 948E8B4FF2DB3F81ACF93E05 /* Pods_masterchTests.framework */; };
+		C1F87D858B7A400395A26DAC /* Pods_masterch_masterchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D077A7CE6A30BD4FEE6928A6 /* Pods_masterch_masterchUITests.framework */; };
+		C723D0368844C8137A7AB044 /* Pods_masterch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E600DCFEE36D4763CBA1FFBF /* Pods_masterch.framework */; };
+		EC51812780A8C2D94AC0E81F /* Pods_masterch_masterchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42E1A3081ABED4BA47BB3EB /* Pods_masterch_masterchTests.framework */; };
 		ED21521F1D11565C0027AFC4 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED21521E1D11565C0027AFC4 /* NotificationManager.swift */; };
 		ED2152481D11883A0027AFC4 /* UserList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED2152441D1188390027AFC4 /* UserList.storyboard */; };
 		ED2152491D11883A0027AFC4 /* UserListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2152451D1188390027AFC4 /* UserListTableViewCell.swift */; };
@@ -127,14 +131,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2256E15F2038E12B35758EC6 /* libPods-masterch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-masterch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		07B2E10052A6FD365288FDA9 /* Pods-masterch-masterchUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch-masterchUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch-masterchUITests/Pods-masterch-masterchUITests.release.xcconfig"; sourceTree = "<group>"; };
 		3219A2351C70468900D1A6AF /* TimelineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
 		3219A2361C70468900D1A6AF /* CustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 		3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitViewController.swift; sourceTree = "<group>"; };
 		3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
 		3289D2371C6A1C6000B4C65A /* LogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = masterch/SearchViewController.swift; sourceTree = "<group>"; };
-		3289D2791C6BA1B300B4C65A /* masterch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "masterch-Bridging-Header.h"; sourceTree = "<group>"; };
 		328BF13C1CED546B00B99CBF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		328BF13D1CED546B00B99CBF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		32A088A71CED9EEE00BECCA5 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -151,8 +154,20 @@
 		32C0A35D1C5DF8EE009657B9 /* masterchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = masterchUITests.swift; sourceTree = "<group>"; };
 		32C0A35F1C5DF8EE009657B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
+		36B05B54B39A06BFDE282D63 /* Pods-masterchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterchTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterchTests/Pods-masterchTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3CC6FA301452F9BE8446E0CB /* Pods-masterch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.release.xcconfig"; sourceTree = "<group>"; };
+		414803C8114ADFE82809F152 /* Pods-masterch-masterchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch-masterchTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterch-masterchTests/Pods-masterch-masterchTests.debug.xcconfig"; sourceTree = "<group>"; };
+		59B77F860172AB531DA6B91C /* Pods-masterchUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterchUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterchUITests/Pods-masterchUITests.release.xcconfig"; sourceTree = "<group>"; };
+		7799740CD6A78B08CB77ACB2 /* Pods-masterch-masterchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch-masterchUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterch-masterchUITests/Pods-masterch-masterchUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		9031CE22FE04A8B989382F94 /* Pods_masterchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_masterchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		948E8B4FF2DB3F81ACF93E05 /* Pods_masterchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_masterchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		94B9E2F237A79871AEB07B73 /* Pods-masterchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterchUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterchUITests/Pods-masterchUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B962A15061D1B253ADCE13B1 /* Pods-masterch-masterchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch-masterchTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterch-masterchTests/Pods-masterch-masterchTests.release.xcconfig"; sourceTree = "<group>"; };
+		C42E1A3081ABED4BA47BB3EB /* Pods_masterch_masterchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_masterch_masterchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9C7FAF1873CCB557C7C8CF6 /* Pods-masterchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterchTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-masterchTests/Pods-masterchTests.release.xcconfig"; sourceTree = "<group>"; };
+		D077A7CE6A30BD4FEE6928A6 /* Pods_masterch_masterchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_masterch_masterchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDDA2AF98486C953A99F98DB /* Pods-masterch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.debug.xcconfig"; sourceTree = "<group>"; };
+		E600DCFEE36D4763CBA1FFBF /* Pods_masterch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_masterch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED21521E1D11565C0027AFC4 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationManager.swift; path = masterch/NotificationManager.swift; sourceTree = "<group>"; };
 		ED2152441D1188390027AFC4 /* UserList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserList.storyboard; sourceTree = "<group>"; };
 		ED2152451D1188390027AFC4 /* UserListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListTableViewCell.swift; sourceTree = "<group>"; };
@@ -225,12 +240,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0B7E0BA07F94C20BB5A1280 /* libPods-masterch.a in Frameworks */,
 				ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */,
 				ED48C92D1D4D0120003DC586 /* TTTAttributedLabel.framework in Frameworks */,
 				ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */,
 				ED7A79051D2027220087BCCD /* DZNEmptyDataSet.framework in Frameworks */,
 				ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */,
+				C723D0368844C8137A7AB044 /* Pods_masterch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +253,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9324B91B2ECCF81986071528 /* Pods_masterchTests.framework in Frameworks */,
+				EC51812780A8C2D94AC0E81F /* Pods_masterch_masterchTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +262,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				577FFC5D5ED256C1CBCA09CD /* Pods_masterchUITests.framework in Frameworks */,
+				C1F87D858B7A400395A26DAC /* Pods_masterch_masterchUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +307,6 @@
 				ED3644661C9D74CB00C6676C /* Submit */,
 				ED23B79D1C7B475B009AEDA5 /* Calendar */,
 				32C0A3461C5DF8ED009657B9 /* LaunchScreen.storyboard */,
-				3289D2791C6BA1B300B4C65A /* masterch-Bridging-Header.h */,
 				32C0A3491C5DF8ED009657B9 /* Info.plist */,
 				ED402DCB1D34460C0098F843 /* images.xcassets */,
 				ED7DB14D1C9365250028C986 /* Images */,
@@ -319,6 +337,14 @@
 			children = (
 				DDDA2AF98486C953A99F98DB /* Pods-masterch.debug.xcconfig */,
 				3CC6FA301452F9BE8446E0CB /* Pods-masterch.release.xcconfig */,
+				36B05B54B39A06BFDE282D63 /* Pods-masterchTests.debug.xcconfig */,
+				C9C7FAF1873CCB557C7C8CF6 /* Pods-masterchTests.release.xcconfig */,
+				94B9E2F237A79871AEB07B73 /* Pods-masterchUITests.debug.xcconfig */,
+				59B77F860172AB531DA6B91C /* Pods-masterchUITests.release.xcconfig */,
+				414803C8114ADFE82809F152 /* Pods-masterch-masterchTests.debug.xcconfig */,
+				B962A15061D1B253ADCE13B1 /* Pods-masterch-masterchTests.release.xcconfig */,
+				7799740CD6A78B08CB77ACB2 /* Pods-masterch-masterchUITests.debug.xcconfig */,
+				07B2E10052A6FD365288FDA9 /* Pods-masterch-masterchUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -332,7 +358,11 @@
 				ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */,
 				ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */,
 				ED779B091C8DCB9100C3027C /* SwiftDate.framework */,
-				2256E15F2038E12B35758EC6 /* libPods-masterch.a */,
+				E600DCFEE36D4763CBA1FFBF /* Pods_masterch.framework */,
+				948E8B4FF2DB3F81ACF93E05 /* Pods_masterchTests.framework */,
+				9031CE22FE04A8B989382F94 /* Pods_masterchUITests.framework */,
+				C42E1A3081ABED4BA47BB3EB /* Pods_masterch_masterchTests.framework */,
+				D077A7CE6A30BD4FEE6928A6 /* Pods_masterch_masterchUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -520,9 +550,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32C0A3651C5DF8EE009657B9 /* Build configuration list for PBXNativeTarget "masterchTests" */;
 			buildPhases = (
+				C147F52F78BCC144991ECD36 /* [CP] Check Pods Manifest.lock */,
 				32C0A34A1C5DF8EE009657B9 /* Sources */,
 				32C0A34B1C5DF8EE009657B9 /* Frameworks */,
 				32C0A34C1C5DF8EE009657B9 /* Resources */,
+				560698F9DF218831067F7BF3 /* [CP] Embed Pods Frameworks */,
+				0456E1D537F1CD126C63CA5A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -538,9 +571,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32C0A3681C5DF8EE009657B9 /* Build configuration list for PBXNativeTarget "masterchUITests" */;
 			buildPhases = (
+				4B89EB623F5CDCA7CEC5EDDA /* [CP] Check Pods Manifest.lock */,
 				32C0A3551C5DF8EE009657B9 /* Sources */,
 				32C0A3561C5DF8EE009657B9 /* Frameworks */,
 				32C0A3571C5DF8EE009657B9 /* Resources */,
+				EBF863E6A6B2C377AD84680F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -640,6 +675,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0456E1D537F1CD126C63CA5A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-masterch-masterchTests/Pods-masterch-masterchTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B89EB623F5CDCA7CEC5EDDA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		50F719C96381B430B7401FB8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -653,6 +718,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		560698F9DF218831067F7BF3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-masterch-masterchTests/Pods-masterch-masterchTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B8A26049C56D2BF01088C609 /* [CP] Embed Pods Frameworks */ = {
@@ -683,6 +763,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-masterch/Pods-masterch-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C147F52F78BCC144991ECD36 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EBF863E6A6B2C377AD84680F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-masterch-masterchUITests/Pods-masterch-masterchUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ED8FE1CB1C8FE62200CFD685 /* ShellScript */ = {
@@ -950,6 +1060,7 @@
 		};
 		32C0A3661C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 414803C8114ADFE82809F152 /* Pods-masterch-masterchTests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = masterchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -961,6 +1072,7 @@
 		};
 		32C0A3671C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B962A15061D1B253ADCE13B1 /* Pods-masterch-masterchTests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = masterchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -972,6 +1084,7 @@
 		};
 		32C0A3691C5DF8EE009657B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7799740CD6A78B08CB77ACB2 /* Pods-masterch-masterchUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = masterchUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -984,6 +1097,7 @@
 		};
 		32C0A36A1C5DF8EE009657B9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07B2E10052A6FD365288FDA9 /* Pods-masterch-masterchUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = masterchUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

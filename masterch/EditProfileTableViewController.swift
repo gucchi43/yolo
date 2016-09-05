@@ -8,7 +8,9 @@
 
 import UIKit
 import SVProgressHUD
+import NCMB
 import TwitterKit
+import RSKImageCropper
 
 class EditProfileTableViewController: UITableViewController {
     
@@ -126,14 +128,42 @@ extension EditProfileTableViewController: UIImagePickerControllerDelegate, UINav
     
     func selectChangeImageButton() {
         print("カメラボタン押した")
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
-            //             アルバムから写真を取得
+        let alert: UIAlertController = UIAlertController(title: nil,
+                                                         message: nil,
+                                                         preferredStyle:  UIAlertControllerStyle.ActionSheet)
+        // OKボタン
+        let cameraAction: UIAlertAction = UIAlertAction(title: "カメラ", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("カメラ選択")
+            self.pickImageFromCamera()
+        })
+        let libraryAction: UIAlertAction = UIAlertAction(title: "カメラロール", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("カメラ選択")
             self.pickImageFromLibrary()
-            //        } else if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-            //            self.pickImageFromCamera()
-        } else {
-            UIAlertView(title: "警告", message: "Photoライブラリにアクセス出来ません", delegate: nil, cancelButtonTitle: "OK").show()
-        }
+        })
+
+        // キャンセルボタン
+        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+        alert.addAction(cancelAction)
+        alert.addAction(cameraAction)
+        alert.addAction(libraryAction)
+        presentViewController(alert, animated: true, completion: nil)
+
+//        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary) {
+//            //             アルバムから写真を取得
+//            self.pickImageFromLibrary()
+//            //        } else if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+//            //            self.pickImageFromCamera()
+//        } else {
+//            UIAlertView(title: "警告", message: "Photoライブラリにアクセス出来ません", delegate: nil, cancelButtonTitle: "OK").show()
+//        }
     }
     
     // ライブラリから写真を選択する

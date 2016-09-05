@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NCMB
 
 protocol CommentTableViewCellDelegate {
     func didSelectCommentProfileImageView(commentObject: NCMBObject!)

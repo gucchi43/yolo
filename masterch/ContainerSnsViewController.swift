@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import NCMB
 import TwitterKit
+import FBSDKLoginKit
 
 class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -307,79 +309,111 @@ class ContainerSnsViewController:UIViewController, UITableViewDataSource, UITabl
     func deleteTwitterAccount(user: NCMBUser) {
         //「解除しますか？」アラート呼び出し
         print("userじょうほう", user)
-        RMUniversalAlert.showAlertInViewController(self,
-            withTitle: "このアカウントはすでにTwitterと連携しています。",
-            message: "連携を解除する場合は、解除するボタンを押してください",
-            cancelButtonTitle: "完了",
-            destructiveButtonTitle: "解除する",
-            otherButtonTitles:nil,
-            tapBlock: {(alert, buttonIndex) in
-                if (buttonIndex == alert.cancelButtonIndex) {
-                    print("完了 Tapped")
-                } else if (buttonIndex == alert.destructiveButtonIndex) {
-                    print("解除する Tapped")
-                    let store = Twitter.sharedInstance().sessionStore
-                    if let userID = store.session()?.userID {
-                        print(userID)
-                        store.logOutUserID(userID)
-                        NCMBTwitterUtils.unlinkUserInBackground(user, block: { (error) -> Void in
+        let alert: UIAlertController = UIAlertController(title: "このアカウントはすでにTwitterと連携しています。",
+                                                         message: "連携を解除する場合は、解除するボタンを押してください",
+                                                         preferredStyle:  UIAlertControllerStyle.Alert)
+        // OKボタン
+        let defaultAction: UIAlertAction = UIAlertAction(title: "解除する", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("解除する")
+            let store = Twitter.sharedInstance().sessionStore
+            if let userID = store.session()?.userID {
+                print(userID)
+                store.logOutUserID(userID)
+                NCMBTwitterUtils.unlinkUserInBackground(user, block: { (error) -> Void in
+                    if error == nil {
+                        user.removeObjectForKey("twitterName")
+                        user.removeObjectForKey("twitterID")
+                        user.saveInBackgroundWithBlock({ (error) -> Void in
                             if error == nil {
-                                user.removeObjectForKey("twitterName")
-                                user.removeObjectForKey("twitterID")
-                                user.saveInBackgroundWithBlock({ (error) -> Void in
-                                    if error == nil {
-                                        self.conectSnsTabelView.reloadData()
-                                        print("Twitterアンリンク成功")
-                                    }else{
-                                        print("Twitterアンリンク失敗", error)
-                                    }
-                                })
-                            }else {
-                                print(error)
+                                self.conectSnsTabelView.reloadData()
+                                print("Twitterアンリンク成功")
+                            }else{
+                                print("Twitterアンリンク失敗", error)
                             }
                         })
-                } else if (buttonIndex >= alert.firstOtherButtonIndex) {
-                    print("Other Button Index \(buttonIndex - alert.firstOtherButtonIndex)")
+                    }else {
+                        print(error)
                     }
-                }
+                })
+            }
         })
+        // キャンセルボタン
+        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+        alert.addAction(cancelAction)
+        alert.addAction(defaultAction)
+        presentViewController(alert, animated: true, completion: nil)
     }
-    
-    
+
+    func newDeleteTwitterAccount(user: NCMBUser){
+        let store = Twitter.sharedInstance().sessionStore
+        if let userID = store.session()?.userID {
+            print(userID)
+            store.logOutUserID(userID)
+            NCMBTwitterUtils.unlinkUserInBackground(user, block: { (error) -> Void in
+                if error == nil {
+                    user.removeObjectForKey("twitterName")
+                    user.removeObjectForKey("twitterID")
+                    user.saveInBackgroundWithBlock({ (error) -> Void in
+                        if error == nil {
+                            self.conectSnsTabelView.reloadData()
+                            print("Twitterアンリンク成功")
+                        }else{
+                            print("Twitterアンリンク失敗", error)
+                        }
+                    })
+                }else {
+                    print(error)
+                }
+            })
+        }
+    }
+
+
     //Facebookアンリンク
     func deleteFacebookAccount(user: NCMBUser) {
         //「解除しますか？」アラート呼び出し
-        RMUniversalAlert.showAlertInViewController(self,
-            withTitle: "このアカウントはすでにFacebookと連携しています。",
-            message: "連携を解除する場合は、解除するボタンを押してください",
-            cancelButtonTitle: "完了",
-            destructiveButtonTitle: "解除する",
-            otherButtonTitles:nil,
-            tapBlock: {(alert, buttonIndex) in
-                if (buttonIndex == alert.cancelButtonIndex) {
-                    print("完了 Tapped")
-                } else if (buttonIndex == alert.destructiveButtonIndex) {
-                    print("解除する Tapped")
-                    NCMBFacebookUtils.unLinkUser(user, withBlock: { (user, error) -> Void in
+        let alert: UIAlertController = UIAlertController(title: "このアカウントはすでにFacebookと連携しています。",
+                                                         message: "連携を解除する場合は、解除するボタンを押してください",
+                                                         preferredStyle:  UIAlertControllerStyle.Alert)
+        // OKボタン
+        let defaultAction: UIAlertAction = UIAlertAction(title: "解除する", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("解除する")
+            NCMBFacebookUtils.unLinkUser(user, withBlock: { (user, error) -> Void in
+                if error == nil {
+                    print("Facebookアンリンク開始")
+                    print("user情報", user)
+                    user.removeObjectForKey("facebookName")
+                    user.saveInBackgroundWithBlock({ (error) -> Void in
                         if error == nil {
-                            print("Facebookアンリンク開始")
-                            print("user情報", user)
-                            user.removeObjectForKey("facebookName")
-                                user.saveInBackgroundWithBlock({ (error) -> Void in
-                                    if error == nil {
-                                        self.conectSnsTabelView.reloadData()
-                                        print("Facebookアンリンク成功")
-                                        print("user情報その２", user)
-                                    }else{
-                                        print("Facebookアンリンク失敗", error)
-                                    }
-                                })
-                        }else {
-                            print("Facebookアンリンクできず", error)
+                            self.conectSnsTabelView.reloadData()
+                            print("Facebookアンリンク成功")
+                            print("user情報その２", user)
+                        }else{
+                            print("Facebookアンリンク失敗", error)
                         }
                     })
+                }else {
+                    print("Facebookアンリンクできず", error)
                 }
+            })
         })
+        // キャンセルボタン
+        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+        alert.addAction(cancelAction)
+        alert.addAction(defaultAction)
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     @IBAction func unwindToContainerSns(segue: UIStoryboardSegue) {

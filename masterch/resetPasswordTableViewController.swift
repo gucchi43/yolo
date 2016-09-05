@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import NCMB
 import SVProgressHUD
+
 
 class ResetPasswordTableViewController: UITableViewController {
 
@@ -32,7 +34,16 @@ class ResetPasswordTableViewController: UITableViewController {
 
     @IBAction func tapReserPasswordButton(sender: AnyObject) {
         if isValidEmail(mailTextField.text!) == false {print("正しいメールアドレスではありません")
-        RMUniversalAlert.showAlertInViewController(self, withTitle: "エラー", message: "正しいメールアドレスではありません", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tapBlock: nil)
+            let alert: UIAlertController = UIAlertController(title: "エラー",
+                                                             message: "正しいメールアドレスではありません",
+                                                             preferredStyle:  UIAlertControllerStyle.Alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                // ボタンが押された時の処理を書く（クロージャ実装）
+                (action: UIAlertAction!) -> Void in
+                print("OK")
+            })
+            alert.addAction(defaultAction)
+            presentViewController(alert, animated: true, completion: nil)
         }else {
             sendResetPasswordRequest()
         }

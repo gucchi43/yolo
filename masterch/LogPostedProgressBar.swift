@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YLProgressBar
 
 //なぜかこっちが反応しない（怒）
 class LogPostedProgressBar: YLProgressBar {

@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import NCMB
 import SwiftDate
 import DZNEmptyDataSet
 import SVProgressHUD
+import NSDate_TimeAgo
 
 class NotificationTableViewController: UITableViewController {
     var notificationArray: NSArray = NSArray()
