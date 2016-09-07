@@ -397,6 +397,7 @@ extension SubmitViewController {
         postDateLabel.text = postDateFormatter.stringFromDate(date)
 //        postDateTextField.text = postDateFormatter.stringFromDate(date)
 //        postDateLabel.text = postDateTextField.text
+        postDate = date
     }
 }
 
@@ -510,7 +511,8 @@ extension SubmitViewController {
             })
         }
         self.setLogColor() //"logColor"クラスへのセット
-        self.setLogColorArray() ////"TeatLogColorDic"クラスへのセット
+        self.setLogColorArray() //"TeatLogColorDic"クラスへのセット
+        self.setWeekLogColorArray() //"TestWeekColorDic"クラスへのセット
 
         //        非同期通信の保存処理
 
@@ -773,7 +775,7 @@ extension SubmitViewController {
     
 }
 
-//testColor配列
+//logColor配列(月version)
 extension SubmitViewController {
     func setLogColorArray() {
         let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）
@@ -863,6 +865,104 @@ extension SubmitViewController {
         }
     }
 }
+
+
+//logColor配列(週version)
+extension SubmitViewController {
+    func setWeekLogColorArray() {
+        let yearAndWeekNumberArray = CalendarManager.getWeekNumber(postDate!)
+        let year = yearAndWeekNumberArray[0]
+        let weekOfYear = yearAndWeekNumberArray[1]
+        let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）
+        let logDate = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(10))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
+        let logDateTag = Int(logDate.stringByReplacingOccurrencesOfString("/", withString: ""))! // "yyyy/MM/dd" → "yyyyMMdd"
+        let logColorArrayQuery: NCMBQuery = NCMBQuery(className: "TestWeekColorDic")
+        logColorArrayQuery.whereKey("user", equalTo: user)
+        logColorArrayQuery.whereKey("year", equalTo: year)
+        logColorArrayQuery.whereKey("weekOfYear", equalTo: weekOfYear)
+        logColorArrayQuery.getFirstObjectInBackgroundWithBlock { (object, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                if object == nil {
+                    //その月の投稿がまだなにもない時
+                    self.firstSetWeekLogColorArray(year, weekOfYear: weekOfYear, logDateTag: logDateTag)
+                }else {
+                    print("object", object)
+                    let dayColorArrayObject = object.objectForKey("logDateTag") as! Array<String>
+                    let oldLogDateTagInfoArray = dayColorArrayObject.filter { $0.containsString(String(logDateTag))}
+                    print("oldLogDateTagInfoArray", oldLogDateTagInfoArray)
+                    if oldLogDateTagInfoArray == [] {
+                        //その日の投稿はまだ無い
+                        print("今月の投稿はあるけどその日の投稿はまだないから追加")
+                        self.otherSetWeekLogColorArray(object, logDateTag: logDateTag)
+                    }else {
+                        //その日はもう投稿している
+                        print("その日既に投稿してある要素を置換")
+                        let oldLogDateTagInfo = oldLogDateTagInfoArray[0]
+                        print("oldLogDateTagInfo", oldLogDateTagInfo)
+                        self.updateWeekLogColorArray(object, logDateTag: logDateTag, oldLogDateTagInfo: oldLogDateTagInfo)
+                    }
+
+                }
+            }
+        }
+    }
+
+    //その月初めてのlogColorArray作成
+    func firstSetWeekLogColorArray(year: Int, weekOfYear: Int, logDateTag: Int) {
+        let logDateTagInfo = String(logDateTag) + "&" + self.dateColor
+        let logColorDicObject: NCMBObject = NCMBObject(className: "TestWeekColorDic")
+        logColorDicObject.setObject(user, forKey: "user")
+        logColorDicObject.setObject(year, forKey: "year")
+        logColorDicObject.setObject(weekOfYear, forKey: "weekOfYear")
+        logColorDicObject.addObject(logDateTagInfo, forKey: "logDateTag")
+        logColorDicObject.saveInBackgroundWithBlock { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                print("firstSetLogColorDic成功")
+            }
+        }
+
+    }
+
+    //その月二回目の投稿&&その日の投稿は初めて
+    func otherSetWeekLogColorArray(object: NCMBObject, logDateTag: Int) {
+        let logDateTagInfo = String(logDateTag) + "&" + self.dateColor
+        object.addObject(logDateTagInfo, forKey: "logDateTag")
+        object.saveInBackgroundWithBlock { (error) -> Void in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                print("otherSetLogColorArray成功")
+            }
+        }
+    }
+
+    //その月二回目の投稿&&その日の投稿も二回目以降
+    func updateWeekLogColorArray(object: NCMBObject, logDateTag: Int, oldLogDateTagInfo: String) {
+        let logDateTagInfo = String(logDateTag) + "&" + self.dateColor
+        object.removeObject(oldLogDateTagInfo, forKey: "logDateTag")
+        object.saveInBackgroundWithBlock { (error) -> Void in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                print("updateLogColorArray削除成功")
+                object.addUniqueObject(logDateTagInfo, forKey: "logDateTag")
+                object.saveInBackgroundWithBlock({ (error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }else {
+                        print("updateLogColorArray追加成功")
+                    }
+                })
+            }
+        }
+    }
+}
+
+
 
 // LogColor
 extension SubmitViewController {

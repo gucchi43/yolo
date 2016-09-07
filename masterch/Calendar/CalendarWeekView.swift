@@ -65,19 +65,37 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
 //        let logVC = LogViewController()
 //        let user = logVC.user
         if logUser == NCMBUser.currentUser(){
-            print("user情報 in monthVC", logUser.userName)
+            print("user情報 in weekVC(自分のログの時)", logUser.userName)
             //weekLogColorDateはuserを引数に取らない場合userにはNCMBUser.currentUser()が自動で入る
             logColorQuery = calendarLogCollerManager.weekLogColorDate(date, logNumber: logNumber)
         }else {
-            print("user情報 in monthVC", logUser.userName)
+            print("user情報 in weekVC(自分のログじゃない時)", logUser.userName)
             logColorQuery = calendarLogCollerManager.weekLogColorDate(date, logNumber: logNumber, user: logUser)
         }
-        logColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
+
+        switch logNumber {
+        case 0:
+            //自分のみ
+            singleLogColorQueryLoad(logColorQuery)
+        case 1:
+            //フォローのみ
+            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
+        case 2:
+            //特定のユーザーのみ
+            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
+        default:
+            //その他
+            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
+        }
+    }
+
+    func singleLogColorQueryLoad(query: NCMBQuery) {
+        query.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error{
                 print("getLogColorerrorr", error.localizedDescription)
             }else{
                 if objects != nil{
-                    print("今週の投稿",date, objects)
+                    print("チェック、今月の投稿", objects)
                     // 色乗せ処理
                     for object in objects {
                         let logDate = object.objectForKey("logDate") as! String
@@ -113,6 +131,38 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
                 }
             }
         })
+    }
+
+    func manyLogColorQueryLoad(query: NCMBQuery, logNumber: Int){
+        query.findObjectsInBackgroundWithBlock { (objects, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                if objects != nil{
+                    for object in objects {
+                        let logColorArray = object.objectForKey("logDateTag") as! Array <String>
+                        for logColorObject in logColorArray {
+                            let logColorObjectArray = logColorObject.componentsSeparatedByString("&")
+                            print("logColorObjectArray", logColorObjectArray)
+                            let dayViewTag = Int(logColorObjectArray[0])
+                            let dayColor = logColorObjectArray[1]
+                            if let dayView = self.viewWithTag(dayViewTag!) as? CalendarSwiftDateView {
+                                if logNumber == 1 {
+                                    //ひとまずピンクに
+                                    dayView.selectDateColor("follow")
+                                }else {
+                                    dayView.selectDateColor(dayColor)
+                                }
+                            }
+                        }
+                    }
+                }else {
+                    print("今月の投稿はまだない")
+                }
+
+            }
+        }
+        
     }
 
     //日にち押すと
