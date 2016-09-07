@@ -76,13 +76,17 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
 
         switch logNumber {
         case 0:
+            //自分のみ
             singleLogColorQueryLoad(logColorQuery)
         case 1:
-            manyLogColorQueryLoad(logColorQuery)
+            //フォローのみ
+            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
         case 2:
-            singleLogColorQueryLoad(logColorQuery)
+            //特定のユーザーのみ
+            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
         default:
-            singleLogColorQueryLoad(logColorQuery)
+            //その他
+            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
         }
     }
 
@@ -130,17 +134,26 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
         })
     }
 
-    func manyLogColorQueryLoad(query: NCMBQuery){
+    func manyLogColorQueryLoad(query: NCMBQuery, logNumber: Int){
         query.findObjectsInBackgroundWithBlock { (objects, error) in
             if let error = error {
                 print(error.localizedDescription)
             }else {
                 if objects != nil{
                     for object in objects {
-                        let logColorArray = object.objectForKey("logDateTag") as! Array <Int>
+                        let logColorArray = object.objectForKey("logDateTag") as! Array <String>
                         for logColorObject in logColorArray {
-                            if let dayView = self.viewWithTag(logColorObject) as? CalendarSwiftDateView {
-                                dayView.selectDateColor("pink")
+                            let logColorObjectArray = logColorObject.componentsSeparatedByString("&")
+                            print("logColorObjectArray", logColorObjectArray)
+                            let dayViewTag = Int(logColorObjectArray[0])
+                            let dayColor = logColorObjectArray[1] 
+                            if let dayView = self.viewWithTag(dayViewTag!) as? CalendarSwiftDateView {
+                                if logNumber == 1 {
+                                    //ひとまずピンクに
+                                    dayView.selectDateColor("pink")
+                                }else {
+                                    dayView.selectDateColor(dayColor)
+                                }
                             }
                         }
                     }

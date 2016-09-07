@@ -510,7 +510,7 @@ extension SubmitViewController {
             })
         }
         self.setLogColor() //"logColor"クラスへのセット
-        self.setLogColorDic() ////"TeatLogColorDic"クラスへのセット
+        self.setLogColorArray() ////"TeatLogColorDic"クラスへのセット
 
         //        非同期通信の保存処理
 
@@ -775,38 +775,36 @@ extension SubmitViewController {
 
 //testColor配列
 extension SubmitViewController {
-    func setLogColorDic() {
+    func setLogColorArray() {
         let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）
         let logYearAndMonth = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(7))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM"
         let logDate = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(10))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
         let logDateTag = Int(logDate.stringByReplacingOccurrencesOfString("/", withString: ""))! // "yyyy/MM/dd" → "yyyyMMdd"
-        let logColorDic: NCMBQuery = NCMBQuery(className: "TestColorDic")
-        logColorDic.whereKey("user", equalTo: user)
-        logColorDic.whereKey("logYearAndMonth", equalTo: logYearAndMonth)
-        logColorDic.getFirstObjectInBackgroundWithBlock { (object, error) in
+        let logColorArrayQuery: NCMBQuery = NCMBQuery(className: "TestColorDic")
+        logColorArrayQuery.whereKey("user", equalTo: user)
+        logColorArrayQuery.whereKey("logYearAndMonth", equalTo: logYearAndMonth)
+        logColorArrayQuery.getFirstObjectInBackgroundWithBlock { (object, error) in
             if let error = error {
                 print(error.localizedDescription)
             }else {
                 if object == nil {
                     //その月の投稿がまだなにもない時
-                    self.firstSetLogColorDic(logYearAndMonth, logDateTag: logDateTag)
+                    self.firstSetLogColorArray(logYearAndMonth, logDateTag: logDateTag)
                 }else {
                     print("object", object)
-                    let dayColorArrayObject = object.objectForKey("logDateTag") as! Array<Int>
-//                    let testirst = dayColorArrayObject[0...3]
-//                    print("testirst", testirst)
-                    let oldLogDateTag = dayColorArrayObject.filter { $0 == logDateTag}
-//                    let testArray = ["apple","blue","wowow"]
-//                    let a = testArray.filter { $0.hasPrefix("a") }
-//                    print("a", a)
-                    print("oldLogDateTag", oldLogDateTag)
-                    if oldLogDateTag == [] {
+                    let dayColorArrayObject = object.objectForKey("logDateTag") as! Array<String>
+                    let oldLogDateTagInfoArray = dayColorArrayObject.filter { $0.containsString(String(logDateTag))}
+                    print("oldLogDateTagInfoArray", oldLogDateTagInfoArray)
+                    if oldLogDateTagInfoArray == [] {
                         //その日の投稿はまだ無い
                         print("今月の投稿はあるけどその日の投稿はまだないから追加")
-                        self.updateLogColorDic(object, logDateTag: logDateTag)
+                        self.otherSetLogColorArray(object, logDateTag: logDateTag)
                     }else {
                         //その日はもう投稿している
-                        print("その日はもう投稿してるからノータッチ")
+                        print("その日既に投稿してある要素を置換")
+                        let oldLogDateTagInfo = oldLogDateTagInfoArray[0]
+                        print("oldLogDateTagInfo", oldLogDateTagInfo)
+                        self.updateLogColorArray(object, logDateTag: logDateTag, oldLogDateTagInfo: oldLogDateTagInfo)
                     }
 
                 }
@@ -814,11 +812,13 @@ extension SubmitViewController {
         }
     }
 
-    func firstSetLogColorDic(logYearAndMonth: String, logDateTag: Int) {
+    //その月初めてのlogColorArray作成
+    func firstSetLogColorArray(logYearAndMonth: String, logDateTag: Int) {
+        let logDateTagInfo = String(logDateTag) + "&" + self.dateColor
         let logColorDicObject: NCMBObject = NCMBObject(className: "TestColorDic")
         logColorDicObject.setObject(user, forKey: "user")
         logColorDicObject.setObject(logYearAndMonth, forKey: "logYearAndMonth")
-        logColorDicObject.addObject(logDateTag, forKey: "logDateTag")
+        logColorDicObject.addObject(logDateTagInfo, forKey: "logDateTag")
         logColorDicObject.saveInBackgroundWithBlock { (error) in
             if let error = error {
                 print(error.localizedDescription)
@@ -829,14 +829,36 @@ extension SubmitViewController {
 
     }
 
-    func updateLogColorDic(object: NCMBObject, logDateTag: Int) {
-        let secondObject = object 
-        secondObject.addObject(logDateTag, forKey: "logDateTag")
-        secondObject.saveInBackgroundWithBlock { (error) -> Void in
+    //その月二回目の投稿&&その日の投稿は初めて
+    func otherSetLogColorArray(object: NCMBObject, logDateTag: Int) {
+        let logDateTagInfo = String(logDateTag) + "&" + self.dateColor
+        object.addObject(logDateTagInfo, forKey: "logDateTag")
+        object.saveInBackgroundWithBlock { (error) -> Void in
             if let error = error {
                 print(error.localizedDescription)
             }else {
-                print("updateLogColorDic成功")
+                print("otherSetLogColorArray成功")
+            }
+        }
+    }
+
+    //その月二回目の投稿&&その日の投稿も二回目以降
+    func updateLogColorArray(object: NCMBObject, logDateTag: Int, oldLogDateTagInfo: String) {
+        let logDateTagInfo = String(logDateTag) + "&" + self.dateColor
+        object.removeObject(oldLogDateTagInfo, forKey: "logDateTag")
+        object.saveInBackgroundWithBlock { (error) -> Void in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                print("updateLogColorArray削除成功")
+                object.addUniqueObject(logDateTagInfo, forKey: "logDateTag")
+                object.saveInBackgroundWithBlock({ (error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }else {
+                        print("updateLogColorArray追加成功")
+                    }
+                })
             }
         }
     }
