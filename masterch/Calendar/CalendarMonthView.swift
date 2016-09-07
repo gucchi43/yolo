@@ -73,7 +73,21 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
             print("user情報 in monthVC(自分のログじゃない時)", logUser.userName)
             logColorQuery = calendarLogCollerManager.monthLogColorDate(date, logNumber: logNumber, user: logUser)
         }
-        logColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
+
+        switch logNumber {
+        case 0:
+            singleLogColorQueryLoad(logColorQuery)
+        case 1:
+            manyLogColorQueryLoad(logColorQuery)
+        case 2:
+            singleLogColorQueryLoad(logColorQuery)
+        default:
+            singleLogColorQueryLoad(logColorQuery)
+        }
+    }
+
+    func singleLogColorQueryLoad(query: NCMBQuery){
+        query.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error {
                 print("getLogColorError", error.localizedDescription)
             }else{
@@ -114,6 +128,29 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
                 }
             }
         })
+    }
+
+    func manyLogColorQueryLoad(query: NCMBQuery){
+        query.findObjectsInBackgroundWithBlock { (objects, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                if objects != nil{
+                    for object in objects {
+                        let logColorArray = object.objectForKey("logDateTag") as! Array <Int>
+                        for logColorObject in logColorArray {
+                            if let dayView = self.viewWithTag(logColorObject) as? CalendarSwiftDateView {
+                                dayView.selectDateColor("pink")
+                            }
+                        }
+                    }
+                }else {
+                    print("今月の投稿はまだない")
+                }
+
+            }
+        }
+
     }
 
     func updateDayViewSelectedStatus() {

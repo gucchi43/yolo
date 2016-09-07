@@ -19,6 +19,7 @@ class CalendarLogCollerManager: NSObject {
         print("monthLogColorDate: logNumber", logNumber)
         //クエリ作成
         let logColorQuery: NCMBQuery = NCMBQuery(className: "LogColor") // LogCollerのクエリ
+        let testLogColorDicQuery: NCMBQuery = NCMBQuery(className: "TestColorDic")
 
         switch logNumber { //絞っていくよーーーーーーーーーーーーー
         case 0:
@@ -27,19 +28,28 @@ class CalendarLogCollerManager: NSObject {
             logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
             logColorQuery.orderByAscending("logDate")
 
+            return logColorQuery
+
+//        case 1:
+//            //フォローのみ
+//            let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship") // 自分がフォローしている人かどうかのクエリ
+//            relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
+//            //これはなに？
+////            relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "LogColor"))
+//            logColorQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)
+//            logColorQuery.whereKeyExists("dateColor")
+//            logColorQuery.whereKey("user", notEqualTo: NCMBUser.currentUser()) //自分で自分をフォローしていた場合自分を外す
+//            logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
+//            logColorQuery.orderByAscending("logDate")
+//            print("チェックしなきゃlogColorQuery", logColorQuery)
+
         case 1:
-            //フォローのみ
             let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship") // 自分がフォローしている人かどうかのクエリ
             relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
-            //これはなに？
-//            relationshipQuery.whereKey("follower", matchesKey: "user", inQuery: NCMBQuery(className: "LogColor"))
-            logColorQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)
-            logColorQuery.whereKeyExists("dateColor")
-            logColorQuery.whereKey("user", notEqualTo: NCMBUser.currentUser()) //自分で自分をフォローしていた場合自分を外す
-            logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
-            logColorQuery.orderByAscending("logDate")
-            print("チェックしなきゃlogColorQuery", logColorQuery)
+            testLogColorDicQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)
+            testLogColorDicQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
 
+            return testLogColorDicQuery
         case 2:
             //特定のアカウントのみ
             logColorQuery.whereKey("user", equalTo: user)
@@ -47,18 +57,23 @@ class CalendarLogCollerManager: NSObject {
             logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
             logColorQuery.orderByAscending("logDate")
 
+            return logColorQuery
+
         default:
             //オール
             logColorQuery.whereKey("user", equalTo: NCMBUser.currentUser())
             logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
             logColorQuery.orderByAscending("logDate")
+
+            return logColorQuery
         }
 
         //共通のクエリの範囲指定、順番と日にちの範囲指定
         //        logColorQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
         //        logColorQuery.orderByAscending("logDate")
-        return logColorQuery
-        
+
+//        return logColorQuery
+
     }
 
     //LogViewの日にちごとの色を決める実行部分２ (week)

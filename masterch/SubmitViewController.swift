@@ -400,6 +400,7 @@ extension SubmitViewController {
     }
 }
 
+//logColor選択
 extension SubmitViewController {
     func selectToolBarGoodOrBadButton(sender:UIBarButtonItem) {
         print("カラーボタンを押した")
@@ -422,7 +423,7 @@ extension SubmitViewController {
 }
 
 
-// DateColor設定
+// DateColor設定(使ってない)
 extension SubmitViewController {
     func selectToolBarColorButton(sender:UIBarButtonItem) {
         print("カラーボタンを押した")
@@ -482,7 +483,7 @@ extension SubmitViewController {
         print("投稿ボタン押した")
         //        object作成
         let postObject = NCMBObject(className: "Post")
-//         ユーザーを関連づけ
+        //         ユーザーを関連づけ
         postObject.setObject(NCMBUser.currentUser(), forKey: "user")
         postObject.setObject(self.postTextView.text, forKey: "text")
         postObject.setObject(postPickerDate, forKey: "postDate")
@@ -492,7 +493,7 @@ extension SubmitViewController {
             let imageData = UIImagePNGRepresentation(self.postImage1!)! as NSData
             let imageFile: NCMBFile = NCMBFile.fileWithData(imageData) as! NCMBFile
             postObject.setObject(imageFile.name, forKey: "image1")
-            
+
             //            ファイルはバックグラウンド実行をする
             imageFile.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
                 if error == nil {
@@ -500,22 +501,23 @@ extension SubmitViewController {
                 } else {
                     print("アップロード中にエラーが発生しました: \(error)")
                 }
-            }, progressBlock: { (percentDone: Int32) -> Void in
+                }, progressBlock: { (percentDone: Int32) -> Void in
                     //                    進捗状況を取得します。保存完了まで何度も呼ばれます
                     print("進捗状況: \(percentDone)% アップロード済み")
-                let postProgress = CGFloat(percentDone)/CGFloat(100)
-                print("postProgress", postProgress)
-                self.delegate?.savePostProgressBar(postProgress)
+                    let postProgress = CGFloat(percentDone)/CGFloat(100)
+                    print("postProgress", postProgress)
+                    self.delegate?.savePostProgressBar(postProgress)
             })
         }
         self.setLogColor() //"logColor"クラスへのセット
-        
-//        非同期通信の保存処理
-        
-    postObject.saveInBackgroundWithBlock({(error) in
+        self.setLogColorDic() ////"TeatLogColorDic"クラスへのセット
+
+        //        非同期通信の保存処理
+
+        postObject.saveInBackgroundWithBlock({(error) in
             if error != nil {print("Save error : ",error)}
         })
-        
+
         postTextView.resignFirstResponder() // 先にキーボードを下ろす
         postDateTextField.resignFirstResponder()
         if let tab = self.presentingViewController as? UITabBarController {
@@ -769,6 +771,75 @@ extension SubmitViewController {
         
     }
     
+}
+
+//testColor配列
+extension SubmitViewController {
+    func setLogColorDic() {
+        let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）
+        let logYearAndMonth = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(7))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM"
+        let logDate = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(10))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
+        let logDateTag = Int(logDate.stringByReplacingOccurrencesOfString("/", withString: ""))! // "yyyy/MM/dd" → "yyyyMMdd"
+        let logColorDic: NCMBQuery = NCMBQuery(className: "TestColorDic")
+        logColorDic.whereKey("user", equalTo: user)
+        logColorDic.whereKey("logYearAndMonth", equalTo: logYearAndMonth)
+        logColorDic.getFirstObjectInBackgroundWithBlock { (object, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                if object == nil {
+                    //その月の投稿がまだなにもない時
+                    self.firstSetLogColorDic(logYearAndMonth, logDateTag: logDateTag)
+                }else {
+                    print("object", object)
+                    let dayColorArrayObject = object.objectForKey("logDateTag") as! Array<Int>
+//                    let testirst = dayColorArrayObject[0...3]
+//                    print("testirst", testirst)
+                    let oldLogDateTag = dayColorArrayObject.filter { $0 == logDateTag}
+//                    let testArray = ["apple","blue","wowow"]
+//                    let a = testArray.filter { $0.hasPrefix("a") }
+//                    print("a", a)
+                    print("oldLogDateTag", oldLogDateTag)
+                    if oldLogDateTag == [] {
+                        //その日の投稿はまだ無い
+                        print("今月の投稿はあるけどその日の投稿はまだないから追加")
+                        self.updateLogColorDic(object, logDateTag: logDateTag)
+                    }else {
+                        //その日はもう投稿している
+                        print("その日はもう投稿してるからノータッチ")
+                    }
+
+                }
+            }
+        }
+    }
+
+    func firstSetLogColorDic(logYearAndMonth: String, logDateTag: Int) {
+        let logColorDicObject: NCMBObject = NCMBObject(className: "TestColorDic")
+        logColorDicObject.setObject(user, forKey: "user")
+        logColorDicObject.setObject(logYearAndMonth, forKey: "logYearAndMonth")
+        logColorDicObject.addObject(logDateTag, forKey: "logDateTag")
+        logColorDicObject.saveInBackgroundWithBlock { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                print("firstSetLogColorDic成功")
+            }
+        }
+
+    }
+
+    func updateLogColorDic(object: NCMBObject, logDateTag: Int) {
+        let secondObject = object 
+        secondObject.addObject(logDateTag, forKey: "logDateTag")
+        secondObject.saveInBackgroundWithBlock { (error) -> Void in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                print("updateLogColorDic成功")
+            }
+        }
+    }
 }
 
 // LogColor

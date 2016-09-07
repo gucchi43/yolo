@@ -103,8 +103,8 @@ class CalendarSwiftDateView: UIView{
 //            self.dayButton.backgroundColor =  UIColor.yellowColor()
             self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
         case "pink" :
-//            self.dayButton.backgroundColor =  UIColor.magentaColor()
-            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
+            self.dayButton.backgroundColor =  UIColor.magentaColor()
+//            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
         case "blue" :
 //            self.dayButton.backgroundColor =  UIColor.blueColor()
         self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
