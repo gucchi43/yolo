@@ -22,6 +22,7 @@ class CalendarSwiftDateView: UIView{
 
     let logGoodImage = UIImage(named: "logGood")
     let logBadImage = UIImage(named: "logBad")
+    let logFollowImage = UIImage(named: "logFollow")
     let logNomalImage = UIImage(named: "logNormal")
 
     required init?(coder aDecoder: NSCoder) {
@@ -95,6 +96,8 @@ class CalendarSwiftDateView: UIView{
             self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
         case "bad" :
             self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
+        case "follow" :
+            self.dayButton.setBackgroundImage(logFollowImage, forState: .Normal)
 
         case "red" :
 //            self.dayButton.backgroundColor =  UIColor.redColor()
