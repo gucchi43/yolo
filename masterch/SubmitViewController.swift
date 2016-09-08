@@ -424,46 +424,46 @@ extension SubmitViewController {
 }
 
 
-// DateColor設定(使ってない)
-extension SubmitViewController {
-    func selectToolBarColorButton(sender:UIBarButtonItem) {
-        print("カラーボタンを押した")
-        let colorKeyboardview:UIView = UINib(nibName: "ColorKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
-        self.postTextView.inputView = colorKeyboardview
-        self.postTextView.reloadInputViews()
-    }
-    
-    @IBAction func selectRed(sender: AnyObject) {
-        print("selectRed")
-        self.dateColor = "red"
-        toolBar.backgroundColor = UIColor.redColor()
-    }
-    @IBAction func selectYellow(sender: AnyObject) {
-        print("selectYellow")
-        self.dateColor = "yellow"
-        toolBar.backgroundColor = UIColor.yellowColor()
-    }
-    @IBAction func selectPink(sender: AnyObject) {
-        print("selectPink")
-        self.dateColor = "pink"
-        toolBar.backgroundColor = UIColor.magentaColor()
-    }
-    @IBAction func selectBlue(sender: AnyObject) {
-        print("selectBlue")
-        self.dateColor = "blue"
-        toolBar.backgroundColor = UIColor.blueColor()
-    }
-    @IBAction func selectGreen(sender: AnyObject) {
-        print("selectGreen")
-        self.dateColor = "green"
-        toolBar.backgroundColor = UIColor.greenColor()
-    }
-    @IBAction func selectGray(sender: AnyObject) {
-        print("selectGray")
-        self.dateColor = "gray"
-        toolBar.backgroundColor = UIColor.darkGrayColor()
-    }
-}
+//// DateColor設定(使ってない)
+//extension SubmitViewController {
+//    func selectToolBarColorButton(sender:UIBarButtonItem) {
+//        print("カラーボタンを押した")
+//        let colorKeyboardview:UIView = UINib(nibName: "ColorKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+//        self.postTextView.inputView = colorKeyboardview
+//        self.postTextView.reloadInputViews()
+//    }
+//    
+//    @IBAction func selectRed(sender: AnyObject) {
+//        print("selectRed")
+//        self.dateColor = "red"
+//        toolBar.backgroundColor = UIColor.redColor()
+//    }
+//    @IBAction func selectYellow(sender: AnyObject) {
+//        print("selectYellow")
+//        self.dateColor = "yellow"
+//        toolBar.backgroundColor = UIColor.yellowColor()
+//    }
+//    @IBAction func selectPink(sender: AnyObject) {
+//        print("selectPink")
+//        self.dateColor = "pink"
+//        toolBar.backgroundColor = UIColor.magentaColor()
+//    }
+//    @IBAction func selectBlue(sender: AnyObject) {
+//        print("selectBlue")
+//        self.dateColor = "blue"
+//        toolBar.backgroundColor = UIColor.blueColor()
+//    }
+//    @IBAction func selectGreen(sender: AnyObject) {
+//        print("selectGreen")
+//        self.dateColor = "green"
+//        toolBar.backgroundColor = UIColor.greenColor()
+//    }
+//    @IBAction func selectGray(sender: AnyObject) {
+//        print("selectGray")
+//        self.dateColor = "gray"
+//        toolBar.backgroundColor = UIColor.darkGrayColor()
+//    }
+//}
 
 
 // テキストボタン
@@ -510,7 +510,8 @@ extension SubmitViewController {
                     self.delegate?.savePostProgressBar(postProgress)
             })
         }
-        self.setLogColor() //"logColor"クラスへのセット
+//        self.setLogColor() //"logColor"クラスへのセット
+
         self.setLogColorArray() //"TeatLogColorDic"クラスへのセット
         self.setWeekLogColorArray() //"TestWeekColorDic"クラスへのセット
 
@@ -775,7 +776,7 @@ extension SubmitViewController {
     
 }
 
-//logColor配列(月version)
+//logColorArray(月version)
 extension SubmitViewController {
     func setLogColorArray() {
         let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）
@@ -867,7 +868,7 @@ extension SubmitViewController {
 }
 
 
-//logColor配列(週version)
+//logColorArray(週version)
 extension SubmitViewController {
     func setWeekLogColorArray() {
         let yearAndWeekNumberArray = CalendarManager.getWeekNumber(postDate!)
@@ -964,81 +965,81 @@ extension SubmitViewController {
 
 
 
-// LogColor
-extension SubmitViewController {
-    func setLogColor(){
-        let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）
-        let logDate = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(10))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
-        print("logDate", logDate)
-        let logYearAndMonth = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(7))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM"
-        let myLogColorQuery: NCMBQuery = NCMBQuery(className: "LogColor") // 自分の投稿クエリ
-        myLogColorQuery.whereKey("user", equalTo: user)
-        myLogColorQuery.whereKey("logDate", equalTo: logDate)
-        myLogColorQuery.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
-            if let error = error {
-                print(error.localizedDescription)
-            }else {
-                if object == nil {
-                    //今日の投稿はまだない
-                    self.firstSetLogColor(logDate, logYearAndMonth: logYearAndMonth)
-                }else {
-                    //２度目以降の投稿
-                    print("変更した後の色は？", self.dateColor)
-                    self.updateLogColor(object)
-                }
-            }
-        }
-    }
-    
-    //今日初めての投稿
-    func firstSetLogColor(logDate: String, logYearAndMonth: String){
-        print("本日の色は？", self.dateColor)
-        let logColorObject = NCMBObject(className: "LogColor")
-        logColorObject.setObject(user, forKey: "user")
-        logColorObject.setObject(logDate, forKey: "logDate")
-        logColorObject.setObject(logYearAndMonth, forKey: "logYearAndMonth")
-        logColorObject.incrementKey("postCount")
-        if secretKeyToggle == false {
-            logColorObject.setObject(self.dateColor, forKey: "dateColor")
-        }
-        logColorObject.setObject(self.dateColor, forKey: "secretColor")
-        logColorObject.saveInBackgroundWithBlock { (error) -> Void in
-            if error != nil {
-                print("error", error)
-            }else {
-                print("logColor 今日初めての投稿 save成功")
-            }
-        }
-    }
-    
-//    //今日２回目以降の投稿
-    func updateLogColor(object: AnyObject){
-        let secondObject = object as! NCMBObject
-        secondObject.incrementKey("postCount")
-        if self.dateColor != "normal"{ //色を選択している時だけ色を更新する
-            if secretKeyToggle == false {
-                secondObject.setObject(self.dateColor, forKey: "dateColor")
-            }
-            secondObject.setObject(self.dateColor, forKey: "secretColor")
-        }else {// 色を選択してない時
-            if secretKeyToggle == false {//色を選択してなくてカギ付きじゃない
-                if secondObject.objectForKey("dateColor") == nil {//色を選択してなくてカギなしで、カギなし投稿だけのフィールドが空の時
-                    secondObject.setObject(self.dateColor, forKey: "dateColor")
-                }
-            }
-        }
-        secondObject.saveInBackgroundWithBlock { (error) -> Void in
-            object.saveInBackgroundWithBlock { (error) -> Void in
-                if error != nil {
-                    print("error", error)
-                }else {
-                    print("logColor ２回目以降の投稿 save成功")
-                }
-            }
-        }
-        
-    }
-}
+//// LogColor
+//extension SubmitViewController {
+//    func setLogColor(){
+//        let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）
+//        let logDate = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(10))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
+//        print("logDate", logDate)
+//        let logYearAndMonth = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(7))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM"
+//        let myLogColorQuery: NCMBQuery = NCMBQuery(className: "LogColor") // 自分の投稿クエリ
+//        myLogColorQuery.whereKey("user", equalTo: user)
+//        myLogColorQuery.whereKey("logDate", equalTo: logDate)
+//        myLogColorQuery.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
+//            if let error = error {
+//                print(error.localizedDescription)
+//            }else {
+//                if object == nil {
+//                    //今日の投稿はまだない
+//                    self.firstSetLogColor(logDate, logYearAndMonth: logYearAndMonth)
+//                }else {
+//                    //２度目以降の投稿
+//                    print("変更した後の色は？", self.dateColor)
+//                    self.updateLogColor(object)
+//                }
+//            }
+//        }
+//    }
+//    
+//    //今日初めての投稿
+//    func firstSetLogColor(logDate: String, logYearAndMonth: String){
+//        print("本日の色は？", self.dateColor)
+//        let logColorObject = NCMBObject(className: "LogColor")
+//        logColorObject.setObject(user, forKey: "user")
+//        logColorObject.setObject(logDate, forKey: "logDate")
+//        logColorObject.setObject(logYearAndMonth, forKey: "logYearAndMonth")
+//        logColorObject.incrementKey("postCount")
+//        if secretKeyToggle == false {
+//            logColorObject.setObject(self.dateColor, forKey: "dateColor")
+//        }
+//        logColorObject.setObject(self.dateColor, forKey: "secretColor")
+//        logColorObject.saveInBackgroundWithBlock { (error) -> Void in
+//            if error != nil {
+//                print("error", error)
+//            }else {
+//                print("logColor 今日初めての投稿 save成功")
+//            }
+//        }
+//    }
+//    
+////    //今日２回目以降の投稿
+//    func updateLogColor(object: AnyObject){
+//        let secondObject = object as! NCMBObject
+//        secondObject.incrementKey("postCount")
+//        if self.dateColor != "normal"{ //色を選択している時だけ色を更新する
+//            if secretKeyToggle == false {
+//                secondObject.setObject(self.dateColor, forKey: "dateColor")
+//            }
+//            secondObject.setObject(self.dateColor, forKey: "secretColor")
+//        }else {// 色を選択してない時
+//            if secretKeyToggle == false {//色を選択してなくてカギ付きじゃない
+//                if secondObject.objectForKey("dateColor") == nil {//色を選択してなくてカギなしで、カギなし投稿だけのフィールドが空の時
+//                    secondObject.setObject(self.dateColor, forKey: "dateColor")
+//                }
+//            }
+//        }
+//        secondObject.saveInBackgroundWithBlock { (error) -> Void in
+//            object.saveInBackgroundWithBlock { (error) -> Void in
+//                if error != nil {
+//                    print("error", error)
+//                }else {
+//                    print("logColor ２回目以降の投稿 save成功")
+//                }
+//            }
+//        }
+//        
+//    }
+//}
 
 
 // 完了ボタン
