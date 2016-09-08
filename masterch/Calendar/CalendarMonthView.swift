@@ -150,7 +150,7 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
                             let dayColor = logColorObjectArray[1] 
                             if let dayView = self.viewWithTag(dayViewTag!) as? CalendarSwiftDateView {
                                 if logNumber == 1 {
-                                    dayView.selectDateColor("follow")
+                                    dayView.selectDateColor("d")
                                 }else {
                                     dayView.selectDateColor(dayColor)
                                 }

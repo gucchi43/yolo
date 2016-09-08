@@ -92,13 +92,14 @@ class CalendarSwiftDateView: UIView{
     func selectDateColor(dateColor: String){
         self.dayButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         switch dateColor {
-        case "good" :
+        case "a" :
             self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
-        case "bad" :
+        case "b" :
             self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
-        case "follow" :
+        case "c" :
+            self.dayButton.setBackgroundImage(logNomalImage, forState: .Normal)
+        case "d" :
             self.dayButton.setBackgroundImage(logFollowImage, forState: .Normal)
-
         case "red" :
 //            self.dayButton.backgroundColor =  UIColor.redColor()
         self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)

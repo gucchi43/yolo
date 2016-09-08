@@ -65,7 +65,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     let user = NCMBUser.currentUser()
     
     var logDate: String?
-    var dateColor: String = "normal"
+    var dateColor: String = "c"
     
     var postDate : NSDate?
     
@@ -412,13 +412,13 @@ extension SubmitViewController {
 
     @IBAction func selectGood(sender: AnyObject) {
         print("Goodボタン押した")
-        self.dateColor = "good"
+        self.dateColor = "a"
         toolBar.backgroundColor = UIColor.redColor()
     }
 
     @IBAction func selectBad(sender: AnyObject) {
         print("Badボタン押した")
-        self.dateColor = "bad"
+        self.dateColor = "b"
         toolBar.backgroundColor = UIColor.blueColor()
     }
 }
