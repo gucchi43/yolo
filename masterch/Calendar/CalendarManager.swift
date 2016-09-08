@@ -48,25 +48,33 @@ class CalendarManager: NSObject {
         print("検索側logDate", logDate)
         return logDate
     }
-    
-    //その日の月の"yyyy/MM/+6day"を取る(week用)
-    class func getDateWeekOfMax(date: NSDate) -> String {
-        let maxDate = date + 6.days
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
-        let logDate = formatter.stringFromDate(maxDate)
-        print("検索側logDate", logDate)
-        return logDate
-    }
-    
-    //その日の月の"yyyy/MM/-6day"を取る(week用)
-    class func getDateWeekOfMin(date: NSDate) -> String {
-        let minDate = date - 6.days
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
-        let logDate = formatter.stringFromDate(minDate)
-        print("検索側logDate", logDate)
-        return logDate
+
+//    //その日の月の"yyyy/MM/+6day"を取る(week用)
+//    class func getDateWeekOfMax(date: NSDate) -> String {
+//        let maxDate = date + 6.days
+//        let formatter = NSDateFormatter()
+//        formatter.dateFormat = "yyyy/MM/dd"
+//        let logDate = formatter.stringFromDate(maxDate)
+//        print("検索側logDate", logDate)
+//        return logDate
+//    }
+//    
+//    //その日の月の"yyyy/MM/-6day"を取る(week用)
+//    class func getDateWeekOfMin(date: NSDate) -> String {
+//        let minDate = date - 6.days
+//        let formatter = NSDateFormatter()
+//        formatter.dateFormat = "yyyy/MM/dd"
+//        let logDate = formatter.stringFromDate(minDate)
+//        print("検索側logDate", logDate)
+//        return logDate
+//    }
+
+    //その日の年と、１年の何週目かを配列で返す(week用)
+    class func getWeekNumber(date: NSDate) -> [Int] {
+        let weekNumber = date.weekOfYear //1~53のなかから１つの数字(1年の中の何週目か)
+        let year = date.year
+        let yearAndWeekNumberArray = [year, weekNumber]
+        return yearAndWeekNumberArray
     }
     
     //選択した日にちの00:00:00のNSDateをゲット（その日のタイムライン絞るのに使用）

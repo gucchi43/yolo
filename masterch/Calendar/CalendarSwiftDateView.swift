@@ -22,6 +22,7 @@ class CalendarSwiftDateView: UIView{
 
     let logGoodImage = UIImage(named: "logGood")
     let logBadImage = UIImage(named: "logBad")
+    let logFollowImage = UIImage(named: "logFollow")
     let logNomalImage = UIImage(named: "logNormal")
 
     required init?(coder aDecoder: NSCoder) {
@@ -91,11 +92,14 @@ class CalendarSwiftDateView: UIView{
     func selectDateColor(dateColor: String){
         self.dayButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         switch dateColor {
-        case "good" :
+        case "a" :
             self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
-        case "bad" :
+        case "b" :
             self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
-
+        case "c" :
+            self.dayButton.setBackgroundImage(logNomalImage, forState: .Normal)
+        case "d" :
+            self.dayButton.setBackgroundImage(logFollowImage, forState: .Normal)
         case "red" :
 //            self.dayButton.backgroundColor =  UIColor.redColor()
         self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
@@ -103,8 +107,8 @@ class CalendarSwiftDateView: UIView{
 //            self.dayButton.backgroundColor =  UIColor.yellowColor()
             self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
         case "pink" :
-//            self.dayButton.backgroundColor =  UIColor.magentaColor()
-            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
+            self.dayButton.backgroundColor =  UIColor.magentaColor()
+//            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
         case "blue" :
 //            self.dayButton.backgroundColor =  UIColor.blueColor()
         self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)

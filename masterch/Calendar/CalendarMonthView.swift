@@ -73,47 +73,97 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
             print("user情報 in monthVC(自分のログじゃない時)", logUser.userName)
             logColorQuery = calendarLogCollerManager.monthLogColorDate(date, logNumber: logNumber, user: logUser)
         }
-        logColorQuery.findObjectsInBackgroundWithBlock({(objects, error) in
+
+        switch logNumber {
+        case 0:
+            //自分のみ
+//            singleLogColorQueryLoad(logColorQuery)
+            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
+        case 1:
+            //フォローのみ
+            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
+        case 2:
+            //特定のユーザーのみ
+            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
+        default:
+            //その他
+            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
+        }
+    }
+//
+//    func singleLogColorQueryLoad(query: NCMBQuery){
+//        query.findObjectsInBackgroundWithBlock({(objects, error) in
+//            if let error = error {
+//                print("getLogColorError", error.localizedDescription)
+//            }else{
+//                if objects != nil {
+//                    print("チェック、今月の投稿", objects)
+//                    // 色乗せ処理
+//                    for object in objects {
+//                        let logDate = object.objectForKey("logDate") as! String
+//                        let logColor: String?
+//                        let logNumber: Int
+//                        if logManager.sharedSingleton.logTitleToggle == true{
+//                            logNumber = logManager.sharedSingleton.tabLogNumber
+//                        }else {
+//                            logNumber = logManager.sharedSingleton.logNumber
+//                        }
+//                        if logNumber == 0 {
+//                            print("自分の投稿の時の色のせ")
+//                            //範囲: 自分のログ
+//                            if object.objectForKey("secretColor") as? String != nil {
+//                                //カギ付き投稿を含んだ色の入ったフィールド
+//                                logColor = object.objectForKey("secretColor") as? String
+//                            }else {
+//                                //カギ付き投稿を含んでない色の入ったフィールド（ここを通るのは、secretColorを作る前のDateの場合）
+//                                logColor = object.objectForKey("dateColor") as? String
+//                            }
+//                        }else {
+//                            //範囲: フォロー、特定のユーザーetc
+//                            print("フォローなどの自分じゃない時の色のせ")
+//                            logColor = object.objectForKey("dateColor") as? String
+//                        }
+//                        let logDateTag = Int(logDate.stringByReplacingOccurrencesOfString("/", withString: ""))!
+//                        if let dayView = self.viewWithTag(logDateTag) as? CalendarSwiftDateView {
+//                            dayView.selectDateColor(logColor!)
+//                        }
+//                    }
+//                }else{
+//                    print("今月の投稿はまだない")
+//                }
+//            }
+//        })
+//    }
+
+    func manyLogColorQueryLoad(query: NCMBQuery, logNumber: Int){
+        query.findObjectsInBackgroundWithBlock { (objects, error) in
             if let error = error {
-                print("getLogColorError", error.localizedDescription)
-            }else{
-                if objects != nil {
-                    print("チェック、今月の投稿", objects)
-                    // 色乗せ処理
+                print(error.localizedDescription)
+            }else {
+                if objects != nil{
                     for object in objects {
-                        let logDate = object.objectForKey("logDate") as! String
-                        let logColor: String?
-                        let logNumber: Int
-                        if logManager.sharedSingleton.logTitleToggle == true{
-                            logNumber = logManager.sharedSingleton.tabLogNumber
-                        }else {
-                            logNumber = logManager.sharedSingleton.logNumber
-                        }
-                        if logNumber == 0 {
-                            print("自分の投稿の時の色のせ")
-                            //範囲: 自分のログ
-                            if object.objectForKey("secretColor") as? String != nil {
-                                //カギ付き投稿を含んだ色の入ったフィールド
-                                logColor = object.objectForKey("secretColor") as? String
-                            }else {
-                                //カギ付き投稿を含んでない色の入ったフィールド（ここを通るのは、secretColorを作る前のDateの場合）
-                                logColor = object.objectForKey("dateColor") as? String
+                        let logColorArray = object.objectForKey("logDateTag") as! Array <String>
+                        for logColorObject in logColorArray {
+                            let logColorObjectArray = logColorObject.componentsSeparatedByString("&")
+                            print("logColorObjectArray", logColorObjectArray)
+                            let dayViewTag = Int(logColorObjectArray[0])
+                            let dayColor = logColorObjectArray[1] 
+                            if let dayView = self.viewWithTag(dayViewTag!) as? CalendarSwiftDateView {
+                                if logNumber == 1 {
+                                    dayView.selectDateColor("d")
+                                }else {
+                                    dayView.selectDateColor(dayColor)
+                                }
                             }
-                        }else {
-                            //範囲: フォロー、特定のユーザーetc
-                            print("フォローなどの自分じゃない時の色のせ")
-                            logColor = object.objectForKey("dateColor") as? String
-                        }
-                        let logDateTag = Int(logDate.stringByReplacingOccurrencesOfString("/", withString: ""))!
-                        if let dayView = self.viewWithTag(logDateTag) as? CalendarSwiftDateView {
-                            dayView.selectDateColor(logColor!)
                         }
                     }
-                }else{
+                }else {
                     print("今月の投稿はまだない")
                 }
+
             }
-        })
+        }
+
     }
 
     func updateDayViewSelectedStatus() {
