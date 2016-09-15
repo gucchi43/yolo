@@ -77,6 +77,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         
         let logPostPB = LogPostedProgressBar()
         logPostPB.setProgressBar()
+
     }
 
     

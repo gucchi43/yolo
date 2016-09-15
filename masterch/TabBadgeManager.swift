@@ -46,5 +46,11 @@ class TabBadgeManager: NSObject {
         })
     }
 
-
+    func getTabBadgeNumberQuery() -> NCMBQuery{
+        let notificationQuery: NCMBQuery = NCMBQuery(className: "Notification")
+        notificationQuery.whereKey("ownerUser", equalTo: NCMBUser.currentUser())
+        notificationQuery.whereKey("readToggle", equalTo: 0)
+        
+        return notificationQuery
+    }
 }

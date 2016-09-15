@@ -237,6 +237,7 @@ extension SetProfileViewController {
                 }else {
                     self.installationToggel = true
                     self.goNextViewController()
+                    print("プッシュ通知のためにinstallationにuser情報を付与成功")
                 }
             }
         }else {

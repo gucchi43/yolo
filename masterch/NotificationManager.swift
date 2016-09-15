@@ -19,6 +19,7 @@ class NotificationManager: NSObject {
     func likeNotification(user: NCMBUser, post: NCMBObject, postHeader: String, button: UIButton){
         button.enabled = false
         let notificationObject = NCMBObject(className: "Notification")
+        notificationObject.setObject(0, forKey: "readToggle")
         notificationObject.setObject(user, forKey: "ownerUser")
         notificationObject.setObject("like", forKey: "type")
         notificationObject.setObject(NCMBUser.currentUser(), forKey: "actionUser")
@@ -72,6 +73,7 @@ class NotificationManager: NSObject {
     //フォローしたことを通知画面のデータに保存
     func followNotification(user: NCMBUser){
         let notificationObject = NCMBObject(className: "Notification")
+        notificationObject.setObject(0, forKey: "readToggle")
         notificationObject.setObject(user, forKey: "ownerUser")
         notificationObject.setObject("follow", forKey: "type")
         notificationObject.setObject(NCMBUser.currentUser(), forKey: "actionUser")
@@ -149,6 +151,7 @@ class NotificationManager: NSObject {
     //commentしたことを通知画面のデータに保存
     func commentNotification(user: NCMBUser, post: NCMBObject, postHeader: String, commentHeader: String){
         let notificationObject = NCMBObject(className: "Notification")
+        notificationObject.setObject(0, forKey: "readToggle")
         notificationObject.setObject(user, forKey: "ownerUser")
         notificationObject.setObject("comment", forKey: "type")
         notificationObject.setObject(NCMBUser.currentUser(), forKey: "actionUser")

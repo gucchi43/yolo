@@ -115,7 +115,7 @@
                                     <outlet property="userLabel" destination="Yn0-cu-Tku" id="Yba-w5-JHU"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="likedCell" id="JgS-Hb-87o" customClass="NotificationLikeTableViewCell" customModule="masterch" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="likedCell" id="JgS-Hb-87o" customClass="NotificationLikeTableViewCell" customModule="masterch" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="172" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JgS-Hb-87o" id="7Cc-vJ-L2P">

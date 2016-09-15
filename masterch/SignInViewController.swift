@@ -59,7 +59,26 @@ class SignInViewController: UIViewController {
                 //Log周りのシングルトンを初期化する
                 logManager.sharedSingleton.resetSharedSingleton()
                 SVProgressHUD.dismiss()
-                self.performSegueWithIdentifier("signUpedSegue", sender: self)
+                self.performSegueWithIdentifier("signInSegue", sender: self)
+            }
+        }
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "signInSegue" {
+            let tabBadgeM = TabBadgeManager()
+            let getTabBadgeNumberQuery = tabBadgeM.getTabBadgeNumberQuery()
+            getTabBadgeNumberQuery.countObjectsInBackgroundWithBlock { (count, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                }else{
+                    if count > 0{
+                        //loginした時に、NotifivationのtabBarにバッジ処理する
+                        print("loginした時に、NotifivationのtabBarにバッジ処理する")
+                    }else {
+                        print("0以下のためスルー")
+                    }
+                }
             }
         }
     }
@@ -81,7 +100,7 @@ extension SignInViewController {
                         print("ACL設定の保存失敗: \(error)")
                     }
                     print("Facebook会員登録成功")
-                    self.performSegueWithIdentifier("signUpedSegue", sender: self)
+                    self.performSegueWithIdentifier("signInSegue", sender: self)
                 })
             }else {
                 if error.code == NCMBErrorFacebookLoginCancelled {
@@ -157,7 +176,7 @@ extension SignInViewController {
                                 if error == nil {
                                     print("fetchInBackgroundWithBlock成功のuser : \(user)")
                                     print("Twitterログイン成功")
-                                    self.performSegueWithIdentifier("signUpedSegue", sender: self)
+                                    self.performSegueWithIdentifier("signInSegue", sender: self)
                                 }else {
                                     print("error")
                                 }

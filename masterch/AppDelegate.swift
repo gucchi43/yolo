@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let applicationkey = "d49ceb9e63bd3cf555c8aa7c339ea105b71fa00ed1e6517dec8172beef10c553"
     let clientkey = "ba1432ddcd33638afa4075ab527183c5e0a056e6a0441342be264dc8dd50fdd6"
-    
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         //********** SDKの初期化 **********
@@ -40,8 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Twitter.self, Crashlytics.self])
 
 
-//        /** Facebook連携 **/
-//        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        //        /** Facebook連携 **/
+        //        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
         //---------NavigationBarのデザイン関係----------
         //NavigationBarの色を設定（背景、タイトル、アイテム）
@@ -68,13 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let remoteNotification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
             //アイコンバッジ数をリセット(Niftyのデータベース側)
             NCMBAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
-            //タブバーにバッジを設置
-            if let tabBarController = self.window?.rootViewController as? UITabBarController {
-                if NCMBUser.currentUser().objectForKey("tabBadge") as? Int > 0{
-                    let tabBadgeNumber = NCMBUser.currentUser().objectForKey("tabBadge") as! Int
-                    tabBarController.tabBar.items![3].badgeValue = String(tabBadgeNumber)
-                }
-            }
+            
             let payload : [NSObject : AnyObject] = launchOptions!["UIApplicationLaunchOptionsRemoteNotificationKey"] as! [NSObject : AnyObject]
             let type = payload["type"] as! String
             switch type {
@@ -115,11 +109,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if error == nil {
                     let firstVC = storyboard.instantiateViewControllerWithIdentifier("firstVC") as UIViewController
                     self.window?.rootViewController = firstVC
-                    if let tabvc = self.window!.rootViewController as? UITabBarController  {
-                        tabvc.selectedIndex = 0 // 0 が一番左のタブ (0＝Log画面)
+                    if let tabBarController = self.window!.rootViewController as? UITabBarController  {
+                        tabBarController.selectedIndex = 0 // 0 が一番左のタブ (0＝Log画面)
+                            let tabBadgeM = TabBadgeManager()
+                            let getTabBadgeNumberQuery = tabBadgeM.getTabBadgeNumberQuery()
+                            getTabBadgeNumberQuery.countObjectsInBackgroundWithBlock { (count, error) in
+                                if let error = error {
+                                    print(error.localizedDescription)
+                                }else{
+                                    if count > 0{
+                                        tabBarController.tabBar.items![3].badgeValue = String(count)
+                                        print("タブバーにバッジ配置(didFinishLaunchingWithOptions)", count)
+
+                                    }else {
+                                        print("0以下のためスルー(didFinishLaunchingWithOptions)")
+                                    }
+                                    
+                                }
+                            }
                     }
                 }else {
-                    print("error: \(error)")
+                    print("error: \(error.localizedDescription)")
                     let virginViewController = storyboard.instantiateViewControllerWithIdentifier("virginViewController") as UIViewController
                     self.window?.rootViewController = virginViewController
                 }
@@ -136,7 +146,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //****** プッシュ通知設定 初め ******
 
-//    デバイストークン取得時の処理
+    //    デバイストークン取得時の処理
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         let installation = NCMBInstallation.currentInstallation()
         installation.setDeviceTokenFromData(deviceToken)
@@ -151,7 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("アプリ起動中にプッシュ通知受信（トースト表示を出す予定）")
         // アプリが起動している時に受信
         case .Inactive:
-        // アプリがバックグラウンドで起動している時に通知タッチでフォアグラウンドに
+            // アプリがバックグラウンドで起動している時に通知タッチでフォアグラウンドに
             localPushRecieve(application, notification: notification)
         default:
             print(application.applicationState)
@@ -168,10 +178,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             case .Some("logre"):
                 print("logre")
                 pushReciveToSubmit()
-
-//                別ファイルに書いているがエラるためひとまずコメントアウト
-//                let pushM = pushManager()
-//                pushM.recivePushToLogToDay()
 
             default:
                 break
@@ -196,15 +202,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         //バッジをリセット
         NCMBAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
-        //タブバーにバッジを設置
-        if let tabBarController = self.window?.rootViewController as? UITabBarController {
-            print("タブバー表示時のカレントユーザー", NCMBUser.currentUser().userName)
-            if NCMBUser.currentUser().objectForKey("tabBadge") as? Int > 0{
-                let tabBadgeNumber = NCMBUser.currentUser().objectForKey("tabBadge") as! Int
-                print("tabBadgeNumber", tabBadgeNumber)
-                tabBarController.tabBar.items![3].badgeValue = String(tabBadgeNumber)
-            }
-        }
+        
         //アプリがactiveか、じゃないか
         switch application.applicationState {
         case .Inactive:
@@ -217,28 +215,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("objectId\(objectId)")
             let type = userInfo["type"] as! String
             print("type", type)
-                switch type {
-                case "like":
-                    print("リモートプッシュ通知受け取り: like")
-                    let post = userInfo["post"] as? NSDictionary
-                    let postObjectId = post!.objectForKey("objectId") as! String
-                    let pushM = pushManager()
-                    pushM.recivePushToLike(postObjectId)
-                case "follow":
-                    print("リモートプッシュ通知受け取り: follow")
-                    let user = userInfo["user"] as! NSDictionary
-                    let userObjectId = user.objectForKey("objectId") as! String
-                    let pushM = pushManager()
-                    pushM.recivePushToFollow(userObjectId)
-                case "comment":
-                    print("リモートプッシュ通知受け取り: comment")
-                    let post = userInfo["post"] as? NSDictionary
-                    let postObjectId = post!.objectForKey("objectId") as! String
-                    let pushM = pushManager()
-                    pushM.recivePushToComment(postObjectId)
-                default:
-                    break
-                }
+            switch type {
+            case "like":
+                print("リモートプッシュ通知受け取り: like")
+                let post = userInfo["post"] as? NSDictionary
+                let postObjectId = post!.objectForKey("objectId") as! String
+                let pushM = pushManager()
+                pushM.recivePushToLike(postObjectId)
+            case "follow":
+                print("リモートプッシュ通知受け取り: follow")
+                let user = userInfo["user"] as! NSDictionary
+                let userObjectId = user.objectForKey("objectId") as! String
+                let pushM = pushManager()
+                pushM.recivePushToFollow(userObjectId)
+            case "comment":
+                print("リモートプッシュ通知受け取り: comment")
+                let post = userInfo["post"] as? NSDictionary
+                let postObjectId = post!.objectForKey("objectId") as! String
+                let pushM = pushManager()
+                pushM.recivePushToComment(postObjectId)
+            default:
+                break
+            }
         case .Active:
             print("active中に受け取ったリモートプッシュ通知: " + userInfo.description)
         default:
@@ -254,6 +252,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //****** プッシュ通知設定 終わり ******
 
+
+    //アプリ閉じる前
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -261,15 +261,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //アプリがバックグラウンドからactiveになる度に呼ばれる
     func applicationWillEnterForeground(application: UIApplication) {
-        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        print("applicationWillEnterForeground")
+//        //バッジ数をリセット
+//        application.applicationIconBadgeNumber = 0
+//        //サーバー上のアプリアイコンバッジリセット
+//        let userInstallation = NCMBInstallation.currentInstallation()
+//        userInstallation.badge = 0
+//        userInstallation.saveInBackgroundWithBlock { (error) in
+//            if let error = error {
+//                //データベース内でのバッジ数リセット
+//                print(error.localizedDescription)
+//            }else {
+//                print("userInstallation.badge", userInstallation.badge)
+//            }
+//        }
+//        //タブバーにバッジを設置
+//        if let tabBarController = self.window?.rootViewController as? UITabBarController {
+//            let tabBadgeM = TabBadgeManager()
+//            let getTabBadgeNumberQuery = tabBadgeM.getTabBadgeNumberQuery()
+//            getTabBadgeNumberQuery.countObjectsInBackgroundWithBlock { (count, error) in
+//                if let error = error {
+//                    print(error.localizedDescription)
+//                }else{
+//                    if count > 0{
+//                        tabBarController.tabBar.items![3].badgeValue = String(count)
+//                        print("タブバーにバッジ配置(applicationWillEnterForeground)", count)
+//                    }else {
+//                        print("0以下のためスルー(applicationWillEnterForeground)")
+//                    }
+//                }
+//            }
+//        }else {
+//            print("tabBarCotrollerが存在しない状態(applicationWillEnterForeground)")
+//        }
+
     }
 
     //アプリが起動する度に呼ばれる
     func applicationDidBecomeActive(application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         /** 追加① **/
         FBSDKAppEvents.activateApp()
-        //表示上のアプリアイコンバッジリセット
+//        表示上のアプリアイコンバッジリセット
         //バッジ数をリセット
         application.applicationIconBadgeNumber = 0
         //サーバー上のアプリアイコンバッジリセット
@@ -284,23 +316,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         //タブバーにバッジを設置
-        if let tabBarController = self.window?.rootViewController as? UITabBarController {
-            if NCMBUser.currentUser().objectForKey("tabBadge") as? Int > 0{
-                let tabBadgeNumber = NCMBUser.currentUser().objectForKey("tabBadge") as! Int
-                tabBarController.tabBar.items![3].badgeValue = String(tabBadgeNumber)
+        if let tabBarController = self.window!.rootViewController as? UITabBarController {
+            let tabBadgeM = TabBadgeManager()
+            let getTabBadgeNumberQuery = tabBadgeM.getTabBadgeNumberQuery()
+            getTabBadgeNumberQuery.countObjectsInBackgroundWithBlock { (count, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                }else{
+                    if count > 0{
+                        tabBarController.tabBar.items![3].badgeValue = String(count)
+                        print("タブバーにバッジ配置(applicationDidBecomeActive)", count)
+                    }else {
+                        print("0以下のためスルー(applicationDidBecomeActive)")
+                    }
+                }
             }
+        }else {
+            print("tabBarCotrollerが存在しない状態(applicationDidBecomeActive)")
+            print(self.window!.rootViewController)
         }
     }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+
     /** 追加③ **/
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?,annotation: AnyObject) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
     
 }
+
 
 

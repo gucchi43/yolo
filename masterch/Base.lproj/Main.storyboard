@@ -143,7 +143,7 @@
                                     <action selector="userInfo:" destination="Slq-0H-g6t" eventType="touchUpInside" id="69r-wS-pME"/>
                                 </connections>
                             </button>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="logoTitle" translatesAutoresizingMaskIntoConstraints="NO" id="a4M-M9-m25">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="logoTitle" translatesAutoresizingMaskIntoConstraints="NO" id="a4M-M9-m25">
                                 <rect key="frame" x="117" y="95" width="158" height="42"/>
                             </imageView>
                         </subviews>
@@ -648,7 +648,7 @@
                     <connections>
                         <outlet property="passwordTextField" destination="T54-R8-Q28" id="2fU-UT-MM8"/>
                         <outlet property="userIdTextField" destination="kLh-2Z-Alm" id="7vV-M6-0BV"/>
-                        <segue destination="crh-pw-A6b" kind="presentation" identifier="signUpedSegue" id="L8J-Kv-eM2"/>
+                        <segue destination="crh-pw-A6b" kind="presentation" identifier="signInSegue" id="L8J-Kv-eM2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jqx-SR-M5T" userLabel="First Responder" sceneMemberID="firstResponder"/>

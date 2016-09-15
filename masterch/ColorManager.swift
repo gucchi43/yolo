@@ -29,6 +29,11 @@ final class ColorManager {
 
     }
 
+    //緑系のクリーム色（未読のNotificationの色）
+    func noReadColor() -> UIColor {
+        return UIColor.init(fromHexString: "CFFFDB")
+    }
+
 }
 
 //
