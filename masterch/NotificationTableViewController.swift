@@ -101,6 +101,18 @@ class NotificationTableViewController: UITableViewController {
         }
     }
 
+    func readedAction(object: NCMBObject) {
+        object.setObject(1, forKey: "readToggle")
+        object.saveInBackgroundWithBlock { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                print("readedAction成功")
+            }
+        }
+
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -127,12 +139,22 @@ class NotificationTableViewController: UITableViewController {
             
         case "follow": //フォローのCell
             let cell = tableView.dequeueReusableCellWithIdentifier("followdCell", forIndexPath: indexPath) as! NotificationFollowTableViewCell
-            let followerInfo = notificationArray[indexPath.row]
+            let followerInfo = notificationArray[indexPath.row] as! NCMBObject
             print("followerInfo", followerInfo)
 //            let agoTime = (followerInfo.objectForKey("date") as! NSDate).timeAgo()
             let agoTime = (followerInfo.createDate as NSDate).timeAgo()
             print("agoTime", agoTime)
-            
+            let readedToggle = followerInfo.objectForKey("readToggle") as? Int
+            if readedToggle == 0 {
+                //未読
+                cell.backgroundColor = ColorManager.sharedSingleton.noReadColor()
+                updateReadToggle(followerInfo, cell: cell)
+
+            }else {
+                //既読
+                print("このセルは既読済み", indexPath)
+                cell.backgroundColor = UIColor.whiteColor()
+            }
             cell.postLabel.text = ""
             cell.userImageView.image = UIImage(named: "noprofile")
             cell.agoTimeLabel.text = agoTime
@@ -155,11 +177,20 @@ class NotificationTableViewController: UITableViewController {
             
         case "like": //いいねのCell
             let cell = tableView.dequeueReusableCellWithIdentifier("likedCell", forIndexPath: indexPath) as! NotificationLikeTableViewCell
-            let likeInfo = notificationArray[indexPath.row]
+            let likeInfo = notificationArray[indexPath.row] as! NCMBObject
             print("likeInfo", likeInfo)
             let agoTime = (likeInfo.createDate as NSDate).timeAgo()
             print("agoTime", agoTime)
-            
+            let readedToggle = likeInfo.objectForKey("readToggle") as? Int
+            if readedToggle == 0 {
+                //未読
+                cell.backgroundColor = ColorManager.sharedSingleton.noReadColor()
+                updateReadToggle(likeInfo, cell: cell)
+            }else {
+                //既読
+                print("このセルは既読済み", indexPath)
+                cell.backgroundColor = UIColor.whiteColor()
+            }
             cell.postLabel.text = ""
             cell.userImageView.image = UIImage(named: "noprofile")
             cell.agoTimeLabel.text = agoTime
@@ -185,11 +216,20 @@ class NotificationTableViewController: UITableViewController {
             
         case "comment": //コメントのCell
             let cell = tableView.dequeueReusableCellWithIdentifier("commentedCell", forIndexPath: indexPath) as! NotificationCommentTableViewCell
-            let commentInfo = notificationArray[indexPath.row]
+            let commentInfo = notificationArray[indexPath.row] as! NCMBObject
             print("likeInfo", commentInfo)
             let agoTime = (commentInfo.createDate as NSDate).timeAgo()
             print("agoTime", agoTime)
-
+            let readedToggle = commentInfo.objectForKey("readToggle") as? Int
+            if readedToggle == 0 {
+                //未読
+                cell.backgroundColor = ColorManager.sharedSingleton.noReadColor()
+                updateReadToggle(commentInfo, cell: cell)
+            }else {
+                //既読
+                print("このセルは既読済み", indexPath)
+                cell.backgroundColor = UIColor.whiteColor()
+            }
             cell.postLabel.text = ""
             cell.userImageView.image = UIImage(named: "noprofile")
             cell.agoTimeLabel.text = agoTime
@@ -219,12 +259,26 @@ class NotificationTableViewController: UITableViewController {
         }
 
     }
+
+    func updateReadToggle(object : NCMBObject, cell: UITableViewCell) {
+        object.setObject(1, forKey: "readToggle")
+        object.saveInBackgroundWithBlock { (error) in
+            if let error = error {
+                print("readToggleをに変更失敗（既読失敗）", error.localizedDescription)
+            }else {
+                print("readToggleを0→1に変更（既読）")
+                cell.backgroundColor = UIColor.whiteColor()
+            }
+        }
+    }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("何個めのCell選択", indexPath.row)
+        self.readedAction(notificationArray[indexPath.row] as! NCMBObject)
+
         let type = (notificationArray[indexPath.row] as! NCMBObject).objectForKey("type") as! String
         print("選択したCellのtype", type)
-        
+
         switch type {
         case "follow":
             print("followのCellを選択 → AccountViewControllerに遷移")
@@ -299,20 +353,6 @@ extension NotificationTableViewController: DZNEmptyDataSetSource, DZNEmptyDataSe
         let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
         return NSAttributedString(string: str, attributes: attrs)
     }
-
-    //    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-    //        return UIImage(named: "taylor-swift")
-    //    }
-
-//    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
-//        let str = "今日の出来事をログる"
-//
-//        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout)]
-//
-//        //色を設定する場合
-//        //        let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleCallout), NSForegroundColorAttributeName: UIColor.blueColor()]
-//        return NSAttributedString(string: str, attributes: attrs)
-//    }
 
     func emptyDataSetShouldDisplay(scrollView: UIScrollView!) -> Bool {
         return true
