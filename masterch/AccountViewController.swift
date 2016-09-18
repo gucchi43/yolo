@@ -536,11 +536,9 @@ extension AccountViewController {
         let followButton = sender as! UIButton
         print("followButton押した。")
         if isFollowing == true {
-            followerNumbarInt = followerNumbarInt - 1
             followOFFActionSheet(followButton)
 //            followOFF(followButton)
         }else {
-            followerNumbarInt = followerNumbarInt + 1
             followON(followButton)
         }
         //特定のcellだけreloadかける（２行目）
@@ -550,6 +548,7 @@ extension AccountViewController {
     
     func followON(followButton: UIButton){
         print("フォロー開始")
+        followerNumbarInt = followerNumbarInt + 1
         followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
         followButton.enabled = false
 //        print("followingRelationshipObject", followingRelationshipObject)
@@ -610,6 +609,7 @@ extension AccountViewController {
     
     func followOFF(followButton: UIButton){
         print("フォロー解除開始")
+        followerNumbarInt = followerNumbarInt - 1
         followButton.setImage(UIImage(named: "follow"), forState: UIControlState.Normal)
         followButton.enabled = false
 //        print("followingRelationshipObject", followingRelationshipObject)
