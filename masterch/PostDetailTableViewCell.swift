@@ -250,6 +250,7 @@ extension PostDetailTableViewCell {
         postData.saveEventually ({ (error) -> Void in
             if let error = error{
                 print(error.localizedDescription)
+                self.isLikeToggle = false
                 self.likeButton.enabled = true
             }else {
                 print("save成功 いいね保存")
@@ -301,6 +302,7 @@ extension PostDetailTableViewCell {
             if let error = error{
                 print(error.localizedDescription)
                 self.likeButton.enabled = true
+                self.isLikeToggle = true
             }else {
                 print("save成功 いいね取り消し")
                 self.isLikeToggle = false

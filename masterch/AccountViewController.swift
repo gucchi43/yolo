@@ -47,7 +47,7 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: Selector("handleRefresh:"), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(AccountViewController.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
 
         return refreshControl
     }()
@@ -374,6 +374,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
             return cell
             
         default:
+            print("postArray.count", postArray.count)
             if postArray.count == 0{
                 tableView.emptyDataSetSource = self
                 tableView.emptyDataSetDelegate = self
@@ -535,11 +536,11 @@ extension AccountViewController {
         let followButton = sender as! UIButton
         print("followButton押した。")
         if isFollowing == true {
-            followOFF(followButton)
             followerNumbarInt = followerNumbarInt - 1
+            followOFF(followButton)
         }else {
-            followON(followButton)
             followerNumbarInt = followerNumbarInt + 1
+            followON(followButton)
         }
         //特定のcellだけreloadかける（２行目）
         let indexPaths = NSIndexPath(forRow: 1, inSection: 0)
@@ -547,57 +548,100 @@ extension AccountViewController {
     }
     
     func followON(followButton: UIButton){
-        print("フォローする")
+        print("フォロー開始")
+        followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
         followButton.enabled = false
+//        print("followingRelationshipObject", followingRelationshipObject)
         let relationObject = NCMBObject(className: "Relationship")
         relationObject.setObject(NCMBUser.currentUser(), forKey: "followed")
         relationObject.setObject(user, forKey: "follower")
         relationObject.saveEventually({ (error) -> Void in
             if let error = error {
-                print("その3失敗", NCMBUser.currentUser())
+                print("フォロー失敗")
                 print(error.localizedDescription)
+                let alert: UIAlertController = UIAlertController(title: "エラー",
+                    message: "フォロー出来ませんでした",
+                    preferredStyle:  UIAlertControllerStyle.Alert)
+                let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                    // ボタンが押された時の処理を書く（クロージャ実装）
+                    (action: UIAlertAction!) -> Void in
+                    print("OK")
+                })
+                alert.addAction(defaultAction)
+                self.presentViewController(alert, animated: true, completion: nil)
                 self.isFollowing = false
                 followButton.setImage(UIImage(named: "follow"), forState: UIControlState.Normal)
+                self.followerNumbarInt = self.followerNumbarInt - 1
+                followButton.enabled = true
             }else {
                 self.isFollowing = true
+                print("フォロー成功", NCMBUser.currentUser().userName, "→", self.user!.userName)
                 followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
-                print("フォローした", NCMBUser.currentUser().userName, "→", self.user!.userName)
                 self.followingRelationshipObject.objectId = relationObject.objectId
                 self.followingRelationshipObject = relationObject as NCMBObject
                 //フォローしたことを通知画面のDBに保存
                 let notificationManager = NotificationManager()
                 notificationManager.followNotification(self.user!)
+                followButton.enabled = true
             }
-            followButton.enabled = true
         })
     }
     
     func followOFF(followButton: UIButton){
-        print("フォローをやめる")
+        print("フォロー解除開始")
+        followButton.setImage(UIImage(named: "follow"), forState: UIControlState.Normal)
         followButton.enabled = false
+//        print("followingRelationshipObject", followingRelationshipObject)
         followingRelationshipObject.fetchInBackgroundWithBlock({ (error) -> Void in
             if let error = error {
                 print(error.localizedDescription)
+                print("フォロー解除失敗")
+                let alert: UIAlertController = UIAlertController(title: "エラー",
+                    message: "フォロー解除出来ませんでした",
+                    preferredStyle:  UIAlertControllerStyle.Alert)
+                let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                    // ボタンが押された時の処理を書く（クロージャ実装）
+                    (action: UIAlertAction!) -> Void in
+                    print("OK")
+                })
+                alert.addAction(defaultAction)
+                self.presentViewController(alert, animated: true, completion: nil)
                 self.isFollowing = true
                 followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
+                self.followerNumbarInt = self.followerNumbarInt + 1
+                followButton.enabled = true
             }else {
                 self.followingRelationshipObject.deleteEventually({(error) in
                     if let error = error {
                         print(error.localizedDescription)
+                        print("フォロー解除失敗")
+                        let alert: UIAlertController = UIAlertController(title: "エラー",
+                            message: "フォロー解除出来ませんでした",
+                            preferredStyle:  UIAlertControllerStyle.Alert)
+                        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                            // ボタンが押された時の処理を書く（クロージャ実装）
+                            (action: UIAlertAction!) -> Void in
+                            print("OK")
+                        })
+                        alert.addAction(defaultAction)
+                        self.presentViewController(alert, animated: true, completion: nil)
+
                         self.isFollowing = true
                         followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
+                        self.followerNumbarInt = self.followerNumbarInt + 1
+                        followButton.enabled = true
                     }else {
-                        print("フォローをやめました")
+                        print("フォロー解除成功", NCMBUser.currentUser().userName, "→", self.user!.userName)
                         self.isFollowing = false
                         followButton.setImage(UIImage(named: "follow"), forState: UIControlState.Normal)
                         self.followingRelationshipObject.objectId = "dummy"
                         //フォローしたデータを通知画面のDBから削除
                         let notificationManager = NotificationManager()
                         notificationManager.deleteFollowNotification(self.user!)
+                        followButton.enabled = true
                     }
                 })
             }
-            followButton.enabled = true
         })
         
     }
@@ -934,6 +978,7 @@ extension AccountViewController {
             if let error = error{
                 print(error.localizedDescription)
                 cell.likeButton.enabled = true
+                cell.isLikeToggle = false
             }else {
                 print("save成功 いいね保存")
                 cell.isLikeToggle = true
@@ -987,6 +1032,7 @@ extension AccountViewController {
         postData.saveEventually ({ (error) -> Void in
             if let error = error{
                 print(error.localizedDescription)
+                cell.isLikeToggle = true
                 cell.likeButton.enabled = true
             }else {
                 print("save成功 いいね取り消し")

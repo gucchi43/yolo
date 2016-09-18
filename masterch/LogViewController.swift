@@ -596,6 +596,7 @@ extension LogViewController{
         postData.saveEventually ({ (error) -> Void in
             if let error = error{
                 print(error.localizedDescription)
+                cell.isLikeToggle = false
                 cell.likeButton.enabled = true
             }else {
                 print("save成功 いいね保存")
@@ -650,6 +651,7 @@ extension LogViewController{
         postData.saveEventually ({ (error) -> Void in
             if let error = error{
                 print(error.localizedDescription)
+                cell.isLikeToggle = true
                 cell.likeButton.enabled = true
             }else {
                 print("save成功 いいね取り消し")

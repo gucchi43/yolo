@@ -264,7 +264,8 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="200" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NMC-kz-Ez9">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="ProfileCell" rowHeight="250" id="PZg-Ck-39r" customClass="ProfileCell" customModule="masterch" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="320" height="250"/>
@@ -377,7 +378,7 @@
                                                                 <action selector="tapConnectTwitterButton:" destination="zkA-KH-TI3" eventType="touchUpInside" id="68m-Tf-MTm"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejv-RX-twQ">
+                                                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejv-RX-twQ">
                                                             <rect key="frame" x="72" y="116" width="40" height="40"/>
                                                             <state key="normal" image="facebookWhite"/>
                                                             <connections>
@@ -1292,14 +1293,6 @@ version更新をお待ち下さい。
                                                 <constraint firstItem="Fys-Qh-apw" firstAttribute="centerX" secondItem="RX6-eX-kpM" secondAttribute="centerX" id="Gh3-wQ-hG6"/>
                                                 <constraint firstItem="Fys-Qh-apw" firstAttribute="centerY" secondItem="RX6-eX-kpM" secondAttribute="centerY" id="VgG-if-HuT"/>
                                             </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="PQS-iY-KBV">
-                                        <rect key="frame" x="0.0" y="547" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PQS-iY-KBV" id="08h-OV-lpx">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
