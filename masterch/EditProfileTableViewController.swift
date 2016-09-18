@@ -19,6 +19,7 @@ class EditProfileTableViewController: UITableViewController {
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var userSelfIntroductionTextView: UITextView!
     @IBOutlet weak var statusConnectMailLabel: UILabel!
+    @IBOutlet weak var enabledNotificaationSwitch: UISwitch!
     @IBOutlet weak var changeProfileButton: UIButton!
 
     var changeImageButtonFrag: Int = 0 // 1 -> プロフィール, 2 -> ホーム
@@ -50,6 +51,7 @@ class EditProfileTableViewController: UITableViewController {
             self.loadUser()
         }
         checkStatusMail()
+        checkEnabledNotification()
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -280,7 +282,6 @@ extension EditProfileTableViewController: UIImagePickerControllerDelegate, UINav
         self.navigationController?.popViewControllerAnimated(true)
     }
 
-
     //写真編集画面で「選択」タップした時
     func imageCropViewController(controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect) {
         print("imageCropViewController")
@@ -414,6 +415,44 @@ extension EditProfileTableViewController{
     }
 }
 
+//プッシュ通知設定
+extension EditProfileTableViewController {
+
+
+    @IBAction func changeEnableNotification(sender: UISwitch) {
+        if sender.on {
+            print("onに変更")
+            goSettingApp()
+        }else {
+            print("offに変更")
+            goSettingApp()
+        }
+    }
+
+    func checkEnabledNotification() {
+        if isEnabled() == false {
+            enabledNotificaationSwitch.setOn(false, animated: true)
+        }else {
+            enabledNotificaationSwitch.setOn(true, animated: true)
+        }
+    }
+
+    func isEnabled() -> Bool {
+        if UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
+            // push notification enable
+            return true
+        }else{
+            // push notification disabled
+            return false
+        }
+    }
+    
+    func goSettingApp() {
+        print("設定画面に移動")
+        let url = NSURL(string: UIApplicationOpenSettingsURLString)!
+        UIApplication.sharedApplication().openURL(url)
+    }
+}
 
 //ログアウト
 extension EditProfileTableViewController{
