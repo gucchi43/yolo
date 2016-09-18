@@ -1242,8 +1242,36 @@ version更新をお待ち下さい。
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="logOutCell" id="kKU-kn-uJh">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="connectMailCell" id="Ohl-bN-CUF" userLabel="enabledNotificaationCell">
                                         <rect key="frame" x="0.0" y="459" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ohl-bN-CUF" id="W6M-eJ-7IF">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="プッシュ通知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Tg-BD-UdW">
+                                                    <rect key="frame" x="8" y="11" width="102" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Vk-Re-MVl" userLabel="Enabled NotificaationSwitch">
+                                                    <rect key="frame" x="263" y="6.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="changeEnableNotification:" destination="b0e-HZ-ON1" eventType="valueChanged" id="02a-66-bhl"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="8Tg-BD-UdW" firstAttribute="centerY" secondItem="W6M-eJ-7IF" secondAttribute="centerY" id="S2C-JJ-AX8"/>
+                                                <constraint firstAttribute="trailing" secondItem="1Vk-Re-MVl" secondAttribute="trailing" constant="8" id="Vfl-j1-rfk"/>
+                                                <constraint firstItem="8Tg-BD-UdW" firstAttribute="leading" secondItem="W6M-eJ-7IF" secondAttribute="leading" constant="8" id="mls-gg-mu1"/>
+                                                <constraint firstItem="1Vk-Re-MVl" firstAttribute="centerY" secondItem="W6M-eJ-7IF" secondAttribute="centerY" id="q7S-I1-nfp"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="logOutCell" id="kKU-kn-uJh">
+                                        <rect key="frame" x="0.0" y="503" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kKU-kn-uJh" id="RX6-eX-kpM">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -1267,7 +1295,7 @@ version更新をお待ち下さい。
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="PQS-iY-KBV">
-                                        <rect key="frame" x="0.0" y="503" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="547" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PQS-iY-KBV" id="08h-OV-lpx">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -1297,6 +1325,7 @@ version更新をお待ち下さい。
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="changeProfileButton" destination="96B-lI-loS" id="1MJ-qz-cLB"/>
+                        <outlet property="enabledNotificaationSwitch" destination="1Vk-Re-MVl" id="JFy-IS-IOk"/>
                         <outlet property="statusConnectMailLabel" destination="sPh-CE-jeA" id="1Ui-Ea-bNN"/>
                         <outlet property="userHomeImageView" destination="cpc-eZ-jtG" id="7gV-2N-dc2"/>
                         <outlet property="userName" destination="faw-2S-qU3" id="YgN-2N-BBM"/>

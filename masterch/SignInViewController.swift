@@ -58,9 +58,43 @@ class SignInViewController: UIViewController {
                 print("Login成功", user)
                 //Log周りのシングルトンを初期化する
                 logManager.sharedSingleton.resetSharedSingleton()
+                self.connectDeviceInfo()
                 SVProgressHUD.dismiss()
                 self.performSegueWithIdentifier("signInSegue", sender: self)
             }
+        }
+    }
+
+    //プッシュ通知のためにinstallationにuser情報を付与
+    func connectDeviceInfo() {
+        let installation = NCMBInstallation.currentInstallation()
+        print("installation", installation)
+        if let deviceTokken = installation.deviceToken{
+            print("deviceTokken", deviceTokken)
+            if NCMBUser.currentUser().objectId == installation.objectForKey("userObjectId") as? String {
+                print("既にプッシュ通知の許可が通ってる、installation: ", installation)
+            }else {
+                installation.setObject(NCMBUser.currentUser().objectId, forKey: "userObjectId")
+                installation.setObject(NCMBUser.currentUser().userName, forKey: "userName")
+                installation.saveEventually { (error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        let alert: UIAlertController = UIAlertController(title: "エラー",
+                            message: "保存できませんでした",
+                            preferredStyle:  UIAlertControllerStyle.Alert)
+                        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                            // ボタンが押された時の処理を書く（クロージャ実装）
+                            (action: UIAlertAction!) -> Void in
+                            print("OK")
+                        })
+                        alert.addAction(defaultAction)
+                    }else {
+                        print("プッシュ通知のためにinstallationにuser情報を付与成功")
+                    }
+                }
+            }
+        }else {
+            print("deviceTokkenがありません。iosシュミレーターの場合が高いです")
         }
     }
 
