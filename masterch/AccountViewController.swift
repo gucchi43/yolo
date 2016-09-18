@@ -537,7 +537,8 @@ extension AccountViewController {
         print("followButton押した。")
         if isFollowing == true {
             followerNumbarInt = followerNumbarInt - 1
-            followOFF(followButton)
+            followOFFActionSheet(followButton)
+//            followOFF(followButton)
         }else {
             followerNumbarInt = followerNumbarInt + 1
             followON(followButton)
@@ -585,6 +586,26 @@ extension AccountViewController {
                 followButton.enabled = true
             }
         })
+    }
+
+    func followOFFActionSheet(followButton: UIButton) {
+        let alert: UIAlertController = UIAlertController(title: "@" + user!.userName,
+                                                         message: nil,
+                                                         preferredStyle:  UIAlertControllerStyle.ActionSheet)
+        let destructiveAction: UIAlertAction = UIAlertAction(title: "フォロー解除", style: UIAlertActionStyle.Destructive, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("OK")
+            self.followOFF(followButton)
+        })
+        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+        alert.addAction(destructiveAction)
+        alert.addAction(cancelAction)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func followOFF(followButton: UIButton){
