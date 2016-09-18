@@ -57,8 +57,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
         //押したタブ(item)にbadgeがあった場合、アプリ上、データベース上共にリセットする
         if item.badgeValue != nil{
             item.badgeValue = nil
-            let TBManger = TabBadgeManager()
-            TBManger.resetTabBadge(NCMBUser.currentUser())
         }
 
         switch item.tag {
