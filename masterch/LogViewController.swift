@@ -619,8 +619,7 @@ extension LogViewController{
         })
         
     }
-    
-    
+
     func disLike(postData: NCMBObject, cell: TimelineCell) {
         //いいねOFFボタン
         cell.likeButton.enabled = false

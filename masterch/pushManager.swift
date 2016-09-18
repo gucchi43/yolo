@@ -37,8 +37,6 @@ class pushManager: NSObject {
                 print(error.localizedDescription)
             }else {
                 print("likeプッシュ通知送信")
-                let TBManager = TabBadgeManager()
-                TBManager.setTabBadg(user)
             }
         }
     }
@@ -65,8 +63,6 @@ class pushManager: NSObject {
                 print(error.localizedDescription)
             }else {
                 print("commnetプッシュ通知送信")
-                let TBManager = TabBadgeManager()
-                TBManager.setTabBadg(user)
             }
         }
     }
@@ -96,8 +92,6 @@ class pushManager: NSObject {
                 print(error.localizedDescription)
             }else {
                 print("followプッシュ通知送信")
-                let TBManager = TabBadgeManager()
-                TBManager.setTabBadg(user)
             }
         }
     }
