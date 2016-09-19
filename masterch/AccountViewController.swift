@@ -713,9 +713,28 @@ extension AccountViewController {
             isTwitterConnecting = false
             cell.twitterConnectButton.setImage(UIImage(named: "twitterWhite"), forState: .Normal)
         }else {
-            print("Twitter連携済み")
-            isTwitterConnecting = true
-            cell.twitterConnectButton.setImage(UIImage(named: "twitterON"), forState: .Normal)
+            if let userID = user.objectForKey("twitterID") {
+                if userID.isKindOfClass(NSNull) != true {
+                    //「userID」がnullじゃないか？
+                    if let userLink = Twitter.sharedInstance().sessionStore.sessionForUserID(userID as! String){
+                        print("Twitter連携済み")
+                        isTwitterConnecting = true
+                        cell.twitterConnectButton.setImage(UIImage(named: "twitterON"), forState: .Normal)
+                    }else {
+                        print("Twitter未連携")
+                        isTwitterConnecting = false
+                        cell.twitterConnectButton.setImage(UIImage(named: "twitterWhite"), forState: .Normal)
+                    }
+                }else {
+                    print("Twitter未連携")
+                    isTwitterConnecting = false
+                    cell.twitterConnectButton.setImage(UIImage(named: "twitterWhite"), forState: .Normal)
+                }
+            }else {
+                print("Twitter未連携")
+                isTwitterConnecting = false
+                cell.twitterConnectButton.setImage(UIImage(named: "twitterWhite"), forState: .Normal)
+            }
         }
     }
     
@@ -1134,9 +1153,9 @@ extension AccountViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
 extension AccountViewController{
 
     @IBAction func testConfirm(sender: AnyObject) {
-
-        let alert: UIAlertController = UIAlertController(title: "カレントユーザー",
-                                                         message: NCMBUser.currentUser().userName,
+        print("userInfo: ", NCMBUser.currentUser())
+        let alert: UIAlertController = UIAlertController(title: NCMBUser.currentUser().userName,
+                                                         message: nil,
                                                          preferredStyle:  UIAlertControllerStyle.ActionSheet)
         // OKボタン
         let defaultAction: UIAlertAction = UIAlertAction(title: "解除する", style: UIAlertActionStyle.Default, handler:{
