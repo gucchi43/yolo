@@ -646,8 +646,9 @@ extension SubmitViewController {
             let tweetText = self.postTextView.text
             print("tweetText", tweetText)
             let encodedTweetText = tweetText.stringByReplacingOccurrencesOfString("n", withString: "nr")
+//            let encodedTweetText = tweetText.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
             print("encodedTweetText", encodedTweetText)
-
+            
             var params = ["status": encodedTweetText]
             print("params", params)
 
