@@ -9,10 +9,10 @@ target 'masterch' do
   pod 'FBSDKLoginKit', '~> 4.13.1'
   pod 'FBSDKShareKit', '~> 4.13.1'
 
-  pod 'Fabric'
-  pod 'TwitterKit'
-  pod 'TwitterCore'
-  pod 'Crashlytics' 
+  pod 'Fabric', '~> 1.6.8'
+  pod 'TwitterKit', '~> 2.4.0'
+  pod 'TwitterCore', '~> 2.4.0'
+  pod 'Crashlytics', '~> 3.8.1'
 
   pod 'NSDate+TimeAgo', '~> 1.0.6'
   pod 'YLProgressBar', '~> 3.8.1'
