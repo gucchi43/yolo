@@ -59,6 +59,9 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 
     var navigationBarView: BTNavigationDropdownMenu!
     var dropdownNumber: Int = 0
+
+    var cashImageDictionary = [Int : UIImage]()
+    var cashProfileImageDictionary = [Int : UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,6 +116,11 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }else {
             logNumber = logManager.sharedSingleton.logNumber
         }
+        //疑似キャッシュをクリア
+        cashProfileImageDictionary.removeAll()
+        cashImageDictionary.removeAll()
+        print("クリア後のcashImageDictionary", cashImageDictionary)
+
         loadQuery(logNumber)
         monthLabel.text = CalendarManager.selectLabel()
     }
@@ -190,6 +198,9 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 
         logManager.sharedSingleton.tabLogNumber = indexPath
         let logNumber = logManager.sharedSingleton.tabLogNumber
+        //疑似キャッシュをクリア
+        cashImageDictionary.removeAll()
+        cashProfileImageDictionary.removeAll()
         print("logNumber", logNumber, rangeTitle)
 
         switch toggleWeek {
@@ -468,17 +479,26 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
         let author = postData.objectForKey("user") as? NCMBUser
         if let author = author {
             cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
-            
-            let postImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-            postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                if let error = error {
-                    print("プロフィール画像の取得失敗： ", error)
-                    cell.userProfileImageView.image = UIImage(named: "noprofile")
-                } else {
-                    cell.userProfileImageView.image = UIImage(data: imageData!)
-                    
-                }
-            })
+
+            //一度ロードしたか？
+            print("indexPath.row", indexPath.row)
+            if let cashProfileImage = cashProfileImageDictionary[indexPath.row] {
+                cell.userProfileImageView.image = cashProfileImage
+            }else {
+                let postImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+                postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                    if let error = error {
+                        print("プロフィール画像の取得失敗： ", error)
+                        cell.userProfileImageView.image = UIImage(named: "noprofile")
+                    } else {
+                        cell.userProfileImageView.image = UIImage(data: imageData!)
+                        print("(before)indexPath -> cashProfileImageDictionary", indexPath.row, "->", self.cashProfileImageDictionary)
+                        self.cashProfileImageDictionary[indexPath.row] = UIImage(data: imageData!)
+                        print("(after)indexPath -> cashProfileImageDictionary", indexPath.row, "->", self.cashProfileImageDictionary)
+
+                    }
+                })
+            }
         } else {
             cell.userNameLabel.text = "username"
             cell.userProfileImageView.image = UIImage(named: "noprofile")
@@ -487,15 +507,25 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
         //画像データの取得
         if let postImageName = postData.objectForKey("image1") as? String {
             cell.imageViewHeightConstraint.constant = 150.0
-            let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
-            postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                if let error = error {
-                    print("写真の取得失敗： ", error)
-                } else {
-                    cell.postImageView.image = UIImage(data: imageData!)
-                    cell.postImageView.layer.cornerRadius = 5.0
-                }
-            })
+            //一度ロードしたか？
+            print("indexPath.row", indexPath.row)
+            if let cashImage = cashImageDictionary[indexPath.row] {
+                cell.postImageView.image = cashImage
+                cell.postImageView.layer.cornerRadius = 5.0
+            }else {
+                let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
+                postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                    if let error = error {
+                        print("写真の取得失敗： ", error)
+                    } else {
+                        cell.postImageView.image = UIImage(data: imageData!)
+                        cell.postImageView.layer.cornerRadius = 5.0
+                        print("(before)indexPath -> cashImageDictionary", indexPath.row, "->", self.cashImageDictionary)
+                        self.cashImageDictionary[indexPath.row] = UIImage(data: imageData!)
+                        print("(after)indexPath -> cashImageDictionary", indexPath.row, "->", self.cashImageDictionary)
+                    }
+                })
+            }
         } else {
             cell.postImageView.image = nil
             cell.imageViewHeightConstraint.constant = 0.0
