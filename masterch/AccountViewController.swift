@@ -440,7 +440,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
                             cell.userProfileImageView.image = UIImage(named: "noprofile")
                         } else {
                             cell.userProfileImageView.image = UIImage(data: imageData!)
-                            self.cashProfileImage = UIImage(named: "noprofile")
+                            self.cashProfileImage = UIImage(data: imageData!)
 
 
                         }
@@ -469,7 +469,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
                             cell.postImageView.image = UIImage(data: imageData!)
                             cell.postImageView.layer.cornerRadius = 5.0
                             print("(before)indexPath -> cashImageDictionary", indexPath.row, "->", self.cashImageDictionary)
-                            self.imageDictionary[indexPath.row] = UIImage(data: imageData!)
+                            self.cashImageDictionary[indexPath.row] = UIImage(data: imageData!)
                             print("(after)indexPath -> cashImageDictionary", indexPath.row, "->", self.cashImageDictionary)
                         }
                     })
