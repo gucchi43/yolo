@@ -42,6 +42,10 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
     var myProfileName: String?
     var myProfileSelfintroduction: String?
 
+    var cashImageDictionary = [Int : UIImage]()
+    var cashProfileImage = UIImage?()
+    var cashHomeImage = UIImage?()
+
     var followNumbarInt: Int = 0
     var followerNumbarInt: Int = 0
 
@@ -297,29 +301,41 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
             cell.userSelfIntroductionTextView.text = user!.objectForKey("userSelfIntroduction") as? String
             cell.userSelfIntroductionTextView.textColor = UIColor.whiteColor()
             cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
-            let userProfileImageName = user!.objectForKey("userProfileImage") as? String
-            let userProfileImageData = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
-            userProfileImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
-                if error != nil{
-                    print("写真の取得失敗: \(error)")
-                } else {
-                    cell.userProfileImageView.image = UIImage(data: imageData!)
-                    //EditProfileVCへの遷移のデータ
-                    if self.user == NCMBUser.currentUser() {
-                        self.myProfileImage = cell.userProfileImageView.image
+            if cashProfileImage != nil {
+                cell.userProfileImageView.image = cashProfileImage
+
+            }else {
+                let userProfileImageName = user!.objectForKey("userProfileImage") as? String
+                let userProfileImageData = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
+                userProfileImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+                    if error != nil{
+                        print("写真の取得失敗: \(error)")
+                    } else {
+                        cell.userProfileImageView.image = UIImage(data: imageData!)
+                        self.cashProfileImage = UIImage(data: imageData!)
+                        //EditProfileVCへの遷移のデータ
+                        if self.user == NCMBUser.currentUser() {
+                            self.myProfileImage = cell.userProfileImageView.image
+                        }
                     }
                 }
             }
-            let userHomeImageName = user!.objectForKey("userHomeImage") as? String
-            let userHomeImageData = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
-            userHomeImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
-                if error != nil{
-                    print("写真の取得失敗: \(error)")
-                } else {
-                    cell.userHomeImageView.image = UIImage(data: imageData!)
-                    //EditProfileVCへの遷移のデータ
-                    if self.user == NCMBUser.currentUser() {
-                        self.myProfileHomeImage = cell.userHomeImageView.image
+
+            if cashHomeImage != nil{
+                cell.userHomeImageView.image = cashHomeImage
+            }else {
+                let userHomeImageName = user!.objectForKey("userHomeImage") as? String
+                let userHomeImageData = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
+                userHomeImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
+                    if error != nil{
+                        print("写真の取得失敗: \(error)")
+                    } else {
+                        cell.userHomeImageView.image = UIImage(data: imageData!)
+                        self.cashHomeImage = UIImage(data: imageData!)
+                        //EditProfileVCへの遷移のデータ
+                        if self.user == NCMBUser.currentUser() {
+                            self.myProfileHomeImage = cell.userHomeImageView.image
+                        }
                     }
                 }
             }
@@ -414,17 +430,23 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
             let author = postData.objectForKey("user") as? NCMBUser
             if let author = author {
                 cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
-                
-                let postImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-                postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                    if let error = error {
-                        print("プロフィール画像の取得失敗： ", error)
-                        cell.userProfileImageView.image = UIImage(named: "noprofile")
-                    } else {
-                        cell.userProfileImageView.image = UIImage(data: imageData!)
-                        
-                    }
-                })
+                if cashProfileImage != nil {
+                    cell.userProfileImageView.image = cashProfileImage
+                }else {
+                    let postImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+                    postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                        if let error = error {
+                            print("プロフィール画像の取得失敗： ", error)
+                            cell.userProfileImageView.image = UIImage(named: "noprofile")
+                        } else {
+                            cell.userProfileImageView.image = UIImage(data: imageData!)
+                            self.cashProfileImage = UIImage(named: "noprofile")
+
+
+                        }
+                    })
+                }
+
             } else {
                 cell.userNameLabel.text = "username"
                 cell.userProfileImageView.image = UIImage(named: "noprofile")
@@ -433,15 +455,25 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
             //画像データの取得
             if let postImageName = postData.objectForKey("image1") as? String {
                 cell.imageViewHeightConstraint.constant = 150.0
-                let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
-                postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                    if let error = error {
-                        print("写真の取得失敗： ", error)
-                    } else {
-                        cell.postImageView.image = UIImage(data: imageData!)
-                        cell.postImageView.layer.cornerRadius = 5.0
-                    }
-                })
+                //一度ロードしたか？
+                print("indexPath.row", indexPath.row)
+                if let cashImage = cashImageDictionary[indexPath.row] {
+                    cell.postImageView.image = cashImage
+                    cell.postImageView.layer.cornerRadius = 5.0
+                }else {
+                    let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
+                    postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                        if let error = error {
+                            print("写真の取得失敗： ", error)
+                        } else {
+                            cell.postImageView.image = UIImage(data: imageData!)
+                            cell.postImageView.layer.cornerRadius = 5.0
+                            print("(before)indexPath -> cashImageDictionary", indexPath.row, "->", self.cashImageDictionary)
+                            self.imageDictionary[indexPath.row] = UIImage(data: imageData!)
+                            print("(after)indexPath -> cashImageDictionary", indexPath.row, "->", self.cashImageDictionary)
+                        }
+                    })
+                }
             } else {
                 cell.postImageView.image = nil
                 cell.imageViewHeightConstraint.constant = 0.0
