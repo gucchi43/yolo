@@ -19,6 +19,8 @@ class NotificationTableViewController: UITableViewController {
     var selectedUser: NCMBUser!
     var selectedObject: NCMBObject!
 
+    var cashProfileImageDictionary = [Int : UIImage]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         //Cellの高さを可変にする(ストーリーボードのオートレイアウトに合わしている)
@@ -39,6 +41,7 @@ class NotificationTableViewController: UITableViewController {
     //viewDidLoadの時しか呼べれない(SVProgressHUDを使う)
     func firstLoadArray() {
             SVProgressHUD.show()
+        cashProfileImageDictionary.removeAll()
         //includeKeyで全部撮ってきたいんねん!!!!ほんとのところは！
         let notificationQuery: NCMBQuery = NCMBQuery(className: "Notification")
         notificationQuery.whereKey("ownerUser", equalTo: NCMBUser.currentUser())
@@ -95,6 +98,7 @@ class NotificationTableViewController: UITableViewController {
                     self.tableView.emptyDataSetDelegate = self
 
                 }
+                self.cashProfileImageDictionary.removeAll()
                 self.tableView.reloadData()
                 self.refreshControl?.endRefreshing()
             }
@@ -162,16 +166,22 @@ class NotificationTableViewController: UITableViewController {
             //"user"情報読み込み
             let keyUser = followerInfo.objectForKey("actionUser") as? NCMBUser
             guard let user = keyUser else { return cell } //この場合、ユーザー情報が載ってないcellがreturnされる。
-            print("userFaceName", user.objectForKey("userFaceName") as? String)
             cell.userLabel.text = user.objectForKey("userFaceName") as? String
-            let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-            userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
-                if let error = error {
-                    print("error", error.localizedDescription)
-                } else {
-                    cell.userImageView.image = UIImage(data: imageData!)
-                }
-            })
+            //一度ロードしたか？
+            print("indexPath.row", indexPath.row)
+            if let cashProfileImage = cashProfileImageDictionary[indexPath.row] {
+                cell.userImageView.image = cashProfileImage
+            }else {
+                let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+                userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
+                    if let error = error {
+                        print("error", error.localizedDescription)
+                    } else {
+                        cell.userImageView.image = UIImage(data: imageData!)
+                        self.cashProfileImageDictionary[indexPath.row] = UIImage(data: imageData!)
+                    }
+                })
+            }
             cell.layoutIfNeeded()
             return cell
             
@@ -198,16 +208,22 @@ class NotificationTableViewController: UITableViewController {
             //"user"情報読み込み
             let keyUser = likeInfo.objectForKey("actionUser") as? NCMBUser
             guard let user = keyUser else { return cell } //この場合、ユーザー情報が載ってないcellがreturnされる。
-            print("userFaceName", user.objectForKey("userFaceName") as? String)
             cell.userLabel.text = user.objectForKey("userFaceName") as? String
-            let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-            userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
-                if let error = error {
-                    print("error", error.localizedDescription)
-                } else {
-                    cell.userImageView.image = UIImage(data: imageData!)
-                }
-            })
+            //一度ロードしたか？
+            print("indexPath.row", indexPath.row)
+            if let cashProfileImage = cashProfileImageDictionary[indexPath.row] {
+                cell.userImageView.image = cashProfileImage
+            }else {
+                let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+                userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
+                    if let error = error {
+                        print("error", error.localizedDescription)
+                    } else {
+                        cell.userImageView.image = UIImage(data: imageData!)
+                        self.cashProfileImageDictionary[indexPath.row] = UIImage(data: imageData!)
+                    }
+                })
+            }
             cell.postLabel.text = likeInfo.objectForKey("postHeader") as? String
             
             cell.layoutIfNeeded()
@@ -237,16 +253,22 @@ class NotificationTableViewController: UITableViewController {
             //"user"情報読み込み
             let keyUser = commentInfo.objectForKey("actionUser") as? NCMBUser
             guard let user = keyUser else { return cell } //この場合、ユーザー情報が載ってないcellがreturnされる。
-            print("userFaceName", user.objectForKey("userFaceName") as? String)
             cell.userLabel.text = user.objectForKey("userFaceName") as? String
-            let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-            userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
-                if let error = error {
-                    print("error", error.localizedDescription)
-                } else {
-                    cell.userImageView.image = UIImage(data: imageData!)
-                }
-            })
+            //一度ロードしたか？
+            print("indexPath.row", indexPath.row)
+            if let cashProfileImage = cashProfileImageDictionary[indexPath.row] {
+                cell.userImageView.image = cashProfileImage
+            }else {
+                let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
+                userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
+                    if let error = error {
+                        print("error", error.localizedDescription)
+                    } else {
+                        cell.userImageView.image = UIImage(data: imageData!)
+                        self.cashProfileImageDictionary[indexPath.row] = UIImage(data: imageData!)
+                    }
+                })
+            }
             cell.postLabel.text = commentInfo.objectForKey("postHeader") as? String
             cell.commentLabel.text = commentInfo.objectForKey("commentHeader") as? String
             cell.layoutIfNeeded()
