@@ -40,6 +40,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 
     //    セル選択時の変数
     var selectedPostObject: NCMBObject!
+    var selectedPostImage: UIImage?
     
     //    それぞれを変数にして渡す場合に使用。その方が早いけど、何故かずれたりする原因がわからないのでNMCBObjectをそのまま渡している
     //    var selectedPostUserFaceName: String!
@@ -301,6 +302,9 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
             //            postDetailVC.hidesBottomBarWhenPushed = true // trueならtabBar隠す
             postDetailVC.postObject = self.selectedPostObject
+            if let selectedPostImage = selectedPostImage {
+                postDetailVC.postImage = selectedPostImage
+            }
             postDetailVC.delegate = self
             if let sender = sender {
                 postDetailVC.isSelectedCommentButton = sender as! Bool
@@ -568,6 +572,9 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("セルの選択: \(indexPath.row)")
         selectedPostObject = self.postArray[indexPath.row] as! NCMBObject
+        if let cashImage = cashImageDictionary[indexPath.row] {
+            selectedPostImage = cashImage
+        }
         performSegueWithIdentifier("toPostDetailVC", sender: nil)
     }
 

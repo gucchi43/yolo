@@ -24,6 +24,7 @@ class PostDetailViewController: UIViewController {
     @IBOutlet var sendCommentButton: UIButton!
 
     var postObject: NCMBObject!
+    var postImage: UIImage?
     var likeCounts: Int?
     var isSelectedCommentButton: Bool = false
     
@@ -271,6 +272,9 @@ extension PostDetailViewController: UITableViewDataSource{
             let cell = tableView.dequeueReusableCellWithIdentifier("postDetailCell") as! PostDetailTableViewCell
             cell.delegate = self
             cell.postObject = postObject
+            if postImage != nil {
+                cell.postImage = postImage
+            }
             cell.auther = otherUser
         dispatch_once(&loadPostDetailCelltoken){
                 cell.setPostDetailCell()
