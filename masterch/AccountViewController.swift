@@ -20,6 +20,7 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
     @IBOutlet weak var tableView: UITableView!
     var user: NCMBUser?
     var selectedPostObject: NCMBObject!
+    var selectedPostImage: UIImage?
     var ownerUserToggle: Bool = false
     
     var postArray: NSArray = NSArray()
@@ -173,6 +174,9 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
             let postDetailVC = segue.destinationViewController as! PostDetailViewController
             //            postDetailVC.hidesBottomBarWhenPushed = true // trueならtabBar隠す
             postDetailVC.postObject = self.selectedPostObject
+            if let selectedPostImage = selectedPostImage {
+                postDetailVC.postImage = selectedPostImage
+            }
             postDetailVC.delegate = self
             if let sender = sender {
                 postDetailVC.isSelectedCommentButton = sender as! Bool
@@ -532,6 +536,9 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("セルの選択: \(indexPath.row)")
         selectedPostObject = self.postArray[indexPath.row - 2] as! NCMBObject
+        if let cashImage = cashImageDictionary[indexPath.row] {
+            selectedPostImage = cashImage
+        }
         performSegueWithIdentifier("toPostDetail", sender: nil)
     }
 
