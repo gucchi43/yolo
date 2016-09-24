@@ -42,6 +42,7 @@ class PostDetailTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
     let likeOffImage = UIImage(named: "hartOFF")
     
     var isLikeToggle = false
+    var postImageloardToggle = true
     
     var delegate: PostDetailTableViewCellDelegate!
     
@@ -110,13 +111,14 @@ class PostDetailTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
                 if let error = error {
                     print("写真の取得失敗： ", error)
 //                    SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
-                    self.postImageView.image = nil
-                    self.postImageViewHeightConstraint.constant = 0.0
+                    self.postImageView.image = UIImage(named: "pleaseReload")
+                    self.postImageloardToggle = false
                 } else {
                     print(UIImage(data: imageData!))
 //                    SVProgressHUD.dismiss()
                     self.postImageViewHeightConstraint.constant = (UIScreen.mainScreen().bounds.size.width - 20)
                     self.postImageView.image = UIImage(data: imageData!)
+                    self.postImageloardToggle = true
                 }
                 }, progressBlock: { (progress) in
 //                    SVProgressHUD.showProgress(Float(progress)/100, status: "画像読み込み中")
@@ -177,17 +179,49 @@ class PostDetailTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
 
 }
 
-//ユーザーの写真を押して遷移
+//写真タップ
 extension PostDetailTableViewCell: IDMPhotoBrowserDelegate  {
+    //ユーザー写真タップ
     func tapUserProfileImage (recoginizer: UITapGestureRecognizer){
         print("写真押された")
         delegate.didSelectPostProfileImageView()
     }
 
+    //投稿写真タップ
     func tapPostImage(recoginizer: UITapGestureRecognizer) {
         print("tapPostImage")
         if let postImage = postImageView.image{
-            delegate.didSelectPostImageView(postImage, postText: postTextLabel.text!)
+            if postImageloardToggle == false { //画像の読み込みがエラーのとき
+                postImageView.image = nil
+                if let postImageName = postObject.objectForKey("image1") as? String {
+                    self.postImageViewHeightConstraint.constant = (UIScreen.mainScreen().bounds.size.width - 20)
+
+                    let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
+                    postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                        if let error = error {
+                            print("写真の取得失敗： ", error)
+                            //                    SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
+                            self.postImageView.image = UIImage(named: "pleaseReload")
+                            self.postImageloardToggle = false
+                        } else {
+                            print(UIImage(data: imageData!))
+                            //                    SVProgressHUD.dismiss()
+                            self.postImageViewHeightConstraint.constant = (UIScreen.mainScreen().bounds.size.width - 20)
+                            self.postImageView.image = UIImage(data: imageData!)
+                            self.postImageloardToggle = true
+                        }
+                        }, progressBlock: { (progress) in
+                            //                    SVProgressHUD.showProgress(Float(progress)/100, status: "画像読み込み中")
+                            print("postImage進行速度 %: ", Float(progress)/100)
+                            
+                    })
+                } else {
+                    self.postImageView.image = nil
+                    self.postImageViewHeightConstraint.constant = 0.0
+                }
+            }else { //画像が読み込まれている時
+                delegate.didSelectPostImageView(postImage, postText: postTextLabel.text!)
+            }
         }
 
 //        let photo = IDMPhoto(image: postImageView.image)
@@ -208,7 +242,6 @@ extension PostDetailTableViewCell {
 //        キーボードが出るようにしたい
         delegate.didSelectCommentButton()
     }
-    
 }
 
 // いいね
