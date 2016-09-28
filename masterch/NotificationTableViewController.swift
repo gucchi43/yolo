@@ -45,7 +45,7 @@ class NotificationTableViewController: UITableViewController {
         //includeKeyで全部撮ってきたいんねん!!!!ほんとのところは！
         let notificationQuery: NCMBQuery = NCMBQuery(className: "Notification")
         notificationQuery.whereKey("ownerUser", equalTo: NCMBUser.currentUser())
-        notificationQuery.orderByDescending("updateDate") // cellの並べ方
+        notificationQuery.orderByDescending("createDate") // cellの並べ方
         notificationQuery.includeKey("actionUser")
         notificationQuery.limit = 20 //取ってくるデータ最新から20件
         notificationQuery.findObjectsInBackgroundWithBlock { (objects, error) in
@@ -77,7 +77,7 @@ class NotificationTableViewController: UITableViewController {
 //        //includeKeyで全部撮ってきたいんねん!!!!ほんとのところは！
         let notificationQuery: NCMBQuery = NCMBQuery(className: "Notification")
         notificationQuery.whereKey("ownerUser", equalTo: NCMBUser.currentUser())
-        notificationQuery.orderByDescending("updateDate") // cellの並べ方
+        notificationQuery.orderByDescending("createDate") // cellの並べ方
         notificationQuery.includeKey("actionUser")
         notificationQuery.limit = 20 //取ってくるデータ最新から20件
         notificationQuery.findObjectsInBackgroundWithBlock { (objects, error) in
