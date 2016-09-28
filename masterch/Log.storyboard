@@ -395,7 +395,13 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="ログ" id="Efw-Us-mcx"/>
+                    <navigationItem key="navigationItem" title="ログ" id="Efw-Us-mcx">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="Sbm-fC-ZDE">
+                            <connections>
+                                <segue destination="0AV-TR-6UT" kind="presentation" id="fxd-wo-GH0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="1136"/>
                     <connections>
@@ -414,6 +420,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jjh-ct-ER1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-452" y="361"/>
+        </scene>
+        <!--Submit-->
+        <scene sceneID="VXs-Dp-u9s">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Submit" id="0AV-TR-6UT" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N4z-RH-IWz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-130.5" y="-289"/>
         </scene>
         <!--PostDetail-->
         <scene sceneID="hde-bH-qNb">
