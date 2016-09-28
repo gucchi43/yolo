@@ -63,6 +63,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 
     var cashImageDictionary = [Int : UIImage]()
     var cashProfileImageDictionary = [Int : UIImage]()
+    var dayLoadingToggle = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,6 +112,12 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     
     //関数で受け取った時のアクションを定義
     func didSelectDayView(notification: NSNotification) {
+        self.dayLoadingToggle = true
+        self.postArray = []
+        self.tableView.emptyDataSetSource = self
+        self.tableView.emptyDataSetDelegate = self
+        self.tableView.reloadData()
+
         let logNumber: Int
         if logManager.sharedSingleton.logTitleToggle == true{
             logNumber = logManager.sharedSingleton.tabLogNumber
@@ -236,6 +243,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     
     //tableViewに表示するその日の投稿をQueryから取ってくる
     func loadQuery(logNumber: Int){
+
         let logQueryManager = LogQueryManager()
         let postQuery: NCMBQuery
         
@@ -257,10 +265,12 @@ class LogViewController: UIViewController, addPostDetailDelegate {
                     print("その日に投稿があるパターン")
                     print("投稿数", objects.count)
                     self.postArray = objects
+                    self.dayLoadingToggle = false
                     self.tableView.emptyDataSetSource = nil
                     self.tableView.emptyDataSetDelegate = nil
                 } else {
                     print("その日に投稿がないパターン")
+                    self.dayLoadingToggle = false
                     self.postArray = []
                     self.tableView.emptyDataSetSource = self
                     self.tableView.emptyDataSetDelegate = self
@@ -373,40 +383,56 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 extension LogViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     //------------------DZNEmptyDataSet(セルが無い時に表示するViewの設定--------------------
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let logNumber: Int
-        if logManager.sharedSingleton.logTitleToggle == true{
-            logNumber = logManager.sharedSingleton.tabLogNumber
+        if self.dayLoadingToggle == true {
+            let postDateFormatter: NSDateFormatter = NSDateFormatter()
+            postDateFormatter.dateFormat = "dd"
+            let dayString = postDateFormatter.stringFromDate(CalendarManager.currentDate)
+            let str = "😴 " + dayString + "日" + " 😴"
+            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleTitle1) , NSForegroundColorAttributeName:  UIColor.whiteColor()]
+            return NSAttributedString(string: str, attributes: attrs)
         }else {
-            logNumber = logManager.sharedSingleton.logNumber
-        }
-        switch logNumber {
-        case 0: //自分の時
-            let str = "😝その日のログはまだないよ😝"
-            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
-            return NSAttributedString(string: str, attributes: attrs)
-        default: //自分ではない時
-            let str = "😝その日のログはまだないよ😝"
-            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
-            return NSAttributedString(string: str, attributes: attrs)
+            let logNumber: Int
+            if logManager.sharedSingleton.logTitleToggle == true{
+                logNumber = logManager.sharedSingleton.tabLogNumber
+            }else {
+                logNumber = logManager.sharedSingleton.logNumber
+            }
+            switch logNumber {
+            case 0: //自分の時
+                let str = "😝その日のログはまだないよ😝"
+                let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
+                return NSAttributedString(string: str, attributes: attrs)
+            default: //自分ではない時
+                let str = "😝その日のログはまだないよ😝"
+                let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
+                return NSAttributedString(string: str, attributes: attrs)
+            }
         }
     }
 
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let logNumber: Int
-        if logManager.sharedSingleton.logTitleToggle == true{
-            logNumber = logManager.sharedSingleton.tabLogNumber
+        if self.dayLoadingToggle == true {
+            let str = "読み込み中..."
+            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
+            return NSAttributedString(string: str, attributes: attrs)
         }else {
-            logNumber = logManager.sharedSingleton.logNumber
-        }
-        switch logNumber {
-        case 0: //自分の時
-            let str = "今すぐログっちゃおう"
-            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
-            return NSAttributedString(string: str, attributes: attrs)
-        default: //自分ではない時
-            let str = "ヒマだよねー"
-            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
-            return NSAttributedString(string: str, attributes: attrs)
+            let logNumber: Int
+            if logManager.sharedSingleton.logTitleToggle == true{
+                logNumber = logManager.sharedSingleton.tabLogNumber
+            }else {
+                logNumber = logManager.sharedSingleton.logNumber
+            }
+            switch logNumber {
+            case 0: //自分の時
+                let str = "今すぐログっちゃおう"
+                let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
+                return NSAttributedString(string: str, attributes: attrs)
+            default: //自分ではない時
+                let str = "ヒマだよねー"
+                let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
+                return NSAttributedString(string: str, attributes: attrs)
+            }
+
         }
     }
 
