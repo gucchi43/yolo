@@ -580,8 +580,11 @@ extension AccountViewController {
         }else {
             followON(followButton)
         }
-        //特定のcellだけreloadかける（２行目）
-        let indexPaths = NSIndexPath(forRow: 1, inSection: 0)
+    }
+
+    //特定のcellだけreloadかける(何行目: 0スタート, 何セクション目: このViewではわけてないので0だけ)
+    func reloadOnlyCell(forRow: Int, inSection: Int){
+        let indexPaths = NSIndexPath(forRow: forRow, inSection: inSection)
         tableView.reloadRowsAtIndexPaths([indexPaths], withRowAnimation: UITableViewRowAnimation.Fade)
     }
     
@@ -590,6 +593,7 @@ extension AccountViewController {
         followerNumbarInt = followerNumbarInt + 1
         followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
         followButton.enabled = false
+        reloadOnlyCell(1, inSection: 0)
 //        print("followingRelationshipObject", followingRelationshipObject)
         let relationObject = NCMBObject(className: "Relationship")
         relationObject.setObject(NCMBUser.currentUser(), forKey: "followed")
@@ -612,6 +616,7 @@ extension AccountViewController {
                 followButton.setImage(UIImage(named: "follow"), forState: UIControlState.Normal)
                 self.followerNumbarInt = self.followerNumbarInt - 1
                 followButton.enabled = true
+                self.reloadOnlyCell(1, inSection: 0)
             }else {
                 self.isFollowing = true
                 print("フォロー成功", NCMBUser.currentUser().userName, "→", self.user!.userName)
@@ -651,7 +656,7 @@ extension AccountViewController {
         followerNumbarInt = followerNumbarInt - 1
         followButton.setImage(UIImage(named: "follow"), forState: UIControlState.Normal)
         followButton.enabled = false
-//        print("followingRelationshipObject", followingRelationshipObject)
+        reloadOnlyCell(1, inSection: 0)
         followingRelationshipObject.fetchInBackgroundWithBlock({ (error) -> Void in
             if let error = error {
                 print(error.localizedDescription)
@@ -670,6 +675,7 @@ extension AccountViewController {
                 followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
                 self.followerNumbarInt = self.followerNumbarInt + 1
                 followButton.enabled = true
+                self.reloadOnlyCell(1, inSection: 0)
             }else {
                 self.followingRelationshipObject.deleteEventually({(error) in
                     if let error = error {
@@ -690,6 +696,7 @@ extension AccountViewController {
                         followButton.setImage(UIImage(named: "followNow"), forState: UIControlState.Normal)
                         self.followerNumbarInt = self.followerNumbarInt + 1
                         followButton.enabled = true
+                        self.reloadOnlyCell(1, inSection: 0)
                     }else {
                         print("フォロー解除成功", NCMBUser.currentUser().userName, "→", self.user!.userName)
                         self.isFollowing = false
