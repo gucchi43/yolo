@@ -18,7 +18,7 @@
                     <connections>
                         <segue destination="gMd-fS-80a" kind="relationship" relationship="viewControllers" id="xir-Tq-NfJ"/>
                         <segue destination="Nr0-kO-o6P" kind="relationship" relationship="viewControllers" id="Duo-LR-RfI"/>
-                        <segue destination="TY2-k7-4ob" kind="relationship" relationship="viewControllers" id="LAd-Oe-TbZ"/>
+                        <segue destination="kRs-ZM-qIP" kind="relationship" relationship="viewControllers" id="EEH-Aj-68E"/>
                         <segue destination="qbn-iQ-1wZ" kind="relationship" relationship="viewControllers" id="QLm-eS-HMb"/>
                         <segue destination="mLo-TN-FjO" kind="relationship" relationship="viewControllers" id="EP6-ak-f6F"/>
                     </connections>
@@ -31,7 +31,7 @@
         <scene sceneID="8D1-oi-x1X">
             <objects>
                 <viewControllerPlaceholder storyboardName="Search" id="Nr0-kO-o6P" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="2" id="BqW-la-UdK"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Search" id="BqW-la-UdK"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M0T-Vo-Gbg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -41,7 +41,7 @@
         <scene sceneID="hRI-mY-na7">
             <objects>
                 <viewControllerPlaceholder storyboardName="Log" id="gMd-fS-80a" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="1" title="Item" id="wCD-62-sqi"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="log" id="wCD-62-sqi"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Njg-yG-PuQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -51,42 +51,31 @@
         <scene sceneID="rHk-mp-WUd">
             <objects>
                 <viewControllerPlaceholder storyboardName="Notification" id="qbn-iQ-1wZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="4" id="Hhi-4O-exZ"/>
+                    <tabBarItem key="tabBarItem" tag="4" title="Notification" id="Hhi-4O-exZ"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q8G-65-BWB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="826.5" y="1473"/>
-        </scene>
-        <!--投稿-->
-        <scene sceneID="URn-Vv-p29">
-            <objects>
-                <viewController id="TY2-k7-4ob" customClass="SubmitDummyViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="khK-4d-SR2"/>
-                        <viewControllerLayoutGuide type="bottom" id="zP1-b7-XCM"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="WX0-4a-X5I">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" tag="3" title="投稿" id="ZlN-Ia-SRl"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="200" height="100"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yfh-7G-ENr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="875" y="1395"/>
+            <point key="canvasLocation" x="841.5" y="1497"/>
         </scene>
         <!--Account-->
         <scene sceneID="feu-Io-4KO">
             <objects>
                 <viewControllerPlaceholder storyboardName="Account" id="mLo-TN-FjO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="5" title="Item" image="noprofile.png" id="LhM-YA-FVq"/>
+                    <tabBarItem key="tabBarItem" tag="5" title="Account" image="noprofile.png" id="LhM-YA-FVq"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9f2-nA-gI3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="816.5" y="1510"/>
+            <point key="canvasLocation" x="836.5" y="1557"/>
+        </scene>
+        <!--LookBack-->
+        <scene sceneID="60A-Mz-sDN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="LookBack" id="kRs-ZM-qIP" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" tag="3" title="LookBook" id="3hu-IC-2xE"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hd2-yM-KDi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="840.5" y="1384"/>
         </scene>
         <!--Top View Controller-->
         <scene sceneID="B5O-1K-JpF">
@@ -717,7 +706,7 @@
         <image name="fb_login_small.png" width="261" height="58"/>
         <image name="logoTitle" width="158" height="42"/>
         <image name="noprofile" width="400" height="400"/>
-        <image name="noprofile.png" width="137" height="150"/>
+        <image name="noprofile.png" width="40" height="33"/>
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
