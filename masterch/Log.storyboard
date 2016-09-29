@@ -398,7 +398,8 @@
                     <navigationItem key="navigationItem" title="ログ" id="Efw-Us-mcx">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="Sbm-fC-ZDE">
                             <connections>
-                                <segue destination="0AV-TR-6UT" kind="presentation" id="fxd-wo-GH0"/>
+                                <action selector="tapSubmitbutton:" destination="FJA-Vb-RO4" id="DYA-Ou-3a5"/>
+                                <segue destination="0AV-TR-6UT" kind="presentation" identifier="toSubmitVC" id="fxd-wo-GH0"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -427,7 +428,7 @@
                 <viewControllerPlaceholder storyboardName="Submit" id="0AV-TR-6UT" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4z-RH-IWz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-130.5" y="-289"/>
+            <point key="canvasLocation" x="-14.5" y="83"/>
         </scene>
         <!--PostDetail-->
         <scene sceneID="hde-bH-qNb">
