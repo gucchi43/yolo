@@ -23,11 +23,11 @@
             </objects>
             <point key="canvasLocation" x="768" y="36"/>
         </scene>
-        <!--LookBack-->
+        <!--タイムトリップ-->
         <scene sceneID="YYj-lc-mme">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0ij-Xt-hFc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="LookBack" image="hartON" id="xkL-rI-06e"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="タイムトリップ" image="tabTimeTrip" id="xkL-rI-06e"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="y4B-Ob-ebP">
@@ -45,6 +45,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="hartON" width="25" height="22"/>
+        <image name="tabTimeTrip" width="23" height="31"/>
     </resources>
 </document>

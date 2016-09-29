@@ -379,7 +379,6 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     }
 }
 
-
 extension LogViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     //------------------DZNEmptyDataSet(セルが無い時に表示するViewの設定--------------------
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
