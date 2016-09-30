@@ -78,26 +78,30 @@ class CalendarManager: NSObject {
     }
     
     //選択した日にちの00:00:00のNSDateをゲット（その日のタイムライン絞るのに使用）
-    class func FilterDateStart() -> NSDate {
+    //引数無しの場合currentDateが使われる（LogViewなどから使われる）
+    //引数ありの場合（LookBackから使われる）
+    class func FilterDateStart(targetDate: NSDate = CalendarManager.currentDate) -> NSDate {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         
-        let formatDate = formatter.dateFromString(String(CalendarManager.currentDate.year) + "/" +
-            String(CalendarManager.currentDate.month) + "/" +
-            String(CalendarManager.currentDate.day) + " 00:00:00")
+        let formatDate = formatter.dateFromString(String(targetDate.year) + "/" +
+            String(targetDate.month) + "/" +
+            String(targetDate.day) + " 00:00:00")
         
         print("FilterDateStart", currentDate)
         return formatDate!
     }
     
     //選択した日にちの23:59:59のNSDateをゲット（その日のタイムライン絞るのに使用）
-    class func FilterDateEnd() -> NSDate {
+    //引数無しの場合currentDateが使われる（LogViewなどから使われる）
+    //引数ありの場合（LookBackから使われる）
+    class func FilterDateEnd(targetDate: NSDate = CalendarManager.currentDate) -> NSDate {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         
-        let formatDate = formatter.dateFromString(String(CalendarManager.currentDate.year) + "/" +
-            String(CalendarManager.currentDate.month) + "/" +
-            String(CalendarManager.currentDate.day) + " 23:59:59")
+        let formatDate = formatter.dateFromString(String(targetDate.year) + "/" +
+            String(targetDate.month) + "/" +
+            String(targetDate.day) + " 23:59:59")
         
         print("FilterDateEnd", currentDate)
         return formatDate!
