@@ -112,6 +112,12 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     
     //関数で受け取った時のアクションを定義
     func didSelectDayView(notification: NSNotification) {
+        //疑似キャッシュをクリア
+        cashProfileImageDictionary.removeAll()
+        cashImageDictionary.removeAll()
+        print("クリア後のcashImageDictionary", cashImageDictionary)
+
+        //tableViewのとこに読み込み画面入れる
         self.dayLoadingToggle = true
         self.postArray = []
         self.tableView.emptyDataSetSource = self
@@ -124,10 +130,6 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }else {
             logNumber = logManager.sharedSingleton.logNumber
         }
-        //疑似キャッシュをクリア
-        cashProfileImageDictionary.removeAll()
-        cashImageDictionary.removeAll()
-        print("クリア後のcashImageDictionary", cashImageDictionary)
 
         loadQuery(logNumber)
         monthLabel.text = CalendarManager.selectLabel()
@@ -599,6 +601,8 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
         selectedPostObject = self.postArray[indexPath.row] as! NCMBObject
         if let cashImage = cashImageDictionary[indexPath.row] {
             selectedPostImage = cashImage
+        }else {
+            selectedPostImage = nil
         }
         performSegueWithIdentifier("toPostDetailVC", sender: nil)
     }
