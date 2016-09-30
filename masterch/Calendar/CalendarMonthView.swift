@@ -172,12 +172,10 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
             if view.isKindOfClass(CalendarSwiftDateView) {
                 let dateView = view as! CalendarSwiftDateView
                 if dateView.date == CalendarManager.currentDate {
-                    dateView.dayButton.layer.borderColor = UIColor.grayColor().CGColor
-                    dateView.dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
+                    dateView.changeSelectDayButton(dateView.dayButton)
                     print(dateView.date)
                 } else {
-                    dateView.dayButton.layer.borderColor = UIColor.clearColor().CGColor
-                    dateView.dayButton.titleLabel?.font = UIFont.systemFontOfSize(10)
+                    dateView.changeDefaultDayButton(dateView.dayButton)
 
                 }
             }

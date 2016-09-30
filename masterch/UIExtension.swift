@@ -38,7 +38,7 @@ extension UIView {
         self.layer.renderInContext(context!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-
+        
         return image
     }
 }

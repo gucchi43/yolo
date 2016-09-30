@@ -28,49 +28,46 @@ class CalendarSwiftDateView: UIView{
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     init(frame: CGRect, date: NSDate)  {
         super.init(frame: frame)
         self.date = date
         self.tag = Int(date.toString(DateFormat.Custom("yyyyMMdd"))!)!
         let w = Int((UIScreen.mainScreen().bounds.size.width) / 7) - 6
-        
+
         dayButton = UIButton(frame: CGRect(x: 3, y: 3, width: w, height: w))
         dayButton.setTitle(String(format: "%02d", date.day), forState: UIControlState.Normal)
-        dayButton.titleLabel?.font = UIFont.systemFontOfSize(10)
+        dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
         //dayButtonを丸くしている
-//        dayButton.layer.cornerRadius = CGFloat(w / 2)
+        //        dayButton.layer.cornerRadius = CGFloat(w / 2)
         dayButton.layer.cornerRadius = CGFloat(w / 10)
         dayButton.layer.borderColor = UIColor.clearColor().CGColor
         dayButton.layer.borderWidth = 3
-        
+
         //日にちの数字を左上にするとこ
-//        dayButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Top
-//        dayButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-//        dayButton.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-        
+        self.changeDefaultDayButton(dayButton)
+
         dayButton.addTarget(self, action: #selector(CalendarSwiftDateView.onTapCalendarDayButton(_:)), forControlEvents: .TouchUpInside)
-        
+
         if date == CalendarManager.currentDate {
-            dayButton.layer.borderColor = UIColor.grayColor().CGColor
-            dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
+            self.changeSelectDayButton(dayButton)
         }
 
         if date.year == NSDate().year && date.month == NSDate().month && date.day == NSDate().day{
             //今日だけ黒
             dayButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-//        } else if date.weekday == 1 {
-//            //日曜日は赤
-//            dayButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
-//        } else if date.weekday == 7 {
-//            //土曜日は青
-//            dayButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
-//            //        } else if date < NSDate(){
-//            //            //過去はオレンジ
-//            //            dayButton.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
-//            //        } else if date > NSDate(){
-//            //            //未来は水色
-//            //            dayButton.setTitleColor(UIColor.cyanColor(), forState: UIControlState.Normal)
+            //        } else if date.weekday == 1 {
+            //            //日曜日は赤
+            //            dayButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+            //        } else if date.weekday == 7 {
+            //            //土曜日は青
+            //            dayButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+            //            //        } else if date < NSDate(){
+            //            //            //過去はオレンジ
+            //            //            dayButton.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
+            //            //        } else if date > NSDate(){
+            //            //            //未来は水色
+            //            //            dayButton.setTitleColor(UIColor.cyanColor(), forState: UIControlState.Normal)
         } else {
             //普通はダークグレー
             dayButton.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
@@ -87,44 +84,70 @@ class CalendarSwiftDateView: UIView{
             NSNotificationCenter.defaultCenter().postNotification(n)
         }
     }
+    func changeSelectDayButton(button: UIButton){
+        dayButton.layer.borderColor = UIColor.grayColor().CGColor
+        dayButton.titleLabel?.font = UIFont.systemFontOfSize(24)
+        dayButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
+        dayButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+    }
+
+    func changeDefaultDayButton(button: UIButton){
+        dayButton.layer.borderColor = UIColor.clearColor().CGColor
+        dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
+        dayButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Top
+        dayButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        dayButton.titleEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+    }
 
     //その日の色を、決定する
     func selectDateColor(dateColor: String){
         self.dayButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
+
+        let frame = self.dayButton.frame
+        let backLabel = UILabel(frame: frame)
+        backLabel.textAlignment = NSTextAlignment.Center
+        backLabel.font = UIFont.systemFontOfSize(42)
+        backLabel.alpha = 0.7
+
         switch dateColor {
         case "a" :
-            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
+            backLabel.text = "😆"
+            self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)
+
+//            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
         case "b" :
-            self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
+            backLabel.text = "😰"
+            self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)
+        //            self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
         case "c" :
             self.dayButton.setBackgroundImage(logNomalImage, forState: .Normal)
         case "d" :
             self.dayButton.setBackgroundImage(logFollowImage, forState: .Normal)
         case "red" :
-//            self.dayButton.backgroundColor =  UIColor.redColor()
-        self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
+            //            self.dayButton.backgroundColor =  UIColor.redColor()
+            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
         case "yellow" :
-//            self.dayButton.backgroundColor =  UIColor.yellowColor()
+            //            self.dayButton.backgroundColor =  UIColor.yellowColor()
             self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
         case "pink" :
             self.dayButton.backgroundColor =  UIColor.magentaColor()
-//            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
+        //            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
         case "blue" :
-//            self.dayButton.backgroundColor =  UIColor.blueColor()
-        self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
+            //            self.dayButton.backgroundColor =  UIColor.blueColor()
+            self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
         case "green" :
-//            self.dayButton.backgroundColor =  UIColor.greenColor()
+            //            self.dayButton.backgroundColor =  UIColor.greenColor()
             self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
         case "gray" :
-//            self.dayButton.backgroundColor =  UIColor.darkGrayColor()
+            //            self.dayButton.backgroundColor =  UIColor.darkGrayColor()
             self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
         default :
-//            self.dayButton.backgroundColor =  UIColor.lightGrayColor()
+            //            self.dayButton.backgroundColor =  UIColor.lightGrayColor()
             self.dayButton.setBackgroundImage(logNomalImage, forState: .Normal)
         }
     }
 }
-    
+
 
 
 

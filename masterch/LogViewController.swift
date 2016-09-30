@@ -437,19 +437,9 @@ extension LogViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
         }
     }
 
-//    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-//        return UIImage(named: "logGood")
-//    }
-
     func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
         return UIColor.lightGrayColor()
     }
-
-//    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
-//        let str = "∨"
-//        let attrs = [NSFontAttributeName: UIFont.boldSystemFontOfSize(20.0), NSForegroundColorAttributeName: UIColor.whiteColor()]
-//        return NSAttributedString(string: str, attributes: attrs)
-//    }
 
     func emptyDataSetShouldDisplay(scrollView: UIScrollView!) -> Bool {
         return true
