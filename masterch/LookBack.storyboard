@@ -77,6 +77,9 @@
                                                             <exclude reference="gC4-co-kTc"/>
                                                         </mask>
                                                     </variation>
+                                                    <connections>
+                                                        <action selector="tapCommentButtonAction:" destination="2Vk-ra-eZE" eventType="touchUpInside" id="dEi-dU-ACW"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ポストのテキストを表示する。ポストのテキストを表示する。ポストのテキストを表示する。ポストのテキストを表示する。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Mo-Nn-bmC" customClass="TTTAttributedLabel">
                                                     <rect key="frame" x="8" y="58" width="584" height="36"/>
@@ -121,6 +124,9 @@
                                                             <exclude reference="I79-Ym-j6t"/>
                                                         </mask>
                                                     </variation>
+                                                    <connections>
+                                                        <action selector="tapLikeButtonAction:" destination="2Vk-ra-eZE" eventType="touchUpInside" id="6NN-ch-Qi8"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfc-QH-jMM">
                                                     <rect key="frame" x="54" y="18" width="76" height="21"/>
@@ -212,11 +218,20 @@
                     <connections>
                         <outlet property="segment" destination="dvk-Uv-gqR" id="ULQ-qf-4pB"/>
                         <outlet property="tableView" destination="KXH-Ou-T70" id="YUK-Nl-Mix"/>
+                        <segue destination="qhj-Uw-pqc" kind="show" identifier="toPostDetailVC" id="dii-QO-Nfk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c8B-sU-4Tf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="768" y="36"/>
+        </scene>
+        <!--PostDetail-->
+        <scene sceneID="rg3-eq-fPW">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PostDetail" id="qhj-Uw-pqc" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YLG-tI-vjE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1277.5" y="-27"/>
         </scene>
         <!--タイムトリップ-->
         <scene sceneID="YYj-lc-mme">

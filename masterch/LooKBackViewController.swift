@@ -12,7 +12,7 @@ import SwiftDate
 import DZNEmptyDataSet
 import TTTAttributedLabel
 
-class LooKBackViewController: UIViewController {
+class LooKBackViewController: UIViewController, addPostDetailDelegate {
     
     @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
@@ -87,6 +87,126 @@ class LooKBackViewController: UIViewController {
     
     @IBAction func selectSegmentAction(sender: AnyObject) {
         loadQuery()
+    }
+    
+    @IBAction func tapCommentButtonAction(sender: UIButton) {
+        // 押されたボタンを取得
+        let cell = sender.superview?.superview as! TimelineCell
+        let row = tableView.indexPathForCell(cell)?.row
+        selectedPostObject = self.posts[row!] as! NCMBObject
+        
+        performSegueWithIdentifier("toPostDetailVC", sender: true)
+    }
+    
+    @IBAction func tapLikeButtonAction(sender: AnyObject) {
+        print("LIKEボタン押した")
+        let button = sender as! UIButton
+        let cell = button.superview?.superview as! TimelineCell
+        print("投稿内容", cell.postTextLabel.text)
+        let row = tableView.indexPathForCell(cell)?.row
+        let postData = posts[row!] as! NCMBObject
+        
+        //いいねアクション実行
+        if cell.isLikeToggle == true{
+            disLike(postData, cell: cell)
+        } else {
+            like(postData, cell: cell)
+        }
+    }
+
+    func like(postData: NCMBObject, cell: TimelineCell) {
+        //いいねONボタン
+        cell.likeButton.enabled = false
+        cell.likeButton.setImage(likeOnImage, forState: .Normal)
+        
+        if cell.likeCounts != nil{
+            //likeCountが追加で変更される時（2回目以降）
+            if let oldLinkCounts = Int(cell.likeNumberButton.currentTitle!){
+                print("oldLinkCounts", oldLinkCounts)
+                //普通にいいねを１追加（2~）
+                let newLikeCounts = oldLinkCounts + 1
+                cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+            }else {
+                //oldCountがない場合（以前いいねされたけど、削除されて0になってlikeCountがnullの場合）
+                let newLikeCounts = 1
+                cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+            }
+        }else{
+            //likeCountが初めて変更される時
+            let newLikeCounts = 1
+            cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+        }
+        postData.addUniqueObject(NCMBUser.currentUser().objectId, forKey: "likeUser")
+        postData.saveEventually ({ (error) -> Void in
+            if let error = error{
+                print(error.localizedDescription)
+                cell.isLikeToggle = false
+                cell.likeButton.enabled = true
+            }else {
+                print("save成功 いいね保存")
+                cell.isLikeToggle = true
+                //いいねしたことを通知画面のDBに保存
+                let auther = postData.objectForKey("user") as! NCMBUser
+                let allPostText = postData.objectForKey("text") as! String
+                let allPostTextCount = allPostText.characters.count
+                print("allPostTextCount", allPostTextCount)
+                let postHeader: String?
+                if allPostTextCount > 100{
+                    postHeader = allPostText.substringToIndex(allPostText.startIndex.advancedBy(100))
+                }else {
+                    postHeader = allPostText
+                }
+                print("Notificatoinに保存する最初の５０文字", postHeader!)
+                let notificationManager = NotificationManager()
+                notificationManager.likeNotification(auther, post: postData, postHeader: postHeader!, button: cell.likeButton)
+            }
+        })
+    }
+
+    func disLike(postData: NCMBObject, cell: TimelineCell) {
+        //いいねOFFボタン
+        cell.likeButton.enabled = false
+        cell.likeButton.setImage(likeOffImage, forState: .Normal)
+        cell.likeNumberButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+        
+        if cell.likeCounts != nil{
+            //likeCountがある時（1~）
+            let oldLinkCounts = Int(cell.likeNumberButton.currentTitle!)
+            print("oldLinkCounts", oldLinkCounts)
+            let newLikeCounts = oldLinkCounts! - 1
+            if newLikeCounts > 0{
+                //変更後のlikeCountが0より上の場合（1~）
+                cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+            }else {
+                //変更後のlikeCountが0を含むそれ以下の場合(~0)
+                let newLikeCounts = ""
+                cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+            }
+        }else {
+            //likeCountが今までついたことがなかった場合
+            let newLikeCounts = ""
+            cell.likeNumberButton.setTitle(String(newLikeCounts), forState: .Normal)
+        }
+        
+        let auther = postData.objectForKey("user") as! NCMBUser
+        postData.removeObject(NCMBUser.currentUser().objectId, forKey: "likeUser")
+        postData.saveEventually ({ (error) -> Void in
+            if let error = error{
+                print(error.localizedDescription)
+                cell.isLikeToggle = true
+                cell.likeButton.enabled = true
+            }else {
+                print("save成功 いいね取り消し")
+                cell.isLikeToggle = false
+                let notificationManager = NotificationManager()
+                notificationManager.deletelikeNotification(auther, post: postData, button: cell.likeButton)
+            }
+        })
+    }
+    
+    func postDetailDismissionAction() {
+        print("postDetailDismissionAction")
+        tableView.reloadData()
     }
 }
 
@@ -213,7 +333,7 @@ extension LooKBackViewController: UITableViewDelegate, UITableViewDataSource, TT
         postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
         
-        cell.commentButton.addTarget(self, action: #selector(LogViewController.pushCommentButton(_:)), forControlEvents: .TouchUpInside)
+        cell.commentButton.addTarget(self, action: #selector(LooKBackViewController.tapCommentButtonAction(_:)), forControlEvents: .TouchUpInside)
         
         //プロフィール写真の形を円形にする
         cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
@@ -308,13 +428,13 @@ extension LooKBackViewController: UITableViewDelegate, UITableViewDataSource, TT
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("セルの選択: \(indexPath.row)")
-//        selectedPostObject = self.posts[indexPath.row] as! NCMBObject
-//        if let cashImage = cashImageDictionary[indexPath.row] {
-//            selectedPostImage = cashImage
-//        }else {
-//            selectedPostImage = nil
-//        }
-//        performSegueWithIdentifier("toPostDetailVC", sender: nil)
+        selectedPostObject = self.posts[indexPath.row] as! NCMBObject
+        if let cashImage = cashImageDictionary[indexPath.row] {
+            selectedPostImage = cashImage
+        }else {
+            selectedPostImage = nil
+        }
+        performSegueWithIdentifier("toPostDetailVC", sender: nil)
     }
 
 //     urlリンクをタップされたときの処理を記述します
@@ -323,6 +443,21 @@ extension LooKBackViewController: UITableViewDelegate, UITableViewDataSource, TT
         print(url)
         if UIApplication.sharedApplication().canOpenURL(url!){
             UIApplication.sharedApplication().openURL(url!)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toPostDetailVC" {
+            let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
+            //            postDetailVC.hidesBottomBarWhenPushed = true // trueならtabBar隠す
+            postDetailVC.postObject = self.selectedPostObject
+            if let selectedPostImage = selectedPostImage {
+                postDetailVC.postImage = selectedPostImage
+            }
+            postDetailVC.delegate = self
+            if let sender = sender {
+                postDetailVC.isSelectedCommentButton = sender as! Bool
+            }
         }
     }
 }
