@@ -233,6 +233,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         print("openSubmitViewController")
         let submitVC = SubmitViewController()
         submitVC.delegate = self
+
     }
     
     

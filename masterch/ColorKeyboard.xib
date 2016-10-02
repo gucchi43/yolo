@@ -21,11 +21,11 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CXL-13-0zO" customClass="Button_Custom" customModule="masterch" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="106.5" height="108"/>
-                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="108" id="bQ1-f6-mNX"/>
                     </constraints>
-                    <state key="normal" title="red">
+                    <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                    <state key="normal" title="😆">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -34,16 +34,16 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="selectRed:" destination="-1" eventType="touchUpInside" id="qMl-oV-6QL"/>
+                        <action selector="selectedA:" destination="-1" eventType="touchUpInside" id="Cb7-X7-TZy"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6g-Lz-Mhu" customClass="Button_Custom" customModule="masterch" customModuleProvider="target">
                     <rect key="frame" x="107" y="0.0" width="106" height="108"/>
-                    <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="106" id="oI8-tn-WnG"/>
                     </constraints>
-                    <state key="normal" title="yellow">
+                    <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                    <state key="normal" title="😳">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -52,13 +52,13 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="selectYellow:" destination="-1" eventType="touchUpInside" id="Xff-Gw-pzd"/>
+                        <action selector="selectedB:" destination="-1" eventType="touchUpInside" id="qTU-8v-QU5"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="36m-vP-OkH" customClass="Button_Custom" customModule="masterch" customModuleProvider="target">
                     <rect key="frame" x="213" y="0.0" width="107" height="108"/>
-                    <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="pink">
+                    <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                    <state key="normal" title="😍">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -67,13 +67,13 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="selectPink:" destination="-1" eventType="touchUpInside" id="TsX-8V-wf5"/>
+                        <action selector="selectedC:" destination="-1" eventType="touchUpInside" id="6z6-c6-vxZ"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75T-d3-dP8" customClass="Button_Custom" customModule="masterch" customModuleProvider="target">
                     <rect key="frame" x="107" y="108" width="106" height="108"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="blue">
+                    <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                    <state key="normal" title="😰">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -82,13 +82,13 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="selectBlue:" destination="-1" eventType="touchUpInside" id="m1E-l3-xEp"/>
+                        <action selector="selectedE:" destination="-1" eventType="touchUpInside" id="eS1-Mu-vTD"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9sN-7y-smB" customClass="Button_Custom" customModule="masterch" customModuleProvider="target">
                     <rect key="frame" x="213" y="108" width="107" height="108"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" title="gray">
+                    <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                    <state key="normal" title="😱">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -97,13 +97,13 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="selectGray:" destination="-1" eventType="touchUpInside" id="CQe-wK-0Rp"/>
+                        <action selector="selectedF:" destination="-1" eventType="touchUpInside" id="suX-cG-azJ"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RS1-HT-wci" customClass="Button_Custom" customModule="masterch" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="108" width="107" height="108"/>
-                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="green">
+                    <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                    <state key="normal" title="😤">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -112,7 +112,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="selectGreen:" destination="-1" eventType="touchUpInside" id="bkh-Le-vB2"/>
+                        <action selector="selectedD:" destination="-1" eventType="touchUpInside" id="Vyh-DN-kvC"/>
                     </connections>
                 </button>
             </subviews>

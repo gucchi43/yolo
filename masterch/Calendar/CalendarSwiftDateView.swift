@@ -116,13 +116,23 @@ class CalendarSwiftDateView: UIView{
 
 //            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
         case "b" :
-            backLabel.text = "😰"
+            backLabel.text = "😳"
             self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)
         //            self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
         case "c" :
-            self.dayButton.setBackgroundImage(logNomalImage, forState: .Normal)
+            backLabel.text = "😍"
+            self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)
+
+//            self.dayButton.setBackgroundImage(logNomalImage, forState: .Normal)
         case "d" :
-            self.dayButton.setBackgroundImage(logFollowImage, forState: .Normal)
+            backLabel.text = "😤"
+            self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)
+        case "e" :
+            backLabel.text = "😰"
+            self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)
+        case "f" :
+            backLabel.text = "😰"
+            self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)
         case "red" :
             //            self.dayButton.backgroundColor =  UIColor.redColor()
             self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)

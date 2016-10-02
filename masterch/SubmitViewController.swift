@@ -65,7 +65,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     let user = NCMBUser.currentUser()
     
     var logDate: String?
-    var dateColor: String = "c"
+    var dateColor: String = "g"
     
     var postDate : NSDate?
     
@@ -85,7 +85,8 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         self.postTextView.textContainerInset = UIEdgeInsetsMake(5,5,5,5) //postTExtViewに5pxのpaddingを設定する
         self.postTextView.becomeFirstResponder() // 最初からキーボードを表示させる
         self.postTextView.inputAccessoryView = toolBar // キーボード上にツールバーを表示
-        
+
+        postPickerDate = CalendarManager.currentDate
         
         if let postDate = postDate {
             //選択されたNSDateを表示する。®
@@ -405,8 +406,11 @@ extension SubmitViewController {
 extension SubmitViewController {
     func selectToolBarGoodOrBadButton(sender:UIBarButtonItem) {
         print("カラーボタンを押した")
-        let goodOrBadKeyboardview:UIView = UINib(nibName: "GoodOrBadKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
-        self.postTextView.inputView = goodOrBadKeyboardview
+//        let goodOrBadKeyboardview:UIView = UINib(nibName: "GoodOrBadKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+//        self.postTextView.inputView = goodOrBadKeyboardview
+
+        let colorKeyboardView:UIView = UINib(nibName: "ColorKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+        self.postTextView.inputView = colorKeyboardView
         self.postTextView.reloadInputViews()
     }
 
@@ -419,6 +423,43 @@ extension SubmitViewController {
     @IBAction func selectBad(sender: AnyObject) {
         print("Badボタン押した")
         self.dateColor = "b"
+        toolBar.backgroundColor = UIColor.blueColor()
+    }
+
+
+
+    @IBAction func selectedA(sender: AnyObject) {
+        print("Aボタン押した")
+        self.dateColor = "a"
+        toolBar.backgroundColor = UIColor.redColor()
+    }
+
+    @IBAction func selectedB(sender: AnyObject) {
+        print("Bボタン押した")
+        self.dateColor = "b"
+        toolBar.backgroundColor = UIColor.redColor()
+    }
+
+    @IBAction func selectedC(sender: AnyObject) {
+        print("Cボタン押した")
+        self.dateColor = "c"
+        toolBar.backgroundColor = UIColor.redColor()
+    }
+
+    @IBAction func selectedD(sender: AnyObject) {
+        print("Dボタン押した")
+        self.dateColor = "d"
+        toolBar.backgroundColor = UIColor.blueColor()
+    }
+
+    @IBAction func selectedE(sender: AnyObject) {
+        print("Eボタン押した")
+        self.dateColor = "e"
+        toolBar.backgroundColor = UIColor.blueColor()
+    }
+    @IBAction func selectedF(sender: AnyObject) {
+        print("Fボタン押した")
+        self.dateColor = "f"
         toolBar.backgroundColor = UIColor.blueColor()
     }
 }
