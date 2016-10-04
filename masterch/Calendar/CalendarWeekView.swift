@@ -11,7 +11,8 @@ import NCMB
 import SwiftDate
 
 class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
-    var selectedDay: UIButton?
+    var selectedButton: UIButton!
+    var logColorCashDic = [String: [String]]()
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -62,8 +63,6 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
         let logUser = logManager.sharedSingleton.logUser
         let calendarLogCollerManager = CalendarLogCollerManager()
         let logColorQuery: NCMBQuery
-        //        let logVC = LogViewController()
-        //        let user = logVC.user
         if logUser == NCMBUser.currentUser(){
             print("user情報 in weekVC(自分のログの時)", logUser.userName)
             //weekLogColorDateはuserを引数に取らない場合userにはNCMBUser.currentUser()が自動で入る
@@ -73,20 +72,16 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
             logColorQuery = calendarLogCollerManager.weekLogColorDate(date, logNumber: logNumber, user: logUser)
         }
 
-        switch logNumber {
-        case 0:
-            //自分のみ
-            //            singleLogColorQueryLoad(logColorQuery)
-            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
-
-        case 1:
-            //フォローのみ
-            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
-        case 2:
-            //特定のユーザーのみ
-            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
-        default:
-            //その他
+        let logUserName = logUser.userName
+        let weekKeyArray = CalendarManager.getWeekNumber(CalendarManager.currentDate)
+        let weekKey = String(weekKeyArray[0]) + String(weekKeyArray[1])
+        let key = String(logNumber) + logUserName + weekKey
+        print("logColorCashDic", logColorCashDic)
+        if let cashLogColorArray = logColorCashDic[key]{
+            print("cashLogColorArray", cashLogColorArray)
+            self.setLogDateTag(cashLogColorArray, logNumber: logNumber)
+        }else {
+            //Queryを非同期で読み込み
             manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
         }
     }
@@ -142,20 +137,9 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
             }else {
                 if objects != nil{
                     for object in objects {
-                        let logColorArray = object.objectForKey("logDateTag") as! Array <String>
-                        for logColorObject in logColorArray {
-                            let logColorObjectArray = logColorObject.componentsSeparatedByString("&")
-                            print("logColorObjectArray", logColorObjectArray)
-                            let dayViewTag = Int(logColorObjectArray[0])
-                            let dayColor = logColorObjectArray[1]
-                            if let dayView = self.viewWithTag(dayViewTag!) as? CalendarSwiftDateView {
-                                if logNumber == 1 {
-                                    dayView.selectDateColor("d")
-                                }else {
-                                    dayView.selectDateColor(dayColor)
-                                }
-                            }
-                        }
+                        let logColorArray = object.objectForKey("logDateTag") as! [String]
+                        self.saveLogColorCashArray(logColorArray, logNumber: logNumber)
+                        self.setLogDateTag(logColorArray, logNumber: logNumber)
                     }
                 }else {
                     print("今月の投稿はまだない")
@@ -164,6 +148,31 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
             }
         }
 
+    }
+
+    func saveLogColorCashArray(logColorArray: [String], logNumber: Int) {
+        let logUserName = logManager.sharedSingleton.logUser.userName
+        let weekKeyArray = CalendarManager.getWeekNumber(CalendarManager.currentDate)
+        let weekKey = String(weekKeyArray[0]) + String(weekKeyArray[1])
+        let key = String(logNumber) + logUserName + weekKey
+        logColorCashDic[key] = logColorArray
+    }
+
+    func setLogDateTag (logColorArray: [String], logNumber: Int) {
+        for logColorObject in logColorArray {
+            let logColorObjectArray = logColorObject.componentsSeparatedByString("&")
+            print("logColorObjectArray", logColorObjectArray)
+            let dayViewTag = Int(logColorObjectArray[0])
+            let dayColor = logColorObjectArray[1]
+            if let dayView = self.viewWithTag(dayViewTag!) as? CalendarSwiftDateView {
+                if logNumber == 1 { //複数人のためアイコンを１つに統一
+                    dayView.selectDateColor("d")
+                }else {
+                    dayView.selectDateColor(dayColor)
+                }
+            }
+        }
+        
     }
 
     //日にち押すと

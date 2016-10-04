@@ -12,6 +12,7 @@ import SwiftDate
 
 class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
     var selectedButton: UIButton!
+    var logColorCashDic = [String: [String]]()
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -74,21 +75,19 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
             logColorQuery = calendarLogCollerManager.monthLogColorDate(date, logNumber: logNumber, user: logUser)
         }
 
-        switch logNumber {
-        case 0:
-            //自分のみ
-//            singleLogColorQueryLoad(logColorQuery)
-            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
-        case 1:
-            //フォローのみ
-            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
-        case 2:
-            //特定のユーザーのみ
-            manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
-        default:
-            //その他
+        let logUserName = logUser.userName
+        let monthKey = CalendarManager.getDateYearAndMonth(date)
+        let key = String(logNumber) + logUserName + String(monthKey)
+        print("logColorCashDic", logColorCashDic)
+        if let cashLogColorArray = logColorCashDic[key]{
+            print("cashLogColorArray", cashLogColorArray)
+            self.setLogDateTag(cashLogColorArray, logNumber: logNumber)
+        }else {
+            //Queryを非同期で読み込み
             manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
         }
+
+
     }
 //
 //    func singleLogColorQueryLoad(query: NCMBQuery){
@@ -142,20 +141,9 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
             }else {
                 if objects != nil{
                     for object in objects {
-                        let logColorArray = object.objectForKey("logDateTag") as! Array <String>
-                        for logColorObject in logColorArray {
-                            let logColorObjectArray = logColorObject.componentsSeparatedByString("&")
-                            print("logColorObjectArray", logColorObjectArray)
-                            let dayViewTag = Int(logColorObjectArray[0])
-                            let dayColor = logColorObjectArray[1] 
-                            if let dayView = self.viewWithTag(dayViewTag!) as? CalendarSwiftDateView {
-                                if logNumber == 1 {
-                                    dayView.selectDateColor("d")
-                                }else {
-                                    dayView.selectDateColor(dayColor)
-                                }
-                            }
-                        }
+                        let logColorArray = object.objectForKey("logDateTag") as! [String]
+                        self.saveLogColorCashArray(logColorArray, logNumber: logNumber)
+                        self.setLogDateTag(logColorArray, logNumber: logNumber)
                     }
                 }else {
                     print("今月の投稿はまだない")
@@ -166,6 +154,36 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
 
     }
 
+    func saveLogColorCashArray(logColorArray: [String], logNumber: Int) {
+        let logUserName = logManager.sharedSingleton.logUser.userName
+        let monthKey = CalendarManager.getDateYearAndMonth(CalendarManager.currentDate)
+        let key = String(logNumber) + logUserName + String(monthKey)
+        logColorCashDic[key] = logColorArray
+        if logColorCashDic.count > 30 {
+
+        }else {
+            
+        }
+    }
+
+    func setLogDateTag (logColorArray: [String], logNumber: Int) {
+        for logColorObject in logColorArray {
+            let logColorObjectArray = logColorObject.componentsSeparatedByString("&")
+            print("logColorObjectArray", logColorObjectArray)
+            let dayViewTag = Int(logColorObjectArray[0])
+            let dayColor = logColorObjectArray[1]
+            if let dayView = self.viewWithTag(dayViewTag!) as? CalendarSwiftDateView {
+                if logNumber == 1 { //複数人のためアイコンを１つに統一
+                    dayView.selectDateColor("d")
+                }else {
+                    dayView.selectDateColor(dayColor)
+                }
+            }
+        }
+
+    }
+
+    //日にち押すと
     func updateDayViewSelectedStatus() {
         let subViews:[UIView] = self.subviews as [UIView]
         for view in subViews {

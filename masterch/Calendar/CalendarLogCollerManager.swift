@@ -21,12 +21,14 @@ class CalendarLogCollerManager: NSObject {
 
         //クエリ作成
         let logColorArrayQuery: NCMBQuery = NCMBQuery(className: "TestColorDic")
+        //選択した日から、yyyy/MM を作る
+        let logYearAndMonth = CalendarManager.getDateYearAndMonth(date)
 
         switch logNumber { //絞っていくよーーーーーーーーーーーーー
         case 0:
             //自分のみ
             logColorArrayQuery.whereKey("user", equalTo: NCMBUser.currentUser())
-            logColorArrayQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
+            logColorArrayQuery.whereKey("logYearAndMonth", equalTo: logYearAndMonth)
 
             return logColorArrayQuery
 
@@ -35,20 +37,20 @@ class CalendarLogCollerManager: NSObject {
             let relationshipQuery: NCMBQuery = NCMBQuery(className: "Relationship") // 自分がフォローしている人かどうかのクエリ
             relationshipQuery.whereKey("followed", equalTo: NCMBUser.currentUser())
             logColorArrayQuery.whereKey("user", matchesKey: "follower", inQuery: relationshipQuery)
-            logColorArrayQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
+            logColorArrayQuery.whereKey("logYearAndMonth", equalTo: logYearAndMonth)
 
             return logColorArrayQuery
         case 2:
             //特定のアカウントのみ
             logColorArrayQuery.whereKey("user", equalTo: user)
-            logColorArrayQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
+            logColorArrayQuery.whereKey("logYearAndMonth", equalTo: logYearAndMonth)
 
             return logColorArrayQuery
 
         default:
             //オール
             logColorArrayQuery.whereKey("user", equalTo: user)
-            logColorArrayQuery.whereKey("logYearAndMonth", equalTo: CalendarManager.getDateYearAndMonth(date))
+            logColorArrayQuery.whereKey("logYearAndMonth", equalTo: logYearAndMonth)
 
             return logColorArrayQuery
         }
@@ -67,6 +69,7 @@ extension CalendarLogCollerManager{
         //クエリの作成
         let logColorArrayQuery: NCMBQuery = NCMBQuery(className: "TestWeekColorDic")
 
+        //[yyyy, oo] ooは、一年間で何周目か
         let yearAndWeekNumberArray = CalendarManager.getWeekNumber(date)
         let year = yearAndWeekNumberArray[0]
         let weekOfYear = yearAndWeekNumberArray[1]
