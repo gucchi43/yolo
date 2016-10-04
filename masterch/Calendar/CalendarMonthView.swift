@@ -54,7 +54,7 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
         }
     }
 
-    //LogViewの日にちごとの色を決める実行部分２
+    //LogViewの日にちごとの色を決める実行部分２(week版)
     func getLogColorDate(date: NSDate) {
         let logNumber: Int
         if logManager.sharedSingleton.logTitleToggle == true{

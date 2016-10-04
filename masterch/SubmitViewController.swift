@@ -68,6 +68,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     var dateColor: String = "g"
     
     var postDate : NSDate?
+    var weekToggle = false
     
     var delegate: SubmitViewControllerDelegate?
 
@@ -778,7 +779,6 @@ extension SubmitViewController {
             let containerSnsVC = ContainerSnsViewController()
             containerSnsVC.addSnsToFacebook(user)
         }
-        
     }
 
     func shareFacebookPost() {
@@ -810,12 +810,9 @@ extension SubmitViewController {
                     print("errorInfo:", error.localizedDescription)
                 }
                 return }
-            
             print(response)
         })
-        
     }
-    
 }
 
 //logColorArray(月version)
@@ -869,9 +866,11 @@ extension SubmitViewController {
                 print(error.localizedDescription)
             }else {
                 print("firstSetLogColorDic成功")
+                if self.weekToggle == false {
+                    self.prepareFinishSubmit()
+                }
             }
         }
-
     }
 
     //その月二回目の投稿&&その日の投稿は初めて
@@ -883,6 +882,9 @@ extension SubmitViewController {
                 print(error.localizedDescription)
             }else {
                 print("otherSetLogColorArray成功")
+                if self.weekToggle == false {
+                    self.prepareFinishSubmit()
+                }
             }
         }
     }
@@ -902,6 +904,9 @@ extension SubmitViewController {
                         print(error.localizedDescription)
                     }else {
                         print("updateLogColorArray追加成功")
+                        if self.weekToggle == false {
+                            self.prepareFinishSubmit()
+                        }
                     }
                 })
             }
@@ -946,13 +951,12 @@ extension SubmitViewController {
                         print("oldLogDateTagInfo", oldLogDateTagInfo)
                         self.updateWeekLogColorArray(object, logDateTag: logDateTag, oldLogDateTagInfo: oldLogDateTagInfo)
                     }
-
                 }
             }
         }
     }
 
-    //その月初めてのlogColorArray作成
+    //その週初めてのlogColorArray作成
     func firstSetWeekLogColorArray(year: Int, weekOfYear: Int, logDateTag: Int) {
         let logDateTagInfo = String(logDateTag) + "&" + self.dateColor
         let logColorDicObject: NCMBObject = NCMBObject(className: "TestWeekColorDic")
@@ -965,12 +969,14 @@ extension SubmitViewController {
                 print(error.localizedDescription)
             }else {
                 print("firstSetLogColorDic成功")
+                if self.weekToggle == true {
+                    self.prepareFinishSubmit()
+                }
             }
         }
-
     }
 
-    //その月二回目の投稿&&その日の投稿は初めて
+    //その週二回目の投稿&&その日の投稿は初めて
     func otherSetWeekLogColorArray(object: NCMBObject, logDateTag: Int) {
         let logDateTagInfo = String(logDateTag) + "&" + self.dateColor
         object.addObject(logDateTagInfo, forKey: "logDateTag")
@@ -979,11 +985,14 @@ extension SubmitViewController {
                 print(error.localizedDescription)
             }else {
                 print("otherSetLogColorArray成功")
+                if self.weekToggle == true {
+                    self.prepareFinishSubmit()
+                }
             }
         }
     }
 
-    //その月二回目の投稿&&その日の投稿も二回目以降
+    //その週二回目の投稿&&その日の投稿も二回目以降
     func updateWeekLogColorArray(object: NCMBObject, logDateTag: Int, oldLogDateTagInfo: String) {
         let logDateTagInfo = String(logDateTag) + "&" + self.dateColor
         object.removeObject(oldLogDateTagInfo, forKey: "logDateTag")
@@ -998,6 +1007,9 @@ extension SubmitViewController {
                         print(error.localizedDescription)
                     }else {
                         print("updateLogColorArray追加成功")
+                        if self.weekToggle == true {
+                            self.prepareFinishSubmit()
+                        }
                     }
                 })
             }
@@ -1086,6 +1098,12 @@ extension SubmitViewController {
 
 // 完了ボタン
 extension SubmitViewController {
+    func prepareFinishSubmit() {
+        print("prepareFinishSubmit呼び出し")
+        let n = NSNotification(name: "submitFinish", object: self, userInfo: nil)
+        NSNotificationCenter.defaultCenter().postNotification(n)
+    }
+
     func selectToolBarDoneButton(sender: UIBarButtonItem) {
         print("完了ボタン押した")
         self.view.endEditing(true)
