@@ -31,11 +31,16 @@ class LooKBackViewController: UIViewController, addPostDetailDelegate {
     
     override func viewDidLoad() {
         posts = []
+        segment.tintColor = ColorManager.sharedSingleton.mainColor()
         tableView.estimatedRowHeight = 370
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
-        
+        self.tableView.tableFooterView =  UIView()
+
+        tableView.sectionHeaderHeight = 50
+
+        resetAndLoading()
         loadQuery()
     }
     
@@ -59,21 +64,21 @@ class LooKBackViewController: UIViewController, addPostDetailDelegate {
         default:
             break
         }
-        
+
         query.findObjectsInBackgroundWithBlock({(objects, error) in
             if let error = error {
+                self.dayLoadingToggle = false
                 print(error.localizedDescription)
             } else {
+                self.dayLoadingToggle = false
                 if objects.count > 0 {
                     print("その日に投稿があるパターン")
                     print("投稿数", objects.count)
                     self.posts = objects
-                    //                    self.dayLoadingToggle = false
                     self.tableView.emptyDataSetSource = nil
                     self.tableView.emptyDataSetDelegate = nil
                 } else {
                     print("その日に投稿がないパターン")
-                    //                    self.dayLoadingToggle = false
                     self.posts = []
                     self.tableView.emptyDataSetSource = self
                     self.tableView.emptyDataSetDelegate = self
@@ -81,11 +86,26 @@ class LooKBackViewController: UIViewController, addPostDetailDelegate {
                 self.tableView.reloadData()
             }
         })
-        
-        
     }
-    
+
+    func resetAndLoading() {
+        if posts == [] {
+            print("empty状態だった時")
+        }else {
+            print("reset tableView position")
+            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        }
+
+        dayLoadingToggle = true
+        posts = []
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
+        tableView.reloadData()
+    }
+
     @IBAction func selectSegmentAction(sender: AnyObject) {
+        resetAndLoading()
         loadQuery()
     }
     
@@ -214,71 +234,31 @@ extension LooKBackViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
     //------------------DZNEmptyDataSet(セルが無い時に表示するViewの設定--------------------
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
         if self.dayLoadingToggle == true {
-            let postDateFormatter: NSDateFormatter = NSDateFormatter()
-            postDateFormatter.dateFormat = "dd"
-            let dayString = postDateFormatter.stringFromDate(CalendarManager.currentDate)
-            let str = "😴 " + dayString + "日" + " 😴"
-            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleTitle1) , NSForegroundColorAttributeName:  UIColor.whiteColor()]
+            let str = "💨 タイムトリップ中 💨"
+            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline) , NSForegroundColorAttributeName:  UIColor.whiteColor()]
             return NSAttributedString(string: str, attributes: attrs)
         }else {
-            let logNumber: Int
-            if logManager.sharedSingleton.logTitleToggle == true{
-                logNumber = logManager.sharedSingleton.tabLogNumber
-            }else {
-                logNumber = logManager.sharedSingleton.logNumber
-            }
-            switch logNumber {
-            case 0: //自分の時
-                let str = "😝その日のログはまだないよ😝"
-                let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
-                return NSAttributedString(string: str, attributes: attrs)
-            default: //自分ではない時
-                let str = "😝その日のログはまだないよ😝"
-                let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
-                return NSAttributedString(string: str, attributes: attrs)
-            }
+            let str = "😪 その日のログはなかったよ 😪"
+            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline), NSForegroundColorAttributeName: UIColor.whiteColor()]
+            return NSAttributedString(string: str, attributes: attrs)
         }
     }
 
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
         if self.dayLoadingToggle == true {
-            let str = "読み込み中..."
+            let str = "ちょっとまってね..."
             let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
             return NSAttributedString(string: str, attributes: attrs)
         }else {
-            let logNumber: Int
-            if logManager.sharedSingleton.logTitleToggle == true{
-                logNumber = logManager.sharedSingleton.tabLogNumber
-            }else {
-                logNumber = logManager.sharedSingleton.logNumber
-            }
-            switch logNumber {
-            case 0: //自分の時
-                let str = "今すぐログっちゃおう"
-                let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
-                return NSAttributedString(string: str, attributes: attrs)
-            default: //自分ではない時
-                let str = "ヒマだよねー"
-                let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
-                return NSAttributedString(string: str, attributes: attrs)
-            }
-
+            let str = "ドンマイ!!"
+            let attrs = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), NSForegroundColorAttributeName: UIColor.whiteColor()]
+            return NSAttributedString(string: str, attributes: attrs)
         }
     }
-
-//    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-//        return UIImage(named: "logGood")
-//    }
 
     func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
         return UIColor.lightGrayColor()
     }
-
-//    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
-//        let str = "∨"
-//        let attrs = [NSFontAttributeName: UIFont.boldSystemFontOfSize(20.0), NSForegroundColorAttributeName: UIColor.whiteColor()]
-//        return NSAttributedString(string: str, attributes: attrs)
-//    }
 
     func emptyDataSetShouldDisplay(scrollView: UIScrollView!) -> Bool {
         return true
@@ -299,7 +279,42 @@ extension LooKBackViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
 }
 
 extension LooKBackViewController: UITableViewDelegate, UITableViewDataSource, TTTAttributedLabelDelegate {
-    
+
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor.whiteColor()
+        let label = UILabel(frame: CGRectMake(0, 0, tableView.frame.width, 50))
+        label.textColor = ColorManager.sharedSingleton.mainColor()
+//        label.font = UIFont.boldSystemFontOfSize(24)
+        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 24)
+        label.textAlignment = NSTextAlignment.Center
+
+        var agoDayTitle: String?
+        let dayTitleManager = LookBackDayTitleManager()
+
+        switch segment.selectedSegmentIndex {
+        case 0:
+            agoDayTitle = "🚁 " + dayTitleManager.getWeekAgoDayTitle(NSDate(), agoInt: 1) + " 🚁"
+            break
+
+        case 1:
+            agoDayTitle =  "✈️ " + dayTitleManager.getMonthAgoDayTitle(NSDate(), agoInt: 1) + " ✈️"
+            break
+
+        case 2:
+            agoDayTitle = "🚀 " + dayTitleManager.getYearAgoDayTitle(NSDate(), agoInt: 1) + " 🚀"
+            break
+
+        default:
+            break
+        }
+
+        label.text = agoDayTitle
+        view.addSubview(label)
+
+        return view
+    }
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }

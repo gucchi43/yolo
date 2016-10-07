@@ -163,7 +163,6 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
 
             }
         }
-
     }
 
     func updateDayViewSelectedStatus() {
