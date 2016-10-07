@@ -119,6 +119,12 @@ class CalendarView: UIView, UIScrollViewDelegate {
         resetMonthView()
         self.resetContentOffSet(verticalScrollView)
     }
+
+
+    func submitetResetMonthView(){
+        print("カレントデイト", CalendarManager.currentDate)
+        currentMonthView.startSetUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days)
+    }
     
     func resetMonthView() {
         print("カレントデイト", CalendarManager.currentDate)
