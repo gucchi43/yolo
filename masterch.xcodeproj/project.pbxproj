@@ -69,6 +69,7 @@
 		ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */; };
 		ED6AF8CE1D16B577003FBC5C /* SVProgressHUD.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED6ED06D1D387ACD005B0053 /* GCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6ED06C1D387ACD005B0053 /* GCDManager.swift */; };
+		ED6F08081DA3E25000606295 /* CalendarLogColorCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6F08071DA3E25000606295 /* CalendarLogColorCache.swift */; };
 		ED720CD11D180B2400477608 /* CalendarLogCollerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720CD01D180B2400477608 /* CalendarLogCollerManager.swift */; };
 		ED720CD31D188D6500477608 /* LogNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720CD21D188D6500477608 /* LogNavigationController.swift */; };
 		ED720CD51D18A8CA00477608 /* LogQueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720CD41D18A8CA00477608 /* LogQueryManager.swift */; };
@@ -198,7 +199,6 @@
 		ED36445D1C9D65C000C6676C /* Notification.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Notification.storyboard; path = masterch/Notification.storyboard; sourceTree = "<group>"; };
 		ED36445F1C9D6DBA00C6676C /* Submit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Submit.storyboard; sourceTree = "<group>"; };
 		ED3707921D36427E00F892B0 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
-		ED390BC71D3E6A120053FABF /* PINCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PINCache.framework; path = Carthage/Build/iOS/PINCache.framework; sourceTree = "<group>"; };
 		ED39940F1D49F85E002E8EED /* ConnectMailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectMailTableViewController.swift; sourceTree = "<group>"; };
 		ED3994151D4B3939002E8EED /* ResetPasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordTableViewController.swift; sourceTree = "<group>"; };
 		ED402DCB1D34460C0098F843 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
@@ -212,6 +212,7 @@
 		ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropdownMenu.framework; path = Carthage/Build/iOS/DropdownMenu.framework; sourceTree = "<group>"; };
 		ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
 		ED6ED06C1D387ACD005B0053 /* GCDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDManager.swift; sourceTree = "<group>"; };
+		ED6F08071DA3E25000606295 /* CalendarLogColorCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarLogColorCache.swift; sourceTree = "<group>"; };
 		ED720CD01D180B2400477608 /* CalendarLogCollerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarLogCollerManager.swift; sourceTree = "<group>"; };
 		ED720CD21D188D6500477608 /* LogNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogNavigationController.swift; sourceTree = "<group>"; };
 		ED720CD41D18A8CA00477608 /* LogQueryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogQueryManager.swift; sourceTree = "<group>"; };
@@ -358,7 +359,6 @@
 			isa = PBXGroup;
 			children = (
 				ED48C9301D4D069E003DC586 /* TTTAttributedLabel.framework */,
-				ED390BC71D3E6A120053FABF /* PINCache.framework */,
 				ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */,
 				ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */,
 				ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */,
@@ -380,6 +380,7 @@
 				EDA4DC711C82F190005FE126 /* CalendarAnotherView.swift */,
 				EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */,
 				ED720CD01D180B2400477608 /* CalendarLogCollerManager.swift */,
+				ED6F08071DA3E25000606295 /* CalendarLogColorCache.swift */,
 				EDA4DC6F1C82F163005FE126 /* CalendarWeekView.swift */,
 				ED23B7A01C7B475B009AEDA5 /* CalendarMonthView.swift */,
 			);
@@ -838,6 +839,7 @@
 				EDA49FF01D9E6354006C2605 /* LooKBackViewController.swift in Sources */,
 				ED3994161D4B393A002E8EED /* ResetPasswordTableViewController.swift in Sources */,
 				ED48C9481D4F67B9003DC586 /* pushManager.swift in Sources */,
+				ED6F08081DA3E25000606295 /* CalendarLogColorCache.swift in Sources */,
 				EDBADE2E1D2483FB0048957A /* AccountViewController.swift in Sources */,
 				ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */,
 				3219A2371C70468900D1A6AF /* TimelineCell.swift in Sources */,

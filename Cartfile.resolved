@@ -1,5 +1,4 @@
 github "dzenbot/DZNEmptyDataSet" "v1.8.1"
-github "pinterest/PINCache" "2.3"
 github "SVProgressHUD/SVProgressHUD" "2.0.3"
 github "malcommac/SwiftDate" "3.0.9"
 github "TTTAttributedLabel/TTTAttributedLabel" "2.0.0"

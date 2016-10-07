@@ -64,6 +64,9 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     var cashImageDictionary = [Int : UIImage]()
     var cashProfileImageDictionary = [Int : UIImage]()
     var dayLoadingToggle = false
+    // Define Notification（定義）
+//    let SubmitFinishNotification = "SubmitFinishNotification"
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,15 +82,18 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }else {
             changeWeekOrMonthToggle.setImage(toMonthImage, forState: UIControlState.Normal)
         }
+
+
         
         let logPostPB = LogPostedProgressBar()
         logPostPB.setProgressBar()
 
     }
 
-    
+
     override func viewWillAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.didSelectDayView(_:)), name: "didSelectDayView", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.submitFinish(_:)), name: "submitFinish", object: nil)
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
         }
@@ -109,7 +115,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         NSNotificationCenter.defaultCenter().removeObserver(self)
         print("LogViewController viewDidDisappear")
     }
-    
+
     //関数で受け取った時のアクションを定義
     func didSelectDayView(notification: NSNotification) {
         //疑似キャッシュをクリア
@@ -134,7 +140,41 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         loadQuery(logNumber)
         monthLabel.text = CalendarManager.selectLabel()
     }
-    
+
+    func submitFinish(notification: NSNotification) {
+        print("submitFinish呼び出し")
+        let logNumber : Int
+        if logManager.sharedSingleton.logTitleToggle == true {
+            logNumber = logManager.sharedSingleton.tabLogNumber
+        }else {
+            logNumber = logManager.sharedSingleton.logNumber
+        }
+        switch toggleWeek {
+        case false:
+            print("month表示")
+            if let calendarView = calendarView {
+                calendarView.submitetResetMonthView()
+                //                calendarView.resetMonthView()
+                loadQuery(logNumber)
+            }else {
+                print("calendarAnotherViewがないだって!?")
+                calendarView?.resetMonthView()
+                loadQuery(logNumber)
+            }
+        default:
+            print("week表示")
+            if let calendarAnotherView = calendarAnotherView {
+                calendarAnotherView.resetWeekView()
+                loadQuery(logNumber)
+            }else {
+                print("calendarAnotherViewがないだって!?")
+                calendarAnotherView?.resetWeekView()
+                loadQuery(logNumber)
+            }
+        }
+        tableView.reloadData()
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -229,14 +269,6 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }
     }
 
-    func openSubmitViewController(){
-        print("openSubmitViewController")
-        let submitVC = SubmitViewController()
-        submitVC.delegate = self
-    }
-    
-    
-    
     //投稿画面から戻った時にリロード
     func postDetailDismissionAction() {
         print("postDetailDismissionAction")
@@ -324,8 +356,12 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }
         if segue.identifier == "toSubmitVC" {
             let submitVC: SubmitViewController = segue.destinationViewController as! SubmitViewController
-            submitVC.delegate = self
             print("これはどうなる")
+            if toggleWeek == false {
+                submitVC.weekToggle = false
+            }else {
+                submitVC.weekToggle = true
+            }
             submitVC.postDate = CalendarManager.currentDate
         }
         
@@ -437,19 +473,9 @@ extension LogViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
         }
     }
 
-//    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-//        return UIImage(named: "logGood")
-//    }
-
     func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
         return UIColor.lightGrayColor()
     }
-
-//    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
-//        let str = "∨"
-//        let attrs = [NSFontAttributeName: UIFont.boldSystemFontOfSize(20.0), NSForegroundColorAttributeName: UIColor.whiteColor()]
-//        return NSAttributedString(string: str, attributes: attrs)
-//    }
 
     func emptyDataSetShouldDisplay(scrollView: UIScrollView!) -> Bool {
         return true
@@ -742,40 +768,7 @@ extension LogViewController{
     
 }
 
-extension LogViewController: SubmitViewControllerDelegate {
-    func submitFinish() {
-        print("submitFinish")
-        let logNumber : Int
-        if logManager.sharedSingleton.logTitleToggle == true {
-            logNumber = logManager.sharedSingleton.tabLogNumber
-        }else {
-            logNumber = logManager.sharedSingleton.logNumber
-        }
-        switch toggleWeek {
-        case false:
-            print("month表示")
-            if let calendarView = calendarView {
-                calendarView.resetMonthView()
-                loadQuery(logNumber)
-            }else {
-                print("calendarAnotherViewがないだって!?")
-                calendarView?.resetMonthView()
-                loadQuery(logNumber)
-            }
-        default:
-            print("week表示")
-            if let calendarAnotherView = calendarAnotherView {
-                calendarAnotherView.resetWeekView()
-                loadQuery(logNumber)
-            }else {
-                print("calendarAnotherViewがないだって!?")
-                calendarAnotherView?.resetWeekView()
-                loadQuery(logNumber)
-            }
-        }
-        tableView.reloadData()
-    }
-    
+extension LogViewController {
     func savePostProgressBar(percentDone: CGFloat) {
         //percentDoneに合わしてprogressBarが動く
         progressBar.setProgress(percentDone, animated: true)
