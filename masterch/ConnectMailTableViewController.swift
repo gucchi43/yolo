@@ -9,6 +9,9 @@
 import UIKit
 import SVProgressHUD
 import NCMB
+import FBSDKLoginKit
+import FBSDKCoreKit
+import FBSDKShareKit
 
 class ConnectMailTableViewController: UITableViewController, UITextFieldDelegate{
 
@@ -129,6 +132,58 @@ class ConnectMailTableViewController: UITableViewController, UITextFieldDelegate
         let result = emailTest.evaluateWithObject(string)
         return result
     }
+
+    @IBAction func tapFBTestButton(sender: AnyObject) {
+//        let params = ["message": post]
+//        let friendGraphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me/feed", parameters: ["fields": "messe", "limit": "100"], )
+//        let testGraphRequest = FBSDKGraphRequest(graphPath: "me/posts", parameters: ["fields": "id, name"])
+
+        let parms = ["fields" : "message,full_picture,created_time,id", "limit" : "3000"]
+        let graphRequest = FBSDKGraphRequest(graphPath: "me/posts", parameters: parms )
+        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            guard let response = result else {
+                print("No response received")
+                if let error = error {
+                    print("errorInfo:", error.localizedDescription)
+                }
+                return }
+            print("response", response)
+            print("connection", connection)
+        })
+    }
+
+    @IBAction func tabFBTestSecondButton(sender: AnyObject) {
+//        NCMBFacebookUtils.linkUser(NCMBUser.currentUser(), withReadPermission: ["public_profile", "email", "user_friends"]) { (user, error) in
+//            if let error = error {
+//                print("error:can't get public_profile permission", error.localizedDescription)
+//            }else{
+//                NCMBFacebookUtils.linkUser(user, withPublishingPermission: ["user_posts"]) { (user, error) in
+//                    if let error = error {
+//                        print("error:can't get user_posts permission", error.localizedDescription)
+//                    }else {
+//                        print("GET!!! user_posts permissin")
+//                    }
+//                }
+//            }
+//        }
+
+        NCMBFacebookUtils.linkUser(NCMBUser.currentUser(), withReadPermission: ["user_posts"]) { (user, error) in
+            if let error = error {
+                print("error:can't get public_profile permission", error.localizedDescription)
+            }else{
+                print("GET!!! user_posts permissin")
+//                NCMBFacebookUtils.linkUser(user, withPublishingPermission: ["user_posts"]) { (user, error) in
+//                    if let error = error {
+//                        print("error:can't get user_posts permission", error.localizedDescription)
+//                    }else {
+//                        print("GET!!! user_posts permissin")
+//                    }
+//                }
+            }
+        }
+    }
+
+    
 
     func saveConnectMail() {
         //該当するエラーがない場合、mailAddressにセットする

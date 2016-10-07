@@ -793,10 +793,14 @@ extension SubmitViewController {
                     print("errorInfo:", error.localizedDescription)
                 }
                 return }
-            
+
+
             print(response)
         })
     }
+
+    //https://graph.facebook.com/v2.7/532123916927704/feed?format=json&access_token=EAACEdEose0cBAP38MwodGuK4rMkyf4vwonMy3AZC8Lipb8Tg0LZAtp8HVEezK1CQPtIr1ZBDmurbUAYe0bDLnsq3nJpwBDyZA04tgOqFKHsMg1vnKcEniomv9MHnavDTSuVaO7nwt3pZAAFKMahVgaYWJuHtUgbVgP0S3rVOZCFAZDZD&limit=25&until=1467987246
+
     func shareFacebookMedia(){
         let post = self.postTextView.text
         let image1 = self.postImage1!
@@ -834,9 +838,12 @@ extension SubmitViewController {
                     self.firstSetLogColorArray(logYearAndMonth, logDateTag: logDateTag)
                 }else {
                     print("object", object)
-                    let dayColorArrayObject = object.objectForKey("logDateTag") as! Array<String>
+                    let dayColorArrayObject = object.objectForKey("logDateTag") as! [String]
                     let oldLogDateTagInfoArray = dayColorArrayObject.filter { $0.containsString(String(logDateTag))}
                     print("oldLogDateTagInfoArray", oldLogDateTagInfoArray)
+
+                    self.removePostedMonthLogColorCache()
+
                     if oldLogDateTagInfoArray == [] {
                         //その日の投稿はまだ無い
                         print("今月の投稿はあるけどその日の投稿はまだないから追加")
@@ -912,6 +919,15 @@ extension SubmitViewController {
             }
         }
     }
+
+    //monthlogColorCaheの、投稿があった月の部分を消す(投稿なので自分のみ)
+    //このあと、サーバーに保存されたものをもう一度取りに行き、cacheは更新される
+    func removePostedMonthLogColorCache () {
+        let monthKey = CalendarManager.getDateYearAndMonth(postDate!)
+        let key = String(0) + NCMBUser.currentUser().userName + monthKey
+        print("monthのkey", key)
+        CalendarLogColorCache.sharedSingleton.myMonthLogColorCache.removeObjectForKey(key)
+    }
 }
 
 
@@ -940,6 +956,9 @@ extension SubmitViewController {
                     let dayColorArrayObject = object.objectForKey("logDateTag") as! Array<String>
                     let oldLogDateTagInfoArray = dayColorArrayObject.filter { $0.containsString(String(logDateTag))}
                     print("oldLogDateTagInfoArray", oldLogDateTagInfoArray)
+
+                    self.removePostedWeekLogColorCache()
+
                     if oldLogDateTagInfoArray == [] {
                         //その日の投稿はまだ無い
                         print("今月の投稿はあるけどその日の投稿はまだないから追加")
@@ -1014,6 +1033,16 @@ extension SubmitViewController {
                 })
             }
         }
+    }
+
+    //monthlogColorCaheの、投稿があった週の部分を消す(投稿なので自分のみ)
+    //このあと、サーバーに保存されたものをもう一度取りに行き、cacheは更新される
+    func removePostedWeekLogColorCache () {
+        let weekKeyArray = CalendarManager.getWeekNumber(postDate!)
+        let weekKey = String(weekKeyArray[0]) + String(weekKeyArray[1])
+        let key = String(0) + NCMBUser.currentUser().userName + weekKey
+        print("weekのkey", key)
+        CalendarLogColorCache.sharedSingleton.myMonthLogColorCache.removeObjectForKey(key)
     }
 }
 

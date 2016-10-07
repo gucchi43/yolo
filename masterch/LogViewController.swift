@@ -115,7 +115,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         NSNotificationCenter.defaultCenter().removeObserver(self)
         print("LogViewController viewDidDisappear")
     }
-    
+
     //関数で受け取った時のアクションを定義
     func didSelectDayView(notification: NSNotification) {
         //疑似キャッシュをクリア
@@ -174,6 +174,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }
         tableView.reloadData()
     }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -768,40 +769,6 @@ extension LogViewController{
 }
 
 extension LogViewController {
-//    func submitFinish() {
-//        print("submitFinish")
-//        let logNumber : Int
-//        if logManager.sharedSingleton.logTitleToggle == true {
-//            logNumber = logManager.sharedSingleton.tabLogNumber
-//        }else {
-//            logNumber = logManager.sharedSingleton.logNumber
-//        }
-//        switch toggleWeek {
-//        case false:
-//            print("month表示")
-//            if let calendarView = calendarView {
-//                calendarView.submitetResetMonthView()
-////                calendarView.resetMonthView()
-//                loadQuery(logNumber)
-//            }else {
-//                print("calendarAnotherViewがないだって!?")
-//                calendarView?.resetMonthView()
-//                loadQuery(logNumber)
-//            }
-//        default:
-//            print("week表示")
-//            if let calendarAnotherView = calendarAnotherView {
-//                calendarAnotherView.resetWeekView()
-//                loadQuery(logNumber)
-//            }else {
-//                print("calendarAnotherViewがないだって!?")
-//                calendarAnotherView?.resetWeekView()
-//                loadQuery(logNumber)
-//            }
-//        }
-//        tableView.reloadData()
-//    }
-
     func savePostProgressBar(percentDone: CGFloat) {
         //percentDoneに合わしてprogressBarが動く
         progressBar.setProgress(percentDone, animated: true)

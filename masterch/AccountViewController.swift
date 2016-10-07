@@ -728,8 +728,8 @@ extension AccountViewController {
     
     @IBAction func tapConnectTwitterButton(sender: AnyObject) {
         if isTwitterConnecting == true{
-            testDeleteLinkAccount(user!)
-            //            deleteTwitterAccount(user!)
+//            testDeleteLinkAccount(user!)
+                        deleteTwitterAccount(user!)
         }else {
             addSnsToTwitter(user!)
         }
@@ -737,13 +737,13 @@ extension AccountViewController {
     
     @IBAction func tapConnectFacebookButton(sender: AnyObject) {
         if isFacebookConnecting == true{
-            testDeleteLinkAccount(user!)
-            //            deleteFacebookAccount(user!)
+//            testDeleteLinkAccount(user!)
+                        deleteFacebookAccount(user!)
         }else {
             //β版限定
-            cannotConnectFacebookAlert(user!)
+//            cannotConnectFacebookAlert(user!)
             //β版限定
-//            addSnsToFacebook(user!)
+            addSnsToFacebook(user!)
         }
     }
 
