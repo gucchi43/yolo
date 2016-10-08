@@ -93,7 +93,6 @@ extension CalendarLogCollerManager{
 
             return logColorArrayQuery
 
-
         case 2:
             //特定のアカウントのみ
             logColorArrayQuery.whereKey("user", equalTo: user)

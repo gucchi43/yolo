@@ -95,8 +95,9 @@ class LooKBackViewController: UIViewController, addPostDetailDelegate {
             print("reset tableView position")
             let indexPath = NSIndexPath(forRow: 0, inSection: 0)
             tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+            cashImageDictionary.removeAll()
+            cashProfileImageDictionary.removeAll()
         }
-
         dayLoadingToggle = true
         posts = []
         tableView.emptyDataSetSource = self
