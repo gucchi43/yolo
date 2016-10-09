@@ -405,13 +405,19 @@ extension SubmitViewController {
 
 //logColor選択
 extension SubmitViewController {
-    func selectToolBarGoodOrBadButton(sender:UIBarButtonItem) {
-        print("カラーボタンを押した")
-//        let goodOrBadKeyboardview:UIView = UINib(nibName: "GoodOrBadKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
-//        self.postTextView.inputView = goodOrBadKeyboardview
 
-        let colorKeyboardView:UIView = UINib(nibName: "ColorKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
-        self.postTextView.inputView = colorKeyboardView
+    func setSelectEmoji(emojiString: String) {
+        self.dateColor = emojiString
+    }
+
+    func selectToolBarGoodOrBadButton(sender:UIBarButtonItem) {
+
+        print("カラーボタンを押した")
+        //        let goodOrBadKeyboardview:UIView = UINib(nibName: "GoodOrBadKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
+        //        self.postTextView.inputView = goodOrBadKeyboardview
+        //
+        let emojiKeyboard = EmojiCollectionKeyboard(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 216))
+        self.postTextView.inputView = emojiKeyboard
         self.postTextView.reloadInputViews()
     }
 
@@ -798,8 +804,6 @@ extension SubmitViewController {
             print(response)
         })
     }
-
-    //https://graph.facebook.com/v2.7/532123916927704/feed?format=json&access_token=EAACEdEose0cBAP38MwodGuK4rMkyf4vwonMy3AZC8Lipb8Tg0LZAtp8HVEezK1CQPtIr1ZBDmurbUAYe0bDLnsq3nJpwBDyZA04tgOqFKHsMg1vnKcEniomv9MHnavDTSuVaO7nwt3pZAAFKMahVgaYWJuHtUgbVgP0S3rVOZCFAZDZD&limit=25&until=1467987246
 
     func shareFacebookMedia(){
         let post = self.postTextView.text
