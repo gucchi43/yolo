@@ -79,6 +79,7 @@
 		ED7A79051D2027220087BCCD /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */; };
 		ED7A79061D2027220087BCCD /* DZNEmptyDataSet.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED8322D41C8EFDF700122BA2 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */; };
+		ED97606F1DA7B9220002E62D /* LookBackDayTitleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED97606E1DA7B9220002E62D /* LookBackDayTitleManager.swift */; };
 		EDA49FEE1D9E5B4D006C2605 /* LookBackQueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA49FED1D9E5B4D006C2605 /* LookBackQueryManager.swift */; };
 		EDA49FF01D9E6354006C2605 /* LooKBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA49FEF1D9E6354006C2605 /* LooKBackViewController.swift */; };
 		EDA4DC6E1C82F0FB005FE126 /* CalendarSwiftDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */; };
@@ -221,6 +222,7 @@
 		ED779B091C8DCB9100C3027C /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DZNEmptyDataSet.framework; path = Carthage/Build/iOS/DZNEmptyDataSet.framework; sourceTree = "<group>"; };
 		ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		ED97606E1DA7B9220002E62D /* LookBackDayTitleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookBackDayTitleManager.swift; sourceTree = "<group>"; };
 		EDA49FED1D9E5B4D006C2605 /* LookBackQueryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookBackQueryManager.swift; sourceTree = "<group>"; };
 		EDA49FEF1D9E6354006C2605 /* LooKBackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LooKBackViewController.swift; sourceTree = "<group>"; };
 		EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSwiftDateView.swift; sourceTree = "<group>"; };
@@ -533,6 +535,7 @@
 			isa = PBXGroup;
 			children = (
 				EDA49FED1D9E5B4D006C2605 /* LookBackQueryManager.swift */,
+				ED97606E1DA7B9220002E62D /* LookBackDayTitleManager.swift */,
 				EDA6EC6E1D9BDF6400F76FCA /* LookBack.storyboard */,
 				EDA49FEF1D9E6354006C2605 /* LooKBackViewController.swift */,
 			);
@@ -840,6 +843,7 @@
 				EDBADE301D2489490048957A /* ProfileCell.swift in Sources */,
 				ED3994101D49F85E002E8EED /* ConnectMailTableViewController.swift in Sources */,
 				EDA49FF01D9E6354006C2605 /* LooKBackViewController.swift in Sources */,
+				ED97606F1DA7B9220002E62D /* LookBackDayTitleManager.swift in Sources */,
 				ED3994161D4B393A002E8EED /* ResetPasswordTableViewController.swift in Sources */,
 				ED48C9481D4F67B9003DC586 /* pushManager.swift in Sources */,
 				ED6F08081DA3E25000606295 /* CalendarLogColorCache.swift in Sources */,

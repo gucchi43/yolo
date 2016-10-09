@@ -64,9 +64,6 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     var cashImageDictionary = [Int : UIImage]()
     var cashProfileImageDictionary = [Int : UIImage]()
     var dayLoadingToggle = false
-    // Define Notification（定義）
-//    let SubmitFinishNotification = "SubmitFinishNotification"
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,14 +79,11 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }else {
             changeWeekOrMonthToggle.setImage(toMonthImage, forState: UIControlState.Normal)
         }
-
-
         
         let logPostPB = LogPostedProgressBar()
         logPostPB.setProgressBar()
 
     }
-
 
     override func viewWillAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.didSelectDayView(_:)), name: "didSelectDayView", object: nil)
@@ -552,7 +546,6 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
                         print("(before)indexPath -> cashProfileImageDictionary", indexPath.row, "->", self.cashProfileImageDictionary)
                         self.cashProfileImageDictionary[indexPath.row] = UIImage(data: imageData!)
                         print("(after)indexPath -> cashProfileImageDictionary", indexPath.row, "->", self.cashProfileImageDictionary)
-
                     }
                 })
             }
