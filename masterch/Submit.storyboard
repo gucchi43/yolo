@@ -104,6 +104,16 @@
                                     <action selector="selectSecretKeyButton:" destination="c8c-V5-aA3" eventType="touchUpInside" id="Fnf-cb-iGy"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="エモジ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5M-dX-kB4">
+                                <rect key="frame" x="16" y="528" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="cFe-cS-i6l"/>
+                                    <constraint firstAttribute="height" constant="40" id="jAB-QS-TxF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -114,6 +124,7 @@
                             <constraint firstItem="iDm-Mm-zQm" firstAttribute="leading" secondItem="K40-Dn-vao" secondAttribute="leading" id="DNY-Bd-bc5"/>
                             <constraint firstItem="G5n-mi-4Qq" firstAttribute="bottom" secondItem="wbe-G7-CKV" secondAttribute="top" id="Hpa-RW-OvX"/>
                             <constraint firstAttribute="trailing" secondItem="cRS-No-qDS" secondAttribute="trailing" constant="16" id="LXZ-cd-d5v"/>
+                            <constraint firstItem="wbe-G7-CKV" firstAttribute="top" secondItem="t5M-dX-kB4" secondAttribute="bottom" id="LYt-1B-VoR"/>
                             <constraint firstItem="G5n-mi-4Qq" firstAttribute="centerX" secondItem="K40-Dn-vao" secondAttribute="centerX" id="Meg-Cq-tZv"/>
                             <constraint firstItem="G5n-mi-4Qq" firstAttribute="leading" secondItem="K40-Dn-vao" secondAttribute="leadingMargin" constant="-20" id="PE1-u0-x4I"/>
                             <constraint firstItem="cRS-No-qDS" firstAttribute="leading" secondItem="s6L-6H-DX6" secondAttribute="trailing" constant="8" id="Pdo-8F-byG"/>
@@ -125,12 +136,15 @@
                             <constraint firstItem="s6L-6H-DX6" firstAttribute="leading" secondItem="S1u-eP-Yn4" secondAttribute="trailing" constant="16" id="dlb-Gb-diS"/>
                             <constraint firstItem="962-VD-fqV" firstAttribute="trailing" secondItem="Acg-FA-G1G" secondAttribute="trailing" id="dqG-k3-soa"/>
                             <constraint firstItem="iDm-Mm-zQm" firstAttribute="top" secondItem="K40-Dn-vao" secondAttribute="top" id="enf-NX-pJZ"/>
+                            <constraint firstItem="t5M-dX-kB4" firstAttribute="leading" secondItem="K40-Dn-vao" secondAttribute="leading" constant="16" id="hpI-oI-69A"/>
                             <constraint firstItem="Acg-FA-G1G" firstAttribute="top" secondItem="iDm-Mm-zQm" secondAttribute="bottom" id="kGh-DI-wBf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="G5n-mi-4Qq" secondAttribute="trailing" constant="-20" id="o7n-1N-jHT"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="currentEmojiConstraint" destination="LYt-1B-VoR" id="afy-bj-FkT"/>
+                        <outlet property="currentEmojiLabel" destination="t5M-dX-kB4" id="RTJ-yK-1jN"/>
                         <outlet property="facebookBottomConstraint" destination="UHK-4X-cMl" id="nO4-gZ-ZUS"/>
                         <outlet property="facebookButton" destination="cRS-No-qDS" id="Je9-oR-zdt"/>
                         <outlet property="postDateLabel" destination="962-VD-fqV" id="vaF-h5-aRO"/>

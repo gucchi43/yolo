@@ -74,6 +74,7 @@
 		ED720CD31D188D6500477608 /* LogNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720CD21D188D6500477608 /* LogNavigationController.swift */; };
 		ED720CD51D18A8CA00477608 /* LogQueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED720CD41D18A8CA00477608 /* LogQueryManager.swift */; };
 		ED76A81C1DAA43060025FDD2 /* EmojiCollectionKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED76A81B1DAA43060025FDD2 /* EmojiCollectionKeyboard.swift */; };
+		ED76A81E1DAA5C9A0025FDD2 /* EmojiData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED76A81D1DAA5C9A0025FDD2 /* EmojiData.swift */; };
 		ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; };
 		ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED779B091C8DCB9100C3027C /* SwiftDate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED7A79051D2027220087BCCD /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */; };
@@ -219,6 +220,7 @@
 		ED720CD21D188D6500477608 /* LogNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogNavigationController.swift; sourceTree = "<group>"; };
 		ED720CD41D18A8CA00477608 /* LogQueryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogQueryManager.swift; sourceTree = "<group>"; };
 		ED76A81B1DAA43060025FDD2 /* EmojiCollectionKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCollectionKeyboard.swift; sourceTree = "<group>"; };
+		ED76A81D1DAA5C9A0025FDD2 /* EmojiData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiData.swift; sourceTree = "<group>"; };
 		ED779B091C8DCB9100C3027C /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DZNEmptyDataSet.framework; path = Carthage/Build/iOS/DZNEmptyDataSet.framework; sourceTree = "<group>"; };
 		ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 			isa = PBXGroup;
 			children = (
 				ED76A81B1DAA43060025FDD2 /* EmojiCollectionKeyboard.swift */,
+				ED76A81D1DAA5C9A0025FDD2 /* EmojiData.swift */,
 				3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */,
 				ED3282EC1CDEE52A009602C9 /* ColorKeyboard.xib */,
 				ED53BAFC1D35176F0089A03A /* GoodOrBadKeyboard.xib */,
@@ -870,6 +873,7 @@
 				EDB4FEFE1CBBFAFE00A318EA /* EditProfileTableViewController.swift in Sources */,
 				EDA94FD31CEEC48700A42E8A /* UIExtension.swift in Sources */,
 				ED3107F71D101D5A00FE3D32 /* OtherAccountViewController.swift in Sources */,
+				ED76A81E1DAA5C9A0025FDD2 /* EmojiData.swift in Sources */,
 				ED3107F31D101D3700FE3D32 /* SearchUserTableViewCell.swift in Sources */,
 				ED3107EF1D101A7E00FE3D32 /* PostDetailTableViewCell.swift in Sources */,
 				ED3107F91D102A9800FE3D32 /* NotificationTableViewController.swift in Sources */,

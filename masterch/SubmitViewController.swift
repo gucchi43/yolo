@@ -29,11 +29,14 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var twitterButton: UIButton!
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var secretKeyButton: UIButton!
+    @IBOutlet weak var currentEmojiLabel: UILabel!
+
     
     @IBOutlet weak var twitterBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var facebookBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var secretKeyBottomConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var currentEmojiConstraint: NSLayoutConstraint!
+
     let imgTwitterOn = UIImage(named: "twitterON")
     let imgTwitterOff = UIImage(named: "twitterGray")
     let imgFacebookOn = UIImage(named: "facebookON")
@@ -81,6 +84,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
 //     Viewが画面に表示される度に呼ばれるメソッド
     override func viewWillAppear(animated: Bool) {
         self.setToolBar()
+        self.currentEmojiLabel.text = "エモジ"
         
         self.postTextView.delegate = self
         self.postTextView.textContainerInset = UIEdgeInsetsMake(5,5,5,5) //postTExtViewに5pxのpaddingを設定する
@@ -145,6 +149,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         self.twitterBottomConstraint.constant = keyboardHeight + 5
         self.facebookBottomConstraint.constant = keyboardHeight + 5
         self.secretKeyBottomConstraint.constant = keyboardHeight + 5
+        self.currentEmojiConstraint.constant = keyboardHeight + 5
         UIView.animateWithDuration(duration, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
@@ -158,6 +163,7 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         self.twitterBottomConstraint.constant = 5
         self.facebookBottomConstraint.constant = 5
         self.secretKeyBottomConstraint.constant = 5
+        self.currentEmojiConstraint.constant = 5
         
         let duration : NSTimeInterval = userInfo[UIKeyboardAnimationDurationUserInfoKey]! as! NSTimeInterval
         UIView.animateWithDuration(duration, animations: { () -> Void in
@@ -223,8 +229,6 @@ extension SubmitViewController {
         }
         return true
     }
-    
-    
 }
 
 // toolBar設定
@@ -407,15 +411,15 @@ extension SubmitViewController {
 extension SubmitViewController {
 
     func setSelectEmoji(emojiString: String) {
+        print("setSelectEmoji側: emojiString", emojiString)
+        self.currentEmojiLabel.text = emojiString
         self.dateColor = emojiString
     }
 
     func selectToolBarGoodOrBadButton(sender:UIBarButtonItem) {
 
         print("カラーボタンを押した")
-        //        let goodOrBadKeyboardview:UIView = UINib(nibName: "GoodOrBadKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
-        //        self.postTextView.inputView = goodOrBadKeyboardview
-        //
+
         let emojiKeyboard = EmojiCollectionKeyboard(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 216))
         self.postTextView.inputView = emojiKeyboard
         self.postTextView.reloadInputViews()
@@ -470,48 +474,6 @@ extension SubmitViewController {
         toolBar.backgroundColor = UIColor.blueColor()
     }
 }
-
-
-//// DateColor設定(使ってない)
-//extension SubmitViewController {
-//    func selectToolBarColorButton(sender:UIBarButtonItem) {
-//        print("カラーボタンを押した")
-//        let colorKeyboardview:UIView = UINib(nibName: "ColorKeyboard", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
-//        self.postTextView.inputView = colorKeyboardview
-//        self.postTextView.reloadInputViews()
-//    }
-//    
-//    @IBAction func selectRed(sender: AnyObject) {
-//        print("selectRed")
-//        self.dateColor = "red"
-//        toolBar.backgroundColor = UIColor.redColor()
-//    }
-//    @IBAction func selectYellow(sender: AnyObject) {
-//        print("selectYellow")
-//        self.dateColor = "yellow"
-//        toolBar.backgroundColor = UIColor.yellowColor()
-//    }
-//    @IBAction func selectPink(sender: AnyObject) {
-//        print("selectPink")
-//        self.dateColor = "pink"
-//        toolBar.backgroundColor = UIColor.magentaColor()
-//    }
-//    @IBAction func selectBlue(sender: AnyObject) {
-//        print("selectBlue")
-//        self.dateColor = "blue"
-//        toolBar.backgroundColor = UIColor.blueColor()
-//    }
-//    @IBAction func selectGreen(sender: AnyObject) {
-//        print("selectGreen")
-//        self.dateColor = "green"
-//        toolBar.backgroundColor = UIColor.greenColor()
-//    }
-//    @IBAction func selectGray(sender: AnyObject) {
-//        print("selectGray")
-//        self.dateColor = "gray"
-//        toolBar.backgroundColor = UIColor.darkGrayColor()
-//    }
-//}
 
 
 // テキストボタン
