@@ -8,9 +8,14 @@
 
 import UIKit
 
+protocol selectEmojiDelegate {
+    func changeCurrentEmojiLabel(emojiString: String)
+}
+
 class EmojiCollectionKeyboard: UIView, UICollectionViewDataSource, UICollectionViewDelegate , UICollectionViewDelegateFlowLayout {
 
     var collectionView:UICollectionView!
+    var delegate: selectEmojiDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,6 +33,7 @@ class EmojiCollectionKeyboard: UIView, UICollectionViewDataSource, UICollectionV
         collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.delegate = self
         collectionView.dataSource = self
+
         addSubview(collectionView)
 
     }
@@ -43,8 +49,10 @@ class EmojiCollectionKeyboard: UIView, UICollectionViewDataSource, UICollectionV
         let selectEmojiString = EmojiData.emojiArray[indexPath.row]
         print("seletEmojiString", selectEmojiString)
 
-        let submitVC = SubmitViewController()
-        submitVC.setSelectEmoji(selectEmojiString)
+        delegate?.changeCurrentEmojiLabel(selectEmojiString)
+
+//        let submitVC = SubmitViewController()
+//        submitVC.setSelectEmoji(selectEmojiString)
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

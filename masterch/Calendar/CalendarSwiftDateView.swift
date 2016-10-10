@@ -110,50 +110,11 @@ class CalendarSwiftDateView: UIView{
         backLabel.alpha = 0.7
 
         switch dateColor {
-        case "a" :
-            backLabel.text = "😆"
+        case "?":
+            self.dayButton.setBackgroundImage(logNomalImage , forState: .Normal)
+        default:
+            backLabel.text = dateColor
             self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)
-
-//            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
-        case "b" :
-            backLabel.text = "😳"
-            self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)
-        //            self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
-        case "c" :
-            backLabel.text = "😍"
-            self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)
-
-//            self.dayButton.setBackgroundImage(logNomalImage, forState: .Normal)
-        case "d" :
-            backLabel.text = "😤"
-            self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)
-        case "e" :
-            backLabel.text = "😰"
-            self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)
-        case "f" :
-            backLabel.text = "😰"
-            self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)
-        case "red" :
-            //            self.dayButton.backgroundColor =  UIColor.redColor()
-            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
-        case "yellow" :
-            //            self.dayButton.backgroundColor =  UIColor.yellowColor()
-            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
-        case "pink" :
-            self.dayButton.backgroundColor =  UIColor.magentaColor()
-        //            self.dayButton.setBackgroundImage(logGoodImage, forState: .Normal)
-        case "blue" :
-            //            self.dayButton.backgroundColor =  UIColor.blueColor()
-            self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
-        case "green" :
-            //            self.dayButton.backgroundColor =  UIColor.greenColor()
-            self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
-        case "gray" :
-            //            self.dayButton.backgroundColor =  UIColor.darkGrayColor()
-            self.dayButton.setBackgroundImage(logBadImage, forState: .Normal)
-        default :
-            //            self.dayButton.backgroundColor =  UIColor.lightGrayColor()
-            self.dayButton.setBackgroundImage(logNomalImage, forState: .Normal)
         }
     }
 }

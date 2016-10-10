@@ -141,7 +141,7 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
             let dayColor = logColorObjectArray[1]
             if let dayView = self.viewWithTag(dayViewTag!) as? CalendarSwiftDateView {
                 if logNumber == 1 { //複数人のためアイコンを１つに統一
-                    dayView.selectDateColor("d")
+                    dayView.selectDateColor("😎")
                 }else {
                     dayView.selectDateColor(dayColor)
                 }
