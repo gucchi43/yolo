@@ -52,6 +52,7 @@ class SearchUserTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+
         loadAllUser()
     }
 
@@ -61,10 +62,12 @@ class SearchUserTableViewController: UITableViewController {
     }
 
     func loadAllUser(){
+        if userArray == []{
+            SVProgressHUD.show()
+        }
         let userListQuery: NCMBQuery = NCMBQuery(className: "user")
         userListQuery.orderByAscending("updateDate")
         userListQuery.findObjectsInBackgroundWithBlock({(objects, error) in
-            SVProgressHUD.show()
             if let error = error {
                 print(error.localizedDescription)
                 SVProgressHUD.dismiss()
@@ -92,9 +95,11 @@ class SearchUserTableViewController: UITableViewController {
         if searchController.active && searchController.searchBar.text != "" {
             return filterUsers.count
         }else {
-            return filterUsers.count
+            //こっちの場合は最初空欄
+//            return filterUsers.count
+
             //こっちの場合は最初に全ユーザー表示
-//            return userArray.count
+            return userArray.count
         }
     }
 
@@ -107,11 +112,15 @@ class SearchUserTableViewController: UITableViewController {
             tableView.emptyDataSetSource = self
             tableView.emptyDataSetDelegate = self
         }else {
-            userData = filterUsers[indexPath.row]
+            //こっちの場合は最初空欄
+//            userData = filterUsers[indexPath.row]
             tableView.emptyDataSetSource = self
             tableView.emptyDataSetDelegate = self
+
             //こっちの場合は最初に全ユーザー表示
-//            userData = userArray[indexPath.row]
+            userData = userArray[indexPath.row]
+            tableView.emptyDataSetSource = nil
+            tableView.emptyDataSetDelegate = nil
         }
 
         //userNameLabel
