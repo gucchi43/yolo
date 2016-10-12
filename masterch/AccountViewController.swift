@@ -185,7 +185,7 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
             submitVC.postDate = CalendarManager.currentDate
         }
         if segue.identifier == "toLog" {
-            let logVC = segue.destinationViewController as! LogViewController
+//            let logVC = segue.destinationViewController as! LogViewController
             if ownerUserToggle == true{
                 logManager.sharedSingleton.logNumber = 0
             }else {
@@ -735,8 +735,8 @@ extension AccountViewController {
     
     @IBAction func tapConnectTwitterButton(sender: AnyObject) {
         if isTwitterConnecting == true{
-//            testDeleteLinkAccount(user!)
-                        deleteTwitterAccount(user!)
+            testDeleteLinkAccount(user!)
+//                        deleteTwitterAccount(user!)
         }else {
             addSnsToTwitter(user!)
         }
@@ -744,18 +744,17 @@ extension AccountViewController {
     
     @IBAction func tapConnectFacebookButton(sender: AnyObject) {
         if isFacebookConnecting == true{
-//            testDeleteLinkAccount(user!)
-                        deleteFacebookAccount(user!)
+            testDeleteLinkAccount(user!)
+//                        deleteFacebookAccount(user!)
         }else {
             //β版限定
-//            cannotConnectFacebookAlert(user!)
-            //β版限定
-            addSnsToFacebook(user!)
+            cannotConnectFacebookAlert(user!)
+            //本番まで待ち
+//            addSnsToFacebook(user!)
         }
     }
 
     func toSafariBrowser (url: String){
-        //            let url = NSURL(string:"http://qiita.com")
         let app:UIApplication = UIApplication.sharedApplication()
         app.openURL(NSURL(string: url)!)
     }
