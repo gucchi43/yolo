@@ -10,6 +10,7 @@ import UIKit
 import SVProgressHUD
 import NCMB
 import DZNEmptyDataSet
+import SDWebImage
 
 class UserListViewController: UIViewController {
     
@@ -56,18 +57,31 @@ extension UserListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("userCell") as! UserListTableViewCell
         
         cell.userNameLabel.text = userArray[indexPath.row].userName
-        cell.userFaceNameLabel.text = userArray[indexPath.row].objectForKey("userFaceName") as? String
+        if let userFaceName = userArray[indexPath.row].objectForKey("userFaceName") as? String{
+            cell.userFaceNameLabel.text = userFaceName
+        }else {
+            cell.userFaceNameLabel.text = "userName"
+        }
 
-        let userImageData = NCMBFile.fileWithName(userArray[indexPath.row].objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-        userImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-            if let error = error {
-                print("プロフィール画像の取得失敗： ", error)
-                cell.userImageView.image = UIImage(named: "noprofile")
-            } else {
-                cell.userImageView.image = UIImage(data: imageData!)
-                
-            }
-        })
+        if let userImageFile = NCMBFile.fileWithName(userArray[indexPath.row].objectForKey("userProfileImage") as? String, data: nil) as? NCMBFile {
+            SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(userImageFile.name, done: { (image, SDImageCacheType) in
+                if let image = image {
+                    cell.userImageView.image = image
+                }else {
+                    userImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                        if let error = error {
+                            print("profileImageの取得失敗： ", error)
+                            cell.userImageView.image = UIImage(named: "noprofile")
+                        } else {
+                            cell.userImageView.image = UIImage(data: imageData!)
+                            SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: userImageFile.name)
+                        }
+                    })
+                }
+            })
+        }else {
+            cell.userImageView.image = UIImage(named: "noprofile")
+        }
         return cell
     }
     

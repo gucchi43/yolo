@@ -12,6 +12,7 @@ import SwiftDate
 import DZNEmptyDataSet
 import SVProgressHUD
 import NSDate_TimeAgo
+import SDWebImage
 
 class NotificationTableViewController: UITableViewController {
     var notificationArray: NSArray = NSArray()
@@ -160,27 +161,34 @@ class NotificationTableViewController: UITableViewController {
                 cell.backgroundColor = UIColor.whiteColor()
             }
             cell.postLabel.text = ""
-            cell.userImageView.image = UIImage(named: "noprofile")
-            cell.agoTimeLabel.text = agoTime
+            //userNameLabel
+            //userProfileImageView
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
-            //"user"情報読み込み
-            let keyUser = followerInfo.objectForKey("actionUser") as? NCMBUser
-            guard let user = keyUser else { return cell } //この場合、ユーザー情報が載ってないcellがreturnされる。
-            cell.userLabel.text = user.objectForKey("userFaceName") as? String
-            //一度ロードしたか？
-            print("indexPath.row", indexPath.row)
-            if let cashProfileImage = cashProfileImageDictionary[indexPath.row] {
-                cell.userImageView.image = cashProfileImage
-            }else {
-                let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-                userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
-                    if let error = error {
-                        print("error", error.localizedDescription)
-                    } else {
-                        cell.userImageView.image = UIImage(data: imageData!)
-                        self.cashProfileImageDictionary[indexPath.row] = UIImage(data: imageData!)
-                    }
-                })
+            if let user = followerInfo.objectForKey("actionUser") as? NCMBUser {
+                cell.userLabel.text = user.objectForKey("userFaceName") as? String
+                if let profileImageName = user.objectForKey("userProfileImage") as? String{
+                    let profileImageFile = NCMBFile.fileWithName(profileImageName, data: nil) as! NCMBFile
+                    SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(profileImageFile.name, done: { (image, SDImageCacheType) in
+                        if let image = image {
+                            cell.userImageView.image = image
+                        }else {
+                            profileImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                                if let error = error {
+                                    print("profileImageの取得失敗： ", error)
+                                    cell.userImageView.image = UIImage(named: "noprofile")
+                                } else {
+                                    cell.userImageView.image = UIImage(data: imageData!)
+                                    SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: profileImageFile.name)
+                                }
+                            })
+                        }
+                    })
+                }else {
+                    cell.userImageView.image = UIImage(named: "noprofile")
+                }
+            } else {
+                cell.userLabel.text = "username"
+                cell.userImageView.image = UIImage(named: "noprofile")
             }
             cell.layoutIfNeeded()
             return cell
@@ -202,28 +210,36 @@ class NotificationTableViewController: UITableViewController {
                 cell.backgroundColor = UIColor.whiteColor()
             }
             cell.postLabel.text = ""
-            cell.userImageView.image = UIImage(named: "noprofile")
-            cell.agoTimeLabel.text = agoTime
+            //userNameLabel
+            //userProfileImageView
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
-            //"user"情報読み込み
-            let keyUser = likeInfo.objectForKey("actionUser") as? NCMBUser
-            guard let user = keyUser else { return cell } //この場合、ユーザー情報が載ってないcellがreturnされる。
-            cell.userLabel.text = user.objectForKey("userFaceName") as? String
-            //一度ロードしたか？
-            print("indexPath.row", indexPath.row)
-            if let cashProfileImage = cashProfileImageDictionary[indexPath.row] {
-                cell.userImageView.image = cashProfileImage
-            }else {
-                let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-                userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
-                    if let error = error {
-                        print("error", error.localizedDescription)
-                    } else {
-                        cell.userImageView.image = UIImage(data: imageData!)
-                        self.cashProfileImageDictionary[indexPath.row] = UIImage(data: imageData!)
-                    }
-                })
+            if let user = likeInfo.objectForKey("actionUser") as? NCMBUser {
+                cell.userLabel.text = user.objectForKey("userFaceName") as? String
+                if let profileImageName = user.objectForKey("userProfileImage") as? String{
+                    let profileImageFile = NCMBFile.fileWithName(profileImageName, data: nil) as! NCMBFile
+                    SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(profileImageFile.name, done: { (image, SDImageCacheType) in
+                        if let image = image {
+                            cell.userImageView.image = image
+                        }else {
+                            profileImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                                if let error = error {
+                                    print("profileImageの取得失敗： ", error)
+                                    cell.userImageView.image = UIImage(named: "noprofile")
+                                } else {
+                                    cell.userImageView.image = UIImage(data: imageData!)
+                                    SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: profileImageFile.name)
+                                }
+                            })
+                        }
+                    })
+                }else {
+                    cell.userImageView.image = UIImage(named: "noprofile")
+                }
+            } else {
+                cell.userLabel.text = "username"
+                cell.userImageView.image = UIImage(named: "noprofile")
             }
+
             cell.postLabel.text = likeInfo.objectForKey("postHeader") as? String
             
             cell.layoutIfNeeded()
@@ -247,28 +263,37 @@ class NotificationTableViewController: UITableViewController {
                 cell.backgroundColor = UIColor.whiteColor()
             }
             cell.postLabel.text = ""
-            cell.userImageView.image = UIImage(named: "noprofile")
-            cell.agoTimeLabel.text = agoTime
+            //userNameLabel
+            //userProfileImageView
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
-            //"user"情報読み込み
-            let keyUser = commentInfo.objectForKey("actionUser") as? NCMBUser
-            guard let user = keyUser else { return cell } //この場合、ユーザー情報が載ってないcellがreturnされる。
-            cell.userLabel.text = user.objectForKey("userFaceName") as? String
-            //一度ロードしたか？
-            print("indexPath.row", indexPath.row)
-            if let cashProfileImage = cashProfileImageDictionary[indexPath.row] {
-                cell.userImageView.image = cashProfileImage
-            }else {
-                let userImage = NCMBFile.fileWithName(user.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-                userImage.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!)-> Void in
-                    if let error = error {
-                        print("error", error.localizedDescription)
-                    } else {
-                        cell.userImageView.image = UIImage(data: imageData!)
-                        self.cashProfileImageDictionary[indexPath.row] = UIImage(data: imageData!)
-                    }
-                })
+            if let user = commentInfo.objectForKey("actionUser") as? NCMBUser {
+                cell.userLabel.text = user.objectForKey("userFaceName") as? String
+                if let profileImageName = user.objectForKey("userProfileImage") as? String{
+                    let profileImageFile = NCMBFile.fileWithName(profileImageName, data: nil) as! NCMBFile
+                    SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(profileImageFile.name, done: { (image, SDImageCacheType) in
+                        if let image = image {
+                            cell.userImageView.image = image
+                        }else {
+                            profileImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                                if let error = error {
+                                    print("profileImageの取得失敗： ", error)
+                                    cell.userImageView.image = UIImage(named: "noprofile")
+                                } else {
+                                    cell.userImageView.image = UIImage(data: imageData!)
+                                    SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: profileImageFile.name)
+                                }
+                            })
+                        }
+                    })
+                }else {
+                    cell.userImageView.image = UIImage(named: "noprofile")
+                }
+            } else {
+                cell.userLabel.text = "username"
+                cell.userImageView.image = UIImage(named: "noprofile")
             }
+
+
             cell.postLabel.text = commentInfo.objectForKey("postHeader") as? String
             cell.commentLabel.text = commentInfo.objectForKey("commentHeader") as? String
             cell.layoutIfNeeded()

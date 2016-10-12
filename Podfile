@@ -23,6 +23,8 @@ target 'masterch' do
 
   pod 'BTNavigationDropdownMenu'
 
+  pod 'SDWebImage', '~>3.8'
+
  # pod 'RMUniversalAlert'
 
  # pod 'UIAlertView+Blocks', '>= 0.8'

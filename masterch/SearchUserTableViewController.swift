@@ -10,6 +10,7 @@ import UIKit
 import SVProgressHUD
 import NCMB
 import DZNEmptyDataSet
+import SDWebImage
 
 class SearchUserTableViewController: UITableViewController {
     
@@ -112,27 +113,32 @@ class SearchUserTableViewController: UITableViewController {
             //こっちの場合は最初に全ユーザー表示
 //            userData = userArray[indexPath.row]
         }
-        
-        let userFaceName = userData!.objectForKey("userFaceName") as? String
-        let userName = userData!.objectForKey("userName") as? String
-        cell.userFaceNameLabel.text = userFaceName!
-        cell.userNameLabel.text = "@" + userName!
-//        userFaceNameArray.append(userFaceName!)
-//        userNameArray.append(userName!)
-//        
-//        print("userNameArray", userNameArray, "userFaceName", userFaceNameArray, "userArray", userArray)
 
+        //userNameLabel
+        //userProfileImageView
         cell.userImageView.layer.cornerRadius = cell.userImageView.frame.width/2
-        let userImageData = NCMBFile.fileWithName(userData!.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-        userImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-            if let error = error {
-                print("プロフィール画像の取得失敗： ", error)
+        cell.userNameLabel.text = userData!.objectForKey("userName") as? String
+        cell.userFaceNameLabel.text = userData!.objectForKey("userFaceName") as? String
+            if let profileImageName = userData!.objectForKey("userProfileImage") as? String{
+                let profileImageFile = NCMBFile.fileWithName(profileImageName, data: nil) as! NCMBFile
+                SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(profileImageFile.name, done: { (image, SDImageCacheType) in
+                    if let image = image {
+                        cell.userImageView.image = image
+                    }else {
+                        profileImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                            if let error = error {
+                                print("profileImageの取得失敗： ", error)
+                                cell.userImageView.image = UIImage(named: "noprofile")
+                            } else {
+                                cell.userImageView.image = UIImage(data: imageData!)
+                                SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: profileImageFile.name)
+                            }
+                        })
+                    }
+                })
+            }else {
                 cell.userImageView.image = UIImage(named: "noprofile")
-            } else {
-                cell.userImageView.image = UIImage(data: imageData!)
-                
             }
-        })
         return cell
     }
 

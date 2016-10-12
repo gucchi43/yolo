@@ -14,6 +14,7 @@ import TwitterKit
 import TTTAttributedLabel
 import Colours
 import FBSDKLoginKit
+import SDWebImage
 
 class AccountViewController: UIViewController, addPostDetailDelegate{
     
@@ -42,10 +43,6 @@ class AccountViewController: UIViewController, addPostDetailDelegate{
     var myProfileHomeImage: UIImage?
     var myProfileName: String?
     var myProfileSelfintroduction: String?
-
-    var cashImageDictionary = [Int : UIImage]()
-    var cashProfileImage = UIImage?()
-    var cashHomeImage = UIImage?()
 
     var followNumbarInt: Int = 0
     var followerNumbarInt: Int = 0
@@ -299,50 +296,63 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
                     //                    cell.followButton.setTitle("フォロー", forState: .Normal)
                 }
             }
-            
-            cell.userProfileNameLabel.text = user!.objectForKey("userFaceName") as? String
+
             cell.userIdLabel.text = "@" + user!.userName
-            cell.userSelfIntroductionTextView.text = user!.objectForKey("userSelfIntroduction") as? String
+            if let userFaceName = user!.objectForKey("userFaceName") as? String{
+                cell.userProfileNameLabel.text = userFaceName
+            }else {
+                cell.userProfileNameLabel.text = "userName"
+            }
+            if let userSelfIntroduction = user!.objectForKey("userSelfIntroduction") as? String{
+                cell.userSelfIntroductionTextView.text = userSelfIntroduction
+            }else {
+                cell.userSelfIntroductionTextView.text = "自己紹介文はまだありません"
+            }
             cell.userSelfIntroductionTextView.textColor = UIColor.whiteColor()
             cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
-            if cashProfileImage != nil {
-                cell.userProfileImageView.image = cashProfileImage
 
-            }else {
-                let userProfileImageName = user!.objectForKey("userProfileImage") as? String
-                let userProfileImageData = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
-                userProfileImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
-                    if error != nil{
-                        print("写真の取得失敗: \(error)")
-                    } else {
-                        cell.userProfileImageView.image = UIImage(data: imageData!)
-                        self.cashProfileImage = UIImage(data: imageData!)
-                        //EditProfileVCへの遷移のデータ
-                        if self.user == NCMBUser.currentUser() {
-                            self.myProfileImage = cell.userProfileImageView.image
-                        }
+            if let userProfileImageName = user!.objectForKey("userProfileImage") as? String{
+                let userProfileImageFile = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
+                SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(userProfileImageFile.name, done: { (image, SDImageCacheType) in
+                    if let image = image {
+                        cell.userProfileImageView.image = image
+                    }else {
+                        userProfileImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                            if let error = error {
+                                print("profileImageの取得失敗： ", error)
+                                cell.userProfileImageView.image = UIImage(named: "noprofile")
+                            } else {
+                                cell.userProfileImageView.image = UIImage(data: imageData!)
+                                SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: userProfileImageFile.name)
+                            }
+                        })
                     }
-                }
+                })
+            }else {
+                cell.userProfileImageView.image = UIImage(named: "noprofile")
             }
 
-            if cashHomeImage != nil{
-                cell.userHomeImageView.image = cashHomeImage
-            }else {
-                let userHomeImageName = user!.objectForKey("userHomeImage") as? String
-                let userHomeImageData = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
-                userHomeImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
-                    if error != nil{
-                        print("写真の取得失敗: \(error)")
-                    } else {
-                        cell.userHomeImageView.image = UIImage(data: imageData!)
-                        self.cashHomeImage = UIImage(data: imageData!)
-                        //EditProfileVCへの遷移のデータ
-                        if self.user == NCMBUser.currentUser() {
-                            self.myProfileHomeImage = cell.userHomeImageView.image
-                        }
+            if let userHomeImageName = user!.objectForKey("userHomeImage") as? String{
+                let userHomeImageFile = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
+                SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(userHomeImageFile.name, done: { (image, SDImageCacheType) in
+                    if let image = image {
+                        cell.userHomeImageView.image = image
+                    }else {
+                        userHomeImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                            if let error = error {
+                                print("profileImageの取得失敗： ", error)
+                                cell.userHomeImageView.image = UIImage(named: "noprofile")
+                            } else {
+                                cell.userHomeImageView.image = UIImage(data: imageData!)
+                                SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: userHomeImageFile.name)
+                            }
+                        })
                     }
-                }
+                })
+            }else {
+                cell.userHomeImageView.image = UIImage(named: "noprofile")
             }
+
             //Twiiter連携しているか？
             if isTwitterConnecting == true {
                 cell.twitterConnectButton.setImage(UIImage(named: "twitterON"), forState: .Normal)
@@ -401,83 +411,83 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
             }
 
             //自分の投稿Cell
-            let cell = tableView.dequeueReusableCellWithIdentifier("TimelineCell", forIndexPath: indexPath) as! TimelineCell
-            //ImageViewの初期化的な
-            cell.userProfileImageView.image = UIImage(named: "noprofile")
-            cell.postImageView.image = nil
-            
-            // 各値をセルに入れる
-            let postData = postArray[indexPath.row - 2]
+            let cellId = "TimelineCell"
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! TimelineCell
+
+            let postData = postArray[indexPath.row - 2] as! NCMBObject
             print("postData", postData)
-            cell.postTextLabel.delegate = self
+
+            //userNameLabel
+            //userProfileImageView
+            cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
+            if let author = postData.objectForKey("user") as? NCMBUser {
+                cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
+                if let profileImageName = author.objectForKey("userProfileImage") as? String{
+                    let profileImageFile = NCMBFile.fileWithName(profileImageName, data: nil) as! NCMBFile
+                    SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(profileImageFile.name, done: { (image, SDImageCacheType) in
+                        if let image = image {
+                            cell.userProfileImageView.image = image
+                        }else {
+                            profileImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                                if let error = error {
+                                    print("profileImageの取得失敗： ", error)
+                                    cell.userProfileImageView.image = UIImage(named: "noprofile")
+                                } else {
+                                    cell.userProfileImageView.image = UIImage(data: imageData!)
+                                    SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: profileImageFile.name)
+                                }
+                            })
+                        }
+                    })
+                }else {
+                    cell.userProfileImageView.image = UIImage(named: "noprofile")
+                }
+            } else {
+                cell.userNameLabel.text = "username"
+                cell.userProfileImageView.image = UIImage(named: "noprofile")
+            }
+
+            // postTextLabel
             // urlをリンクにする設定
+            cell.postTextLabel.delegate = self
             let linkColor = ColorManager.sharedSingleton.mainColor()
             let linkActiveColor = ColorManager.sharedSingleton.mainColor().darken(0.25)
             cell.postTextLabel.linkAttributes = [kCTForegroundColorAttributeName : linkColor]
             cell.postTextLabel.activeLinkAttributes = [kCTForegroundColorAttributeName : linkActiveColor]
             cell.postTextLabel.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
-            // postTextLabelには(key: "text")の値を入れる
             cell.postTextLabel.text = postData.objectForKey("text") as? String
             print("投稿内容", cell.postTextLabel.text)
-            // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
+
+            // postDateLabel
             let date = postData.objectForKey("postDate") as? NSDate
             print("NSDateの内容", date)
             let postDateFormatter: NSDateFormatter = NSDateFormatter()
             postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
             cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
-            
+
+            //commentButton
             cell.commentButton.addTarget(self, action: #selector(LogViewController.pushCommentButton(_:)), forControlEvents: .TouchUpInside)
-            
-            //プロフィール写真の形を円形にする
-            cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
-            
-            let author = postData.objectForKey("user") as? NCMBUser
-            if let author = author {
-                cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
-                if cashProfileImage != nil {
-                    cell.userProfileImageView.image = cashProfileImage
-                }else {
-                    let postImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-                    postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                        if let error = error {
-                            print("プロフィール画像の取得失敗： ", error)
-                            cell.userProfileImageView.image = UIImage(named: "noprofile")
-                        } else {
-                            cell.userProfileImageView.image = UIImage(data: imageData!)
-                            self.cashProfileImage = UIImage(data: imageData!)
 
-
-                        }
-                    })
-                }
-
-            } else {
-                cell.userNameLabel.text = "username"
-                cell.userProfileImageView.image = UIImage(named: "noprofile")
-            }
-            
-            //画像データの取得
+            //postImageView
+            cell.postImageView.image = nil
             if let postImageName = postData.objectForKey("image1") as? String {
                 cell.imageViewHeightConstraint.constant = 150.0
-                //一度ロードしたか？
-                print("indexPath.row", indexPath.row)
-                if let cashImage = cashImageDictionary[indexPath.row] {
-                    cell.postImageView.image = cashImage
-                    cell.postImageView.layer.cornerRadius = 5.0
-                }else {
-                    let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
-                    postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                        if let error = error {
-                            print("写真の取得失敗： ", error)
-                        } else {
-                            cell.postImageView.image = UIImage(data: imageData!)
-                            cell.postImageView.layer.cornerRadius = 5.0
-                            print("(before)indexPath -> cashImageDictionary", indexPath.row, "->", self.cashImageDictionary)
-                            self.cashImageDictionary[indexPath.row] = UIImage(data: imageData!)
-                            print("(after)indexPath -> cashImageDictionary", indexPath.row, "->", self.cashImageDictionary)
-                        }
-                    })
-                }
+                cell.postImageView.layer.cornerRadius = 5.0
+                let postImageFile = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
+                SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(postImageFile.name, done: { (image, SDImageCacheType) in
+                    if let image = image {
+                        cell.postImageView.image = image
+                    }else {
+                        postImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                            if let error = error {
+                                print("postImageの取得失敗： ", error)
+                            } else {
+                                cell.postImageView.image = UIImage(data: imageData!)
+                                SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: postImageFile.name)
+                            }
+                        })
+                    }
+                })
             } else {
                 cell.postImageView.image = nil
                 cell.imageViewHeightConstraint.constant = 0.0
@@ -536,9 +546,6 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("セルの選択: \(indexPath.row)")
         selectedPostObject = self.postArray[indexPath.row - 2] as! NCMBObject
-        if let cashImage = cashImageDictionary[indexPath.row] {
-            selectedPostImage = cashImage
-        }
         performSegueWithIdentifier("toPostDetail", sender: nil)
     }
 

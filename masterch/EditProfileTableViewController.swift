@@ -11,6 +11,7 @@ import SVProgressHUD
 import NCMB
 import TwitterKit
 import RSKImageCropper
+import SDWebImage
 
 class EditProfileTableViewController: UITableViewController {
     
@@ -317,6 +318,7 @@ extension EditProfileTableViewController {
             let userProfileImageData = UIImageJPEGRepresentation(self.userProfileImageView.image!, 0.8)! as NSData
 //            let userProfileImageData = UIImagePNGRepresentation(self.userProfileImageView.image!)! as NSData
             let userProfileImageFile: NCMBFile = NCMBFile.fileWithData(userProfileImageData) as! NCMBFile
+            SDWebImageManager.sharedManager().imageCache.storeImage(self.userProfileImageView.image, forKey: userProfileImageFile.name)
             
             user.setObject(userProfileImageFile.name, forKey: "userProfileImage")
             //
@@ -346,6 +348,7 @@ extension EditProfileTableViewController {
             let userHomeImageData = UIImageJPEGRepresentation(self.userHomeImageView.image!, 0.8)! as NSData
 //            let userHomeImageData = UIImagePNGRepresentation(self.userHomeImageView.image!)! as NSData
             let userHomeImageFile: NCMBFile = NCMBFile.fileWithData(userHomeImageData) as! NCMBFile
+            SDWebImageManager.sharedManager().imageCache.storeImage(self.userHomeImageView.image, forKey: userHomeImageFile.name)
             
             user.setObject(userHomeImageFile.name, forKey: "userHomeImage")
             
