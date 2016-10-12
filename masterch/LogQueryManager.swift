@@ -27,9 +27,6 @@ final class logManager {
     }
 }
 
-
-
-
 class LogQueryManager: NSObject {
     
     func loadItems(logNumber: Int, user: NCMBUser = NCMBUser.currentUser()) -> NCMBQuery {

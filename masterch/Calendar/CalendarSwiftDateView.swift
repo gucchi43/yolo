@@ -109,7 +109,24 @@ class CalendarSwiftDateView: UIView{
         backLabel.font = UIFont.systemFontOfSize(42)
         backLabel.alpha = 0.7
 
+        let testLabel = backLabel
+        testLabel.text = "🐟"
+
         switch dateColor {
+        case "a":
+            self.dayButton.setBackgroundImage(testLabel.toImage() , forState: .Normal)
+        case "b":
+            self.dayButton.setBackgroundImage(testLabel.toImage() , forState: .Normal)
+        case "c":
+            self.dayButton.setBackgroundImage(testLabel.toImage() , forState: .Normal)
+        case "d":
+            self.dayButton.setBackgroundImage(testLabel.toImage() , forState: .Normal)
+        case "e":
+            self.dayButton.setBackgroundImage(testLabel.toImage() , forState: .Normal)
+        case "f":
+            self.dayButton.setBackgroundImage(testLabel.toImage() , forState: .Normal)
+        case "g":
+            self.dayButton.setBackgroundImage(testLabel.toImage() , forState: .Normal)
         case "?":
             self.dayButton.setBackgroundImage(logNomalImage , forState: .Normal)
         default:
@@ -118,7 +135,3 @@ class CalendarSwiftDateView: UIView{
         }
     }
 }
-
-
-
-
