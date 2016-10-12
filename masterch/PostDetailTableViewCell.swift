@@ -11,6 +11,7 @@ import NCMB
 import SVProgressHUD
 import TTTAttributedLabel
 import IDMPhotoBrowser
+import SDWebImage
 
 protocol PostDetailTableViewCellDelegate {
     func didSelectCommentButton()
@@ -59,83 +60,94 @@ class PostDetailTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
     }
     
     func setPostDetailCell() {
+        print("postObject", postObject)
     
+        //userNameLabel
+        //userProfileImageView
+        userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
+        let gestureUserProfileImage = UITapGestureRecognizer(target: self, action: #selector(PostDetailTableViewCell.tapUserProfileImage(_:)))
+        userProfileImageView.addGestureRecognizer(gestureUserProfileImage)
         if let auther = postObject.objectForKey("user") as? NCMBUser {
-            print("auther", auther)
-            print("postObject", postObject)
             userProfileNameLabel.text = auther.objectForKey("userFaceName") as? String
             userNameIDLabel.text = "@" + auther.userName
-            
-            //プロフィール写真の形を円形にする
-            userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
-            let gestureUserProfileImage = UITapGestureRecognizer(target: self, action: #selector(PostDetailTableViewCell.tapUserProfileImage(_:)))
-            userProfileImageView.addGestureRecognizer(gestureUserProfileImage)
-            
-            let userImageData = NCMBFile.fileWithName(auther.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-            userImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                if let error = error {
-                    print("プロフィール画像の取得失敗： ", error)
-                    self.userProfileImageView.image = UIImage(named: "noprofile")
-                } else {
-                    self.userProfileImageView.image = UIImage(data: imageData!)
-                }
-            })
+            if let userImageName = auther.objectForKey("userProfileImage") as? String {
+                let userImageFile = NCMBFile.fileWithName(userImageName, data: nil) as! NCMBFile
+                SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(userImageFile.name, done: { (image, SDImageCacheType) in
+                    if let image = image {
+                        self.userProfileImageView.image = image
+                    }else {
+                        userImageFile.getDataInBackgroundWithBlock({ (imageData, error) in
+                            if let error = error {
+                                print("プロフィール画像の取得失敗： ", error)
+                                self.userProfileImageView.image = UIImage(named: "noprofile")
+                            }else {
+                                self.userProfileImageView.image = UIImage(data: imageData!)
+                                SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: userImageFile.name)
+                            }
+                        })
+                    }
+                })
+            }else {
+                self.userProfileImageView.image = UIImage(named: "noprofile")
+            }
         } else {
             userNameIDLabel.text = "username"
             userProfileImageView.image = UIImage(named: "noprofile")
         }
-        
+
+        // postTextLabel
         // urlをリンクにする設定
+        postTextLabel.delegate = self
         let linkColor = ColorManager.sharedSingleton.mainColor()
         let linkActiveColor = ColorManager.sharedSingleton.mainColor().darken(0.25)
         postTextLabel.linkAttributes = [kCTForegroundColorAttributeName : linkColor]
         postTextLabel.activeLinkAttributes = [kCTForegroundColorAttributeName : linkActiveColor]
         postTextLabel.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
         postTextLabel.text = postObject.objectForKey("text") as? String
-        postTextLabel.delegate = self
 
-        // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
+        // postDateLabel
         let date = postObject.objectForKey("postDate") as? NSDate
         let postDateFormatter: NSDateFormatter = NSDateFormatter()
         postDateFormatter.dateFormat = "yyyy MM/dd HH:mm"
         postDateLabel.text = postDateFormatter.stringFromDate(date!)
         
-        // 画像データの取得
+        // postImageView
         let gesturePostImage = UITapGestureRecognizer(target: self, action: #selector(PostDetailTableViewCell.tapPostImage(_:)))
         postImageView.addGestureRecognizer(gesturePostImage)
         postImageView.contentMode = UIViewContentMode.ScaleAspectFill
-        if let postImage = postImage{ //遷移前にもうロードされてた
-            self.postImageViewHeightConstraint.constant = (UIScreen.mainScreen().bounds.size.width - 20)
-            self.postImageView.image = postImage
-            self.postImageloardToggle = true
-        }else { //遷移前はまだロードされてなかった
             if let postImageName = postObject.objectForKey("image1") as? String {
                 self.postImageViewHeightConstraint.constant = (UIScreen.mainScreen().bounds.size.width - 20)
-
-                let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
-                postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                    if let error = error {
-                        print("写真の取得失敗： ", error)
-                        //                    SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
-                        self.postImageView.image = UIImage(named: "pleaseReload")
-                        self.postImageloardToggle = false
-                    } else {
-                        print(UIImage(data: imageData!))
-                        //                    SVProgressHUD.dismiss()
-                        self.postImageViewHeightConstraint.constant = (UIScreen.mainScreen().bounds.size.width - 20)
-                        self.postImageView.image = UIImage(data: imageData!)
+                let postImageFile = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
+                SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(postImageFile.name, done: { (image, SDImageCacheType) in
+                    if let image = image {
+                        self.postImageView.image = image
                         self.postImageloardToggle = true
+                    }else {
+                    postImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                            if let error = error {
+                                print("postImageの取得失敗： ", error)
+                                //                    SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
+                                self.postImageView.image = UIImage(named: "pleaseReload")
+                                self.postImageloardToggle = false
+                            } else {
+                                print(UIImage(data: imageData!))
+                                //                    SVProgressHUD.dismiss()
+                                self.postImageViewHeightConstraint.constant = (UIScreen.mainScreen().bounds.size.width - 20)
+                                self.postImageView.image = UIImage(data: imageData!)
+                                SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: postImageFile.name)
+                                self.postImageloardToggle = true
+                            }
+                            }, progressBlock: { (progress) in
+                                //                    SVProgressHUD.showProgress(Float(progress)/100, status: "画像読み込み中")
+                                print("postImage進行速度 %: ", Float(progress)/100)
+                                
+                        })
                     }
-                    }, progressBlock: { (progress) in
-                        //                    SVProgressHUD.showProgress(Float(progress)/100, status: "画像読み込み中")
-                        print("postImage進行速度 %: ", Float(progress)/100)
-
                 })
             } else {
                 self.postImageView.image = nil
                 self.postImageViewHeightConstraint.constant = 0.0
             }
-        }
 
         if postObject.objectForKey("likeUser") != nil{
             //今までで、消されたかもだけど、必ずいいねされたことはある
@@ -198,13 +210,13 @@ extension PostDetailTableViewCell: IDMPhotoBrowserDelegate  {
     func tapPostImage(recoginizer: UITapGestureRecognizer) {
         print("tapPostImage")
         if let postImage = postImageView.image{
-            if postImageloardToggle == false { //画像の読み込みがエラーのとき
+            if postImageloardToggle == false { //画像の読み込みがまだの時
                 postImageView.image = nil
                 if let postImageName = postObject.objectForKey("image1") as? String {
                     self.postImageViewHeightConstraint.constant = (UIScreen.mainScreen().bounds.size.width - 20)
 
-                    let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
-                    postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                    let postImageFile = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
+                    postImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
                         if let error = error {
                             print("写真の取得失敗： ", error)
                             //                    SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
@@ -216,11 +228,11 @@ extension PostDetailTableViewCell: IDMPhotoBrowserDelegate  {
                             self.postImageViewHeightConstraint.constant = (UIScreen.mainScreen().bounds.size.width - 20)
                             self.postImageView.image = UIImage(data: imageData!)
                             self.postImageloardToggle = true
+                            SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: postImageFile.name)
                         }
                         }, progressBlock: { (progress) in
                             //                    SVProgressHUD.showProgress(Float(progress)/100, status: "画像読み込み中")
                             print("postImage進行速度 %: ", Float(progress)/100)
-                            
                     })
                 } else {
                     self.postImageView.image = nil
@@ -230,14 +242,6 @@ extension PostDetailTableViewCell: IDMPhotoBrowserDelegate  {
                 delegate.didSelectPostImageView(postImage, postText: postTextLabel.text!)
             }
         }
-
-//        let photo = IDMPhoto(image: postImageView.image)
-//        photo.caption = "センチメンタルキッス"
-//        let photos: NSArray = [photo]
-//        let browser = IDMPhotoBrowser.init(photos: photos as [AnyObject])
-//        browser.delegate = self
-//        let postDetailVC = PostDetailViewController()
-//        postDetailVC.presentViewController(browser,animated:true ,completion:nil)
     }
 }
 

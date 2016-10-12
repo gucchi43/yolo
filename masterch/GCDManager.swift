@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SDWebImage
+import NCMB
 
 class GCDManager {
     func dispatch_async_main(block: () -> ()) {
@@ -17,4 +19,3 @@ class GCDManager {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block)
     }
 }
-

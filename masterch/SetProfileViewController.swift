@@ -10,6 +10,7 @@ import UIKit
 import SVProgressHUD
 import NCMB
 import RSKImageCropper
+import SDWebImage
 
 
 class SetProfileViewController: UIViewController {
@@ -269,8 +270,9 @@ extension SetProfileViewController {
             
             //設定してもらったProfileImageをユーザー情報に追加
             let userProfileImageData = UIImageJPEGRepresentation(self.userImageView.image!, 0.8)! as NSData
-//            let userProfileImageData = UIImagePNGRepresentation(self.userImageView.image!)! as NSData
             let userProfileImageFile: NCMBFile = NCMBFile.fileWithData(userProfileImageData) as! NCMBFile
+            SDWebImageManager.sharedManager().imageCache.storeImage(self.userImageView.image!, forKey: userProfileImageFile.name)
+            //初回はuserProfileImageとuserHomeImageは同じImageを使う
             user.setObject(userProfileImageFile.name, forKey: "userProfileImage")
             user.setObject(userProfileImageFile.name, forKey: "userHomeImage")
                         

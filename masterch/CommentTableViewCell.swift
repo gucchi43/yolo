@@ -8,6 +8,7 @@
 
 import UIKit
 import NCMB
+import SDWebImage
 
 protocol CommentTableViewCellDelegate {
     func didSelectCommentProfileImageView(commentObject: NCMBObject!)
@@ -45,30 +46,37 @@ class CommentTableViewCell: UITableViewCell {
         let commentDateFormatter: NSDateFormatter = NSDateFormatter()
         commentDateFormatter.dateFormat = "yyyy MM/dd HH:mm"
         commentDateLabel.text = commentDateFormatter.stringFromDate(date)
-        
-        let author = commentObject.objectForKey("user") as? NCMBUser
-        if let author = author {
+
+        if let author = commentObject.objectForKey("user") as? NCMBUser {
             userProfileNameLabel.text = author.objectForKey("userFaceName") as? String
-            
-            let profileImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-            profileImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                if let error = error {
-                    print("プロフィール画像の取得失敗： ", error)
-                    self.userProfileImageView.image = UIImage(named: "noprofile")
-                } else {
-                    self.userProfileImageView.image = UIImage(data: imageData!)
-                    
-                }
-            })
+            if let profileImageName = author.objectForKey("userProfileImage") as? String{
+                let profileImageFile = NCMBFile.fileWithName(profileImageName, data: nil) as! NCMBFile
+                SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(profileImageFile.name, done: { (image, SDImageCacheType) in
+                    if let image = image {
+                        self.userProfileImageView.image = image
+                    }else {
+                        profileImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                            if let error = error {
+                                print("profileImageの取得失敗： ", error)
+                                self.userProfileImageView.image = UIImage(named: "noprofile")
+                            } else {
+                                self.userProfileImageView.image = UIImage(data: imageData!)
+                                SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: profileImageFile.name)
+                            }
+                        })
+                    }
+                })
+            }else {
+                self.userProfileImageView.image = UIImage(named: "noprofile")
+            }
         } else {
             userProfileNameLabel.text = "username"
-            userProfileImageView.image = UIImage(named: "noprofile")
+            self.userProfileImageView.image = UIImage(named: "noprofile")
         }
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     

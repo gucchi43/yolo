@@ -8,6 +8,7 @@
 
 import UIKit
 import NCMB
+import SDWebImage
 
 class OtherAccountViewController: UIViewController {
     
@@ -34,32 +35,63 @@ class OtherAccountViewController: UIViewController {
         
         print(user)
         userIdLabel.text = "@" + user.userName
-        userProfileNameLabel.text = user.objectForKey("userFaceName") as? String
-        
-        userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
-        let userProfileImageName = (user.objectForKey("userProfileImage") as? String)!
-        let userProfileImageData = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
-        userProfileImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
-            if error != nil{
-                print("写真の取得失敗: \(error)")
-            } else {
-                self.userProfileImageView.image = UIImage(data: imageData!)
-            }
+        if let userFaceName = user!.objectForKey("userFaceName") as? String{
+            userProfileNameLabel.text = userFaceName
+        }else {
+            userProfileNameLabel.text = "userName"
         }
-        
-        let userHomeImageName = (user.objectForKey("userHomeImage") as? String)!
-        let userHomeImageData = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
-        userHomeImageData.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError!) -> Void in
-            if error != nil{
-                print("写真の取得失敗: \(error)")
-            } else {
-                self.userHomeImageView.image = UIImage(data: imageData!)
-            }
+        if let userSelfIntroduction = user!.objectForKey("userSelfIntroduction") as? String{
+            self.userSelfIntroductionLabel.text = userSelfIntroduction
+        }else {
+            self.userSelfIntroductionLabel.text = "自己紹介文はまだありません"
         }
-        
-        userSelfIntroductionLabel.text = user.objectForKey("userSelfIntroduction") as? String
         userSelfIntroductionLabel.sizeToFit()
-        
+        userSelfIntroductionLabel.textColor = UIColor.whiteColor()
+        userProfileImageView.layer.cornerRadius = userProfileImageView.frame.width/2
+
+        if let userProfileImageName = user!.objectForKey("userProfileImage") as? String{
+            let userProfileImageFile = NCMBFile.fileWithName(userProfileImageName, data: nil) as! NCMBFile
+            SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(userProfileImageFile.name, done: { (image, SDImageCacheType) in
+                if let image = image {
+                    self.userProfileImageView.image = image
+                }else {
+                    userProfileImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                        if let error = error {
+                            print("profileImageの取得失敗： ", error)
+                            self.userProfileImageView.image = UIImage(named: "noprofile")
+                        } else {
+                            self.userProfileImageView.image = UIImage(data: imageData!)
+                            SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: userProfileImageFile.name)
+                        }
+                    })
+                }
+            })
+        }else {
+            self.userProfileImageView.image = UIImage(named: "noprofile")
+        }
+
+
+        if let userHomeImageName = user!.objectForKey("userHomeImage") as? String{
+            let userHomeImageFile = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
+            SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(userHomeImageFile.name, done: { (image, SDImageCacheType) in
+                if let image = image {
+                    self.userHomeImageView.image = image
+                }else {
+                    userHomeImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                        if let error = error {
+                            print("profileImageの取得失敗： ", error)
+                            self.userHomeImageView.image = UIImage(named: "noprofile")
+                        } else {
+                            self.userHomeImageView.image = UIImage(data: imageData!)
+                            SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: userHomeImageFile.name)
+                        }
+                    })
+                }
+            })
+        }else {
+            self.userHomeImageView.image = UIImage(named: "noprofile")
+        }
+
         getFllowerNumbar()
         getFllowNumber()
         checkFollowing()

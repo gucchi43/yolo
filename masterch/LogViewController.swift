@@ -1,5 +1,5 @@
 //
-//  LogViewController.swift
+//
 //  masterch
 //
 //  Created by Fumiya Yamanaka on 2016/02/09.
@@ -12,6 +12,7 @@ import SwiftDate
 import DZNEmptyDataSet
 import TTTAttributedLabel
 import BTNavigationDropdownMenu
+import SDWebImage
 
 protocol LogViewControlloerDelegate {
     func updateLogView()
@@ -40,16 +41,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 
     //    セル選択時の変数
     var selectedPostObject: NCMBObject!
-    var selectedPostImage: UIImage?
-    
-    //    それぞれを変数にして渡す場合に使用。その方が早いけど、何故かずれたりする原因がわからないのでNMCBObjectをそのまま渡している
-    //    var selectedPostUserFaceName: String!
-    //    var selectedPostUserName: String!
-    //    var selectedPostUserProfileImage: UIImage!
-    //    var selectedPostText: String!
-    //    var selectedPostDate: String!
-    //    var selectedPostImage: UIImage!
-    
+
     var animationFinished = true
     
     let toWeekImage = UIImage(named: "toWeek")
@@ -61,8 +53,8 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     var navigationBarView: BTNavigationDropdownMenu!
     var dropdownNumber: Int = 0
 
-    var cashImageDictionary = [Int : UIImage]()
-    var cashProfileImageDictionary = [Int : UIImage]()
+//    var cashImageDictionary = [Int : UIImage]()
+//    var cashProfileImageDictionary = [Int : UIImage]()
     var dayLoadingToggle = false
     
     override func viewDidLoad() {
@@ -113,9 +105,9 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     //関数で受け取った時のアクションを定義
     func didSelectDayView(notification: NSNotification) {
         //疑似キャッシュをクリア
-        cashProfileImageDictionary.removeAll()
-        cashImageDictionary.removeAll()
-        print("クリア後のcashImageDictionary", cashImageDictionary)
+//        cashProfileImageDictionary.removeAll()
+//        cashImageDictionary.removeAll()
+//        print("クリア後のcashImageDictionary", cashImageDictionary)
 
         //tableViewのとこに読み込み画面入れる
         self.dayLoadingToggle = true
@@ -243,8 +235,8 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         logManager.sharedSingleton.tabLogNumber = indexPath
         let logNumber = logManager.sharedSingleton.tabLogNumber
         //疑似キャッシュをクリア
-        cashImageDictionary.removeAll()
-        cashProfileImageDictionary.removeAll()
+//        cashImageDictionary.removeAll()
+//        cashProfileImageDictionary.removeAll()
         print("logNumber", logNumber, rangeTitle)
 
         switch toggleWeek {
@@ -340,9 +332,6 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             let postDetailVC: PostDetailViewController = segue.destinationViewController as! PostDetailViewController
             //            postDetailVC.hidesBottomBarWhenPushed = true // trueならtabBar隠す
             postDetailVC.postObject = self.selectedPostObject
-            if let selectedPostImage = selectedPostImage {
-                postDetailVC.postImage = selectedPostImage
-            }
             postDetailVC.delegate = self
             if let sender = sender {
                 postDetailVC.isSelectedCommentButton = sender as! Bool
@@ -497,85 +486,82 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellId = "TimelineCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! TimelineCell
-        
-        //ImageViewの初期化的な
-        cell.userProfileImageView.image = UIImage(named: "noprofile")
-        cell.postImageView.image = nil
-        
-        // 各値をセルに入れる
-        let postData = postArray[indexPath.row] as! NCMBObject
-        print("postData", postData)
-        // postTextLabelには(key: "text")の値を入れる
-        cell.postTextLabel.delegate = self
-        // urlをリンクにする設定
-        let linkColor = ColorManager.sharedSingleton.mainColor()
-        let linkActiveColor = ColorManager.sharedSingleton.mainColor().darken(0.25)
-        cell.postTextLabel.linkAttributes = [kCTForegroundColorAttributeName : linkColor]
-        cell.postTextLabel.activeLinkAttributes = [kCTForegroundColorAttributeName : linkActiveColor]
-        cell.postTextLabel.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
-        
-        cell.postTextLabel.text = postData.objectForKey("text") as? String
-        print("投稿内容", cell.postTextLabel.text)
-        // postDateLabelには(key: "postDate")の値を、NSDateからstringに変換して入れる
-        let date = postData.objectForKey("postDate") as? NSDate
-        print("NSDateの内容", date)
-        let postDateFormatter: NSDateFormatter = NSDateFormatter()
-        postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
-        cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
-        
-        cell.commentButton.addTarget(self, action: #selector(LogViewController.pushCommentButton(_:)), forControlEvents: .TouchUpInside)
-        
-        //プロフィール写真の形を円形にする
-        cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
-        let author = postData.objectForKey("user") as? NCMBUser
-        if let author = author {
-            cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
 
-            //一度ロードしたか？
-            print("indexPath.row", indexPath.row)
-            if let cashProfileImage = cashProfileImageDictionary[indexPath.row] {
-                cell.userProfileImageView.image = cashProfileImage
-            }else {
-                let postImageData = NCMBFile.fileWithName(author.objectForKey("userProfileImage") as? String, data: nil) as! NCMBFile
-                postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                    if let error = error {
-                        print("プロフィール画像の取得失敗： ", error)
-                        cell.userProfileImageView.image = UIImage(named: "noprofile")
-                    } else {
-                        cell.userProfileImageView.image = UIImage(data: imageData!)
-                        print("(before)indexPath -> cashProfileImageDictionary", indexPath.row, "->", self.cashProfileImageDictionary)
-                        self.cashProfileImageDictionary[indexPath.row] = UIImage(data: imageData!)
-                        print("(after)indexPath -> cashProfileImageDictionary", indexPath.row, "->", self.cashProfileImageDictionary)
+        let postData = postArray[indexPath.row] as! NCMBObject
+        print("indexPath.row", indexPath.row)
+        print("postData", postData)
+
+        //userNameLabel
+        //userProfileImageView
+        cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
+        if let author = postData.objectForKey("user") as? NCMBUser {
+            cell.userNameLabel.text = author.objectForKey("userFaceName") as? String
+            if let profileImageName = author.objectForKey("userProfileImage") as? String{
+                let profileImageFile = NCMBFile.fileWithName(profileImageName, data: nil) as! NCMBFile
+                SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(profileImageFile.name, done: { (image, SDImageCacheType) in
+                    if let image = image {
+                        cell.userProfileImageView.image = image
+                    }else {
+                        profileImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                            if let error = error {
+                                print("profileImageの取得失敗： ", error)
+                                cell.userProfileImageView.image = UIImage(named: "noprofile")
+                            } else {
+                                cell.userProfileImageView.image = UIImage(data: imageData!)
+                                SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: profileImageFile.name)
+                            }
+                        })
                     }
                 })
+            }else {
+                cell.userProfileImageView.image = UIImage(named: "noprofile")
             }
         } else {
             cell.userNameLabel.text = "username"
             cell.userProfileImageView.image = UIImage(named: "noprofile")
         }
-        
-        //画像データの取得
+
+        // postTextLabel
+        // urlをリンクにする設定
+        cell.postTextLabel.delegate = self
+        let linkColor = ColorManager.sharedSingleton.mainColor()
+        let linkActiveColor = ColorManager.sharedSingleton.mainColor().darken(0.25)
+        cell.postTextLabel.linkAttributes = [kCTForegroundColorAttributeName : linkColor]
+        cell.postTextLabel.activeLinkAttributes = [kCTForegroundColorAttributeName : linkActiveColor]
+        cell.postTextLabel.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
+        cell.postTextLabel.text = postData.objectForKey("text") as? String
+        print("投稿内容", cell.postTextLabel.text)
+
+        // postDateLabel
+        let date = postData.objectForKey("postDate") as? NSDate
+        print("NSDateの内容", date)
+        let postDateFormatter: NSDateFormatter = NSDateFormatter()
+        postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+        cell.postDateLabel.text = postDateFormatter.stringFromDate(date!)
+
+        //commentButton
+        cell.commentButton.addTarget(self, action: #selector(LogViewController.pushCommentButton(_:)), forControlEvents: .TouchUpInside)
+
+        //postImageView
+        cell.postImageView.image = nil
         if let postImageName = postData.objectForKey("image1") as? String {
             cell.imageViewHeightConstraint.constant = 150.0
-            //一度ロードしたか？
-            print("indexPath.row", indexPath.row)
-            if let cashImage = cashImageDictionary[indexPath.row] {
-                cell.postImageView.image = cashImage
-                cell.postImageView.layer.cornerRadius = 5.0
-            }else {
-                let postImageData = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
-                postImageData.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
-                    if let error = error {
-                        print("写真の取得失敗： ", error)
-                    } else {
-                        cell.postImageView.image = UIImage(data: imageData!)
-                        cell.postImageView.layer.cornerRadius = 5.0
-                        print("(before)indexPath -> cashImageDictionary", indexPath.row, "->", self.cashImageDictionary)
-                        self.cashImageDictionary[indexPath.row] = UIImage(data: imageData!)
-                        print("(after)indexPath -> cashImageDictionary", indexPath.row, "->", self.cashImageDictionary)
-                    }
-                })
-            }
+            cell.postImageView.layer.cornerRadius = 5.0
+            let postImageFile = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
+            SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(postImageFile.name, done: { (image, SDImageCacheType) in
+                if let image = image {
+                    cell.postImageView.image = image
+                }else {
+                    postImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                        if let error = error {
+                            print("postImageの取得失敗： ", error)
+                        } else {
+                            cell.postImageView.image = UIImage(data: imageData!)
+                            SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: postImageFile.name)
+                        }
+                    })
+                }
+            })
         } else {
             cell.postImageView.image = nil
             cell.imageViewHeightConstraint.constant = 0.0
@@ -618,11 +604,6 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("セルの選択: \(indexPath.row)")
         selectedPostObject = self.postArray[indexPath.row] as! NCMBObject
-        if let cashImage = cashImageDictionary[indexPath.row] {
-            selectedPostImage = cashImage
-        }else {
-            selectedPostImage = nil
-        }
         performSegueWithIdentifier("toPostDetailVC", sender: nil)
     }
 
@@ -755,7 +736,6 @@ extension LogViewController{
         let cell = sender.superview?.superview as! TimelineCell
         let row = tableView.indexPathForCell(cell)?.row
         selectedPostObject = self.postArray[row!] as! NCMBObject
-        
         performSegueWithIdentifier("toPostDetailVC", sender: true)
     }
     
