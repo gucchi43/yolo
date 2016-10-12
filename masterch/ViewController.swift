@@ -27,7 +27,8 @@ extension UIViewController {
 //    SignUP,SignInのエラー表示メソッド
     func signInErrorAlert(error:NSError){
         let alert: UIAlertController = UIAlertController(title: "エラー",
-                                                         message: "ログインに失敗しました",
+//                                                         message: "ログインに失敗しました",
+                                                         message: error.localizedDescription,
                                                          preferredStyle:  UIAlertControllerStyle.Alert)
         let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
             // ボタンが押された時の処理を書く（クロージャ実装）
@@ -36,6 +37,7 @@ extension UIViewController {
         })
         alert.addAction(defaultAction)
         self.presentViewController(alert, animated: true, completion: nil)
+
     }
 
     func signUpErrorAlert(error:NSError){
