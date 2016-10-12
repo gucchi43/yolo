@@ -965,7 +965,7 @@ extension SubmitViewController {
         let weekKey = String(weekKeyArray[0]) + String(weekKeyArray[1])
         let key = String(0) + NCMBUser.currentUser().userName + weekKey
         print("weekのkey", key)
-        CalendarLogColorCache.sharedSingleton.myMonthLogColorCache.removeObjectForKey(key)
+        CalendarLogColorCache.sharedSingleton.myWeekLogColorCache.removeObjectForKey(key)
     }
 }
 
