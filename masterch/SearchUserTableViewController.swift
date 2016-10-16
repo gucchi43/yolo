@@ -73,7 +73,7 @@ class SearchUserTableViewController: UITableViewController {
                 SVProgressHUD.dismiss()
             } else {
                 if objects.count > 0 {
-                    self.userArray = objects
+                        self.userArray = objects
                     print(self.userArray)
                 } else {
                     self.userArray = []
@@ -114,8 +114,8 @@ class SearchUserTableViewController: UITableViewController {
         }else {
             //こっちの場合は最初空欄
 //            userData = filterUsers[indexPath.row]
-            tableView.emptyDataSetSource = self
-            tableView.emptyDataSetDelegate = self
+//            tableView.emptyDataSetSource = self
+//            tableView.emptyDataSetDelegate = self
 
             //こっちの場合は最初に全ユーザー表示
             userData = userArray[indexPath.row]
@@ -154,7 +154,11 @@ class SearchUserTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("セルの選択: \(indexPath.row)")
 
-        selectedUser = self.filterUsers[indexPath.row] as! NCMBUser
+        if searchController.searchBar.text != "" {
+            selectedUser = self.filterUsers[indexPath.row] as! NCMBUser
+        }else {
+            selectedUser = self.userArray[indexPath.row] as! NCMBUser
+        }
         print(selectedUser)
         performSegueWithIdentifier("toAccountVC", sender: nil)
 
