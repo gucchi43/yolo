@@ -88,6 +88,7 @@
 		EDA6EC6F1D9BDF6400F76FCA /* LookBack.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA6EC6E1D9BDF6400F76FCA /* LookBack.storyboard */; };
 		EDA866781CBC93050074A71D /* SetProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA866771CBC93050074A71D /* SetProfileViewController.swift */; };
 		EDA94FD31CEEC48700A42E8A /* UIExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA94FD21CEEC48700A42E8A /* UIExtension.swift */; };
+		EDAFC9731DB50E4600673609 /* DeviseSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAFC9721DB50E4600673609 /* DeviseSize.swift */; };
 		EDB04C751CC5190500FDEB14 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C741CC5190500FDEB14 /* UserData.swift */; };
 		EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */; };
 		EDB4AF581CE37AE2002781F3 /* ContainerSnsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4AF571CE37AE2002781F3 /* ContainerSnsViewController.swift */; };
@@ -231,6 +232,7 @@
 		EDA6EC6E1D9BDF6400F76FCA /* LookBack.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LookBack.storyboard; sourceTree = "<group>"; };
 		EDA866771CBC93050074A71D /* SetProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetProfileViewController.swift; sourceTree = "<group>"; };
 		EDA94FD21CEEC48700A42E8A /* UIExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIExtension.swift; sourceTree = "<group>"; };
+		EDAFC9721DB50E4600673609 /* DeviseSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviseSize.swift; sourceTree = "<group>"; };
 		EDB04C741CC5190500FDEB14 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
 		EDB4AF571CE37AE2002781F3 /* ContainerSnsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerSnsViewController.swift; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 			isa = PBXGroup;
 			children = (
 				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
+				EDAFC9721DB50E4600673609 /* DeviseSize.swift */,
 				ED6ED06C1D387ACD005B0053 /* GCDManager.swift */,
 				EDE355F11CB284CD006C7C0A /* CommentFile.swift */,
 				EDB04C741CC5190500FDEB14 /* UserData.swift */,
@@ -884,6 +887,7 @@
 				ED21524B1D11883A0027AFC4 /* UserListViewController.swift in Sources */,
 				ED3108051D10322600FE3D32 /* NotificationLikeTableViewCell.swift in Sources */,
 				ED3707931D36427E00F892B0 /* ColorManager.swift in Sources */,
+				EDAFC9731DB50E4600673609 /* DeviseSize.swift in Sources */,
 				ED2152491D11883A0027AFC4 /* UserListTableViewCell.swift in Sources */,
 				ED3108031D10322600FE3D32 /* NotificationCommentTableViewCell.swift in Sources */,
 				EDB04C751CC5190500FDEB14 /* UserData.swift in Sources */,
