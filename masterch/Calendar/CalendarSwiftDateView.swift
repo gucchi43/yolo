@@ -25,6 +25,10 @@ class CalendarSwiftDateView: UIView{
     let logFollowImage = UIImage(named: "logFollow")
     let logNomalImage = UIImage(named: "logNormal")
 
+    //現在起動中のデバイスを取得（スクリーンの幅・高さ）
+    let screenWidth  = DeviseSize.screenWidth()
+    let screenHeight = DeviseSize.screenHeight()
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -37,7 +41,18 @@ class CalendarSwiftDateView: UIView{
 
         dayButton = UIButton(frame: CGRect(x: 3, y: 3, width: w, height: w))
         dayButton.setTitle(String(format: "%02d", date.day), forState: UIControlState.Normal)
-        dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
+
+        //iPhone5またはiPhone5s
+        if (screenWidth == 320 && screenHeight == 568) {
+            dayButton.titleLabel?.font = UIFont.systemFontOfSize(12)
+            //iPhone6
+        } else if (screenWidth == 375 && screenHeight == 667) {
+            dayButton.titleLabel?.font = UIFont.systemFontOfSize(15)
+            //iPhone6 plus
+        } else if (screenWidth == 414 && screenHeight == 736) {
+            dayButton.titleLabel?.font = UIFont.systemFontOfSize(18)
+        }
+
         //dayButtonを丸くしている
         //        dayButton.layer.cornerRadius = CGFloat(w / 2)
         dayButton.layer.cornerRadius = CGFloat(w / 10)
@@ -106,8 +121,18 @@ class CalendarSwiftDateView: UIView{
         let frame = self.dayButton.frame
         let backLabel = UILabel(frame: frame)
         backLabel.textAlignment = NSTextAlignment.Center
-        backLabel.font = UIFont.systemFontOfSize(42)
         backLabel.alpha = 0.7
+
+        //iPhone5またはiPhone5s
+        if (screenWidth == 320 && screenHeight == 568) {
+            backLabel.font = UIFont.systemFontOfSize(36)
+            //iPhone6
+        } else if (screenWidth == 375 && screenHeight == 667) {
+            backLabel.font = UIFont.systemFontOfSize(42)
+            //iPhone6 plus
+        } else if (screenWidth == 414 && screenHeight == 736) {
+            backLabel.font = UIFont.systemFontOfSize(48)
+        }
 
         let testLabel = backLabel
         testLabel.text = "🐟"
