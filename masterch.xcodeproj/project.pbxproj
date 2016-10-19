@@ -12,7 +12,6 @@
 		3289D2341C6A1C3000B4C65A /* SubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */; };
 		3289D2361C6A1C5300B4C65A /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */; };
 		3289D2381C6A1C6000B4C65A /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D2371C6A1C6000B4C65A /* LogViewController.swift */; };
-		3289D23C1C6A1C8000B4C65A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */; };
 		32A088A81CED9EEE00BECCA5 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A088A71CED9EEE00BECCA5 /* SignInViewController.swift */; };
 		32C0A33E1C5DF8ED009657B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */; };
 		32C0A3401C5DF8ED009657B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C0A33F1C5DF8ED009657B9 /* ViewController.swift */; };
@@ -143,7 +142,6 @@
 		3289D2331C6A1C3000B4C65A /* SubmitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitViewController.swift; sourceTree = "<group>"; };
 		3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
 		3289D2371C6A1C6000B4C65A /* LogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
-		3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = masterch/SearchViewController.swift; sourceTree = "<group>"; };
 		328BF13C1CED546B00B99CBF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		328BF13D1CED546B00B99CBF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		32A088A71CED9EEE00BECCA5 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -458,7 +456,6 @@
 		ED3644651C9D748F00C6676C /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				3289D23B1C6A1C8000B4C65A /* SearchViewController.swift */,
 				ED3644571C9D658A00C6676C /* Search.storyboard */,
 				ED21524C1D1188E80027AFC4 /* OtherAccount.storyboard */,
 				ED3107F61D101D5A00FE3D32 /* OtherAccountViewController.swift */,
@@ -867,7 +864,6 @@
 				EDBADE321D2489690048957A /* ThreeCircleCell.swift in Sources */,
 				32A088A81CED9EEE00BECCA5 /* SignInViewController.swift in Sources */,
 				ED8322D41C8EFDF700122BA2 /* SignUpViewController.swift in Sources */,
-				3289D23C1C6A1C8000B4C65A /* SearchViewController.swift in Sources */,
 				ED3108041D10322600FE3D32 /* NotificationFollowTableViewCell.swift in Sources */,
 				EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */,
 				EDB4FEFE1CBBFAFE00A318EA /* EditProfileTableViewController.swift in Sources */,

@@ -184,6 +184,12 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }
     }
 
+    deinit{
+        //ここで解放処理
+        print("LogVC deinit!!!!")
+    }
+
+
     //NavigatiaonDropMenuの生成
     func prepareNavigationDropdownMenu() {
         let items = ["Mine", "Follow"]

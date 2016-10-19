@@ -54,7 +54,7 @@ class ConnectMailTableViewController: UITableViewController, UITextFieldDelegate
     @IBAction func tapCancelConnectMailButton(sender: AnyObject) {
         print("mailAddress", NCMBUser.currentUser().objectForKey("mailAddress"))
         SVProgressHUD.show()
-        if let mail = NCMBUser.currentUser().objectForKey("mailAddress") as? String{
+        if (NCMBUser.currentUser().objectForKey("mailAddress") as? String) != nil{
 //        if let mail = NCMBUser.currentUser().objectForKey("mailAddress") as? String {
             //連携済み
             NCMBUser.currentUser().removeObjectForKey("mailAddress")

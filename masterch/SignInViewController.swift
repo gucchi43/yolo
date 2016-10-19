@@ -51,6 +51,7 @@ class SignInViewController: UIViewController {
             if error != nil {
                 //Login失敗
                 print("Login失敗", error)
+                print("Login失敗理由", error.localizedDescription)
                 SVProgressHUD.dismiss()
                 self.signInErrorAlert(error)
             }else {
@@ -118,34 +119,36 @@ class SignInViewController: UIViewController {
     }
 }
 
-extension SignInViewController {
-    //Facebookログイン&サインアップ
-    @IBAction func fbSignUpButton(sender: AnyObject) {
-        print("facebookボタン押した")
-        NCMBFacebookUtils.logInWithReadPermission(["wakannai"], block: { (user: NCMBUser!, error: NSError!) -> Void in
-            if error == nil {
-                print("会員登録後の処理")
-                let acl = NCMBACL(user: NCMBUser.currentUser())
-                user.ACL = acl
-                user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
-                    if error == nil {
-                        print("ACLの保存成功")
-                    }else {
-                        print("ACL設定の保存失敗: \(error)")
-                    }
-                    print("Facebook会員登録成功")
-                    self.performSegueWithIdentifier("signInSegue", sender: self)
-                })
-            }else {
-                if error.code == NCMBErrorFacebookLoginCancelled {
-                    print("Facebookのログインをキャンセルしました \(error)")
-                } else {
-                    print("キャンセル以外のエラー: \(error)")
-                }
-            }
-        })
-    }
-}
+
+//ひとまずFacebookログイン無し
+//extension SignInViewController {
+//    //Facebookログイン&サインアップ
+//    @IBAction func fbSignUpButton(sender: AnyObject) {
+//        print("facebookボタン押した")
+//        NCMBFacebookUtils.logInWithReadPermission(["wakannai"], block: { (user: NCMBUser!, error: NSError!) -> Void in
+//            if error == nil {
+//                print("会員登録後の処理")
+//                let acl = NCMBACL(user: NCMBUser.currentUser())
+//                user.ACL = acl
+//                user.saveInBackgroundWithBlock({ (error: NSError!) -> Void in
+//                    if error == nil {
+//                        print("ACLの保存成功")
+//                    }else {
+//                        print("ACL設定の保存失敗: \(error)")
+//                    }
+//                    print("Facebook会員登録成功")
+//                    self.performSegueWithIdentifier("signInSegue", sender: self)
+//                })
+//            }else {
+//                if error.code == NCMBErrorFacebookLoginCancelled {
+//                    print("Facebookのログインをキャンセルしました \(error)")
+//                } else {
+//                    print("キャンセル以外のエラー: \(error)")
+//                }
+//            }
+//        })
+//    }
+//}
 
 
 //ひとまずTwitterログイン無し

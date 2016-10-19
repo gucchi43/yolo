@@ -684,26 +684,42 @@ extension SubmitViewController {
     //Facebookシェア
     @IBAction func selectShareFacebook(sender: AnyObject) {
         print("Facebookボタン押した")
-        if NCMBFacebookUtils.isLinkedWithUser(user) == true {
-            //Facebook連携済み
-            facebookToggle = !facebookToggle
-            if facebookToggle == true{
-                print("Facebookリンクしているか？", NCMBFacebookUtils.isLinkedWithUser(user))
-                
-                facebookButton.setImage(imgFacebookOn, forState: .Normal)
-                print(facebookToggle)
-            }else {
-                
-                facebookButton.setImage(imgFacebookOff, forState: .Normal)
-                print(facebookToggle)
-                print("Facebookリンクしているか？", NCMBFacebookUtils.isLinkedWithUser(user))
-            }
-            
-        }else {
-            //Facebook未連携
-            let containerSnsVC = ContainerSnsViewController()
-            containerSnsVC.addSnsToFacebook(user)
-        }
+        cannotConnectFacebookAlert()
+
+//        if NCMBFacebookUtils.isLinkedWithUser(user) == true {
+//            //Facebook連携済み
+//            facebookToggle = !facebookToggle
+//            if facebookToggle == true{
+//                print("Facebookリンクしているか？", NCMBFacebookUtils.isLinkedWithUser(user))
+//                
+//                facebookButton.setImage(imgFacebookOn, forState: .Normal)
+//                print(facebookToggle)
+//            }else {
+//                
+//                facebookButton.setImage(imgFacebookOff, forState: .Normal)
+//                print(facebookToggle)
+//                print("Facebookリンクしているか？", NCMBFacebookUtils.isLinkedWithUser(user))
+//            }
+//            
+//        }else {
+//            //Facebook未連携
+//            let containerSnsVC = ContainerSnsViewController()
+//            containerSnsVC.addSnsToFacebook(user)
+//        }
+    }
+
+    func cannotConnectFacebookAlert() {
+        //「Facebookが今は連携出来ない」アラート呼び出し
+        let alert: UIAlertController = UIAlertController(title: "現versionではFacebookシェアはできません",
+                                                         message: "versionアップデートをお待ち下さい",
+                                                         preferredStyle:  UIAlertControllerStyle.Alert)
+        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("OK")
+        })
+        alert.addAction(defaultAction)
+        presentViewController(alert, animated: true, completion: nil)
     }
 
     func shareFacebookPost() {
@@ -965,7 +981,7 @@ extension SubmitViewController {
         let weekKey = String(weekKeyArray[0]) + String(weekKeyArray[1])
         let key = String(0) + NCMBUser.currentUser().userName + weekKey
         print("weekのkey", key)
-        CalendarLogColorCache.sharedSingleton.myMonthLogColorCache.removeObjectForKey(key)
+        CalendarLogColorCache.sharedSingleton.myWeekLogColorCache.removeObjectForKey(key)
     }
 }
 

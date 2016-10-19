@@ -409,7 +409,7 @@
                                                                 <segue destination="gKe-VM-b6U" kind="show" id="VaW-be-ejf"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTb-bJ-eHO">
+                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTb-bJ-eHO">
                                                             <rect key="frame" x="282" y="53" width="30" height="30"/>
                                                             <state key="normal" title="確認"/>
                                                             <connections>
@@ -528,13 +528,13 @@
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eh-pW-mkC">
                                                     <rect key="frame" x="8" y="8" width="80" height="80"/>
-                                                    <color key="backgroundColor" red="0.21568627450980393" green="0.80392156862745101" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.80392156859999997" green="0.2156862745" blue="0.64705882349999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="9eh-pW-mkC" secondAttribute="height" multiplier="1:1" id="6Nx-ds-iHl"/>
                                                         <constraint firstAttribute="height" constant="80" id="aUA-e6-IVN"/>
                                                         <constraint firstAttribute="width" constant="80" id="tzI-A1-klo"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <state key="normal" title="ログ">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -925,7 +925,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ke-EV-xAS">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ke-EV-xAS">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">β版でのSNS連携での注意点について
