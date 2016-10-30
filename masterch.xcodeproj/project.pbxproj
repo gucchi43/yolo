@@ -25,6 +25,9 @@
 		C1F87D858B7A400395A26DAC /* Pods_masterch_masterchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D077A7CE6A30BD4FEE6928A6 /* Pods_masterch_masterchUITests.framework */; };
 		C723D0368844C8137A7AB044 /* Pods_masterch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E600DCFEE36D4763CBA1FFBF /* Pods_masterch.framework */; };
 		EC51812780A8C2D94AC0E81F /* Pods_masterch_masterchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42E1A3081ABED4BA47BB3EB /* Pods_masterch_masterchTests.framework */; };
+		ED08F2511DC229A800C8CB54 /* LogGetOneDayCameraRollManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED08F2501DC229A800C8CB54 /* LogGetOneDayCameraRollManager.swift */; };
+		ED08F2531DC229F800C8CB54 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED08F2521DC229F800C8CB54 /* Photos.framework */; };
+		ED08F2551DC22DF500C8CB54 /* DeviceDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED08F2541DC22DF500C8CB54 /* DeviceDataManager.swift */; };
 		ED21521F1D11565C0027AFC4 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED21521E1D11565C0027AFC4 /* NotificationManager.swift */; };
 		ED2152481D11883A0027AFC4 /* UserList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED2152441D1188390027AFC4 /* UserList.storyboard */; };
 		ED2152491D11883A0027AFC4 /* UserListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2152451D1188390027AFC4 /* UserListTableViewCell.swift */; };
@@ -55,6 +58,10 @@
 		ED3707931D36427E00F892B0 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3707921D36427E00F892B0 /* ColorManager.swift */; };
 		ED3994101D49F85E002E8EED /* ConnectMailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED39940F1D49F85E002E8EED /* ConnectMailTableViewController.swift */; };
 		ED3994161D4B393A002E8EED /* ResetPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3994151D4B3939002E8EED /* ResetPasswordTableViewController.swift */; };
+		ED3C03561DC38B2D0041C450 /* CameraRollTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED3C03551DC38B2D0041C450 /* CameraRollTableViewCell.xib */; };
+		ED3C035A1DC38E750041C450 /* CameraRollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3C03591DC38E750041C450 /* CameraRollCell.swift */; };
+		ED3C035C1DC3AD100041C450 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3C035B1DC3AD100041C450 /* CoreLocation.framework */; };
+		ED3C035E1DC3AEE10041C450 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3C035D1DC3AEE10041C450 /* MapKit.framework */; };
 		ED402DCC1D34460C0098F843 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED402DCB1D34460C0098F843 /* images.xcassets */; };
 		ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED4512AF1CEF33CB0071FA58 /* Title.storyboard */; };
 		ED48C92D1D4D0120003DC586 /* TTTAttributedLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED48C92C1D4D0120003DC586 /* TTTAttributedLabel.framework */; };
@@ -173,6 +180,9 @@
 		D077A7CE6A30BD4FEE6928A6 /* Pods_masterch_masterchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_masterch_masterchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDDA2AF98486C953A99F98DB /* Pods-masterch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-masterch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-masterch/Pods-masterch.debug.xcconfig"; sourceTree = "<group>"; };
 		E600DCFEE36D4763CBA1FFBF /* Pods_masterch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_masterch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED08F2501DC229A800C8CB54 /* LogGetOneDayCameraRollManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogGetOneDayCameraRollManager.swift; sourceTree = "<group>"; };
+		ED08F2521DC229F800C8CB54 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		ED08F2541DC22DF500C8CB54 /* DeviceDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceDataManager.swift; sourceTree = "<group>"; };
 		ED21521E1D11565C0027AFC4 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationManager.swift; path = masterch/NotificationManager.swift; sourceTree = "<group>"; };
 		ED2152441D1188390027AFC4 /* UserList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserList.storyboard; sourceTree = "<group>"; };
 		ED2152451D1188390027AFC4 /* UserListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListTableViewCell.swift; sourceTree = "<group>"; };
@@ -203,6 +213,10 @@
 		ED3707921D36427E00F892B0 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		ED39940F1D49F85E002E8EED /* ConnectMailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectMailTableViewController.swift; sourceTree = "<group>"; };
 		ED3994151D4B3939002E8EED /* ResetPasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordTableViewController.swift; sourceTree = "<group>"; };
+		ED3C03551DC38B2D0041C450 /* CameraRollTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraRollTableViewCell.xib; sourceTree = "<group>"; };
+		ED3C03591DC38E750041C450 /* CameraRollCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraRollCell.swift; sourceTree = "<group>"; };
+		ED3C035B1DC3AD100041C450 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		ED3C035D1DC3AEE10041C450 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		ED402DCB1D34460C0098F843 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		ED4512AF1CEF33CB0071FA58 /* Title.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Title.storyboard; sourceTree = "<group>"; };
 		ED48C92C1D4D0120003DC586 /* TTTAttributedLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTTAttributedLabel.framework; path = /Users/gucchi/Desktop/masterch/masterch/TTTAttributedLabel.framework; sourceTree = "<absolute>"; };
@@ -251,6 +265,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED3C035E1DC3AEE10041C450 /* MapKit.framework in Frameworks */,
+				ED3C035C1DC3AD100041C450 /* CoreLocation.framework in Frameworks */,
+				ED08F2531DC229F800C8CB54 /* Photos.framework in Frameworks */,
 				ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */,
 				ED48C92D1D4D0120003DC586 /* TTTAttributedLabel.framework in Frameworks */,
 				ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */,
@@ -364,6 +381,9 @@
 		B831727C3E3CF2E5ED6388D9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ED3C035D1DC3AEE10041C450 /* MapKit.framework */,
+				ED3C035B1DC3AD100041C450 /* CoreLocation.framework */,
+				ED08F2521DC229F800C8CB54 /* Photos.framework */,
 				ED48C9301D4D069E003DC586 /* TTTAttributedLabel.framework */,
 				ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */,
 				ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */,
@@ -402,6 +422,7 @@
 				ED3107EE1D101A7E00FE3D32 /* PostDetailTableViewCell.swift */,
 				ED3107EA1D101A2100FE3D32 /* CommentTableViewCell.swift */,
 				3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */,
+				ED3C03591DC38E750041C450 /* CameraRollCell.swift */,
 				3219A2351C70468900D1A6AF /* TimelineCell.swift */,
 				ED2152461D11883A0027AFC4 /* UserListTableViewCell.xib */,
 				ED2152441D1188390027AFC4 /* UserList.storyboard */,
@@ -410,6 +431,7 @@
 				EDCBEE711CCA793700317BCE /* PostDetail.storyboard */,
 				ED3644551C9D657600C6676C /* TimeLine.storyboard */,
 				3219A2361C70468900D1A6AF /* CustomTableViewCell.xib */,
+				ED3C03551DC38B2D0041C450 /* CameraRollTableViewCell.xib */,
 			);
 			name = TimeLine;
 			sourceTree = "<group>";
@@ -434,6 +456,7 @@
 			children = (
 				ED3644591C9D659A00C6676C /* Log.storyboard */,
 				ED720CD41D18A8CA00477608 /* LogQueryManager.swift */,
+				ED08F2501DC229A800C8CB54 /* LogGetOneDayCameraRollManager.swift */,
 				ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */,
 				3289D2371C6A1C6000B4C65A /* LogViewController.swift */,
 				ED720CD21D188D6500477608 /* LogNavigationController.swift */,
@@ -501,6 +524,7 @@
 				EDB04C741CC5190500FDEB14 /* UserData.swift */,
 				EDA94FD21CEEC48700A42E8A /* UIExtension.swift */,
 				ED3707921D36427E00F892B0 /* ColorManager.swift */,
+				ED08F2541DC22DF500C8CB54 /* DeviceDataManager.swift */,
 				ED48C9471D4F67B9003DC586 /* pushManager.swift */,
 				EDE5933E1D59C565002A2826 /* TabBadgeManager.swift */,
 			);
@@ -670,6 +694,7 @@
 				ED402DCC1D34460C0098F843 /* images.xcassets in Resources */,
 				ED3644581C9D658A00C6676C /* Search.storyboard in Resources */,
 				EDCBEE721CCA793700317BCE /* PostDetail.storyboard in Resources */,
+				ED3C03561DC38B2D0041C450 /* CameraRollTableViewCell.xib in Resources */,
 				ED3107F11D101B0B00FE3D32 /* PostDetailTableViewCell.xib in Resources */,
 				32C0A3431C5DF8ED009657B9 /* Main.storyboard in Resources */,
 				ED3107ED1D101A4500FE3D32 /* CommentTableViewCell.xib in Resources */,
@@ -866,9 +891,12 @@
 				ED3107EB1D101A2100FE3D32 /* CommentTableViewCell.swift in Sources */,
 				EDBADE321D2489690048957A /* ThreeCircleCell.swift in Sources */,
 				32A088A81CED9EEE00BECCA5 /* SignInViewController.swift in Sources */,
+				ED3C035A1DC38E750041C450 /* CameraRollCell.swift in Sources */,
 				ED8322D41C8EFDF700122BA2 /* SignUpViewController.swift in Sources */,
 				ED3108041D10322600FE3D32 /* NotificationFollowTableViewCell.swift in Sources */,
+				ED08F2551DC22DF500C8CB54 /* DeviceDataManager.swift in Sources */,
 				EDE355F21CB284CD006C7C0A /* CommentFile.swift in Sources */,
+				ED08F2511DC229A800C8CB54 /* LogGetOneDayCameraRollManager.swift in Sources */,
 				EDB4FEFE1CBBFAFE00A318EA /* EditProfileTableViewController.swift in Sources */,
 				EDA94FD31CEEC48700A42E8A /* UIExtension.swift in Sources */,
 				ED3107F71D101D5A00FE3D32 /* OtherAccountViewController.swift in Sources */,
