@@ -54,7 +54,7 @@ class LogGetOneDayCameraRollManager: NSObject {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         formatter.calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)!  // 24時間表示対策
-        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
+
 
         let formatDate = formatter.dateFromString(String(targetDate.year) + "/" +
             String(targetDate.month) + "/" +
@@ -71,7 +71,6 @@ class LogGetOneDayCameraRollManager: NSObject {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         formatter.calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)!  // 24時間表示対策
-        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
 
         let formatDate = formatter.dateFromString(String(targetDate.year) + "/" +
             String(targetDate.month) + "/" +
@@ -138,7 +137,6 @@ extension LogGetOneDayCameraRollManager {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         formatter.calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)!  // 24時間表示対策
-        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
 
         let formatDate = formatter.dateFromString(String(targetDate.year) + "/" +
             String(targetDate.month) + "/" +
@@ -155,7 +153,6 @@ extension LogGetOneDayCameraRollManager {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
         formatter.calendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)!  // 24時間表示対策
-        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
 
         let formatDate = formatter.dateFromString(String(targetDate.year) + "/" +
             String(targetDate.month) + "/" +
