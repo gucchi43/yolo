@@ -89,9 +89,9 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
                 self.setLogDateTag(cashLogColorArray, logNumber: logNumber)
             }
             else {
-                let getCameraRollArrayManager = LogGetOneDayCameraRollManager()
-                //カメラロールアイコンのデータをシングルトンに持つ
-                getCameraRollArrayManager.getMonthPicData(date)
+//                let getCameraRollArrayManager = LogGetOneDayCameraRollManager()
+//                //カメラロールアイコンのデータをシングルトンに持つ
+//                getCameraRollArrayManager.getMonthPicData(date)
                 //カメラロールのアイコン載せる処理
 //                cameraRollArrayLoad(date)
                 manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)

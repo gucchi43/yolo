@@ -21,7 +21,7 @@ class LogGetOneDayCameraRollManager: NSObject {
         // オプションを指定してフェッチします
         let fetchOption = PHFetchOptions()
         fetchOption.predicate = NSPredicate(format: "(creationDate >= %@) and (creationDate) < %@", fromDate, toDate)
-        fetchOption.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchOption.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         print("fetchOption : ",fetchOption.description)
         var assets:PHFetchResult = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: fetchOption)
         print(assets.debugDescription)
@@ -85,18 +85,13 @@ class LogGetOneDayCameraRollManager: NSObject {
 //その月のカメラロールLogアイコンの配列を取得
 extension LogGetOneDayCameraRollManager {
 
-    func getMonthPicData(date: NSDate) {
-        //その日のカメラロールの画像を取得する。
-        let fromDate = self.filterMonthStart(date)
-        let toDate = self.filterMonthEnd(date)
+    func getAllPicDic() {
         // オプションを指定してフェッチします
         let fetchOption = PHFetchOptions()
-        fetchOption.predicate = NSPredicate(format: "(creationDate >= %@) and (creationDate) < %@", fromDate, toDate)
         fetchOption.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         print("fetchOption : ",fetchOption.description)
         var assets:PHFetchResult = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: fetchOption)
         print(assets.debugDescription)
-        print("fromDate, assetsのカウント : ",fromDate, assets.count)
         assets.enumerateObjectsUsingBlock({ obj, idx, stop in
 
             if obj is PHAsset
@@ -110,10 +105,8 @@ extension LogGetOneDayCameraRollManager {
                 self.setPicWeekArrayData(keyWeekString, dateString: dateString)
             }
         })
-    }
 
-    func testGetAllPicDic() {
-        print("testGetAllPicDicよびだしいいいいいいいいいいいいいいいいいい")
+
     }
 
     //月別にその日写真があったかのDictionary
