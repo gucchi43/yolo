@@ -10,9 +10,11 @@ import UIKit
 import Photos
 import SwiftDate
 
+//その日のカメラロールを取得する処理
 class LogGetOneDayCameraRollManager: NSObject {
 
     func getOnePicData(date: NSDate) {
+        DeviceDataManager.sharedSingleton.PicOneDayAssetArray.removeAll()
         //その日のカメラロールの画像を取得する。
         let fromDate = self.filterDateStart(date)
         let toDate = self.filterDateEnd(date)
@@ -29,14 +31,9 @@ class LogGetOneDayCameraRollManager: NSObject {
             if obj is PHAsset
             {
                 let asset:PHAsset = obj as! PHAsset
-                self.setAssetArry(asset)
+                DeviceDataManager.sharedSingleton.PicOneDayAssetArray.append(asset)
             }
         })
-    }
-
-    func setAssetArry(asset: PHAsset) {
-        DeviceDataManager.sharedSingleton.PicOneDayAssetArray.removeAll()
-        DeviceDataManager.sharedSingleton.PicOneDayAssetArray.append(asset)
     }
 
 //    func assetToImage(asset: PHAsset) {
@@ -83,6 +80,10 @@ class LogGetOneDayCameraRollManager: NSObject {
         print("FilterDateEnd", formatDate)
         return formatDate
     }
+}
+
+//その月のカメラロールLogアイコンの配列を取得
+extension LogGetOneDayCameraRollManager {
 
     func getMonthPicData(date: NSDate) {
         //その日のカメラロールの画像を取得する。
@@ -91,7 +92,7 @@ class LogGetOneDayCameraRollManager: NSObject {
         // オプションを指定してフェッチします
         let fetchOption = PHFetchOptions()
         fetchOption.predicate = NSPredicate(format: "(creationDate >= %@) and (creationDate) < %@", fromDate, toDate)
-        fetchOption.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchOption.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         print("fetchOption : ",fetchOption.description)
         var assets:PHFetchResult = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: fetchOption)
         print(assets.debugDescription)
@@ -106,9 +107,13 @@ class LogGetOneDayCameraRollManager: NSObject {
                 let keyWeekString = (asset.creationDate!.toString(DateFormat.Custom("yyyy")))! + String(asset.creationDate!.weekOfYear)
 
                 self.setPicArrayData(keyString, dateString: dateString)
-//                self.setPicWeekArrayData(keyWeekString, dateString: dateString)
+                self.setPicWeekArrayData(keyWeekString, dateString: dateString)
             }
         })
+    }
+
+    func testGetAllPicDic() {
+        print("testGetAllPicDicよびだしいいいいいいいいいいいいいいいいいい")
     }
 
     //月別にその日写真があったかのDictionary
@@ -165,6 +170,33 @@ class LogGetOneDayCameraRollManager: NSObject {
 
         print("FilterDateEnd", formatDate)
         return formatDate
+    }
+}
+
+
+//その週のカメラロールLogアイコン関連
+extension LogGetOneDayCameraRollManager {
+
+    //取ってきた週別カメラロールのDictionaryをシングルトンにセット
+    //[yyyy01 : yyyyMMddp, yyyyMMddp, yyyyMMddp, ...]
+    func setPicWeekArrayData(keyString: String, dateString: String) {
+        //                        let dayString = created_at.substringToIndex(created_at.startIndex.advancedBy(3))
+
+        if DeviceDataManager.sharedSingleton.PicDayWeekDic[keyString]?.isEmpty == false { //keyがあるか？ value = [String]のはず
+            //keyがあった時
+            if (DeviceDataManager.sharedSingleton.PicDayWeekDic[keyString]! as [String]).last != dateString { //valuesの中の最後が追加するStringと同じか？
+                //Stringが違う時
+                let newValues = DeviceDataManager.sharedSingleton.PicDayWeekDic[keyString]! as [String] + [dateString]
+                DeviceDataManager.sharedSingleton.PicDayWeekDic.updateValue(newValues, forKey: keyString)
+            }else {
+                //Stringが同じ時
+                print("もうこのValuesは追加されている")
+            }
+        } else {
+            //keyがなかった時
+            DeviceDataManager.sharedSingleton.PicDayWeekDic.updateValue([dateString], forKey: keyString)
+            print("新しいkeyの PicDayWeekDic All ver", DeviceDataManager.sharedSingleton.PicDayWeekDic[keyString])
+        }
     }
 }
 

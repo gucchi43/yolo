@@ -777,9 +777,22 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
 
                     if(error == nil) {
                         for placemark in placemarks! {
+                            print("placemark", placemark)
 //                            cell.locationLabel.text = "\(placemark.administrativeArea!)\(placemark.locality!)\(placemark.thoroughfare!)"
-
-                            cell.locationLabel.text = "\(placemark.administrativeArea!)"
+                            var locationText = ""
+                            if let name = placemark.name{
+                                locationText += name + " / "
+                            }
+                            if let administrativeArea = placemark.administrativeArea{
+                                locationText += administrativeArea
+                            }
+                            if let locality = placemark.locality{
+                                locationText += locality
+                            }
+                            if let thoroughfare = placemark.thoroughfare{
+                                locationText += thoroughfare
+                            }
+                            cell.locationLabel.text = locationText
                         }
                     } else {
                         cell.locationLabel.text = "住所不明"

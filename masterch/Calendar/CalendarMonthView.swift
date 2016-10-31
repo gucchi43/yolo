@@ -160,16 +160,6 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
         }
     }
 
-//    //タスクタスクタスクタスクタスクタスク
-//    func saveCameraRollCashArray(logCameraRollArray: [String], logNumber: Int) {
-//        let logUserName = logManager.sharedSingleton.logUser.userName
-//        let monthKey = CalendarManager.getDateYearAndMonth(CalendarManager.currentDate)
-//        let key = String(logNumber) + logUserName + String(monthKey)
-//        if logNumber == 0 {
-//            CalendarLogColorCache.sharedSingleton.updateMyMonthLogLogColorCache(logCameraRollArray, key :key)
-//        }
-//    }
-
     func saveTotalCasheArray(logNumaber : Int, ncmbArray: [String] = [], cameraRollArray: [String] = []) {
         if logNumaber == 0{
             print("ncmbArray", ncmbArray)
