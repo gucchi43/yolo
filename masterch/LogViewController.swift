@@ -24,7 +24,8 @@ protocol LogViewControlloerDelegate {
 
 
 class LogViewController: UIViewController, addPostDetailDelegate {
-    
+
+    var scrollInfoNumber: Int = 0
     var toggleWeek: Bool = false
     var postArray: NSArray = NSArray()
     var totalArray = [AnyObject]()
@@ -109,10 +110,6 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 
     //関数で受け取った時のアクションを定義
     func didSelectDayView(notification: NSNotification) {
-        //疑似キャッシュをクリア
-//        cashProfileImageDictionary.removeAll()
-//        cashImageDictionary.removeAll()
-//        print("クリア後のcashImageDictionary", cashImageDictionary)
 
         //tableViewのとこに読み込み画面入れる
         self.dayLoadingToggle = true
@@ -337,23 +334,17 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     }
 
     //NCMBデータとカメラロールの配列を結合
-
     func connectArray(logNumaber : Int) {
         if logNumaber == 0 {
             totalArray.removeAll()
-            
-            var ncmbArray: [AnyObject] = postArray as! [AnyObject]
+            var ncmbArray: [AnyObject] = postArray as [AnyObject]
             var cameraRollArray = DeviceDataManager.sharedSingleton.PicOneDayAssetArray
             print("スタート時、postArray.count : ", ncmbArray.count)
             print("スタート時cameraRollArray : ", cameraRollArray.count)
-//            var totalArray = [AnyObject]()
-
 
             while ncmbArray.isEmpty == false || cameraRollArray.isEmpty == false {
-
                 var ncmbDate : NSDate?
                 var cameraRollDate : NSDate?
-
 
                 if let ncmbFirstObject = ncmbArray.first {
                     ncmbDate = (ncmbFirstObject as! NCMBObject).objectForKey("postDate") as! NSDate
@@ -397,64 +388,58 @@ class LogViewController: UIViewController, addPostDetailDelegate {
                 print("ループ中、totalArray : ", totalArray)
 
             }
+        }else {
+            var ncmbArray: [AnyObject] = postArray as [AnyObject]
+            totalArray = ncmbArray
+
         }
-    }
-
-
-//    func connectArray(logNumaber : Int) {
-//        if logNumaber == 0 {
-//            print("postArray.count : ", postArray.count)
-//            print("DeviceDataManager.sharedSingleton.PicOneDayAssetArray.count : ", DeviceDataManager.sharedSingleton.PicOneDayAssetArray.count)
-//            var totalArray = [AnyObject]()
-//            for i in postArray {
-//                let postArrayDate = (i as! NCMBObject).objectForKey("postDate") as! NSDate
-//                print("postArrayDate", postArrayDate)
-//                for j in DeviceDataManager.sharedSingleton.PicOneDayAssetArray {
-//                    let assetDate = (j.creationDate!)
-//                    let result = postArrayDate.compare(assetDate)
-//                    switch result {
-//                    case NSComparisonResult.OrderedAscending:
-//                        //NCMBデータが入った
-//                        totalArray.append(i)
-//                    case NSComparisonResult.OrderedDescending:
-//                        //カメラロールデータが入った
-//                        totalArray.append(j)
-//                    default:
-//                        totalArray.append(i)
-//
-//                    }
-//                    print("totalArray.count", totalArray.count)
-//                    print("totalArray", totalArray)
-//                }
-//            }
-//        }
-//    }
-
-    
+    }    
     // スクロール感知用の変数
     var scrollBeginingPoint: CGPoint!
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         scrollBeginingPoint = scrollView.contentOffset;
+        //スクロールはじめに0に初期化して、0の時しかカレンダー更新を通らない
+        //カレンダー更新後は１追加して、通らないようにする
+        scrollInfoNumber = 0
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        print("scrollInfoNumber", scrollInfoNumber)
         let currentPoint = scrollView.contentOffset
         print(currentPoint)
+        print("toggleWeek : ", toggleWeek)
         
         if toggleWeek == false {
-            if 20 < currentPoint.y {
-                print("scrollBeginingPoint \(scrollBeginingPoint) ")
-                print("currentPoint \(currentPoint) ")
-                self.exchangeCalendarView()
+            if 70 < currentPoint.y {
+                if scrollInfoNumber == 0 {
+                    //月→週、上スクロール
+                    print("scrollBeginingPoint \(scrollBeginingPoint) ")
+                    print("currentPoint \(currentPoint) ")
+                    scrollInfoNumber += 1
+                    self.exchangeCalendarView()
+                    print("+= 1後の scrollInfoNumber", scrollInfoNumber)
+                }else {
+                    print("下スクロール中の余韻")
+                }
+            }else {
+                print("下スクロール中の余韻")
             }
-        } else if toggleWeek == true {
-            if -20 > currentPoint.y {
-                print(currentPoint)
-                self.exchangeCalendarView()
+        } else{
+            if -70 > currentPoint.y {
+                if scrollInfoNumber == 0 {
+                    //週→月、下スクロール
+                    print(currentPoint)
+                    scrollInfoNumber += 1
+                    self.exchangeCalendarView()
+                    print("+= 1後の scrollInfoNumber", scrollInfoNumber)
+                }else {
+                    print("上スクロール中の余韻")
+                }
+            }else {
+                print("上スクロール中の余韻")
             }
         }
-        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -513,7 +498,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }
         
         //ここをいじれば切替時にAPI節約できるかも・・・
-        if toggleWeek {
+        if toggleWeek == true {
             calendarAnotherView?.resetWeekView()
             changeWeekOrMonthToggle.setImage(toMonthImage, forState: UIControlState.Normal)
         } else {
@@ -614,9 +599,6 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
-//        let postData = postArray[indexPath.row] as! NCMBObject
-
 
         if let data = totalArray[indexPath.row] as? NCMBObject {
             let cellId = "TimelineCell"
@@ -733,9 +715,6 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
             cell.likeNumberButton.setTitle("", forState: .Normal)
             }
             return cell
-
-
-//        }else if let cameraRollData = totalArray[indexPath.row] as? PHAsset {
         }else{
             let cellId = "CameraRollCell"
             let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! CameraRollCell
