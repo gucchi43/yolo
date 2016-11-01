@@ -362,8 +362,14 @@
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heW-MY-XCM">
-                                                    <rect key="frame" x="138" y="214" width="45" height="30"/>
-                                                    <state key="normal" title="シェア"/>
+                                                    <rect key="frame" x="133.5" y="214" width="54" height="34"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <state key="normal" title="シェア">
+                                                        <color key="titleColor" red="0.2156862745" green="0.80392156859999997" blue="0.37254901959999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="puahCameraRollShareButton:" destination="FJA-Vb-RO4" eventType="touchUpInside" id="8OW-iS-rze"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -515,6 +521,7 @@
                         <outlet property="tableView" destination="oiO-Cz-3yC" id="kCe-xA-4dL"/>
                         <outlet property="weekConstraint" destination="lIa-MT-J6l" id="q78-Pm-gIa"/>
                         <segue destination="0JH-uJ-YQS" kind="show" identifier="toPostDetailVC" id="rKn-Ya-qJZ"/>
+                        <segue destination="0AV-TR-6UT" kind="presentation" identifier="toSubmitVCfromPic" id="rmd-Ch-ZX7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jjh-ct-ER1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -566,4 +573,7 @@
         <image name="toToday" width="32" height="32"/>
         <image name="toWeek" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="rmd-Ch-ZX7"/>
+    </inferredMetricsTieBreakers>
 </document>

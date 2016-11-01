@@ -58,10 +58,10 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 
     var navigationBarView: BTNavigationDropdownMenu!
     var dropdownNumber: Int = 0
-
-//    var cashImageDictionary = [Int : UIImage]()
-//    var cashProfileImageDictionary = [Int : UIImage]()
     var dayLoadingToggle = false
+
+    var shareCameraRollDate: NSDate?
+    var shareCameraRollImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -381,17 +381,14 @@ class LogViewController: UIViewController, addPostDetailDelegate {
                     totalArray.append(cameraRollArray.first!)
                     cameraRollArray.removeFirst()
                 }
-
                 print("ループ中、postArray.count : ", ncmbArray.count)
                 print("ループ中、cameraRollArray.count : ", cameraRollArray.count)
                 print("ループ中、totalArray.count : ", totalArray.count)
                 print("ループ中、totalArray : ", totalArray)
-
             }
         }else {
             var ncmbArray: [AnyObject] = postArray as [AnyObject]
             totalArray = ncmbArray
-
         }
     }    
     // スクロール感知用の変数
@@ -462,9 +459,19 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             }
             submitVC.postDate = CalendarManager.currentDate
         }
-        
+        if segue.identifier == "toSubmitVCfromPic" {
+            let submitVC: SubmitViewController = segue.destinationViewController as! SubmitViewController
+            if toggleWeek == false {
+                submitVC.weekToggle = false
+            }else {
+                submitVC.weekToggle = true
+            }
+            print("shareCameraRollDate", shareCameraRollDate)
+            submitVC.postDate = shareCameraRollDate
+            submitVC.postImage1 = shareCameraRollImage
+        }
     }
-    
+
     //月週の切り替わりのアウトレイアウトの紐付け
     @IBOutlet weak var weekConstraint: NSLayoutConstraint!
     @IBOutlet weak var monthConstraint: NSLayoutConstraint!
@@ -836,6 +843,29 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
     }
 }
 
+//カメラロールシェアアクション
+extension LogViewController{
+    @IBAction func puahCameraRollShareButton(sender: AnyObject) {
+        print("SHAREボタン押した")
+        let button = sender as! UIButton
+        let cell = button.superview?.superview as! CameraRollCell
+        let row = tableView.indexPathForCell(cell)?.row
+        let postData = totalArray[row!] as! PHAsset
+        if let postDate = postData.creationDate{
+            
+            shareCameraRollDate = postDate
+        }else {
+            shareCameraRollDate = CalendarManager.currentDate
+        }
+        let manager: PHImageManager = PHImageManager()
+        manager.requestImageDataForAsset(postData, options: nil) { (data, title, orientation, dic) in
+            self.shareCameraRollImage = UIImage(data: data!)
+            self.performSegueWithIdentifier("toSubmitVCfromPic", sender: true)
+        }
+    }
+}
+
+
 
 //いいねボタンアクション
 extension LogViewController{
@@ -845,7 +875,7 @@ extension LogViewController{
         let cell = button.superview?.superview as! TimelineCell
         print("投稿内容", cell.postTextLabel.text)
         let row = tableView.indexPathForCell(cell)?.row
-        let postData = postArray[row!] as! NCMBObject
+        let postData = totalArray[row!] as! NCMBObject
         
         //いいねアクション実行
         if cell.isLikeToggle == true{
@@ -954,7 +984,7 @@ extension LogViewController{
         // 押されたボタンを取得
         let cell = sender.superview?.superview as! TimelineCell
         let row = tableView.indexPathForCell(cell)?.row
-        selectedPostObject = self.postArray[row!] as! NCMBObject
+        selectedPostObject = self.totalArray[row!] as! NCMBObject
         performSegueWithIdentifier("toPostDetailVC", sender: true)
     }
     
