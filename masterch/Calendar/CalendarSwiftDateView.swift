@@ -121,7 +121,13 @@ class CalendarSwiftDateView: UIView{
         let frame = self.dayButton.frame
         let backLabel = UILabel(frame: frame)
         backLabel.textAlignment = NSTextAlignment.Center
-        backLabel.alpha = 0.7
+        if dateColor == "📸" {
+            backLabel.alpha = 0.4
+        }else {
+            backLabel.alpha = 0.7
+        }
+        let testLabel = backLabel
+        testLabel.text = "🐟"
 
         //iPhone5またはiPhone5s
         if (screenWidth == 320 && screenHeight == 568) {
@@ -133,9 +139,6 @@ class CalendarSwiftDateView: UIView{
         } else if (screenWidth == 414 && screenHeight == 736) {
             backLabel.font = UIFont.systemFontOfSize(48)
         }
-
-        let testLabel = backLabel
-        testLabel.text = "🐟"
 
         switch dateColor {
         case "a":

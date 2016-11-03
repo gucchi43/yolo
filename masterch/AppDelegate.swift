@@ -49,6 +49,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
 
+        //カメラロールのLogArrayを全てゲット
+        let logGetOneDayCameraRollManager = LogGetOneDayCameraRollManager()
+        logGetOneDayCameraRollManager.getAllPicDic()
+
         // アプリアイコンのバッジをリセット
         print("前ｒ: アイコンのバッジ数", application.applicationIconBadgeNumber)
         application.applicationIconBadgeNumber = 0

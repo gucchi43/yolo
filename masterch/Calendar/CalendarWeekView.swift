@@ -53,12 +53,15 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
 
     //LogViewの日にちごとの色を決める実行部分２(week版)
     func getLogColorDate(date: NSDate) {
+        //logNumberの決定(プルダウンがあるか、ないかで変わる)
         let logNumber: Int
         if logManager.sharedSingleton.logTitleToggle == true{
             logNumber = logManager.sharedSingleton.tabLogNumber
         }else {
             logNumber = logManager.sharedSingleton.logNumber
         }
+
+        //Queryの作成
         let logUser = logManager.sharedSingleton.logUser
         let calendarLogCollerManager = CalendarLogCollerManager()
         let logColorQuery: NCMBQuery
@@ -71,6 +74,7 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
             logColorQuery = calendarLogCollerManager.weekLogColorDate(date, logNumber: logNumber, user: logUser)
         }
 
+        //キャッシュがあったらそれ読み込み、なかったらQueryロード
         let logUserName = logUser.userName
         let weekKeyArray = CalendarManager.getWeekNumber(CalendarManager.currentDate)
         let weekKey = String(weekKeyArray[0]) + String(weekKeyArray[1])
@@ -78,17 +82,16 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
 
         switch logNumber {
         case 0: //自分の時
-            print("myWeekLogColorCache", CalendarLogColorCache.sharedSingleton.myWeekLogColorCache)
             if let cashLogColorArray = CalendarLogColorCache.sharedSingleton.myWeekLogColorCache.objectForKey(key) as? [String]{
-                print("cashLogColorArray", cashLogColorArray)
                 self.setLogDateTag(cashLogColorArray, logNumber: logNumber)
             }else {
+//                let getCameraRollArrayManager = LogGetOneDayCameraRollManager()
+//                //カメラロールアイコンのデータをシングルトンに持つ
+//                getCameraRollArrayManager.getMonthPicData(date)
                 manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
             }
         default: //自分の時以外
-            print("otherWeekLogColorCache", CalendarLogColorCache.sharedSingleton.otherWeekLogColorCache)
             if let cashLogColorArray = CalendarLogColorCache.sharedSingleton.otherWeekLogColorCache.objectForKey(key) as? [String]{
-                print("cashLogColorArray", cashLogColorArray)
                 self.setLogDateTag(cashLogColorArray, logNumber: logNumber)
                 manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
             }else {
@@ -97,25 +100,102 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
         }
     }
 
+    func cameraRollArrayLoad(date: NSDate) {
+        let keyString = (date.toString(DateFormat.Custom("yyyy")))! + String(date.weekOfYear)
+        if let objects = DeviceDataManager.sharedSingleton.PicDayWeekDic[keyString] {
+            self.setLogDateTag(objects, logNumber: 0)
+        }
+
+    }
+
     //logColorのQueryを非同期で読み込む
     func manyLogColorQueryLoad(query: NCMBQuery, logNumber: Int){
         query.findObjectsInBackgroundWithBlock { (objects, error) in
             if let error = error {
                 print(error.localizedDescription)
             }else {
-                if objects != nil{
+                if objects != nil && objects.isEmpty == false{
                     for object in objects {
                         let logColorArray = object.objectForKey("logDateTag") as! [String]
-                        self.saveLogColorCashArray(logColorArray, logNumber: logNumber)
-                        self.setLogDateTag(logColorArray, logNumber: logNumber)
+                        if logNumber == 0 {
+                            let keyString = (CalendarManager.currentDate.toString(DateFormat.Custom("yyyy")))! + String(CalendarManager.currentDate.weekOfYear)
+                            if let cameraRollArray = DeviceDataManager.sharedSingleton.PicDayWeekDic[keyString]{
+                                self.cameraRollArrayLoad(CalendarManager.currentDate)
+                                self.setLogDateTag(logColorArray, logNumber: logNumber)
+                                self.saveTotalCasheArray(logNumber, ncmbArray: logColorArray, cameraRollArray: cameraRollArray)
+
+                            }else {
+                                self.setLogDateTag(logColorArray, logNumber: logNumber)
+                                self.saveTotalCasheArray(logNumber, ncmbArray: logColorArray)
+                            }
+                        }else {
+                                self.setLogDateTag(logColorArray, logNumber: logNumber)
+                                self.saveLogColorCashArray(logColorArray, logNumber: logNumber)
+                            }
+                        }
+                    }else {
+                        print("今週のNCMBの投稿はまだない")
+                    if logNumber == 0 {
+                        let keyString = (CalendarManager.currentDate.toString(DateFormat.Custom("yyyy")))! + String(CalendarManager.currentDate.weekOfYear)
+                        if let cameraRollArray = DeviceDataManager.sharedSingleton.PicDayWeekDic[keyString]{
+                            self.cameraRollArrayLoad(CalendarManager.currentDate)
+                            self.saveTotalCasheArray(logNumber, cameraRollArray: cameraRollArray)
+                        }else {
+                            self.saveTotalCasheArray(logNumber)
+                        }
+                    }else {
+                        //                        self.saveLogColorCashArray(logColorArray, logNumber: logNumber)
+                        //                        self.setLogDateTag(logColorArray, logNumber: logNumber)
                     }
-                }else {
-                    print("今月の投稿はまだない")
                 }
 
             }
         }
 
+    }
+
+    func saveTotalCasheArray(logNumaber : Int, ncmbArray: [String] = [], cameraRollArray: [String] = []) {
+        if logNumaber == 0{
+            print("ncmbArray", ncmbArray)
+            print("cameraRollArray", cameraRollArray)
+
+            var dateStartInt = Int((CalendarManager.currentDate.toString(DateFormat.Custom("yyyyMM")))! + "01")!
+            let lastDays = CalendarManager.currentDate.monthDays
+            var totalArray = [String]()
+            for i in 1...lastDays{
+                let cameraValue = cameraRollArray.filter { $0.containsString(String(dateStartInt)) ==  true }
+                let ncmbValue = ncmbArray.filter { $0.containsString(String(dateStartInt)) ==  true }
+                print("dateStartInt, ncmbValue : ",dateStartInt, ncmbValue)
+
+                if cameraValue.isEmpty == true {
+                    if ncmbValue.isEmpty == true {
+                        //カメラ無し、NCMBなし
+                        //何も追加しない
+                        print("カメラ無し、NCMB無し", dateStartInt)
+                    }else {
+                        //カメラ無し、NCMBあり
+                        //NCMBそのまま追加
+                        print("カメラ無し、NCMBあり = NCMB表示", dateStartInt)
+                        totalArray.append(ncmbValue.first!)
+                    }
+                }else {
+                    if ncmbValue.isEmpty == true {
+                        //カメラあり、NCMBなし
+                        //カメラそのまま追加
+                        print("カメラあり、NCMB無し = カメラ表示", dateStartInt)
+                        totalArray.append(cameraValue.first!)
+                    }else{
+                        //カメラあり、NCあり
+                        //カメラとNCMB合成
+                        print("カメラあり、NCMBあり = NCMB表示", dateStartInt)
+                        totalArray.append(ncmbValue.first! + "&p")
+                    }
+                }
+                dateStartInt += 1
+            }
+            //            setLogDateTag(totalArray, logNumber: 0)
+            saveLogColorCashArray(totalArray, logNumber: 0)
+        }
     }
 
     //logColorのキャッシュを保存
@@ -134,6 +214,7 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
 
     //logColorの配列から日付ごとにアイコンを配置していく
     func setLogDateTag (logColorArray: [String], logNumber: Int) {
+        print("logColorArray", logColorArray)
         for logColorObject in logColorArray {
             let logColorObjectArray = logColorObject.componentsSeparatedByString("&")
             print("logColorObjectArray", logColorObjectArray)
@@ -143,7 +224,11 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
                 if logNumber == 1 { //複数人のためアイコンを１つに統一
                     dayView.selectDateColor("😎")
                 }else {
-                    dayView.selectDateColor(dayColor)
+                    if dayColor == "p" {
+                        dayView.selectDateColor("📸")
+                    }else {
+                        dayView.selectDateColor(dayColor)
+                    }
                 }
             }
         }

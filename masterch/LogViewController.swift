@@ -13,6 +13,10 @@ import DZNEmptyDataSet
 import TTTAttributedLabel
 import BTNavigationDropdownMenu
 import SDWebImage
+import IDMPhotoBrowser
+import MapKit
+import CoreLocation
+import Photos
 
 protocol LogViewControlloerDelegate {
     func updateLogView()
@@ -20,9 +24,11 @@ protocol LogViewControlloerDelegate {
 
 
 class LogViewController: UIViewController, addPostDetailDelegate {
-    
+
+    var scrollInfoNumber: Int = 0
     var toggleWeek: Bool = false
     var postArray: NSArray = NSArray()
+    var totalArray = [AnyObject]()
     
     @IBOutlet weak var calendarBaseView: UIView!
     @IBOutlet weak var calendarWeekView: UIView!
@@ -52,10 +58,10 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 
     var navigationBarView: BTNavigationDropdownMenu!
     var dropdownNumber: Int = 0
-
-//    var cashImageDictionary = [Int : UIImage]()
-//    var cashProfileImageDictionary = [Int : UIImage]()
     var dayLoadingToggle = false
+
+    var shareCameraRollDate: NSDate?
+    var shareCameraRollImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,27 +110,35 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 
     //関数で受け取った時のアクションを定義
     func didSelectDayView(notification: NSNotification) {
-        //疑似キャッシュをクリア
-//        cashProfileImageDictionary.removeAll()
-//        cashImageDictionary.removeAll()
-//        print("クリア後のcashImageDictionary", cashImageDictionary)
 
-        //tableViewのとこに読み込み画面入れる
-        self.dayLoadingToggle = true
-        self.postArray = []
-        self.tableView.emptyDataSetSource = self
-        self.tableView.emptyDataSetDelegate = self
-        self.tableView.reloadData()
-
-        let logNumber: Int
-        if logManager.sharedSingleton.logTitleToggle == true{
-            logNumber = logManager.sharedSingleton.tabLogNumber
+        if let parms = notification.userInfo{
+            self.tableView.reloadData()
         }else {
-            logNumber = logManager.sharedSingleton.logNumber
+            //tableViewのとこに読み込み画面入れる
+            self.dayLoadingToggle = true
+            self.totalArray = []
+            //        self.postArray = []
+            self.tableView.emptyDataSetSource = self
+            self.tableView.emptyDataSetDelegate = self
+            self.tableView.reloadData()
+
+            let logNumber: Int
+            if logManager.sharedSingleton.logTitleToggle == true{
+                logNumber = logManager.sharedSingleton.tabLogNumber
+            }else {
+                logNumber = logManager.sharedSingleton.logNumber
+            }
+
+            loadQuery(logNumber)
+
+            //カメラロール取得
+            if logNumber == 0 {
+                let logCameraRollManager = LogGetOneDayCameraRollManager()
+                logCameraRollManager.getOnePicData(CalendarManager.currentDate)
+            }
+            monthLabel.text = CalendarManager.selectLabel()
         }
 
-        loadQuery(logNumber)
-        monthLabel.text = CalendarManager.selectLabel()
     }
 
     func submitFinish(notification: NSNotification) {
@@ -135,6 +149,13 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }else {
             logNumber = logManager.sharedSingleton.logNumber
         }
+
+        //カメラロール取得
+        if logNumber == 0 {
+            let logCameraRollManager = LogGetOneDayCameraRollManager()
+            logCameraRollManager.getOnePicData(CalendarManager.currentDate)
+        }
+
         switch toggleWeek {
         case false:
             print("month表示")
@@ -179,6 +200,13 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             }else {
                 logNumber = logManager.sharedSingleton.logNumber
             }
+
+            //カメラロール取得
+            if logNumber == 0 {
+                let logCameraRollManager = LogGetOneDayCameraRollManager()
+                logCameraRollManager.getOnePicData(CalendarManager.currentDate)
+            }
+
             loadQuery(logNumber)
             monthLabel.text = CalendarManager.selectLabel()
         }
@@ -240,10 +268,13 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 
         logManager.sharedSingleton.tabLogNumber = indexPath
         let logNumber = logManager.sharedSingleton.tabLogNumber
-        //疑似キャッシュをクリア
-//        cashImageDictionary.removeAll()
-//        cashProfileImageDictionary.removeAll()
         print("logNumber", logNumber, rangeTitle)
+
+        //カメラロール取得
+        if logNumber == 0 {
+            let logCameraRollManager = LogGetOneDayCameraRollManager()
+            logCameraRollManager.getOnePicData(CalendarManager.currentDate)
+        }
 
         switch toggleWeek {
         case false:
@@ -301,36 +332,111 @@ class LogViewController: UIViewController, addPostDetailDelegate {
                     self.tableView.emptyDataSetSource = self
                     self.tableView.emptyDataSetDelegate = self
                 }
+                self.connectArray(logNumber)
                 self.tableView.reloadData()
             }
         })
     }
-    
-    
+
+    //NCMBデータとカメラロールの配列を結合
+    func connectArray(logNumaber : Int) {
+        if logNumaber == 0 {
+            totalArray.removeAll()
+            var ncmbArray: [AnyObject] = postArray as [AnyObject]
+            var cameraRollArray = DeviceDataManager.sharedSingleton.PicOneDayAssetArray
+            print("スタート時、postArray.count : ", ncmbArray.count)
+            print("スタート時cameraRollArray : ", cameraRollArray.count)
+
+            while ncmbArray.isEmpty == false || cameraRollArray.isEmpty == false {
+                var ncmbDate : NSDate?
+                var cameraRollDate : NSDate?
+
+                if let ncmbFirstObject = ncmbArray.first {
+                    ncmbDate = (ncmbFirstObject as! NCMBObject).objectForKey("postDate") as! NSDate
+                }else {
+                    ncmbDate = nil
+                }
+
+                if let cameraRollFirstObject = cameraRollArray.first{
+                    cameraRollDate = cameraRollFirstObject.creationDate
+                }else {
+                    cameraRollDate = nil
+                }
+
+                if ncmbDate != nil && cameraRollDate != nil {
+
+                    let reslt = ncmbDate!.compare(cameraRollDate!)
+                    switch reslt {
+                    case NSComparisonResult.OrderedAscending:
+                        //NCMBデータが入った
+                        totalArray.append(ncmbArray.first!)
+                        ncmbArray.removeFirst()
+                    case NSComparisonResult.OrderedDescending:
+                        //カメラロールデータが入った
+                        totalArray.append(cameraRollArray.first!)
+                        cameraRollArray.removeFirst()
+                    default:
+                        totalArray.append(ncmbArray.first!)
+                        ncmbArray.removeFirst()
+                    }
+                }else if ncmbDate != nil {
+                    totalArray.append(ncmbArray.first!)
+                    ncmbArray.removeFirst()
+                }else if cameraRollDate != nil {
+                    totalArray.append(cameraRollArray.first!)
+                    cameraRollArray.removeFirst()
+                }
+                print("ループ中、postArray.count : ", ncmbArray.count)
+                print("ループ中、cameraRollArray.count : ", cameraRollArray.count)
+                print("ループ中、totalArray.count : ", totalArray.count)
+                print("ループ中、totalArray : ", totalArray)
+            }
+        }else {
+            totalArray = postArray as [AnyObject]
+        }
+    }    
     // スクロール感知用の変数
     var scrollBeginingPoint: CGPoint!
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         scrollBeginingPoint = scrollView.contentOffset;
+        //スクロールはじめに0に初期化して、0の時しかカレンダー更新を通らない
+        //カレンダー更新後は１追加して、通らないようにする
+        scrollInfoNumber = 0
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        print("scrollInfoNumber", scrollInfoNumber)
         let currentPoint = scrollView.contentOffset
         print(currentPoint)
+        print("toggleWeek : ", toggleWeek)
         
         if toggleWeek == false {
-            if 20 < currentPoint.y {
-                print("scrollBeginingPoint \(scrollBeginingPoint) ")
-                print("currentPoint \(currentPoint) ")
-                self.exchangeCalendarView()
+            if 70 < currentPoint.y {
+                if scrollInfoNumber == 0 {
+                    //月→週、上スクロール
+                    scrollInfoNumber += 1
+                    self.exchangeCalendarView()
+                }else {
+                    print("下スクロール中の余韻")
+                }
+            }else {
+                print("下スクロール中の余韻")
             }
-        } else if toggleWeek == true {
-            if -20 > currentPoint.y {
-                print(currentPoint)
-                self.exchangeCalendarView()
+        } else{
+            if -70 > currentPoint.y {
+                if scrollInfoNumber == 0 {
+                    //週→月、下スクロール
+                    print(currentPoint)
+                    scrollInfoNumber += 1
+                    self.exchangeCalendarView()
+                }else {
+                    print("上スクロール中の余韻")
+                }
+            }else {
+                print("上スクロール中の余韻")
             }
         }
-        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -353,9 +459,19 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             }
             submitVC.postDate = CalendarManager.currentDate
         }
-        
+        if segue.identifier == "toSubmitVCfromPic" {
+            let submitVC: SubmitViewController = segue.destinationViewController as! SubmitViewController
+            if toggleWeek == false {
+                submitVC.weekToggle = false
+            }else {
+                submitVC.weekToggle = true
+            }
+            print("shareCameraRollDate", shareCameraRollDate)
+            submitVC.postDate = shareCameraRollDate
+            submitVC.postImage1 = shareCameraRollImage
+        }
     }
-    
+
     //月週の切り替わりのアウトレイアウトの紐付け
     @IBOutlet weak var weekConstraint: NSLayoutConstraint!
     @IBOutlet weak var monthConstraint: NSLayoutConstraint!
@@ -389,11 +505,11 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }
         
         //ここをいじれば切替時にAPI節約できるかも・・・
-        if toggleWeek {
-            calendarAnotherView?.resetWeekView()
+        if toggleWeek == true {
+            calendarAnotherView?.resetWeekView(totalArray)
             changeWeekOrMonthToggle.setImage(toMonthImage, forState: UIControlState.Normal)
         } else {
-            calendarView?.resetMonthView()
+            calendarView?.resetMonthView(totalArray)
             changeWeekOrMonthToggle.setImage(toWeekImage, forState: UIControlState.Normal)
         }
         
@@ -484,18 +600,19 @@ extension LogViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
 
 }
 
-extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttributedLabelDelegate {
+extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttributedLabelDelegate, IDMPhotoBrowserDelegate, CLLocationManagerDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postArray.count
+        return totalArray.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellId = "TimelineCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! TimelineCell
 
-        let postData = postArray[indexPath.row] as! NCMBObject
-        print("indexPath.row", indexPath.row)
-        print("postData", postData)
+        if totalArray[indexPath.row] is NCMBObject {
+            let cellId = "TimelineCell"
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! TimelineCell
+            let postData = totalArray[indexPath.row] as! NCMBObject
+            print("indexPath.row", indexPath.row)
+            print("postData", postData)
 
         //userNameLabel
         //userProfileImageView
@@ -603,14 +720,117 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
             //今まで一度もいいねされたことはない
             cell.likeButton.setImage(likeOffImage, forState: .Normal)
             cell.likeNumberButton.setTitle("", forState: .Normal)
+            }
+            return cell
+        }else{
+            let cellId = "CameraRollCell"
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! CameraRollCell
+            let postData = totalArray[indexPath.row] as! PHAsset
+            print("indexPath.row", indexPath.row)
+            print("postData", postData)
+
+            //userNameLabel
+            //userProfileImageView
+            cell.userProfileImageView.layer.cornerRadius = cell.userProfileImageView.frame.width/2
+            if let user = NCMBUser.currentUser(){
+                if let profileImageName = user.objectForKey("userProfileImage") as? String{
+                    let profileImageFile = NCMBFile.fileWithName(profileImageName, data: nil) as! NCMBFile
+                    SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(profileImageFile.name, done: { (image, SDImageCacheType) in
+                        if let image = image {
+                            cell.userProfileImageView.image = image
+                        }else {
+                            profileImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                                if let error = error {
+                                    print("profileImageの取得失敗： ", error)
+                                    cell.userProfileImageView.image = UIImage(named: "noprofile")
+                                } else {
+                                    cell.userProfileImageView.image = UIImage(data: imageData!)
+                                    SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: profileImageFile.name)
+                                }
+                            })
+                        }
+                    })
+                }else {
+                    cell.userProfileImageView.image = UIImage(named: "noprofile")
+                }
+            }
+            cell.cameraRollLabel.text = "カメラロール"
+
+            if let location = postData.location{
+                //座標を住所に変換する。
+                let myGeocoder:CLGeocoder = CLGeocoder()
+                myGeocoder.reverseGeocodeLocation(location, completionHandler: {(placemarks, error) in
+
+                    if(error == nil) {
+                        for placemark in placemarks! {
+                            print("placemark", placemark)
+//                            cell.locationLabel.text = "\(placemark.administrativeArea!)\(placemark.locality!)\(placemark.thoroughfare!)"
+                            var locationText = ""
+                            if let name = placemark.name{
+                                locationText += name + " / "
+                            }
+                            if let administrativeArea = placemark.administrativeArea{
+                                locationText += administrativeArea
+                            }
+                            if let locality = placemark.locality{
+                                locationText += locality
+                            }
+                            if let thoroughfare = placemark.thoroughfare{
+                                locationText += thoroughfare
+                            }
+                            cell.locationLabel.text = locationText
+                        }
+                    } else {
+                        cell.locationLabel.text = "住所不明"
+                    }
+                })
+            }else {
+                cell.locationLabel.text = ""
+            }
+
+
+
+            // postDateLabel
+            let date = postData.creationDate!
+            let postDateFormatter: NSDateFormatter = NSDateFormatter()
+            postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+
+            cell.postDateLabel.text = postDateFormatter.stringFromDate(date)
+            cell.imageViewHeightConstraint.constant = 150.0
+            cell.camaraRollImageView!.layer.cornerRadius = 5.0
+            let manager: PHImageManager = PHImageManager()
+            manager.requestImageDataForAsset(postData, options: nil) { (data, title, orientation, dic) in
+                cell.camaraRollImageView?.image = UIImage(data: data!)
+            }
+            return cell
         }
-        return cell
     }
-    
+
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("セルの選択: \(indexPath.row)")
-        selectedPostObject = self.postArray[indexPath.row] as! NCMBObject
-        performSegueWithIdentifier("toPostDetailVC", sender: nil)
+        if let data = self.totalArray[indexPath.row] as? NCMBObject{
+            selectedPostObject = data
+            performSegueWithIdentifier("toPostDetailVC", sender: nil)
+        }else {
+            let asset = self.totalArray[indexPath.row] as? PHAsset
+            let manager: PHImageManager = PHImageManager()
+            manager.requestImageDataForAsset(asset!, options: nil) { (data, title, orientation, dic) in
+                let image = UIImage(data: data!)
+                self.tapPostImage(image!)
+            }
+
+        }
+    }
+
+    //投稿写真タップ
+    func tapPostImage(image : UIImage) {
+        print("tapPostImage")
+        let photo = IDMPhoto(image: image)
+        photo.caption = nil
+        let photos: NSArray = [photo]
+        let browser = IDMPhotoBrowser.init(photos: photos as [AnyObject])
+        browser.delegate = self
+        self.presentViewController(browser,animated:true ,completion:nil)
     }
 
 //     urlリンクをタップされたときの処理を記述します
@@ -623,6 +843,29 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
     }
 }
 
+//カメラロールシェアアクション
+extension LogViewController{
+    @IBAction func puahCameraRollShareButton(sender: AnyObject) {
+        print("SHAREボタン押した")
+        let button = sender as! UIButton
+        let cell = button.superview?.superview as! CameraRollCell
+        let row = tableView.indexPathForCell(cell)?.row
+        let postData = totalArray[row!] as! PHAsset
+        if let postDate = postData.creationDate{
+            
+            shareCameraRollDate = postDate
+        }else {
+            shareCameraRollDate = CalendarManager.currentDate
+        }
+        let manager: PHImageManager = PHImageManager()
+        manager.requestImageDataForAsset(postData, options: nil) { (data, title, orientation, dic) in
+            self.shareCameraRollImage = UIImage(data: data!)
+            self.performSegueWithIdentifier("toSubmitVCfromPic", sender: true)
+        }
+    }
+}
+
+
 
 //いいねボタンアクション
 extension LogViewController{
@@ -632,7 +875,7 @@ extension LogViewController{
         let cell = button.superview?.superview as! TimelineCell
         print("投稿内容", cell.postTextLabel.text)
         let row = tableView.indexPathForCell(cell)?.row
-        let postData = postArray[row!] as! NCMBObject
+        let postData = totalArray[row!] as! NCMBObject
         
         //いいねアクション実行
         if cell.isLikeToggle == true{
@@ -741,7 +984,7 @@ extension LogViewController{
         // 押されたボタンを取得
         let cell = sender.superview?.superview as! TimelineCell
         let row = tableView.indexPathForCell(cell)?.row
-        selectedPostObject = self.postArray[row!] as! NCMBObject
+        selectedPostObject = self.totalArray[row!] as! NCMBObject
         performSegueWithIdentifier("toPostDetailVC", sender: true)
     }
     

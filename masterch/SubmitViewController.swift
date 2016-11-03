@@ -55,7 +55,6 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
     
     var postImage1: UIImage? = nil
     var toolBar: UIToolbar!
-    var postPickerDate: NSDate = NSDate()
     let postTextCharactersLabel: UILabel = UILabel()
     let notificationCenter = NSNotificationCenter.defaultCenter()
     
@@ -93,10 +92,8 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         self.postTextView.becomeFirstResponder() // 最初からキーボードを表示させる
         self.postTextView.inputAccessoryView = toolBar // キーボード上にツールバーを表示
 
-        postPickerDate = CalendarManager.currentDate
-        
         if let postDate = postDate {
-            //選択されたNSDateを表示する。®
+            //選択されたNSDateを表示する。
             setDate(postDate)
         }else {
             //NSDate()で現在時刻をあらかじめ表示する。
@@ -128,6 +125,18 @@ class SubmitViewController: UIViewController, UITextViewDelegate {
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: #selector(SubmitViewController.showKeyboard(_:)), name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(SubmitViewController.hideKeyboard(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    }
+
+    //カメラロールをシェアする時に選択した画像を表示する
+    override func viewDidAppear(animated: Bool) {
+        if postImage1 == nil {
+            submitButton.enabled = false
+        } else {
+            submitButton.enabled = true
+            if postImageView.image == nil {
+                self.setImage(postImage1!)
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -330,20 +339,24 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         guard let image: UIImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
         UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+        setImage(image)
+
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        self.postTextView.becomeFirstResponder()
+    }
+
+    func setImage(image : UIImage) {
         let resizedImage = resize(image)
         self.postImage1 = resizedImage
         self.postImageView.image = resizedImage
-
         postImageView.frame = CGRectMake(0, postTextView.contentSize.height+10, self.postTextView.contentSize.width*0.9, self.postTextView.contentSize.width*0.9)
         postImageView.center.x = self.postTextView.bounds.width/2
         self.postImageView.contentMode = UIViewContentMode.ScaleAspectFill
         postImageView.layer.cornerRadius = 5.0
         postImageView.clipsToBounds = true
+
         self.postTextView.addSubview(postImageView)
         self.postTextView.endOfDocument
-
-        picker.dismissViewControllerAnimated(true, completion: nil)
-        self.postTextView.becomeFirstResponder()
     }
     
     // 画像リサイズメソッド
@@ -399,7 +412,6 @@ extension SubmitViewController {
     //    postDatePickerが選ばれた際に呼ばれる.
     func onDidChangeDate(sender: UIDatePicker) {
         setDate(sender.date)
-        postPickerDate = sender.date
     }
     //    postDateのための共通のメソッド
     func setDate(date: NSDate) {
@@ -454,7 +466,7 @@ extension SubmitViewController {
         //         ユーザーを関連づけ
         postObject.setObject(NCMBUser.currentUser(), forKey: "user")
         postObject.setObject(self.postTextView.text, forKey: "text")
-        postObject.setObject(postPickerDate, forKey: "postDate")
+        postObject.setObject(postDate!, forKey: "postDate")
         postObject.setObject(secretKeyToggle, forKey: "secretKey")
         //        保存対象の画像ファイルを作成する
         if postImage1 != nil {
