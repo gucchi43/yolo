@@ -83,23 +83,14 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
         let key = String(logNumber) + logUserName + String(monthKey)
         switch logNumber {
         case 0: //自分の時
-            print("myMonthLogColorCache", CalendarLogColorCache.sharedSingleton.myMonthLogColorCache)
             if let cashLogColorArray = CalendarLogColorCache.sharedSingleton.myMonthLogColorCache.objectForKey(key) as? [String] {
-                print("cashLogColorArray", cashLogColorArray)
                 self.setLogDateTag(cashLogColorArray, logNumber: logNumber)
             }
             else {
-//                let getCameraRollArrayManager = LogGetOneDayCameraRollManager()
-//                //カメラロールアイコンのデータをシングルトンに持つ
-//                getCameraRollArrayManager.getMonthPicData(date)
-                //カメラロールのアイコン載せる処理
-//                cameraRollArrayLoad(date)
                 manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
             }
         default: //自分の時以外
-            print("otherMonthLogColorCache", CalendarLogColorCache.sharedSingleton.otherMonthLogColorCache)
             if let cashLogColorArray = CalendarLogColorCache.sharedSingleton.otherMonthLogColorCache.objectForKey(key) as? [String]{
-                print("cashLogColorArray", cashLogColorArray)
                 self.setLogDateTag(cashLogColorArray, logNumber: logNumber)
                 manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
             }else {
@@ -199,7 +190,6 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
                 }
                 dateStartInt += 1
             }
-//            setLogDateTag(totalArray, logNumber: 0)
             saveLogColorCashArray(totalArray, logNumber: 0)
         }
     }

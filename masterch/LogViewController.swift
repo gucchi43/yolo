@@ -111,29 +111,34 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     //関数で受け取った時のアクションを定義
     func didSelectDayView(notification: NSNotification) {
 
-        //tableViewのとこに読み込み画面入れる
-        self.dayLoadingToggle = true
-        self.postArray = []
-        self.tableView.emptyDataSetSource = self
-        self.tableView.emptyDataSetDelegate = self
-        self.tableView.reloadData()
-
-        let logNumber: Int
-        if logManager.sharedSingleton.logTitleToggle == true{
-            logNumber = logManager.sharedSingleton.tabLogNumber
+        if let parms = notification.userInfo{
+            self.tableView.reloadData()
         }else {
-            logNumber = logManager.sharedSingleton.logNumber
+            //tableViewのとこに読み込み画面入れる
+            self.dayLoadingToggle = true
+            self.totalArray = []
+            //        self.postArray = []
+            self.tableView.emptyDataSetSource = self
+            self.tableView.emptyDataSetDelegate = self
+            self.tableView.reloadData()
+
+            let logNumber: Int
+            if logManager.sharedSingleton.logTitleToggle == true{
+                logNumber = logManager.sharedSingleton.tabLogNumber
+            }else {
+                logNumber = logManager.sharedSingleton.logNumber
+            }
+
+            loadQuery(logNumber)
+
+            //カメラロール取得
+            if logNumber == 0 {
+                let logCameraRollManager = LogGetOneDayCameraRollManager()
+                logCameraRollManager.getOnePicData(CalendarManager.currentDate)
+            }
+            monthLabel.text = CalendarManager.selectLabel()
         }
 
-        loadQuery(logNumber)
-
-        //カメラロール取得
-        if logNumber == 0 {
-            let logCameraRollManager = LogGetOneDayCameraRollManager()
-            logCameraRollManager.getOnePicData(CalendarManager.currentDate)
-        }
-
-        monthLabel.text = CalendarManager.selectLabel()
     }
 
     func submitFinish(notification: NSNotification) {
@@ -387,8 +392,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
                 print("ループ中、totalArray : ", totalArray)
             }
         }else {
-            var ncmbArray: [AnyObject] = postArray as [AnyObject]
-            totalArray = ncmbArray
+            totalArray = postArray as [AnyObject]
         }
     }    
     // スクロール感知用の変数
@@ -411,11 +415,8 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             if 70 < currentPoint.y {
                 if scrollInfoNumber == 0 {
                     //月→週、上スクロール
-                    print("scrollBeginingPoint \(scrollBeginingPoint) ")
-                    print("currentPoint \(currentPoint) ")
                     scrollInfoNumber += 1
                     self.exchangeCalendarView()
-                    print("+= 1後の scrollInfoNumber", scrollInfoNumber)
                 }else {
                     print("下スクロール中の余韻")
                 }
@@ -429,7 +430,6 @@ class LogViewController: UIViewController, addPostDetailDelegate {
                     print(currentPoint)
                     scrollInfoNumber += 1
                     self.exchangeCalendarView()
-                    print("+= 1後の scrollInfoNumber", scrollInfoNumber)
                 }else {
                     print("上スクロール中の余韻")
                 }
@@ -506,10 +506,10 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         
         //ここをいじれば切替時にAPI節約できるかも・・・
         if toggleWeek == true {
-            calendarAnotherView?.resetWeekView()
+            calendarAnotherView?.resetWeekView(totalArray)
             changeWeekOrMonthToggle.setImage(toMonthImage, forState: UIControlState.Normal)
         } else {
-            calendarView?.resetMonthView()
+            calendarView?.resetMonthView(totalArray)
             changeWeekOrMonthToggle.setImage(toWeekImage, forState: UIControlState.Normal)
         }
         
@@ -607,7 +607,7 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        if let data = totalArray[indexPath.row] as? NCMBObject {
+        if totalArray[indexPath.row] is NCMBObject {
             let cellId = "TimelineCell"
             let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! TimelineCell
             let postData = totalArray[indexPath.row] as! NCMBObject

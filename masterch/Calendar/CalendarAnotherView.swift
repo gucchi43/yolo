@@ -82,13 +82,19 @@ class CalendarAnotherView : UIView, UIScrollViewDelegate {
         self.resetContentOffSet(horizontalScrollView)
     }
     
-    func resetWeekView() {
+    func resetWeekView(array: [AnyObject] = []) {
         currentWeekView.startSetUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days)
         prevWeekView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days - 7.days)
         nextWeekView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.weekday - 1).days + 7.days)
-        
-        let n = NSNotification(name: "didSelectDayView", object: self, userInfo: nil)
-        NSNotificationCenter.defaultCenter().postNotification(n)
+        var userInfo = [String : AnyObject]()
+        if array.isEmpty{
+            let n = NSNotification(name: "didSelectDayView", object: self, userInfo: nil)
+            NSNotificationCenter.defaultCenter().postNotification(n)
+        }else {
+            userInfo = ["today": array]
+            let n = NSNotification(name: "didSelectDayView", object: self, userInfo: userInfo)
+            NSNotificationCenter.defaultCenter().postNotification(n)
+        }
     }
     
     func resetContentOffSet (scrollView: UIScrollView) {

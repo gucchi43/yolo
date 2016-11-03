@@ -126,16 +126,23 @@ class CalendarView: UIView, UIScrollViewDelegate {
         currentMonthView.startSetUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days)
     }
     
-    func resetMonthView() {
+    func resetMonthView(array: [AnyObject] = []) {
         print("カレントデイト", CalendarManager.currentDate)
         currentMonthView.startSetUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days)
         prevMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days - 1.months)
         nextMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days + 1.months)
         nextYearMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days + 1.years)
         lastYearMonthView.setUpDays(CalendarManager.currentDate - (CalendarManager.currentDate.day - 1).days - 1.years)
-        
-        let n = NSNotification(name: "didSelectDayView", object: self, userInfo: nil)
-        NSNotificationCenter.defaultCenter().postNotification(n)
+
+        var userInfo = [String : AnyObject]()
+        if array.isEmpty{
+            let n = NSNotification(name: "didSelectDayView", object: self, userInfo: nil)
+            NSNotificationCenter.defaultCenter().postNotification(n)
+        }else {
+            userInfo = ["today": array]
+            let n = NSNotification(name: "didSelectDayView", object: self, userInfo: userInfo)
+            NSNotificationCenter.defaultCenter().postNotification(n)
+        }
     }
     
     func resetContentOffSet (scrollView: UIScrollView) {

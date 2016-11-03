@@ -82,9 +82,7 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
 
         switch logNumber {
         case 0: //自分の時
-            print("myWeekLogColorCache", CalendarLogColorCache.sharedSingleton.myWeekLogColorCache)
             if let cashLogColorArray = CalendarLogColorCache.sharedSingleton.myWeekLogColorCache.objectForKey(key) as? [String]{
-                print("cashLogColorArray", cashLogColorArray)
                 self.setLogDateTag(cashLogColorArray, logNumber: logNumber)
             }else {
 //                let getCameraRollArrayManager = LogGetOneDayCameraRollManager()
@@ -93,9 +91,7 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
                 manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
             }
         default: //自分の時以外
-            print("otherWeekLogColorCache", CalendarLogColorCache.sharedSingleton.otherWeekLogColorCache)
             if let cashLogColorArray = CalendarLogColorCache.sharedSingleton.otherWeekLogColorCache.objectForKey(key) as? [String]{
-                print("cashLogColorArray", cashLogColorArray)
                 self.setLogDateTag(cashLogColorArray, logNumber: logNumber)
                 manyLogColorQueryLoad(logColorQuery, logNumber: logNumber)
             }else {
