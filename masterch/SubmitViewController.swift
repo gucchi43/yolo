@@ -773,6 +773,7 @@ extension SubmitViewController {
 //logColorArray(月version)
 extension SubmitViewController {
     func setLogColorArray() {
+        self.removePostedMonthLogColorCache()
         let longLogDate = postDateLabel.text //投稿画面に表示されている投稿する日時（PostDateのString版）
         let logYearAndMonth = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(7))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM"
         let logDate = longLogDate!.substringToIndex((longLogDate?.startIndex.advancedBy(10))!) // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
@@ -792,9 +793,6 @@ extension SubmitViewController {
                     let dayColorArrayObject = object.objectForKey("logDateTag") as! [String]
                     let oldLogDateTagInfoArray = dayColorArrayObject.filter { $0.containsString(String(logDateTag))}
                     print("oldLogDateTagInfoArray", oldLogDateTagInfoArray)
-
-                    self.removePostedMonthLogColorCache()
-
                     if oldLogDateTagInfoArray == [] {
                         //その日の投稿はまだ無い
                         print("今月の投稿はあるけどその日の投稿はまだないから追加")
@@ -885,6 +883,7 @@ extension SubmitViewController {
 //logColorArray(週version)
 extension SubmitViewController {
     func setWeekLogColorArray() {
+        self.removePostedWeekLogColorCache()
         let yearAndWeekNumberArray = CalendarManager.getWeekNumber(postDate!)
         let year = yearAndWeekNumberArray[0]
         let weekOfYear = yearAndWeekNumberArray[1]
@@ -908,7 +907,6 @@ extension SubmitViewController {
                     let oldLogDateTagInfoArray = dayColorArrayObject.filter { $0.containsString(String(logDateTag))}
                     print("oldLogDateTagInfoArray", oldLogDateTagInfoArray)
 
-                    self.removePostedWeekLogColorCache()
 
                     if oldLogDateTagInfoArray == [] {
                         //その日の投稿はまだ無い

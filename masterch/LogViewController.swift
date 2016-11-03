@@ -161,7 +161,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
             print("month表示")
             if let calendarView = calendarView {
                 calendarView.submitetResetMonthView()
-                //                calendarView.resetMonthView()
+                                calendarView.resetMonthView()
                 loadQuery(logNumber)
             }else {
                 print("calendarAnotherViewがないだって!?")
