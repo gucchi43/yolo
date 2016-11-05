@@ -1113,7 +1113,8 @@ extension AccountViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate{
     //    }
 
     func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor! {
-        return UIColor.lightGrayColor()    }
+        return UIColor.lightGrayColor()
+    }
 
 //    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
 //        let str = "∨"
