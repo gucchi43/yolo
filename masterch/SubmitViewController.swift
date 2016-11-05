@@ -526,10 +526,11 @@ extension SubmitViewController {
         if facebookToggle == true {
             if self.postImage1 != nil {
                 shareFacebookMedia()
+                print("facebbokシェア完了 メディアあり")
             }else {
                 shareFacebookPost()
+                print("facebbokシェア完了 メディアなし")
             }
-            print("facebbokシェア完了")
         }else {
             print("facebookシェアなし")
         }
@@ -569,12 +570,10 @@ extension SubmitViewController {
         print("twitterボタン押した")
         print("初期状態だぞおおおおお", twitterToggle)
         print(NCMBTwitterUtils.isLinkedWithUser(user))
-        
-        //Twitterと連携しているか？
-        if let userID = user.objectForKey("twitterID") {
-            if userID.isKindOfClass(NSNull) != true {//「userID」がnullじゃないか？
-                if let userLink = Twitter.sharedInstance().sessionStore.sessionForUserID(userID as! String){
-                    print("Twitter連携済 userID:", userLink.userID)//Twitter連携している
+
+        if let twitterLink = user.objectForKey("twitterLink") as? [String : String]{
+                if Twitter.sharedInstance().sessionStore.sessionForUserID(twitterLink["userID"]!) != nil{
+                    print("Twitter連携済み")
                     twitterToggle = !twitterToggle //連携済みの場合の切り替えToggle
                     if twitterToggle == true{
                         twitterButton.setImage(imgTwitterOn, forState: .Normal)
@@ -585,34 +584,48 @@ extension SubmitViewController {
                         //ツイッターシェアはtrue
                         print("シェアしない" , twitterToggle)
                     }
+
                 }else {
-                    print("ありえないはず: twitterIDは登録してるのにTwitterSessionがsaveできていない")
+                    print("ありえないはず: twitterLinkは登録してるのにTwitterSessionがsaveできていない")
                     self.postTextView.endEditing(true)
-                    let containerSnsViewController = ContainerSnsViewController()
-                    containerSnsViewController.addSnsToTwitter(user)
-                    //                                        twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
-                    //                                        shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-                    //                                        print("シェアする", twitterToggle)
+                    self.addSnsToTwitter(user)
                 }
-            }else {
-                print("Twitter未連携（外した状態） userID", userID)//Twitter連携をはずして、空っぽの状態
-                //Twitter未連携
-                self.postTextView.endEditing(true)
-                let containerSnsViewController = ContainerSnsViewController()
-                containerSnsViewController.addSnsToTwitter(user)
-                //                twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
-                //                shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-                //                print("シェアする", twitterToggle)
-            }
         }else {
             print("Twitter未連携")//Twitter連携は今まで一度もしていない
             //Twitter未連携
             self.postTextView.endEditing(true)
-            let containerSnsViewController = ContainerSnsViewController()
-            containerSnsViewController.addSnsToTwitter(user)
-            //            twitterToggle = !twitterToggle //未連携の場合の切り替えToggle → ON
-            //            shareTwitterButton.setImage(imgTwitterOn, forState: .Normal)
-            //            print("シェアする", twitterToggle)
+            self.addSnsToTwitter(user)
+        }
+    }
+
+    func addSnsToTwitter(user: NCMBUser) {
+        Twitter.sharedInstance().logInWithCompletion {
+            (session, error) -> Void in
+            if let session = session {
+                let authToken = session.authToken
+                let authTokenSecret = session.authTokenSecret
+                let userName = session.userName
+                let userID = session.userID
+                let store = Twitter.sharedInstance().sessionStore
+                store.saveSessionWithAuthToken(authToken, authTokenSecret: authTokenSecret, completion: { (session, error) in
+                    if let error = error {
+                        print("Twitterstore保存失敗 : ", error.localizedDescription)
+                    }else {
+                        print("Twitterstore保存クリア!")
+                        let saveSession =  ["authToken" : authToken, "authTokenSecret" : authTokenSecret, "userName" : userName, "userID" : userID]
+                        user.setObject(saveSession, forKey: "twitterLink")
+                        user.saveInBackgroundWithBlock({ (error) in
+                            if let error = error {
+                                print("NiftyデータベースへのTwitterリンクデータ保存失敗 : ", error.localizedDescription)
+                            }else {
+                                print("NiftyデータベースへのTwitterリンクデータ保存クリア!")
+                            }
+                        })
+                    }
+                })
+            } else {
+                print("Error：\(error!.localizedDescription)");
+            }
         }
     }
     
@@ -696,42 +709,65 @@ extension SubmitViewController {
     //Facebookシェア
     @IBAction func selectShareFacebook(sender: AnyObject) {
         print("Facebookボタン押した")
-        cannotConnectFacebookAlert()
-
-//        if NCMBFacebookUtils.isLinkedWithUser(user) == true {
-//            //Facebook連携済み
-//            facebookToggle = !facebookToggle
-//            if facebookToggle == true{
-//                print("Facebookリンクしているか？", NCMBFacebookUtils.isLinkedWithUser(user))
-//                
-//                facebookButton.setImage(imgFacebookOn, forState: .Normal)
-//                print(facebookToggle)
-//            }else {
-//                
-//                facebookButton.setImage(imgFacebookOff, forState: .Normal)
-//                print(facebookToggle)
-//                print("Facebookリンクしているか？", NCMBFacebookUtils.isLinkedWithUser(user))
-//            }
-//            
-//        }else {
-//            //Facebook未連携
-//            let containerSnsVC = ContainerSnsViewController()
-//            containerSnsVC.addSnsToFacebook(user)
-//        }
+        if user.objectForKey("facebookLink") != nil{
+            if FBSDKAccessToken.currentAccessToken() != nil{
+                facebookToggle = !facebookToggle //連携済みの場合、Toggleを切り替える
+                if facebookToggle == true {
+                    facebookButton.setImage(imgFacebookOn, forState: .Normal)
+                    print("facebookシェアする")
+                }else {
+                    facebookButton.setImage(imgFacebookOff, forState: .Normal)
+                    //ツイッターシェアはtrue
+                    print("facebookシェアしない")
+                }
+            }else {
+                print("facebookのアクセストークンが切れている")
+                self.postTextView.endEditing(true)
+                self.addSnsToFacebook(user)
+            }
+        }else {
+            print("まだリンクが出来ていない")
+            self.postTextView.endEditing(true)
+            self.addSnsToFacebook(user)
+        }
     }
 
-    func cannotConnectFacebookAlert() {
-        //「Facebookが今は連携出来ない」アラート呼び出し
-        let alert: UIAlertController = UIAlertController(title: "現versionではFacebookシェアはできません",
-                                                         message: "versionアップデートをお待ち下さい",
-                                                         preferredStyle:  UIAlertControllerStyle.Alert)
-        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
-            // ボタンが押された時の処理を書く（クロージャ実装）
-            (action: UIAlertAction!) -> Void in
-            print("OK")
-        })
-        alert.addAction(defaultAction)
-        presentViewController(alert, animated: true, completion: nil)
+    func addSnsToFacebook (user: NCMBUser) {
+
+        let loginManager: FBSDKLoginManager = FBSDKLoginManager()
+        loginManager.logInWithReadPermissions(["public_profile", "email", "user_friends","user_posts"], fromViewController: self) { (result, error) in
+            if (error != nil) {
+                // エラーが発生した場合
+                print("Process error")
+            } else if result.isCancelled {
+                // ログインをキャンセルした場合
+                print("Cancelled")
+            } else {
+                // その他
+                print("Login Succeeded")
+                loginManager.logInWithPublishPermissions(["publish_actions"], fromViewController: self, handler: { (result, error) in
+                    if (error != nil) {
+                        // エラーが発生した場合
+                        print("Process error")
+                    } else if result.isCancelled {
+                        // ログインをキャンセルした場合
+                        print("Cancelled")
+                    }else {
+                        print("認証成功!!!")
+                        let token = FBSDKAccessToken.currentAccessToken()
+                        let saveSession = ["uerID" : token.userID, "token" : token.tokenString, "expirationDate" : token.expirationDate]
+                        user.setObject(saveSession, forKey: "facebookLink")
+                        user.saveInBackgroundWithBlock({ (error) in
+                            if let error = error {
+                                print("NiftyデータベースへのFacebookリンクデータ保存失敗 : ", error.localizedDescription)
+                            }else {
+                                print("NiftyデータベースへのFacebookリンクデータ保存クリア!")
+                            }
+                        })
+                    }
+                })
+            }
+        }
     }
 
     func shareFacebookPost() {
