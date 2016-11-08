@@ -17,6 +17,7 @@ import IDMPhotoBrowser
 import MapKit
 import CoreLocation
 import Photos
+import SVProgressHUD
 
 protocol LogViewControlloerDelegate {
     func updateLogView()
@@ -84,12 +85,12 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     }
 
     override func viewWillAppear(animated: Bool) {
+        navigationTitleToggle()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.didSelectDayView(_:)), name: "didSelectDayView", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.submitFinish(_:)), name: "submitFinish", object: nil)
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
         }
-
         //Viewの階層で１(１階層,１番上,タブがログで先頭)の時だけ、logTitleToggleをtrueにする
         let viewCount = self.navigationController?.viewControllers.count
         print("viewCount", viewCount)
@@ -98,8 +99,6 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }else {
             logManager.sharedSingleton.logTitleToggle = false
         }
-
-        navigationTitleToggle()
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -217,17 +216,48 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         print("LogVC deinit!!!!")
     }
 
+    func getFollowUserList() {
+        let user = NCMBUser.currentUser()
+        let relationshipQuery = NCMBQuery(className: "Relationship")
+        relationshipQuery.whereKey("followed", equalTo: user)
+        relationshipQuery.includeKey("follower")
+        relationshipQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+            if error == nil {
+                guard let relationships = objects as? [NCMBObject] else { return }
+                UserListManager.sharedSingleton.followArray.removeAll()
+                for relationship in relationships{
+                    UserListManager.sharedSingleton.followArray.append(relationship.objectForKey("follower") as! NCMBUser)
+                }
+                self.prepareNavigationDropdownMenu()
+            } else {
+                SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
+            }
+        }
+    }
 
     //NavigatiaonDropMenuの生成
     func prepareNavigationDropdownMenu() {
-        let items = ["Mine", "Follow"]
+//        let userNameArray = getDropdownMenuitems()
+        let mineUserName = NCMBUser.currentUser().userName
+        var items = [mineUserName, "AllUser"]
+        let number = UserListManager.sharedSingleton.followArray.count
+         var i = 0
+        while i < number {
+            let userName = UserListManager.sharedSingleton.followArray[i].userName as String
+            items.append(userName)
+            i += 1
+        }
+
+        print("items", items)
         self.navigationController?.navigationBar.translucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
 
         navigationBarView = BTNavigationDropdownMenu(navigationController: self.navigationController, containerView: self.navigationController!.view, title: items[dropdownNumber], items: items)
         navigationBarView.cellHeight = 50
-        navigationBarView.cellBackgroundColor = self.navigationController?.navigationBar.barTintColor
-        navigationBarView.cellSelectionColor = self.navigationController?.navigationBar.barTintColor
+        let selectColor = ColorManager.sharedSingleton.accsentColor().colorWithAlphaComponent(1.0)
+        let otherColor = ColorManager.sharedSingleton.accsentColor().colorWithAlphaComponent(0.5)
+        navigationBarView.cellBackgroundColor = otherColor
+        navigationBarView.cellSelectionColor = selectColor
         navigationBarView.shouldKeepSelectedCellColor = true
         navigationBarView.cellTextLabelColor = UIColor.whiteColor()
         navigationBarView.cellTextLabelFont = UIFont(name: "Avenir-Heavy", size: 17)
@@ -252,21 +282,38 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         //        ナビゲーションバーのタイトルに設定する。
         if logManager.sharedSingleton.logTitleToggle == true{
             print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
-            prepareNavigationDropdownMenu()
+            getFollowUserList()
             print("logTitleToggleがtrueなので、ログ範囲のタイトルを表示する")
         }else {
             print("logManager.sharedSingleton.logTitleToggle", logManager.sharedSingleton.logTitleToggle)
-            let logUserName = logManager.sharedSingleton.logUser.userName
-            self.navigationItem.title = logUserName
+            if logManager.sharedSingleton.logNumber == 0 {
+                self.navigationItem.title = NCMBUser.currentUser().userName
+            }else {
+                self.navigationItem.title = logManager.sharedSingleton.logUser.userName
+            }
+
             print("logTitleToggleがfalseなので、ログ範囲のタイトルを表示しない")
         }
 
     }
 
     //DropMenuを選択する
+    //["Mine", "Follow"] + userNameArray
     func selectedDropdownMenu(indexPath: Int, rangeTitle: String) {
+        print("userName : indexPath", rangeTitle, indexPath)
 
-        logManager.sharedSingleton.tabLogNumber = indexPath
+        switch indexPath {
+        case 0:
+            //範囲は自分のみ
+            logManager.sharedSingleton.tabLogNumber = indexPath
+        case 1:
+            //範囲はフォローユーザー全員
+            logManager.sharedSingleton.tabLogNumber = indexPath
+        default:
+            //範囲は特定のユーザー１人
+            logManager.sharedSingleton.tabLogNumber = 2
+            logManager.sharedSingleton.logUser = UserListManager.sharedSingleton.followArray[indexPath - 2]
+        }
         let logNumber = logManager.sharedSingleton.tabLogNumber
         print("logNumber", logNumber, rangeTitle)
 
