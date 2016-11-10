@@ -230,7 +230,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
                 }
                 self.prepareNavigationDropdownMenu()
             } else {
-                SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
+//                SVProgressHUD.showErrorWithStatus("読み込みに失敗しました")
             }
         }
     }
