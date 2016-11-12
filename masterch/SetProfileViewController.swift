@@ -229,6 +229,7 @@ extension SetProfileViewController {
                 installation.setObject(NCMBUser.currentUser().userName, forKey: "userName")
                 installation.saveEventually { (error) in
                     if let error = error {
+                        SVProgressHUD.dismiss()
                         print(error.localizedDescription)
                         let alert: UIAlertController = UIAlertController(title: "エラー",
                             message: "保存できませんでした",
@@ -305,6 +306,7 @@ extension SetProfileViewController {
         
         user.saveInBackgroundWithBlock({(error) in
             if let error = error {
+                SVProgressHUD.dismiss()
                 print(error.localizedDescription)
                 let alert: UIAlertController = UIAlertController(title: "エラー",
                     message: "保存できませんでした",
@@ -327,7 +329,8 @@ extension SetProfileViewController {
         //プロフィール写真、デバイストークン、プロフィール全般が全て保存出来たら遷移する
         if profileImageToggle == true && installationToggel == true && profilegeneralToggle == true{
             SVProgressHUD.dismiss()
-            self.performSegueWithIdentifier("signUpSegue", sender: self)
+//            self.performSegueWithIdentifier("signUpSegue", sender: self)
+            self.performSegueWithIdentifier("toConnectCameraRoll", sender: self)
         }
     }
 }

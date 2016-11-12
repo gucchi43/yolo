@@ -78,11 +78,16 @@ class SignUpViewController: UIViewController {
         }else {
             SVProgressHUD.show()
             newUser.signUpInBackgroundWithBlock({(error) in
-                if error != nil  {
+                if let error = error {
                     // SignUp失敗
                     print("SignUp失敗", error)
-                    self.signUpErrorAlert(error)
                     SVProgressHUD.dismiss()
+                    self.signUpErrorAlert(error)
+                    if let user = NCMBUser.currentUser() {
+                        print("サインアップ失敗したけど、登録出来ている")
+                    }else {
+                        print("サインアップ失敗して、やっぱり登録出来ていない")
+                    }
                 }else{
                     //SignUp成功
                     //画面遷移
@@ -97,7 +102,62 @@ class SignUpViewController: UIViewController {
         }
     }
 
-    
+    func reloadLogin(user: NCMBUser) {
+        let alert: UIAlertController = UIAlertController(title: "タイムアウト",
+                                                         message: nil,
+                                                         preferredStyle:  UIAlertControllerStyle.Alert)
+        let defaultAction: UIAlertAction = UIAlertAction(title: "リロード", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            SVProgressHUD.show()
+            NCMBUser.logInWithUsernameInBackground(self.userIdTextField.text, password: self.passwordTextField.text, block: { (user, error) in
+                if let error = error {
+                    print("ログイン失敗")
+                    //Log周りのシングルトンを初期化する
+                    SVProgressHUD.dismiss()
+                    self.signUpErrorAlert(error)
+                    self.reloadLogin(user)
+                }else {
+                    logManager.sharedSingleton.resetSharedSingleton()
+                    SVProgressHUD.dismiss()
+                    self.self.performSegueWithIdentifier("toSetProfileViewSegue", sender: self)
+                }
+            })
+            print("OK")
+        })
+        // キャンセルボタン
+        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+        alert.addAction(defaultAction)
+        alert.addAction(cancelAction)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+
+    func reloadSignUp() {
+        let alert: UIAlertController = UIAlertController(title: "タイムアウト",
+                                                         message: nil,
+                                                         preferredStyle:  UIAlertControllerStyle.Alert)
+        let defaultAction: UIAlertAction = UIAlertAction(title: "リロード", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            self.signUp()
+            print("OK")
+        })
+        // キャンセルボタン
+        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+        alert.addAction(defaultAction)
+        alert.addAction(cancelAction)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

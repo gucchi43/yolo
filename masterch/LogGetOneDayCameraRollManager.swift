@@ -84,6 +84,7 @@ class LogGetOneDayCameraRollManager: NSObject {
 //その月のカメラロールLogアイコンの配列を取得
 extension LogGetOneDayCameraRollManager {
 
+    //デバイスのカメラロールから、全てのデータを読み込み、月、週別のlogArrayに当て込んでいく
     func getAllPicDic() {
         // オプションを指定してフェッチします
         let fetchOption = PHFetchOptions()
