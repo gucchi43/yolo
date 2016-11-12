@@ -20,6 +20,7 @@ class EditProfileTableViewController: UITableViewController {
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var userSelfIntroductionTextView: UITextView!
     @IBOutlet weak var statusConnectMailLabel: UILabel!
+    @IBOutlet weak var statusConnectCameraRollLabel: UILabel!
     @IBOutlet weak var enabledNotificaationSwitch: UISwitch!
     @IBOutlet weak var changeProfileButton: UIButton!
 
@@ -52,6 +53,7 @@ class EditProfileTableViewController: UITableViewController {
             self.loadUser()
         }
         checkStatusMail()
+        checkStatusCameraRoll()
         checkEnabledNotification()
     }
 
@@ -82,15 +84,27 @@ class EditProfileTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
         case 0:
+            //プロフィール・ホーム画像
             print(indexPath.row)
         case 1:
+            //名前
             print(indexPath.row)
         case 2:
+            //自己紹介
             print(indexPath.row)
         case 3:
+            //メールアドレス連携
             print(indexPath.row)
             performSegueWithIdentifier("toConnectMailTVC", sender: nil)
         case 4:
+            //カメラロール連携
+            print(indexPath.row)
+            connectCameraRoll()
+        case 5:
+            //プッシュ通知
+            print(indexPath.row)
+        case 6:
+            //ログアウト
             print(indexPath.row)
         default:
             break
@@ -418,6 +432,62 @@ extension EditProfileTableViewController{
     }
 }
 
+//カメラロール連携
+extension EditProfileTableViewController{
+    func checkStatusCameraRoll() {
+        if DeviceDataManager.sharedSingleton.checkConnectCameraRoll() == true {
+            statusConnectCameraRollLabel.text = "連携済み"
+            statusConnectCameraRollLabel.textColor = ColorManager.sharedSingleton.mainColor()
+        }else {
+            statusConnectCameraRollLabel.text = "未連携"
+            statusConnectCameraRollLabel.textColor = UIColor.redColor()
+        }
+    }
+
+    func connectCameraRoll() {
+        if DeviceDataManager.sharedSingleton.checkConnectCameraRoll() == true {
+            let alert: UIAlertController = UIAlertController(title: "カメラロールを連携済みです",
+                                                             message: nil,
+                                                             preferredStyle:  UIAlertControllerStyle.Alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:{
+                // ボタンが押された時の処理を書く（クロージャ実装）
+                (action: UIAlertAction!) -> Void in
+                print("OK")
+            })
+            let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+                // ボタンが押された時の処理を書く（クロージャ実装）
+                (action: UIAlertAction!) -> Void in
+                print("Cancel")
+            })
+            alert.addAction(defaultAction)
+            alert.addAction(cancelAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+
+        }else {
+            let alert: UIAlertController = UIAlertController(title: "iPhoneの設定画面からカメラロールを連携してください",
+                                                             message: nil,
+                                                             preferredStyle:  UIAlertControllerStyle.Alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "設定画面へ", style: UIAlertActionStyle.Default, handler:{
+                // ボタンが押された時の処理を書く（クロージャ実装）
+                (action: UIAlertAction!) -> Void in
+                if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
+                    UIApplication.sharedApplication().openURL(url)
+                    print("設定画面へ")
+                }
+            })
+            let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+                // ボタンが押された時の処理を書く（クロージャ実装）
+                (action: UIAlertAction!) -> Void in
+                print("Cancel")
+            })
+            alert.addAction(defaultAction)
+            alert.addAction(cancelAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+
+}
+
 //プッシュ通知設定
 extension EditProfileTableViewController {
 
@@ -476,6 +546,7 @@ extension EditProfileTableViewController{
             gcdManager.dispatch_async_main({ 
                 SVProgressHUD.dismiss()
             })
+            self.performSegueWithIdentifier("toMainVC", sender: self)
         }
 
         if let user = NCMBUser.currentUser(){

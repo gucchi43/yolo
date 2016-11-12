@@ -895,7 +895,7 @@
                 <viewControllerPlaceholder storyboardName="Main" id="t6h-UR-gjx" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6iZ-bB-1Mh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1184" y="209"/>
+            <point key="canvasLocation" x="1313" y="209"/>
         </scene>
         <!--PostDetail-->
         <scene sceneID="nAR-Fn-567">
@@ -1243,8 +1243,37 @@ version更新をお待ち下さい。
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="connectMailCell" id="Ohl-bN-CUF" userLabel="enabledNotificaationCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cameraRollCell" id="kKU-kn-uJh">
                                         <rect key="frame" x="0.0" y="459" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kKU-kn-uJh" id="RX6-eX-kpM">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="カメラロール連携" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EL2-cT-IH8">
+                                                    <rect key="frame" x="8" y="11" width="136" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="連携済み" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ait-eG-QKY">
+                                                    <rect key="frame" x="244" y="11.5" width="68" height="21"/>
+                                                    <color key="tintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.1843137255" green="0.75294117650000003" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="EL2-cT-IH8" firstAttribute="centerY" secondItem="RX6-eX-kpM" secondAttribute="centerY" id="ABP-aW-S0p"/>
+                                                <constraint firstItem="EL2-cT-IH8" firstAttribute="leading" secondItem="RX6-eX-kpM" secondAttribute="leading" constant="8" id="F4f-Od-f88"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ait-eG-QKY" secondAttribute="trailing" constant="8" id="cgZ-YS-0ce"/>
+                                                <constraint firstItem="Ait-eG-QKY" firstAttribute="centerY" secondItem="RX6-eX-kpM" secondAttribute="centerY" id="yV8-oh-okb"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="connectMailCell" id="Ohl-bN-CUF" userLabel="enabledNotificaationCell">
+                                        <rect key="frame" x="0.0" y="503" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ohl-bN-CUF" id="W6M-eJ-7IF">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -1271,27 +1300,26 @@ version更新をお待ち下さい。
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="logOutCell" id="kKU-kn-uJh">
-                                        <rect key="frame" x="0.0" y="503" width="320" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="logOutCell" id="XnO-3u-KO9">
+                                        <rect key="frame" x="0.0" y="547" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kKU-kn-uJh" id="RX6-eX-kpM">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XnO-3u-KO9" id="PZH-wk-YEP">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fys-Qh-apw">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yz7-vx-NXr">
                                                     <rect key="frame" x="123" y="7" width="75" height="30"/>
                                                     <state key="normal" title="ログアウト">
                                                         <color key="titleColor" red="0.1843137255" green="0.75294117650000003" blue="0.33725490200000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="tapLogoutButton:" destination="b0e-HZ-ON1" eventType="touchUpInside" id="Okr-yx-BFc"/>
-                                                        <segue destination="t6h-UR-gjx" kind="presentation" identifier="toMainVC" id="Drk-US-dsq"/>
+                                                        <action selector="tapLogoutButton:" destination="b0e-HZ-ON1" eventType="touchUpInside" id="gQk-R5-B5W"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Fys-Qh-apw" firstAttribute="centerX" secondItem="RX6-eX-kpM" secondAttribute="centerX" id="Gh3-wQ-hG6"/>
-                                                <constraint firstItem="Fys-Qh-apw" firstAttribute="centerY" secondItem="RX6-eX-kpM" secondAttribute="centerY" id="VgG-if-HuT"/>
+                                                <constraint firstItem="yz7-vx-NXr" firstAttribute="centerY" secondItem="PZH-wk-YEP" secondAttribute="centerY" id="bwD-uz-0u3"/>
+                                                <constraint firstItem="yz7-vx-NXr" firstAttribute="centerX" secondItem="PZH-wk-YEP" secondAttribute="centerX" id="sfV-Dc-VPB"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1319,12 +1347,14 @@ version更新をお待ち下さい。
                     <connections>
                         <outlet property="changeProfileButton" destination="96B-lI-loS" id="1MJ-qz-cLB"/>
                         <outlet property="enabledNotificaationSwitch" destination="1Vk-Re-MVl" id="JFy-IS-IOk"/>
+                        <outlet property="statusConnectCameraRollLabel" destination="Ait-eG-QKY" id="bvS-r7-q11"/>
                         <outlet property="statusConnectMailLabel" destination="sPh-CE-jeA" id="1Ui-Ea-bNN"/>
                         <outlet property="userHomeImageView" destination="cpc-eZ-jtG" id="7gV-2N-dc2"/>
                         <outlet property="userName" destination="faw-2S-qU3" id="YgN-2N-BBM"/>
                         <outlet property="userProfileImageView" destination="1RS-W3-lNE" id="nQ6-Bw-2oC"/>
                         <outlet property="userSelfIntroductionTextView" destination="Ao4-YZ-o6U" id="sfk-to-C4x"/>
                         <segue destination="Bea-VK-QzL" kind="show" identifier="toConnectMailTVC" id="RDk-3X-cel"/>
+                        <segue destination="t6h-UR-gjx" kind="presentation" identifier="toMainVC" id="T3a-7F-QNO"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Stw-qP-Q6L" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1524,6 +1554,6 @@ version更新をお待ち下さい。
     <inferredMetricsTieBreakers>
         <segue reference="BEM-Ov-hbA"/>
         <segue reference="cke-zh-9wf"/>
-        <segue reference="Drk-US-dsq"/>
+        <segue reference="T3a-7F-QNO"/>
     </inferredMetricsTieBreakers>
 </document>

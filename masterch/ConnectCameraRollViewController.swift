@@ -52,6 +52,7 @@ class ConnectCameraRollViewController: UIViewController {
     
     @IBAction func tapSkipButton(sender: AnyObject) {
         print("スキップボタンタップ")
+        goNextViewController()
     }
     @IBAction func tapConnectCameraRollButton(sender: AnyObject) {
         PHPhotoLibrary.requestAuthorization({ (status) in
