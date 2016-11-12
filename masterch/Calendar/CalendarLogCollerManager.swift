@@ -47,6 +47,13 @@ class CalendarLogCollerManager: NSObject {
 
             return logColorArrayQuery
 
+        case 3:
+            //オール
+            logColorArrayQuery.whereKey("user", equalTo: user)
+            logColorArrayQuery.whereKey("logYearAndMonth", equalTo: logYearAndMonth)
+
+            return logColorArrayQuery
+
         default:
             //オール
             logColorArrayQuery.whereKey("user", equalTo: user)
@@ -96,6 +103,14 @@ extension CalendarLogCollerManager{
         case 2:
             //特定のアカウントのみ
             logColorArrayQuery.whereKey("user", equalTo: user)
+            logColorArrayQuery.whereKey("year", equalTo: year)
+            logColorArrayQuery.whereKey("weekOfYear", equalTo: weekOfYear)
+
+            return logColorArrayQuery
+
+        case 3:
+            //オール
+            logColorArrayQuery.whereKey("user", equalTo: NCMBUser.currentUser())
             logColorArrayQuery.whereKey("year", equalTo: year)
             logColorArrayQuery.whereKey("weekOfYear", equalTo: weekOfYear)
 

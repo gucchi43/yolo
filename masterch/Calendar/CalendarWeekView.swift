@@ -221,8 +221,10 @@ class CalendarWeekView: UIView, WeekCalendarDateViewDelegate {
             let dayViewTag = Int(logColorObjectArray[0])
             let dayColor = logColorObjectArray[1]
             if let dayView = self.viewWithTag(dayViewTag!) as? CalendarSwiftDateView {
-                if logNumber == 1 { //複数人のためアイコンを１つに統一
-                    dayView.selectDateColor("😎")
+                if logNumber == 1 {
+                    //複数人のためアイコンを１つに統一ver
+//                    dayView.selectDateColor("😎")
+                    dayView.selectDateColor(dayColor)
                 }else {
                     if dayColor == "p" {
                         dayView.selectDateColor("📸")

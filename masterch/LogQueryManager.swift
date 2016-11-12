@@ -72,7 +72,7 @@ class LogQueryManager: NSObject {
             postQuery.includeKey("user")
 
 
-        default:
+        case 3:
             //オール(自分＆フォローしているユーザー)
             let myPostQuery: NCMBQuery = NCMBQuery(className: "Post") // 自分の投稿クエリ
             myPostQuery.whereKey("user", equalTo: NCMBUser.currentUser())
@@ -91,8 +91,9 @@ class LogQueryManager: NSObject {
             postQuery.whereKey("postDate", greaterThanOrEqualTo: CalendarManager.FilterDateStart())
             postQuery.whereKey("postDate", lessThanOrEqualTo: CalendarManager.FilterDateEnd())
             postQuery.includeKey("user")
-            
-            
+
+        default:
+            break
         }
         
         //共通のクエリの範囲指定、順番と日にちの範囲指定とincludeKey
