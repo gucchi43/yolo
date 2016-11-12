@@ -209,6 +209,7 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
 
     //logColorの配列から日付ごとにアイコンを配置していく
     func setLogDateTag (logColorArray: [String], logNumber: Int) {
+        print("logColorArray", logColorArray)
         for logColorObject in logColorArray {
             let logColorObjectArray = logColorObject.componentsSeparatedByString("&")
             print("logColorObjectArray", logColorObjectArray)
@@ -216,7 +217,9 @@ class CalendarMonthView: UIView, WeekCalendarDateViewDelegate {
             let dayColor = logColorObjectArray[1]
             if let dayView = self.viewWithTag(dayViewTag!) as? CalendarSwiftDateView {
                 if logNumber == 1 { //複数人のためアイコンを１つに統一
-                    dayView.selectDateColor("😎")
+//                    dayView.selectDateColor("😎")
+                    
+                    dayView.selectDateColor(dayColor)
                 }else {
                     if dayColor == "p" {
                         dayView.selectDateColor("📸")

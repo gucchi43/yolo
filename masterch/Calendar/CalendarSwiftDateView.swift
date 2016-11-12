@@ -118,9 +118,35 @@ class CalendarSwiftDateView: UIView{
     func selectDateColor(dateColor: String){
         self.dayButton.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
 
+        let buttonX = self.dayButton.layer.position.x
+        let buttonY = self.dayButton.layer.position.y
+        let buttonWidth = self.dayButton.layer.bounds.width
+        let buttonHeight = self.dayButton.layer.bounds.height
+
+        let leftTopFrame = CGRectMake(0, 0, buttonWidth / 2, buttonHeight / 2)
+        let rightTopFrame = CGRectMake(buttonX, 0, buttonWidth / 2, buttonHeight / 2)
+        let leftBottomFrame = CGRectMake(0, buttonY, buttonWidth / 2, buttonHeight / 2)
+        let rightBottomFrame = CGRectMake(buttonX, buttonY, buttonWidth / 2, buttonHeight / 2)
+
+
+        let firstLabel = UILabel(frame: leftTopFrame)
+        let secondLabel = UILabel(frame: rightTopFrame)
+        let thirdLabel = UILabel(frame: leftBottomFrame)
+        let fourthLabel = UILabel(frame: rightBottomFrame)
+//        firstLabel.backgroundColor = UIColor.redColor()
+//        secondLabel.backgroundColor = UIColor.pinkColor()
+//        thirdLabel.backgroundColor = UIColor.greenColor()
+//        fourthLabel.backgroundColor = UIColor.blueColor()
+//        testView.addSubview(firstLabel)
+//        testView.addSubview(secondLabel)
+//        testView.addSubview(thirdLabel)
+//        testView.addSubview(fourthLabel)
+
         let frame = self.dayButton.frame
         let backLabel = UILabel(frame: frame)
         backLabel.textAlignment = NSTextAlignment.Center
+        let testView = UIView(frame: frame)
+
         if dateColor == "📸" {
             backLabel.alpha = 0.4
         }else {
@@ -156,7 +182,11 @@ class CalendarSwiftDateView: UIView{
         case "g":
             self.dayButton.setBackgroundImage(testLabel.toImage() , forState: .Normal)
         case "?":
-            self.dayButton.setBackgroundImage(logNomalImage , forState: .Normal)
+            if self.dayButton.currentBackgroundImage == nil {
+                self.dayButton.setBackgroundImage(logNomalImage , forState: .Normal)
+            }else {
+                print("何も載せない！！！")
+            }
         default:
             backLabel.text = dateColor
             self.dayButton.setBackgroundImage(backLabel.toImage() , forState: .Normal)

@@ -108,6 +108,14 @@ extension CalendarLogCollerManager{
 
             return logColorArrayQuery
 
+        case 3:
+            //オール
+            logColorArrayQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+            logColorArrayQuery.whereKey("year", equalTo: year)
+            logColorArrayQuery.whereKey("weekOfYear", equalTo: weekOfYear)
+
+            return logColorArrayQuery
+
         default:
             //オール
             logColorArrayQuery.whereKey("user", equalTo: NCMBUser.currentUser())
