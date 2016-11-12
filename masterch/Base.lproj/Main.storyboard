@@ -27,6 +27,89 @@
             </objects>
             <point key="canvasLocation" x="329" y="1384"/>
         </scene>
+        <!--Connect Camera Roll View Controller-->
+        <scene sceneID="tLO-qe-HSq">
+            <objects>
+                <viewController id="lSo-Q1-oSC" customClass="ConnectCameraRollViewController" customModule="masterch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bk5-wY-tQ4"/>
+                        <viewControllerLayoutGuide type="bottom" id="aIh-8f-zPP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZGK-d6-9Om">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="📸カメラロールを連携しよう！📸" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muX-Mu-uEU">
+                                <rect key="frame" x="53" y="120" width="306" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnL-6X-yGn">
+                                <rect key="frame" x="334" y="28" width="60" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="スキップ">
+                                    <color key="titleColor" red="0.21480557319999999" green="0.80131393669999995" blue="0.37377047540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapSkipButton:" destination="lSo-Q1-oSC" eventType="touchUpInside" id="Dt6-1s-NBJ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👇" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DCM-cx-tEp">
+                                <rect key="frame" x="194" y="164" width="26" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👇" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CwX-JH-PQg">
+                                <rect key="frame" x="194" y="214" width="26" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👇" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sT8-gU-Agz">
+                                <rect key="frame" x="194" y="264" width="26" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zeU-wp-goZ">
+                                <rect key="frame" x="157" y="324" width="100" height="75.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zeU-wp-goZ" secondAttribute="height" multiplier="4:3" id="6c1-o0-lyP"/>
+                                    <constraint firstAttribute="width" constant="100" id="T40-oy-wg6"/>
+                                </constraints>
+                                <state key="normal" image="cameraBig"/>
+                                <connections>
+                                    <action selector="tapConnectCameraRollButton:" destination="lSo-Q1-oSC" eventType="touchUpInside" id="yOY-0h-6OH"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zeU-wp-goZ" firstAttribute="top" secondItem="sT8-gU-Agz" secondAttribute="bottom" constant="30" id="92R-Sf-hYg"/>
+                            <constraint firstItem="zeU-wp-goZ" firstAttribute="centerX" secondItem="ZGK-d6-9Om" secondAttribute="centerX" id="D9t-DY-v8G"/>
+                            <constraint firstItem="muX-Mu-uEU" firstAttribute="top" secondItem="bk5-wY-tQ4" secondAttribute="bottom" constant="100" id="IKf-ap-kuz"/>
+                            <constraint firstAttribute="trailing" secondItem="bnL-6X-yGn" secondAttribute="trailing" constant="20" id="Iqj-aj-Vsy"/>
+                            <constraint firstItem="muX-Mu-uEU" firstAttribute="centerX" secondItem="ZGK-d6-9Om" secondAttribute="centerX" id="JEh-jH-E8Y"/>
+                            <constraint firstItem="DCM-cx-tEp" firstAttribute="top" secondItem="muX-Mu-uEU" secondAttribute="bottom" constant="20" id="KR3-I6-gsl"/>
+                            <constraint firstItem="sT8-gU-Agz" firstAttribute="top" secondItem="CwX-JH-PQg" secondAttribute="bottom" constant="20" id="LOJ-pS-fn4"/>
+                            <constraint firstItem="bnL-6X-yGn" firstAttribute="top" secondItem="bk5-wY-tQ4" secondAttribute="bottom" constant="8" id="Uze-z6-OJ0"/>
+                            <constraint firstItem="DCM-cx-tEp" firstAttribute="centerX" secondItem="ZGK-d6-9Om" secondAttribute="centerX" id="bbP-4E-hFH"/>
+                            <constraint firstItem="CwX-JH-PQg" firstAttribute="centerX" secondItem="ZGK-d6-9Om" secondAttribute="centerX" id="g0J-vL-8KH"/>
+                            <constraint firstItem="CwX-JH-PQg" firstAttribute="top" secondItem="DCM-cx-tEp" secondAttribute="bottom" constant="20" id="oU2-OO-Qtx"/>
+                            <constraint firstItem="sT8-gU-Agz" firstAttribute="centerX" secondItem="ZGK-d6-9Om" secondAttribute="centerX" id="xzh-YC-BpR"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <segue destination="crh-pw-A6b" kind="presentation" identifier="toMainView" id="799-bJ-cdE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JEv-io-l0d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="329" y="300"/>
+        </scene>
         <!--Search-->
         <scene sceneID="8D1-oi-x1X">
             <objects>
@@ -500,6 +583,7 @@
                         <outlet property="userImageView" destination="vRb-xq-aCt" id="NRh-37-YDX"/>
                         <outlet property="userNameTextField" destination="iiH-hf-dRJ" id="cOf-1x-kav"/>
                         <segue destination="crh-pw-A6b" kind="presentation" identifier="signUpSegue" id="d3l-QJ-9PL"/>
+                        <segue destination="lSo-Q1-oSC" kind="presentation" identifier="toConnectCameraRoll" id="Whg-Td-VIP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DGq-mk-CSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -703,6 +787,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cameraBig" width="95" height="68"/>
         <image name="fb_login_small.png" width="261" height="58"/>
         <image name="logoTitle" width="158" height="42"/>
         <image name="noprofile" width="400" height="400"/>
@@ -710,6 +795,6 @@
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="L8J-Kv-eM2"/>
+        <segue reference="799-bJ-cdE"/>
     </inferredMetricsTieBreakers>
 </document>

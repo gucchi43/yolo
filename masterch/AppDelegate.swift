@@ -50,8 +50,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
 
         //カメラロールのLogArrayを全てゲット
-        let logGetOneDayCameraRollManager = LogGetOneDayCameraRollManager()
-        logGetOneDayCameraRollManager.getAllPicDic()
+        if DeviceDataManager.sharedSingleton.checkConnectCameraRoll() == true {
+            let logGetOneDayCameraRollManager = LogGetOneDayCameraRollManager()
+            logGetOneDayCameraRollManager.getAllPicDic()
+        }
 
         // アプリアイコンのバッジをリセット
         print("前ｒ: アイコンのバッジ数", application.applicationIconBadgeNumber)
