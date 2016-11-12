@@ -19,6 +19,7 @@ import CoreLocation
 import Photos
 import SVProgressHUD
 
+
 protocol LogViewControlloerDelegate {
     func updateLogView()
 }
@@ -85,12 +86,12 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     }
 
     override func viewWillAppear(animated: Bool) {
-        navigationTitleToggle()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.didSelectDayView(_:)), name: "didSelectDayView", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LogViewController.submitFinish(_:)), name: "submitFinish", object: nil)
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
         }
+
         //Viewの階層で１(１階層,１番上,タブがログで先頭)の時だけ、logTitleToggleをtrueにする
         let viewCount = self.navigationController?.viewControllers.count
         print("viewCount", viewCount)
@@ -99,8 +100,9 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         }else {
             logManager.sharedSingleton.logTitleToggle = false
         }
+        navigationTitleToggle()
     }
-    
+
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -300,7 +302,6 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     //DropMenuを選択する
     //["Mine", "Follow"] + userNameArray
     func selectedDropdownMenu(indexPath: Int, rangeTitle: String) {
-        print("userName : indexPath", rangeTitle, indexPath)
 
         switch indexPath {
         case 0:

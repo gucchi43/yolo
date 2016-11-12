@@ -2,7 +2,7 @@
 //  UserListManager.swift
 //  masterch
 //
-//  Created by HIroki Taniguti on 2016/11/06.
+//  Created by HIroki Taniguti on 2016/11/12.
 //  Copyright © 2016年 Fumiya Yamanaka. All rights reserved.
 //
 
@@ -18,4 +18,3 @@ final class UserListManager {
     var followArray = [NCMBUser]()
     var followerArray = [NCMBUser]()
 }
-

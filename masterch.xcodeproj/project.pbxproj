@@ -87,7 +87,6 @@
 		ED7A79061D2027220087BCCD /* DZNEmptyDataSet.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED8322D41C8EFDF700122BA2 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */; };
 		ED97606F1DA7B9220002E62D /* LookBackDayTitleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED97606E1DA7B9220002E62D /* LookBackDayTitleManager.swift */; };
-		ED9896401DCE873F008051C7 /* UserListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED98963F1DCE873F008051C7 /* UserListManager.swift */; };
 		EDA49FEE1D9E5B4D006C2605 /* LookBackQueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA49FED1D9E5B4D006C2605 /* LookBackQueryManager.swift */; };
 		EDA49FF01D9E6354006C2605 /* LooKBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA49FEF1D9E6354006C2605 /* LooKBackViewController.swift */; };
 		EDA4DC6E1C82F0FB005FE126 /* CalendarSwiftDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */; };
@@ -101,6 +100,7 @@
 		EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */; };
 		EDB4AF581CE37AE2002781F3 /* ContainerSnsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4AF571CE37AE2002781F3 /* ContainerSnsViewController.swift */; };
 		EDB4FEFE1CBBFAFE00A318EA /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */; };
+		EDBAC5DE1DD6F69200967C83 /* UserListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBAC5DD1DD6F69200967C83 /* UserListManager.swift */; };
 		EDBADE2E1D2483FB0048957A /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBADE2D1D2483FB0048957A /* AccountViewController.swift */; };
 		EDBADE301D2489490048957A /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBADE2F1D2489490048957A /* ProfileCell.swift */; };
 		EDBADE321D2489690048957A /* ThreeCircleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBADE311D2489690048957A /* ThreeCircleCell.swift */; };
@@ -239,7 +239,6 @@
 		ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DZNEmptyDataSet.framework; path = Carthage/Build/iOS/DZNEmptyDataSet.framework; sourceTree = "<group>"; };
 		ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		ED97606E1DA7B9220002E62D /* LookBackDayTitleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookBackDayTitleManager.swift; sourceTree = "<group>"; };
-		ED98963F1DCE873F008051C7 /* UserListManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListManager.swift; sourceTree = "<group>"; };
 		EDA49FED1D9E5B4D006C2605 /* LookBackQueryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookBackQueryManager.swift; sourceTree = "<group>"; };
 		EDA49FEF1D9E6354006C2605 /* LooKBackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LooKBackViewController.swift; sourceTree = "<group>"; };
 		EDA4DC6D1C82F0FB005FE126 /* CalendarSwiftDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarSwiftDateView.swift; sourceTree = "<group>"; };
@@ -253,6 +252,7 @@
 		EDB04C761CC67C8A00FDEB14 /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
 		EDB4AF571CE37AE2002781F3 /* ContainerSnsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerSnsViewController.swift; sourceTree = "<group>"; };
 		EDB4FEFD1CBBFAFE00A318EA /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
+		EDBAC5DD1DD6F69200967C83 /* UserListManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListManager.swift; sourceTree = "<group>"; };
 		EDBADE2D1D2483FB0048957A /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		EDBADE2F1D2489490048957A /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		EDBADE311D2489690048957A /* ThreeCircleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeCircleCell.swift; sourceTree = "<group>"; };
@@ -330,7 +330,6 @@
 				ED3707941D3642EE00F892B0 /* Top */,
 				ED5274E71D2282150088481F /* SignUp&In */,
 				ED3644611C9D72F700C6676C /* TimeLine */,
-				ED98963E1DCE8696008051C7 /* UserList */,
 				ED3644621C9D740000C6676C /* Account */,
 				ED3644631C9D741500C6676C /* Log */,
 				EDA6EC701D9BDF7700F76FCA /* LookBack */,
@@ -419,12 +418,16 @@
 		ED3644611C9D72F700C6676C /* TimeLine */ = {
 			isa = PBXGroup;
 			children = (
+				ED2152451D1188390027AFC4 /* UserListTableViewCell.swift */,
+				ED2152471D11883A0027AFC4 /* UserListViewController.swift */,
 				32E6CF741C76DD4F00904B74 /* PostDetailViewController.swift */,
 				ED3107EE1D101A7E00FE3D32 /* PostDetailTableViewCell.swift */,
 				ED3107EA1D101A2100FE3D32 /* CommentTableViewCell.swift */,
 				3289D2351C6A1C5300B4C65A /* TimeLineViewController.swift */,
 				ED3C03591DC38E750041C450 /* CameraRollCell.swift */,
 				3219A2351C70468900D1A6AF /* TimelineCell.swift */,
+				ED2152461D11883A0027AFC4 /* UserListTableViewCell.xib */,
+				ED2152441D1188390027AFC4 /* UserList.storyboard */,
 				ED3107F01D101B0B00FE3D32 /* PostDetailTableViewCell.xib */,
 				ED3107EC1D101A4500FE3D32 /* CommentTableViewCell.xib */,
 				EDCBEE711CCA793700317BCE /* PostDetail.storyboard */,
@@ -516,6 +519,7 @@
 		ED3707951D36431300F892B0 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				EDBAC5DD1DD6F69200967C83 /* UserListManager.swift */,
 				32C0A33F1C5DF8ED009657B9 /* ViewController.swift */,
 				EDAFC9721DB50E4600673609 /* DeviseSize.swift */,
 				ED6ED06C1D387ACD005B0053 /* GCDManager.swift */,
@@ -555,18 +559,6 @@
 			children = (
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		ED98963E1DCE8696008051C7 /* UserList */ = {
-			isa = PBXGroup;
-			children = (
-				ED2152471D11883A0027AFC4 /* UserListViewController.swift */,
-				ED98963F1DCE873F008051C7 /* UserListManager.swift */,
-				ED2152451D1188390027AFC4 /* UserListTableViewCell.swift */,
-				ED2152461D11883A0027AFC4 /* UserListTableViewCell.xib */,
-				ED2152441D1188390027AFC4 /* UserList.storyboard */,
-			);
-			name = UserList;
 			sourceTree = "<group>";
 		};
 		EDA6EC701D9BDF7700F76FCA /* LookBack */ = {
@@ -895,7 +887,7 @@
 				EDA4DC701C82F163005FE126 /* CalendarWeekView.swift in Sources */,
 				ED720CD31D188D6500477608 /* LogNavigationController.swift in Sources */,
 				EDE5933F1D59C565002A2826 /* TabBadgeManager.swift in Sources */,
-				ED9896401DCE873F008051C7 /* UserListManager.swift in Sources */,
+				EDBAC5DE1DD6F69200967C83 /* UserListManager.swift in Sources */,
 				EDA49FEE1D9E5B4D006C2605 /* LookBackQueryManager.swift in Sources */,
 				EDB4AF581CE37AE2002781F3 /* ContainerSnsViewController.swift in Sources */,
 				EDB04C771CC67C8A00FDEB14 /* TopViewController.swift in Sources */,
