@@ -239,7 +239,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
     func prepareNavigationDropdownMenu() {
 //        let userNameArray = getDropdownMenuitems()
         let mineUserName = NCMBUser.currentUser().userName
-        var items = [mineUserName, "AllUser"]
+        var items = [mineUserName, "Follow User"]
         let number = UserListManager.sharedSingleton.followArray.count
          var i = 0
         while i < number {
