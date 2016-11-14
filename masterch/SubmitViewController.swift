@@ -752,6 +752,20 @@ extension SubmitViewController {
                     } else if result.isCancelled {
                         // ログインをキャンセルした場合
                         print("Cancelled")
+                        if let token = FBSDKAccessToken.currentAccessToken() {
+                            let saveSession = ["uerID" : token.userID, "token" : token.tokenString, "expirationDate" : token.expirationDate]
+                            user.setObject(saveSession, forKey: "facebookLink")
+                            user.saveInBackgroundWithBlock({ (error) in
+                                if let error = error {
+                                    print("NiftyデータベースへのFacebookリンクデータ保存失敗 : ", error.localizedDescription)
+                                }else {
+                                    print("NiftyデータベースへのFacebookリンクデータ保存クリア!")
+                                }
+                            })
+                        }else {
+                            print("currentAccessTokenがない")
+                        }
+
                     }else {
                         print("認証成功!!!")
                         let token = FBSDKAccessToken.currentAccessToken()
