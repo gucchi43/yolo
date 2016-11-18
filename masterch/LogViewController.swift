@@ -391,58 +391,24 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         if logNumaber == 0 {
             totalArray.removeAll()
             var ncmbArray: [AnyObject] = postArray as [AnyObject]
-            var cameraRollArray = DeviceDataManager.sharedSingleton.PicOneDayAssetArray
-            print("スタート時、postArray.count : ", ncmbArray.count)
-            print("スタート時cameraRollArray : ", cameraRollArray.count)
+            if DeviceDataManager.sharedSingleton.PicOneDayAssetArray.isEmpty == false {
+                //カメラロールのデータがあった時
+                let cameraRoolString = "cameraRoll"
+                totalArray = [cameraRoolString] + ncmbArray
 
-            while ncmbArray.isEmpty == false || cameraRollArray.isEmpty == false {
-                var ncmbDate : NSDate?
-                var cameraRollDate : NSDate?
-
-                if let ncmbFirstObject = ncmbArray.first {
-                    ncmbDate = (ncmbFirstObject as! NCMBObject).objectForKey("postDate") as! NSDate
-                }else {
-                    ncmbDate = nil
-                }
-
-                if let cameraRollFirstObject = cameraRollArray.first{
-                    cameraRollDate = cameraRollFirstObject.creationDate
-                }else {
-                    cameraRollDate = nil
-                }
-
-                if ncmbDate != nil && cameraRollDate != nil {
-
-                    let reslt = ncmbDate!.compare(cameraRollDate!)
-                    switch reslt {
-                    case NSComparisonResult.OrderedAscending:
-                        //NCMBデータが入った
-                        totalArray.append(ncmbArray.first!)
-                        ncmbArray.removeFirst()
-                    case NSComparisonResult.OrderedDescending:
-                        //カメラロールデータが入った
-                        totalArray.append(cameraRollArray.first!)
-                        cameraRollArray.removeFirst()
-                    default:
-                        totalArray.append(ncmbArray.first!)
-                        ncmbArray.removeFirst()
-                    }
-                }else if ncmbDate != nil {
-                    totalArray.append(ncmbArray.first!)
-                    ncmbArray.removeFirst()
-                }else if cameraRollDate != nil {
-                    totalArray.append(cameraRollArray.first!)
-                    cameraRollArray.removeFirst()
-                }
-                print("ループ中、postArray.count : ", ncmbArray.count)
-                print("ループ中、cameraRollArray.count : ", cameraRollArray.count)
-                print("ループ中、totalArray.count : ", totalArray.count)
-                print("ループ中、totalArray : ", totalArray)
+                print("totalArray", totalArray)
+                print("count", totalArray.count)
+            }else {
+                //カメラロールのデータがなかった時
+                totalArray = ncmbArray
+                print("totalArray", totalArray)
+                print("count", totalArray.count)
             }
         }else {
             totalArray = postArray as [AnyObject]
         }
-    }    
+    }
+
     // スクロール感知用の変数
     var scrollBeginingPoint: CGPoint!
     
@@ -773,9 +739,10 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
         }else{
             let cellId = "CameraRollCell"
             let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! CameraRollCell
-            let postData = totalArray[indexPath.row] as! PHAsset
-            print("indexPath.row", indexPath.row)
-            print("postData", postData)
+//            let cameraRoolArray = totalArray[indexPath.row] as! [PHAsset]
+            let cameraRoolArray = DeviceDataManager.sharedSingleton.PicOneDayAssetArray
+            let postData = cameraRoolArray.first!
+            let cameraRollCount = cameraRoolArray.count
 
             //userNameLabel
             //userProfileImageView
@@ -803,55 +770,23 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
                 }
             }
             cell.cameraRollLabel.text = "カメラロール"
+            cell.cameraRollCount.text = "📸 " + String(cameraRollCount) + "枚" + " 📸"
 
-            if let location = postData.location{
-                //座標を住所に変換する。
-                let myGeocoder:CLGeocoder = CLGeocoder()
-                myGeocoder.reverseGeocodeLocation(location, completionHandler: {(placemarks, error) in
-
-                    if(error == nil) {
-                        for placemark in placemarks! {
-                            print("placemark", placemark)
-//                            cell.locationLabel.text = "\(placemark.administrativeArea!)\(placemark.locality!)\(placemark.thoroughfare!)"
-                            var locationText = ""
-                            if let name = placemark.name{
-                                locationText += name + " / "
-                            }
-                            if let administrativeArea = placemark.administrativeArea{
-                                locationText += administrativeArea
-                            }
-                            if let locality = placemark.locality{
-                                locationText += locality
-                            }
-                            if let thoroughfare = placemark.thoroughfare{
-                                locationText += thoroughfare
-                            }
-                            cell.locationLabel.text = locationText
-                        }
-                    } else {
-                        cell.locationLabel.text = "住所不明"
-                    }
-                })
-            }else {
-                cell.locationLabel.text = ""
-            }
-
-
-
-            // postDateLabel
-            let date = postData.creationDate!
-            let postDateFormatter: NSDateFormatter = NSDateFormatter()
-            postDateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
-
-            cell.postDateLabel.text = postDateFormatter.stringFromDate(date)
             cell.imageViewHeightConstraint.constant = 150.0
             cell.camaraRollImageView!.layer.cornerRadius = 5.0
             let manager: PHImageManager = PHImageManager()
             manager.requestImageDataForAsset(postData, options: nil) { (data, title, orientation, dic) in
                 cell.camaraRollImageView?.image = UIImage(data: data!)
             }
+            var whiteView = UIView(frame: cell.camaraRollImageView.bounds)
+            whiteView.backgroundColor = UIColor.whiteColor()
+            whiteView.alpha = 0.3
+            print("subViewカウント", cell.camaraRollImageView.subviews.count)
+            if cell.camaraRollImageView.subviews.count == 0 {
+                cell.camaraRollImageView.addSubview(whiteView)
+            }
             return cell
-        }
+            }
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -860,26 +795,28 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
             selectedPostObject = data
             performSegueWithIdentifier("toPostDetailVC", sender: nil)
         }else {
-            let asset = self.totalArray[indexPath.row] as? PHAsset
-            let manager: PHImageManager = PHImageManager()
-            manager.requestImageDataForAsset(asset!, options: nil) { (data, title, orientation, dic) in
-                let image = UIImage(data: data!)
-                self.tapPostImage(image!)
+
+            performSegueWithIdentifier("toCameraRollVC", sender: nil)
+//            let asset = self.totalArray[indexPath.row] as? PHAsset
+//            let manager: PHImageManager = PHImageManager()
+//            manager.requestImageDataForAsset(asset!, options: nil) { (data, title, orientation, dic) in
+//                let image = UIImage(data: data!)
+//                self.tapPostImage(image!)
             }
 
         }
     }
 
     //投稿写真タップ
-    func tapPostImage(image : UIImage) {
-        print("tapPostImage")
-        let photo = IDMPhoto(image: image)
-        photo.caption = nil
-        let photos: NSArray = [photo]
-        let browser = IDMPhotoBrowser.init(photos: photos as [AnyObject])
-        browser.delegate = self
-        self.presentViewController(browser,animated:true ,completion:nil)
-    }
+//    func tapPostImage(image : UIImage) {
+//        print("tapPostImage")
+//        let photo = IDMPhoto(image: image)
+//        photo.caption = nil
+//        let photos: NSArray = [photo]
+//        let browser = IDMPhotoBrowser.init(photos: photos as [AnyObject])
+//        browser.delegate = self
+//        self.presentViewController(browser,animated:true ,completion:nil)
+//    }
 
 //     urlリンクをタップされたときの処理を記述します
     func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!)
@@ -888,8 +825,8 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
         if UIApplication.sharedApplication().canOpenURL(url!){
             UIApplication.sharedApplication().openURL(url!)
         }
-    }
 }
+
 
 //カメラロールシェアアクション
 extension LogViewController{
