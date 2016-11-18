@@ -16,6 +16,7 @@ class CameraRollCell: UITableViewCell {
     @IBOutlet weak var cameraRollLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var postDateLabel: UILabel!
+    @IBOutlet weak var cameraRollCount: UILabel!
     
     @IBOutlet weak var camaraRollImageView: UIImageView!
     @IBOutlet weak var shareButton: UIButton!
