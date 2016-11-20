@@ -318,35 +318,38 @@ extension PostDetailViewController: PostDetailTableViewCellDelegate, IDMPhotoBro
     }
 
     func didselectOtherButton(object : NCMBObject) {
+        if (object.objectForKey("user") as! NCMBUser).userName == NCMBUser.currentUser().userName {
+            let alert: UIAlertController = UIAlertController(title: nil,
+                                                             message: nil,
 
-        let alert: UIAlertController = UIAlertController(title: nil,
-                                                         message: nil,
+                                                             preferredStyle:  UIAlertControllerStyle.ActionSheet)
+            // 編集ボタン
+            let remakeAction: UIAlertAction = UIAlertAction(title: "ログを編集する", style: UIAlertActionStyle.Default, handler:{
+                // ボタンが押された時の処理を書く（クロージャ実装）
+                (action: UIAlertAction!) -> Void in
+                print("編集")
+            })
 
-                                                         preferredStyle:  UIAlertControllerStyle.ActionSheet)
-        // 編集ボタン
-        let remakeAction: UIAlertAction = UIAlertAction(title: "ログを編集する", style: UIAlertActionStyle.Default, handler:{
-            // ボタンが押された時の処理を書く（クロージャ実装）
-            (action: UIAlertAction!) -> Void in
-            print("編集")
-        })
-
-        // 削除ボタン
-        let defaultAction: UIAlertAction = UIAlertAction(title: "ログを削除する", style: UIAlertActionStyle.Default, handler:{
-            // ボタンが押された時の処理を書く（クロージャ実装）
-            (action: UIAlertAction!) -> Void in
-            print("削除")
-            self.deleteAlert(object)
-        })
-        // キャンセルボタン
-        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
-            // ボタンが押された時の処理を書く（クロージャ実装）
-            (action: UIAlertAction!) -> Void in
-            print("Cancel")
-        })
-        alert.addAction(remakeAction)
-        alert.addAction(cancelAction)
-        alert.addAction(defaultAction)
-        presentViewController(alert, animated: true, completion: nil)
+            // 削除ボタン
+            let defaultAction: UIAlertAction = UIAlertAction(title: "ログを削除する", style: UIAlertActionStyle.Default, handler:{
+                // ボタンが押された時の処理を書く（クロージャ実装）
+                (action: UIAlertAction!) -> Void in
+                print("削除")
+                self.deleteAlert(object)
+            })
+            // キャンセルボタン
+            let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+                // ボタンが押された時の処理を書く（クロージャ実装）
+                (action: UIAlertAction!) -> Void in
+                print("Cancel")
+            })
+            alert.addAction(remakeAction)
+            alert.addAction(cancelAction)
+            alert.addAction(defaultAction)
+            presentViewController(alert, animated: true, completion: nil)
+        }else {
+            print("自分以外のため削除出来ない")
+        }
     }
 
     func deleteAlert(object: NCMBObject) {
@@ -444,7 +447,6 @@ extension PostDetailViewController: PostDetailTableViewCellDelegate, IDMPhotoBro
         let yearAndWeekNumberArray = CalendarManager.getWeekNumber(CalendarManager.currentDate!)
         let year = yearAndWeekNumberArray[0]
         let weekOfYear = yearAndWeekNumberArray[1]
-        let logDate = CalendarManager.currentDate.toString(DateFormat.Custom("yyyy/MM/dd"))! // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
         let logDateTag = CalendarManager.currentDate.toString(DateFormat.Custom("yyyyMMdd"))! // "yyyy/MM/dd" → "yyyyMMdd"
         let logColorArrayQuery: NCMBQuery = NCMBQuery(className: "TestWeekColorDic")
         logColorArrayQuery.whereKey("user", equalTo: NCMBUser.currentUser())
@@ -498,10 +500,6 @@ extension PostDetailViewController: PostDetailTableViewCellDelegate, IDMPhotoBro
 
     //その日の週のlogColorを削除する
     func updateWeekLogColorArray(object: NCMBObject, logDateTag: Int, oldLogDateTagInfo: String) {
-        print("logColor削除するぞ")
-        print("object : ",  object)
-        print("logDateTag : ", logDateTag)
-        print("oldLogDateTagInfo : ", oldLogDateTagInfo)
         object.removeObject(oldLogDateTagInfo, forKey: "logDateTag")
         object.saveInBackgroundWithBlock { (error) -> Void in
             if let error = error {
@@ -514,10 +512,6 @@ extension PostDetailViewController: PostDetailTableViewCellDelegate, IDMPhotoBro
 
     //その日の月のlogColorを削除する
     func updateLogColorArray(object: NCMBObject, logDateTag: Int, oldLogDateTagInfo: String){
-        print("logColor削除するぞ")
-        print("object : ",  object)
-        print("logDateTag : ", logDateTag)
-        print("oldLogDateTagInfo : ", oldLogDateTagInfo)
         object.removeObject(oldLogDateTagInfo, forKey: "logDateTag")
         object.saveInBackgroundWithBlock { (error) -> Void in
             if let error = error {
