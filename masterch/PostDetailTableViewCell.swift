@@ -17,6 +17,7 @@ protocol PostDetailTableViewCellDelegate {
     func didSelectCommentButton()
     func didSelectPostProfileImageView()
     func didSelectPostImageView(postImage: UIImage, postText: String)
+    func didselectOtherButton(object : NCMBObject)
 }
 
 class PostDetailTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
@@ -198,6 +199,9 @@ class PostDetailTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
 
 }
 
+
+
+
 //写真タップ
 extension PostDetailTableViewCell: IDMPhotoBrowserDelegate  {
     //ユーザー写真タップ
@@ -253,6 +257,73 @@ extension PostDetailTableViewCell {
 //        キーボードが出るようにしたい
         delegate.didSelectCommentButton()
     }
+}
+
+//その他ボタン機能(削除・編集)
+extension PostDetailTableViewCell {
+
+
+
+    @IBAction func tapOtherButton(sender: AnyObject) {
+
+        delegate.didselectOtherButton(postObject)
+
+//        let alert: UIAlertController = UIAlertController(title: "title",
+//                                                         message: "message？⚠️",
+//                                                         preferredStyle:  UIAlertControllerStyle.ActionSheet)
+//        // OKボタン
+//        let defaultAction: UIAlertAction = UIAlertAction(title: "削除", style: UIAlertActionStyle.Default, handler:{
+//            // ボタンが押された時の処理を書く（クロージャ実装）
+//            (action: UIAlertAction!) -> Void in
+//            print("削除")
+//        })
+//        // キャンセルボタン
+//        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+//            // ボタンが押された時の処理を書く（クロージャ実装）
+//            (action: UIAlertAction!) -> Void in
+//            print("Cancel")
+//        })
+//        alert.addAction(cancelAction)
+//        alert.addAction(defaultAction)
+//        let postDetileViewController = PostDetailViewController()
+//        postDetileViewController.presentViewController(alert, animated: true, completion: nil)
+//        presentViewController(alert, animated: true, completion: nil)
+    }
+
+//    func deleteAlert() {
+//        //「本当に削除しますか？」アラート呼び出し
+//        let alert: UIAlertController = UIAlertController(title: "ログを削除",
+//                                                         message: "本当にこのログを削除しますか？⚠️",
+//                                                         preferredStyle:  UIAlertControllerStyle.Alert)
+//        // OKボタン
+//        let defaultAction: UIAlertAction = UIAlertAction(title: "削除", style: UIAlertActionStyle.Default, handler:{
+//            // ボタンが押された時の処理を書く（クロージャ実装）
+//            (action: UIAlertAction!) -> Void in
+//            print("削除")
+//        })
+//        // キャンセルボタン
+//        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+//            // ボタンが押された時の処理を書く（クロージャ実装）
+//            (action: UIAlertAction!) -> Void in
+//            print("Cancel")
+//        })
+//        alert.addAction(cancelAction)
+//        alert.addAction(defaultAction)
+//        let postDetileViewController = PostDetailViewController()
+//        postDetileViewController.presentViewController(alert, animated: true, completion: nil)
+//    }
+//
+//    func deletePost(object : NCMBObject) {
+//        print("削除する投稿内容", object)
+//        object.deleteEventually { (error) in
+//            if let error = error {
+//                print(error.localizedDescription)
+//            }else {
+//                let postDetileViewController = PostDetailViewController()
+//                postDetileViewController.postDetailTableView.reloadData()
+//            }
+//        }
+//    }
 }
 
 // いいね

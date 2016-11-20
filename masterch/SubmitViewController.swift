@@ -702,7 +702,6 @@ extension SubmitViewController {
             }
         }
     }
-
 }
 
 extension SubmitViewController {

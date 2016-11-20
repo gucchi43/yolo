@@ -8,6 +8,7 @@
 
 import UIKit
 import NCMB
+import SwiftDate
 import IDMPhotoBrowser
 
 protocol addPostDetailDelegate {
@@ -106,6 +107,11 @@ class PostDetailViewController: UIViewController {
         if parent == nil {
             print("ログに戻る")
             self.delegate?.postDetailDismissionAction()
+            if postObject == nil {
+                print("ログに戻る（削除したパターン）")
+                let n = NSNotification(name: "submitFinish", object: self, userInfo: nil)
+                NSNotificationCenter.defaultCenter().postNotification(n)
+            }
         }
     }
     
@@ -201,6 +207,7 @@ extension PostDetailViewController {
     }
 }
 
+
 //---------------------コメント投稿機能----------------------
 extension PostDetailViewController: UITextViewDelegate {
     
@@ -268,26 +275,38 @@ extension PostDetailViewController: UITableViewDataSource{
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        if postObject == nil {
+            print("さくじょかんりょう！！！")
             let cell = tableView.dequeueReusableCellWithIdentifier("postDetailCell") as! PostDetailTableViewCell
-            cell.delegate = self
-            cell.postObject = postObject
-            if postImage != nil {
-                cell.postImage = postImage
-            }
-            cell.auther = otherUser
-        dispatch_once(&loadPostDetailCelltoken){
-                cell.setPostDetailCell()
-            }
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentTableViewCell
-            cell.delegate = self
-            cell.commentObject = commentArray[indexPath.row - 1] as? NCMBObject
-            cell.setCommentCell()
+            cell.userNameIDLabel.text = ""
+            cell.userProfileNameLabel.text = ""
+            cell.userProfileImageView.image = UIImage(named: "noprofile")
+            cell.postDateLabel.text = ""
+            cell.postTextLabel.text = "削除されました"
 
-//            コメントの数-1返す
             return cell
+        }else {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCellWithIdentifier("postDetailCell") as! PostDetailTableViewCell
+                cell.delegate = self
+                cell.postObject = postObject
+                if postImage != nil {
+                    cell.postImage = postImage
+                }
+                cell.auther = otherUser
+                dispatch_once(&loadPostDetailCelltoken){
+                    cell.setPostDetailCell()
+                }
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as! CommentTableViewCell
+                cell.delegate = self
+                cell.commentObject = commentArray[indexPath.row - 1] as? NCMBObject
+                cell.setCommentCell()
+
+                //            コメントの数-1返す
+                return cell
+            }
         }
     }
 }
@@ -297,7 +316,218 @@ extension PostDetailViewController: PostDetailTableViewCellDelegate, IDMPhotoBro
     func didSelectCommentButton() {
         commentTextView.becomeFirstResponder()
     }
-    
+
+    func didselectOtherButton(object : NCMBObject) {
+
+        let alert: UIAlertController = UIAlertController(title: nil,
+                                                         message: nil,
+
+                                                         preferredStyle:  UIAlertControllerStyle.ActionSheet)
+        // 編集ボタン
+        let remakeAction: UIAlertAction = UIAlertAction(title: "ログを編集する", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("編集")
+        })
+
+        // 削除ボタン
+        let defaultAction: UIAlertAction = UIAlertAction(title: "ログを削除する", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("削除")
+            self.deleteAlert(object)
+        })
+        // キャンセルボタン
+        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+        alert.addAction(remakeAction)
+        alert.addAction(cancelAction)
+        alert.addAction(defaultAction)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+
+    func deleteAlert(object: NCMBObject) {
+        //「本当に削除しますか？」アラート呼び出し
+        let alert: UIAlertController = UIAlertController(title: "⚠️ログを削除⚠️",
+                                                         message: "本当にこのログを削除しますか？",
+                                                         preferredStyle:  UIAlertControllerStyle.Alert)
+        // OKボタン
+        let defaultAction: UIAlertAction = UIAlertAction(title: "削除", style: UIAlertActionStyle.Default, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("削除")
+            self.deletePost(object)
+        })
+        // キャンセルボタン
+        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.Cancel, handler:{
+            // ボタンが押された時の処理を書く（クロージャ実装）
+            (action: UIAlertAction!) -> Void in
+            print("Cancel")
+        })
+        alert.addAction(cancelAction)
+        alert.addAction(defaultAction)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+
+    func deletePost(object : NCMBObject) {
+        print("削除する投稿内容", object)
+        object.deleteEventually { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                self.postObject = nil
+                self.postDetailTableView.reloadData()
+                self.deleteTodayLogColor()
+            }
+        }
+    }
+
+    //消した投稿でその日の投稿が最後か判断
+    func deleteTodayLogColor() {
+        let logQueryManager = LogQueryManager()
+        logQueryManager.loadItems(0).countObjectsInBackgroundWithBlock { (count, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                if count == 0 {
+                    print("投稿何もない")
+                    self.findTodayMonthColorObject()
+                    self.findTodayWeekColorObject()
+                }else {
+                    print("まだ投稿ある")
+                }
+            }
+        }
+    }
+
+    //その日のmonthLogColorを取ってくる
+    func findTodayMonthColorObject() {
+        let logDateTag = CalendarManager.currentDate.toString(DateFormat.Custom("yyyyMMdd"))!
+        let logYearAndMonth = CalendarManager.currentDate.toString(DateFormat.Custom("yyyy/MM"))!
+        let logColorArrayQuery: NCMBQuery = NCMBQuery(className: "TestColorDic")
+        logColorArrayQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+        logColorArrayQuery.whereKey("logYearAndMonth", equalTo: logYearAndMonth)
+        logColorArrayQuery.getFirstObjectInBackgroundWithBlock { (object, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                if object == nil {
+                    //その月の投稿がまだなにもない
+                }else {
+                    print("object", object)
+                    let dayColorArrayObject = object.objectForKey("logDateTag") as! [String]
+                    let oldLogDateTagInfoArray = dayColorArrayObject.filter { $0.containsString(String(logDateTag))}
+                    print("oldLogDateTagInfoArray", oldLogDateTagInfoArray)
+                    if oldLogDateTagInfoArray == [] {
+                        //その日の投稿はまだ無い
+                        print("今月の投稿はあるけどその日の投稿はまだないから追加")
+                    }else {
+                        //その日はもう投稿している
+                        print("その日既に投稿してある要素を置換")
+                        let oldLogDateTagInfo = oldLogDateTagInfoArray[0]
+                        print("oldLogDateTagInfo", oldLogDateTagInfo)
+                        self.removePostedMonthLogColorCache()
+                        self.updateLogColorArray(object, logDateTag: Int(logDateTag)!, oldLogDateTagInfo: oldLogDateTagInfo)
+                    }
+                }
+            }
+        }
+    }
+
+
+    //その日のweekLogColorを取ってくる
+    func findTodayWeekColorObject() {
+//        self.removePostedWeekLogColorCache()
+        let yearAndWeekNumberArray = CalendarManager.getWeekNumber(CalendarManager.currentDate!)
+        let year = yearAndWeekNumberArray[0]
+        let weekOfYear = yearAndWeekNumberArray[1]
+        let logDate = CalendarManager.currentDate.toString(DateFormat.Custom("yyyy/MM/dd"))! // "yyyy/MM/dd HH:mm" → "yyyy/MM/dd"
+        let logDateTag = CalendarManager.currentDate.toString(DateFormat.Custom("yyyyMMdd"))! // "yyyy/MM/dd" → "yyyyMMdd"
+        let logColorArrayQuery: NCMBQuery = NCMBQuery(className: "TestWeekColorDic")
+        logColorArrayQuery.whereKey("user", equalTo: NCMBUser.currentUser())
+        logColorArrayQuery.whereKey("year", equalTo: year)
+        logColorArrayQuery.whereKey("weekOfYear", equalTo: weekOfYear)
+        logColorArrayQuery.getFirstObjectInBackgroundWithBlock { (object, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                if object == nil {
+                    //その月の投稿がまだなにもない時
+                }else {
+                    print("object", object)
+                    let dayColorArrayObject = object.objectForKey("logDateTag") as! [String]
+                    let oldLogDateTagInfoArray = dayColorArrayObject.filter { $0.containsString(String(logDateTag))}
+                    print("oldLogDateTagInfoArray", oldLogDateTagInfoArray)
+                    if oldLogDateTagInfoArray == [] {
+                        //その日の投稿はまだ無い
+                        print("今月の投稿はあるけどその日の投稿はまだないから追加")
+                    }else {
+                        //その日はもう投稿している
+                        print("その日既に投稿してある要素を置換")
+                        let oldLogDateTagInfo = oldLogDateTagInfoArray[0]
+                        print("oldLogDateTagInfo", oldLogDateTagInfo)
+                        self.removePostedWeekLogColorCache()
+                        self.updateWeekLogColorArray(object, logDateTag: Int(logDateTag)!, oldLogDateTagInfo: oldLogDateTagInfo)
+                    }
+                }
+            }
+        }
+    }
+
+    //monthlogColorCaheの、投稿があった月の部分を消す(投稿なので自分のみ)
+    //このあと、サーバーに保存されたものをもう一度取りに行き、cacheは更新される
+    func removePostedMonthLogColorCache () {
+        let monthKey = CalendarManager.getDateYearAndMonth(CalendarManager.currentDate)
+        let key = String(0) + NCMBUser.currentUser().userName + monthKey
+        print("monthのkey", key)
+        CalendarLogColorCache.sharedSingleton.myMonthLogColorCache.removeObjectForKey(key)
+    }
+
+    //weeklogColorCaheの、投稿があった週の部分を消す(投稿なので自分のみ)
+    //このあと、サーバーに保存されたものをもう一度取りに行き、cacheは更新される
+    func removePostedWeekLogColorCache() {
+        let weekKeyArray = CalendarManager.getWeekNumber(CalendarManager.currentDate)
+        let weekKey = String(weekKeyArray[0]) + String(weekKeyArray[1])
+        let key = String(0) + NCMBUser.currentUser().userName + weekKey
+        print("weekのkey", key)
+        CalendarLogColorCache.sharedSingleton.myWeekLogColorCache.removeObjectForKey(key)
+    }
+
+    //その日の週のlogColorを削除する
+    func updateWeekLogColorArray(object: NCMBObject, logDateTag: Int, oldLogDateTagInfo: String) {
+        print("logColor削除するぞ")
+        print("object : ",  object)
+        print("logDateTag : ", logDateTag)
+        print("oldLogDateTagInfo : ", oldLogDateTagInfo)
+        object.removeObject(oldLogDateTagInfo, forKey: "logDateTag")
+        object.saveInBackgroundWithBlock { (error) -> Void in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                print("削除成功")
+            }
+        }
+    }
+
+    //その日の月のlogColorを削除する
+    func updateLogColorArray(object: NCMBObject, logDateTag: Int, oldLogDateTagInfo: String){
+        print("logColor削除するぞ")
+        print("object : ",  object)
+        print("logDateTag : ", logDateTag)
+        print("oldLogDateTagInfo : ", oldLogDateTagInfo)
+        object.removeObject(oldLogDateTagInfo, forKey: "logDateTag")
+        object.saveInBackgroundWithBlock { (error) -> Void in
+            if let error = error {
+                print(error.localizedDescription)
+            }else {
+                print("削除成功")
+            }
+        }
+    }
+
     func didSelectPostProfileImageView() {
         segueToPostAccount()
     }
