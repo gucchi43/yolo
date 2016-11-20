@@ -343,7 +343,8 @@ extension PostDetailViewController: PostDetailTableViewCellDelegate, IDMPhotoBro
                 (action: UIAlertAction!) -> Void in
                 print("Cancel")
             })
-            alert.addAction(remakeAction)
+            //ひとまず編集はなし
+//            alert.addAction(remakeAction)
             alert.addAction(cancelAction)
             alert.addAction(defaultAction)
             presentViewController(alert, animated: true, completion: nil)
