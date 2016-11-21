@@ -70,8 +70,6 @@
 		ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */; };
 		ED53BAFD1D35176F0089A03A /* GoodOrBadKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED53BAFC1D35176F0089A03A /* GoodOrBadKeyboard.xib */; };
 		ED652C4C1D29C2B60004BE9F /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */; };
-		ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */; };
-		ED6AF8CB1D16B535003FBC5C /* DropdownMenu.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */; };
 		ED6AF8CE1D16B577003FBC5C /* SVProgressHUD.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED6ED06D1D387ACD005B0053 /* GCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6ED06C1D387ACD005B0053 /* GCDManager.swift */; };
@@ -140,7 +138,6 @@
 			files = (
 				ED48C9321D4D069E003DC586 /* TTTAttributedLabel.framework in CopyFiles */,
 				ED6AF8CE1D16B577003FBC5C /* SVProgressHUD.framework in CopyFiles */,
-				ED6AF8CB1D16B535003FBC5C /* DropdownMenu.framework in CopyFiles */,
 				ED7A79061D2027220087BCCD /* DZNEmptyDataSet.framework in CopyFiles */,
 				ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */,
 			);
@@ -158,7 +155,7 @@
 		328BF13C1CED546B00B99CBF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		328BF13D1CED546B00B99CBF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		32A088A71CED9EEE00BECCA5 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		32C0A33A1C5DF8ED009657B9 /* masterch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = masterch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		32C0A33A1C5DF8ED009657B9 /* yolo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yolo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32C0A33D1C5DF8ED009657B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		32C0A33F1C5DF8ED009657B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		32C0A3421C5DF8ED009657B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -230,7 +227,6 @@
 		ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogPostedProgressBar.swift; sourceTree = "<group>"; };
 		ED53BAFC1D35176F0089A03A /* GoodOrBadKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodOrBadKeyboard.xib; sourceTree = "<group>"; };
 		ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
-		ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropdownMenu.framework; path = Carthage/Build/iOS/DropdownMenu.framework; sourceTree = "<group>"; };
 		ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
 		ED6ED06C1D387ACD005B0053 /* GCDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDManager.swift; sourceTree = "<group>"; };
 		ED6F08071DA3E25000606295 /* CalendarLogColorCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarLogColorCache.swift; sourceTree = "<group>"; };
@@ -282,7 +278,6 @@
 				ED48C92D1D4D0120003DC586 /* TTTAttributedLabel.framework in Frameworks */,
 				ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */,
 				ED7A79051D2027220087BCCD /* DZNEmptyDataSet.framework in Frameworks */,
-				ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */,
 				C723D0368844C8137A7AB044 /* Pods_masterch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,7 +318,7 @@
 		32C0A33B1C5DF8ED009657B9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				32C0A33A1C5DF8ED009657B9 /* masterch.app */,
+				32C0A33A1C5DF8ED009657B9 /* yolo.app */,
 				32C0A34E1C5DF8EE009657B9 /* masterch.xctest */,
 				32C0A3591C5DF8EE009657B9 /* masterch.xctest */,
 			);
@@ -396,7 +391,6 @@
 				ED08F2521DC229F800C8CB54 /* Photos.framework */,
 				ED48C9301D4D069E003DC586 /* TTTAttributedLabel.framework */,
 				ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */,
-				ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */,
 				ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */,
 				ED779B091C8DCB9100C3027C /* SwiftDate.framework */,
 				E600DCFEE36D4763CBA1FFBF /* Pods_masterch.framework */,
@@ -606,7 +600,7 @@
 			);
 			name = masterch;
 			productName = masterch;
-			productReference = 32C0A33A1C5DF8ED009657B9 /* masterch.app */;
+			productReference = 32C0A33A1C5DF8ED009657B9 /* yolo.app */;
 			productType = "com.apple.product-type.application";
 		};
 		32C0A34D1C5DF8EE009657B9 /* masterchTests */ = {
@@ -1106,7 +1100,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS/WebImage.framework",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shiosava.yolo;
-				PRODUCT_NAME = masterch;
+				PRODUCT_NAME = yolo;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1135,7 +1129,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS/WebImage.framework",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shiosava.yolo;
-				PRODUCT_NAME = masterch;
+				PRODUCT_NAME = yolo;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
