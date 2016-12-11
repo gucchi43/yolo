@@ -207,7 +207,7 @@
                         </connections>
                     </button>
                     <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nje-0u-yaf">
-                        <rect key="frame" x="10" y="91" width="580" height="0.0"/>
+                        <rect key="frame" x="0.0" y="91" width="600" height="0.0"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" id="czl-3Q-ake"/>
@@ -233,12 +233,12 @@
                     <constraint firstAttribute="trailingMargin" secondItem="x8c-gL-2FI" secondAttribute="trailing" constant="140" id="7mM-Wa-UfC"/>
                     <constraint firstAttribute="trailingMargin" secondItem="wgI-7M-TQ0" secondAttribute="trailing" id="9Q0-is-HXz"/>
                     <constraint firstItem="wgI-7M-TQ0" firstAttribute="top" secondItem="tHj-ur-unf" secondAttribute="bottom" constant="23" id="9bf-X7-12K"/>
-                    <constraint firstItem="nje-0u-yaf" firstAttribute="leading" secondItem="vQ9-WZ-f3c" secondAttribute="leading" constant="10" id="AdE-v8-7MM"/>
+                    <constraint firstItem="nje-0u-yaf" firstAttribute="leading" secondItem="vQ9-WZ-f3c" secondAttribute="leading" id="AdE-v8-7MM"/>
                     <constraint firstAttribute="bottomMargin" secondItem="YsN-f5-Uyf" secondAttribute="bottom" constant="-1" id="Clt-92-M1P"/>
                     <constraint firstAttribute="trailingMargin" secondItem="tHj-ur-unf" secondAttribute="trailing" id="DMJ-ov-Ldq"/>
                     <constraint firstItem="YsN-f5-Uyf" firstAttribute="leading" secondItem="vR6-re-bwi" secondAttribute="trailing" constant="123" id="DfQ-92-9UN"/>
                     <constraint firstAttribute="leadingMargin" secondItem="LaX-o5-sCd" secondAttribute="leading" id="DvF-vc-fxw"/>
-                    <constraint firstAttribute="trailing" secondItem="nje-0u-yaf" secondAttribute="trailing" constant="10" id="EP4-c6-tXi"/>
+                    <constraint firstAttribute="trailing" secondItem="nje-0u-yaf" secondAttribute="trailing" id="EP4-c6-tXi"/>
                     <constraint firstAttribute="leadingMargin" secondItem="NbS-U0-qOu" secondAttribute="leading" id="EaI-Rx-ynU"/>
                     <constraint firstItem="vR6-re-bwi" firstAttribute="centerX" secondItem="vQ9-WZ-f3c" secondAttribute="centerX" id="GvV-Fv-mgd"/>
                     <constraint firstItem="vR6-re-bwi" firstAttribute="top" secondItem="nje-0u-yaf" secondAttribute="bottom" constant="4" id="H3i-Em-sJ3"/>

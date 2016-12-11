@@ -604,7 +604,7 @@
                                                     </variation>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LHL-0J-yxM">
-                                                    <rect key="frame" x="8" y="120" width="304" height="150"/>
+                                                    <rect key="frame" x="0.0" y="120" width="320" height="150"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="150" id="3yC-Hf-m0B"/>
@@ -707,14 +707,14 @@
                                                 <constraint firstItem="u0u-Dh-cvt" firstAttribute="leading" secondItem="lZY-P3-doC" secondAttribute="trailing" constant="8" id="DcT-XG-veb"/>
                                                 <constraint firstItem="zhz-ld-oHe" firstAttribute="leading" secondItem="FFn-kp-Epu" secondAttribute="leading" constant="8" id="DlA-Gh-fbV"/>
                                                 <constraint firstItem="QCT-pl-iwx" firstAttribute="leading" secondItem="FFn-kp-Epu" secondAttribute="leading" constant="8" id="Lne-9A-Jce"/>
-                                                <constraint firstAttribute="trailing" secondItem="LHL-0J-yxM" secondAttribute="trailing" constant="8" id="MuF-Iw-lyN"/>
+                                                <constraint firstAttribute="trailing" secondItem="LHL-0J-yxM" secondAttribute="trailing" id="MuF-Iw-lyN"/>
                                                 <constraint firstItem="lZY-P3-doC" firstAttribute="top" secondItem="LHL-0J-yxM" secondAttribute="bottom" constant="12" id="P3h-UO-TgE"/>
                                                 <constraint firstItem="u0u-Dh-cvt" firstAttribute="width" secondItem="lZY-P3-doC" secondAttribute="width" id="TNr-pB-IZl"/>
                                                 <constraint firstItem="LHL-0J-yxM" firstAttribute="top" secondItem="QCT-pl-iwx" secondAttribute="bottom" constant="8" id="Vru-mz-riI"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="HEn-jo-GzK" secondAttribute="trailing" constant="8" id="cLd-eN-VXB"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="lZY-P3-doC" secondAttribute="bottom" constant="8" id="d3l-f9-9q3"/>
                                                 <constraint firstItem="HEn-jo-GzK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gLE-Yt-jRQ" secondAttribute="trailing" constant="8" id="fsC-Ik-J0h"/>
-                                                <constraint firstItem="LHL-0J-yxM" firstAttribute="leading" secondItem="FFn-kp-Epu" secondAttribute="leading" constant="8" id="nFV-OS-3cc"/>
+                                                <constraint firstItem="LHL-0J-yxM" firstAttribute="leading" secondItem="FFn-kp-Epu" secondAttribute="leading" id="nFV-OS-3cc"/>
                                                 <constraint firstItem="HEn-jo-GzK" firstAttribute="centerY" secondItem="gLE-Yt-jRQ" secondAttribute="centerY" id="rWv-8G-XRz"/>
                                                 <constraint firstItem="gLE-Yt-jRQ" firstAttribute="leading" secondItem="zhz-ld-oHe" secondAttribute="trailing" constant="6" id="u4h-oL-i8i"/>
                                                 <constraint firstItem="u0u-Dh-cvt" firstAttribute="centerY" secondItem="lZY-P3-doC" secondAttribute="centerY" id="vkH-Mb-n08"/>
@@ -1547,7 +1547,7 @@ version更新をお待ち下さい。
         <image name="hartButton_On.png" width="23" height="21"/>
         <image name="hartOFF" width="25" height="22"/>
         <image name="noprofile" width="400" height="400"/>
-        <image name="noprofile.png" width="137" height="150"/>
+        <image name="noprofile.png" width="561" height="567"/>
         <image name="tabAccount" width="30" height="27"/>
         <image name="twitterWhite" width="40" height="33"/>
     </resources>

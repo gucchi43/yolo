@@ -473,7 +473,7 @@ extension AccountViewController: UITableViewDelegate, UITableViewDataSource, TTT
             cell.postImageView.image = nil
             if let postImageName = postData.objectForKey("image1") as? String {
                 cell.imageViewHeightConstraint.constant = 150.0
-                cell.postImageView.layer.cornerRadius = 5.0
+//                cell.postImageView.layer.cornerRadius = 5.0
                 let postImageFile = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
                 SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(postImageFile.name, done: { (image, SDImageCacheType) in
                     if let image = image {

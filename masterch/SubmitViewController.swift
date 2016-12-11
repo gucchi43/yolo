@@ -352,7 +352,7 @@ extension SubmitViewController: UIImagePickerControllerDelegate, UINavigationCon
         postImageView.frame = CGRectMake(0, postTextView.contentSize.height+10, self.postTextView.contentSize.width*0.9, self.postTextView.contentSize.width*0.9)
         postImageView.center.x = self.postTextView.bounds.width/2
         self.postImageView.contentMode = UIViewContentMode.ScaleAspectFill
-        postImageView.layer.cornerRadius = 5.0
+//        postImageView.layer.cornerRadius = 5.0
         postImageView.clipsToBounds = true
 
         self.postTextView.addSubview(postImageView)
