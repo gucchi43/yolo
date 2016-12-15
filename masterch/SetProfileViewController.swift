@@ -51,8 +51,8 @@ class SetProfileViewController: UIViewController {
 
         selfIntroductionTextView.layer.borderWidth = 1.0
         selfIntroductionTextView.layer.borderColor = UIColor.lightGrayColor().CGColor
-        selfIntroductionTextView.layer.cornerRadius = 5.0
-        
+//        selfIntroductionTextView.layer.cornerRadius = 5.0
+
 //        文字数カウントのために入力後の通知を受け取れるようにする
         NSNotificationCenter.defaultCenter().addObserver(self,
             selector:#selector(SetProfileViewController.userNameTextFieldDidChange(_:)),

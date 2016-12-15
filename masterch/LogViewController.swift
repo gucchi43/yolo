@@ -83,6 +83,12 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         let logPostPB = LogPostedProgressBar()
         logPostPB.setProgressBar()
 
+        let blurEffect = UIBlurEffect(style: .Light)
+        var visualEffectView = UIVisualEffectView(effect: blurEffect)
+        visualEffectView.frame = self.view.bounds
+        self.view.addSubview(visualEffectView)
+        self.view.sendSubviewToBack(visualEffectView)
+
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -138,6 +144,7 @@ class LogViewController: UIViewController, addPostDetailDelegate {
                 logCameraRollManager.getOnePicData(CalendarManager.currentDate)
             }
             monthLabel.text = CalendarManager.selectLabel()
+//            setBackGroundImage()
         }
 
     }
@@ -210,12 +217,56 @@ class LogViewController: UIViewController, addPostDetailDelegate {
 
             loadQuery(logNumber)
             monthLabel.text = CalendarManager.selectLabel()
+            setBackGroundImage(NCMBUser.currentUser())
         }
     }
 
     deinit{
         //ここで解放処理
         print("LogVC deinit!!!!")
+    }
+
+    func setBackGroundImage(user: NCMBUser) {
+        self.view.backgroundColor = UIColor.whiteColor()
+
+        if let userHomeImageName = user.objectForKey("userHomeImage") as? String{
+            let userHomeImageFile = NCMBFile.fileWithName(userHomeImageName, data: nil) as! NCMBFile
+            SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(userHomeImageFile.name, done: { (image, SDImageCacheType) in
+                if let image = image {
+                    UIGraphicsBeginImageContext(self.view.frame.size)
+                    image.drawInRect(self.view.bounds)
+                    let convertedImage = UIGraphicsGetImageFromCurrentImageContext()
+                    UIGraphicsEndImageContext()
+                    self.view.backgroundColor = UIColor(patternImage: convertedImage)
+                }else {
+                    userHomeImageFile.getDataInBackgroundWithBlock({ (imageData: NSData?, error: NSError!) -> Void in
+                        if let error = error {
+                            print("profileImageの取得失敗： ", error)
+                            UIGraphicsBeginImageContext(self.view.frame.size)
+                            UIImage(named: "noprofile")!.drawInRect(self.view.bounds)
+                            let convertedImage = UIGraphicsGetImageFromCurrentImageContext()
+                            UIGraphicsEndImageContext()
+                            self.view.backgroundColor = UIColor(patternImage: convertedImage)
+                        } else {
+
+                            UIGraphicsBeginImageContext(self.view.frame.size)
+                            UIImage(data: imageData!)!.drawInRect(self.view.bounds)
+                            let convertedImage = UIGraphicsGetImageFromCurrentImageContext()
+                            UIGraphicsEndImageContext()
+                            self.view.backgroundColor = UIColor(patternImage: convertedImage)
+                            SDWebImageManager.sharedManager().imageCache.storeImage(UIImage(data: imageData!), forKey: userHomeImageFile.name)
+                        }
+                    })
+                }
+            })
+        }else {
+
+            UIGraphicsBeginImageContext(self.view.frame.size)
+            UIImage(named: "noprofile")!.drawInRect(self.view.bounds)
+            let convertedImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            self.view.backgroundColor = UIColor(patternImage: convertedImage)
+        }
     }
 
     func getFollowUserList() {
@@ -307,13 +358,16 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         case 0:
             //範囲は自分のみ
             logManager.sharedSingleton.tabLogNumber = indexPath
+            setBackGroundImage(NCMBUser.currentUser())
         case 1:
             //範囲はフォローユーザー全員
             logManager.sharedSingleton.tabLogNumber = indexPath
+            setBackGroundImage(NCMBUser.currentUser())
         default:
             //範囲は特定のユーザー１人
             logManager.sharedSingleton.tabLogNumber = 2
             logManager.sharedSingleton.logUser = UserListManager.sharedSingleton.followArray[indexPath - 2]
+            setBackGroundImage(logManager.sharedSingleton.logUser)
         }
         let logNumber = logManager.sharedSingleton.tabLogNumber
         print("logNumber", logNumber, rangeTitle)
@@ -515,9 +569,15 @@ class LogViewController: UIViewController, addPostDetailDelegate {
         toggleWeek = !toggleWeek
         //ここが何やってるか不明
         if let calendarView = calendarAnotherView {
-            calendarWeekView.addSubview(calendarView)
+            if toggleWeek == true {
+                calendarWeekView.hidden = false
+                calendarWeekView.addSubview(calendarView)
+            }else {
+                print("weekからmonthへ")
+                calendarWeekView.hidden = true
+            }
         }
-        
+
         //ここをいじれば切替時にAPI節約できるかも・・・
         if toggleWeek == true {
             calendarAnotherView?.resetWeekView(totalArray)
@@ -683,7 +743,7 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
         cell.postImageView.image = nil
         if let postImageName = postData.objectForKey("image1") as? String {
             cell.imageViewHeightConstraint.constant = 150.0
-            cell.postImageView.layer.cornerRadius = 5.0
+//            cell.postImageView.layer.cornerRadius = 5.0
             let postImageFile = NCMBFile.fileWithName(postImageName, data: nil) as! NCMBFile
             SDWebImageManager.sharedManager().imageCache.queryDiskCacheForKey(postImageFile.name, done: { (image, SDImageCacheType) in
                 if let image = image {
@@ -773,17 +833,17 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
             cell.cameraRollCount.text = "📸 " + String(cameraRollCount) + "枚" + " 📸"
 
             cell.imageViewHeightConstraint.constant = 150.0
-            cell.camaraRollImageView!.layer.cornerRadius = 5.0
+//            cell.camaraRollImageView!.layer.cornerRadius = 5.0
             let manager: PHImageManager = PHImageManager()
             manager.requestImageDataForAsset(postData, options: nil) { (data, title, orientation, dic) in
                 cell.camaraRollImageView?.image = UIImage(data: data!)
             }
-            var whiteView = UIView(frame: cell.camaraRollImageView.bounds)
+            var whiteView = UIView(frame: cell.contentView.bounds)
             whiteView.backgroundColor = UIColor.whiteColor()
             whiteView.alpha = 0.3
             print("subViewカウント", cell.camaraRollImageView.subviews.count)
             if cell.camaraRollImageView.subviews.count == 0 {
-                cell.camaraRollImageView.addSubview(whiteView)
+//                cell.camaraRollImageView.addSubview(whiteView)
             }
             return cell
             }
@@ -797,26 +857,10 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource, TTTAttr
         }else {
 
             performSegueWithIdentifier("toCameraRollVC", sender: nil)
-//            let asset = self.totalArray[indexPath.row] as? PHAsset
-//            let manager: PHImageManager = PHImageManager()
-//            manager.requestImageDataForAsset(asset!, options: nil) { (data, title, orientation, dic) in
-//                let image = UIImage(data: data!)
-//                self.tapPostImage(image!)
             }
 
         }
     }
-
-    //投稿写真タップ
-//    func tapPostImage(image : UIImage) {
-//        print("tapPostImage")
-//        let photo = IDMPhoto(image: image)
-//        photo.caption = nil
-//        let photos: NSArray = [photo]
-//        let browser = IDMPhotoBrowser.init(photos: photos as [AnyObject])
-//        browser.delegate = self
-//        self.presentViewController(browser,animated:true ,completion:nil)
-//    }
 
 //     urlリンクをタップされたときの処理を記述します
     func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!)

@@ -64,14 +64,11 @@
 		ED3C035E1DC3AEE10041C450 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3C035D1DC3AEE10041C450 /* MapKit.framework */; };
 		ED402DCC1D34460C0098F843 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED402DCB1D34460C0098F843 /* images.xcassets */; };
 		ED4512B01CEF33CB0071FA58 /* Title.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED4512AF1CEF33CB0071FA58 /* Title.storyboard */; };
-		ED48C92D1D4D0120003DC586 /* TTTAttributedLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED48C92C1D4D0120003DC586 /* TTTAttributedLabel.framework */; };
 		ED48C9321D4D069E003DC586 /* TTTAttributedLabel.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED48C9301D4D069E003DC586 /* TTTAttributedLabel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED48C9481D4F67B9003DC586 /* pushManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED48C9471D4F67B9003DC586 /* pushManager.swift */; };
 		ED5274EB1D23CD2D0088481F /* LogPostedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */; };
 		ED53BAFD1D35176F0089A03A /* GoodOrBadKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED53BAFC1D35176F0089A03A /* GoodOrBadKeyboard.xib */; };
 		ED652C4C1D29C2B60004BE9F /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */; };
-		ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */; };
-		ED6AF8CB1D16B535003FBC5C /* DropdownMenu.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */; };
 		ED6AF8CE1D16B577003FBC5C /* SVProgressHUD.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED6ED06D1D387ACD005B0053 /* GCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6ED06C1D387ACD005B0053 /* GCDManager.swift */; };
@@ -86,6 +83,7 @@
 		ED7A79051D2027220087BCCD /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */; };
 		ED7A79061D2027220087BCCD /* DZNEmptyDataSet.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		ED8322D41C8EFDF700122BA2 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8322D31C8EFDF700122BA2 /* SignUpViewController.swift */; };
+		ED9366C11DEC559A00CBBF36 /* TTTAttributedLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED48C9301D4D069E003DC586 /* TTTAttributedLabel.framework */; };
 		ED97606F1DA7B9220002E62D /* LookBackDayTitleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED97606E1DA7B9220002E62D /* LookBackDayTitleManager.swift */; };
 		EDA49FEE1D9E5B4D006C2605 /* LookBackQueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA49FED1D9E5B4D006C2605 /* LookBackQueryManager.swift */; };
 		EDA49FF01D9E6354006C2605 /* LooKBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA49FEF1D9E6354006C2605 /* LooKBackViewController.swift */; };
@@ -140,7 +138,6 @@
 			files = (
 				ED48C9321D4D069E003DC586 /* TTTAttributedLabel.framework in CopyFiles */,
 				ED6AF8CE1D16B577003FBC5C /* SVProgressHUD.framework in CopyFiles */,
-				ED6AF8CB1D16B535003FBC5C /* DropdownMenu.framework in CopyFiles */,
 				ED7A79061D2027220087BCCD /* DZNEmptyDataSet.framework in CopyFiles */,
 				ED779B0C1C8ED0F700C3027C /* SwiftDate.framework in CopyFiles */,
 			);
@@ -224,13 +221,11 @@
 		ED3C035D1DC3AEE10041C450 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		ED402DCB1D34460C0098F843 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		ED4512AF1CEF33CB0071FA58 /* Title.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Title.storyboard; sourceTree = "<group>"; };
-		ED48C92C1D4D0120003DC586 /* TTTAttributedLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTTAttributedLabel.framework; path = /Users/gucchi/Desktop/masterch/masterch/TTTAttributedLabel.framework; sourceTree = "<absolute>"; };
 		ED48C9301D4D069E003DC586 /* TTTAttributedLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTTAttributedLabel.framework; path = Carthage/Build/iOS/TTTAttributedLabel.framework; sourceTree = "<group>"; };
 		ED48C9471D4F67B9003DC586 /* pushManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pushManager.swift; sourceTree = "<group>"; };
 		ED5274EA1D23CD2D0088481F /* LogPostedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogPostedProgressBar.swift; sourceTree = "<group>"; };
 		ED53BAFC1D35176F0089A03A /* GoodOrBadKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodOrBadKeyboard.xib; sourceTree = "<group>"; };
 		ED652C4B1D29C2B60004BE9F /* MainTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
-		ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropdownMenu.framework; path = Carthage/Build/iOS/DropdownMenu.framework; sourceTree = "<group>"; };
 		ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
 		ED6ED06C1D387ACD005B0053 /* GCDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDManager.swift; sourceTree = "<group>"; };
 		ED6F08071DA3E25000606295 /* CalendarLogColorCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarLogColorCache.swift; sourceTree = "<group>"; };
@@ -275,14 +270,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED9366C11DEC559A00CBBF36 /* TTTAttributedLabel.framework in Frameworks */,
 				ED3C035E1DC3AEE10041C450 /* MapKit.framework in Frameworks */,
 				ED3C035C1DC3AD100041C450 /* CoreLocation.framework in Frameworks */,
 				ED08F2531DC229F800C8CB54 /* Photos.framework in Frameworks */,
 				ED779B0A1C8DCB9100C3027C /* SwiftDate.framework in Frameworks */,
-				ED48C92D1D4D0120003DC586 /* TTTAttributedLabel.framework in Frameworks */,
 				ED6AF8CD1D16B577003FBC5C /* SVProgressHUD.framework in Frameworks */,
 				ED7A79051D2027220087BCCD /* DZNEmptyDataSet.framework in Frameworks */,
-				ED6AF8CA1D16B535003FBC5C /* DropdownMenu.framework in Frameworks */,
 				C723D0368844C8137A7AB044 /* Pods_masterch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,7 +390,6 @@
 				ED08F2521DC229F800C8CB54 /* Photos.framework */,
 				ED48C9301D4D069E003DC586 /* TTTAttributedLabel.framework */,
 				ED7A79041D2027220087BCCD /* DZNEmptyDataSet.framework */,
-				ED6AF8C91D16B535003FBC5C /* DropdownMenu.framework */,
 				ED6AF8CC1D16B577003FBC5C /* SVProgressHUD.framework */,
 				ED779B091C8DCB9100C3027C /* SwiftDate.framework */,
 				E600DCFEE36D4763CBA1FFBF /* Pods_masterch.framework */,
@@ -597,6 +590,7 @@
 				32C0A3381C5DF8ED009657B9 /* Resources */,
 				ED779B0B1C8ED0D300C3027C /* CopyFiles */,
 				ED8FE1CB1C8FE62200CFD685 /* ShellScript */,
+				ED9366C21DEC57DC00CBBF36 /* ShellScript */,
 				B8A26049C56D2BF01088C609 /* [CP] Embed Pods Frameworks */,
 				C0A1DA4F142BF0175A1A60DB /* [CP] Copy Pods Resources */,
 			);
@@ -883,13 +877,29 @@
 			files = (
 			);
 			inputPaths = (
-				"",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" ec62d35d0015bc60b374384a4991ee3316538e74 aa24872d7a2760b27c0cdd2434421b127640c6c7490b706db95f3d8178ef4cdf";
+		};
+		ED9366C21DEC57DC00CBBF36 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftDate.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SVProgressHUD.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/DZNEmptyDataSet.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/TTTAttributedLabel.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1034,6 +1044,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hiroki Taniguchi (RA9N5B6XBR)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hiroki Taniguchi (RA9N5B6XBR)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1056,7 +1067,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "83d9f495-3e67-40ab-8dfa-e0c50a0e0f53";
+				PROVISIONING_PROFILE = "9bc14cf0-4d0a-4094-b5c8-34f1a9814f26";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1079,6 +1090,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hiroki Taniguchi (RA9N5B6XBR)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hiroki Taniguchi (RA9N5B6XBR)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1094,7 +1106,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "83d9f495-3e67-40ab-8dfa-e0c50a0e0f53";
+				PROVISIONING_PROFILE = "9bc14cf0-4d0a-4094-b5c8-34f1a9814f26";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

@@ -84,6 +84,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="noprofile.png" width="500" height="500"/>
+        <image name="noprofile.png" width="561" height="567"/>
     </resources>
 </document>

@@ -39,8 +39,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="📸カメラロールを連携しよう！📸" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muX-Mu-uEU">
-                                <rect key="frame" x="53" y="120" width="306" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="📸カメラロールを連携しよう！📸" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muX-Mu-uEU">
+                                <rect key="frame" x="54" y="120" width="306" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -490,6 +490,7 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G4O-ws-LgW" userLabel="editUserProfileButton">
                                 <rect key="frame" x="20" y="94" width="100" height="100"/>
+                                <color key="tintColor" red="0.21480557319999999" green="0.80131393669999995" blue="0.37377047540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="selectEditProfileImageButton:" destination="iJy-WC-FCV" eventType="touchUpInside" id="goI-4h-hTE"/>
                                 </connections>
@@ -795,6 +796,6 @@
         <image name="tw_login_small.png" width="261" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="L8J-Kv-eM2"/>
+        <segue reference="d3l-QJ-9PL"/>
     </inferredMetricsTieBreakers>
 </document>
